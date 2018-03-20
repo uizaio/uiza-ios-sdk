@@ -10,7 +10,12 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-public let demoAuthorization = "yXYCA0Rf5eACj0Bmy3oZehxaB5HAmb8A-1512988199884"
+/*
+public let TOKEN_PROD	= "lsn9LZdm0MBrhGlyrFYqJYSjJfIXX27e-1512986583784";
+public let TOKEN_DEV	= "zHiQCup9CzTr1eP5ZQsbPK5sYNYa8kRL-1517457089350";
+public let TOKEN_STAG	= "zHiQCup9CzTr1eP5ZQsbPK5sYNYa8kRL-1517457089350";
+*/
+public let demoAuthorization = "lsn9LZdm0MBrhGlyrFYqJYSjJfIXX27e-1512986583784"
 
 /**
 Môi trường hoạt động của API
@@ -139,6 +144,9 @@ public class UZAPIConnector {
 	}
 	
 	internal func baseAPIURLPath(enviroment: UZEnviroment) -> String! {
+		return UizaSDK.apiEndPoint
+		
+		/*
 		switch enviroment {
 		case .production:
 			return "\(UizaSDK.apiEndPoint)/api/data/v1/"
@@ -149,6 +157,7 @@ public class UZAPIConnector {
 		case .development:
 			return "\(UizaSDK.apiEndPoint)/api/data/v1/"
 		}
+		*/
 	}
 	
 	/**

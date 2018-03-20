@@ -14,9 +14,11 @@ class UZContentServices: UZAPIConnector {
 		self.requestHeaderFields = ["Authorization" : UZUser.currentUser?.token ?? demoAuthorization]
 		
 		let params : [String: Any] = ["page"	: page,
-									  "limit"	: limit]
+									  "limit"	: limit,
+									  "orderBy" : "createdAt",
+									  "orderType" : "DESC"]
 		
-		self.callAPI("entity/list", method: .get, params: params) { (result:NSDictionary?, error:Error?) in
+		self.callAPI("api/data/v1/entity/list", method: .get, params: params) { (result:NSDictionary?, error:Error?) in
 			DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
@@ -39,13 +41,14 @@ class UZContentServices: UZAPIConnector {
 					if count % 7 == 0 {
 						index += 1
 						category = UZCategory()
+						category?.displayMode = .landscape
 						category?.name = "Group \(index)"
-                        if index == 1 {
-                            category?.name = "Top movies"
-                        }
-                        else if index == 2 {
-                            category?.name = "Newest movies"
-                        }
+						if index == 1 {
+							category?.name = "Top movies"
+						}
+						else if index == 2 {
+							category?.name = "Newest movies"
+						}
 						results.append(category!)
 					}
 					
@@ -54,6 +57,25 @@ class UZContentServices: UZAPIConnector {
 				}
 				
 				completionBlock?(results, nil)
+			}
+		}
+	}
+	
+	func getLinkPlay(entityId: String, completion:((_ link: URL?, _ error: Error?) -> Void)? = nil) {
+		self.requestHeaderFields = ["Authorization" : UZUser.currentUser?.token ?? demoAuthorization]
+		
+		let params : [String: Any] = ["entityId" : entityId,
+									  "appId"	 : "a204e9cdeca44948a33e0d012ef74e90"]
+		
+		self.callAPI("api/public/v1/media/entity/get-link-play", method: .get, params: params) { (result, error) in
+			DLog("\(String(describing: result)) - \(String(describing: error))")
+			
+			if error != nil {
+				
+			}
+			else {
+				let url = result?.url(for: "linkplay_hls", defaultURL: nil)
+				completion?(url, nil)
 			}
 		}
 	}

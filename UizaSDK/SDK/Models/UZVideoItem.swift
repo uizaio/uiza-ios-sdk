@@ -28,18 +28,16 @@ public class UZVideoItem: UZModelObject {
 	public var details				: String! = ""
 	/** Mô tả ngắn */
 	public var shortDescription		: String! = ""
-	/** Link ảnh banner kiểu ngang */
-	public var bannerLandscapeURL	: URL! = nil
-	/** Link ảnh banner kiểu dọc */
-	public var bannerPortraitURL	: URL! = nil
+	/** Link ảnh thumbnail */
+	public var thumbnailURL			: URL? = nil
 	/** Link play của video, có thể rỗng. Nếu rỗng, gọi hàm `getLinkPlay` để lấy giá trị */
-	public var videoURL				: URL! = nil
+	public var videoURL				: URL? = nil
 	/** Thời lượng của video này */
 	public var duration				: TimeInterval! = 0
 	
 	override func parse(_ data: NSDictionary?) {
 		if data != nil {
-//			DLog("\(data!)")
+			//			DLog("\(data!)")
 			id					= data!.string(for: "id", defaultString: "")
 			categoryId			= data!.string(for: "category_id", defaultString: "")
 			categoryName		= data!.string(for: "category", defaultString: "")
@@ -49,9 +47,15 @@ public class UZVideoItem: UZModelObject {
 			details				= data!.string(for: "description", defaultString: "")
 			shortDescription	= data!.string(for: "shortDescription", defaultString: "")
 			duration			= data!.number(for: "duration", defaultNumber: 0)!.doubleValue
-			bannerPortraitURL	= data!.url(for: "imgPortrait")
-			bannerLandscapeURL	= data!.url(for: "imgLandscape")
-			videoURL			= data!.url(for: "url", defaultURL: URL(string: "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4")!)
+			videoURL			= data!.url(for: "url") // data!.url(for: "url", defaultURL: URL(string: "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4")!)
+			
+			if var thumbnailString = data!.string(for: "thumbnail", defaultString: "https://static.uiza.io/2017/11/27/uiza-logo-demo-mobile.png") {
+				if thumbnailString.hasPrefix("//") {
+					thumbnailString = "https:" + thumbnailString
+				}
+				
+				thumbnailURL = URL(string: thumbnailString)
+			}
 		}
 	}
 	
@@ -60,3 +64,4 @@ public class UZVideoItem: UZModelObject {
 	}
 	
 }
+

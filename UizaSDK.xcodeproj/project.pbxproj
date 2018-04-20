@@ -38,6 +38,35 @@
 		63C65FB0205BA10800DB2C96 /* String+Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F88205BA10800DB2C96 /* String+Components.swift */; };
 		63C65FB1205BA10800DB2C96 /* String+AES.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F89205BA10800DB2C96 /* String+AES.swift */; };
 		63C65FB2205BA10800DB2C96 /* String+ToDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F8A205BA10800DB2C96 /* String+ToDictionary.swift */; };
+		63FC58C4208A1F0B009C9028 /* UizaSDK_tvos.h in Headers */ = {isa = PBXBuildFile; fileRef = 63FC58C2208A1F0B009C9028 /* UizaSDK_tvos.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		63FC58C8208A1F1F009C9028 /* UZModelObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124ED2089E1ED00720593 /* UZModelObject.swift */; };
+		63FC58C9208A1F1F009C9028 /* UZBannerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124EB2089E1ED00720593 /* UZBannerItem.swift */; };
+		63FC58CA208A1F1F009C9028 /* UZCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124F12089E1EE00720593 /* UZCategory.swift */; };
+		63FC58CB208A1F1F009C9028 /* UZMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124EC2089E1ED00720593 /* UZMenuItem.swift */; };
+		63FC58CC208A1F1F009C9028 /* UZToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124F02089E1EE00720593 /* UZToken.swift */; };
+		63FC58CD208A1F1F009C9028 /* UZUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124EE2089E1EE00720593 /* UZUser.swift */; };
+		63FC58CE208A1F1F009C9028 /* UZVideoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124EF2089E1EE00720593 /* UZVideoItem.swift */; };
+		63FC58CF208A1F1F009C9028 /* UizaSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124FA2089E20700720593 /* UizaSDK.swift */; };
+		63FC58D0208A1F1F009C9028 /* UZAccountServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124F92089E20700720593 /* UZAccountServices.swift */; };
+		63FC58D1208A1F1F009C9028 /* UZAPIConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124FD2089E20800720593 /* UZAPIConnector.swift */; };
+		63FC58D2208A1F1F009C9028 /* UZContentServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124FB2089E20800720593 /* UZContentServices.swift */; };
+		63FC58D3208A1F1F009C9028 /* UZLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124FC2089E20800720593 /* UZLogger.swift */; };
+		63FC58D4208A1F1F009C9028 /* UizaSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 63C65F65205B9FE600DB2C96 /* UizaSDK.h */; };
+		63FC58D5208A1F24009C9028 /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F7D205BA10800DB2C96 /* UIDevice+Extension.swift */; };
+		63FC58D6208A1F24009C9028 /* UIApplication+Version.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F7E205BA10800DB2C96 /* UIApplication+Version.swift */; };
+		63FC58D7208A1F24009C9028 /* FileManager+Extends.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F7F205BA10800DB2C96 /* FileManager+Extends.swift */; };
+		63FC58D8208A1F24009C9028 /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F80205BA10800DB2C96 /* UIColor+Hex.swift */; };
+		63FC58D9208A1F24009C9028 /* Error+Code.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F81205BA10800DB2C96 /* Error+Code.swift */; };
+		63FC58DA208A1F24009C9028 /* Dictionary+Append.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F82205BA10800DB2C96 /* Dictionary+Append.swift */; };
+		63FC58DB208A1F24009C9028 /* NSError+Uiza.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F83205BA10800DB2C96 /* NSError+Uiza.swift */; };
+		63FC58DC208A1F24009C9028 /* String+ToBool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F84205BA10800DB2C96 /* String+ToBool.swift */; };
+		63FC58DD208A1F24009C9028 /* NSDictionary+KeyValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F85205BA10800DB2C96 /* NSDictionary+KeyValue.swift */; };
+		63FC58DE208A1F24009C9028 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F86205BA10800DB2C96 /* String+Extension.swift */; };
+		63FC58DF208A1F24009C9028 /* Date+Comparators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F87205BA10800DB2C96 /* Date+Comparators.swift */; };
+		63FC58E0208A1F24009C9028 /* String+Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F88205BA10800DB2C96 /* String+Components.swift */; };
+		63FC58E1208A1F24009C9028 /* String+AES.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F89205BA10800DB2C96 /* String+AES.swift */; };
+		63FC58E2208A1F24009C9028 /* String+ToDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F8A205BA10800DB2C96 /* String+ToDictionary.swift */; };
+		7B5B62958AF80139F044FA1C /* Pods_UizaSDK_tvos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C777641F82A55CB8D6DD6E3 /* Pods_UizaSDK_tvos.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +80,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		10619F129EBE56DAC47084F9 /* Pods-UizaSDK-tvos.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UizaSDK-tvos.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UizaSDK-tvos/Pods-UizaSDK-tvos.debug.xcconfig"; sourceTree = "<group>"; };
+		1C777641F82A55CB8D6DD6E3 /* Pods_UizaSDK_tvos.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UizaSDK_tvos.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		202A368E44ECEC2CBD8A1F2F /* Pods_UizaSDKTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UizaSDKTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		28836A3ED419476454084AC0 /* Pods-UizaSDKTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UizaSDKTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UizaSDKTests/Pods-UizaSDKTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4BC432C22A6BF2074ECD5F97 /* Pods-UizaSDKTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UizaSDKTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-UizaSDKTests/Pods-UizaSDKTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -86,6 +117,10 @@
 		63C65F88205BA10800DB2C96 /* String+Components.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Components.swift"; sourceTree = "<group>"; };
 		63C65F89205BA10800DB2C96 /* String+AES.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+AES.swift"; sourceTree = "<group>"; };
 		63C65F8A205BA10800DB2C96 /* String+ToDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+ToDictionary.swift"; sourceTree = "<group>"; };
+		63FC58C0208A1F0B009C9028 /* UizaSDK_tvos.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UizaSDK_tvos.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		63FC58C2208A1F0B009C9028 /* UizaSDK_tvos.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UizaSDK_tvos.h; sourceTree = "<group>"; };
+		63FC58C3208A1F0B009C9028 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		860B16779D07210913450B9F /* Pods-UizaSDK-tvos.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UizaSDK-tvos.release.xcconfig"; path = "Pods/Target Support Files/Pods-UizaSDK-tvos/Pods-UizaSDK-tvos.release.xcconfig"; sourceTree = "<group>"; };
 		9FC8E8DE1EDD07EAD7267040 /* Pods-UizaSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UizaSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UizaSDK/Pods-UizaSDK.debug.xcconfig"; sourceTree = "<group>"; };
 		BE8577A3B28C9EBB8D29C941 /* Pods-UizaSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UizaSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-UizaSDK/Pods-UizaSDK.release.xcconfig"; sourceTree = "<group>"; };
 		F3EF719FF3F438E076EB2A5C /* Pods_UizaSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UizaSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -109,6 +144,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		63FC58BC208A1F0B009C9028 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7B5B62958AF80139F044FA1C /* Pods_UizaSDK_tvos.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -117,6 +160,7 @@
 			children = (
 				F3EF719FF3F438E076EB2A5C /* Pods_UizaSDK.framework */,
 				202A368E44ECEC2CBD8A1F2F /* Pods_UizaSDKTests.framework */,
+				1C777641F82A55CB8D6DD6E3 /* Pods_UizaSDK_tvos.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -125,6 +169,7 @@
 			isa = PBXGroup;
 			children = (
 				63C65F64205B9FE600DB2C96 /* UizaSDK */,
+				63FC58C1208A1F0B009C9028 /* UizaSDK-tvos */,
 				63C65F6F205B9FE600DB2C96 /* UizaSDKTests */,
 				63C65F63205B9FE600DB2C96 /* Products */,
 				BB947AFA2F568CFE1C9F5E09 /* Pods */,
@@ -137,6 +182,7 @@
 			children = (
 				63C65F62205B9FE600DB2C96 /* UizaSDK.framework */,
 				63C65F6B205B9FE600DB2C96 /* UizaSDKTests.xctest */,
+				63FC58C0208A1F0B009C9028 /* UizaSDK_tvos.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -209,6 +255,15 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		63FC58C1208A1F0B009C9028 /* UizaSDK-tvos */ = {
+			isa = PBXGroup;
+			children = (
+				63FC58C2208A1F0B009C9028 /* UizaSDK_tvos.h */,
+				63FC58C3208A1F0B009C9028 /* Info.plist */,
+			);
+			path = "UizaSDK-tvos";
+			sourceTree = "<group>";
+		};
 		BB947AFA2F568CFE1C9F5E09 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -216,6 +271,8 @@
 				BE8577A3B28C9EBB8D29C941 /* Pods-UizaSDK.release.xcconfig */,
 				28836A3ED419476454084AC0 /* Pods-UizaSDKTests.debug.xcconfig */,
 				4BC432C22A6BF2074ECD5F97 /* Pods-UizaSDKTests.release.xcconfig */,
+				10619F129EBE56DAC47084F9 /* Pods-UizaSDK-tvos.debug.xcconfig */,
+				860B16779D07210913450B9F /* Pods-UizaSDK-tvos.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -231,6 +288,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		63FC58BD208A1F0B009C9028 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				63FC58D4208A1F1F009C9028 /* UizaSDK.h in Headers */,
+				63FC58C4208A1F0B009C9028 /* UizaSDK_tvos.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -243,7 +309,6 @@
 				63C65F5E205B9FE600DB2C96 /* Frameworks */,
 				63C65F5F205B9FE600DB2C96 /* Headers */,
 				63C65F60205B9FE600DB2C96 /* Resources */,
-				20CED3450A119C6C7BA47DA6 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -263,7 +328,6 @@
 				63C65F68205B9FE600DB2C96 /* Frameworks */,
 				63C65F69205B9FE600DB2C96 /* Resources */,
 				648FD499C1B96C1C99D5F713 /* [CP] Embed Pods Frameworks */,
-				E21259118CA53CAD4B3E87EA /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -274,6 +338,25 @@
 			productName = UizaSDKTests;
 			productReference = 63C65F6B205B9FE600DB2C96 /* UizaSDKTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		63FC58BF208A1F0B009C9028 /* UizaSDK-tvos */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 63FC58C7208A1F0B009C9028 /* Build configuration list for PBXNativeTarget "UizaSDK-tvos" */;
+			buildPhases = (
+				25A48D8B9952AB1662EF83D3 /* [CP] Check Pods Manifest.lock */,
+				63FC58BB208A1F0B009C9028 /* Sources */,
+				63FC58BC208A1F0B009C9028 /* Frameworks */,
+				63FC58BD208A1F0B009C9028 /* Headers */,
+				63FC58BE208A1F0B009C9028 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "UizaSDK-tvos";
+			productName = "UizaSDK-tvos";
+			productReference = 63FC58C0208A1F0B009C9028 /* UizaSDK_tvos.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
 
@@ -293,6 +376,10 @@
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
 					};
+					63FC58BF208A1F0B009C9028 = {
+						CreatedOnToolsVersion = 9.3;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = 63C65F5C205B9FE600DB2C96 /* Build configuration list for PBXProject "UizaSDK" */;
@@ -308,6 +395,7 @@
 			projectRoot = "";
 			targets = (
 				63C65F61205B9FE600DB2C96 /* UizaSDK */,
+				63FC58BF208A1F0B009C9028 /* UizaSDK-tvos */,
 				63C65F6A205B9FE600DB2C96 /* UizaSDKTests */,
 			);
 		};
@@ -328,22 +416,32 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		63FC58BE208A1F0B009C9028 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		20CED3450A119C6C7BA47DA6 /* [CP] Copy Pods Resources */ = {
+		25A48D8B9952AB1662EF83D3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
-			name = "[CP] Copy Pods Resources";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-UizaSDK-tvos-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-UizaSDK/Pods-UizaSDK-resources.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		482DC50A7C5C92F55B66A5EE /* [CP] Check Pods Manifest.lock */ = {
@@ -371,10 +469,10 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-UizaSDKTests/Pods-UizaSDKTests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/AFDateHelper/AFDateHelper.framework",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/AFDateHelper-iOS/AFDateHelper.framework",
+				"${BUILT_PRODUCTS_DIR}/Alamofire-iOS/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/CryptoSwift-iOS/CryptoSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON-iOS/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -404,21 +502,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E21259118CA53CAD4B3E87EA /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-UizaSDKTests/Pods-UizaSDKTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -462,6 +545,39 @@
 			buildActionMask = 2147483647;
 			files = (
 				63C65F71205B9FE600DB2C96 /* UizaSDKTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		63FC58BB208A1F0B009C9028 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				63FC58DB208A1F24009C9028 /* NSError+Uiza.swift in Sources */,
+				63FC58D5208A1F24009C9028 /* UIDevice+Extension.swift in Sources */,
+				63FC58D3208A1F1F009C9028 /* UZLogger.swift in Sources */,
+				63FC58D7208A1F24009C9028 /* FileManager+Extends.swift in Sources */,
+				63FC58CA208A1F1F009C9028 /* UZCategory.swift in Sources */,
+				63FC58DD208A1F24009C9028 /* NSDictionary+KeyValue.swift in Sources */,
+				63FC58C8208A1F1F009C9028 /* UZModelObject.swift in Sources */,
+				63FC58CE208A1F1F009C9028 /* UZVideoItem.swift in Sources */,
+				63FC58CF208A1F1F009C9028 /* UizaSDK.swift in Sources */,
+				63FC58CB208A1F1F009C9028 /* UZMenuItem.swift in Sources */,
+				63FC58CD208A1F1F009C9028 /* UZUser.swift in Sources */,
+				63FC58E1208A1F24009C9028 /* String+AES.swift in Sources */,
+				63FC58D8208A1F24009C9028 /* UIColor+Hex.swift in Sources */,
+				63FC58DE208A1F24009C9028 /* String+Extension.swift in Sources */,
+				63FC58CC208A1F1F009C9028 /* UZToken.swift in Sources */,
+				63FC58D0208A1F1F009C9028 /* UZAccountServices.swift in Sources */,
+				63FC58D2208A1F1F009C9028 /* UZContentServices.swift in Sources */,
+				63FC58DA208A1F24009C9028 /* Dictionary+Append.swift in Sources */,
+				63FC58C9208A1F1F009C9028 /* UZBannerItem.swift in Sources */,
+				63FC58E2208A1F24009C9028 /* String+ToDictionary.swift in Sources */,
+				63FC58E0208A1F24009C9028 /* String+Components.swift in Sources */,
+				63FC58D1208A1F1F009C9028 /* UZAPIConnector.swift in Sources */,
+				63FC58D9208A1F24009C9028 /* Error+Code.swift in Sources */,
+				63FC58D6208A1F24009C9028 /* UIApplication+Version.swift in Sources */,
+				63FC58DC208A1F24009C9028 /* String+ToBool.swift in Sources */,
+				63FC58DF208A1F24009C9028 /* Date+Comparators.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -647,7 +763,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 385YL4KG69;
+				DEVELOPMENT_TEAM = N553UPX8WV;
 				INFOPLIST_FILE = UizaSDKTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.uiza.UizaSDKTests;
@@ -663,13 +779,65 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 385YL4KG69;
+				DEVELOPMENT_TEAM = N553UPX8WV;
 				INFOPLIST_FILE = UizaSDKTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.uiza.UizaSDKTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		63FC58C5208A1F0B009C9028 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 10619F129EBE56DAC47084F9 /* Pods-UizaSDK-tvos.debug.xcconfig */;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = N553UPX8WV;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "UizaSDK-tvos/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.uiza.UizaSDK-tvos";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = appletvos;
+				SKIP_INSTALL = NO;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Debug;
+		};
+		63FC58C6208A1F0B009C9028 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 860B16779D07210913450B9F /* Pods-UizaSDK-tvos.release.xcconfig */;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = N553UPX8WV;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "UizaSDK-tvos/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.uiza.UizaSDK-tvos";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = appletvos;
+				SKIP_INSTALL = NO;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 10.0;
 			};
 			name = Release;
 		};
@@ -699,6 +867,15 @@
 			buildConfigurations = (
 				63C65F7A205B9FE600DB2C96 /* Debug */,
 				63C65F7B205B9FE600DB2C96 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		63FC58C7208A1F0B009C9028 /* Build configuration list for PBXNativeTarget "UizaSDK-tvos" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				63FC58C5208A1F0B009C9028 /* Debug */,
+				63FC58C6208A1F0B009C9028 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

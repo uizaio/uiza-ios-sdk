@@ -58,7 +58,7 @@ UZAccountServices().authorize { (token: UZToken?, error: Error?) in
 }
 ```
 
-[Tài liệu API](https://uizaio.github.io/UizaSDK/)
+[Tài liệu API](https://github.com/uizaio/uiza-sdk-player-ios/)
 
 ## Hỗ Trợ
 namnh@uiza.io
@@ -117,11 +117,11 @@ UZAccountServices().authorize { (token: UZToken?, error: Error?) in
 }
 ```
 
-[API Document](https://uizaio.github.io/UizaSDK/)
+[API Document](https://github.com/uizaio/uiza-sdk-player-ios/)
 
 ## Support
 namnh@uiza.io
 
 ## License
 
-UizaSDK is released under the BSD license. See [LICENSE](https://github.com/kennic/UizaSDK/blob/master/LICENSE) for details.
+UizaSDK is released under the BSD license. See [LICENSE](https://github.com/uizaio/uiza-sdk-player-ios/blob/master/LICENSE) for details.

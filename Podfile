@@ -12,6 +12,17 @@ target 'UizaSDK' do
 
 end
 
+target 'UizaSDK-tvos' do
+	platform :tvos, '10.0'
+	use_frameworks!
+	
+	pod 'Alamofire'
+	pod 'AFDateHelper'
+	pod 'CryptoSwift'
+	pod 'SwiftyJSON'
+	
+end
+
 target 'UizaSDKTests' do
 	platform :ios, '10.0'
 	use_frameworks!

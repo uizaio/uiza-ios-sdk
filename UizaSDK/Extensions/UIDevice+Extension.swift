@@ -171,9 +171,9 @@ extension UIDevice {
 	}
 	#endif
 	
-	public static func isJailbroken() -> Bool {
-		return UIApplication.shared.canOpenURL(URL(string: "cydia://")!) || FileManager.default.fileExists(atPath: "/bin/bash")
-	}
+//	public static func isJailbroken() -> Bool {
+//		return UIApplication.shared.canOpenURL(URL(string: "cydia://")!) || FileManager.default.fileExists(atPath: "/bin/bash")
+//	}
 	
 }
 

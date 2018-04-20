@@ -16,7 +16,7 @@ import Foundation
 // pod trunk push UizaSDK.podspec
 //
 
-internal let SDK_VERSION = "1.0"
+internal let SDK_VERSION = "1.1"
 
 /**
 Class khởi tạo SDK

@@ -43,9 +43,8 @@ public class UizaSDK {
 	- parameter apiEndPoint: API endpoint, được cung cấp bởi Uiza
 	- parameter enviroment: Môi trường cần khởi tạo (production, development, stagging, sandbox)
 	*/
-	public class func initWith(appId:String!, accessKey:String!, secretKey:String!, apiEndPoint: String!, enviroment:UZEnviroment!) {
-		if self.appId == "" && self.accessKey == "" && self.secretKey == "" && self.apiEndPoint == "" {
-			self.appId			= appId
+	public class func initWith(accessKey:String!, secretKey:String!, apiEndPoint: String!, enviroment:UZEnviroment!) {
+		if self.accessKey == "" && self.secretKey == "" && self.apiEndPoint == "" {
 			self.accessKey		= accessKey
 			self.secretKey		= secretKey
 			self.apiEndPoint 	= apiEndPoint

@@ -42,7 +42,7 @@ Luôn khởi động framework này trước khi gọi bất cứ hàm API nào 
 ``` swift
 import UizaSDK
 
-UizaSDK.initWith(appId: [YOUR_APP_ID], accessKey: [YOUR_CLIENT_KEY], secretKey: [YOUR_SECRET_KEY], enviroment: .production)
+UizaSDK.initWith(accessKey: [YOUR_CLIENT_KEY], secretKey: [YOUR_SECRET_KEY], enviroment: .production)
 ```
 
 Sau đó gọi hàm cấp phép hoạt động để sinh ra token phục vụ cho các hàm API khác:
@@ -101,10 +101,10 @@ Always initialize the framework by the following line before calling any API fun
 ``` swift
 import UizaSDK
 
-UizaSDK.initWith(appId: [YOUR_APP_ID], accessKey: [YOUR_CLIENT_KEY], secretKey: [YOUR_SECRET_KEY], enviroment: .production)
+UizaSDK.initWith(accessKey: [YOUR_CLIENT_KEY], secretKey: [YOUR_SECRET_KEY], enviroment: .production)
 ```
 
-Then call thí authorize function to generate token in order to make other API functions to work
+Then call this authorize function to generate token in order to make other API functions to work
 
 ``` swift
 UZAccountServices().authorize { (token: UZToken?, error: Error?) in

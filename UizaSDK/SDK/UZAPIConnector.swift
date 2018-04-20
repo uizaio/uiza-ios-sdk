@@ -146,13 +146,9 @@ open class UZAPIConnector {
 	- parameter node: node hàm API
 	- parameter method: có thể là .get, .post, .put hoặc .delete
 	- parameter paramValue: các thông số truyền vào, theo format [String:Any]
-	- parameter serviceType: loại dịch vụ cần gọi
 	- parameter completionBlock: block được gọi khi hoàn thành, trả về data hoặc error nếu có lỗi
 	*/
 	public func callAPI(_ node: String!, method: HTTPMethod! = .get, params paramValue:[String: Any]? = nil, completion completionBlock:APIConnectorResultBlock? = nil) {
-		guard UizaSDK.appId.length > 0 else {
-			fatalError("Bạn chưa set appId. Bắt buộc phải gọi hàm \"UizaSDK.initWith(appId,accessKey,secretKey,apiEndPoint,enviroment)\" trước")
-		}
 		guard UizaSDK.accessKey.length > 0 else {
 			fatalError("Bạn chưa set accessKey. Bắt buộc phải gọi hàm \"UizaSDK.initWith(appId,accessKey,secretKey,apiEndPoint,enviroment)\" trước")
 		}

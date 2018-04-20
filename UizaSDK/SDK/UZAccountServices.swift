@@ -15,8 +15,10 @@ Class quản lý các hàm cấp quyền, đăng nhập, đăng ký
 open class UZAccountServices: UZAPIConnector {
 	
 	/**
-	Hàm cấp quyền cho SDK, luôn chạy hàm này trước để mã token được sinh ra cho việc chạy các hàm API khác
-	- parameter completionBlock: block được gọi sau khi hoàn thành, trả về UZToken, hoặc error nếu có lỗi
+	Hàm cấp quyền cho SDK, luôn chạy hàm này trước để mã token được sinh ra cho việc chạy các hàm API khác.
+	
+	`UizaSDK.token` và `UizaSDK.appId` sẽ được set tự động sau khi hàm này được gọi thành công.
+	- parameter completionBlock: block được gọi sau khi hoàn thành, trả về UZToken, hoặc error nếu có lỗi.
 	*/
 	public func authorize(completionBlock: ((_ token:UZToken?, _ error:Error?) -> Void)? = nil) {
 		self.encodingType = JSONEncoding.default
@@ -27,6 +29,7 @@ open class UZAccountServices: UZAPIConnector {
 			} else {
 				if let data = result!.value(for: "data", defaultValue: nil) as? NSDictionary {
 					let token = UZToken(data: data)
+					UizaSDK.appId = token.appId
 					UizaSDK.token = token
 					completionBlock?(token, nil)
 				}

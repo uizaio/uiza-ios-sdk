@@ -11,7 +11,7 @@ import UIKit
 /**
 Class chứa các thông tin về video item
 */
-public class UZVideoItem: UZModelObject {
+open class UZVideoItem: UZModelObject {
 	/** id của video */
 	public var id					: String! = ""
 	/** id chuyên mục của video này */
@@ -34,10 +34,12 @@ public class UZVideoItem: UZModelObject {
 	public var videoURL				: URL? = nil
 	/** Thời lượng của video này */
 	public var duration				: TimeInterval! = 0
+	/** Năm phát hành */
+	public var releasedDate			: String? = nil
 	
 	override func parse(_ data: NSDictionary?) {
 		if data != nil {
-			//			DLog("\(data!)")
+//			DLog("\(data!)")
 			id					= data!.string(for: "id", defaultString: "")
 			categoryId			= data!.string(for: "category_id", defaultString: "")
 			categoryName		= data!.string(for: "category", defaultString: "")
@@ -59,9 +61,8 @@ public class UZVideoItem: UZModelObject {
 		}
 	}
 	
-	override public var description : String {
+	override open var description : String {
 		return "\(super.description) [\(id ?? "")] [\(title ?? "")]"
 	}
 	
 }
-

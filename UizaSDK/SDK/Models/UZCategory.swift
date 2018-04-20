@@ -12,7 +12,7 @@ import UIKit
 /**
 Class chứa video của các trang nội dung, ví dụ như trang Home
 */
-public class UZHomeData: NSObject {
+open class UZHomeData: NSObject {
 	/** Chứa các mục video trên banner */
 	public var banner	: UZCategory! = nil
 	/** Chứa các chuyên mục nội dung chính */
@@ -33,13 +33,13 @@ public enum CellDisplayMode {
 /**
 Class chứa thông tin của từng chuyên mục
 */
-public class UZCategory: UZModelObject {
+open class UZCategory: UZModelObject {
 	/** id của chuyên mục */
 	public var id				: String! = ""
 	/** Tên chuyên mục */
 	public var name				: String! = ""
 	/** Kiểu hiển thị trên danh sách */
-	public var displayMode		: CellDisplayMode = .portrait
+	public var displayMode		: CellDisplayMode = .landscape
 	/** Danh sách video của chuyên mục này */
 	public var videos			: [UZVideoItem]! = []
 	
@@ -68,7 +68,7 @@ public class UZCategory: UZModelObject {
 		}
 	}
 	
-	override public var description : String {
+	override open var description : String {
 		return "\(super.description) [\(id ?? "")] [\(name ?? "")]"
 	}
 	

@@ -11,11 +11,11 @@ import UIKit
 /**
 Class model nền tảng được dùng bởi tất cả các model khác trong framework. Bạn không cần để ý tới class này.
 */
-public class UZModelObject: NSObject, NSCoding {
+open class UZModelObject: NSObject, NSCoding {
 	/** Dữ liệu thô của model sẽ được chứa tại đây */
 	public var data: NSMutableDictionary? = nil
 	
-	public subscript(key: String) -> Any? {
+	open subscript(key: String) -> Any? {
 		get {
 			return data?[key]
 		}
@@ -55,7 +55,7 @@ public class UZModelObject: NSObject, NSCoding {
 	/**
 	Khởi tạo class
 	*/
-	public func encode(with aCoder: NSCoder) {
+	open func encode(with aCoder: NSCoder) {
 		if (self.data != nil) {
 			aCoder.encode(self.data, forKey: "data")
 		}

@@ -9,11 +9,18 @@
 /* Begin PBXBuildFile section */
 		0197156A0CC97D9DEF6F51DB /* Pods_UizaSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3EF719FF3F438E076EB2A5C /* Pods_UizaSDK.framework */; };
 		538D3A8A952E43B54F6CC2FE /* Pods_UizaSDKTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 202A368E44ECEC2CBD8A1F2F /* Pods_UizaSDKTests.framework */; };
-		638A1C002060FFEE00252E5F /* UZVideoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A1BFC2060FFEE00252E5F /* UZVideoItem.swift */; };
-		638A1C012060FFEE00252E5F /* UZCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A1BFD2060FFEE00252E5F /* UZCategory.swift */; };
-		638A1C022060FFEE00252E5F /* UZBannerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A1BFE2060FFEE00252E5F /* UZBannerItem.swift */; };
-		638A1C032060FFEE00252E5F /* UZUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A1BFF2060FFEE00252E5F /* UZUser.swift */; };
-		638A1C052060FFF800252E5F /* UZContentServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A1C042060FFF800252E5F /* UZContentServices.swift */; };
+		632124F22089E1EE00720593 /* UZBannerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124EB2089E1ED00720593 /* UZBannerItem.swift */; };
+		632124F32089E1EE00720593 /* UZMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124EC2089E1ED00720593 /* UZMenuItem.swift */; };
+		632124F42089E1EE00720593 /* UZModelObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124ED2089E1ED00720593 /* UZModelObject.swift */; };
+		632124F52089E1EE00720593 /* UZUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124EE2089E1EE00720593 /* UZUser.swift */; };
+		632124F62089E1EE00720593 /* UZVideoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124EF2089E1EE00720593 /* UZVideoItem.swift */; };
+		632124F72089E1EE00720593 /* UZToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124F02089E1EE00720593 /* UZToken.swift */; };
+		632124F82089E1EE00720593 /* UZCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124F12089E1EE00720593 /* UZCategory.swift */; };
+		632124FE2089E20800720593 /* UZAccountServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124F92089E20700720593 /* UZAccountServices.swift */; };
+		632124FF2089E20800720593 /* UizaSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124FA2089E20700720593 /* UizaSDK.swift */; };
+		632125002089E20800720593 /* UZContentServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124FB2089E20800720593 /* UZContentServices.swift */; };
+		632125012089E20800720593 /* UZLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124FC2089E20800720593 /* UZLogger.swift */; };
+		632125022089E20800720593 /* UZAPIConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124FD2089E20800720593 /* UZAPIConnector.swift */; };
 		63C65F6C205B9FE600DB2C96 /* UizaSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C65F62205B9FE600DB2C96 /* UizaSDK.framework */; };
 		63C65F71205B9FE600DB2C96 /* UizaSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F70205B9FE600DB2C96 /* UizaSDKTests.swift */; };
 		63C65F73205B9FE600DB2C96 /* UizaSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 63C65F65205B9FE600DB2C96 /* UizaSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -31,9 +38,6 @@
 		63C65FB0205BA10800DB2C96 /* String+Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F88205BA10800DB2C96 /* String+Components.swift */; };
 		63C65FB1205BA10800DB2C96 /* String+AES.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F89205BA10800DB2C96 /* String+AES.swift */; };
 		63C65FB2205BA10800DB2C96 /* String+ToDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F8A205BA10800DB2C96 /* String+ToDictionary.swift */; };
-		63C65FB7205BA10800DB2C96 /* UZModelObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F90205BA10800DB2C96 /* UZModelObject.swift */; };
-		63C65FC0205BA10800DB2C96 /* UZAPIConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F99205BA10800DB2C96 /* UZAPIConnector.swift */; };
-		63C65FCA205BA10800DB2C96 /* UizaSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65FA3205BA10800DB2C96 /* UizaSDK.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,11 +54,18 @@
 		202A368E44ECEC2CBD8A1F2F /* Pods_UizaSDKTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UizaSDKTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		28836A3ED419476454084AC0 /* Pods-UizaSDKTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UizaSDKTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UizaSDKTests/Pods-UizaSDKTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4BC432C22A6BF2074ECD5F97 /* Pods-UizaSDKTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UizaSDKTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-UizaSDKTests/Pods-UizaSDKTests.release.xcconfig"; sourceTree = "<group>"; };
-		638A1BFC2060FFEE00252E5F /* UZVideoItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZVideoItem.swift; sourceTree = "<group>"; };
-		638A1BFD2060FFEE00252E5F /* UZCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZCategory.swift; sourceTree = "<group>"; };
-		638A1BFE2060FFEE00252E5F /* UZBannerItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZBannerItem.swift; sourceTree = "<group>"; };
-		638A1BFF2060FFEE00252E5F /* UZUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZUser.swift; sourceTree = "<group>"; };
-		638A1C042060FFF800252E5F /* UZContentServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZContentServices.swift; sourceTree = "<group>"; };
+		632124EB2089E1ED00720593 /* UZBannerItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZBannerItem.swift; sourceTree = "<group>"; };
+		632124EC2089E1ED00720593 /* UZMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZMenuItem.swift; sourceTree = "<group>"; };
+		632124ED2089E1ED00720593 /* UZModelObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZModelObject.swift; sourceTree = "<group>"; };
+		632124EE2089E1EE00720593 /* UZUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZUser.swift; sourceTree = "<group>"; };
+		632124EF2089E1EE00720593 /* UZVideoItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZVideoItem.swift; sourceTree = "<group>"; };
+		632124F02089E1EE00720593 /* UZToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZToken.swift; sourceTree = "<group>"; };
+		632124F12089E1EE00720593 /* UZCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZCategory.swift; sourceTree = "<group>"; };
+		632124F92089E20700720593 /* UZAccountServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZAccountServices.swift; sourceTree = "<group>"; };
+		632124FA2089E20700720593 /* UizaSDK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UizaSDK.swift; sourceTree = "<group>"; };
+		632124FB2089E20800720593 /* UZContentServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZContentServices.swift; sourceTree = "<group>"; };
+		632124FC2089E20800720593 /* UZLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZLogger.swift; sourceTree = "<group>"; };
+		632124FD2089E20800720593 /* UZAPIConnector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZAPIConnector.swift; sourceTree = "<group>"; };
 		63C65F62205B9FE600DB2C96 /* UizaSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UizaSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		63C65F65205B9FE600DB2C96 /* UizaSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UizaSDK.h; sourceTree = "<group>"; };
 		63C65F66205B9FE600DB2C96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -75,9 +86,6 @@
 		63C65F88205BA10800DB2C96 /* String+Components.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Components.swift"; sourceTree = "<group>"; };
 		63C65F89205BA10800DB2C96 /* String+AES.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+AES.swift"; sourceTree = "<group>"; };
 		63C65F8A205BA10800DB2C96 /* String+ToDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+ToDictionary.swift"; sourceTree = "<group>"; };
-		63C65F90205BA10800DB2C96 /* UZModelObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZModelObject.swift; sourceTree = "<group>"; };
-		63C65F99205BA10800DB2C96 /* UZAPIConnector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZAPIConnector.swift; sourceTree = "<group>"; };
-		63C65FA3205BA10800DB2C96 /* UizaSDK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UizaSDK.swift; sourceTree = "<group>"; };
 		9FC8E8DE1EDD07EAD7267040 /* Pods-UizaSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UizaSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UizaSDK/Pods-UizaSDK.debug.xcconfig"; sourceTree = "<group>"; };
 		BE8577A3B28C9EBB8D29C941 /* Pods-UizaSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UizaSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-UizaSDK/Pods-UizaSDK.release.xcconfig"; sourceTree = "<group>"; };
 		F3EF719FF3F438E076EB2A5C /* Pods_UizaSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UizaSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -178,9 +186,11 @@
 			isa = PBXGroup;
 			children = (
 				63C65FCC205BA12A00DB2C96 /* Models */,
-				63C65F99205BA10800DB2C96 /* UZAPIConnector.swift */,
-				638A1C042060FFF800252E5F /* UZContentServices.swift */,
-				63C65FA3205BA10800DB2C96 /* UizaSDK.swift */,
+				632124FA2089E20700720593 /* UizaSDK.swift */,
+				632124F92089E20700720593 /* UZAccountServices.swift */,
+				632124FD2089E20800720593 /* UZAPIConnector.swift */,
+				632124FB2089E20800720593 /* UZContentServices.swift */,
+				632124FC2089E20800720593 /* UZLogger.swift */,
 			);
 			path = SDK;
 			sourceTree = "<group>";
@@ -188,11 +198,13 @@
 		63C65FCC205BA12A00DB2C96 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				63C65F90205BA10800DB2C96 /* UZModelObject.swift */,
-				638A1BFE2060FFEE00252E5F /* UZBannerItem.swift */,
-				638A1BFD2060FFEE00252E5F /* UZCategory.swift */,
-				638A1BFF2060FFEE00252E5F /* UZUser.swift */,
-				638A1BFC2060FFEE00252E5F /* UZVideoItem.swift */,
+				632124EB2089E1ED00720593 /* UZBannerItem.swift */,
+				632124F12089E1EE00720593 /* UZCategory.swift */,
+				632124EC2089E1ED00720593 /* UZMenuItem.swift */,
+				632124ED2089E1ED00720593 /* UZModelObject.swift */,
+				632124F02089E1EE00720593 /* UZToken.swift */,
+				632124EE2089E1EE00720593 /* UZUser.swift */,
+				632124EF2089E1EE00720593 /* UZVideoItem.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -270,7 +282,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Nam Kennic";
 				TargetAttributes = {
 					63C65F61205B9FE600DB2C96 = {
@@ -416,28 +428,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				632125002089E20800720593 /* UZContentServices.swift in Sources */,
+				632124F82089E1EE00720593 /* UZCategory.swift in Sources */,
 				63C65FA5205BA10800DB2C96 /* UIDevice+Extension.swift in Sources */,
+				632124F42089E1EE00720593 /* UZModelObject.swift in Sources */,
 				63C65FB1205BA10800DB2C96 /* String+AES.swift in Sources */,
+				632124FE2089E20800720593 /* UZAccountServices.swift in Sources */,
 				63C65FAA205BA10800DB2C96 /* Dictionary+Append.swift in Sources */,
-				63C65FCA205BA10800DB2C96 /* UizaSDK.swift in Sources */,
+				632124F32089E1EE00720593 /* UZMenuItem.swift in Sources */,
+				632124F62089E1EE00720593 /* UZVideoItem.swift in Sources */,
 				63C65FA8205BA10800DB2C96 /* UIColor+Hex.swift in Sources */,
+				632124F22089E1EE00720593 /* UZBannerItem.swift in Sources */,
 				63C65FA6205BA10800DB2C96 /* UIApplication+Version.swift in Sources */,
+				632125012089E20800720593 /* UZLogger.swift in Sources */,
+				632124FF2089E20800720593 /* UizaSDK.swift in Sources */,
 				63C65FB2205BA10800DB2C96 /* String+ToDictionary.swift in Sources */,
-				638A1C012060FFEE00252E5F /* UZCategory.swift in Sources */,
-				638A1C052060FFF800252E5F /* UZContentServices.swift in Sources */,
 				63C65FAB205BA10800DB2C96 /* NSError+Uiza.swift in Sources */,
-				638A1C022060FFEE00252E5F /* UZBannerItem.swift in Sources */,
+				632124F72089E1EE00720593 /* UZToken.swift in Sources */,
 				63C65FA7205BA10800DB2C96 /* FileManager+Extends.swift in Sources */,
 				63C65FB0205BA10800DB2C96 /* String+Components.swift in Sources */,
 				63C65FA9205BA10800DB2C96 /* Error+Code.swift in Sources */,
-				638A1C002060FFEE00252E5F /* UZVideoItem.swift in Sources */,
 				63C65FAF205BA10800DB2C96 /* Date+Comparators.swift in Sources */,
 				63C65FAC205BA10800DB2C96 /* String+ToBool.swift in Sources */,
 				63C65FAE205BA10800DB2C96 /* String+Extension.swift in Sources */,
-				63C65FB7205BA10800DB2C96 /* UZModelObject.swift in Sources */,
-				638A1C032060FFEE00252E5F /* UZUser.swift in Sources */,
+				632125022089E20800720593 /* UZAPIConnector.swift in Sources */,
+				632124F52089E1EE00720593 /* UZUser.swift in Sources */,
 				63C65FAD205BA10800DB2C96 /* NSDictionary+KeyValue.swift in Sources */,
-				63C65FC0205BA10800DB2C96 /* UZAPIConnector.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -474,6 +490,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -481,6 +498,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -534,6 +552,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -541,6 +560,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

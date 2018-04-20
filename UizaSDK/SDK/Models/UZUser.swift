@@ -7,15 +7,13 @@
 //
 
 import UIKit
-import AFDateHelper
-//import FBSDKLoginKit
 
 let CURRENT_USER_KEY = "com.uiza.currentUser.1_0_\(UizaSDK.enviroment.rawValue)"
 
 /**
 Class chứa thông tin người dùng
 */
-public class UZUser: UZModelObject {
+open class UZUser: UZModelObject {
 	/** `id` của người dùng */
 	public var id : String!
 	/** Tên người dùng */
@@ -78,31 +76,29 @@ public class UZUser: UZModelObject {
 		*/
 	}
 	
-	/*
-	/** Token của Facebook nếu đây là người dùng được login bằng Facebook */
-	public var facebookToken : FBSDKAccessToken? {
-		didSet {
-			if facebookToken != nil {
-				data?.setValue(facebookToken, forKey:"facebookToken")
-			}
-			else {
-				data?.removeObject(forKey: "facebookToken")
-			}
-		}
-	}
-	
-	/** Facebook Profile nếu đây là người dùng được login bằng Facebook */
-	public var facebookProfile : FBSDKProfile? {
-		didSet {
-			if facebookProfile != nil {
-				data?.setValue(facebookProfile, forKey:"facebookProfile")
-			}
-			else {
-				data?.removeObject(forKey: "facebookProfile")
-			}
-		}
-	}
-	*/
+//	/** Token của Facebook nếu đây là người dùng được login bằng Facebook */
+//	public var facebookToken : FBSDKAccessToken? {
+//		didSet {
+//			if facebookToken != nil {
+//				data?.setValue(facebookToken, forKey:"facebookToken")
+//			}
+//			else {
+//				data?.removeObject(forKey: "facebookToken")
+//			}
+//		}
+//	}
+//
+//	/** Facebook Profile nếu đây là người dùng được login bằng Facebook */
+//	public var facebookProfile : FBSDKProfile? {
+//		didSet {
+//			if facebookProfile != nil {
+//				data?.setValue(facebookProfile, forKey:"facebookProfile")
+//			}
+//			else {
+//				data?.removeObject(forKey: "facebookProfile")
+//			}
+//		}
+//	}
 	
 	/**
 	Link hình ảnh đại diện từ Facebook nếu đây là user login bằng Facebook
@@ -172,7 +168,7 @@ public class UZUser: UZModelObject {
 		self.parse(self.data)
 	}
 	
-	override public func encode(with aCoder: NSCoder) {
+	override open func encode(with aCoder: NSCoder) {
 		if (self.data != nil) {
 			aCoder.encode(self.data, forKey: "data")
 		}
@@ -190,14 +186,14 @@ public class UZUser: UZModelObject {
 			token			= userData!.string(for: "token", defaultString: nil)
 			facebookId		= userData!.string(for: "fbId", defaultString: nil)
 			
-			if let birthdayString = userData!.string(for: "birthday", defaultString: nil) {
-				birthday = birthdayString.length>10 ? Date(fromString: birthdayString, format: .isoDateTimeMilliSec) : Date(fromString: birthdayString, format: .custom("YYYY-MM-dd"))
-			}
+//			if let birthdayString = userData!.string(for: "birthday", defaultString: nil) {
+//				birthday = birthdayString.length>10 ? Date(fromString: birthdayString, format: .isoDateTimeMilliSec) : Date(fromString: birthdayString, format: .custom("YYYY-MM-dd"))
+//			}
 			
 //			if let fbToken = data!["facebookToken"] as? FBSDKAccessToken {
 //				self.facebookToken = fbToken
 //			}
-//			
+//
 //			if let fbProfile = data!["facebookProfile"] as? FBSDKProfile {
 //				self.facebookProfile = fbProfile
 //			}
@@ -209,11 +205,11 @@ public class UZUser: UZModelObject {
 		}
 	}
 	
-	override public var description : String {
+	override open var description : String {
 		return "\(super.description) [\(name ?? "")] [token:\(token ?? "")]"
 	}
 	
-	public override func isEqual(_ object: Any?) -> Bool {
+	open override func isEqual(_ object: Any?) -> Bool {
 		if object is UZUser {
 			return (object as! UZUser).id == self.id
 		}

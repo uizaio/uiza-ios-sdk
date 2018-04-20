@@ -8,6 +8,9 @@
 
 import UIKit
 
+/**
+Class hỗ trợ việc logging
+*/
 open class UZLogger: UZAPIConnector {
 
 }

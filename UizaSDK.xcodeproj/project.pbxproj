@@ -198,10 +198,10 @@
 		63C65FCC205BA12A00DB2C96 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				632124ED2089E1ED00720593 /* UZModelObject.swift */,
 				632124EB2089E1ED00720593 /* UZBannerItem.swift */,
 				632124F12089E1EE00720593 /* UZCategory.swift */,
 				632124EC2089E1ED00720593 /* UZMenuItem.swift */,
-				632124ED2089E1ED00720593 /* UZModelObject.swift */,
 				632124F02089E1EE00720593 /* UZToken.swift */,
 				632124EE2089E1EE00720593 /* UZUser.swift */,
 				632124EF2089E1EE00720593 /* UZVideoItem.swift */,

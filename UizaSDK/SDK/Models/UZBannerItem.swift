@@ -8,11 +8,19 @@
 
 import UIKit
 
+/**
+Class chứa thông tin của banner item
+*/
 open class UZBannerItem: UZModelObject {
+	/** `id` của banner */
 	public var id: String! = ""
+	/** Tiêu đề của banner */
 	public var caption: String! = ""
+	/** Link hình ảnh */
 	public var imageURL: URL? = nil
+	/** Link được trỏ tới khi nhấn vào */
 	public var url: URL? = nil
+	/** Video item cần phát khi nhấn vào */
 	public var videoItem: UZVideoItem?
 	
 	override func parse(_ data: NSDictionary?) {

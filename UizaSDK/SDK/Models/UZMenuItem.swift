@@ -8,11 +8,18 @@
 
 import UIKit
 
+/**
+Class chứa thông tin của menu item
+*/
 open class UZMenuItem: UZModelObject {
-	var id: String! = ""
-	var title: String! = ""
-	var type: String! = ""
-	var iconURL: URL? = nil
+	/** `id` của menu */
+	public var id: String! = ""
+	/** Tựa đề của menu */
+	public var title: String! = ""
+	/** Loại menu */
+	public var type: String! = ""
+	/** Link hình ảnh icon */
+	public var iconURL: URL? = nil
 	
 	override func parse(_ data: NSDictionary?) {
 		if let data = data {

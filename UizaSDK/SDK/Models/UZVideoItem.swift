@@ -61,6 +61,7 @@ open class UZVideoItem: UZModelObject {
 		}
 	}
 	
+	/** Mô tả object */
 	override open var description : String {
 		return "\(super.description) [\(id ?? "")] [\(title ?? "")]"
 	}

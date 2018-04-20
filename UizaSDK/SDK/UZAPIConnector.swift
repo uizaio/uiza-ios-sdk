@@ -28,9 +28,13 @@ internal enum UZResponseType : Int {
 	case array
 }
 
+/** Block được gọi khi hoàn thành */
 public typealias APIConnectorCompletionBlock	= (_ result: Any) -> Void
+/** Block được gọi khi có lỗi */
 public typealias APIConnectorFailureBlock		= (_ error: Error?) -> Void
+/** Block được gọi trong quá trình tải */
 public typealias APIConnectorProgressBlock		= (_ progress: Float) -> Void
+/** Kiểu block được gọi khi trả về kết quả */
 public typealias APIConnectorResultBlock		= (_ data:NSDictionary?, _ error:Error?) -> Void
 
 /**

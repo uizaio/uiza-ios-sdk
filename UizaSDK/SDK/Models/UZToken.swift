@@ -8,8 +8,13 @@
 
 import UIKit
 
+/**
+Class chứa thông tin token
+*/
 open class UZToken: UZModelObject {
+	/** Chuỗi token */
 	public var token: String! = ""
+	/** `appId` của token này */
 	public var appId: String! = ""
 	
 	override func parse(_ data: NSDictionary?) {

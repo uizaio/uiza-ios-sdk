@@ -15,6 +15,7 @@ open class UZModelObject: NSObject, NSCoding {
 	/** Dữ liệu thô của model sẽ được chứa tại đây */
 	public var data: NSMutableDictionary? = nil
 	
+	/** Giúp truy cập dữ liệu theo kiểu subscript object[key] */
 	open subscript(key: String) -> Any? {
 		get {
 			return data?[key]

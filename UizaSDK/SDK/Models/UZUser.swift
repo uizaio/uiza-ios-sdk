@@ -205,10 +205,12 @@ open class UZUser: UZModelObject {
 		}
 	}
 	
+	/** Mô tả object */
 	override open var description : String {
 		return "\(super.description) [\(name ?? "")] [token:\(token ?? "")]"
 	}
 	
+	/** So sánh bằng nhau */
 	open override func isEqual(_ object: Any?) -> Bool {
 		if object is UZUser {
 			return (object as! UZUser).id == self.id
@@ -217,6 +219,7 @@ open class UZUser: UZModelObject {
 		return false
 	}
 	
+	/** So sánh bằng nhau */
 	static public func == (lhs: UZUser, rhs: UZUser) -> Bool {
 		return lhs.id == rhs.id
 	}

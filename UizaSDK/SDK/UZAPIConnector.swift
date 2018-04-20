@@ -57,7 +57,7 @@ open class UZAPIConnector {
 	/** Block được gọi trong quá trình tải */
 	public var progressBlock			: APIConnectorProgressBlock? = nil
 	/** DataRequest của quá trình hiện tại */
-	public var dataRequest				: DataRequest! = nil
+	public var dataRequest				: DataRequest? = nil
 	
 	internal var responseType			: UZResponseType = .json
 	internal var encodingType			: ParameterEncoding = URLEncoding.default
@@ -117,10 +117,10 @@ open class UZAPIConnector {
 			UZAPIConnector.hideNetworkLoading()
 			
 			if UizaSDK.showRestfulInfo {
-				print("[UizaSDK] Cancelled: \(dataRequest.request?.url?.absoluteString ?? "--")")
+				print("[UizaSDK] Cancelled: \(dataRequest?.request?.url?.absoluteString ?? "--")")
 			}
 			
-			dataRequest.cancel()
+			dataRequest?.cancel()
 			dataRequest = nil
 		}
 	}
@@ -325,7 +325,7 @@ open class UZAPIConnector {
 						}
 					}
 					
-				case .failure(let encodingError):
+				case .failure: // (let encodingError)
 					//DLog("Fail: \(encodingError)")
 					failureBlock?(UZAPIConnector.UizaUnknownError())
 				}
@@ -333,16 +333,16 @@ open class UZAPIConnector {
 		}
 		else {
 			dataRequest = Alamofire.request(url, method: method, parameters: params, encoding: self.encodingType, headers: self.requestHeaderFields)
-			dataRequest.session.configuration.timeoutIntervalForRequest = timeoutInterval
-			dataRequest.session.configuration.requestCachePolicy = cachePolicy
-			dataRequest.session.configuration.httpAdditionalHeaders = headers
+			dataRequest!.session.configuration.timeoutIntervalForRequest = timeoutInterval
+			dataRequest!.session.configuration.requestCachePolicy = cachePolicy
+			dataRequest!.session.configuration.httpAdditionalHeaders = headers
 			
-//			dataRequest.response { (response:DefaultDataResponse) in
+//			dataRequest!.response { (response:DefaultDataResponse) in
 //				//DLog("\(response)")
 //			}
 			
 			if responseType == .json || responseType == .array {
-				dataRequest.responseJSON { response in
+				dataRequest!.responseJSON { response in
 					UZAPIConnector.hideNetworkLoading()
 //					//DLog("\(String(describing: response.result.value))")
 					
@@ -353,7 +353,7 @@ open class UZAPIConnector {
 					}
 				}
 			} else if responseType == .string {
-				dataRequest.responseString { (response) in
+				dataRequest!.responseString { (response) in
 //				//DLog("\(String(describing: response.result.value))")
 					
 					UZAPIConnector.hideNetworkLoading()

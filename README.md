@@ -58,7 +58,7 @@ UZAccountServices().authorize { (token: UZToken?, error: Error?) in
 }
 ```
 
-[Tài liệu API](https://github.com/uizaio/uiza-sdk-player-ios/)
+[Tài liệu API](https://uizaio.github.io/uiza-sdk-player-ios/)
 
 ## Hỗ Trợ
 namnh@uiza.io
@@ -117,7 +117,7 @@ UZAccountServices().authorize { (token: UZToken?, error: Error?) in
 }
 ```
 
-[API Document](https://github.com/uizaio/uiza-sdk-player-ios/)
+[API Document](https://uizaio.github.io/uiza-sdk-player-ios/)
 
 ## Support
 namnh@uiza.io

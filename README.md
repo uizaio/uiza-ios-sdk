@@ -104,7 +104,7 @@ import UizaSDK
 UizaSDK.initWith(accessKey: [YOUR_CLIENT_KEY], secretKey: [YOUR_SECRET_KEY], enviroment: .production)
 ```
 
-Then call this authorize function to generate token in order to make other API functions to work
+Then call this authorize function to generate token in order to make other API functions to work:
 
 ``` swift
 UZAccountServices().authorize { (token: UZToken?, error: Error?) in

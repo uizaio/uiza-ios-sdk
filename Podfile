@@ -7,8 +7,11 @@ target 'UizaSDK' do
 
   pod 'Alamofire'
   pod 'AFDateHelper'
-  pod 'CryptoSwift'
+  pod 'GoogleAds-IMA-iOS-SDK'
+  pod 'NKFrameLayoutKit'
+  pod 'NVActivityIndicatorView'
   pod 'SwiftyJSON'
+  pod 'SwiftIcons'
 
 end
 
@@ -18,7 +21,7 @@ target 'UizaSDK-tvos' do
 	
 	pod 'Alamofire'
 	pod 'AFDateHelper'
-	pod 'CryptoSwift'
+#	pod 'CryptoSwift'
 	pod 'SwiftyJSON'
 	
 end
@@ -29,7 +32,7 @@ target 'UizaSDKTests' do
 
 	pod 'Alamofire'
 	pod 'AFDateHelper'
-	pod 'CryptoSwift'
+#	pod 'CryptoSwift'
 	pod 'SwiftyJSON'
 
 end

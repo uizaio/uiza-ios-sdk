@@ -92,6 +92,22 @@ open class UZPlayer: UIView {
 	// MARK: - Public functions
 	
 	/**
+	Play an `UZVideoItem`
+	
+	- parameter video: UZVideoItem
+	- parameter completionBlock: callback block with url of video or error
+	*/
+	open func loadVideo(_ video: UZVideoItem, completionBlock:((_ url: URL?, _ error: Error?) -> Void)? = nil) {
+		UZContentServices().getLinkPlay(videoId: video.id) { [weak self] (url, error) in
+			if url != nil {
+				self?.setVideo(resource: UZPlayerResource(url: url!, name: video.title, cover: video.thumbnailURL))
+			}
+			
+			completionBlock?(url, error)
+		}
+	}
+	
+	/**
 	Set video resource
 	
 	- parameter resource:        media resource

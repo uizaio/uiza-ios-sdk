@@ -18,6 +18,7 @@ open class UZPlayerViewController: UIViewController {
 	
 	// MARK: -
 	
+	/*
 	@objc func onDeviceRotated() {
 //		let currentOrientation = UIApplication.shared.statusBarOrientation;
 //		DLog("OK \(currentOrientation.rawValue)")
@@ -33,6 +34,7 @@ open class UZPlayerViewController: UIViewController {
 //			}
 //		}
 	}
+	*/
 	
 	// MARK: -
 	

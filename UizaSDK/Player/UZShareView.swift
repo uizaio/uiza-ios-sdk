@@ -46,7 +46,7 @@ open class UZShareView: UIView {
 		titleLabel.textColor = .white
 		titleLabel.textAlignment = .center
 		
-		replayButton.setIcon(icon: .googleMaterialDesign(.replay), iconSize: 48, color: .white, backgroundColor: .clear, forState: .normal)
+		replayButton.setIcon(icon: .googleMaterialDesign(.replay), iconSize: 72, color: .white, backgroundColor: .clear, forState: .normal)
 		shareButton.setIcon(icon: .googleMaterialDesign(.share), iconSize: 32, color: .white, backgroundColor: .clear, forState: .normal)
 		
 		replayButton.tag = UZButtonTag.replay.rawValue

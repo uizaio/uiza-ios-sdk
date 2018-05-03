@@ -13,7 +13,7 @@ open class UZShareView: UIView {
 	let titleLabel = UILabel()
 	let replayButton = UIButton()
 	let shareButton = UIButton()
-	var frameLayout: NKGridFrameLayout!
+	var frameLayout: NKGridFrameLayout?
 	
 	open var allButtons: [UIButton]! {
 		get {
@@ -33,6 +33,7 @@ open class UZShareView: UIView {
 	
 	init() {
 		super.init(frame: .zero)
+		setupUI()
 	}
 	
 	public required init?(coder aDecoder: NSCoder) {
@@ -57,18 +58,18 @@ open class UZShareView: UIView {
 		self.addSubview(shareButton)
 		
 		frameLayout = NKGridFrameLayout(direction: .vertical)
-		frameLayout.add(withTargetView: titleLabel)
-		frameLayout.add(withTargetView: replayButton).contentAlignment = "cc"
-		frameLayout.add(withTargetView: shareButton).contentAlignment = "cc"
-		frameLayout.spacing = 10
-		frameLayout.edgeInsets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
-		self.addSubview(frameLayout)
+		frameLayout!.add(withTargetView: titleLabel)
+		frameLayout!.add(withTargetView: replayButton).contentAlignment = "cc"
+		frameLayout!.add(withTargetView: shareButton).contentAlignment = "cc"
+		frameLayout!.spacing = 10
+		frameLayout!.edgeInsets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+		self.addSubview(frameLayout!)
 	}
 	
 	override open func layoutSubviews() {
 		super.layoutSubviews()
 		
-		frameLayout.frame = self.bounds
+		frameLayout?.frame = self.bounds
 	}
 	
 }

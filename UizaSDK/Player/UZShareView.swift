@@ -10,7 +10,7 @@ import UIKit
 import NKFrameLayoutKit
 
 open class UZShareView: UIView {
-	let title = UILabel()
+	let titleLabel = UILabel()
 	let replayButton = UIButton()
 	let shareButton = UIButton()
 	var frameLayout: NKGridFrameLayout!
@@ -18,6 +18,16 @@ open class UZShareView: UIView {
 	open var allButtons: [UIButton]! {
 		get {
 			return [replayButton, shareButton]
+		}
+	}
+	
+	open var title: String? {
+		get {
+			return titleLabel.text
+		}
+		set {
+			titleLabel.text = newValue
+			self.setNeedsLayout()
 		}
 	}
 	
@@ -32,9 +42,9 @@ open class UZShareView: UIView {
 	open func setupUI() {
 		self.backgroundColor = UIColor(white: 0.0, alpha: 0.8)
 		
-		title.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-		title.textColor = .white
-		title.textAlignment = .center
+		titleLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+		titleLabel.textColor = .white
+		titleLabel.textAlignment = .center
 		
 		replayButton.setIcon(icon: .googleMaterialDesign(.replay), iconSize: 48, color: .white, backgroundColor: .clear, forState: .normal)
 		shareButton.setIcon(icon: .googleMaterialDesign(.share), iconSize: 32, color: .white, backgroundColor: .clear, forState: .normal)
@@ -42,12 +52,12 @@ open class UZShareView: UIView {
 		replayButton.tag = UZButtonTag.replay.rawValue
 		shareButton.tag = UZButtonTag.share.rawValue
 		
-		self.addSubview(title)
+		self.addSubview(titleLabel)
 		self.addSubview(replayButton)
 		self.addSubview(shareButton)
 		
 		frameLayout = NKGridFrameLayout(direction: .vertical)
-		frameLayout.add(withTargetView: title)
+		frameLayout.add(withTargetView: titleLabel)
 		frameLayout.add(withTargetView: replayButton).contentAlignment = "cc"
 		frameLayout.add(withTargetView: shareButton).contentAlignment = "cc"
 		frameLayout.spacing = 10

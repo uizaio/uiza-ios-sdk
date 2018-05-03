@@ -473,6 +473,7 @@ open class UZPlayerControlView: UIView {
 		self.resource = resource
 		
 		titleLabel.text = resource.name
+		shareView.title = resource.name
 		autoFadeOutControlView(after: autoHideControlsInterval)
 	}
 	

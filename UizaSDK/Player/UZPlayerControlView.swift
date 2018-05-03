@@ -356,6 +356,8 @@ open class UZPlayerControlView: UIView {
 		bottomFrameLayout.isUserInteractionEnabled = true
 		bottomFrameLayout.edgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
 		
+		shareView.isHidden = true
+		
 		containerView.addSubview(topFrameLayout)
 		containerView.addSubview(bottomFrameLayout)
 		containerView.addSubview(playpauseButton)
@@ -396,6 +398,7 @@ open class UZPlayerControlView: UIView {
 		playpauseButton.frame = CGRect(x: (viewSize.width - buttonSize.width)/2, y: (viewSize.height - buttonSize.height)/2, width: buttonSize.width, height: buttonSize.height)
 		
 		loadingIndicatorView.center = self.center
+		shareView.frame = self.bounds
 	}
 	
 	// MARK: -

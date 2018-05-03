@@ -21,7 +21,6 @@ target 'UizaSDK-tvos' do
 	
 	pod 'Alamofire'
 	pod 'AFDateHelper'
-#	pod 'CryptoSwift'
 	pod 'SwiftyJSON'
 	
 end

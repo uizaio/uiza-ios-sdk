@@ -312,6 +312,14 @@ open class UZPlayer: UIView {
 		controlView.frame = self.bounds
 	}
 	
+	open func showShare() {
+		if let window = UIApplication.shared.keyWindow, let viewController = window.rootViewController {
+			let urlToShare = URL(string: "http://uiza.io")!
+			let activityViewController = UIActivityViewController(activityItems: [urlToShare], applicationActivities: nil)
+			viewController.present(activityViewController, animated: true, completion: nil)
+		}
+	}
+	
 	deinit {
 		playerLayer?.pause()
 		playerLayer?.prepareToDeinit()
@@ -421,6 +429,9 @@ extension UZPlayer: UZPlayerControlViewDelegate {
 					avPlayer.isMuted = !avPlayer.isMuted
 					button.isSelected = avPlayer.isMuted
 				}
+				
+			case .share:
+				showShare()
 				
 			default:
 				print("Unhandled Action")

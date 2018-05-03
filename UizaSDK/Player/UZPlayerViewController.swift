@@ -9,7 +9,7 @@
 import UIKit
 
 open class UZPlayerViewController: UIViewController {
-	internal let player = UZPlayer()
+	public let player = UZPlayer()
 	
 	override open func loadView() {
 		self.view = self.player

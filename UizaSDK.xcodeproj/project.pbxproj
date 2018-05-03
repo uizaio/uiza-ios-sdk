@@ -30,6 +30,7 @@
 		6346B7A920930D7D00A68AD4 /* AVAudioSession+Airplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6346B7A820930D7D00A68AD4 /* AVAudioSession+Airplay.swift */; };
 		6346B7AB20930DAC00A68AD4 /* NSTimeInterval+ToString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6346B7AA20930DAC00A68AD4 /* NSTimeInterval+ToString.swift */; };
 		6346B7AC20930DAC00A68AD4 /* NSTimeInterval+ToString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6346B7AA20930DAC00A68AD4 /* NSTimeInterval+ToString.swift */; };
+		63714A24209B108600426948 /* UZShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63714A23209B108600426948 /* UZShareView.swift */; };
 		63C65F6C205B9FE600DB2C96 /* UizaSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C65F62205B9FE600DB2C96 /* UizaSDK.framework */; };
 		63C65F71205B9FE600DB2C96 /* UizaSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F70205B9FE600DB2C96 /* UizaSDKTests.swift */; };
 		63C65F73205B9FE600DB2C96 /* UizaSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 63C65F65205B9FE600DB2C96 /* UizaSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -112,6 +113,7 @@
 		6346B7A120930C3200A68AD4 /* UZPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZPlayer.swift; sourceTree = "<group>"; };
 		6346B7A820930D7D00A68AD4 /* AVAudioSession+Airplay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AVAudioSession+Airplay.swift"; sourceTree = "<group>"; };
 		6346B7AA20930DAC00A68AD4 /* NSTimeInterval+ToString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSTimeInterval+ToString.swift"; sourceTree = "<group>"; };
+		63714A23209B108600426948 /* UZShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZShareView.swift; sourceTree = "<group>"; };
 		63C65F62205B9FE600DB2C96 /* UizaSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UizaSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		63C65F65205B9FE600DB2C96 /* UizaSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UizaSDK.h; sourceTree = "<group>"; };
 		63C65F66205B9FE600DB2C96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 				6346B79C20930C3200A68AD4 /* Models */,
 				6346B7A120930C3200A68AD4 /* UZPlayer.swift */,
 				6346B79A20930C3200A68AD4 /* UZPlayerControlView.swift */,
+				63714A23209B108600426948 /* UZShareView.swift */,
 				6346B79B20930C3200A68AD4 /* UZPlayerViewController.swift */,
 			);
 			path = Player;
@@ -254,19 +257,19 @@
 		63C65F7C205BA10800DB2C96 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				6346B7AA20930DAC00A68AD4 /* NSTimeInterval+ToString.swift */,
 				6346B7A820930D7D00A68AD4 /* AVAudioSession+Airplay.swift */,
+				63C65F87205BA10800DB2C96 /* Date+Comparators.swift */,
+				63C65F82205BA10800DB2C96 /* Dictionary+Append.swift */,
+				63C65F81205BA10800DB2C96 /* Error+Code.swift */,
+				63C65F7F205BA10800DB2C96 /* FileManager+Extends.swift */,
 				63C65F7D205BA10800DB2C96 /* UIDevice+Extension.swift */,
 				63C65F7E205BA10800DB2C96 /* UIApplication+Version.swift */,
-				63C65F7F205BA10800DB2C96 /* FileManager+Extends.swift */,
 				63C65F80205BA10800DB2C96 /* UIColor+Hex.swift */,
-				63C65F81205BA10800DB2C96 /* Error+Code.swift */,
-				63C65F82205BA10800DB2C96 /* Dictionary+Append.swift */,
 				63C65F83205BA10800DB2C96 /* NSError+Uiza.swift */,
-				63C65F84205BA10800DB2C96 /* String+ToBool.swift */,
+				6346B7AA20930DAC00A68AD4 /* NSTimeInterval+ToString.swift */,
 				63C65F85205BA10800DB2C96 /* NSDictionary+KeyValue.swift */,
+				63C65F84205BA10800DB2C96 /* String+ToBool.swift */,
 				63C65F86205BA10800DB2C96 /* String+Extension.swift */,
-				63C65F87205BA10800DB2C96 /* Date+Comparators.swift */,
 				63C65F88205BA10800DB2C96 /* String+Components.swift */,
 				63C65F8A205BA10800DB2C96 /* String+ToDictionary.swift */,
 			);
@@ -565,6 +568,7 @@
 				632125002089E20800720593 /* UZContentServices.swift in Sources */,
 				6346B7A920930D7D00A68AD4 /* AVAudioSession+Airplay.swift in Sources */,
 				632124F82089E1EE00720593 /* UZCategory.swift in Sources */,
+				63714A24209B108600426948 /* UZShareView.swift in Sources */,
 				63C65FA5205BA10800DB2C96 /* UIDevice+Extension.swift in Sources */,
 				632124F42089E1EE00720593 /* UZModelObject.swift in Sources */,
 				6346B7A720930C3200A68AD4 /* UZPlayer.swift in Sources */,

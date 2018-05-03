@@ -24,6 +24,7 @@ public enum UZButtonTag: Int {
 	case volume		= 111
 	case forward	= 112
 	case backward	= 113
+	case share		= 114
 }
 
 open class UZPlayerControlView: UIView {
@@ -48,7 +49,6 @@ open class UZPlayerControlView: UIView {
 	fileprivate let totalTimeLabel = UILabel()
 	fileprivate let remainTimeLabel = UILabel()
 	fileprivate let playpauseButton = UIButton()
-	fileprivate let replayButton = UIButton()
 	fileprivate let closeButton = UIButton()
 	fileprivate let forwardButton = UIButton()
 	fileprivate let backwardButton = UIButton()
@@ -61,6 +61,7 @@ open class UZPlayerControlView: UIView {
 	fileprivate let helpButton = UIButton()
 	fileprivate let timeSlider = UZSlider()
 	fileprivate let coverImageView = UIImageView()
+	fileprivate let shareView = UZShareView()
 	
 	fileprivate var topFrameLayout 		: NKDoubleFrameLayout!
 	fileprivate var bottomFrameLayout 	: NKTripleFrameLayout!
@@ -102,7 +103,8 @@ open class UZPlayerControlView: UIView {
 		ccButton.tag = UZButtonTag.caption.rawValue
 		helpButton.tag = UZButtonTag.help.rawValue
 		
-		let allButtons: [UIButton] = [backButton, helpButton, ccButton, playlistButton, settingsButton, fullscreenButton, playpauseButton, forwardButton, backwardButton, volumeButton]
+		var allButtons: [UIButton] = [backButton, helpButton, ccButton, playlistButton, settingsButton, fullscreenButton, playpauseButton, forwardButton, backwardButton, volumeButton]
+		allButtons.append(contentsOf: shareView.allButtons)
 		allButtons.forEach { (button) in
 			button.showsTouchWhenHighlighted = true
 			button.addTarget(self, action: #selector(onButtonPressed(_:)), for: .touchUpInside)
@@ -111,9 +113,6 @@ open class UZPlayerControlView: UIView {
 		setupSkin3()
 		setupLayout1()
 		
-		containerView.addSubview(topFrameLayout)
-		containerView.addSubview(bottomFrameLayout)
-		containerView.addSubview(playpauseButton)
 		self.addSubview(containerView)
 		self.addSubview(loadingIndicatorView)
 		
@@ -356,6 +355,11 @@ open class UZPlayerControlView: UIView {
 		bottomFrameLayout.rightFrameLayout.contentAlignment = "cf"
 		bottomFrameLayout.isUserInteractionEnabled = true
 		bottomFrameLayout.edgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+		
+		containerView.addSubview(topFrameLayout)
+		containerView.addSubview(bottomFrameLayout)
+		containerView.addSubview(playpauseButton)
+		containerView.addSubview(shareView)
 	}
 	
 	internal func setupGestures() {
@@ -526,11 +530,11 @@ open class UZPlayerControlView: UIView {
 	}
 	
 	open func showPlayToTheEndView() {
-		replayButton.isHidden = false
+		shareView.isHidden = false
 	}
 	
 	open func hidePlayToTheEndView() {
-		replayButton.isHidden = true
+		shareView.isHidden = true
 	}
 	
 	open func showLoader() {
@@ -630,10 +634,6 @@ open class UZPlayerControlView: UIView {
 		autoFadeOutControlView(after: autoHideControlsInterval)
 		delegate?.controlView(controlView: self, slider: sender, onSliderEvent: .touchUpInside)
 		self.setNeedsLayout()
-	}
-	
-	@objc fileprivate func onReplyButtonPressed() {
-		replayButton.isHidden = true
 	}
 	
 }

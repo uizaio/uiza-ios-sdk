@@ -101,6 +101,7 @@ open class UZPlayer: UIView {
 	*/
 	open func loadVideo(_ video: UZVideoItem, completionBlock:((_ url: URL?, _ error: Error?) -> Void)? = nil) {
 		currentVideo = video
+		playthrough_eventlog = [:]
 		
 		UZContentServices().getLinkPlay(videoId: video.id) { [weak self] (url, error) in
 			if url != nil {
@@ -122,6 +123,7 @@ open class UZPlayer: UIView {
 		isURLSet = false
 		self.resource = resource
 		
+		playthrough_eventlog = [:]
 		currentDefinition = definitionIndex
 		controlView.prepareUI(for: resource)
 		
@@ -313,17 +315,22 @@ open class UZPlayer: UIView {
 		try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
 	}
 	
-	fileprivate let logPercent: [Double] = [25, 50, 75, 100]
+	fileprivate var playthrough_eventlog: [Float : Bool] = [:]
+	fileprivate let logPercent: [Float] = [25, 50, 75, 100]
 	
 	fileprivate func logPlayEvent(currentTime: TimeInterval, totalTime: TimeInterval) {
 		if round(currentTime) == 5 {
 			UZLogger().log(event: "view", video: currentVideo, params: ["play_through" : "0"], completionBlock: nil)
 		}
 		else {
-			let playthrough: Double = round(currentTime/totalTime) * 100
+			let playthrough: Float = round(Float(currentTime)/Float(totalTime)) * 100
 			
 			if logPercent.contains(playthrough) {
-				UZLogger().log(event: "play_through", video: currentVideo, params: ["play_through" : playthrough], completionBlock: nil)
+				if playthrough_eventlog[playthrough] == false {
+					playthrough_eventlog[playthrough] = true
+					
+					UZLogger().log(event: "play_through", video: currentVideo, params: ["play_through" : playthrough], completionBlock: nil)
+				}
 			}
 		}
 	}
@@ -438,6 +445,7 @@ extension UZPlayer: UZPlayerControlViewDelegate {
 			case .replay:
 				UZLogger().log(event: "replay", video: currentVideo, completionBlock: nil)
 				
+				playthrough_eventlog = [:]
 				isPlayToTheEnd = false
 				seek(to: 0)
 				play()

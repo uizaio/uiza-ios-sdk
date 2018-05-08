@@ -16,8 +16,8 @@ import Foundation
 // pod trunk push UizaSDK.podspec
 //
 
-internal let SDK_VERSION = "2.8"
-internal let PLAYER_VERSION = "1.6"
+internal let SDK_VERSION = "2.9"
+internal let PLAYER_VERSION = "1.7"
 
 /**
 Class khởi tạo SDK

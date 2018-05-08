@@ -322,11 +322,11 @@ open class UZPlayer: UIView {
 		if round(currentTime) == 5 {
 			UZLogger().log(event: "view", video: currentVideo, params: ["play_through" : "0"], completionBlock: nil)
 		}
-		else {
+		else if totalTime > 0 {
 			let playthrough: Float = round(Float(currentTime)/Float(totalTime)) * 100
 			
 			if logPercent.contains(playthrough) {
-				if playthrough_eventlog[playthrough] == false {
+				if playthrough_eventlog[playthrough] == false || playthrough_eventlog[playthrough] == nil {
 					playthrough_eventlog[playthrough] = true
 					
 					UZLogger().log(event: "play_through", video: currentVideo, params: ["play_through" : playthrough], completionBlock: nil)

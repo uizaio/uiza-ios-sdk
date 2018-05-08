@@ -29,6 +29,16 @@ open class UZLogger: UZAPIConnector {
 		*/
 	}
 	
+	open func log(event: String, video: UZVideoItem? = nil, completionBlock: APIConnectorResultBlock? = nil) {
+		var params: [String : Any]? = nil
+		if let video = video {
+			params = ["entity_id" : video.id,
+					  "entity_name" : video.title]
+		}
+		
+		self.log(event: event, params: params, completionBlock: completionBlock)
+	}
+	
 	open func log(event: String, params: [String: Any]? = nil, completionBlock: APIConnectorResultBlock? = nil) {
 		let modelId		: String = UIDevice.current.hardwareModel()
 		let modelName	: String = UIDevice.current.hardwareName()

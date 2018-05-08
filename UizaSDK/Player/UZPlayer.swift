@@ -59,6 +59,8 @@ open class UZPlayer: UIView {
 		return playerLayer?.player
 	}
 	
+	public fileprivate(set) var currentVideo: UZVideoItem?
+	
 	open var shouldAutoPlay = true
 	
 	open var controlView: UZPlayerControlView!
@@ -98,8 +100,11 @@ open class UZPlayer: UIView {
 	- parameter completionBlock: callback block with url of video or error
 	*/
 	open func loadVideo(_ video: UZVideoItem, completionBlock:((_ url: URL?, _ error: Error?) -> Void)? = nil) {
+		currentVideo = video
+		
 		UZContentServices().getLinkPlay(videoId: video.id) { [weak self] (url, error) in
 			if url != nil {
+				UZLogger().log(event: "plays_requested", video: video, completionBlock: nil)
 				self?.setVideo(resource: UZPlayerResource(url: url!, name: video.title, cover: video.thumbnailURL))
 			}
 			
@@ -305,6 +310,10 @@ open class UZPlayer: UIView {
 		try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
 	}
 	
+	fileprivate func logPlayEvent(currentTime: TimeInterval, totalTime: TimeInterval) {
+		
+	}
+	
 	override open func layoutSubviews() {
 		super.layoutSubviews()
 		
@@ -314,9 +323,10 @@ open class UZPlayer: UIView {
 	
 	open func showShare() {
 		if let window = UIApplication.shared.keyWindow, let viewController = window.rootViewController {
+			let activeViewController: UIViewController = viewController.presentedViewController ?? viewController
 			let urlToShare = URL(string: "http://uiza.io")!
 			let activityViewController = UIActivityViewController(activityItems: [urlToShare], applicationActivities: nil)
-			viewController.present(activityViewController, animated: true, completion: nil)
+			activeViewController.present(activityViewController, animated: true, completion: nil)
 		}
 	}
 	
@@ -370,6 +380,7 @@ extension UZPlayer: UZPlayerLayerViewDelegate {
 		delegate?.UZPlayer(player: self, playTimeDidChange: currentTime, totalTime: totalTime)
 		
 		if !isSliderSliding {
+			logPlayEvent(currentTime: currentTime, totalTime: totalTime)
 			controlView.totalDuration = totalDuration
 			controlView.playTimeDidChange(currentTime: currentTime, totalTime: totalTime)
 			

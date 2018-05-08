@@ -15,18 +15,14 @@ Class hỗ trợ việc logging
 open class UZLogger: UZAPIConnector {
 	
 	override internal func baseAPIURLPath(enviroment: UZEnviroment) -> String! {
-		return UizaSDK.apiEndPoint.stringByAppendingPathComponent("api/resource/")
-		
-		/*
 		switch enviroment {
 		case .production:
-		return "\(UizaSDK.apiEndPoint)/api/data/v1/"
+			return "http://tracking.uiza.io/analytic-tracking/"
 		case .development:
-		return "\(UizaSDK.apiEndPoint)/api/data/v1/"
+			return "http://dev-tracking.uiza.io/"
 		case .staging:
-		return "\(UizaSDK.apiEndPoint)/api/data/v1/"
+			return "http://stag-tracking.uiza.io/analytic-tracking/"
 		}
-		*/
 	}
 	
 	open func log(event: String, video: UZVideoItem? = nil, params: [String: Any]? = nil, completionBlock: APIConnectorResultBlock? = nil) {

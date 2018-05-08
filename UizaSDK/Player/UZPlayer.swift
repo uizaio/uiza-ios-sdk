@@ -437,6 +437,8 @@ extension UZPlayer: UZPlayerControlViewDelegate {
 				}
 				
 			case .replay:
+				UZLogger().log(event: "replay", video: currentVideo, completionBlock: nil)
+				
 				isPlayToTheEnd = false
 				seek(to: 0)
 				play()

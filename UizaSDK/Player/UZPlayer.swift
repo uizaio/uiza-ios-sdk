@@ -152,6 +152,10 @@ open class UZPlayer: UIView {
 			isURLSet = true
 		}
 		
+		if currentPosition <= 1 && !isPauseByUser {
+			UZLogger().log(event: "video_starts", video: currentVideo, completionBlock: nil)
+		}
+		
 		playerLayer?.play()
 		isPauseByUser = false
 	}
@@ -309,7 +313,6 @@ open class UZPlayer: UIView {
 		try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
 	}
 	
-	fileprivate var playthrough_eventlog: [Double : Bool] = [:]
 	fileprivate let logPercent: [Double] = [25, 50, 75, 100]
 	
 	fileprivate func logPlayEvent(currentTime: TimeInterval, totalTime: TimeInterval) {
@@ -320,11 +323,7 @@ open class UZPlayer: UIView {
 			let playthrough: Double = round(currentTime/totalTime) * 100
 			
 			if logPercent.contains(playthrough) {
-				if playthrough_eventlog[playthrough] == false {
-					playthrough_eventlog[playthrough] = true
-					
-					UZLogger().log(event: "play_through", video: currentVideo, params: ["play_through" : playthrough], completionBlock: nil)
-				}
+				UZLogger().log(event: "play_through", video: currentVideo, params: ["play_through" : playthrough], completionBlock: nil)
 			}
 		}
 	}

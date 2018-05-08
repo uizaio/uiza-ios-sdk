@@ -29,14 +29,19 @@ open class UZLogger: UZAPIConnector {
 		*/
 	}
 	
-	open func log(event: String, video: UZVideoItem? = nil, completionBlock: APIConnectorResultBlock? = nil) {
-		var params: [String : Any]? = nil
+	open func log(event: String, video: UZVideoItem? = nil, params: [String: Any]? = nil, completionBlock: APIConnectorResultBlock? = nil) {
+		var finalParams: [String : Any]? = [:]
+		
 		if let video = video {
-			params = ["entity_id" : video.id,
-					  "entity_name" : video.title]
+			finalParams = ["entity_id" : video.id,
+						   "entity_name" : video.title]
 		}
 		
-		self.log(event: event, params: params, completionBlock: completionBlock)
+		if let params = params {
+			finalParams?.appendFrom(params)
+		}
+		
+		self.log(event: event, params: finalParams, completionBlock: completionBlock)
 	}
 	
 	open func log(event: String, params: [String: Any]? = nil, completionBlock: APIConnectorResultBlock? = nil) {

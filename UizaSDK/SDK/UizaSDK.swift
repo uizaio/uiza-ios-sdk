@@ -17,7 +17,7 @@ import Foundation
 //
 
 internal let SDK_VERSION = "2.2"
-internal let PLAYER_VERSION = "1.2"
+internal let PLAYER_VERSION = "1.3"
 
 /**
 Class khởi tạo SDK
@@ -51,11 +51,15 @@ public class UizaSDK {
 			self.apiEndPoint 	= apiEndPoint
 			self.enviroment 	= enviroment
 			
+			#if DEBUG
 			print("[UizaSDK \(SDK_VERSION)] initialized")
+			#endif
 			UZAPIConnector.updateIPAddress()
 		}
 		else {
+			#if DEBUG
 			print("AppID and ClientKey have already set")
+			#endif
 		}
 	}
 	

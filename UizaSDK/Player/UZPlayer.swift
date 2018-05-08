@@ -275,6 +275,10 @@ open class UZPlayer: UIView {
 		setupUI()
 		preparePlayer()
 //		setUpAdsLoader()
+		
+		#if DEBUG
+		print("[UizaPlayer \(PLAYER_VERSION)] initialized")
+		#endif
 	}
 	
 	public convenience init() {
@@ -284,15 +288,10 @@ open class UZPlayer: UIView {
 	fileprivate func setupUI() {
 		self.backgroundColor = UIColor.black
 		
-		if let customView = customControllView {
-			controlView = customView
-		} else {
-			controlView =  UZPlayerControlView()
-		}
-		
-		addSubview(controlView)
+		controlView = customControllView ?? UZPlayerControlView()
 		controlView.updateUI(isFullScreen)
 		controlView.delegate = self
+		addSubview(controlView)
 		
 		NotificationCenter.default.addObserver(self, selector: #selector(self.onOrientationChanged), name: .UIApplicationDidChangeStatusBarOrientation, object: nil)
 	}
@@ -310,8 +309,24 @@ open class UZPlayer: UIView {
 		try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
 	}
 	
+	fileprivate var playthrough_eventlog: [Double : Bool] = [:]
+	fileprivate let logPercent: [Double] = [25, 50, 75, 100]
+	
 	fileprivate func logPlayEvent(currentTime: TimeInterval, totalTime: TimeInterval) {
-		
+		if round(currentTime) == 5 {
+			UZLogger().log(event: "view", video: currentVideo, params: ["play_through" : "0"], completionBlock: nil)
+		}
+		else {
+			let playthrough: Double = round(currentTime/totalTime) * 100
+			
+			if logPercent.contains(playthrough) {
+				if playthrough_eventlog[playthrough] == false {
+					playthrough_eventlog[playthrough] = true
+					
+					UZLogger().log(event: "play_through", video: currentVideo, params: ["play_through" : playthrough], completionBlock: nil)
+				}
+			}
+		}
 	}
 	
 	override open func layoutSubviews() {

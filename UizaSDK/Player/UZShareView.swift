@@ -43,9 +43,10 @@ open class UZShareView: UIView {
 	open func setupUI() {
 		self.backgroundColor = UIColor(white: 0.0, alpha: 0.8)
 		
-		titleLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+		titleLabel.font = UIFont.systemFont(ofSize: 15, weight: .medium)
 		titleLabel.textColor = .white
 		titleLabel.textAlignment = .center
+		titleLabel.numberOfLines = 3
 		
 		replayButton.setIcon(icon: .googleMaterialDesign(.replay), iconSize: 72, color: .white, backgroundColor: .clear, forState: .normal)
 		shareButton.setIcon(icon: .googleMaterialDesign(.share), iconSize: 32, color: .white, backgroundColor: .clear, forState: .normal)
@@ -62,6 +63,7 @@ open class UZShareView: UIView {
 		frameLayout!.add(withTargetView: replayButton).contentAlignment = "cc"
 		frameLayout!.add(withTargetView: shareButton).contentAlignment = "cc"
 		frameLayout!.spacing = 10
+		frameLayout!.layoutAlignment = .center
 		frameLayout!.edgeInsets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
 		self.addSubview(frameLayout!)
 	}

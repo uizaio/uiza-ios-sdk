@@ -320,10 +320,14 @@ open class UZPlayer: UIView {
 	
 	fileprivate func logPlayEvent(currentTime: TimeInterval, totalTime: TimeInterval) {
 		if round(currentTime) == 5 {
-			UZLogger().log(event: "view", video: currentVideo, params: ["play_through" : "0"], completionBlock: nil)
+			if playthrough_eventlog[5] == false || playthrough_eventlog[5] == nil {
+				playthrough_eventlog[5] = true
+				
+				UZLogger().log(event: "view", video: currentVideo, params: ["play_through" : "0"], completionBlock: nil)
+			}
 		}
 		else if totalTime > 0 {
-			let playthrough: Float = round(Float(currentTime)/Float(totalTime)) * 100
+			let playthrough: Float = roundf(Float(currentTime) / Float(totalTime) * 100)
 			
 			if logPercent.contains(playthrough) {
 				if playthrough_eventlog[playthrough] == false || playthrough_eventlog[playthrough] == nil {

@@ -17,11 +17,11 @@ open class UZLogger: UZAPIConnector {
 	override internal func baseAPIURLPath(enviroment: UZEnviroment) -> String! {
 		switch enviroment {
 		case .production:
-			return "http://tracking.uiza.io/analytic-tracking/"
+			return "http://tracking.uiza.io/"
 		case .development:
 			return "http://dev-tracking.uiza.io/"
 		case .staging:
-			return "http://stag-tracking.uiza.io/analytic-tracking/"
+			return "http://stag-tracking.uiza.io/"
 		}
 	}
 	

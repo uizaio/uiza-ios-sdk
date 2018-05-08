@@ -154,8 +154,11 @@ open class UZPlayer: UIView {
 			isURLSet = true
 		}
 		
-		if currentPosition <= 1 && !isPauseByUser {
-			UZLogger().log(event: "video_starts", video: currentVideo, completionBlock: nil)
+		if currentPosition == 0 && !isPauseByUser {
+			if playthrough_eventlog[0] == false || playthrough_eventlog[0] == nil {
+				playthrough_eventlog[0] = true
+				UZLogger().log(event: "video_starts", video: currentVideo, completionBlock: nil)
+			}
 		}
 		
 		playerLayer?.play()

@@ -3,9 +3,12 @@ PODS:
   - Alamofire (4.7.2)
   - GoogleAds-IMA-iOS-SDK (3.7.1)
   - NKFrameLayoutKit (1.9.2)
-  - NVActivityIndicatorView (4.2.0):
-    - NVActivityIndicatorView/Presenter (= 4.2.0)
-  - NVActivityIndicatorView/Presenter (4.2.0)
+  - NVActivityIndicatorView (4.2.1):
+    - NVActivityIndicatorView/Presenter (= 4.2.1)
+  - NVActivityIndicatorView/Presenter (4.2.1)
+  - SDWebImage (4.3.3):
+    - SDWebImage/Core (= 4.3.3)
+  - SDWebImage/Core (4.3.3)
   - SwiftIcons (2.0.1)
   - SwiftyJSON (4.1.0)
 
@@ -15,6 +18,7 @@ DEPENDENCIES:
   - GoogleAds-IMA-iOS-SDK
   - NKFrameLayoutKit
   - NVActivityIndicatorView
+  - SDWebImage
   - SwiftIcons
   - SwiftyJSON
 
@@ -25,6 +29,7 @@ SPEC REPOS:
     - GoogleAds-IMA-iOS-SDK
     - NKFrameLayoutKit
     - NVActivityIndicatorView
+    - SDWebImage
     - SwiftIcons
     - SwiftyJSON
 
@@ -33,10 +38,11 @@ SPEC CHECKSUMS:
   Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
   GoogleAds-IMA-iOS-SDK: 738f22e72c935cb410f0f6448939bb5012d15e9b
   NKFrameLayoutKit: 4116c626ea8be43f2b668963784d1b2fce67d65a
-  NVActivityIndicatorView: 75c9634073e03b31d7e2748cd2417feab1206195
+  NVActivityIndicatorView: 8068ba3ad39cb44cbaab25d89ff2546b3f092681
+  SDWebImage: de4d90b5bff3571eae7bd16202b1f43135409fa5
   SwiftIcons: e475a56ae2c2da40672dbf16061ca5dd5cee7dbb
   SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
 
-PODFILE CHECKSUM: 9c32b9309b567df5db1beffecbcd10203cd0581d
+PODFILE CHECKSUM: 2d04aa31e434c708621ecba1e626f38efaaf582b
 
 COCOAPODS: 1.5.0

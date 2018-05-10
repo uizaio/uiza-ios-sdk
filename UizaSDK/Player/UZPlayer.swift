@@ -443,7 +443,7 @@ extension UZPlayer: UZPlayerControlViewDelegate {
 						seek(to: 0, completion: {
 							self.play()
 						})
-						controlView.hideEndScreen()()
+						controlView.hideEndScreen()
 						isPlayToTheEnd = false
 					}
 					play()
@@ -496,7 +496,7 @@ extension UZPlayer: UZPlayerControlViewDelegate {
 				seek(to: target, completion: {
 					self.play()
 				})
-				controlView.hideEndScreen()()
+				controlView.hideEndScreen()
 			}
 			else {
 				seek(to: target, completion: {

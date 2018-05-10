@@ -35,7 +35,8 @@ internal class UZRelatedVideoCollectionViewController: UICollectionViewControlle
 			guard let `self` = self else { return }
 			
 			if let results = results {
-				self.appendItems(items: results)
+				self.videos = results
+				self.collectionView?.reloadData()
 			}
 		}
 	}
@@ -190,7 +191,7 @@ class UZMovieItemCollectionViewCell : UICollectionViewCell {
 	var titleLabel			: UILabel!
 	var detailLabel			: UILabel!
 	var placeholderImage	: UIImage! = nil
-	var displayMode			: CellDisplayMode! = .portrait
+	var displayMode			: UZCellDisplayMode! = .portrait
 	var textFrameLayout		: NKDoubleFrameLayout!
 	var frameLayout			: NKDoubleFrameLayout!
 	var highlightMode		= false {
@@ -198,7 +199,7 @@ class UZMovieItemCollectionViewCell : UICollectionViewCell {
 			self.isSelected = super.isSelected
 		}
 	}
-	var detailMode			= false {
+	var detailMode = false {
 		didSet {
 			updateView()
 		}
@@ -287,7 +288,7 @@ class UZMovieItemCollectionViewCell : UICollectionViewCell {
 		titleLabel.font = UIFont.systemFont(ofSize: 14)
 		titleLabel.numberOfLines = 2
 		titleLabel.textColor = .white
-		//		titleLabel.isHidden = true
+//		titleLabel.isHidden = true
 		
 		detailLabel = UILabel()
 		detailLabel.textAlignment = .left
@@ -351,8 +352,8 @@ class UZMovieItemCollectionViewCell : UICollectionViewCell {
 			//self.contentView.layer.borderColor = UIColor.clear.cgColor
 			//self.contentView.layer.borderWidth = 0.0
 			
-			//			frameLayout.topFrameLayout.edgeInsets = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
-			//			frameLayout.bottomFrameLayout.edgeInsets = UIEdgeInsets.zero
+//			frameLayout.topFrameLayout.edgeInsets = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
+//			frameLayout.bottomFrameLayout.edgeInsets = UIEdgeInsets.zero
 			
 			if detailMode {
 				titleLabel.text = videoItem.title
@@ -378,7 +379,7 @@ class UZMovieItemCollectionViewCell : UICollectionViewCell {
 			}
 		}
 		else {
-			//	self.clipsToBounds = true
+//			self.clipsToBounds = true
 		}
 		
 		self.setNeedsLayout()
@@ -390,7 +391,7 @@ class UZMovieItemCollectionViewCell : UICollectionViewCell {
 	override func layoutSubviews() {
 		super.layoutSubviews()
 		
-		//	self.layer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: 10).cgPath
+//		self.layer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: 10).cgPath
 		frameLayout.frame = self.bounds
 		highlightView.frame = self.bounds
 		

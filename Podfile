@@ -10,6 +10,7 @@ target 'UizaSDK' do
   pod 'GoogleAds-IMA-iOS-SDK'
   pod 'NKFrameLayoutKit'
   pod 'NVActivityIndicatorView'
+  pod 'SDWebImage'
   pod 'SwiftyJSON'
   pod 'SwiftIcons'
 
@@ -32,6 +33,7 @@ target 'UizaSDKTests' do
 	pod 'Alamofire'
 	pod 'AFDateHelper'
 #	pod 'CryptoSwift'
+	pod 'SDWebImage'
 	pod 'SwiftyJSON'
 
 end

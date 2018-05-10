@@ -22,10 +22,9 @@ open class UZHomeData: NSObject {
 /**
 Thể hiện kiểu hiển thị trong danh sách, portrait là kiểu poster đứng, landscape là kiểu nằm ngang. Khi hiển thị danh sách nên check kiểu để hiển thị cho phù hợp
 */
-public enum CellDisplayMode {
+public enum UZCellDisplayMode {
 	/** Kiểu nằm dọc */
 	case portrait
-	
 	/** Kiểu nằm ngang */
 	case landscape
 }
@@ -39,20 +38,17 @@ open class UZCategory: UZModelObject {
 	/** Tên chuyên mục */
 	public var name				: String! = ""
 	/** Kiểu hiển thị trên danh sách */
-	public var displayMode		: CellDisplayMode = .landscape
+	public var displayMode		: UZCellDisplayMode = .landscape
 	/** Danh sách video của chuyên mục này */
 	public var videos			: [UZVideoItem]! = []
 	
 	override func parse(_ data: NSDictionary?) {
 		if data != nil {
-			id				= data!.string(for: "id",	defaultString: "")
-			name			= data!.string(for: "name", defaultString: "")
+			id 		= data!.string(for: "id",	defaultString: "")
+			name 	= data!.string(for: "name", defaultString: "")
 			
 			let displayModeValue = data!.string(for: "display", defaultString: "")
-			if displayModeValue == "landscape" {
-				displayMode = .landscape
-			}
-			else if displayModeValue == "small-landscape" {
+			if displayModeValue == "landscape" || displayModeValue == "small-landscape" {
 				displayMode = .landscape
 			}
 			else {

@@ -25,6 +25,7 @@ public enum UZButtonTag: Int {
 	case forward	= 112
 	case backward	= 113
 	case share		= 114
+	case relates	= 115
 }
 
 open class UZPlayerControlView: UIView {
@@ -42,6 +43,7 @@ open class UZPlayerControlView: UIView {
 	open var tapGesture: UITapGestureRecognizer?
 	open var doubleTapGesture: UITapGestureRecognizer?
 	
+	internal(set) var currentVideo: UZVideoItem? = nil
 	fileprivate var playerLastState: UZPlayerState = .notSetURL
 	
 	fileprivate let titleLabel = UILabel()
@@ -67,6 +69,7 @@ open class UZPlayerControlView: UIView {
 	fileprivate var bottomFrameLayout 	: NKTripleFrameLayout!
 	
 	fileprivate var loadingIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 30, height: 30), type: NVActivityIndicatorType.ballRotateChase, color: .white, padding: 0)
+	fileprivate var relatesViewController: UZRelatedVideoCollectionViewController?
 	
 	init() {
 		super.init(frame: .zero)
@@ -122,6 +125,8 @@ open class UZPlayerControlView: UIView {
 	required public init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
+	
+	// MARK: -
 	
 	func setupSkin1() {
 		let iconColor = UIColor.white
@@ -374,14 +379,6 @@ open class UZPlayerControlView: UIView {
 		self.addGestureRecognizer(doubleTapGesture!)
 	}
 	
-	@objc func onTap(_ gesture: UITapGestureRecognizer) {
-		controlViewAnimation(isShow: containerView.isHidden)
-	}
-	
-	@objc func onDoubleTap(_ gesture: UITapGestureRecognizer) {
-		delegate?.controlView(controlView: self, didSelectButton: fullscreenButton)
-	}
-	
 	override open func layoutSubviews() {
 		super.layoutSubviews()
 		
@@ -399,6 +396,12 @@ open class UZPlayerControlView: UIView {
 		
 		loadingIndicatorView.center = self.center
 		shareView.frame = self.bounds
+		
+		if let relatesView = relatesViewController?.view {
+			let height = min(120, viewSize.height - 20)
+			relatesView.frame = CGRect(x: 10, y: viewSize.height - height - 10, width: viewSize.width - 20, height: height)
+			relatesView.setNeedsLayout()
+		}
 	}
 	
 	// MARK: -
@@ -459,7 +462,7 @@ open class UZPlayerControlView: UIView {
 		case .playedToTheEnd:
 			playpauseButton.isSelected = false
 			
-			showPlayToTheEndView()
+			showEndScreen()
 			controlViewAnimation(isShow: true)
 			
 		default:
@@ -533,12 +536,32 @@ open class UZPlayerControlView: UIView {
 		fullscreenButton.isSelected = isForFullScreen
 	}
 	
-	open func showPlayToTheEndView() {
+	open func showEndScreen() {
 		shareView.isHidden = false
 	}
 	
-	open func hidePlayToTheEndView() {
+	open func hideEndScreen() {
 		shareView.isHidden = true
+	}
+	
+	open func showRelates() {
+		if let currentVideo = currentVideo {
+			relatesViewController = UZRelatedVideoCollectionViewController()
+			relatesViewController?.loadRelateVideos(to: currentVideo)
+			containerView.addSubview(relatesViewController!.view)
+			self.setNeedsLayout()
+		}
+	}
+	
+	open func hideRelates() {
+		if let relatesView = relatesViewController?.view {
+			UIView.animate(withDuration: 0.3, animations: {
+				relatesView.alpha = 0.0
+			}) { (finished) in
+				relatesView.removeFromSuperview()
+				self.relatesViewController = nil
+			}
+		}
 	}
 	
 	open func showLoader() {
@@ -590,7 +613,7 @@ open class UZPlayerControlView: UIView {
 			switch type {
 			case .play, .replay:
 				if playerLastState == .playedToTheEnd {
-					hidePlayToTheEndView()
+					hideEndScreen()
 				}
 			default:
 				break
@@ -601,27 +624,21 @@ open class UZPlayerControlView: UIView {
 		self.setNeedsLayout()
 	}
 	
-	/**
-	Call when the tap gesture tapped
-	
-	- parameter gesture: tap gesture
-	*/
-	open func onTapGestureTapped(_ gesture: UITapGestureRecognizer) {
-		if playerLastState == .playedToTheEnd {
-			return
-		}
-		controlViewAnimation(isShow: !isMaskShowing)
+	@objc func onTap(_ gesture: UITapGestureRecognizer) {
+		controlViewAnimation(isShow: containerView.isHidden)
 	}
 	
+	@objc func onDoubleTap(_ gesture: UITapGestureRecognizer) {
+		delegate?.controlView(controlView: self, didSelectButton: fullscreenButton)
+	}
 	
-	
-	// MARK: - handle UI slider actions
+	// MARK: - Handle slider actions
 	@objc func progressSliderTouchBegan(_ sender: UISlider)  {
 		delegate?.controlView(controlView: self, slider: sender, onSliderEvent: .touchDown)
 	}
 	
 	@objc func progressSliderValueChanged(_ sender: UISlider)  {
-		hidePlayToTheEndView()
+		hideEndScreen()
 		cancelAutoFadeOutAnimation()
 		
 		let currentTime = Double(sender.value) * totalDuration

@@ -33,6 +33,7 @@ open class UZPlayer: UIView {
 	open weak var delegate: UZPlayerDelegate?
 	
 	open var backBlock:((Bool) -> Void)?
+	open var videoChangedBlock:((UZVideoItem) -> Void)?
 	open var fullscreenBlock:((Bool) -> Void)?
 	
 	open var playTimeDidChange:((TimeInterval, TimeInterval) -> Void)?
@@ -367,6 +368,7 @@ open class UZPlayer: UIView {
 				guard let `self` = self else { return }
 				
 				self.loadVideo(videoItem)
+				self.videoChangedBlock?(videoItem)
 				NKModalViewManager.sharedInstance().modalViewControllerThatContains(viewController)?.dismissWith(animated: true, completion: nil)
 				
 			}

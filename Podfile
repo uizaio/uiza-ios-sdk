@@ -9,6 +9,7 @@ target 'UizaSDK' do
   pod 'AFDateHelper'
   pod 'GoogleAds-IMA-iOS-SDK'
   pod 'NKFrameLayoutKit'
+  pod 'NKModalViewManager'
   pod 'NVActivityIndicatorView'
   pod 'SDWebImage'
   pod 'SwiftyJSON'

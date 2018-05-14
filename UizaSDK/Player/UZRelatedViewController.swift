@@ -7,6 +7,111 @@
 //
 
 import UIKit
+import NKModalViewManager
+import NKFrameLayoutKit
+
+internal class UZRelatedViewController: UIViewController {
+	let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
+	let titleLabel = UILabel()
+	let collectionViewController = UZRelatedVideoCollectionViewController()
+	var frameLayout: NKDoubleFrameLayout!
+	
+	init() {
+		super.init(nibName: nil, bundle: nil)
+		
+		titleLabel.text = "Video liên quan"
+		titleLabel.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+		titleLabel.textColor = .white
+		titleLabel.textAlignment = .left
+		
+		frameLayout = NKDoubleFrameLayout(direction: .vertical, andViews: [titleLabel, collectionViewController.view])
+		frameLayout.bottomFrameLayout.minSize = CGSize(width: 0, height: 100)
+		frameLayout.edgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+		frameLayout.spacing = 10
+	}
+	
+	required init?(coder aDecoder: NSCoder) {
+		super.init(coder: aDecoder)
+	}
+	
+	func loadRelateVideos(to video: UZVideoItem) {
+		UZContentServices().getRelates(videoId: video.id) { [weak self] (results, error) in
+			guard let `self` = self else { return }
+			
+			if let results = results {
+				self.collectionViewController.videos = results
+				self.collectionViewController.collectionView?.reloadData()
+				
+				if results.isEmpty {
+					self.collectionViewController.showMessage(message: "(Không có video liên quan)")
+				}
+				else {
+					self.collectionViewController.hideMessage()
+				}
+			}
+		}
+	}
+	
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		
+		self.view.addSubview(blurView)
+		self.view.addSubview(titleLabel)
+		self.view.addSubview(collectionViewController.view)
+		self.view.addSubview(frameLayout)
+	}
+	
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
+		
+		blurView.frame = self.view.bounds
+		frameLayout.frame = self.view.bounds
+	}
+	
+	override var preferredContentSize: CGSize {
+		get {
+			let screenSize = UIScreen.main.bounds.size
+			return frameLayout.sizeThatFits(screenSize)
+		}
+		set {
+			super.preferredContentSize = newValue
+		}
+	}
+	
+}
+
+extension UZRelatedViewController: NKModalViewControllerProtocol {
+	
+	func presentRect(for modalViewController: NKModalViewController!) -> CGRect {
+		let screenRect = UIScreen.main.bounds
+		let contentSize = CGSize(width: screenRect.size.width, height: 200)
+		return CGRect(x: 10, y: screenRect.height - contentSize.height - 10, width: screenRect.width - 20, height: contentSize.height)
+	}
+	
+	func viewController(forPresenting modalViewController: NKModalViewController!) -> UIViewController! {
+		if let window = UIApplication.shared.keyWindow, let viewController = window.rootViewController {
+			var result: UIViewController? = viewController
+			while result?.presentedViewController != nil {
+				result = result?.presentedViewController
+			}
+			
+			return result
+		}
+		
+		return nil
+	}
+	
+	func shouldTapOutside(toDismiss modalViewController: NKModalViewController!) -> Bool {
+		return true
+	}
+	
+	func shouldAllowDragToDismiss(for modalViewController: NKModalViewController!) -> Bool {
+		return true
+	}
+	
+}
+
+// MARK: - UZRelatedVideoCollectionViewController
 
 internal class UZRelatedVideoCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 	let CellIdentifier	= "VideoItemCell"
@@ -14,6 +119,7 @@ internal class UZRelatedVideoCollectionViewController: UICollectionViewControlle
 	var videos			: [UZVideoItem]! = []
 	var displayMode		: UZCellDisplayMode = .landscape
 	var selectedBlock	: ((_ item:UZVideoItem) -> Void)? = nil
+	var messageLabel	: UILabel?
 	
 	init() {
 		super.init(collectionViewLayout: UICollectionViewFlowLayout())
@@ -29,17 +135,6 @@ internal class UZRelatedVideoCollectionViewController: UICollectionViewControlle
 	}
 	
 	// MARK: -
-	
-	func loadRelateVideos(to video: UZVideoItem) {
-		UZContentServices().getRelates(videoId: video.id) { [weak self] (results, error) in
-			guard let `self` = self else { return }
-			
-			if let results = results {
-				self.videos = results
-				self.collectionView?.reloadData()
-			}
-		}
-	}
 	
 	func appendItems(items:[UZVideoItem]!) -> [UZVideoItem]! {
 		var finalItems = [UZVideoItem]() // remove duplicated items
@@ -121,8 +216,40 @@ internal class UZRelatedVideoCollectionViewController: UICollectionViewControlle
 		self.automaticallyAdjustsScrollViewInsets = false
 	}
 	
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
+		
+		if let messageLabel = messageLabel {
+			var viewSize = self.view.bounds.size
+			viewSize.width -= 20
+			let labelSize = messageLabel.sizeThatFits(viewSize)
+			messageLabel.frame = CGRect(x: 10, y: (viewSize.height - labelSize.height)/2, width: viewSize.width, height: labelSize.height)
+		}
+	}
+	
 	func videoItemAtIndexPath(_ indexPath:IndexPath) -> UZVideoItem {
 		return videos[(indexPath as NSIndexPath).item]
+	}
+	
+	func config(cell: UZMovieItemCollectionViewCell, with videoItem: UZVideoItem, and indexPath: IndexPath) {
+		cell.displayMode = displayMode
+		cell.videoItem = videoItem
+	}
+	
+	func showMessage(message: String) {
+		if messageLabel == nil {
+			messageLabel = UILabel()
+			messageLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+			messageLabel?.textColor = .white
+			self.view.addSubview(messageLabel!)
+		}
+		
+		messageLabel?.text = message
+	}
+	
+	func hideMessage() {
+		messageLabel?.removeFromSuperview()
+		messageLabel = nil
 	}
 	
 	// MARK: -
@@ -156,11 +283,6 @@ internal class UZRelatedVideoCollectionViewController: UICollectionViewControlle
 		config(cell: cell!, with: videoItemAtIndexPath(indexPath), and: indexPath)
 		
 		return cell!
-	}
-	
-	func config(cell: UZMovieItemCollectionViewCell, with videoItem: UZVideoItem, and indexPath: IndexPath) {
-		cell.displayMode = displayMode
-		cell.videoItem = videoItem
 	}
 	
 	override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

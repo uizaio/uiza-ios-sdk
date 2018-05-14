@@ -10,6 +10,7 @@ import UIKit
 import Foundation
 import AVFoundation
 import CoreGraphics
+import NKModalViewManager
 import GoogleInteractiveMediaAds
 
 public protocol UZPlayerDelegate : class {
@@ -358,6 +359,19 @@ open class UZPlayer: UIView {
 		}
 	}
 	
+	open func showRelates() {
+		if let currentVideo = currentVideo {
+			let viewController = UZRelatedViewController()
+			viewController.loadRelateVideos(to: currentVideo)
+			NKModalViewManager.sharedInstance().presentModalViewController(viewController)
+		}
+		else {
+			#if DEBUG
+			print("[UZPlayer] currentVideo not set")
+			#endif
+		}
+	}
+	
 	deinit {
 		playerLayer?.pause()
 		playerLayer?.prepareToDeinit()
@@ -474,6 +488,9 @@ extension UZPlayer: UZPlayerControlViewDelegate {
 				
 			case .share:
 				showShare()
+				
+			case .relates, .playlist:
+				showRelates()
 				
 			default:
 				print("Unhandled Action")

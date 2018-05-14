@@ -43,7 +43,6 @@ open class UZPlayerControlView: UIView {
 	open var tapGesture: UITapGestureRecognizer?
 	open var doubleTapGesture: UITapGestureRecognizer?
 	
-	internal(set) var currentVideo: UZVideoItem? = nil
 	fileprivate var playerLastState: UZPlayerState = .notSetURL
 	
 	fileprivate let titleLabel = UILabel()
@@ -69,7 +68,6 @@ open class UZPlayerControlView: UIView {
 	fileprivate var bottomFrameLayout 	: NKTripleFrameLayout!
 	
 	fileprivate var loadingIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 30, height: 30), type: NVActivityIndicatorType.ballRotateChase, color: .white, padding: 0)
-	fileprivate var relatesViewController: UZRelatedVideoCollectionViewController?
 	
 	init() {
 		super.init(frame: .zero)
@@ -281,7 +279,7 @@ open class UZPlayerControlView: UIView {
 		fullscreenButton.setImage(collapseIcon, for: .selected)
 		timeSlider.setThumbImage(UIImage(icon: .fontAwesome(.circle), size: seekThumbSize, textColor: iconColor, backgroundColor: .clear), for: .normal)
 		
-		playlistButton.isHidden = true
+//		playlistButton.isHidden = true
 		ccButton.isHidden = true
 		helpButton.isHidden = true
 		settingsButton.isHidden = true
@@ -396,12 +394,6 @@ open class UZPlayerControlView: UIView {
 		
 		loadingIndicatorView.center = self.center
 		shareView.frame = self.bounds
-		
-		if let relatesView = relatesViewController?.view {
-			let height = min(120, viewSize.height - 20)
-			relatesView.frame = CGRect(x: 10, y: viewSize.height - height - 10, width: viewSize.width - 20, height: height)
-			relatesView.setNeedsLayout()
-		}
 	}
 	
 	// MARK: -
@@ -542,26 +534,6 @@ open class UZPlayerControlView: UIView {
 	
 	open func hideEndScreen() {
 		shareView.isHidden = true
-	}
-	
-	open func showRelates() {
-		if let currentVideo = currentVideo {
-			relatesViewController = UZRelatedVideoCollectionViewController()
-			relatesViewController?.loadRelateVideos(to: currentVideo)
-			containerView.addSubview(relatesViewController!.view)
-			self.setNeedsLayout()
-		}
-	}
-	
-	open func hideRelates() {
-		if let relatesView = relatesViewController?.view {
-			UIView.animate(withDuration: 0.3, animations: {
-				relatesView.alpha = 0.0
-			}) { (finished) in
-				relatesView.removeFromSuperview()
-				self.relatesViewController = nil
-			}
-		}
 	}
 	
 	open func showLoader() {

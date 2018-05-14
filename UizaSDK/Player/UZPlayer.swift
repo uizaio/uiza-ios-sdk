@@ -363,6 +363,13 @@ open class UZPlayer: UIView {
 		if let currentVideo = currentVideo {
 			let viewController = UZRelatedViewController()
 			viewController.loadRelateVideos(to: currentVideo)
+			viewController.collectionViewController.selectedBlock = { [weak self] (videoItem) in
+				guard let `self` = self else { return }
+				
+				self.loadVideo(videoItem)
+				NKModalViewManager.sharedInstance().modalViewControllerThatContains(viewController)?.dismissWith(animated: true, completion: nil)
+				
+			}
 			NKModalViewManager.sharedInstance().presentModalViewController(viewController)
 		}
 		else {

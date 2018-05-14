@@ -285,6 +285,10 @@ internal class UZRelatedVideoCollectionViewController: UICollectionViewControlle
 		return cell!
 	}
 	
+	override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+		return true
+	}
+	
 	override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		collectionView.deselectItem(at: indexPath, animated: true)
 		

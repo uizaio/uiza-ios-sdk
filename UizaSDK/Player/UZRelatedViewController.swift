@@ -11,7 +11,7 @@ import NKModalViewManager
 import NKFrameLayoutKit
 
 internal class UZRelatedViewController: UIViewController {
-	let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
+	let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
 	let titleLabel = UILabel()
 	let collectionViewController = UZRelatedVideoCollectionViewController()
 	var frameLayout: NKDoubleFrameLayout!
@@ -55,6 +55,7 @@ internal class UZRelatedViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
+		self.view.backgroundColor = UIColor(white: 0.0, alpha: 0.35)
 		self.view.addSubview(blurView)
 		self.view.addSubview(titleLabel)
 		self.view.addSubview(collectionViewController.view)
@@ -241,6 +242,7 @@ internal class UZRelatedVideoCollectionViewController: UICollectionViewControlle
 			messageLabel = UILabel()
 			messageLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
 			messageLabel?.textColor = .white
+			messageLabel?.textAlignment = .center
 			self.view.addSubview(messageLabel!)
 		}
 		

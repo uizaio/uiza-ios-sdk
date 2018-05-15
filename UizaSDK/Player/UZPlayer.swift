@@ -128,6 +128,7 @@ open class UZPlayer: UIView {
 		playthrough_eventlog = [:]
 		currentDefinition = definitionIndex
 		controlView.prepareUI(for: resource)
+		controlView.playlistButton.isHidden = currentVideo == nil
 		
 		if shouldAutoPlay {
 			isURLSet = true

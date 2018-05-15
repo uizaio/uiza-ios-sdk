@@ -73,33 +73,33 @@ open class UZPlayerControlView: UIView {
 		}
 	}
 	
-	fileprivate var playerLastState: UZPlayerState = .notSetURL
+	internal var playerLastState: UZPlayerState = .notSetURL
 	
-	fileprivate let titleLabel = UILabel()
-	fileprivate let currentTimeLabel = UILabel()
-	fileprivate let totalTimeLabel = UILabel()
-	fileprivate let remainTimeLabel = UILabel()
-	fileprivate let playpauseCenterButton = UIButton()
-	fileprivate let playpauseButton = UIButton()
-	fileprivate let closeButton = UIButton()
-	fileprivate let forwardButton = UIButton()
-	fileprivate let backwardButton = UIButton()
-	fileprivate let volumeButton = UIButton()
-	fileprivate let backButton = UIButton()
-	fileprivate let fullscreenButton = UIButton()
-	fileprivate let playlistButton = UIButton()
-	fileprivate let ccButton = UIButton()
-	fileprivate let settingsButton = UIButton()
-	fileprivate let helpButton = UIButton()
-	fileprivate let timeSlider = UZSlider()
-	fileprivate let coverImageView = UIImageView()
-	fileprivate let shareView = UZShareView()
+	internal let titleLabel = UILabel()
+	internal let currentTimeLabel = UILabel()
+	internal let totalTimeLabel = UILabel()
+	internal let remainTimeLabel = UILabel()
+	internal let playpauseCenterButton = UIButton()
+	internal let playpauseButton = UIButton()
+	internal let closeButton = UIButton()
+	internal let forwardButton = UIButton()
+	internal let backwardButton = UIButton()
+	internal let volumeButton = UIButton()
+	internal let backButton = UIButton()
+	internal let fullscreenButton = UIButton()
+	internal let playlistButton = UIButton()
+	internal let ccButton = UIButton()
+	internal let settingsButton = UIButton()
+	internal let helpButton = UIButton()
+	internal let timeSlider = UZSlider()
+	internal let coverImageView = UIImageView()
+	internal let shareView = UZShareView()
 	
-	fileprivate var topFrameLayout 		: NKDoubleFrameLayout?
-	fileprivate var bottomFrameLayout 	: NKTripleFrameLayout?
-	fileprivate var mainFrameLayout 	: NKTripleFrameLayout?
+	internal var topFrameLayout 		: NKDoubleFrameLayout?
+	internal var bottomFrameLayout 	: NKTripleFrameLayout?
+	internal var mainFrameLayout 	: NKTripleFrameLayout?
 	
-	fileprivate var loadingIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 30, height: 30), type: NVActivityIndicatorType.ballRotateChase, color: .white, padding: 0)
+	internal var loadingIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 30, height: 30), type: NVActivityIndicatorType.ballRotateChase, color: .white, padding: 0)
 	
 	init() {
 		super.init(frame: .zero)
@@ -206,6 +206,11 @@ open class UZPlayerControlView: UIView {
 			button.setImage(nil, for: .selected)
 			button.setImage(nil, for: .disabled)
 		}
+		
+		timeSlider.setThumbImage(nil, for: .normal)
+		timeSlider.setThumbImage(nil, for: .highlighted)
+		timeSlider.setThumbImage(nil, for: .selected)
+		timeSlider.setThumbImage(nil, for: .disabled)
 	}
 	
 	func setupSkin1() {
@@ -229,6 +234,7 @@ open class UZPlayerControlView: UIView {
 		let backwardIcon = UIImage(icon: .fontAwesome(.backward), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let fullscreenIcon = UIImage(icon: .fontAwesome(.expand), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let collapseIcon = UIImage(icon: .fontAwesome(.compress), size: iconSize, textColor: iconColor, backgroundColor: .clear)
+		let thumbIcon = UIImage(icon: .fontAwesome(.circle), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		
 		backButton.setImage(backIcon, for: .normal)
 		playlistButton.setImage(playlistIcon, for: .normal)
@@ -244,6 +250,7 @@ open class UZPlayerControlView: UIView {
 		backwardButton.setImage(backwardIcon, for: .normal)
 		fullscreenButton.setImage(fullscreenIcon, for: .normal)
 		fullscreenButton.setImage(collapseIcon, for: .selected)
+		timeSlider.setThumbImage(thumbIcon, for: .normal)
 		
 		titleLabel.textColor = .white
 		titleLabel.font = UIFont.systemFont(ofSize: 14)
@@ -267,8 +274,6 @@ open class UZPlayerControlView: UIView {
 		remainTimeLabel.font = timeLabelFont
 		remainTimeLabel.shadowColor = timeLabelShadowColor
 		remainTimeLabel.shadowOffset = timeLabelShadowOffset
-		
-		timeSlider.setThumbImage(UIImage(icon: .fontAwesome(.circle), size: iconSize, textColor: iconColor, backgroundColor: .clear), for: .normal)
 	}
 	
 	func setupSkin2() {
@@ -282,6 +287,7 @@ open class UZPlayerControlView: UIView {
 		let ccIcon = UIImage(icon: .icofont(.cc), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let settingsIcon = UIImage(icon: .icofont(.gear), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let volumeIcon = UIImage(icon: .icofont(.volumeUp), size: iconSize, textColor: iconColor, backgroundColor: .clear)
+		let muteIcon = UIImage(icon: .icofont(.volumeMute), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let playBigIcon = UIImage(icon: .icofont(.playAlt1), size: centerIconSize, textColor: iconColor, backgroundColor: .clear)
 		let pauseBigIcon = UIImage(icon: .icofont(.pause), size: centerIconSize, textColor: iconColor, backgroundColor: .clear)
 		let playIcon = UIImage(icon: .googleMaterialDesign(.playArrow), size: iconSize, textColor: iconColor, backgroundColor: .clear)
@@ -290,6 +296,7 @@ open class UZPlayerControlView: UIView {
 		let backwardIcon = UIImage(icon: .googleMaterialDesign(.replay5), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let fullscreenIcon = UIImage(icon: .googleMaterialDesign(.fullscreen), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let collapseIcon = UIImage(icon: .googleMaterialDesign(.fullscreenExit), size: iconSize, textColor: iconColor, backgroundColor: .clear)
+		let thumbIcon = UIImage(icon: .fontAwesome(.circle), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		
 		backButton.setImage(backIcon, for: .normal)
 		playlistButton.setImage(playlistIcon, for: .normal)
@@ -297,6 +304,7 @@ open class UZPlayerControlView: UIView {
 		ccButton.setImage(ccIcon, for: .normal)
 		settingsButton.setImage(settingsIcon, for: .normal)
 		volumeButton.setImage(volumeIcon, for: .normal)
+		volumeButton.setImage(muteIcon, for: .selected)
 		playpauseCenterButton.setImage(playBigIcon, for: .normal)
 		playpauseCenterButton.setImage(pauseBigIcon, for: .selected)
 		playpauseButton.setImage(playIcon, for: .normal)
@@ -305,7 +313,7 @@ open class UZPlayerControlView: UIView {
 		backwardButton.setImage(backwardIcon, for: .normal)
 		fullscreenButton.setImage(fullscreenIcon, for: .normal)
 		fullscreenButton.setImage(collapseIcon, for: .selected)
-		timeSlider.setThumbImage(UIImage(icon: .fontAwesome(.circle), size: iconSize, textColor: iconColor, backgroundColor: .clear), for: .normal)
+		timeSlider.setThumbImage(thumbIcon, for: .normal)
 		
 		playlistButton.isHidden = true
 		ccButton.isHidden = true
@@ -359,6 +367,7 @@ open class UZPlayerControlView: UIView {
 		let backwardIcon = UIImage(icon: .googleMaterialDesign(.replay5), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let fullscreenIcon = UIImage(icon: .googleMaterialDesign(.fullscreen), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let collapseIcon = UIImage(icon: .googleMaterialDesign(.fullscreenExit), size: iconSize, textColor: iconColor, backgroundColor: .clear)
+		let thumbIcon = UIImage(icon: .fontAwesome(.circle), size: seekThumbSize, textColor: iconColor, backgroundColor: .clear)
 		
 		backButton.setImage(backIcon, for: .normal)
 		playlistButton.setImage(playlistIcon, for: .normal)
@@ -375,9 +384,9 @@ open class UZPlayerControlView: UIView {
 		backwardButton.setImage(backwardIcon, for: .normal)
 		fullscreenButton.setImage(fullscreenIcon, for: .normal)
 		fullscreenButton.setImage(collapseIcon, for: .selected)
-		timeSlider.setThumbImage(UIImage(icon: .fontAwesome(.circle), size: seekThumbSize, textColor: iconColor, backgroundColor: .clear), for: .normal)
+		timeSlider.setThumbImage(thumbIcon, for: .normal)
 		
-//		playlistButton.isHidden = true
+		playlistButton.isHidden = true
 		ccButton.isHidden = true
 		helpButton.isHidden = true
 		settingsButton.isHidden = true
@@ -412,17 +421,46 @@ open class UZPlayerControlView: UIView {
 		let iconColor = UIColor.white
 		let iconSize = CGSize(width: 32, height: 32)
 		let seekThumbSize = CGSize(width: 24, height: 24)
+		let centerIconSize = CGSize(width: 72, height: 72)
 		
+		let backIcon = UIImage(icon: .icofont(.arrowLeft), size: iconSize, textColor: iconColor, backgroundColor: .clear)
+		let playlistIcon = UIImage(icon: .icofont(.listineDots), size: iconSize, textColor: iconColor, backgroundColor: .clear)
+		let helpIcon = UIImage(icon: .icofont(.questionCircle), size: iconSize, textColor: iconColor, backgroundColor: .clear)
+		let ccIcon = UIImage(icon: .icofont(.cc), size: iconSize, textColor: iconColor, backgroundColor: .clear)
+		let settingsIcon = UIImage(icon: .icofont(.gear), size: iconSize, textColor: iconColor, backgroundColor: .clear)
+		let volumeIcon = UIImage(icon: .icofont(.volumeUp), size: iconSize, textColor: iconColor, backgroundColor: .clear)
+		let muteIcon = UIImage(icon: .icofont(.volumeMute), size: iconSize, textColor: iconColor, backgroundColor: .clear)
+		let playBigIcon = UIImage(icon: .googleMaterialDesign(.playCircleOutline), size: centerIconSize, textColor: iconColor, backgroundColor: .clear)
+		let pauseBigIcon = UIImage(icon: .googleMaterialDesign(.pauseCircleOutline), size: centerIconSize, textColor: iconColor, backgroundColor: .clear)
 		let playIcon = UIImage(icon: .googleMaterialDesign(.playArrow), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let pauseIcon = UIImage(icon: .googleMaterialDesign(.pause), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let fullscreenIcon = UIImage(icon: .googleMaterialDesign(.fullscreen), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let collapseIcon = UIImage(icon: .googleMaterialDesign(.fullscreenExit), size: iconSize, textColor: iconColor, backgroundColor: .clear)
+		let forwardIcon = UIImage(icon: .googleMaterialDesign(.forward5), size: iconSize, textColor: iconColor, backgroundColor: .clear)
+		let backwardIcon = UIImage(icon: .googleMaterialDesign(.replay5), size: iconSize, textColor: iconColor, backgroundColor: .clear)
+		let thumbIcon = UIImage(icon: .fontAwesome(.circle), size: seekThumbSize, textColor: iconColor, backgroundColor: .clear)
 		
+		backButton.setImage(backIcon, for: .normal)
+		playlistButton.setImage(playlistIcon, for: .normal)
+		helpButton.setImage(helpIcon, for: .normal)
+		ccButton.setImage(ccIcon, for: .normal)
+		settingsButton.setImage(settingsIcon, for: .normal)
+		volumeButton.setImage(volumeIcon, for: .normal)
+		volumeButton.setImage(muteIcon, for: .selected)
+		playpauseCenterButton.setImage(playBigIcon, for: .normal)
+		playpauseCenterButton.setImage(pauseBigIcon, for: .selected)
 		playpauseButton.setImage(playIcon, for: .normal)
 		playpauseButton.setImage(pauseIcon, for: .selected)
+		forwardButton.setImage(forwardIcon, for: .normal)
+		backwardButton.setImage(backwardIcon, for: .normal)
 		fullscreenButton.setImage(fullscreenIcon, for: .normal)
 		fullscreenButton.setImage(collapseIcon, for: .selected)
-		timeSlider.setThumbImage(UIImage(icon: .fontAwesome(.circle), size: seekThumbSize, textColor: iconColor, backgroundColor: .clear), for: .normal)
+		timeSlider.setThumbImage(thumbIcon, for: .normal)
+		
+		playlistButton.isHidden = true
+		ccButton.isHidden = true
+		helpButton.isHidden = true
+		settingsButton.isHidden = true
 		
 		let timeLabelFont = UIFont(name: "Arial", size: 12)
 		let timeLabelColor = UIColor.white

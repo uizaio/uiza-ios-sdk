@@ -96,8 +96,8 @@ open class UZPlayerControlView: UIView {
 	fileprivate let shareView = UZShareView()
 	
 	fileprivate var topFrameLayout 		: NKDoubleFrameLayout?
-	fileprivate var centerFrameLayout 	: NKFrameLayout?
 	fileprivate var bottomFrameLayout 	: NKTripleFrameLayout?
+	fileprivate var mainFrameLayout 	: NKTripleFrameLayout?
 	
 	fileprivate var loadingIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 30, height: 30), type: NVActivityIndicatorType.ballRotateChase, color: .white, padding: 0)
 	
@@ -221,8 +221,10 @@ open class UZPlayerControlView: UIView {
 		let ccIcon = UIImage(icon: .fontAwesome(.cc), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let settingsIcon = UIImage(icon: .fontAwesome(.cog), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let volumeIcon = UIImage(icon: .fontAwesome(.volumeUp), size: iconSize, textColor: iconColor, backgroundColor: .clear)
-		let playIcon = UIImage(icon: .fontAwesome(.playCircle), size: centerIconSize, textColor: iconColor, backgroundColor: .clear)
-		let pauseIcon = UIImage(icon: .fontAwesome(.pauseCircle), size: centerIconSize, textColor: iconColor, backgroundColor: .clear)
+		let playBigIcon = UIImage(icon: .fontAwesome(.playCircle), size: centerIconSize, textColor: iconColor, backgroundColor: .clear)
+		let pauseBigIcon = UIImage(icon: .fontAwesome(.pauseCircle), size: centerIconSize, textColor: iconColor, backgroundColor: .clear)
+		let playIcon = UIImage(icon: .googleMaterialDesign(.playArrow), size: iconSize, textColor: iconColor, backgroundColor: .clear)
+		let pauseIcon = UIImage(icon: .googleMaterialDesign(.pause), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let forwardIcon = UIImage(icon: .fontAwesome(.forward), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let backwardIcon = UIImage(icon: .fontAwesome(.backward), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let fullscreenIcon = UIImage(icon: .fontAwesome(.expand), size: iconSize, textColor: iconColor, backgroundColor: .clear)
@@ -234,8 +236,10 @@ open class UZPlayerControlView: UIView {
 		ccButton.setImage(ccIcon, for: .normal)
 		settingsButton.setImage(settingsIcon, for: .normal)
 		volumeButton.setImage(volumeIcon, for: .normal)
-		playpauseCenterButton.setImage(playIcon, for: .normal)
-		playpauseCenterButton.setImage(pauseIcon, for: .selected)
+		playpauseCenterButton.setImage(playBigIcon, for: .normal)
+		playpauseCenterButton.setImage(pauseBigIcon, for: .selected)
+		playpauseButton.setImage(playIcon, for: .normal)
+		playpauseButton.setImage(pauseIcon, for: .selected)
 		forwardButton.setImage(forwardIcon, for: .normal)
 		backwardButton.setImage(backwardIcon, for: .normal)
 		fullscreenButton.setImage(fullscreenIcon, for: .normal)
@@ -278,8 +282,10 @@ open class UZPlayerControlView: UIView {
 		let ccIcon = UIImage(icon: .icofont(.cc), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let settingsIcon = UIImage(icon: .icofont(.gear), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let volumeIcon = UIImage(icon: .icofont(.volumeUp), size: iconSize, textColor: iconColor, backgroundColor: .clear)
-		let playIcon = UIImage(icon: .icofont(.playAlt1), size: centerIconSize, textColor: iconColor, backgroundColor: .clear)
-		let pauseIcon = UIImage(icon: .icofont(.pause), size: centerIconSize, textColor: iconColor, backgroundColor: .clear)
+		let playBigIcon = UIImage(icon: .icofont(.playAlt1), size: centerIconSize, textColor: iconColor, backgroundColor: .clear)
+		let pauseBigIcon = UIImage(icon: .icofont(.pause), size: centerIconSize, textColor: iconColor, backgroundColor: .clear)
+		let playIcon = UIImage(icon: .googleMaterialDesign(.playArrow), size: iconSize, textColor: iconColor, backgroundColor: .clear)
+		let pauseIcon = UIImage(icon: .googleMaterialDesign(.pause), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let forwardIcon = UIImage(icon: .googleMaterialDesign(.forward5), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let backwardIcon = UIImage(icon: .googleMaterialDesign(.replay5), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let fullscreenIcon = UIImage(icon: .googleMaterialDesign(.fullscreen), size: iconSize, textColor: iconColor, backgroundColor: .clear)
@@ -291,8 +297,10 @@ open class UZPlayerControlView: UIView {
 		ccButton.setImage(ccIcon, for: .normal)
 		settingsButton.setImage(settingsIcon, for: .normal)
 		volumeButton.setImage(volumeIcon, for: .normal)
-		playpauseCenterButton.setImage(playIcon, for: .normal)
-		playpauseCenterButton.setImage(pauseIcon, for: .selected)
+		playpauseCenterButton.setImage(playBigIcon, for: .normal)
+		playpauseCenterButton.setImage(pauseBigIcon, for: .selected)
+		playpauseButton.setImage(playIcon, for: .normal)
+		playpauseButton.setImage(pauseIcon, for: .selected)
 		forwardButton.setImage(forwardIcon, for: .normal)
 		backwardButton.setImage(backwardIcon, for: .normal)
 		fullscreenButton.setImage(fullscreenIcon, for: .normal)
@@ -343,8 +351,10 @@ open class UZPlayerControlView: UIView {
 		let settingsIcon = UIImage(icon: .icofont(.gear), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let volumeIcon = UIImage(icon: .icofont(.volumeUp), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let muteIcon = UIImage(icon: .icofont(.volumeMute), size: iconSize, textColor: iconColor, backgroundColor: .clear)
-		let playIcon = UIImage(icon: .googleMaterialDesign(.playCircleOutline), size: centerIconSize, textColor: iconColor, backgroundColor: .clear)
-		let pauseIcon = UIImage(icon: .googleMaterialDesign(.pauseCircleOutline), size: centerIconSize, textColor: iconColor, backgroundColor: .clear)
+		let playBigIcon = UIImage(icon: .googleMaterialDesign(.playCircleOutline), size: centerIconSize, textColor: iconColor, backgroundColor: .clear)
+		let pauseBigIcon = UIImage(icon: .googleMaterialDesign(.pauseCircleOutline), size: centerIconSize, textColor: iconColor, backgroundColor: .clear)
+		let playIcon = UIImage(icon: .googleMaterialDesign(.playArrow), size: iconSize, textColor: iconColor, backgroundColor: .clear)
+		let pauseIcon = UIImage(icon: .googleMaterialDesign(.pause), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let forwardIcon = UIImage(icon: .googleMaterialDesign(.forward5), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let backwardIcon = UIImage(icon: .googleMaterialDesign(.replay5), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let fullscreenIcon = UIImage(icon: .googleMaterialDesign(.fullscreen), size: iconSize, textColor: iconColor, backgroundColor: .clear)
@@ -357,8 +367,10 @@ open class UZPlayerControlView: UIView {
 		settingsButton.setImage(settingsIcon, for: .normal)
 		volumeButton.setImage(volumeIcon, for: .normal)
 		volumeButton.setImage(muteIcon, for: .selected)
-		playpauseCenterButton.setImage(playIcon, for: .normal)
-		playpauseCenterButton.setImage(pauseIcon, for: .selected)
+		playpauseCenterButton.setImage(playBigIcon, for: .normal)
+		playpauseCenterButton.setImage(pauseBigIcon, for: .selected)
+		playpauseButton.setImage(playIcon, for: .normal)
+		playpauseButton.setImage(pauseIcon, for: .selected)
 		forwardButton.setImage(forwardIcon, for: .normal)
 		backwardButton.setImage(backwardIcon, for: .normal)
 		fullscreenButton.setImage(fullscreenIcon, for: .normal)
@@ -445,8 +457,8 @@ open class UZPlayerControlView: UIView {
 		}
 		
 		removeAllSubviews(from: topFrameLayout)
-		removeAllSubviews(from: centerFrameLayout)
 		removeAllSubviews(from: bottomFrameLayout)
+		removeAllSubviews(from: mainFrameLayout)
 		removeAllSubviews(from: containerView)
 	}
 	
@@ -483,10 +495,6 @@ open class UZPlayerControlView: UIView {
 		topFrameLayout!.edgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 0, right: 10)
 //		topFrameLayout!.showFrameDebug = true
 		
-		centerFrameLayout = NKFrameLayout()
-		centerFrameLayout!.targetView = playpauseCenterButton
-		centerFrameLayout!.contentAlignment = "cc"
-		
 		let bottomLeftFrameLayout = NKGridFrameLayout(direction: .horizontal, andViews: [currentTimeLabel])!
 		let bottomRightFrameLayout = NKGridFrameLayout(direction: .horizontal, andViews: [remainTimeLabel, backwardButton, forwardButton, fullscreenButton])!
 		bottomRightFrameLayout.spacing = 10
@@ -509,7 +517,14 @@ open class UZPlayerControlView: UIView {
 		
 		shareView.isHidden = true
 		
-		containerView.addSubview(centerFrameLayout!)
+		mainFrameLayout = NKTripleFrameLayout(direction: .vertical, andViews: [topFrameLayout!, playpauseCenterButton, bottomFrameLayout!])
+		mainFrameLayout?.layoutAlignment = .bottom
+		mainFrameLayout?.leftContentLayout.layoutAlignment = .top
+		mainFrameLayout?.topFrameLayout.contentAlignment = "ff"
+		mainFrameLayout?.bottomFrameLayout.contentAlignment = "ff"
+		mainFrameLayout!.centerFrameLayout.contentAlignment = "cc"
+		
+		containerView.addSubview(mainFrameLayout!)
 		containerView.addSubview(topFrameLayout!)
 		containerView.addSubview(bottomFrameLayout!)
 		containerView.addSubview(playpauseCenterButton)
@@ -549,11 +564,6 @@ open class UZPlayerControlView: UIView {
 		topFrameLayout!.edgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 0, right: 10)
 //		topFrameLayout!.showFrameDebug = true
 		
-		centerFrameLayout = NKFrameLayout()
-		centerFrameLayout!.targetView = playpauseCenterButton
-		centerFrameLayout!.contentAlignment = "cc"
-		centerFrameLayout!.addSubview(playpauseCenterButton)
-		
 		let bottomLeftFrameLayout = NKGridFrameLayout(direction: .horizontal, andViews: [playpauseButton, currentTimeLabel])!
 		let bottomRightFrameLayout = NKGridFrameLayout(direction: .horizontal, andViews: [remainTimeLabel, fullscreenButton])!
 		bottomRightFrameLayout.spacing = 10
@@ -572,14 +582,26 @@ open class UZPlayerControlView: UIView {
 		bottomFrameLayout!.leftFrameLayout.contentAlignment = "cf"
 		bottomFrameLayout!.rightFrameLayout.contentAlignment = "cf"
 		bottomFrameLayout!.isUserInteractionEnabled = true
-		bottomFrameLayout!.edgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+		bottomFrameLayout!.edgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
 		bottomFrameLayout!.backgroundColor = UIColor(white: 0.0, alpha: 0.8)
 		bottomFrameLayout!.layer.cornerRadius = 10
 		bottomFrameLayout!.layer.masksToBounds = true
 		
-		containerView.addSubview(centerFrameLayout!)
+		mainFrameLayout = NKTripleFrameLayout(direction: .vertical) // andViews: [topFrameLayout!, playpauseCenterButton, bottomFrameLayout!]
+		mainFrameLayout?.topFrameLayout.targetView = topFrameLayout
+		mainFrameLayout?.centerFrameLayout.targetView = playpauseCenterButton
+		mainFrameLayout?.bottomFrameLayout.targetView = bottomFrameLayout
+		mainFrameLayout?.layoutAlignment = .bottom
+		mainFrameLayout?.leftContentLayout.layoutAlignment = .top
+		mainFrameLayout?.topFrameLayout.contentAlignment = "ff"
+		mainFrameLayout?.bottomFrameLayout.contentAlignment = "ff"
+		mainFrameLayout!.centerFrameLayout.contentAlignment = "cc"
+		mainFrameLayout?.bottomFrameLayout.edgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+		
+		containerView.addSubview(mainFrameLayout!)
 		containerView.addSubview(topFrameLayout!)
 		containerView.addSubview(bottomFrameLayout!)
+		containerView.addSubview(playpauseCenterButton)
 		containerView.addSubview(shareView)
 	}
 	
@@ -600,14 +622,15 @@ open class UZPlayerControlView: UIView {
 		
 		containerView.frame = self.bounds
 		
-		let viewSize = self.bounds.size
-		let topSize = topFrameLayout?.sizeThatFits(viewSize) ?? .zero
-		topFrameLayout?.frame = CGRect(x: 0, y: 0, width: viewSize.width, height: topSize.height)
+//		let viewSize = self.bounds.size
 		
-		let bottomSize = bottomFrameLayout?.sizeThatFits(viewSize) ?? .zero
-		bottomFrameLayout?.frame = CGRect(x: 0, y: viewSize.height - bottomSize.height, width: viewSize.width, height: bottomSize.height)
+//		let topSize = topFrameLayout?.sizeThatFits(viewSize) ?? .zero
+//		topFrameLayout?.frame = CGRect(x: 0, y: 0, width: viewSize.width, height: topSize.height)
+//
+//		let bottomSize = bottomFrameLayout?.sizeThatFits(viewSize) ?? .zero
+//		bottomFrameLayout?.frame = CGRect(x: 0, y: viewSize.height - bottomSize.height, width: viewSize.width, height: bottomSize.height)
 		
-		centerFrameLayout?.frame = self.bounds
+		mainFrameLayout?.frame = self.bounds
 		
 		loadingIndicatorView.center = self.center
 		shareView.frame = self.bounds

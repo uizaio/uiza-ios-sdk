@@ -11,9 +11,11 @@ import NKModalViewManager
 
 open class UZPlayerViewController: UIViewController {
 	internal let playerController = UZPlayerController()
-	lazy open var player: UZPlayer = {
-		return playerController.player
-	}()
+	open var player: UZPlayer {
+		get {
+			return playerController.player
+		}
+	}
 	
 	var autoFullscreenWhenRotateDevice = true
 	
@@ -93,6 +95,8 @@ open class UZPlayerViewController: UIViewController {
 	}
 	
 }
+
+// MARK: - UZPlayerController
 
 internal class UZPlayerController: UIViewController {
 	internal let player = UZPlayer()

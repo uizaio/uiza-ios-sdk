@@ -28,14 +28,14 @@ public enum UZButtonTag: Int {
 	case relates	= 115
 }
 
-public enum UZPlayerSkin {
+public enum UZPlayerSkin: String {
 	case skin1
 	case skin2
 	case skin3
 	case skin4
 }
 
-public enum UZPlayerLayout {
+public enum UZPlayerLayout: String {
 	case layout1
 	case layout2
 }
@@ -64,6 +64,12 @@ open class UZPlayerControlView: UIView {
 	open var layout: UZPlayerLayout = .layout1 {
 		didSet {
 			updateLayout()
+		}
+	}
+	
+	open var allButtons: [UIButton]! {
+		get {
+			return [backButton, helpButton, ccButton, playlistButton, settingsButton, fullscreenButton, playpauseCenterButton, playpauseButton, forwardButton, backwardButton, volumeButton]
 		}
 	}
 	
@@ -142,7 +148,7 @@ open class UZPlayerControlView: UIView {
 		ccButton.tag = UZButtonTag.caption.rawValue
 		helpButton.tag = UZButtonTag.help.rawValue
 		
-		var allButtons: [UIButton] = [backButton, helpButton, ccButton, playlistButton, settingsButton, fullscreenButton, playpauseCenterButton, playpauseButton, forwardButton, backwardButton, volumeButton]
+		var allButtons: [UIButton] = self.allButtons
 		allButtons.append(contentsOf: shareView.allButtons)
 		allButtons.forEach { (button) in
 			button.showsTouchWhenHighlighted = true
@@ -193,7 +199,18 @@ open class UZPlayerControlView: UIView {
 	
 	// MARK: - Skins
 	
+	func resetSkin() {
+		for button in self.allButtons {
+			button.setImage(nil, for: .normal)
+			button.setImage(nil, for: .highlighted)
+			button.setImage(nil, for: .selected)
+			button.setImage(nil, for: .disabled)
+		}
+	}
+	
 	func setupSkin1() {
+		resetSkin()
+		
 		let iconColor = UIColor.white
 		let iconSize = CGSize(width: 24, height: 24)
 		let centerIconSize = CGSize(width: 92, height: 92)
@@ -312,6 +329,8 @@ open class UZPlayerControlView: UIView {
 	}
 	
 	func setupSkin3() {
+		resetSkin()
+		
 		let iconColor = UIColor.white
 		let iconSize = CGSize(width: 32, height: 32)
 		let seekThumbSize = CGSize(width: 24, height: 24)
@@ -376,6 +395,8 @@ open class UZPlayerControlView: UIView {
 	}
 	
 	func setupSkin4() {
+		resetSkin()
+		
 		let iconColor = UIColor.white
 		let iconSize = CGSize(width: 32, height: 32)
 		let seekThumbSize = CGSize(width: 24, height: 24)
@@ -465,7 +486,6 @@ open class UZPlayerControlView: UIView {
 		centerFrameLayout = NKFrameLayout()
 		centerFrameLayout!.targetView = playpauseCenterButton
 		centerFrameLayout!.contentAlignment = "cc"
-		centerFrameLayout!.addSubview(playpauseCenterButton)
 		
 		let bottomLeftFrameLayout = NKGridFrameLayout(direction: .horizontal, andViews: [currentTimeLabel])!
 		let bottomRightFrameLayout = NKGridFrameLayout(direction: .horizontal, andViews: [remainTimeLabel, backwardButton, forwardButton, fullscreenButton])!
@@ -492,6 +512,7 @@ open class UZPlayerControlView: UIView {
 		containerView.addSubview(centerFrameLayout!)
 		containerView.addSubview(topFrameLayout!)
 		containerView.addSubview(bottomFrameLayout!)
+		containerView.addSubview(playpauseCenterButton)
 		containerView.addSubview(shareView)
 	}
 	
@@ -534,7 +555,7 @@ open class UZPlayerControlView: UIView {
 		centerFrameLayout!.addSubview(playpauseCenterButton)
 		
 		let bottomLeftFrameLayout = NKGridFrameLayout(direction: .horizontal, andViews: [playpauseButton, currentTimeLabel])!
-		let bottomRightFrameLayout = NKGridFrameLayout(direction: .horizontal, andViews: [remainTimeLabel])!
+		let bottomRightFrameLayout = NKGridFrameLayout(direction: .horizontal, andViews: [remainTimeLabel, fullscreenButton])!
 		bottomRightFrameLayout.spacing = 10
 		bottomLeftFrameLayout.spacing = 10
 		
@@ -542,6 +563,7 @@ open class UZPlayerControlView: UIView {
 		bottomFrameLayout!.addSubview(currentTimeLabel)
 		bottomFrameLayout!.addSubview(remainTimeLabel)
 		bottomFrameLayout!.addSubview(timeSlider)
+		bottomFrameLayout!.addSubview(fullscreenButton)
 		bottomFrameLayout!.addSubview(playpauseButton)
 		bottomFrameLayout!.spacing = 10
 		bottomFrameLayout!.layoutAlignment = .right
@@ -550,7 +572,7 @@ open class UZPlayerControlView: UIView {
 		bottomFrameLayout!.leftFrameLayout.contentAlignment = "cf"
 		bottomFrameLayout!.rightFrameLayout.contentAlignment = "cf"
 		bottomFrameLayout!.isUserInteractionEnabled = true
-		bottomFrameLayout!.edgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+		bottomFrameLayout!.edgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
 		bottomFrameLayout!.backgroundColor = UIColor(white: 0.0, alpha: 0.8)
 		bottomFrameLayout!.layer.cornerRadius = 10
 		bottomFrameLayout!.layer.masksToBounds = true

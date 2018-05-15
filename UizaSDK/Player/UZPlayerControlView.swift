@@ -65,6 +65,7 @@ open class UZPlayerControlView: UIView {
 	fileprivate let shareView = UZShareView()
 	
 	fileprivate var topFrameLayout 		: NKDoubleFrameLayout!
+	fileprivate var centerFrameLayout 	: NKFrameLayout!
 	fileprivate var bottomFrameLayout 	: NKTripleFrameLayout!
 	
 	fileprivate var loadingIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 30, height: 30), type: NVActivityIndicatorType.ballRotateChase, color: .white, padding: 0)
@@ -124,7 +125,7 @@ open class UZPlayerControlView: UIView {
 		super.init(coder: aDecoder)
 	}
 	
-	// MARK: -
+	// MARK: - Skins
 	
 	func setupSkin1() {
 		let iconColor = UIColor.white
@@ -308,6 +309,8 @@ open class UZPlayerControlView: UIView {
 		remainTimeLabel.shadowOffset = timeLabelShadowOffset
 	}
 	
+	// MARK: - Layouts
+	
 	func setupLayout1() {
 		let controlFrameLayout = NKGridFrameLayout(direction: .horizontal, andViews: [helpButton, playlistButton, ccButton, settingsButton, volumeButton])!
 		controlFrameLayout.addSubview(helpButton)
@@ -339,6 +342,10 @@ open class UZPlayerControlView: UIView {
 		topFrameLayout.edgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 0, right: 10)
 //		topFrameLayout.showFrameDebug = true
 		
+		centerFrameLayout = NKFrameLayout()
+		centerFrameLayout.targetView = playpauseButton
+		centerFrameLayout.contentAlignment = "cc"
+		
 		let bottomLeftFrameLayout = NKGridFrameLayout(direction: .horizontal, andViews: [currentTimeLabel])!
 		let bottomRightFrameLayout = NKGridFrameLayout(direction: .horizontal, andViews: [remainTimeLabel, backwardButton, forwardButton, fullscreenButton])!
 		bottomRightFrameLayout.spacing = 10
@@ -361,11 +368,14 @@ open class UZPlayerControlView: UIView {
 		
 		shareView.isHidden = true
 		
+		containerView.addSubview(centerFrameLayout)
 		containerView.addSubview(topFrameLayout)
 		containerView.addSubview(bottomFrameLayout)
 		containerView.addSubview(playpauseButton)
 		containerView.addSubview(shareView)
 	}
+	
+	// MARK: -
 	
 	internal func setupGestures() {
 		tapGesture = UITapGestureRecognizer(target: self, action: #selector(onTap))
@@ -389,8 +399,7 @@ open class UZPlayerControlView: UIView {
 		let bottomSize = bottomFrameLayout.sizeThatFits(viewSize)
 		bottomFrameLayout.frame = CGRect(x: 0, y: viewSize.height - bottomSize.height, width: viewSize.width, height: bottomSize.height)
 		
-		let buttonSize = playpauseButton.sizeThatFits(viewSize)
-		playpauseButton.frame = CGRect(x: (viewSize.width - buttonSize.width)/2, y: (viewSize.height - buttonSize.height)/2, width: buttonSize.width, height: buttonSize.height)
+		centerFrameLayout.frame = self.bounds
 		
 		loadingIndicatorView.center = self.center
 		shareView.frame = self.bounds
@@ -584,9 +593,8 @@ open class UZPlayerControlView: UIView {
 		if let type = UZButtonTag(rawValue: button.tag) {
 			switch type {
 			case .play, .replay:
-				if playerLastState == .playedToTheEnd {
-					hideEndScreen()
-				}
+				hideEndScreen()
+				
 			default:
 				break
 			}

@@ -6,6 +6,8 @@
 //  Copyright © 2016 Nam Kennic. All rights reserved.
 //
 
+import Foundation
+
 extension String {
 	
 	var stringByDeletingLastPathComponent: String {

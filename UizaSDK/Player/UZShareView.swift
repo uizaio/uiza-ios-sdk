@@ -10,6 +10,7 @@ import UIKit
 import NKFrameLayoutKit
 
 open class UZShareView: UIView {
+	let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
 	let titleLabel = UILabel()
 	let replayButton = UIButton()
 	let shareButton = UIButton()
@@ -41,7 +42,7 @@ open class UZShareView: UIView {
 	}
 	
 	open func setupUI() {
-		self.backgroundColor = UIColor(white: 0.0, alpha: 0.8)
+		self.backgroundColor = UIColor(white: 0.0, alpha: 0.35)
 		
 		titleLabel.font = UIFont.systemFont(ofSize: 15, weight: .medium)
 		titleLabel.textColor = .white
@@ -54,6 +55,7 @@ open class UZShareView: UIView {
 		replayButton.tag = UZButtonTag.replay.rawValue
 		shareButton.tag = UZButtonTag.share.rawValue
 		
+		self.addSubview(blurView)
 		self.addSubview(titleLabel)
 		self.addSubview(replayButton)
 		self.addSubview(shareButton)
@@ -71,6 +73,7 @@ open class UZShareView: UIView {
 	override open func layoutSubviews() {
 		super.layoutSubviews()
 		
+		blurView.frame = self.bounds
 		frameLayout?.frame = self.bounds
 	}
 	

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0197156A0CC97D9DEF6F51DB /* Pods_UizaSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3EF719FF3F438E076EB2A5C /* Pods_UizaSDK.framework */; };
+		4AB1E76502B2FC8B6ACF578B /* Pods_UizaPlayerTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96E9DDDB0BEAFCDD89AF7DFF /* Pods_UizaPlayerTest.framework */; };
 		538D3A8A952E43B54F6CC2FE /* Pods_UizaSDKTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 202A368E44ECEC2CBD8A1F2F /* Pods_UizaSDKTests.framework */; };
 		6309D95E20A4078E008CC538 /* UZRelatedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6309D95D20A4078E008CC538 /* UZRelatedViewController.swift */; };
 		632124F22089E1EE00720593 /* UZBannerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124EB2089E1ED00720593 /* UZBannerItem.swift */; };
@@ -32,6 +33,46 @@
 		6346B7AB20930DAC00A68AD4 /* NSTimeInterval+ToString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6346B7AA20930DAC00A68AD4 /* NSTimeInterval+ToString.swift */; };
 		6346B7AC20930DAC00A68AD4 /* NSTimeInterval+ToString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6346B7AA20930DAC00A68AD4 /* NSTimeInterval+ToString.swift */; };
 		63714A24209B108600426948 /* UZShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63714A23209B108600426948 /* UZShareView.swift */; };
+		638EC0D820AAA17D00C0243E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638EC0D720AAA17D00C0243E /* AppDelegate.swift */; };
+		638EC0DA20AAA17D00C0243E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638EC0D920AAA17D00C0243E /* ViewController.swift */; };
+		638EC0DD20AAA17D00C0243E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 638EC0DB20AAA17D00C0243E /* Main.storyboard */; };
+		638EC0DF20AAA17F00C0243E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 638EC0DE20AAA17F00C0243E /* Assets.xcassets */; };
+		638EC0E220AAA17F00C0243E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 638EC0E020AAA17F00C0243E /* LaunchScreen.storyboard */; };
+		638EC0E720AAA2CA00C0243E /* AVAudioSession+Airplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6346B7A820930D7D00A68AD4 /* AVAudioSession+Airplay.swift */; };
+		638EC0E820AAA2CA00C0243E /* Date+Comparators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F87205BA10800DB2C96 /* Date+Comparators.swift */; };
+		638EC0E920AAA2CA00C0243E /* Dictionary+Append.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F82205BA10800DB2C96 /* Dictionary+Append.swift */; };
+		638EC0EA20AAA2CA00C0243E /* Error+Code.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F81205BA10800DB2C96 /* Error+Code.swift */; };
+		638EC0EB20AAA2CA00C0243E /* FileManager+Extends.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F7F205BA10800DB2C96 /* FileManager+Extends.swift */; };
+		638EC0EC20AAA2CA00C0243E /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F7D205BA10800DB2C96 /* UIDevice+Extension.swift */; };
+		638EC0ED20AAA2CA00C0243E /* UIApplication+Version.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F7E205BA10800DB2C96 /* UIApplication+Version.swift */; };
+		638EC0EE20AAA2CA00C0243E /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F80205BA10800DB2C96 /* UIColor+Hex.swift */; };
+		638EC0EF20AAA2CA00C0243E /* NSError+Uiza.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F83205BA10800DB2C96 /* NSError+Uiza.swift */; };
+		638EC0F020AAA2CA00C0243E /* NSTimeInterval+ToString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6346B7AA20930DAC00A68AD4 /* NSTimeInterval+ToString.swift */; };
+		638EC0F120AAA2CA00C0243E /* NSDictionary+KeyValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F85205BA10800DB2C96 /* NSDictionary+KeyValue.swift */; };
+		638EC0F220AAA2CA00C0243E /* String+ToBool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F84205BA10800DB2C96 /* String+ToBool.swift */; };
+		638EC0F320AAA2CA00C0243E /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F86205BA10800DB2C96 /* String+Extension.swift */; };
+		638EC0F420AAA2CA00C0243E /* String+Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F88205BA10800DB2C96 /* String+Components.swift */; };
+		638EC0F520AAA2CA00C0243E /* String+ToDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F8A205BA10800DB2C96 /* String+ToDictionary.swift */; };
+		638EC0F620AAA2CD00C0243E /* UizaSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124FA2089E20700720593 /* UizaSDK.swift */; };
+		638EC0F720AAA2CD00C0243E /* UZAccountServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124F92089E20700720593 /* UZAccountServices.swift */; };
+		638EC0F820AAA2CD00C0243E /* UZAPIConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124FD2089E20800720593 /* UZAPIConnector.swift */; };
+		638EC0F920AAA2CD00C0243E /* UZContentServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124FB2089E20800720593 /* UZContentServices.swift */; };
+		638EC0FA20AAA2CD00C0243E /* UZLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124FC2089E20800720593 /* UZLogger.swift */; };
+		638EC0FB20AAA2D200C0243E /* UZModelObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124ED2089E1ED00720593 /* UZModelObject.swift */; };
+		638EC0FC20AAA2D200C0243E /* UZBannerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124EB2089E1ED00720593 /* UZBannerItem.swift */; };
+		638EC0FD20AAA2D200C0243E /* UZCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124F12089E1EE00720593 /* UZCategory.swift */; };
+		638EC0FE20AAA2D200C0243E /* UZMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124EC2089E1ED00720593 /* UZMenuItem.swift */; };
+		638EC0FF20AAA2D200C0243E /* UZToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124F02089E1EE00720593 /* UZToken.swift */; };
+		638EC10020AAA2D200C0243E /* UZUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124EE2089E1EE00720593 /* UZUser.swift */; };
+		638EC10120AAA2D200C0243E /* UZVideoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124EF2089E1EE00720593 /* UZVideoItem.swift */; };
+		638EC10220AAA2D600C0243E /* UZPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6346B7A120930C3200A68AD4 /* UZPlayer.swift */; };
+		638EC10320AAA2D600C0243E /* UZPlayerControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6346B79A20930C3200A68AD4 /* UZPlayerControlView.swift */; };
+		638EC10420AAA2D600C0243E /* UZShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63714A23209B108600426948 /* UZShareView.swift */; };
+		638EC10520AAA2D600C0243E /* UZRelatedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6309D95D20A4078E008CC538 /* UZRelatedViewController.swift */; };
+		638EC10620AAA2D600C0243E /* UZPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6346B79B20930C3200A68AD4 /* UZPlayerViewController.swift */; };
+		638EC10720AAA2DD00C0243E /* NKProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6346B79F20930C3200A68AD4 /* NKProgressView.swift */; };
+		638EC10820AAA2DD00C0243E /* UZSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6346B7A020930C3200A68AD4 /* UZSlider.swift */; };
+		638EC10920AAA2E000C0243E /* UZMediaResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6346B79D20930C3200A68AD4 /* UZMediaResource.swift */; };
 		63C65F6C205B9FE600DB2C96 /* UizaSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C65F62205B9FE600DB2C96 /* UizaSDK.framework */; };
 		63C65F71205B9FE600DB2C96 /* UizaSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F70205B9FE600DB2C96 /* UizaSDKTests.swift */; };
 		63C65F73205B9FE600DB2C96 /* UizaSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 63C65F65205B9FE600DB2C96 /* UizaSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -89,6 +130,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0E715D5FB8765152CC4F10F5 /* Pods-UizaPlayerTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UizaPlayerTest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UizaPlayerTest/Pods-UizaPlayerTest.debug.xcconfig"; sourceTree = "<group>"; };
 		10619F129EBE56DAC47084F9 /* Pods-UizaSDK-tvos.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UizaSDK-tvos.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UizaSDK-tvos/Pods-UizaSDK-tvos.debug.xcconfig"; sourceTree = "<group>"; };
 		1C777641F82A55CB8D6DD6E3 /* Pods_UizaSDK_tvos.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UizaSDK_tvos.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		202A368E44ECEC2CBD8A1F2F /* Pods_UizaSDKTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UizaSDKTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -116,6 +158,13 @@
 		6346B7A820930D7D00A68AD4 /* AVAudioSession+Airplay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AVAudioSession+Airplay.swift"; sourceTree = "<group>"; };
 		6346B7AA20930DAC00A68AD4 /* NSTimeInterval+ToString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSTimeInterval+ToString.swift"; sourceTree = "<group>"; };
 		63714A23209B108600426948 /* UZShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZShareView.swift; sourceTree = "<group>"; };
+		638EC0D520AAA17D00C0243E /* UizaPlayerTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UizaPlayerTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		638EC0D720AAA17D00C0243E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		638EC0D920AAA17D00C0243E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		638EC0DC20AAA17D00C0243E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		638EC0DE20AAA17F00C0243E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		638EC0E120AAA17F00C0243E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		638EC0E320AAA17F00C0243E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63C65F62205B9FE600DB2C96 /* UizaSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UizaSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		63C65F65205B9FE600DB2C96 /* UizaSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UizaSDK.h; sourceTree = "<group>"; };
 		63C65F66205B9FE600DB2C96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -139,12 +188,22 @@
 		63FC58C2208A1F0B009C9028 /* UizaSDK_tvos.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UizaSDK_tvos.h; sourceTree = "<group>"; };
 		63FC58C3208A1F0B009C9028 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		860B16779D07210913450B9F /* Pods-UizaSDK-tvos.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UizaSDK-tvos.release.xcconfig"; path = "Pods/Target Support Files/Pods-UizaSDK-tvos/Pods-UizaSDK-tvos.release.xcconfig"; sourceTree = "<group>"; };
+		96E9DDDB0BEAFCDD89AF7DFF /* Pods_UizaPlayerTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UizaPlayerTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FC8E8DE1EDD07EAD7267040 /* Pods-UizaSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UizaSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UizaSDK/Pods-UizaSDK.debug.xcconfig"; sourceTree = "<group>"; };
+		A31A18B66B62D3BBEB193CFF /* Pods-UizaPlayerTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UizaPlayerTest.release.xcconfig"; path = "Pods/Target Support Files/Pods-UizaPlayerTest/Pods-UizaPlayerTest.release.xcconfig"; sourceTree = "<group>"; };
 		BE8577A3B28C9EBB8D29C941 /* Pods-UizaSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UizaSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-UizaSDK/Pods-UizaSDK.release.xcconfig"; sourceTree = "<group>"; };
 		F3EF719FF3F438E076EB2A5C /* Pods_UizaSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UizaSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		638EC0D220AAA17D00C0243E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4AB1E76502B2FC8B6ACF578B /* Pods_UizaPlayerTest.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		63C65F5E205B9FE600DB2C96 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -179,6 +238,7 @@
 				F3EF719FF3F438E076EB2A5C /* Pods_UizaSDK.framework */,
 				202A368E44ECEC2CBD8A1F2F /* Pods_UizaSDKTests.framework */,
 				1C777641F82A55CB8D6DD6E3 /* Pods_UizaSDK_tvos.framework */,
+				96E9DDDB0BEAFCDD89AF7DFF /* Pods_UizaPlayerTest.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -214,12 +274,26 @@
 			path = Controls;
 			sourceTree = "<group>";
 		};
+		638EC0D620AAA17D00C0243E /* UizaPlayerTest */ = {
+			isa = PBXGroup;
+			children = (
+				638EC0D720AAA17D00C0243E /* AppDelegate.swift */,
+				638EC0D920AAA17D00C0243E /* ViewController.swift */,
+				638EC0DB20AAA17D00C0243E /* Main.storyboard */,
+				638EC0DE20AAA17F00C0243E /* Assets.xcassets */,
+				638EC0E020AAA17F00C0243E /* LaunchScreen.storyboard */,
+				638EC0E320AAA17F00C0243E /* Info.plist */,
+			);
+			path = UizaPlayerTest;
+			sourceTree = "<group>";
+		};
 		63C65F58205B9FE600DB2C96 = {
 			isa = PBXGroup;
 			children = (
 				63C65F64205B9FE600DB2C96 /* UizaSDK */,
 				63FC58C1208A1F0B009C9028 /* UizaSDK-tvos */,
 				63C65F6F205B9FE600DB2C96 /* UizaSDKTests */,
+				638EC0D620AAA17D00C0243E /* UizaPlayerTest */,
 				63C65F63205B9FE600DB2C96 /* Products */,
 				BB947AFA2F568CFE1C9F5E09 /* Pods */,
 				4B9EEB5333F2831668A9B018 /* Frameworks */,
@@ -232,6 +306,7 @@
 				63C65F62205B9FE600DB2C96 /* UizaSDK.framework */,
 				63C65F6B205B9FE600DB2C96 /* UizaSDKTests.xctest */,
 				63FC58C0208A1F0B009C9028 /* UizaSDK_tvos.framework */,
+				638EC0D520AAA17D00C0243E /* UizaPlayerTest.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -324,6 +399,8 @@
 				4BC432C22A6BF2074ECD5F97 /* Pods-UizaSDKTests.release.xcconfig */,
 				10619F129EBE56DAC47084F9 /* Pods-UizaSDK-tvos.debug.xcconfig */,
 				860B16779D07210913450B9F /* Pods-UizaSDK-tvos.release.xcconfig */,
+				0E715D5FB8765152CC4F10F5 /* Pods-UizaPlayerTest.debug.xcconfig */,
+				A31A18B66B62D3BBEB193CFF /* Pods-UizaPlayerTest.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -351,6 +428,25 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		638EC0D420AAA17D00C0243E /* UizaPlayerTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 638EC0E420AAA17F00C0243E /* Build configuration list for PBXNativeTarget "UizaPlayerTest" */;
+			buildPhases = (
+				F5268FFCD5BD2F91D08C9B10 /* [CP] Check Pods Manifest.lock */,
+				638EC0D120AAA17D00C0243E /* Sources */,
+				638EC0D220AAA17D00C0243E /* Frameworks */,
+				638EC0D320AAA17D00C0243E /* Resources */,
+				A9A0282F082ECBABA36F3D62 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = UizaPlayerTest;
+			productName = UizaPlayerTest;
+			productReference = 638EC0D520AAA17D00C0243E /* UizaPlayerTest.app */;
+			productType = "com.apple.product-type.application";
+		};
 		63C65F61205B9FE600DB2C96 /* UizaSDK */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 63C65F76205B9FE600DB2C96 /* Build configuration list for PBXNativeTarget "UizaSDK" */;
@@ -415,10 +511,14 @@
 		63C65F59205B9FE600DB2C96 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0920;
+				LastSwiftUpdateCheck = 0930;
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Nam Kennic";
 				TargetAttributes = {
+					638EC0D420AAA17D00C0243E = {
+						CreatedOnToolsVersion = 9.3.1;
+						ProvisioningStyle = Automatic;
+					};
 					63C65F61205B9FE600DB2C96 = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
@@ -439,6 +539,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 63C65F58205B9FE600DB2C96;
 			productRefGroup = 63C65F63205B9FE600DB2C96 /* Products */;
@@ -448,11 +549,22 @@
 				63C65F61205B9FE600DB2C96 /* UizaSDK */,
 				63FC58BF208A1F0B009C9028 /* UizaSDK-tvos */,
 				63C65F6A205B9FE600DB2C96 /* UizaSDKTests */,
+				638EC0D420AAA17D00C0243E /* UizaPlayerTest */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		638EC0D320AAA17D00C0243E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				638EC0E220AAA17F00C0243E /* LaunchScreen.storyboard in Resources */,
+				638EC0DF20AAA17F00C0243E /* Assets.xcassets in Resources */,
+				638EC0DD20AAA17D00C0243E /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		63C65F60205B9FE600DB2C96 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -565,9 +677,105 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		A9A0282F082ECBABA36F3D62 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-UizaPlayerTest/Pods-UizaPlayerTest-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AFDateHelper-iOS/AFDateHelper.framework",
+				"${BUILT_PRODUCTS_DIR}/Alamofire-iOS/Alamofire.framework",
+				"${PODS_ROOT}/GoogleAds-IMA-iOS-SDK/GoogleInteractiveMediaAds.framework",
+				"${BUILT_PRODUCTS_DIR}/NKFrameLayoutKit/NKFrameLayoutKit.framework",
+				"${BUILT_PRODUCTS_DIR}/NKModalViewManager/NKModalViewManager.framework",
+				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftIcons/SwiftIcons.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON-iOS/SwiftyJSON.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFDateHelper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleInteractiveMediaAds.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NKFrameLayoutKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NKModalViewManager.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftIcons.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-UizaPlayerTest/Pods-UizaPlayerTest-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F5268FFCD5BD2F91D08C9B10 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-UizaPlayerTest-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		638EC0D120AAA17D00C0243E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				638EC0FA20AAA2CD00C0243E /* UZLogger.swift in Sources */,
+				638EC10220AAA2D600C0243E /* UZPlayer.swift in Sources */,
+				638EC10520AAA2D600C0243E /* UZRelatedViewController.swift in Sources */,
+				638EC0E920AAA2CA00C0243E /* Dictionary+Append.swift in Sources */,
+				638EC0FB20AAA2D200C0243E /* UZModelObject.swift in Sources */,
+				638EC0ED20AAA2CA00C0243E /* UIApplication+Version.swift in Sources */,
+				638EC0EF20AAA2CA00C0243E /* NSError+Uiza.swift in Sources */,
+				638EC10920AAA2E000C0243E /* UZMediaResource.swift in Sources */,
+				638EC10820AAA2DD00C0243E /* UZSlider.swift in Sources */,
+				638EC0F220AAA2CA00C0243E /* String+ToBool.swift in Sources */,
+				638EC0EC20AAA2CA00C0243E /* UIDevice+Extension.swift in Sources */,
+				638EC0EA20AAA2CA00C0243E /* Error+Code.swift in Sources */,
+				638EC10420AAA2D600C0243E /* UZShareView.swift in Sources */,
+				638EC0E720AAA2CA00C0243E /* AVAudioSession+Airplay.swift in Sources */,
+				638EC0F020AAA2CA00C0243E /* NSTimeInterval+ToString.swift in Sources */,
+				638EC0E820AAA2CA00C0243E /* Date+Comparators.swift in Sources */,
+				638EC0DA20AAA17D00C0243E /* ViewController.swift in Sources */,
+				638EC0F720AAA2CD00C0243E /* UZAccountServices.swift in Sources */,
+				638EC0F420AAA2CA00C0243E /* String+Components.swift in Sources */,
+				638EC10120AAA2D200C0243E /* UZVideoItem.swift in Sources */,
+				638EC0FE20AAA2D200C0243E /* UZMenuItem.swift in Sources */,
+				638EC0D820AAA17D00C0243E /* AppDelegate.swift in Sources */,
+				638EC10620AAA2D600C0243E /* UZPlayerViewController.swift in Sources */,
+				638EC0EB20AAA2CA00C0243E /* FileManager+Extends.swift in Sources */,
+				638EC10720AAA2DD00C0243E /* NKProgressView.swift in Sources */,
+				638EC0FF20AAA2D200C0243E /* UZToken.swift in Sources */,
+				638EC0F120AAA2CA00C0243E /* NSDictionary+KeyValue.swift in Sources */,
+				638EC0FC20AAA2D200C0243E /* UZBannerItem.swift in Sources */,
+				638EC0F920AAA2CD00C0243E /* UZContentServices.swift in Sources */,
+				638EC0FD20AAA2D200C0243E /* UZCategory.swift in Sources */,
+				638EC0F320AAA2CA00C0243E /* String+Extension.swift in Sources */,
+				638EC0F620AAA2CD00C0243E /* UizaSDK.swift in Sources */,
+				638EC0F520AAA2CA00C0243E /* String+ToDictionary.swift in Sources */,
+				638EC10020AAA2D200C0243E /* UZUser.swift in Sources */,
+				638EC10320AAA2D600C0243E /* UZPlayerControlView.swift in Sources */,
+				638EC0EE20AAA2CA00C0243E /* UIColor+Hex.swift in Sources */,
+				638EC0F820AAA2CD00C0243E /* UZAPIConnector.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		63C65F5D205B9FE600DB2C96 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -661,7 +869,62 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		638EC0DB20AAA17D00C0243E /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				638EC0DC20AAA17D00C0243E /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		638EC0E020AAA17F00C0243E /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				638EC0E120AAA17F00C0243E /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
+		638EC0E520AAA17F00C0243E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0E715D5FB8765152CC4F10F5 /* Pods-UizaPlayerTest.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = N553UPX8WV;
+				INFOPLIST_FILE = UizaPlayerTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.uiza.UizaPlayerTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		638EC0E620AAA17F00C0243E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A31A18B66B62D3BBEB193CFF /* Pods-UizaPlayerTest.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = N553UPX8WV;
+				INFOPLIST_FILE = UizaPlayerTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.uiza.UizaPlayerTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		63C65F74205B9FE600DB2C96 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -914,6 +1177,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		638EC0E420AAA17F00C0243E /* Build configuration list for PBXNativeTarget "UizaPlayerTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				638EC0E520AAA17F00C0243E /* Debug */,
+				638EC0E620AAA17F00C0243E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		63C65F5C205B9FE600DB2C96 /* Build configuration list for PBXProject "UizaSDK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

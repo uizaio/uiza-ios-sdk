@@ -6,6 +6,9 @@
 //  Copyright © 2016 Nam Kennic. All rights reserved.
 //
 
+import Foundation
+import UIKit
+
 extension NSDictionary {
 	
 	func value(for key:String, defaultValue:Any? = nil) -> Any? {

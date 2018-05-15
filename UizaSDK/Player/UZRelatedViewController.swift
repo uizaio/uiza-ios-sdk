@@ -55,7 +55,7 @@ internal class UZRelatedViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		self.view.backgroundColor = UIColor(white: 0.0, alpha: 0.35)
+		self.view.backgroundColor = UIColor(white: 0.0, alpha: 0.4)
 		self.view.addSubview(blurView)
 		self.view.addSubview(titleLabel)
 		self.view.addSubview(collectionViewController.view)
@@ -201,7 +201,7 @@ internal class UZRelatedVideoCollectionViewController: UICollectionViewControlle
 		collectionView.register(UZMovieItemCollectionViewCell.self, forCellWithReuseIdentifier: CellIdentifier)
 		collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "Header")
 		
-		collectionView.backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
+//		collectionView.backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
 		collectionView.showsHorizontalScrollIndicator = false
 		collectionView.backgroundColor = UIColor.clear
 		collectionView.clipsToBounds = false

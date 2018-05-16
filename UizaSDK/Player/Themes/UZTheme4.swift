@@ -40,8 +40,8 @@ open class UZTheme4: UZPlayerTheme {
 		let muteIcon = UIImage(icon: .icofont(.volumeMute), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let playBigIcon = UIImage(icon: .googleMaterialDesign(.playCircleOutline), size: centerIconSize, textColor: iconColor, backgroundColor: .clear)
 		let pauseBigIcon = UIImage(icon: .googleMaterialDesign(.pauseCircleOutline), size: centerIconSize, textColor: iconColor, backgroundColor: .clear)
-		let playIcon = UIImage(icon: .googleMaterialDesign(.playCircleOutline), size: CGSize(width: 48, height: 48), textColor: iconColor, backgroundColor: .clear)
-		let pauseIcon = UIImage(icon: .googleMaterialDesign(.pauseCircleOutline), size: CGSize(width: 48, height: 48), textColor: iconColor, backgroundColor: .clear)
+		let playIcon = UIImage(icon: .googleMaterialDesign(.playCircleOutline), size: CGSize(width: 50, height: 50), textColor: iconColor, backgroundColor: .clear)
+		let pauseIcon = UIImage(icon: .googleMaterialDesign(.pauseCircleOutline), size: CGSize(width: 50, height: 50), textColor: iconColor, backgroundColor: .clear)
 		let fullscreenIcon = UIImage(icon: .googleMaterialDesign(.fullscreen), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let collapseIcon = UIImage(icon: .googleMaterialDesign(.fullscreenExit), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let forwardIcon = UIImage(icon: .googleMaterialDesign(.forward5), size: iconSize, textColor: iconColor, backgroundColor: .clear)
@@ -112,7 +112,10 @@ open class UZTheme4: UZPlayerTheme {
 		
 		let bottomLeftFrameLayout = NKGridFrameLayout(direction: .horizontal, andViews: [controlView.currentTimeLabel, controlView.totalTimeLabel])!
 		let bottomRightFrameLayout = NKGridFrameLayout(direction: .horizontal, andViews: [controlView.playlistButton, controlView.fullscreenButton])!
-		let bottomCenterFrameLayout = NKGridFrameLayout(direction: .horizontal, andViews: [controlView.backwardButton, controlView.playpauseButton, controlView.forwardButton])!
+		let bottomCenterFrameLayout = NKGridFrameLayout(direction: .horizontal)!
+		bottomCenterFrameLayout.add(withTargetView: controlView.backwardButton).contentAlignment = "cc"
+		bottomCenterFrameLayout.add(withTargetView: controlView.playpauseButton).contentAlignment = "cc"
+		bottomCenterFrameLayout.add(withTargetView: controlView.forwardButton).contentAlignment = "cc"
 		bottomCenterFrameLayout.layoutAlignment = .center
 		
 		bottomRightFrameLayout.spacing = 10
@@ -136,12 +139,11 @@ open class UZTheme4: UZPlayerTheme {
 		bottomFrameLayout!.isUserInteractionEnabled = true
 		bottomFrameLayout!.edgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
 		bottomFrameLayout!.backgroundColor = UIColor(white: 0.0, alpha: 0.8)
-		bottomFrameLayout!.layer.cornerRadius = 10
-		bottomFrameLayout!.layer.masksToBounds = true
+		bottomFrameLayout?.minSize = CGSize(width: 0, height: 50)
 		
 		mainFrameLayout = NKTripleFrameLayout(direction: .vertical) // andViews: [topFrameLayout!, playpauseCenterButton, bottomFrameLayout!]
 		mainFrameLayout?.topFrameLayout.targetView = topFrameLayout
-		mainFrameLayout?.centerFrameLayout.targetView = controlView.playpauseCenterButton
+//		mainFrameLayout?.centerFrameLayout.targetView = controlView.playpauseCenterButton
 		mainFrameLayout?.bottomFrameLayout.targetView = bottomFrameLayout
 		mainFrameLayout?.layoutAlignment = .bottom
 		mainFrameLayout?.leftContentLayout.layoutAlignment = .top
@@ -150,6 +152,7 @@ open class UZTheme4: UZPlayerTheme {
 		mainFrameLayout!.centerFrameLayout.contentAlignment = "cc"
 //		mainFrameLayout?.bottomFrameLayout.edgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
 		
+		controlView.playpauseCenterButton.isHidden = true
 		controlView.containerView.addSubview(mainFrameLayout!)
 		controlView.containerView.addSubview(topFrameLayout!)
 		controlView.containerView.addSubview(bottomFrameLayout!)
@@ -166,7 +169,7 @@ open class UZTheme4: UZPlayerTheme {
 		
 		if let controlView = controlView {
 			let viewSize = rect.size
-			controlView.timeSlider.frame = CGRect(x: 0, y: viewSize.height - bottomFrameLayout!.frame.size.height - 10, width: viewSize.width, height: 10)
+			controlView.timeSlider.frame = CGRect(x: 0, y: viewSize.height - bottomFrameLayout!.frame.size.height - 4, width: viewSize.width, height: 10)
 			controlView.loadingIndicatorView?.center = controlView.center
 		}
 	}

@@ -446,14 +446,14 @@ extension UZPlayer: UZPlayerLayerViewDelegate {
 
 extension UZPlayer: UZPlayerControlViewDelegate {
 	
-	public func controlView(controlView: UZPlayerControlView, didChooseDefinition index: Int) {
+	open func controlView(controlView: UZPlayerControlView, didChooseDefinition index: Int) {
 		shouldSeekTo = currentPosition
 		playerLayer?.resetPlayer()
 		currentDefinition = index
 		playerLayer?.playAsset(asset: resource.definitions[index].avURLAsset)
 	}
 	
-	public func controlView(controlView: UZPlayerControlView, didSelectButton button: UIButton) {
+	open func controlView(controlView: UZPlayerControlView, didSelectButton button: UIButton) {
 		if let action = UZButtonTag(rawValue: button.tag) {
 			switch action {
 			case .back:
@@ -474,6 +474,9 @@ extension UZPlayer: UZPlayerControlViewDelegate {
 					}
 					play()
 				}
+				
+			case .pause:
+				pause()
 				
 			case .replay:
 				UZLogger().log(event: "replay", video: currentVideo, completionBlock: nil)
@@ -510,7 +513,7 @@ extension UZPlayer: UZPlayerControlViewDelegate {
 		}
 	}
 	
-	public func controlView(controlView: UZPlayerControlView, slider: UISlider, onSliderEvent event: UIControlEvents) {
+	open func controlView(controlView: UZPlayerControlView, slider: UISlider, onSliderEvent event: UIControlEvents) {
 		switch event {
 		case .touchDown:
 			playerLayer?.onTimeSliderBegan()

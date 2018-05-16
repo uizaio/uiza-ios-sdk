@@ -18,6 +18,20 @@ open class UZTheme3: UZPlayerTheme {
 	internal var bottomFrameLayout 	: NKTripleFrameLayout?
 	internal var mainFrameLayout 	: NKTripleFrameLayout?
 	
+	internal var iconColor = UIColor.white
+	internal var iconSize: CGSize = CGSize(width: 24, height: 24)
+	internal var centerIconSize: CGSize = CGSize(width: 92, height: 92)
+	internal var seekThumbSize: CGSize = CGSize(width: 24, height: 24)
+	
+	convenience init(iconSize: CGSize = CGSize(width: 24, height: 24), centerIconSize: CGSize = CGSize(width: 92, height: 92), seekThumbSize: CGSize = CGSize(width: 24, height: 24), iconColor: UIColor = .white) {
+		self.init()
+		
+		self.iconSize = iconSize
+		self.centerIconSize = centerIconSize
+		self.iconColor = iconColor
+		self.seekThumbSize = seekThumbSize
+	}
+	
 	open func updateUI() {
 		setupSkin()
 		setupLayout()
@@ -25,11 +39,6 @@ open class UZTheme3: UZPlayerTheme {
 	
 	func setupSkin() {
 		guard let controlView = controlView else { return }
-		
-		let iconColor = UIColor.white
-		let iconSize = CGSize(width: 32, height: 32)
-		let seekThumbSize = CGSize(width: 24, height: 24)
-		let centerIconSize = CGSize(width: 72, height: 72)
 		
 		let backIcon = UIImage(icon: .icofont(.arrowLeft), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let playlistIcon = UIImage(icon: .icofont(.listineDots), size: iconSize, textColor: iconColor, backgroundColor: .clear)

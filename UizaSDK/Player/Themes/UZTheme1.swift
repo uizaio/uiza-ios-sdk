@@ -18,6 +18,20 @@ open class UZTheme1: UZPlayerTheme {
 	internal var bottomFrameLayout 	: NKTripleFrameLayout?
 	internal var mainFrameLayout 	: NKTripleFrameLayout?
 	
+	internal var iconColor = UIColor.white
+	internal var iconSize: CGSize = CGSize(width: 24, height: 24)
+	internal var centerIconSize: CGSize = CGSize(width: 92, height: 92)
+	internal var seekThumbSize: CGSize = CGSize(width: 24, height: 24)
+	
+	convenience init(iconSize: CGSize = CGSize(width: 24, height: 24), centerIconSize: CGSize = CGSize(width: 92, height: 92), seekThumbSize: CGSize = CGSize(width: 24, height: 24), iconColor: UIColor = .white) {
+		self.init()
+		
+		self.iconSize = iconSize
+		self.centerIconSize = centerIconSize
+		self.iconColor = iconColor
+		self.seekThumbSize = seekThumbSize
+	}
+	
 	open func updateUI() {
 		setupSkin()
 		setupLayout()
@@ -25,10 +39,6 @@ open class UZTheme1: UZPlayerTheme {
 	
 	func setupSkin() {
 		guard let controlView = controlView else { return }
-		
-		let iconColor = UIColor.white
-		let iconSize = CGSize(width: 24, height: 24)
-		let centerIconSize = CGSize(width: 92, height: 92)
 		
 		let backIcon = UIImage(icon: .fontAwesome(.arrowLeft), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let playlistIcon = UIImage(icon: .fontAwesome(.list), size: iconSize, textColor: iconColor, backgroundColor: .clear)
@@ -45,7 +55,7 @@ open class UZTheme1: UZPlayerTheme {
 		let backwardIcon = UIImage(icon: .fontAwesome(.backward), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let fullscreenIcon = UIImage(icon: .fontAwesome(.expand), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let collapseIcon = UIImage(icon: .fontAwesome(.compress), size: iconSize, textColor: iconColor, backgroundColor: .clear)
-		let thumbIcon = UIImage(icon: .fontAwesome(.circle), size: iconSize, textColor: iconColor, backgroundColor: .clear)
+		let thumbIcon = UIImage(icon: .fontAwesome(.circle), size: seekThumbSize, textColor: iconColor, backgroundColor: .clear)
 		
 		controlView.backButton.setImage(backIcon, for: .normal)
 		controlView.playlistButton.setImage(playlistIcon, for: .normal)

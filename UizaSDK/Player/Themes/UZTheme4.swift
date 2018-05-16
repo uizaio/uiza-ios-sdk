@@ -107,7 +107,7 @@ open class UZTheme4: UZPlayerTheme {
 		topFrameLayout!.addSubview(topLeftFrameLayout)
 		topFrameLayout!.isUserInteractionEnabled = true
 		topFrameLayout!.layoutAlignment = .right
-		topFrameLayout!.edgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 0, right: 10)
+		topFrameLayout!.edgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 0, right: 5)
 //		topFrameLayout!.showFrameDebug = true
 		
 		let bottomLeftFrameLayout = NKGridFrameLayout(direction: .horizontal, andViews: [controlView.currentTimeLabel, controlView.totalTimeLabel])!

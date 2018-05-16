@@ -207,14 +207,14 @@ open class UZPlayerControlView: UIView {
 		if seekedTime > -1 {
 			if playerLastState == .readyToPlay {
 				seekedTime = -1
-				timeSlider.value = Float(currentTime) / Float(totalTime)
+				timeSlider.value = totalTime>0 ? Float(currentTime) / Float(totalTime) : 0
 				currentTimeLabel.text = currentTime.toString
 				
 				remainingTime = totalTime - currentTime
 				remainTimeLabel.text = remainingTime.toString
 			}
 			else {
-				timeSlider.value = Float(seekedTime) / Float(totalTime)
+				timeSlider.value = totalTime>0 ? Float(seekedTime) / Float(totalTime) : 0
 				currentTimeLabel.text = seekedTime.toString
 				
 				remainingTime = seekedTime - currentTime
@@ -222,7 +222,7 @@ open class UZPlayerControlView: UIView {
 			}
 		}
 		else {
-			timeSlider.value = Float(currentTime) / Float(totalTime)
+			timeSlider.value = totalTime>0 ? Float(currentTime) / Float(totalTime) : 0
 			currentTimeLabel.text = currentTime.toString
 			
 			remainingTime = totalTime - currentTime
@@ -232,14 +232,9 @@ open class UZPlayerControlView: UIView {
 		self.setNeedsLayout()
 	}
 	
-	/**
-	call on load duration changed, update load progressView here
-	
-	- parameter loadedDuration: loaded duration
-	- parameter totalDuration:  total duration
-	*/
 	open func loadedTimeDidChange(loadedDuration: TimeInterval , totalDuration: TimeInterval) {
-		timeSlider.progressView.setProgress(Float(loadedDuration)/Float(totalDuration), animated: true)
+		let progress = totalDuration>0 ? Float(loadedDuration)/Float(totalDuration) : 0
+		timeSlider.progressView.setProgress(progress, animated: true)
 	}
 	
 	open func playerStateDidChange(state: UZPlayerState) {

@@ -31,7 +31,7 @@ open class UZTheme4: UZPlayerTheme {
 		let seekThumbSize = CGSize(width: 24, height: 24)
 		let centerIconSize = CGSize(width: 72, height: 72)
 		
-		let backIcon = UIImage(icon: .icofont(.arrowLeft), size: iconSize, textColor: iconColor, backgroundColor: .clear)
+		let backIcon = UIImage(icon: .icofont(.close), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let playlistIcon = UIImage(icon: .icofont(.listineDots), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let helpIcon = UIImage(icon: .icofont(.questionCircle), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let ccIcon = UIImage(icon: .icofont(.cc), size: iconSize, textColor: iconColor, backgroundColor: .clear)
@@ -92,8 +92,9 @@ open class UZTheme4: UZPlayerTheme {
 	func setupLayout() {
 		guard let controlView = controlView else { return }
 		
-		let topLeftFrameLayout = NKDoubleFrameLayout(direction: .horizontal, andViews: [controlView.backButton, controlView.titleLabel])!
+		let topLeftFrameLayout = NKDoubleFrameLayout(direction: .horizontal, andViews: [controlView.titleLabel, controlView.backButton])!
 		topLeftFrameLayout.spacing = 10
+		topLeftFrameLayout.layoutAlignment = .right
 		topLeftFrameLayout.isUserInteractionEnabled = true
 		topLeftFrameLayout.addSubview(controlView.backButton)
 		topLeftFrameLayout.addSubview(controlView.titleLabel)

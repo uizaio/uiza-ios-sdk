@@ -170,6 +170,8 @@ open class UZPlayer: UIView {
 	
 	open func stop() {
 		controlView.hideCoverImageView()
+		controlView.playTimeDidChange(currentTime: 0, totalTime: 0)
+		controlView.loadedTimeDidChange(loadedDuration: 0, totalDuration: 0)
 		playerLayer?.prepareToDeinit()
 		playerLayer = nil
 	}
@@ -455,8 +457,8 @@ extension UZPlayer: UZPlayerControlViewDelegate {
 		if let action = UZButtonTag(rawValue: button.tag) {
 			switch action {
 			case .back:
+				self.stop()
 				self.backBlock?(isFullScreen)
-				playerLayer?.prepareToDeinit()
 				
 			case .play:
 				if button.isSelected {

@@ -21,20 +21,20 @@ open class UZPlayerViewController: UIViewController {
 	
 	var isFullscreen: Bool {
 		get {
-			return NKModalViewManager.sharedInstance().modalViewControllerThatContains(playerController) != nil
+			return NKFullscreenManager.sharedInstance().fullscreenViewControllerThatContains(playerController) != nil || NKModalViewManager.sharedInstance().modalViewControllerThatContains(playerController) != nil
 		}
 		set {
 			if newValue {
 				if !isFullscreen {
-					NKModalViewManager.sharedInstance().presentModalViewController(self.playerController)
+					NKFullscreenManager.sharedInstance().presentFullscreenViewController(self.playerController)
 					self.playerController.player.controlView.updateUI(true)
 				}
 			}
-			else if let modalViewController = NKModalViewManager.sharedInstance().modalViewControllerThatContains(playerController) {
+			else if let modalViewController = NKFullscreenManager.sharedInstance().fullscreenViewControllerThatContains(playerController) {
 				self.playerController.player.controlView.updateUI(false)
-				modalViewController.dismissWith(animated: true, completion: {
-					self.viewDidLayoutSubviews()
-				})
+				modalViewController.dismissView(animated: true) { [weak self] () in
+					self?.viewDidLayoutSubviews()
+				}
 			}
 		}
 	}
@@ -116,18 +116,11 @@ internal class UZPlayerController: UIViewController {
 	}
 	
 	override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
-		return .all
+		return .landscapeRight
 	}
 	
 	override var preferredInterfaceOrientationForPresentation : UIInterfaceOrientation {
-		let currentOrientation = UIApplication.shared.statusBarOrientation
-		
-		if UI_USER_INTERFACE_IDIOM() == .phone {
-			return UIInterfaceOrientationIsLandscape(currentOrientation) ? currentOrientation : .landscapeRight
-		}
-		else {
-			return currentOrientation
-		}
+		return .landscapeRight
 	}
 	
 }

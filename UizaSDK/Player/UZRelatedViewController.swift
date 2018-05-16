@@ -79,6 +79,22 @@ internal class UZRelatedViewController: UIViewController {
 		}
 	}
 	
+	override var prefersStatusBarHidden: Bool {
+		return true
+	}
+	
+	override var shouldAutorotate : Bool {
+		return true
+	}
+	
+	override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+		return .all
+	}
+	
+	override var preferredInterfaceOrientationForPresentation : UIInterfaceOrientation {
+		return UIApplication.shared.statusBarOrientation
+	}
+	
 }
 
 extension UZRelatedViewController: NKModalViewControllerProtocol {

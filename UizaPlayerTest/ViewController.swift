@@ -34,6 +34,10 @@ class ViewController: UIViewController {
 		let playerSize = CGSize(width: viewSize.width, height: viewSize.width * (3/4))
 		playerViewController.view.frame = CGRect(x: 0, y: (viewSize.height - playerSize.height)/2, width: playerSize.width, height: playerSize.height)
 	}
+	
+	override var shouldAutorotate : Bool {
+		return false
+	}
 
 }
 

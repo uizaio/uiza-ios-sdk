@@ -83,6 +83,8 @@
 		638EC12420AC426900C0243E /* UZTheme4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638EC12220AC426900C0243E /* UZTheme4.swift */; };
 		638EC12620AC90F000C0243E /* UZTheme5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638EC12520AC90F000C0243E /* UZTheme5.swift */; };
 		638EC12720AC90F000C0243E /* UZTheme5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638EC12520AC90F000C0243E /* UZTheme5.swift */; };
+		638EC12920AC968700C0243E /* UZTheme6.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638EC12820AC968700C0243E /* UZTheme6.swift */; };
+		638EC12A20AC968700C0243E /* UZTheme6.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638EC12820AC968700C0243E /* UZTheme6.swift */; };
 		63C65F6C205B9FE600DB2C96 /* UizaSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C65F62205B9FE600DB2C96 /* UizaSDK.framework */; };
 		63C65F71205B9FE600DB2C96 /* UizaSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F70205B9FE600DB2C96 /* UizaSDKTests.swift */; };
 		63C65F73205B9FE600DB2C96 /* UizaSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 63C65F65205B9FE600DB2C96 /* UizaSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -180,6 +182,7 @@
 		638EC11F20AC3FA100C0243E /* UZTheme3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZTheme3.swift; sourceTree = "<group>"; };
 		638EC12220AC426900C0243E /* UZTheme4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZTheme4.swift; sourceTree = "<group>"; };
 		638EC12520AC90F000C0243E /* UZTheme5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZTheme5.swift; sourceTree = "<group>"; };
+		638EC12820AC968700C0243E /* UZTheme6.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZTheme6.swift; sourceTree = "<group>"; };
 		63C65F62205B9FE600DB2C96 /* UizaSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UizaSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		63C65F65205B9FE600DB2C96 /* UizaSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UizaSDK.h; sourceTree = "<group>"; };
 		63C65F66205B9FE600DB2C96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -311,6 +314,7 @@
 				638EC11F20AC3FA100C0243E /* UZTheme3.swift */,
 				638EC12220AC426900C0243E /* UZTheme4.swift */,
 				638EC12520AC90F000C0243E /* UZTheme5.swift */,
+				638EC12820AC968700C0243E /* UZTheme6.swift */,
 			);
 			path = Themes;
 			sourceTree = "<group>";
@@ -796,6 +800,7 @@
 				638EC0F120AAA2CA00C0243E /* NSDictionary+KeyValue.swift in Sources */,
 				638EC11A20AC348000C0243E /* UZTheme1.swift in Sources */,
 				638EC0FC20AAA2D200C0243E /* UZBannerItem.swift in Sources */,
+				638EC12A20AC968700C0243E /* UZTheme6.swift in Sources */,
 				638EC0F920AAA2CD00C0243E /* UZContentServices.swift in Sources */,
 				638EC0FD20AAA2D200C0243E /* UZCategory.swift in Sources */,
 				638EC0F320AAA2CA00C0243E /* String+Extension.swift in Sources */,
@@ -846,6 +851,7 @@
 				6346B7A520930C3200A68AD4 /* NKProgressView.swift in Sources */,
 				63C65FA9205BA10800DB2C96 /* Error+Code.swift in Sources */,
 				63C65FAF205BA10800DB2C96 /* Date+Comparators.swift in Sources */,
+				638EC12920AC968700C0243E /* UZTheme6.swift in Sources */,
 				638EC11920AC348000C0243E /* UZTheme1.swift in Sources */,
 				6346B7AB20930DAC00A68AD4 /* NSTimeInterval+ToString.swift in Sources */,
 				63C65FAC205BA10800DB2C96 /* String+ToBool.swift in Sources */,

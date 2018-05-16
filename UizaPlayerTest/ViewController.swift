@@ -15,8 +15,7 @@ class ViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		playerViewController.player.controlView.skin = .skin1
-//		playerViewController.player.controlView.layout = .layout2
+		playerViewController.player.controlView.theme = UZTheme3()
 		self.view.addSubview(playerViewController.view)
 		
 		UZAccountServices().authorize { [weak self] (token, error) in

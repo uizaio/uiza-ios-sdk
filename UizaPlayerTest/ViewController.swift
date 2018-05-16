@@ -15,7 +15,7 @@ class ViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		playerViewController.player.controlView.theme = UZTheme3()
+		playerViewController.player.controlView.theme = UZTheme4()
 		self.view.addSubview(playerViewController.view)
 		
 		UZAccountServices().authorize { [weak self] (token, error) in
@@ -30,7 +30,7 @@ class ViewController: UIViewController {
 		super.viewDidLayoutSubviews()
 		
 		let viewSize = self.view.bounds.size
-		let playerSize = CGSize(width: viewSize.width, height: viewSize.width * (3/4))
+		let playerSize = CGSize(width: viewSize.width, height: viewSize.width * (9/16))
 		playerViewController.view.frame = CGRect(x: 0, y: (viewSize.height - playerSize.height)/2, width: playerSize.width, height: playerSize.height)
 	}
 	

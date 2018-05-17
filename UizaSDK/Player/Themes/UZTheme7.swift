@@ -24,13 +24,17 @@ open class UZTheme7: UZPlayerTheme {
 	internal var centerIconSize: CGSize = CGSize(width: 50, height: 50)
 	internal var seekThumbSize: CGSize = CGSize(width: 24, height: 24)
 	
-	convenience init(iconSize: CGSize = CGSize(width: 24, height: 24), centerIconSize: CGSize = CGSize(width: 60, height: 60), seekThumbSize: CGSize = CGSize(width: 24, height: 24), iconColor: UIColor = .white) {
+	public convenience init(iconSize: CGSize = CGSize(width: 24, height: 24), centerIconSize: CGSize = CGSize(width: 60, height: 60), seekThumbSize: CGSize = CGSize(width: 24, height: 24), iconColor: UIColor = .white) {
 		self.init()
 		
 		self.iconSize = iconSize
 		self.centerIconSize = centerIconSize
 		self.iconColor = iconColor
 		self.seekThumbSize = seekThumbSize
+	}
+	
+	public init() {
+		
 	}
 	
 	open func updateUI() {
@@ -121,7 +125,7 @@ open class UZTheme7: UZPlayerTheme {
 		topFrameLayout!.edgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 0, right: 5)
 //		topFrameLayout!.showFrameDebug = true
 		
-		let bottomLeftFrameLayout = NKGridFrameLayout(direction: .horizontal, andViews: [controlView.settingsButton])!
+		let bottomLeftFrameLayout = NKGridFrameLayout(direction: .horizontal, andViews: [controlView.settingsButton, controlView.volumeButton])!
 		let bottomRightFrameLayout = NKGridFrameLayout(direction: .horizontal, andViews: [controlView.playlistButton, controlView.fullscreenButton])!
 		let bottomCenterFrameLayout = NKGridFrameLayout(direction: .horizontal)!
 		bottomCenterFrameLayout.add(withTargetView: controlView.backwardButton).contentAlignment = "cc"
@@ -135,6 +139,7 @@ open class UZTheme7: UZPlayerTheme {
 		
 		bottomFrameLayout = NKTripleFrameLayout(direction: .horizontal, andViews: [bottomLeftFrameLayout, bottomCenterFrameLayout, bottomRightFrameLayout])
 		bottomFrameLayout!.addSubview(controlView.settingsButton)
+		bottomFrameLayout!.addSubview(controlView.volumeButton)
 		bottomFrameLayout!.addSubview(controlView.playlistButton)
 		bottomFrameLayout!.addSubview(controlView.playlistButton)
 		bottomFrameLayout!.addSubview(controlView.fullscreenButton)

@@ -23,13 +23,17 @@ open class UZTheme4: UZPlayerTheme {
 	internal var centerIconSize: CGSize = CGSize(width: 50, height: 50)
 	internal var seekThumbSize: CGSize = CGSize(width: 24, height: 24)
 	
-	convenience init(iconSize: CGSize = CGSize(width: 24, height: 24), centerIconSize: CGSize = CGSize(width: 50, height: 50), seekThumbSize: CGSize = CGSize(width: 24, height: 24), iconColor: UIColor = .white) {
+	public convenience init(iconSize: CGSize = CGSize(width: 24, height: 24), centerIconSize: CGSize = CGSize(width: 50, height: 50), seekThumbSize: CGSize = CGSize(width: 24, height: 24), iconColor: UIColor = .white) {
 		self.init()
 		
 		self.iconSize = iconSize
 		self.centerIconSize = centerIconSize
 		self.iconColor = iconColor
 		self.seekThumbSize = seekThumbSize
+	}
+	
+	public init() {
+		
 	}
 	
 	open func updateUI() {

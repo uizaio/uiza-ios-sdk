@@ -70,7 +70,7 @@ open class UZPlayerControlView: UIView {
 	
 	internal var playerLastState: UZPlayerState = .notSetURL
 	
-	internal let containerView = UIView()
+	public let containerView = UIView() // set this to public
 	internal let titleLabel = UILabel()
 	internal let currentTimeLabel = UILabel()
 	internal let totalTimeLabel = UILabel()

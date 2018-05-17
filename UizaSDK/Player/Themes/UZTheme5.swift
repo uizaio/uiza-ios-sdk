@@ -25,13 +25,17 @@ open class UZTheme5: UZPlayerTheme {
 	
 	let gradientLayer = CAGradientLayer()
 	
-	convenience init(iconSize: CGSize = CGSize(width: 24, height: 24), centerIconSize: CGSize = CGSize(width: 92, height: 92), seekThumbSize: CGSize = CGSize(width: 24, height: 24), iconColor: UIColor = .white) {
+	public convenience init(iconSize: CGSize = CGSize(width: 24, height: 24), centerIconSize: CGSize = CGSize(width: 92, height: 92), seekThumbSize: CGSize = CGSize(width: 24, height: 24), iconColor: UIColor = .white) {
 		self.init()
 		
 		self.iconSize = iconSize
 		self.centerIconSize = centerIconSize
 		self.iconColor = iconColor
 		self.seekThumbSize = seekThumbSize
+	}
+	
+	public init() {
+		
 	}
 	
 	open func updateUI() {

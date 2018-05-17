@@ -194,4 +194,8 @@ open class UZTheme7: UZPlayerTheme {
 		}
 	}
 	
+	open func cleanUI() {
+		
+	}
+	
 }

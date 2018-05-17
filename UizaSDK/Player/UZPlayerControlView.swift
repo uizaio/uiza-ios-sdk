@@ -32,6 +32,7 @@ public protocol UZPlayerTheme {
 	
 	func updateUI()
 	func layoutControls(rect: CGRect)
+	func cleanUI()
 	
 }
 
@@ -51,6 +52,7 @@ open class UZPlayerControlView: UIView {
 	
 	open var theme: UZPlayerTheme? = nil {
 		willSet {
+			theme?.cleanUI()
 			resetSkin()
 			resetLayout()
 		}

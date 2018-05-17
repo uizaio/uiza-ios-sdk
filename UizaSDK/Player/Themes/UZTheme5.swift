@@ -192,4 +192,8 @@ open class UZTheme5: UZPlayerTheme {
 		}
 	}
 	
+	open func cleanUI() {
+		gradientLayer.removeFromSuperlayer()
+	}
+	
 }

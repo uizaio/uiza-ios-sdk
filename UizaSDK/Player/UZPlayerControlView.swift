@@ -52,6 +52,11 @@ open class UZPlayerControlView: UIView {
 	
 	open var theme: UZPlayerTheme? = nil {
 		willSet {
+			cancelAutoFadeOutAnimation()
+			if !isMaskShowing {
+				controlViewAnimation(isShow: true)
+			}
+			
 			theme?.cleanUI()
 			resetSkin()
 			resetLayout()
@@ -61,6 +66,8 @@ open class UZPlayerControlView: UIView {
 			theme?.controlView = self
 			theme?.updateUI()
 			containerView.addSubview(shareView)
+			
+			autoFadeOutControlView(after: autoHideControlsInterval)
 		}
 	}
 	

@@ -17,9 +17,9 @@ open class UZPlayerViewController: UIViewController {
 		}
 	}
 	
-	var autoFullscreenWhenRotateDevice = true
+	open var autoFullscreenWhenRotateDevice = true
 	
-	var isFullscreen: Bool {
+	open var isFullscreen: Bool {
 		get {
 			return NKFullscreenManager.sharedInstance().fullscreenViewControllerThatContains(playerController) != nil || NKModalViewManager.sharedInstance().modalViewControllerThatContains(playerController) != nil
 		}
@@ -35,6 +35,24 @@ open class UZPlayerViewController: UIViewController {
 				modalViewController.dismissView(animated: true) { [weak self] () in
 					self?.viewDidLayoutSubviews()
 				}
+			}
+		}
+	}
+	
+	open func setFullscreen(fullscreen: Bool, completion:@escaping () -> Void) {
+		if fullscreen {
+			if !isFullscreen {
+				NKFullscreenManager.sharedInstance().presentFullscreenViewController(self.playerController, animatedFrom: nil, enter: { (fullscreenController) in
+					completion()
+				}, exitBlock: nil)
+				self.playerController.player.controlView.updateUI(true)
+			}
+		}
+		else if let modalViewController = NKFullscreenManager.sharedInstance().fullscreenViewControllerThatContains(playerController) {
+			self.playerController.player.controlView.updateUI(false)
+			modalViewController.dismissView(animated: true) { [weak self] () in
+				self?.viewDidLayoutSubviews()
+				completion()
 			}
 		}
 	}

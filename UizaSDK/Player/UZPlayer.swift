@@ -35,6 +35,7 @@ open class UZPlayer: UIView {
 	open var backBlock:((Bool) -> Void)?
 	open var videoChangedBlock:((UZVideoItem) -> Void)?
 	open var fullscreenBlock:((Bool) -> Void)?
+	open var buttonSelectionBlock:((UIButton) -> Void)?
 	
 	open var playTimeDidChange:((TimeInterval, TimeInterval) -> Void)?
 	open var playStateDidChange:((Bool) -> Void)?
@@ -508,9 +509,13 @@ extension UZPlayer: UZPlayerControlViewDelegate {
 				showRelates()
 				
 			default:
+				#if DEBUG
 				print("Unhandled Action")
+				#endif
 			}
 		}
+		
+		buttonSelectionBlock?(button)
 	}
 	
 	open func controlView(controlView: UZPlayerControlView, slider: UISlider, onSliderEvent event: UIControlEvents) {

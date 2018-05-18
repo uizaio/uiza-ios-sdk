@@ -106,6 +106,8 @@ open class UZPlayer: UIView {
 		currentVideo = video
 		playthrough_eventlog = [:]
 		
+		controlView.showControlView()
+		
 		UZContentServices().getLinkPlay(videoId: video.id) { [weak self] (url, error) in
 			if url != nil {
 				UZLogger().log(event: "plays_requested", video: video, completionBlock: nil)

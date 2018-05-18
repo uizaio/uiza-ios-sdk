@@ -189,4 +189,8 @@ open class UZTheme3: UZPlayerTheme {
 		
 	}
 	
+	open func allButtons() -> [UIButton] {
+		return []
+	}
+	
 }

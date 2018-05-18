@@ -10,6 +10,7 @@ import UIKit
 import SwiftIcons
 import NKFrameLayoutKit
 import NVActivityIndicatorView
+import AVKit
 
 open class UZTheme1: UZPlayerTheme {
 	public weak var controlView: UZPlayerControlView? = nil
@@ -60,6 +61,8 @@ open class UZTheme1: UZPlayerTheme {
 		let fullscreenIcon = UIImage(icon: .fontAwesome(.expand), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let collapseIcon = UIImage(icon: .fontAwesome(.compress), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let thumbIcon = UIImage(icon: .fontAwesome(.circle), size: seekThumbSize, textColor: iconColor, backgroundColor: .clear)
+		let pipStartIcon = AVPictureInPictureController.pictureInPictureButtonStartImage(compatibleWith: nil).tint(with: .white)
+		let pipStopIcon = AVPictureInPictureController.pictureInPictureButtonStopImage(compatibleWith: nil).tint(with: .white)
 		
 		controlView.backButton.setImage(backIcon, for: .normal)
 		controlView.playlistButton.setImage(playlistIcon, for: .normal)
@@ -76,7 +79,11 @@ open class UZTheme1: UZPlayerTheme {
 		controlView.backwardButton.setImage(backwardIcon, for: .normal)
 		controlView.fullscreenButton.setImage(fullscreenIcon, for: .normal)
 		controlView.fullscreenButton.setImage(collapseIcon, for: .selected)
+		controlView.pipButton.setImage(pipStartIcon, for: .normal)
+		controlView.pipButton.setImage(pipStopIcon, for: .selected)
 		controlView.timeSlider.setThumbImage(thumbIcon, for: .normal)
+		
+		controlView.pipButton.imageView?.contentMode = .scaleAspectFit
 		
 		controlView.titleLabel.textColor = .white
 		controlView.titleLabel.font = UIFont.systemFont(ofSize: 14)
@@ -105,10 +112,9 @@ open class UZTheme1: UZPlayerTheme {
 	func setupLayout() {
 		guard let controlView = controlView else { return }
 		
-		let controlFrameLayout = NKGridFrameLayout(direction: .horizontal, andViews: [controlView.helpButton, controlView.playlistButton, controlView.ccButton, controlView.settingsButton, controlView.volumeButton])!
-		controlFrameLayout.addSubview(controlView.helpButton)
+		let controlFrameLayout = NKGridFrameLayout(direction: .horizontal, andViews: [controlView.pipButton, controlView.playlistButton, controlView.settingsButton, controlView.volumeButton])!
+		controlFrameLayout.addSubview(controlView.pipButton)
 		controlFrameLayout.addSubview(controlView.playlistButton)
-		controlFrameLayout.addSubview(controlView.ccButton)
 		controlFrameLayout.addSubview(controlView.settingsButton)
 		controlFrameLayout.addSubview(controlView.volumeButton)
 		controlFrameLayout.isUserInteractionEnabled = true
@@ -180,6 +186,10 @@ open class UZTheme1: UZPlayerTheme {
 	
 	open func cleanUI() {
 		
+	}
+	
+	open func allButtons() -> [UIButton] {
+		return []
 	}
 	
 }

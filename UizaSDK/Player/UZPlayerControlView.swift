@@ -25,6 +25,9 @@ public enum UZButtonTag: Int {
 	case backward	= 113
 	case share		= 114
 	case relates	= 115
+	case pip		= 116
+	case chromecast = 117
+	case airplay	= 118
 }
 
 public protocol UZPlayerTheme {
@@ -33,6 +36,7 @@ public protocol UZPlayerTheme {
 	func updateUI()
 	func layoutControls(rect: CGRect)
 	func cleanUI()
+	func allButtons() -> [UIButton]
 	
 }
 
@@ -41,11 +45,9 @@ open class UZPlayerControlView: UIView {
 	open var resource: UZPlayerResource?
 	open var autoHideControlsInterval: TimeInterval = 5
 	
-	open var isMaskShowing = true
-	
-	open var seekedTime : TimeInterval = 0
 	open var totalDuration:TimeInterval = 0
-	open var delayItem: DispatchWorkItem?
+	internal var seekedTime : TimeInterval = 0
+	internal var delayItem: DispatchWorkItem?
 	
 	open var tapGesture: UITapGestureRecognizer?
 	open var doubleTapGesture: UITapGestureRecognizer?
@@ -53,8 +55,12 @@ open class UZPlayerControlView: UIView {
 	open var theme: UZPlayerTheme? = nil {
 		willSet {
 			cancelAutoFadeOutAnimation()
-			if !isMaskShowing {
-				controlViewAnimation(isShow: true)
+			showControlView()
+			
+			if let allButtons = theme?.allButtons() {
+				for button in allButtons {
+					button.removeTarget(self, action: #selector(onButtonPressed(_:)), for: .touchUpInside)
+				}
 			}
 			
 			theme?.cleanUI()
@@ -66,6 +72,12 @@ open class UZPlayerControlView: UIView {
 			theme?.controlView = self
 			theme?.updateUI()
 			containerView.addSubview(shareView)
+			
+			if let allButtons = theme?.allButtons() {
+				for button in allButtons {
+					button.addTarget(self, action: #selector(onButtonPressed(_:)), for: .touchUpInside)
+				}
+			}
 			
 			autoFadeOutControlView(after: autoHideControlsInterval)
 		}
@@ -79,7 +91,8 @@ open class UZPlayerControlView: UIView {
 	
 	internal var playerLastState: UZPlayerState = .notSetURL
 	
-	public let containerView = UIView() // set this to public
+	public let containerView = UIView() // this should be public
+	
 	internal let titleLabel = UILabel()
 	internal let currentTimeLabel = UILabel()
 	internal let totalTimeLabel = UILabel()
@@ -96,6 +109,7 @@ open class UZPlayerControlView: UIView {
 	internal let ccButton = UIButton()
 	internal let settingsButton = UIButton()
 	internal let helpButton = UIButton()
+	internal let pipButton = UIButton()
 	internal let timeSlider = UZSlider()
 	internal let coverImageView = UIImageView()
 	internal let shareView = UZShareView()
@@ -146,6 +160,7 @@ open class UZPlayerControlView: UIView {
 		playlistButton.tag = UZButtonTag.playlist.rawValue
 		ccButton.tag = UZButtonTag.caption.rawValue
 		helpButton.tag = UZButtonTag.help.rawValue
+		pipButton.tag = UZButtonTag.pip.rawValue
 		
 		var allButtons: [UIButton] = self.allButtons
 		allButtons.append(contentsOf: shareView.allButtons)
@@ -262,7 +277,7 @@ open class UZPlayerControlView: UIView {
 			playpauseButton.isSelected = false
 			
 			showEndScreen()
-			controlViewAnimation(isShow: true)
+			showControlView()
 			
 		default:
 			break
@@ -293,7 +308,7 @@ open class UZPlayerControlView: UIView {
 		
 		delayItem = DispatchWorkItem { [weak self] in
 			if self?.playerLastState != .playedToTheEnd {
-				self?.controlViewAnimation(isShow: false)
+				self?.hideControlView()
 			}
 		}
 		
@@ -304,12 +319,8 @@ open class UZPlayerControlView: UIView {
 		delayItem?.cancel()
 	}
 	
-	open func controlViewAnimation(isShow: Bool) {
-		self.isMaskShowing = isShow
-		
-//		UIApplication.shared.setStatusBarHidden(!isShow, with: .fade)
-		
-		if isShow {
+	open func showControlView(duration: CGFloat = 0.3) {
+		if containerView.alpha == 0 || containerView.isHidden {
 			containerView.alpha = 0
 			containerView.isHidden = false
 			
@@ -321,7 +332,10 @@ open class UZPlayerControlView: UIView {
 				}
 			})
 		}
-		else {
+	}
+	
+	open func hideControlView(duration: CGFloat = 0.3) {
+		if containerView.alpha > 0 && containerView.isHidden == false {
 			UIView.animate(withDuration: 0.3, animations: {
 				self.containerView.alpha = 0.0
 			}, completion: { (finished) in
@@ -400,7 +414,12 @@ open class UZPlayerControlView: UIView {
 	}
 	
 	@objc func onTap(_ gesture: UITapGestureRecognizer) {
-		controlViewAnimation(isShow: containerView.isHidden)
+		if containerView.isHidden {
+			showControlView()
+		}
+		else {
+			hideControlView()
+		}
 	}
 	
 	@objc func onDoubleTap(_ gesture: UITapGestureRecognizer) {

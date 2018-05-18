@@ -196,4 +196,8 @@ open class UZTheme5: UZPlayerTheme {
 		gradientLayer.removeFromSuperlayer()
 	}
 	
+	open func allButtons() -> [UIButton] {
+		return []
+	}
+	
 }

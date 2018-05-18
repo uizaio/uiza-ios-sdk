@@ -94,6 +94,7 @@ open class UZPlayer: UIView {
 	fileprivate var adsLoader: IMAAdsLoader?
 	fileprivate var adsManager: IMAAdsManager?
 	
+	internal var pictureInPictureController: AVPictureInPictureController?
 	
 	// MARK: - Public functions
 	
@@ -138,6 +139,10 @@ open class UZPlayer: UIView {
 			isURLSet = true
 			let asset = resource.definitions[definitionIndex]
 			playerLayer?.playAsset(asset: asset.avURLAsset)
+			
+			if pictureInPictureController == nil {
+				setupPictureInPicture()
+			}
 		} else {
 			controlView.showCover(url: resource.cover)
 			controlView.hideLoader()
@@ -170,6 +175,10 @@ open class UZPlayer: UIView {
 		
 		playerLayer?.play()
 		isPauseByUser = false
+		
+		if pictureInPictureController == nil {
+			setupPictureInPicture()
+		}
 	}
 	
 	open func stop() {
@@ -212,8 +221,30 @@ open class UZPlayer: UIView {
 		}
 	}
 	
+	private var playerViewControllerKVOContext = 0
+	
+	func setupPictureInPicture() {
+		if let playerLayer = playerLayer?.playerLayer {
+			pictureInPictureController = AVPictureInPictureController(playerLayer: playerLayer)
+			pictureInPictureController!.delegate = self
+			
+			let keyPath = #keyPath(AVPictureInPictureController.isPictureInPicturePossible)
+			pictureInPictureController!.addObserver(self, forKeyPath: keyPath, options: [.initial, .new], context: &playerViewControllerKVOContext)
+			
+		}
+	}
+	
 	open func togglePiP() {
-		print("ASD")
+		if pictureInPictureController == nil {
+			setupPictureInPicture()
+		}
+		
+		if pictureInPictureController?.isPictureInPictureActive ?? false {
+			pictureInPictureController?.stopPictureInPicture()
+		}
+		else {
+			pictureInPictureController?.startPictureInPicture()
+		}
 	}
 	
 	// MARK: -
@@ -227,7 +258,7 @@ open class UZPlayer: UIView {
 	}
 	
 	@objc func onApplicationInactive(notification:Notification) {
-		if AVAudioSession.sharedInstance().isAirPlaying {
+		if AVAudioSession.sharedInstance().isAirPlaying || (pictureInPictureController?.isPictureInPictureActive ?? false) {
 			// user close app or turn off the phone, don't pause video while casting
 		}
 		else {
@@ -392,6 +423,24 @@ open class UZPlayer: UIView {
 		}
 	}
 	
+	// MARK: - KVO
+	
+	override open func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+//		guard context == &playerViewControllerKVOContext else {
+//			super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
+//			return
+//		}
+		
+		if keyPath == #keyPath(AVPictureInPictureController.isPictureInPicturePossible) {
+			let newValue = change?[NSKeyValueChangeKey.newKey] as! NSNumber
+			let isPictureInPicturePossible: Bool = newValue.boolValue
+			controlView.pipButton.isEnabled = isPictureInPicturePossible
+		}
+
+	}
+	
+	// MARK: -
+	
 	deinit {
 		playerLayer?.pause()
 		playerLayer?.prepareToDeinit()
@@ -553,6 +602,18 @@ extension UZPlayer: UZPlayerControlViewDelegate {
 		default:
 			break
 		}
+	}
+	
+}
+
+extension UZPlayer: AVPictureInPictureControllerDelegate {
+	
+	open func pictureInPictureControllerWillStartPictureInPicture(_ pictureInPictureController: AVPictureInPictureController) {
+		controlView.hideControlView()
+	}
+	
+	open func pictureInPictureControllerDidStopPictureInPicture(_ pictureInPictureController: AVPictureInPictureController) {
+		controlView.showControlView()
 	}
 	
 }

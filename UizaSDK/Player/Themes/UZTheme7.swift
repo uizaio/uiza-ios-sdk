@@ -80,8 +80,8 @@ open class UZTheme7: UZPlayerTheme {
 		controlView.fullscreenButton.setImage(collapseIcon, for: .selected)
 		controlView.timeSlider.setThumbImage(thumbIcon, for: .normal)
 		
-		let pipStartIcon = AVPictureInPictureController.pictureInPictureButtonStartImage(compatibleWith: nil).colorize(with: .white)
-		let pipStopIcon = AVPictureInPictureController.pictureInPictureButtonStopImage(compatibleWith: nil).colorize(with: .white)
+		let pipStartIcon = AVPictureInPictureController.pictureInPictureButtonStartImage(compatibleWith: nil).colorize(with: iconColor)
+		let pipStopIcon = AVPictureInPictureController.pictureInPictureButtonStopImage(compatibleWith: nil).colorize(with: iconColor)
 		controlView.pipButton.setImage(pipStartIcon, for: .normal)
 		controlView.pipButton.setImage(pipStopIcon, for: .selected)
 		controlView.pipButton.imageView?.contentMode = .scaleAspectFit

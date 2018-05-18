@@ -149,7 +149,7 @@ open class UZTheme7: UZPlayerTheme {
 		bottomFrameLayout!.addSubview(controlView.settingsButton)
 		bottomFrameLayout!.addSubview(controlView.volumeButton)
 		bottomFrameLayout!.addSubview(controlView.playlistButton)
-		bottomFrameLayout!.addSubview(controlView.playlistButton)
+		bottomFrameLayout!.addSubview(controlView.pipButton)
 		bottomFrameLayout!.addSubview(controlView.fullscreenButton)
 		bottomFrameLayout!.addSubview(controlView.backwardButton)
 		bottomFrameLayout!.addSubview(controlView.forwardButton)

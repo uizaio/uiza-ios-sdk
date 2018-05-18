@@ -148,7 +148,7 @@ open class UZTheme6: UZPlayerTheme {
 		bottomFrameLayout = NKTripleFrameLayout(direction: .horizontal, andViews: [bottomLeftFrameLayout, bottomCenterFrameLayout, bottomRightFrameLayout])
 		bottomFrameLayout!.addSubview(controlView.settingsButton)
 		bottomFrameLayout!.addSubview(controlView.playlistButton)
-		bottomFrameLayout!.addSubview(controlView.playlistButton)
+		bottomFrameLayout!.addSubview(controlView.pipButton)
 		bottomFrameLayout!.addSubview(controlView.fullscreenButton)
 		bottomFrameLayout!.addSubview(controlView.backwardButton)
 		bottomFrameLayout!.addSubview(controlView.forwardButton)

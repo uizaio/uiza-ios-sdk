@@ -148,6 +148,7 @@ open class UZTheme4: UZPlayerTheme {
 		bottomFrameLayout!.addSubview(controlView.currentTimeLabel)
 		bottomFrameLayout!.addSubview(controlView.totalTimeLabel)
 		bottomFrameLayout!.addSubview(controlView.playlistButton)
+		bottomFrameLayout!.addSubview(controlView.pipButton)
 		bottomFrameLayout!.addSubview(controlView.fullscreenButton)
 		bottomFrameLayout!.addSubview(controlView.backwardButton)
 		bottomFrameLayout!.addSubview(controlView.forwardButton)

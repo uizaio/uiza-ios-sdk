@@ -241,11 +241,11 @@ open class UZPlayer: UIView {
 		
 		if pictureInPictureController?.isPictureInPictureActive ?? false {
 			pictureInPictureController?.stopPictureInPicture()
-			controlView.pipButton.isSelected = true
+			controlView.pipButton.isSelected = false
 		}
 		else {
 			pictureInPictureController?.startPictureInPicture()
-			controlView.pipButton.isSelected = false
+			controlView.pipButton.isSelected = true
 		}
 	}
 	

@@ -85,7 +85,7 @@ open class UZPlayerControlView: UIView {
 	
 	open var allButtons: [UIButton]! {
 		get {
-			return [backButton, helpButton, ccButton, playlistButton, settingsButton, fullscreenButton, playpauseCenterButton, playpauseButton, forwardButton, backwardButton, volumeButton]
+			return [backButton, helpButton, ccButton, playlistButton, settingsButton, fullscreenButton, playpauseCenterButton, playpauseButton, forwardButton, backwardButton, volumeButton, pipButton]
 		}
 	}
 	

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVKit
 import SwiftIcons
 import NKFrameLayoutKit
 import NVActivityIndicatorView
@@ -78,6 +79,13 @@ open class UZTheme7: UZPlayerTheme {
 		controlView.fullscreenButton.setImage(fullscreenIcon, for: .normal)
 		controlView.fullscreenButton.setImage(collapseIcon, for: .selected)
 		controlView.timeSlider.setThumbImage(thumbIcon, for: .normal)
+		
+		let pipStartIcon = AVPictureInPictureController.pictureInPictureButtonStartImage(compatibleWith: nil).colorize(with: .white)
+		let pipStopIcon = AVPictureInPictureController.pictureInPictureButtonStopImage(compatibleWith: nil).colorize(with: .white)
+		controlView.pipButton.setImage(pipStartIcon, for: .normal)
+		controlView.pipButton.setImage(pipStopIcon, for: .selected)
+		controlView.pipButton.imageView?.contentMode = .scaleAspectFit
+		controlView.pipButton.isHidden = !AVPictureInPictureController.isPictureInPictureSupported()
 		
 		controlView.titleLabel.textColor = .white
 		controlView.titleLabel.font = UIFont.systemFont(ofSize: 14)

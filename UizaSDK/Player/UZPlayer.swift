@@ -7,8 +7,9 @@
 //
 
 import UIKit
-import Foundation
+import AVKit
 import AVFoundation
+import Foundation
 import CoreGraphics
 import NKModalViewManager
 import GoogleInteractiveMediaAds
@@ -209,6 +210,10 @@ open class UZPlayer: UIView {
 			let toTime = min(max(currentTime + offset, 0), totalDuration)
 			playerLayer.seek(to: toTime, completion: completion)
 		}
+	}
+	
+	open func togglePiP() {
+		print("ASD")
 	}
 	
 	// MARK: -
@@ -509,6 +514,9 @@ extension UZPlayer: UZPlayerControlViewDelegate {
 				
 			case .relates, .playlist:
 				showRelates()
+				
+			case .pip:
+				togglePiP()
 				
 			default:
 				#if DEBUG

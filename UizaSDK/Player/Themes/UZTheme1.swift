@@ -61,8 +61,6 @@ open class UZTheme1: UZPlayerTheme {
 		let fullscreenIcon = UIImage(icon: .fontAwesome(.expand), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let collapseIcon = UIImage(icon: .fontAwesome(.compress), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let thumbIcon = UIImage(icon: .fontAwesome(.circle), size: seekThumbSize, textColor: iconColor, backgroundColor: .clear)
-		let pipStartIcon = AVPictureInPictureController.pictureInPictureButtonStartImage(compatibleWith: nil).tint(with: .white)
-		let pipStopIcon = AVPictureInPictureController.pictureInPictureButtonStopImage(compatibleWith: nil).tint(with: .white)
 		
 		controlView.backButton.setImage(backIcon, for: .normal)
 		controlView.playlistButton.setImage(playlistIcon, for: .normal)
@@ -79,11 +77,14 @@ open class UZTheme1: UZPlayerTheme {
 		controlView.backwardButton.setImage(backwardIcon, for: .normal)
 		controlView.fullscreenButton.setImage(fullscreenIcon, for: .normal)
 		controlView.fullscreenButton.setImage(collapseIcon, for: .selected)
-		controlView.pipButton.setImage(pipStartIcon, for: .normal)
-		controlView.pipButton.setImage(pipStopIcon, for: .selected)
 		controlView.timeSlider.setThumbImage(thumbIcon, for: .normal)
 		
+		let pipStartIcon = AVPictureInPictureController.pictureInPictureButtonStartImage(compatibleWith: nil).colorize(with: .white)
+		let pipStopIcon = AVPictureInPictureController.pictureInPictureButtonStopImage(compatibleWith: nil).colorize(with: .white)
+		controlView.pipButton.setImage(pipStartIcon, for: .normal)
+		controlView.pipButton.setImage(pipStopIcon, for: .selected)
 		controlView.pipButton.imageView?.contentMode = .scaleAspectFit
+		controlView.pipButton.isHidden = !AVPictureInPictureController.isPictureInPictureSupported()
 		
 		controlView.titleLabel.textColor = .white
 		controlView.titleLabel.font = UIFont.systemFont(ofSize: 14)

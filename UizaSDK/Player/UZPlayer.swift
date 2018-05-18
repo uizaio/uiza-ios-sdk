@@ -442,6 +442,11 @@ open class UZPlayer: UIView {
 	// MARK: -
 	
 	deinit {
+		if pictureInPictureController != nil {
+			let keyPath = #keyPath(AVPictureInPictureController.isPictureInPicturePossible)
+			pictureInPictureController!.removeObserver(self, forKeyPath: keyPath, context: &playerViewControllerKVOContext)
+		}
+		
 		playerLayer?.pause()
 		playerLayer?.prepareToDeinit()
 		NotificationCenter.default.removeObserver(self)

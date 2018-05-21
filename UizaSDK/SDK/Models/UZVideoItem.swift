@@ -10,13 +10,13 @@ import UIKit
 import AVFoundation
 
 public struct UZVideoLinkPlay {
-	var definition: String
-	var url: URL
+	public var definition: String
+	public var url: URL
 	
 	/// An instance of NSDictionary that contains keys for specifying options for the initialization of the AVURLAsset. See AVURLAssetPreferPreciseDurationAndTimingKey and AVURLAssetReferenceRestrictionsKey above.
 	public var options: [String : Any]?
 	
-	var avURLAsset: AVURLAsset {
+	public var avURLAsset: AVURLAsset {
 		get {
 			return AVURLAsset(url: url, options: options)
 		}

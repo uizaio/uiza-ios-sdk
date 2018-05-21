@@ -596,9 +596,12 @@ extension UZPlayer: UZPlayerControlViewDelegate {
 			case .pip:
 				togglePiP()
 				
+			case .settings:
+				showQualitySelector()
+				
 			default:
 				#if DEBUG
-				print("Unhandled Action")
+				print("[UZPlayer] Unhandled Action")
 				#endif
 			}
 		}

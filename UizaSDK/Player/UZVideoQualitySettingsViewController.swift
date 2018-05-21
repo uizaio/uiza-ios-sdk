@@ -28,7 +28,7 @@ internal class UZVideoQualitySettingsViewController: UIViewController {
 	init() {
 		super.init(nibName: nil, bundle: nil)
 		
-		titleLabel.text = "Video liên quan"
+		titleLabel.text = "Video Quality"
 		titleLabel.font = UIFont.systemFont(ofSize: 15, weight: .medium)
 		titleLabel.textColor = .white
 		titleLabel.textAlignment = .left
@@ -73,7 +73,9 @@ internal class UZVideoQualitySettingsViewController: UIViewController {
 	
 	override var preferredContentSize: CGSize {
 		get {
-			let screenSize = UIScreen.main.bounds.size
+			var screenSize = UIScreen.main.bounds.size
+			screenSize.width = min(320, screenSize.width * 0.8)
+			screenSize.height = min(400, screenSize.height * 0.8)
 			return frameLayout.sizeThatFits(screenSize)
 		}
 		set {
@@ -101,12 +103,6 @@ internal class UZVideoQualitySettingsViewController: UIViewController {
 
 extension UZVideoQualitySettingsViewController: NKModalViewControllerProtocol {
 	
-	func presentRect(for modalViewController: NKModalViewController!) -> CGRect {
-		let screenRect = UIScreen.main.bounds
-		let contentSize = CGSize(width: screenRect.size.width, height: 200)
-		return CGRect(x: 10, y: screenRect.height - contentSize.height - 10, width: screenRect.width - 20, height: contentSize.height)
-	}
-	
 	func viewController(forPresenting modalViewController: NKModalViewController!) -> UIViewController! {
 		if let window = UIApplication.shared.keyWindow, let viewController = window.rootViewController {
 			var result: UIViewController? = viewController
@@ -121,10 +117,6 @@ extension UZVideoQualitySettingsViewController: NKModalViewControllerProtocol {
 	}
 	
 	func shouldTapOutside(toDismiss modalViewController: NKModalViewController!) -> Bool {
-		return true
-	}
-	
-	func shouldAllowDragToDismiss(for modalViewController: NKModalViewController!) -> Bool {
 		return true
 	}
 	
@@ -283,11 +275,11 @@ internal class UZVideoQualityCollectionViewController: UICollectionViewControlle
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-		return CGSize.zero
+		return .zero
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-		return CGSize.zero
+		return .zero
 	}
 	
 	override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -314,10 +306,8 @@ internal class UZVideoQualityCollectionViewController: UICollectionViewControlle
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-		let itemHeight	= collectionView.bounds.size.height - (collectionView.contentInset.top + collectionView.contentInset.bottom + flowLayout.minimumLineSpacing)
-		let itemWidth	= itemHeight * 1.77 //(displayMode == .landscape ? itemHeight * 1.77 : itemHeight * 1.5)
-		
-		return CGSize(width: itemWidth - flowLayout.minimumInteritemSpacing, height: itemHeight)
+		let itemWidth = collectionView.bounds.size.width - (collectionView.contentInset.left + collectionView.contentInset.right)
+		return CGSize(width: itemWidth, height: 50)
 	}
 	
 }
@@ -389,15 +379,17 @@ class UZQualityItemCollectionViewCell : UICollectionViewCell {
 		
 		self.backgroundColor = .clear
 		self.contentView.backgroundColor = UIColor.white.withAlphaComponent(0.2)
+		self.contentView.layer.cornerRadius = 10
+		self.contentView.layer.masksToBounds = true
 		
 		highlightView = UIView()
 		highlightView.backgroundColor = UIColor(white: 1.0, alpha: 0.5)
 		highlightView.alpha = 0.0
 		
 		titleLabel = UILabel()
-		titleLabel.textAlignment = .left
+		titleLabel.textAlignment = .center
 		titleLabel.font = UIFont.systemFont(ofSize: 14)
-		titleLabel.numberOfLines = 2
+		titleLabel.numberOfLines = 1
 		titleLabel.textColor = .white
 		
 		self.contentView.addSubview(highlightView)

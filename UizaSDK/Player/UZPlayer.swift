@@ -113,6 +113,7 @@ open class UZPlayer: UIView {
 		
 		UZContentServices().getLinkPlay(videoId: video.id) { [weak self] (results, error) in
 			if results != nil {
+				print("\(results)")
 				UZLogger().log(event: "plays_requested", video: video, completionBlock: nil)
 				let resource = UZPlayerResource(name: video.title, definitions: results!, cover: video.thumbnailURL)
 				self?.setVideo(resource: resource)

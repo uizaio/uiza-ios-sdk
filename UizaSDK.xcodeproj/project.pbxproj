@@ -566,6 +566,11 @@
 					638EC0D420AAA17D00C0243E = {
 						CreatedOnToolsVersion = 9.3.1;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					63C65F61205B9FE600DB2C96 = {
 						CreatedOnToolsVersion = 9.2;

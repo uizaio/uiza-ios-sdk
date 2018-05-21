@@ -187,10 +187,17 @@ open class UZContentServices: UZAPIConnector {
 				completionBlock?(nil, error)
 			}
 			else {
-				if let data = result?.value(for: "hls", defaultValue: nil) as? [NSDictionary] {
+				let systemVersion = (UIDevice.current.systemVersion as NSString).floatValue
+				let key = systemVersion<10 ? "hls_ts" : "hls"
+				
+				if let data = result?.value(for: key, defaultValue: nil) as? [NSDictionary] {
 					if let url = data.first?.url(for: "url", defaultURL: nil) {
-						let linkPlay = UZVideoLinkPlay(definition: "Auto", url: url)
-						completionBlock?([linkPlay], nil)
+						let linkPlay1 = UZVideoLinkPlay(definition: "Auto", url: url)
+						// DUMMY DATA
+						let linkPlay2 = UZVideoLinkPlay(definition: "720", url: URL(string: "\(url.path)?u=1")!)
+						let linkPlay3 = UZVideoLinkPlay(definition: "480", url: URL(string: "\(url.path)?u=2")!)
+						let linkPlay4 = UZVideoLinkPlay(definition: "320", url: URL(string: "\(url.path)?u=3")!)
+						completionBlock?([linkPlay1, linkPlay2, linkPlay3, linkPlay4], nil)
 					}
 				}
 			}

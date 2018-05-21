@@ -16,6 +16,12 @@ internal class UZVideoQualitySettingsViewController: UIViewController {
 	let collectionViewController = UZVideoQualityCollectionViewController()
 	var frameLayout: NKDoubleFrameLayout!
 	
+	var currentDefinition: UZVideoLinkPlay? {
+		didSet {
+			self.collectionViewController.selectedResource = currentDefinition
+		}
+	}
+	
 	var resource: UZPlayerResource? = nil {
 		didSet {
 			if let resource = resource {
@@ -29,14 +35,14 @@ internal class UZVideoQualitySettingsViewController: UIViewController {
 		super.init(nibName: nil, bundle: nil)
 		
 		titleLabel.text = "Video Quality"
-		titleLabel.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+		titleLabel.font = UIFont.systemFont(ofSize: 15, weight: .bold)
 		titleLabel.textColor = .white
-		titleLabel.textAlignment = .left
+		titleLabel.textAlignment = .center
 		
 		frameLayout = NKDoubleFrameLayout(direction: .vertical, andViews: [titleLabel, collectionViewController.view])
 		frameLayout.bottomFrameLayout.minSize = CGSize(width: 0, height: 100)
-		frameLayout.edgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-		frameLayout.spacing = 10
+		frameLayout.edgeInsets = UIEdgeInsets(top: 20, left: 10, bottom: 10, right: 10)
+		frameLayout.spacing = 20
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
@@ -75,7 +81,7 @@ internal class UZVideoQualitySettingsViewController: UIViewController {
 		get {
 			var screenSize = UIScreen.main.bounds.size
 			screenSize.width = min(320, screenSize.width * 0.8)
-			screenSize.height = min(400, screenSize.height * 0.8)
+			screenSize.height = min(min(400, screenSize.height * 0.8), CGFloat(self.collectionViewController.resources.count * 50) + 70)
 			return frameLayout.sizeThatFits(screenSize)
 		}
 		set {
@@ -120,6 +126,14 @@ extension UZVideoQualitySettingsViewController: NKModalViewControllerProtocol {
 		return true
 	}
 	
+	func presentingStyle(for modalViewController: NKModalViewController!) -> NKModalPresentingStyle {
+		return .zoomIn
+	}
+	
+	func dismissingStyle(for modalViewController: NKModalViewController!) -> NKModalDismissingStyle {
+		return .zoomOut
+	}
+	
 }
 
 // MARK: - UZVideoQualityCollectionViewController
@@ -127,6 +141,7 @@ extension UZVideoQualitySettingsViewController: NKModalViewControllerProtocol {
 internal class UZVideoQualityCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 	let CellIdentifier	= "VideoQualityItemCell"
 	var flowLayout		: UICollectionViewFlowLayout!
+	var selectedResource: UZVideoLinkPlay?
 	var resources		: [UZVideoLinkPlay]! = []
 	var selectedBlock	: ((_ item: UZVideoLinkPlay) -> Void)? = nil
 	var messageLabel	: UILabel?
@@ -241,6 +256,7 @@ internal class UZVideoQualityCollectionViewController: UICollectionViewControlle
 	
 	func config(cell: UZQualityItemCollectionViewCell, with resource: UZVideoLinkPlay, and indexPath: IndexPath) {
 		cell.resource = resource
+		cell.isSelected = selectedResource == resource
 	}
 	
 	func showMessage(message: String) {
@@ -341,6 +357,7 @@ class UZQualityItemCollectionViewCell : UICollectionViewCell {
 		}
 		set (value) {
 			super.isSelected = value
+			titleLabel.font = UIFont.systemFont(ofSize: 14, weight: value ? .bold : .regular)
 			
 			if highlightMode {
 				UIView.animate(withDuration: 0.3) {
@@ -378,13 +395,17 @@ class UZQualityItemCollectionViewCell : UICollectionViewCell {
 		super.init(frame: CGRect.zero)
 		
 		self.backgroundColor = .clear
-		self.contentView.backgroundColor = UIColor.white.withAlphaComponent(0.2)
-		self.contentView.layer.cornerRadius = 10
-		self.contentView.layer.masksToBounds = true
+		
+		self.backgroundView = UIView()
+		self.backgroundView!.backgroundColor = UIColor.white.withAlphaComponent(0.2)
+		self.backgroundView!.layer.cornerRadius = 10
+		self.backgroundView!.layer.masksToBounds = true
 		
 		highlightView = UIView()
 		highlightView.backgroundColor = UIColor(white: 1.0, alpha: 0.5)
 		highlightView.alpha = 0.0
+		highlightView.layer.cornerRadius = 10
+		highlightView.layer.masksToBounds = true
 		
 		titleLabel = UILabel()
 		titleLabel.textAlignment = .center
@@ -397,7 +418,7 @@ class UZQualityItemCollectionViewCell : UICollectionViewCell {
 		
 		frameLayout = NKDoubleFrameLayout(direction: .horizontal, andViews: [titleLabel])
 		frameLayout.bottomFrameLayout.fixSize = CGSize(width: 0, height: 40)
-		frameLayout.layoutAlignment = .left
+		frameLayout.layoutAlignment = .center
 		frameLayout.spacing = 0
 		self.contentView.addSubview(frameLayout)
 		
@@ -422,7 +443,11 @@ class UZQualityItemCollectionViewCell : UICollectionViewCell {
 		super.layoutSubviews()
 		
 		frameLayout.frame = self.bounds
-		highlightView.frame = self.bounds
+		
+		if let backgroundView = backgroundView {
+			backgroundView.frame = UIEdgeInsetsInsetRect(self.contentView.bounds, UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5))
+			highlightView.frame = backgroundView.frame
+		}
 	}
 	
 }

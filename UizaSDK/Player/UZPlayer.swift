@@ -228,7 +228,7 @@ open class UZPlayer: UIView {
 	func setupPictureInPicture() {
 		if let playerLayer = playerLayer?.playerLayer {
 			pictureInPictureController = AVPictureInPictureController(playerLayer: playerLayer)
-			pictureInPictureController!.delegate = self
+			pictureInPictureController?.delegate = self
 			
 //			let keyPath = #keyPath(AVPictureInPictureController.isPictureInPicturePossible)
 //			pictureInPictureController!.addObserver(self, forKeyPath: keyPath, options: [.initial, .new], context: &playerViewControllerKVOContext)
@@ -438,6 +438,7 @@ open class UZPlayer: UIView {
 	
 	open func showQualitySelector() {
 		let viewController = UZVideoQualitySettingsViewController()
+		viewController.currentDefinition = currentLinkPlay
 		viewController.resource = resource
 		viewController.collectionViewController.selectedBlock = { [weak self] (linkPlay) in
 			guard let `self` = self else { return }
@@ -871,19 +872,20 @@ open class UZPlayerLayerView: UIView {
 		}
 	}
 	
-	open func seek(to secounds: TimeInterval, completion:(() -> Void)?) {
-		if secounds.isNaN {
+	open func seek(to seconds: TimeInterval, completion:(() -> Void)?) {
+		if seconds.isNaN {
 			return
 		}
 		
 		setupTimer()
 		if self.player?.currentItem?.status == AVPlayerItemStatus.readyToPlay {
-			let draggedTime = CMTimeMake(Int64(secounds), 1)
+			let draggedTime = CMTimeMake(Int64(seconds), 1)
 			self.player!.seek(to: draggedTime, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: { (finished) in
 				completion?()
 			})
-		} else {
-			self.shouldSeekTo = secounds
+		}
+		else {
+			self.shouldSeekTo = seconds
 		}
 	}
 	

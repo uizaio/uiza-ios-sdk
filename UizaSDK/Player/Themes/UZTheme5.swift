@@ -118,7 +118,6 @@ open class UZTheme5: UZPlayerTheme {
 		let controlFrameLayout = NKGridFrameLayout(direction: .horizontal, andViews: [controlView.pipButton, controlView.playlistButton, controlView.volumeButton])!
 		controlFrameLayout.addSubview(controlView.pipButton)
 		controlFrameLayout.addSubview(controlView.playlistButton)
-		controlFrameLayout.addSubview(controlView.settingsButton)
 		controlFrameLayout.addSubview(controlView.volumeButton)
 		controlFrameLayout.isUserInteractionEnabled = true
 		controlFrameLayout.intrinsicSizeEnabled = true
@@ -155,6 +154,7 @@ open class UZTheme5: UZPlayerTheme {
 		bottomFrameLayout!.addSubview(controlView.currentTimeLabel)
 		bottomFrameLayout!.addSubview(controlView.totalTimeLabel)
 		bottomFrameLayout!.addSubview(controlView.timeSlider)
+		bottomFrameLayout!.addSubview(controlView.settingsButton)
 		bottomFrameLayout!.addSubview(controlView.fullscreenButton)
 		bottomFrameLayout!.addSubview(controlView.playpauseButton)
 		bottomFrameLayout!.spacing = 10

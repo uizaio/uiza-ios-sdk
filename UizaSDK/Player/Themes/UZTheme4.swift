@@ -120,15 +120,25 @@ open class UZTheme4: UZPlayerTheme {
 		topLeftFrameLayout.addSubview(controlView.backButton)
 		topLeftFrameLayout.addSubview(controlView.titleLabel)
 		
+		let controlFrameLayout = NKGridFrameLayout(direction: .horizontal, andViews: [controlView.settingsButton, controlView.volumeButton])!
+//		controlFrameLayout.addSubview(controlView.pipButton)
+//		controlFrameLayout.addSubview(controlView.playlistButton)
+//		controlFrameLayout.addSubview(controlView.ccButton)
+		controlFrameLayout.addSubview(controlView.settingsButton)
+		controlFrameLayout.addSubview(controlView.volumeButton)
+		controlFrameLayout.isUserInteractionEnabled = true
+		controlFrameLayout.intrinsicSizeEnabled = true
+		controlFrameLayout.spacing = 10
+//		controlFrameLayout.showFrameDebug = true
+		
 		topFrameLayout = NKDoubleFrameLayout(direction: .horizontal)!
-		topFrameLayout!.leftFrameLayout.targetView = topLeftFrameLayout
-//		topFrameLayout!.rightFrameLayout.targetView = controlFrameLayout
-		topFrameLayout!.leftFrameLayout.contentAlignment = "cl"
+		topFrameLayout!.rightFrameLayout = topLeftFrameLayout
+		topFrameLayout!.leftFrameLayout = controlFrameLayout
+		topFrameLayout!.leftFrameLayout.contentAlignment = "cf"
 		topFrameLayout!.rightFrameLayout.contentAlignment = "cr"
-		topFrameLayout!.spacing = 5
-		topFrameLayout!.addSubview(topLeftFrameLayout)
+		topFrameLayout!.spacing = 10
 		topFrameLayout!.isUserInteractionEnabled = true
-		topFrameLayout!.layoutAlignment = .right
+		topFrameLayout!.layoutAlignment = .left
 		topFrameLayout!.edgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 0, right: 5)
 //		topFrameLayout!.showFrameDebug = true
 		

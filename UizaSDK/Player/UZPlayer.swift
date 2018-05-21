@@ -223,15 +223,15 @@ open class UZPlayer: UIView {
 		}
 	}
 	
-//	private var playerViewControllerKVOContext = 0
+	private var playerViewControllerKVOContext = 0
 	
 	func setupPictureInPicture() {
 		if let playerLayer = playerLayer?.playerLayer {
 			pictureInPictureController = AVPictureInPictureController(playerLayer: playerLayer)
 			pictureInPictureController?.delegate = self
 			
-//			let keyPath = #keyPath(AVPictureInPictureController.isPictureInPicturePossible)
-//			pictureInPictureController!.addObserver(self, forKeyPath: keyPath, options: [.initial, .new], context: &playerViewControllerKVOContext)
+			let keyPath = #keyPath(AVPictureInPictureController.isPictureInPicturePossible)
+			pictureInPictureController?.addObserver(self, forKeyPath: keyPath, options: [.initial, .new], context: &playerViewControllerKVOContext)
 			
 		}
 	}
@@ -458,21 +458,21 @@ open class UZPlayer: UIView {
 //			return
 //		}
 		
-//		if keyPath == #keyPath(AVPictureInPictureController.isPictureInPicturePossible) {
-//			let newValue = change?[NSKeyValueChangeKey.newKey] as! NSNumber
-//			let isPictureInPicturePossible: Bool = newValue.boolValue
-//			controlView.pipButton.isEnabled = isPictureInPicturePossible
-//		}
+		if keyPath == #keyPath(AVPictureInPictureController.isPictureInPicturePossible) {
+			let newValue = change?[NSKeyValueChangeKey.newKey] as! NSNumber
+			let isPictureInPicturePossible: Bool = newValue.boolValue
+			controlView.pipButton.isEnabled = isPictureInPicturePossible
+		}
 
 	}
 	
 	// MARK: -
 	
 	deinit {
-//		if pictureInPictureController != nil {
-//			let keyPath = #keyPath(AVPictureInPictureController.isPictureInPicturePossible)
-//			pictureInPictureController!.removeObserver(self, forKeyPath: keyPath, context: &playerViewControllerKVOContext)
-//		}
+		if pictureInPictureController != nil {
+			let keyPath = #keyPath(AVPictureInPictureController.isPictureInPicturePossible)
+			pictureInPictureController!.removeObserver(self, forKeyPath: keyPath, context: &playerViewControllerKVOContext)
+		}
 		
 		playerLayer?.pause()
 		playerLayer?.prepareToDeinit()

@@ -1,5 +1,5 @@
 //
-//  UZVideoSettingsViewController.swift
+//  UZVideoQualitySettingsViewController.swift
 //  UizaSDK
 //
 //  Created by Nam Kennic on 5/21/18.
@@ -10,11 +10,20 @@ import UIKit
 import NKFrameLayoutKit
 import NKModalViewManager
 
-internal class UZVideoSettingsViewController: UIViewController {
+internal class UZVideoQualitySettingsViewController: UIViewController {
 	let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
 	let titleLabel = UILabel()
 	let collectionViewController = UZVideoQualityCollectionViewController()
 	var frameLayout: NKDoubleFrameLayout!
+	
+	var resource: UZPlayerResource? = nil {
+		didSet {
+			if let resource = resource {
+				self.collectionViewController.resources = resource.definitions
+				self.collectionViewController.collectionView?.reloadData()
+			}
+		}
+	}
 	
 	init() {
 		super.init(nibName: nil, bundle: nil)
@@ -34,20 +43,13 @@ internal class UZVideoSettingsViewController: UIViewController {
 		super.init(coder: aDecoder)
 	}
 	
-	func loadRelateVideos(to video: UZVideoItem) {
+	func loadResourceDefinitions(from video: UZVideoItem) {
 		UZContentServices().getLinkPlay(videoId: video.id) { [weak self] (results, error) in
 			guard let `self` = self else { return }
 			
 			if let results = results {
 				self.collectionViewController.resources = results
 				self.collectionViewController.collectionView?.reloadData()
-				
-				if results.isEmpty {
-					self.collectionViewController.showMessage(message: "(Không có video liên quan)")
-				}
-				else {
-					self.collectionViewController.hideMessage()
-				}
 			}
 		}
 	}
@@ -97,7 +99,7 @@ internal class UZVideoSettingsViewController: UIViewController {
 
 }
 
-extension UZVideoSettingsViewController: NKModalViewControllerProtocol {
+extension UZVideoQualitySettingsViewController: NKModalViewControllerProtocol {
 	
 	func presentRect(for modalViewController: NKModalViewController!) -> CGRect {
 		let screenRect = UIScreen.main.bounds
@@ -133,8 +135,7 @@ extension UZVideoSettingsViewController: NKModalViewControllerProtocol {
 internal class UZVideoQualityCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 	let CellIdentifier	= "VideoQualityItemCell"
 	var flowLayout		: UICollectionViewFlowLayout!
-	var resources			: [UZVideoLinkPlay]! = []
-	var displayMode		: UZCellDisplayMode = .landscape
+	var resources		: [UZVideoLinkPlay]! = []
 	var selectedBlock	: ((_ item: UZVideoLinkPlay) -> Void)? = nil
 	var messageLabel	: UILabel?
 	
@@ -314,7 +315,7 @@ internal class UZVideoQualityCollectionViewController: UICollectionViewControlle
 	
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 		let itemHeight	= collectionView.bounds.size.height - (collectionView.contentInset.top + collectionView.contentInset.bottom + flowLayout.minimumLineSpacing)
-		let itemWidth	= displayMode == .portrait ? itemHeight * 0.66 : itemHeight * 1.77 //(displayMode == .landscape ? itemHeight * 1.77 : itemHeight * 1.5)
+		let itemWidth	= itemHeight * 1.77 //(displayMode == .landscape ? itemHeight * 1.77 : itemHeight * 1.5)
 		
 		return CGSize(width: itemWidth - flowLayout.minimumInteritemSpacing, height: itemHeight)
 	}

@@ -64,6 +64,7 @@ open class UZPlayer: UIView {
 	}
 	
 	public fileprivate(set) var currentVideo: UZVideoItem?
+	public fileprivate(set) var currentLinkPlay: UZVideoLinkPlay?
 	
 	open var shouldAutoPlay = true
 	
@@ -138,8 +139,8 @@ open class UZPlayer: UIView {
 		
 		if shouldAutoPlay {
 			isURLSet = true
-			let asset = resource.definitions[definitionIndex]
-			playerLayer?.playAsset(asset: asset.avURLAsset)
+			currentLinkPlay = resource.definitions[definitionIndex]
+			playerLayer?.playAsset(asset: currentLinkPlay!.avURLAsset)
 			
 			if pictureInPictureController == nil {
 				setupPictureInPicture()
@@ -161,8 +162,8 @@ open class UZPlayer: UIView {
 			return
 		}
 		if !isURLSet {
-			let asset = resource.definitions[currentDefinition]
-			playerLayer?.playAsset(asset: asset.avURLAsset)
+			currentLinkPlay = resource.definitions[currentDefinition]
+			playerLayer?.playAsset(asset: currentLinkPlay!.avURLAsset)
 			controlView.hideCoverImageView()
 			isURLSet = true
 		}
@@ -222,7 +223,7 @@ open class UZPlayer: UIView {
 		}
 	}
 	
-	private var playerViewControllerKVOContext = 0
+//	private var playerViewControllerKVOContext = 0
 	
 	func setupPictureInPicture() {
 		if let playerLayer = playerLayer?.playerLayer {
@@ -247,6 +248,15 @@ open class UZPlayer: UIView {
 		else {
 			pictureInPictureController?.startPictureInPicture()
 			controlView.pipButton.isSelected = true
+		}
+	}
+	
+	open func switchVideoDefinition(_ linkplay: UZVideoLinkPlay) {
+		if currentLinkPlay != linkplay {
+			currentLinkPlay = linkplay
+			shouldSeekTo = currentPosition
+			playerLayer?.resetPlayer()
+			playerLayer?.playAsset(asset: linkplay.avURLAsset)
 		}
 	}
 	
@@ -426,6 +436,19 @@ open class UZPlayer: UIView {
 		}
 	}
 	
+	open func showQualitySelector() {
+		let viewController = UZVideoQualitySettingsViewController()
+		viewController.resource = resource
+		viewController.collectionViewController.selectedBlock = { [weak self] (linkPlay) in
+			guard let `self` = self else { return }
+			
+			self.switchVideoDefinition(linkPlay)
+			NKModalViewManager.sharedInstance().modalViewControllerThatContains(viewController)?.dismissWith(animated: true, completion: nil)
+			
+		}
+		NKModalViewManager.sharedInstance().presentModalViewController(viewController)
+	}
+	
 	// MARK: - KVO
 	
 	override open func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -512,10 +535,8 @@ extension UZPlayer: UZPlayerLayerViewDelegate {
 extension UZPlayer: UZPlayerControlViewDelegate {
 	
 	open func controlView(controlView: UZPlayerControlView, didChooseDefinition index: Int) {
-		shouldSeekTo = currentPosition
-		playerLayer?.resetPlayer()
 		currentDefinition = index
-		playerLayer?.playAsset(asset: resource.definitions[index].avURLAsset)
+		switchVideoDefinition(resource.definitions[index])
 	}
 	
 	open func controlView(controlView: UZPlayerControlView, didSelectButton button: UIButton) {

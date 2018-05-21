@@ -7,6 +7,49 @@
 //
 
 import UIKit
+import AVFoundation
+
+public struct UZVideoLinkPlay {
+	var definition: String
+	var url: URL
+	
+	/// An instance of NSDictionary that contains keys for specifying options for the initialization of the AVURLAsset. See AVURLAssetPreferPreciseDurationAndTimingKey and AVURLAssetReferenceRestrictionsKey above.
+	public var options: [String : Any]?
+	
+	var avURLAsset: AVURLAsset {
+		get {
+			return AVURLAsset(url: url, options: options)
+		}
+	}
+	
+	/**
+	Video recource item with defination name and specifying options
+	
+	- parameter url:        video url
+	- parameter definition: url deifination
+	- parameter options:    specifying options for the initialization of the AVURLAsset
+	
+	you can add http-header or other options which mentions in https://developer.apple.com/reference/avfoundation/avurlasset/initialization_options
+	
+	to add http-header init options like this
+	```
+	let header = ["User-Agent":"UZPlayer"]
+	let definiton.options = ["AVURLAssetHTTPHeaderFieldsKey":header]
+	```
+	*/
+	public init(definition: String, url: URL, options: [String : Any]? = nil) {
+		self.url        = url
+		self.definition = definition
+		self.options    = options
+	}
+}
+
+extension UZVideoLinkPlay: Equatable {}
+
+public func ==(lhs: UZVideoLinkPlay, rhs: UZVideoLinkPlay) -> Bool {
+	let areEqual = lhs.url == rhs.url
+	return areEqual
+}
 
 /**
 Class chứa các thông tin về video item

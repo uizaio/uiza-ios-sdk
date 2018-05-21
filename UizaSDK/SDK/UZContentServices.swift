@@ -174,14 +174,14 @@ open class UZContentServices: UZAPIConnector {
 	- parameter videoId: `id` của video cần lấy link play
 	- parameter completionBlock: block được gọi sau khi hoàn thành, trả về `URL`, hoặc error nếu có lỗi
 	*/
-	public func getLinkPlay(videoId: String, completionBlock:((_ link: URL?, _ error: Error?) -> Void)? = nil) {
+	public func getLinkPlay(videoId: String, completionBlock:((_ results: [UZVideoLinkPlay]?, _ error: Error?) -> Void)? = nil) {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token?.token ?? ""]
 		
 		let params : [String: Any] = ["entityId" : videoId,
 									  "appId"	 : UizaSDK.token?.appId ?? ""]
 		
 		self.callAPI("v1/media/entity/get-link-play", method: .get, params: params) { (result, error) in
-			//DLog("\(String(describing: result)) - \(String(describing: error))")
+//			print("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
 				completionBlock?(nil, error)
@@ -189,7 +189,8 @@ open class UZContentServices: UZAPIConnector {
 			else {
 				if let data = result?.value(for: "hls", defaultValue: nil) as? [NSDictionary] {
 					if let url = data.first?.url(for: "url", defaultURL: nil) {
-						completionBlock?(url, nil)
+						let linkPlay = UZVideoLinkPlay(definition: "Auto", url: url)
+						completionBlock?([linkPlay], nil)
 					}
 				}
 			}

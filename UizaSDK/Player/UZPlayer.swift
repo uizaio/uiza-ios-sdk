@@ -104,19 +104,20 @@ open class UZPlayer: UIView {
 	- parameter video: UZVideoItem
 	- parameter completionBlock: callback block with url of video or error
 	*/
-	open func loadVideo(_ video: UZVideoItem, completionBlock:((_ url: URL?, _ error: Error?) -> Void)? = nil) {
+	open func loadVideo(_ video: UZVideoItem, completionBlock:((_ linkPlays: [UZVideoLinkPlay]?, _ error: Error?) -> Void)? = nil) {
 		currentVideo = video
 		playthrough_eventlog = [:]
 		
 		controlView.showControlView()
 		
-		UZContentServices().getLinkPlay(videoId: video.id) { [weak self] (url, error) in
-			if url != nil {
+		UZContentServices().getLinkPlay(videoId: video.id) { [weak self] (results, error) in
+			if results != nil {
 				UZLogger().log(event: "plays_requested", video: video, completionBlock: nil)
-				self?.setVideo(resource: UZPlayerResource(url: url!, name: video.title, cover: video.thumbnailURL))
+				let resource = UZPlayerResource(name: video.title, definitions: results!, cover: video.thumbnailURL)
+				self?.setVideo(resource: resource)
 			}
 			
-			completionBlock?(url, error)
+			completionBlock?(results, error)
 		}
 	}
 	
@@ -228,8 +229,8 @@ open class UZPlayer: UIView {
 			pictureInPictureController = AVPictureInPictureController(playerLayer: playerLayer)
 			pictureInPictureController!.delegate = self
 			
-			let keyPath = #keyPath(AVPictureInPictureController.isPictureInPicturePossible)
-			pictureInPictureController!.addObserver(self, forKeyPath: keyPath, options: [.initial, .new], context: &playerViewControllerKVOContext)
+//			let keyPath = #keyPath(AVPictureInPictureController.isPictureInPicturePossible)
+//			pictureInPictureController!.addObserver(self, forKeyPath: keyPath, options: [.initial, .new], context: &playerViewControllerKVOContext)
 			
 		}
 	}
@@ -433,21 +434,21 @@ open class UZPlayer: UIView {
 //			return
 //		}
 		
-		if keyPath == #keyPath(AVPictureInPictureController.isPictureInPicturePossible) {
-			let newValue = change?[NSKeyValueChangeKey.newKey] as! NSNumber
-			let isPictureInPicturePossible: Bool = newValue.boolValue
-			controlView.pipButton.isEnabled = isPictureInPicturePossible
-		}
+//		if keyPath == #keyPath(AVPictureInPictureController.isPictureInPicturePossible) {
+//			let newValue = change?[NSKeyValueChangeKey.newKey] as! NSNumber
+//			let isPictureInPicturePossible: Bool = newValue.boolValue
+//			controlView.pipButton.isEnabled = isPictureInPicturePossible
+//		}
 
 	}
 	
 	// MARK: -
 	
 	deinit {
-		if pictureInPictureController != nil {
-			let keyPath = #keyPath(AVPictureInPictureController.isPictureInPicturePossible)
-			pictureInPictureController!.removeObserver(self, forKeyPath: keyPath, context: &playerViewControllerKVOContext)
-		}
+//		if pictureInPictureController != nil {
+//			let keyPath = #keyPath(AVPictureInPictureController.isPictureInPicturePossible)
+//			pictureInPictureController!.removeObserver(self, forKeyPath: keyPath, context: &playerViewControllerKVOContext)
+//		}
 		
 		playerLayer?.pause()
 		playerLayer?.prepareToDeinit()

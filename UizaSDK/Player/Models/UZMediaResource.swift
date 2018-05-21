@@ -7,12 +7,11 @@
 //
 
 import Foundation
-import AVFoundation
 
 public struct UZPlayerResource {
 	public let name  : String
 	public let cover : URL?
-	public let definitions: [UZPlayerResourceDefinition]
+	public let definitions: [UZVideoLinkPlay]
 	
 	/**
 	Player recource item with url, used to play single difinition video
@@ -21,8 +20,8 @@ public struct UZPlayerResource {
 	- parameter url:       video url
 	- parameter cover:     video cover, will show before playing, and hide when play
 	*/
-	public init(url: URL, name: String = "", cover: URL? = nil) {
-		let definition = UZPlayerResourceDefinition(url: url, definition: "")
+	public init(name: String = "", url: URL, cover: URL? = nil) {
+		let definition = UZVideoLinkPlay(definition: "", url: url)
 		self.init(name: name, definitions: [definition], cover: cover)
 	}
 	
@@ -33,47 +32,9 @@ public struct UZPlayerResource {
 	- parameter definitions: video definitions
 	- parameter cover:       video cover
 	*/
-	public init(name: String = "", definitions: [UZPlayerResourceDefinition], cover: URL? = nil) {
+	public init(name: String = "", definitions: [UZVideoLinkPlay], cover: URL? = nil) {
 		self.name        = name
 		self.cover       = cover
 		self.definitions = definitions
 	}
 }
-
-// MARK: -
-
-public struct UZPlayerResourceDefinition {
-	public let url: URL
-	public let definition: String
-	
-	/// An instance of NSDictionary that contains keys for specifying options for the initialization of the AVURLAsset. See AVURLAssetPreferPreciseDurationAndTimingKey and AVURLAssetReferenceRestrictionsKey above.
-	public var options: [String : Any]?
-	
-	var avURLAsset: AVURLAsset {
-		get {
-			return AVURLAsset(url: url, options: options)
-		}
-	}
-	
-	/**
-	Video recource item with defination name and specifying options
-	
-	- parameter url:        video url
-	- parameter definition: url deifination
-	- parameter options:    specifying options for the initialization of the AVURLAsset
-	
-	you can add http-header or other options which mentions in https://developer.apple.com/reference/avfoundation/avurlasset/initialization_options
-	
-	to add http-header init options like this
-	```
-	let header = ["User-Agent":"UZPlayer"]
-	let definiton.options = ["AVURLAssetHTTPHeaderFieldsKey":header]
-	```
-	*/
-	public init(url: URL, definition: String, options: [String : Any]? = nil) {
-		self.url        = url
-		self.definition = definition
-		self.options    = options
-	}
-}
-

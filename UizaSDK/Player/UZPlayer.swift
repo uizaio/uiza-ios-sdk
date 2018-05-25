@@ -67,7 +67,6 @@ open class UZPlayer: UIView {
 	public fileprivate(set) var currentLinkPlay: UZVideoLinkPlay?
 	
 	open var shouldAutoPlay = true
-	
 	open var controlView: UZPlayerControlView!
 	
 	fileprivate var resource: UZPlayerResource!
@@ -84,7 +83,6 @@ open class UZPlayer: UIView {
 	fileprivate var sumTime         : TimeInterval = 0
 	fileprivate var totalDuration   : TimeInterval = 0
 	fileprivate var currentPosition : TimeInterval = 0
-	fileprivate var shouldSeekTo    : TimeInterval = 0
 	
 	fileprivate var isURLSet        = false
 	fileprivate var isSliderSliding = false
@@ -109,14 +107,17 @@ open class UZPlayer: UIView {
 		currentVideo = video
 		playthrough_eventlog = [:]
 		
+		controlView.hideMessage()
 		controlView.showControlView()
 		
 		UZContentServices().getLinkPlay(videoId: video.id) { [weak self] (results, error) in
 			if results != nil {
-				print("\(results)")
 				UZLogger().log(event: "plays_requested", video: video, completionBlock: nil)
 				let resource = UZPlayerResource(name: video.title, definitions: results!, cover: video.thumbnailURL)
 				self?.setVideo(resource: resource)
+			}
+			else if let error = error {
+				self?.showMessage(error.localizedDescription)
 			}
 			
 			completionBlock?(results, error)
@@ -185,6 +186,7 @@ open class UZPlayer: UIView {
 	}
 	
 	open func stop() {
+		controlView.hideMessage()
 		controlView.hideCoverImageView()
 		controlView.playTimeDidChange(currentTime: 0, totalTime: 0)
 		controlView.loadedTimeDidChange(loadedDuration: 0, totalDuration: 0)
@@ -255,10 +257,19 @@ open class UZPlayer: UIView {
 	open func switchVideoDefinition(_ linkplay: UZVideoLinkPlay) {
 		if currentLinkPlay != linkplay {
 			currentLinkPlay = linkplay
-			shouldSeekTo = currentPosition
+			playerLayer?.shouldSeekTo = currentPosition
+			
 			playerLayer?.resetPlayer()
 			playerLayer?.playAsset(asset: linkplay.avURLAsset)
 		}
+	}
+	
+	func showMessage(_ message: String) {
+		controlView.showMessage(message)
+	}
+	
+	func hideMessage() {
+		controlView.hideMessage()
 	}
 	
 	// MARK: -
@@ -733,10 +744,11 @@ public protocol UZPlayerLayerViewDelegate : class {
 	func UZPlayer(player: UZPlayerLayerView, playerIsPlaying      playing: Bool)
 }
 
+// MARK: - UZPlayerLayerView
+
 open class UZPlayerLayerView: UIView {
 	
 	open weak var delegate: UZPlayerLayerViewDelegate? = nil
-	open var seekTime = 0
 	open var playerItem: AVPlayerItem? {
 		didSet {
 			onPlayerItemChange()
@@ -789,7 +801,7 @@ open class UZPlayerLayerView: UIView {
 	fileprivate var playDidEnd    	= false
 	fileprivate var isBuffering     = false
 	fileprivate var hasReadyToPlay  = false
-	fileprivate var shouldSeekTo: TimeInterval = 0
+	internal var shouldSeekTo: TimeInterval = 0
 	
 	// MARK: - Actions
 	open func playURL(url: URL) {
@@ -850,7 +862,6 @@ open class UZPlayerLayerView: UIView {
 	open func resetPlayer() {
 		self.playDidEnd = false
 		self.playerItem = nil
-		self.seekTime   = 0
 		
 		self.timer?.invalidate()
 		
@@ -879,6 +890,7 @@ open class UZPlayerLayerView: UIView {
 		}
 		
 		setupTimer()
+		
 		if self.player?.currentItem?.status == AVPlayerItemStatus.readyToPlay {
 			let draggedTime = CMTimeMake(Int64(seconds), 1)
 			self.player!.seek(to: draggedTime, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: { (finished) in
@@ -1006,6 +1018,7 @@ open class UZPlayerLayerView: UIView {
 				case "status":
 					if player?.status == AVPlayerStatus.readyToPlay {
 						self.state = .buffering
+						
 						if shouldSeekTo != 0 {
 							seek(to: shouldSeekTo, completion: {
 								self.shouldSeekTo = 0

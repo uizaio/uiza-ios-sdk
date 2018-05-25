@@ -407,8 +407,8 @@
 			children = (
 				63C65FCC205BA12A00DB2C96 /* Models */,
 				632124FA2089E20700720593 /* UizaSDK.swift */,
-				632124F92089E20700720593 /* UZAccountServices.swift */,
 				632124FD2089E20800720593 /* UZAPIConnector.swift */,
+				632124F92089E20700720593 /* UZAccountServices.swift */,
 				632124FB2089E20800720593 /* UZContentServices.swift */,
 				632124FC2089E20800720593 /* UZLogger.swift */,
 			);

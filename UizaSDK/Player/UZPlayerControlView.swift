@@ -90,6 +90,7 @@ open class UZPlayerControlView: UIView {
 	}
 	
 	internal var playerLastState: UZPlayerState = .notSetURL
+	internal var messageLabel: UILabel?
 	
 	public let containerView = UIView() // this should be public
 	
@@ -99,7 +100,6 @@ open class UZPlayerControlView: UIView {
 	internal let remainTimeLabel = UILabel()
 	internal let playpauseCenterButton = UIButton()
 	internal let playpauseButton = UIButton()
-	internal let closeButton = UIButton()
 	internal let forwardButton = UIButton()
 	internal let backwardButton = UIButton()
 	internal let volumeButton = UIButton()
@@ -220,6 +220,13 @@ open class UZPlayerControlView: UIView {
 		containerView.frame = self.bounds
 		theme?.layoutControls(rect: self.bounds)
 		shareView.frame = self.bounds
+		
+		if let messageLabel = messageLabel {
+			let messageBounds = UIEdgeInsetsInsetRect(self.bounds, UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20))
+			let viewSize = messageBounds.size
+			let labelSize = messageLabel.sizeThatFits(messageBounds.size)
+			messageLabel.frame = CGRect(x: messageBounds.origin.x, y: messageBounds.origin.y + (viewSize.height - labelSize.height)/2, width: viewSize.width, height: labelSize.height)
+		}
 	}
 	
 	// MARK: -
@@ -346,6 +353,29 @@ open class UZPlayerControlView: UIView {
 		}
 	}
 	
+	open func showMessage(_ message: String) {
+		if messageLabel == nil {
+			messageLabel = UILabel()
+			messageLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+			messageLabel?.textColor = .white
+			messageLabel?.textAlignment = .center
+			messageLabel?.numberOfLines = 3
+			messageLabel?.adjustsFontSizeToFitWidth = true
+			messageLabel?.minimumScaleFactor = 0.8
+		}
+		
+		playpauseCenterButton.isHidden = true
+		messageLabel?.text = message
+		self.addSubview(messageLabel!)
+		self.setNeedsLayout()
+	}
+	
+	open func hideMessage() {
+		playpauseCenterButton.isHidden = false
+		messageLabel?.removeFromSuperview()
+		messageLabel = nil
+	}
+	
 	open func updateUI(_ isForFullScreen: Bool) {
 		fullscreenButton.isSelected = isForFullScreen
 	}
@@ -394,7 +424,7 @@ open class UZPlayerControlView: UIView {
 		self.coverImageView.isHidden = true
 	}
 	
-	// MARK: - Action Response
+	// MARK: - Action
 	
 	@objc open func onButtonPressed(_ button: UIButton) {
 		autoFadeOutControlView(after: autoHideControlsInterval)

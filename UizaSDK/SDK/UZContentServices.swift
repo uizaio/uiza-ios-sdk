@@ -203,6 +203,9 @@ open class UZContentServices: UZAPIConnector {
 						completionBlock?(results, nil)
 					}
 				}
+				else {
+					completionBlock?(nil, UZAPIConnector.UizaUnknownError())
+				}
 			}
 		}
 	}

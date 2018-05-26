@@ -104,21 +104,30 @@ open class UZPlayer: UIView {
 	- parameter completionBlock: callback block with `[UZVideoLinkPlay]` or Error
 	*/
 	open func loadVideo(_ video: UZVideoItem, completionBlock:((_ linkPlays: [UZVideoLinkPlay]?, _ error: Error?) -> Void)? = nil) {
+		if currentVideo != nil {
+			stop()
+			preparePlayer()
+		}
+		
 		currentVideo = video
 		playthrough_eventlog = [:]
 		
 		controlView.hideMessage()
 		controlView.hideEndScreen()
 		controlView.showControlView()
+		controlView.showLoader()
 		
 		UZContentServices().getLinkPlay(videoId: video.id) { [weak self] (results, error) in
+			guard let `self` = self else { return }
+			self.controlView.hideLoader()
+			
 			if results != nil {
 				UZLogger().log(event: "plays_requested", video: video, completionBlock: nil)
 				let resource = UZPlayerResource(name: video.title, definitions: results!, cover: video.thumbnailURL)
-				self?.setVideo(resource: resource)
+				self.setVideo(resource: resource)
 			}
 			else if let error = error {
-				self?.showMessage(error.localizedDescription)
+				self.showMessage(error.localizedDescription)
 			}
 			
 			completionBlock?(results, error)
@@ -379,7 +388,6 @@ open class UZPlayer: UIView {
 		playerLayer = UZPlayerLayerView()
 		playerLayer!.videoGravity = videoGravity
 		playerLayer!.delegate = self
-		controlView.showLoader()
 		
 		self.insertSubview(playerLayer!, at: 0)
 		self.layoutIfNeeded()

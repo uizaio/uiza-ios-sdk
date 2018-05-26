@@ -181,17 +181,17 @@ open class UZContentServices: UZAPIConnector {
 									  "appId"	 : UizaSDK.token?.appId ?? ""]
 		
 		self.callAPI("v1/media/entity/get-link-play-ios", method: .get, params: params) { (result, error) in
-//			print("\(String(describing: result)) - \(String(describing: error))")
+			print("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
 				completionBlock?(nil, error)
 			}
-			else {
+			else if let dataArray = result?.value(for: "data", defaultValue: nil) as? [NSDictionary], let data = dataArray.first {
 				let systemVersion = (UIDevice.current.systemVersion as NSString).floatValue
 				let key = systemVersion<10 ? "hls_ts" : "hls"
 				
-				if let data = result?.value(for: key, defaultValue: nil) as? NSDictionary {
-					if let urlsDataArray = data.array(for: "urls", defaultValue: nil) as? [NSDictionary] {
+				if let hlsDataArray = data.value(for: key, defaultValue: nil) as? [NSDictionary], let hlsData = hlsDataArray.first {
+					if let urlsDataArray = hlsData.array(for: "urls", defaultValue: nil) as? [NSDictionary] {
 						var results = [UZVideoLinkPlay]()
 						for urlData in urlsDataArray {
 							if let definition = urlData.string(for: "definition", defaultString: ""), let url = urlData.url(for: "url", defaultURL: nil) {
@@ -206,6 +206,9 @@ open class UZContentServices: UZAPIConnector {
 				else {
 					completionBlock?(nil, UZAPIConnector.UizaUnknownError())
 				}
+			}
+			else {
+				completionBlock?(nil, UZAPIConnector.UizaUnknownError())
 			}
 		}
 	}

@@ -185,7 +185,7 @@ open class UZPlayer: UIView {
 		}
 	}
 	
-	open func stop() {
+	open func stop(resetUI: Bool = true) {
 		controlView.hideMessage()
 		controlView.hideCoverImageView()
 		controlView.playTimeDidChange(currentTime: 0, totalTime: 0)
@@ -259,8 +259,7 @@ open class UZPlayer: UIView {
 			currentLinkPlay = linkplay
 			playerLayer?.shouldSeekTo = currentPosition
 			
-			playerLayer?.resetPlayer()
-			playerLayer?.playAsset(asset: linkplay.avURLAsset)
+			playerLayer?.replaceAsset(asset: linkplay.avURLAsset)
 		}
 	}
 	
@@ -815,6 +814,12 @@ open class UZPlayerLayerView: UIView {
 		self.play()
 	}
 	
+	open func replaceAsset(asset: AVURLAsset) {
+		self.urlAsset = asset
+		
+		playerItem = AVPlayerItem(asset: urlAsset!)
+		player?.replaceCurrentItem(with: playerItem)
+	}
 	
 	open func play() {
 		if let player = player {
@@ -934,11 +939,12 @@ open class UZPlayerLayerView: UIView {
 	
 	fileprivate func configPlayer(){
 		player?.removeObserver(self, forKeyPath: "rate")
+		playerLayer?.removeFromSuperlayer()
+		
 		playerItem = AVPlayerItem(asset: urlAsset!)
-		player     = AVPlayer(playerItem: playerItem!)
+		player = AVPlayer(playerItem: playerItem!)
 		player!.addObserver(self, forKeyPath: "rate", options: NSKeyValueObservingOptions.new, context: nil)
 		
-		playerLayer?.removeFromSuperlayer()
 		playerLayer = AVPlayerLayer(player: player)
 		playerLayer!.videoGravity = videoGravity
 		

@@ -101,13 +101,14 @@ open class UZPlayer: UIView {
 	Play an `UZVideoItem`
 	
 	- parameter video: UZVideoItem
-	- parameter completionBlock: callback block with url of video or error
+	- parameter completionBlock: callback block with `[UZVideoLinkPlay]` or Error
 	*/
 	open func loadVideo(_ video: UZVideoItem, completionBlock:((_ linkPlays: [UZVideoLinkPlay]?, _ error: Error?) -> Void)? = nil) {
 		currentVideo = video
 		playthrough_eventlog = [:]
 		
 		controlView.hideMessage()
+		controlView.hideEndScreen()
 		controlView.showControlView()
 		
 		UZContentServices().getLinkPlay(videoId: video.id) { [weak self] (results, error) in
@@ -186,6 +187,7 @@ open class UZPlayer: UIView {
 	}
 	
 	open func stop(resetUI: Bool = true) {
+		controlView.hideEndScreen()
 		controlView.hideMessage()
 		controlView.hideCoverImageView()
 		controlView.playTimeDidChange(currentTime: 0, totalTime: 0)

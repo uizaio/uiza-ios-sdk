@@ -59,12 +59,6 @@ open class UZPlayer: UIView {
 		}
 	}
 	
-	open var isAirPlaying: Bool {
-		get {
-			return AVAudioSession.sharedInstance().isAirPlaying
-		}
-	}
-	
 	open var avPlayer: AVPlayer? {
 		return playerLayer?.player
 	}
@@ -308,7 +302,7 @@ open class UZPlayer: UIView {
 	}
 	
 	internal func updateCastingUI() {
-		if self.isAirPlaying {
+		if AVAudioSession.sharedInstance().isAirPlaying {
 			controlView.showCastingScreen()
 		}
 		else {

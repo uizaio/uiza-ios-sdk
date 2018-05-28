@@ -110,3 +110,24 @@ open class UZVideoItem: UZModelObject {
 	}
 	
 }
+
+extension UZVideoItem: UIActivityItemSource {
+	
+	public func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivityType?) -> Any? {
+		if let videoURL = videoURL {
+			return videoURL
+		}
+		
+		return URL(string: "http://")!
+	}
+	
+	
+	open func activityViewControllerPlaceholderItem(_ activityViewController: UIActivityViewController) -> Any {
+		if let videoURL = videoURL {
+			return videoURL
+		}
+		
+		return URL(string: "http://")!
+	}
+	
+}

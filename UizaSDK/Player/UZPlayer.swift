@@ -123,9 +123,10 @@ open class UZPlayer: UIView {
 			self.controlView.hideLoader()
 			
 			if results != nil {
+				self.currentVideo?.videoURL = results?.first?.avURLAsset.url
 				UZLogger().log(event: "plays_requested", video: video, completionBlock: nil)
 				let resource = UZPlayerResource(name: video.title, definitions: results!, cover: video.thumbnailURL)
-				self.setVideo(resource: resource)
+				self.setResource(resource: resource)
 			}
 			else if let error = error {
 				self.showMessage(error.localizedDescription)
@@ -141,7 +142,7 @@ open class UZPlayer: UIView {
 	- parameter resource:        media resource
 	- parameter definitionIndex: starting definition index, default start with the first definition
 	*/
-	open func setVideo(resource: UZPlayerResource, definitionIndex: Int = 0) {
+	open func setResource(resource: UZPlayerResource, definitionIndex: Int = 0) {
 		isURLSet = false
 		self.resource = resource
 		
@@ -459,8 +460,8 @@ open class UZPlayer: UIView {
 	open func showShare() {
 		if let window = UIApplication.shared.keyWindow, let viewController = window.rootViewController {
 			let activeViewController: UIViewController = viewController.presentedViewController ?? viewController
-			let urlToShare = URL(string: "http://uiza.io")!
-			let activityViewController = UIActivityViewController(activityItems: [urlToShare], applicationActivities: nil)
+			let itemToShare: Any = currentVideo ?? URL(string: "http://uiza.io")!
+			let activityViewController = UIActivityViewController(activityItems: [itemToShare], applicationActivities: nil)
 			activeViewController.present(activityViewController, animated: true, completion: nil)
 		}
 	}

@@ -133,7 +133,7 @@ open class UZTheme6: UZPlayerTheme {
 		topFrameLayout!.edgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 0, right: 5)
 //		topFrameLayout!.showFrameDebug = true
 		
-		let bottomLeftFrameLayout = NKGridFrameLayout(direction: .horizontal, andViews: [controlView.settingsButton, controlView.pipButton])!
+		let bottomLeftFrameLayout = NKGridFrameLayout(direction: .horizontal, andViews: [controlView.settingsButton, controlView.airplayButton, controlView.pipButton])!
 		let bottomRightFrameLayout = NKGridFrameLayout(direction: .horizontal, andViews: [controlView.playlistButton, controlView.fullscreenButton])!
 		let bottomCenterFrameLayout = NKGridFrameLayout(direction: .horizontal)!
 		bottomCenterFrameLayout.add(withTargetView: controlView.backwardButton).contentAlignment = "cc"
@@ -149,6 +149,7 @@ open class UZTheme6: UZPlayerTheme {
 		bottomFrameLayout!.addSubview(controlView.settingsButton)
 		bottomFrameLayout!.addSubview(controlView.playlistButton)
 		bottomFrameLayout!.addSubview(controlView.pipButton)
+		bottomFrameLayout!.addSubview(controlView.airplayButton)
 		bottomFrameLayout!.addSubview(controlView.fullscreenButton)
 		bottomFrameLayout!.addSubview(controlView.backwardButton)
 		bottomFrameLayout!.addSubview(controlView.forwardButton)

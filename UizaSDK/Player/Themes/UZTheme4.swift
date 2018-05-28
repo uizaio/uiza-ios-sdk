@@ -143,7 +143,7 @@ open class UZTheme4: UZPlayerTheme {
 //		topFrameLayout!.showFrameDebug = true
 		
 		let bottomLeftFrameLayout = NKGridFrameLayout(direction: .horizontal, andViews: [controlView.currentTimeLabel, controlView.totalTimeLabel])!
-		let bottomRightFrameLayout = NKGridFrameLayout(direction: .horizontal, andViews: [controlView.pipButton, controlView.playlistButton, controlView.fullscreenButton])!
+		let bottomRightFrameLayout = NKGridFrameLayout(direction: .horizontal, andViews: [controlView.pipButton, controlView.airplayButton, controlView.playlistButton, controlView.fullscreenButton])!
 		let bottomCenterFrameLayout = NKGridFrameLayout(direction: .horizontal)!
 		bottomCenterFrameLayout.add(withTargetView: controlView.backwardButton).contentAlignment = "cc"
 		bottomCenterFrameLayout.add(withTargetView: controlView.playpauseButton).contentAlignment = "cc"
@@ -159,6 +159,7 @@ open class UZTheme4: UZPlayerTheme {
 		bottomFrameLayout!.addSubview(controlView.totalTimeLabel)
 		bottomFrameLayout!.addSubview(controlView.playlistButton)
 		bottomFrameLayout!.addSubview(controlView.pipButton)
+		bottomFrameLayout!.addSubview(controlView.airplayButton)
 		bottomFrameLayout!.addSubview(controlView.fullscreenButton)
 		bottomFrameLayout!.addSubview(controlView.backwardButton)
 		bottomFrameLayout!.addSubview(controlView.forwardButton)

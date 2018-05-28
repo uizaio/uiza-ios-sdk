@@ -435,18 +435,22 @@ open class UZPlayerControlView: UIView {
 	}
 	
 	open func showCastingScreen() {
-		if castingView == nil {
-			castingView = UZCastingView()
+		DispatchQueue.main.async {
+			if self.castingView == nil {
+				self.castingView = UZCastingView()
+			}
+			
+			self.castingView?.isUserInteractionEnabled = false
+			self.insertSubview(self.castingView!, at: 0)
+			self.setNeedsLayout()
 		}
-		
-		castingView?.isUserInteractionEnabled = false
-		self.insertSubview(castingView!, at: 0)
-		self.setNeedsLayout()
 	}
 	
 	open func hideCastingScreen() {
-		castingView?.removeFromSuperview()
-		castingView = nil
+		DispatchQueue.main.async {
+			self.castingView?.removeFromSuperview()
+			self.castingView = nil
+		}
 	}
 	
 	// MARK: - Action

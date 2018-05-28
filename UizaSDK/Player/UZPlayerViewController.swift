@@ -94,13 +94,7 @@ open class UZPlayerViewController: UIViewController {
 	
 	override open var preferredInterfaceOrientationForPresentation : UIInterfaceOrientation {
 		let currentOrientation = UIApplication.shared.statusBarOrientation
-		
-		if UI_USER_INTERFACE_IDIOM() == .phone {
-			return UIInterfaceOrientationIsLandscape(currentOrientation) ? currentOrientation : .landscapeRight
-		}
-		else {
-			return currentOrientation
-		}
+		return UIInterfaceOrientationIsLandscape(currentOrientation) ? currentOrientation : .landscapeRight
 	}
 	
 }
@@ -125,11 +119,12 @@ internal class UZPlayerController: UIViewController {
 	}
 	
 	override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
-		return .landscapeRight
+		return .landscape
 	}
 	
 	override var preferredInterfaceOrientationForPresentation : UIInterfaceOrientation {
-		return .landscapeRight
+		let currentOrientation = UIApplication.shared.statusBarOrientation
+		return UIInterfaceOrientationIsLandscape(currentOrientation) ? currentOrientation : .landscapeRight
 	}
 	
 }

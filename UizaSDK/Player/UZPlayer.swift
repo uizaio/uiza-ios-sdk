@@ -457,11 +457,18 @@ open class UZPlayer: UIView {
 	
 	// MARK: -
 	
-	open func showShare() {
+	open func showShare(from view: UIView) {
 		if let window = UIApplication.shared.keyWindow, let viewController = window.rootViewController {
 			let activeViewController: UIViewController = viewController.presentedViewController ?? viewController
 			let itemToShare: Any = currentVideo ?? URL(string: "http://uiza.io")!
 			let activityViewController = UIActivityViewController(activityItems: [itemToShare], applicationActivities: nil)
+			
+			if UIDevice.current.userInterfaceIdiom == .pad {
+				activityViewController.modalPresentationStyle = .popover
+				activityViewController.popoverPresentationController?.sourceView = view
+				activityViewController.popoverPresentationController?.sourceRect = view.bounds
+			}
+			
 			activeViewController.present(activityViewController, animated: true, completion: nil)
 		}
 	}
@@ -640,7 +647,7 @@ extension UZPlayer: UZPlayerControlViewDelegate {
 				}
 				
 			case .share:
-				showShare()
+				showShare(from: button)
 				
 			case .relates, .playlist:
 				showRelates()

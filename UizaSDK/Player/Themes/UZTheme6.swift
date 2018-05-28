@@ -87,6 +87,8 @@ open class UZTheme6: UZPlayerTheme {
 		controlView.pipButton.imageView?.contentMode = .scaleAspectFit
 		controlView.pipButton.isHidden = !AVPictureInPictureController.isPictureInPictureSupported()
 		
+		controlView.airplayButton.setupDefaultIcon(iconSize: CGSize(width: 24, height: 24), offColor: iconColor)
+		
 		controlView.titleLabel.textColor = .white
 		controlView.titleLabel.font = UIFont.systemFont(ofSize: 14)
 		

@@ -59,6 +59,12 @@ open class UZPlayer: UIView {
 		}
 	}
 	
+	open var isAirPlaying: Bool {
+		get {
+			return AVAudioSession.sharedInstance().isAirPlaying
+		}
+	}
+	
 	open var avPlayer: AVPlayer? {
 		return playerLayer?.player
 	}

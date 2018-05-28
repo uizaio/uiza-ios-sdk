@@ -110,9 +110,12 @@ open class UZPlayerControlView: UIView {
 	internal let settingsButton = UIButton()
 	internal let helpButton = UIButton()
 	internal let pipButton = UIButton()
+	internal let airplayButton = UZAirPlayButton()
 	internal let timeSlider = UZSlider()
 	internal let coverImageView = UIImageView()
 	internal let shareView = UZShareView()
+	
+	var castingView: UZCastingView? = nil
 	
 	internal var loadingIndicatorView: NVActivityIndicatorView? = nil
 	
@@ -161,6 +164,7 @@ open class UZPlayerControlView: UIView {
 		ccButton.tag = UZButtonTag.caption.rawValue
 		helpButton.tag = UZButtonTag.help.rawValue
 		pipButton.tag = UZButtonTag.pip.rawValue
+		airplayButton.tag = UZButtonTag.airplay.rawValue
 		
 		var allButtons: [UIButton] = self.allButtons
 		allButtons.append(contentsOf: shareView.allButtons)
@@ -218,6 +222,7 @@ open class UZPlayerControlView: UIView {
 		
 		containerView.frame = self.bounds
 		theme?.layoutControls(rect: self.bounds)
+		castingView?.frame = self.bounds
 		shareView.frame = self.bounds
 		
 		if let messageLabel = messageLabel {
@@ -427,6 +432,20 @@ open class UZPlayerControlView: UIView {
 	
 	open func hideCoverImageView() {
 		self.coverImageView.isHidden = true
+	}
+	
+	open func showCastingScreen() {
+		if castingView == nil {
+			castingView = UZCastingView()
+		}
+		
+		self.addSubview(castingView!)
+		self.setNeedsLayout()
+	}
+	
+	open func hideCastingScreen() {
+		castingView?.removeFromSuperview()
+		castingView = nil
 	}
 	
 	// MARK: - Action

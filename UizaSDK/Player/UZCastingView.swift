@@ -21,7 +21,7 @@ class UZCastingView: UIView {
 		titleLabel.textColor = .white
 		titleLabel.textAlignment = .center
 		titleLabel.numberOfLines = 2
-		titleLabel.text = "Playing on \(AVAudioSession.sharedInstance().sourceName ?? "??")"
+		titleLabel.text = "Playing on \(AVAudioSession.sharedInstance().sourceName ?? "(??)")"
 		
 		imageView.image = UIImage(icon: .fontAwesome(.tv), size: CGSize(width: 120, height: 120), textColor: UIColor(white: 1.0, alpha: 0.7), backgroundColor: .clear)
 		imageView.contentMode = .scaleAspectFit
@@ -41,7 +41,7 @@ class UZCastingView: UIView {
 		let labelSize = titleLabel.sizeThatFits(viewSize)
 		
 		imageView.frame = UIEdgeInsetsInsetRect(self.bounds, UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20))
-		titleLabel.frame = CGRect(x: 0, y: viewSize.height - labelSize.height - 30, width: viewSize.width, height: labelSize.height)
+		titleLabel.frame = CGRect(x: 0, y: viewSize.height - labelSize.height - 20, width: viewSize.width, height: labelSize.height)
 	}
 	
 }

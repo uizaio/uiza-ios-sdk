@@ -46,5 +46,14 @@ open class UZAirPlayButton: MPVolumeView {
 	open func setImage(image: UIImage?, for state: UIControlState) {
 		self.setRouteButtonImage(image, for: state)
 	}
+	
+	override open func sizeThatFits(_ size: CGSize) -> CGSize {
+		if let image = self.routeButtonImage(for: .normal) {
+			return image.size
+		}
+		
+		self.isWirelessRouteActive
+		return CGSize(width: 24, height: 24)
+	}
 
 }

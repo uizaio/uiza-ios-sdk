@@ -76,6 +76,10 @@ internal class NKProgressView: UIView {
 	// MARK: -
 	
 	fileprivate func updateProgressWidth(animated: Bool = false) {
+		guard !self.progress.isNaN else {
+			return
+		}
+		
 		let viewSize = self.bounds.size
 		let progressWidth: CGFloat = CGFloat(viewSize.width) * CGFloat(self.progress)
 		

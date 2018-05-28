@@ -27,4 +27,11 @@ extension AVAudioSession {
 		}
 	}
 	
+	var sourceName: String? {
+		get {
+			let currentRoute = AVAudioSession.sharedInstance().currentRoute
+			return currentRoute.outputs.first?.portName
+		}
+	}
+	
 }

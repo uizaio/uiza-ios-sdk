@@ -439,7 +439,8 @@ open class UZPlayerControlView: UIView {
 			castingView = UZCastingView()
 		}
 		
-		self.addSubview(castingView!)
+		castingView?.isUserInteractionEnabled = false
+		self.insertSubview(castingView!, at: 0)
 		self.setNeedsLayout()
 	}
 	

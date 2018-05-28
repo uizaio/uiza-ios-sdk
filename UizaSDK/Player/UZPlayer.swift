@@ -307,6 +307,15 @@ open class UZPlayer: UIView {
 		controlView.updateUI(isFullScreen)
 	}
 	
+	internal func updateCastingUI() {
+		if self.isAirPlaying {
+			controlView.showCastingScreen()
+		}
+		else {
+			controlView.hideCastingScreen()
+		}
+	}
+	
 	@objc fileprivate func onOrientationChanged() {
 		self.updateUI(isFullScreen)
 	}
@@ -318,6 +327,10 @@ open class UZPlayer: UIView {
 		else {
 			self.pause()
 		}
+	}
+	
+	@objc func onAudioRouteChanged(_ notification: Notification) {
+		updateCastingUI()
 	}
 	
 	/*
@@ -400,7 +413,8 @@ open class UZPlayer: UIView {
 		controlView.delegate = self
 		addSubview(controlView)
 		
-		NotificationCenter.default.addObserver(self, selector: #selector(self.onOrientationChanged), name: .UIApplicationDidChangeStatusBarOrientation, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(onOrientationChanged), name: .UIApplicationDidChangeStatusBarOrientation, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(onAudioRouteChanged), name: .AVAudioSessionRouteChange, object: nil)
 	}
 	
 	fileprivate func preparePlayer() {
@@ -543,6 +557,7 @@ extension UZPlayer: UZPlayerLayerViewDelegate {
 		switch state {
 		case UZPlayerState.readyToPlay:
 			play()
+			updateCastingUI()
 //			requestAds()
 			
 		case UZPlayerState.bufferFinished:

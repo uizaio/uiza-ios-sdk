@@ -48,6 +48,7 @@ open class UZShareView: UIView {
 		titleLabel.textColor = .white
 		titleLabel.textAlignment = .center
 		titleLabel.numberOfLines = 3
+		titleLabel.isHidden = true
 		
 		replayButton.setIcon(icon: .googleMaterialDesign(.replay), iconSize: 72, color: .white, backgroundColor: .clear, forState: .normal)
 		shareButton.setIcon(icon: .googleMaterialDesign(.share), iconSize: 32, color: .white, backgroundColor: .clear, forState: .normal)
@@ -55,13 +56,13 @@ open class UZShareView: UIView {
 		replayButton.tag = UZButtonTag.replay.rawValue
 		shareButton.tag = UZButtonTag.share.rawValue
 		
-		self.addSubview(blurView)
-		self.addSubview(titleLabel)
+//		self.addSubview(blurView)
+//		self.addSubview(titleLabel)
 		self.addSubview(replayButton)
 		self.addSubview(shareButton)
 		
-		frameLayout = NKGridFrameLayout(direction: .vertical)
-		frameLayout!.add(withTargetView: titleLabel)
+		frameLayout = NKGridFrameLayout(direction: .horizontal)
+//		frameLayout!.add(withTargetView: titleLabel)
 		frameLayout!.add(withTargetView: replayButton).contentAlignment = "cc"
 		frameLayout!.add(withTargetView: shareButton).contentAlignment = "cc"
 		frameLayout!.spacing = 10

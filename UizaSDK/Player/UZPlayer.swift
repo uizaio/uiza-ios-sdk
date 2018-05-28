@@ -88,6 +88,7 @@ open class UZPlayer: UIView {
 	fileprivate var isSliderSliding = false
 	fileprivate var isPauseByUser   = false
 	fileprivate var isPlayToTheEnd  = false
+	fileprivate var isReplaying		= false
 	
 	fileprivate var contentPlayhead: IMAAVPlayerContentPlayhead?
 	fileprivate var adsLoader: IMAAdsLoader?
@@ -195,7 +196,7 @@ open class UZPlayer: UIView {
 		}
 	}
 	
-	open func stop(resetUI: Bool = true) {
+	open func stop() {
 		controlView.hideEndScreen()
 		controlView.hideMessage()
 		controlView.hideCoverImageView()
@@ -203,6 +204,18 @@ open class UZPlayer: UIView {
 		controlView.loadedTimeDidChange(loadedDuration: 0, totalDuration: 0)
 		playerLayer?.prepareToDeinit()
 		playerLayer = nil
+	}
+	
+	private func replay() {
+		UZLogger().log(event: "replay", video: currentVideo, completionBlock: nil)
+		
+		playthrough_eventlog = [:]
+		isPlayToTheEnd = false
+		isReplaying = true
+		
+		seek(to: 0.0) {
+			self.isReplaying = false
+		}
 	}
 	
 	/**
@@ -216,29 +229,29 @@ open class UZPlayer: UIView {
 	}
 	
 	/**
-	Seek
+	Seek to time
 	
 	- parameter to: target time
 	*/
 	open func seek(to: TimeInterval, completion: (() -> Void)? = nil) {
+		self.currentPosition = to
 		playerLayer?.seek(to: to, completion: completion)
 	}
 	
 	/**
-	Seek
+	Seek offset
 	
 	- parameter offset: offset from current time
 	*/
 	open func seek(offset: TimeInterval, completion: (() -> Void)? = nil) {
-		if let avPlayer = avPlayer, let playerLayer = playerLayer {
+		if let avPlayer = avPlayer {
 			let currentTime = CMTimeGetSeconds(avPlayer.currentTime())
 			let toTime = min(max(currentTime + offset, 0), totalDuration)
-			playerLayer.seek(to: toTime, completion: completion)
+			self.seek(to: toTime, completion: completion)
 		}
 	}
 	
 	private var playerViewControllerKVOContext = 0
-	
 	func setupPictureInPicture() {
 		if let playerLayer = playerLayer?.playerLayer {
 			pictureInPictureController = AVPictureInPictureController(playerLayer: playerLayer)
@@ -518,6 +531,7 @@ extension UZPlayer: UZPlayerLayerViewDelegate {
 	
 	public func UZPlayer(player: UZPlayerLayerView, playerStateDidChange state: UZPlayerState) {
 		controlView.playerStateDidChange(state: state)
+		
 		switch state {
 		case UZPlayerState.readyToPlay:
 			play()
@@ -528,6 +542,11 @@ extension UZPlayer: UZPlayerLayerViewDelegate {
 			
 		case UZPlayerState.playedToTheEnd:
 			isPlayToTheEnd = true
+			
+			if !isReplaying {
+				controlView.showEndScreen()
+			}
+			
 			adsLoader?.contentComplete()
 			
 		default:
@@ -574,25 +593,18 @@ extension UZPlayer: UZPlayerControlViewDelegate {
 				}
 				else {
 					if isPlayToTheEnd {
-						seek(to: 0, completion: {
-							self.play()
-						})
-						controlView.hideEndScreen()
-						isPlayToTheEnd = false
+						replay()
 					}
-					play()
+					else {
+						play()
+					}
 				}
 				
 			case .pause:
 				pause()
 				
 			case .replay:
-				UZLogger().log(event: "replay", video: currentVideo, completionBlock: nil)
-				
-				playthrough_eventlog = [:]
-				isPlayToTheEnd = false
-				seek(to: 0)
-				play()
+				replay()
 				
 			case .forward:
 				seek(offset: 5)
@@ -643,10 +655,11 @@ extension UZPlayer: UZPlayerControlViewDelegate {
 			
 			if isPlayToTheEnd {
 				isPlayToTheEnd = false
+				
+				controlView.hideEndScreen()
 				seek(to: target, completion: {
 					self.play()
 				})
-				controlView.hideEndScreen()
 			}
 			else {
 				seek(to: target, completion: {

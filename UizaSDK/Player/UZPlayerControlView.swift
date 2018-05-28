@@ -71,7 +71,7 @@ open class UZPlayerControlView: UIView {
 		didSet {
 			theme?.controlView = self
 			theme?.updateUI()
-			containerView.addSubview(shareView)
+			self.addSubview(shareView)
 			
 			if let allButtons = theme?.allButtons() {
 				for button in allButtons {
@@ -283,8 +283,8 @@ open class UZPlayerControlView: UIView {
 			playpauseCenterButton.isSelected = false
 			playpauseButton.isSelected = false
 			
-			showEndScreen()
-			showControlView()
+//			showEndScreen()
+//			showControlView()
 			
 		default:
 			break
@@ -327,6 +327,10 @@ open class UZPlayerControlView: UIView {
 	}
 	
 	open func showControlView(duration: CGFloat = 0.3) {
+		if shareView.isHidden == false {
+			return
+		}
+		
 		if containerView.alpha == 0 || containerView.isHidden {
 			containerView.alpha = 0
 			containerView.isHidden = false
@@ -342,7 +346,7 @@ open class UZPlayerControlView: UIView {
 	}
 	
 	open func hideControlView(duration: CGFloat = 0.3) {
-		if containerView.alpha > 0 && containerView.isHidden == false {
+		if containerView.alpha > 0 || containerView.isHidden == false {
 			UIView.animate(withDuration: 0.3, animations: {
 				self.containerView.alpha = 0.0
 			}, completion: { (finished) in
@@ -382,10 +386,12 @@ open class UZPlayerControlView: UIView {
 	
 	open func showEndScreen() {
 		shareView.isHidden = false
+		containerView.isHidden = true
 	}
 	
 	open func hideEndScreen() {
 		shareView.isHidden = true
+		containerView.isHidden = false
 	}
 	
 	open func showLoader() {
@@ -444,7 +450,8 @@ open class UZPlayerControlView: UIView {
 	}
 	
 	@objc func onTap(_ gesture: UITapGestureRecognizer) {
-		if containerView.isHidden {
+		print("OK")
+		if containerView.isHidden || containerView.alpha == 0 {
 			showControlView()
 		}
 		else {

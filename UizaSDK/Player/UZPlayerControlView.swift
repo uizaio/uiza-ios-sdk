@@ -169,6 +169,7 @@ open class UZPlayerControlView: UIView {
 			button.addTarget(self, action: #selector(onButtonPressed(_:)), for: .touchUpInside)
 		}
 		
+		shareView.isHidden = true
 		self.addSubview(containerView)
 	}
 	
@@ -198,8 +199,6 @@ open class UZPlayerControlView: UIView {
 		}
 		
 		removeAllSubviews(from: containerView)
-		
-		shareView.isHidden = true
 	}
 	
 	// MARK: -

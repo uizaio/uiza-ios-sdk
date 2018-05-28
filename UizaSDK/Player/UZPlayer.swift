@@ -440,6 +440,8 @@ open class UZPlayer: UIView {
 		controlView.frame = self.bounds
 	}
 	
+	// MARK: -
+	
 	open func showShare() {
 		if let window = UIApplication.shared.keyWindow, let viewController = window.rootViewController {
 			let activeViewController: UIViewController = viewController.presentedViewController ?? viewController

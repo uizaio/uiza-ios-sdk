@@ -24,17 +24,8 @@ open class UZPlayerViewController: UIViewController {
 			return NKFullscreenManager.sharedInstance().fullscreenViewControllerThatContains(playerController) != nil || NKModalViewManager.sharedInstance().modalViewControllerThatContains(playerController) != nil
 		}
 		set {
-			if newValue {
-				if !isFullscreen {
-					NKFullscreenManager.sharedInstance().presentFullscreenViewController(self.playerController)
-					self.playerController.player.controlView.updateUI(true)
-				}
-			}
-			else if let modalViewController = NKFullscreenManager.sharedInstance().fullscreenViewControllerThatContains(playerController) {
-				self.playerController.player.controlView.updateUI(false)
-				modalViewController.dismissView(animated: true) { [weak self] () in
-					self?.viewDidLayoutSubviews()
-				}
+			self.setFullscreen(fullscreen: newValue) {
+				
 			}
 		}
 	}

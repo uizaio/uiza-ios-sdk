@@ -8,12 +8,13 @@
 
 import UIKit
 import NKFrameLayoutKit
+import NKButton
 
 open class UZShareView: UIView {
 	let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
 	let titleLabel = UILabel()
-	let replayButton = UIButton()
-	let shareButton = UIButton()
+	let replayButton = NKButton()
+	let shareButton = NKButton()
 	var frameLayout: NKGridFrameLayout?
 	
 	open var allButtons: [UIButton]! {
@@ -50,8 +51,17 @@ open class UZShareView: UIView {
 		titleLabel.numberOfLines = 3
 		titleLabel.isHidden = true
 		
-		replayButton.setIcon(icon: .googleMaterialDesign(.replay), iconSize: 72, color: .white, backgroundColor: .clear, forState: .normal)
-		shareButton.setIcon(icon: .googleMaterialDesign(.share), iconSize: 32, color: .white, backgroundColor: .clear, forState: .normal)
+		let buttonColor = UIColor.white
+		replayButton.setIcon(icon: .googleMaterialDesign(.replay), iconSize: 32, color: buttonColor, backgroundColor: .clear, forState: .normal)
+		shareButton.setIcon(icon: .googleMaterialDesign(.share), iconSize: 32, color: buttonColor, backgroundColor: .clear, forState: .normal)
+		replayButton.setBorderColor(buttonColor, for: .normal)
+		shareButton.setBorderColor(buttonColor, for: .normal)
+		replayButton.borderSize = 1.0
+		shareButton.borderSize = 1.0
+		replayButton.roundedButton = true
+		shareButton.roundedButton = true
+		replayButton.extendSize = CGSize(width: 24, height: 24)
+		shareButton.extendSize = CGSize(width: 24, height: 24)
 		
 		replayButton.tag = UZButtonTag.replay.rawValue
 		shareButton.tag = UZButtonTag.share.rawValue
@@ -65,7 +75,7 @@ open class UZShareView: UIView {
 //		frameLayout!.add(withTargetView: titleLabel)
 		frameLayout!.add(withTargetView: replayButton).contentAlignment = "cc"
 		frameLayout!.add(withTargetView: shareButton).contentAlignment = "cc"
-		frameLayout!.spacing = 10
+		frameLayout!.spacing = 30
 		frameLayout!.layoutAlignment = .center
 		frameLayout!.edgeInsets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
 		self.addSubview(frameLayout!)

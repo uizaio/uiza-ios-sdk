@@ -15,6 +15,8 @@ import NVActivityIndicatorView
 open class UZTheme3: UZPlayerTheme {
 	public weak var controlView: UZPlayerControlView? = nil
 	
+	let topGradientLayer = CAGradientLayer()
+	
 	internal var topFrameLayout 	: NKDoubleFrameLayout?
 	internal var bottomFrameLayout 	: NKTripleFrameLayout?
 	internal var mainFrameLayout 	: NKTripleFrameLayout?
@@ -95,6 +97,9 @@ open class UZTheme3: UZPlayerTheme {
 		let timeLabelColor = UIColor.white
 		let timeLabelShadowColor = UIColor.black
 		let timeLabelShadowOffset = CGSize(width: 0, height: 1)
+		
+		topGradientLayer.colors = [UIColor(white: 0.0, alpha: 0.8).cgColor, UIColor(white: 0.0, alpha: 0.0).cgColor]
+		controlView.containerView.layer.addSublayer(topGradientLayer)
 		
 		controlView.currentTimeLabel.textColor = timeLabelColor
 		controlView.currentTimeLabel.font = timeLabelFont
@@ -191,13 +196,16 @@ open class UZTheme3: UZPlayerTheme {
 	
 	open func layoutControls(rect: CGRect) {
 		mainFrameLayout?.frame = rect
+		mainFrameLayout?.layoutIfNeeded()
+		topGradientLayer.frame = topFrameLayout!.frame
+		
 		if let controlView = controlView {
 			controlView.loadingIndicatorView?.center = controlView.center
 		}
 	}
 	
 	open func cleanUI() {
-		
+		topGradientLayer.removeFromSuperlayer()
 	}
 	
 	open func allButtons() -> [UIButton] {

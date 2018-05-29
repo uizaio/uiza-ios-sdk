@@ -15,6 +15,9 @@ import NVActivityIndicatorView
 open class UZTheme5: UZPlayerTheme {
 	public weak var controlView: UZPlayerControlView? = nil
 	
+	let topGradientLayer = CAGradientLayer()
+	let bottomGradientLayer = CAGradientLayer()
+	
 	internal var topFrameLayout 	: NKDoubleFrameLayout?
 	internal var bottomFrameLayout 	: NKTripleFrameLayout?
 	internal var mainFrameLayout 	: NKTripleFrameLayout?
@@ -23,8 +26,6 @@ open class UZTheme5: UZPlayerTheme {
 	internal var iconSize: CGSize = CGSize(width: 24, height: 24)
 	internal var centerIconSize: CGSize = CGSize(width: 92, height: 92)
 	internal var seekThumbSize: CGSize = CGSize(width: 24, height: 24)
-	
-	let gradientLayer = CAGradientLayer()
 	
 	public convenience init(iconSize: CGSize = CGSize(width: 24, height: 24), centerIconSize: CGSize = CGSize(width: 92, height: 92), seekThumbSize: CGSize = CGSize(width: 24, height: 24), iconColor: UIColor = .white) {
 		self.init()
@@ -168,7 +169,7 @@ open class UZTheme5: UZPlayerTheme {
 		bottomFrameLayout!.rightFrameLayout.contentAlignment = "cf"
 		bottomFrameLayout!.isUserInteractionEnabled = true
 		bottomFrameLayout!.edgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
-		controlView.containerView.layer.addSublayer(gradientLayer)
+		
 //		bottomFrameLayout!.backgroundColor = UIColor(white: 0.0, alpha: 0.8)
 		
 		mainFrameLayout = NKTripleFrameLayout(direction: .vertical) // andViews: [topFrameLayout!, playpauseCenterButton, bottomFrameLayout!]
@@ -180,6 +181,11 @@ open class UZTheme5: UZPlayerTheme {
 		mainFrameLayout?.topFrameLayout.contentAlignment = "ff"
 		mainFrameLayout?.bottomFrameLayout.contentAlignment = "ff"
 		mainFrameLayout!.centerFrameLayout.contentAlignment = "cc"
+		
+		topGradientLayer.colors = [UIColor(white: 0.0, alpha: 0.8).cgColor, UIColor(white: 0.0, alpha: 0.0).cgColor]
+		bottomGradientLayer.colors = [UIColor(white: 0.0, alpha: 0.0).cgColor, UIColor(white: 0.0, alpha: 0.8).cgColor]
+		controlView.containerView.layer.addSublayer(topGradientLayer)
+		controlView.containerView.layer.addSublayer(bottomGradientLayer)
 		
 		controlView.containerView.addSubview(mainFrameLayout!)
 		controlView.containerView.addSubview(topFrameLayout!)
@@ -193,7 +199,9 @@ open class UZTheme5: UZPlayerTheme {
 	open func layoutControls(rect: CGRect) {
 		mainFrameLayout?.frame = rect
 		mainFrameLayout?.layoutIfNeeded()
-		gradientLayer.frame = bottomFrameLayout!.frame
+		
+		topGradientLayer.frame = topFrameLayout!.frame
+		bottomGradientLayer.frame = bottomFrameLayout!.frame
 		
 		if let controlView = controlView {
 			let viewSize = rect.size
@@ -203,7 +211,8 @@ open class UZTheme5: UZPlayerTheme {
 	}
 	
 	open func cleanUI() {
-		gradientLayer.removeFromSuperlayer()
+		topGradientLayer.removeFromSuperlayer()
+		bottomGradientLayer.removeFromSuperlayer()
 	}
 	
 	open func allButtons() -> [UIButton] {

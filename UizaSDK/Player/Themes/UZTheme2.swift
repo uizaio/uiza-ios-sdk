@@ -15,6 +15,9 @@ import NVActivityIndicatorView
 open class UZTheme2: UZPlayerTheme {
 	public weak var controlView: UZPlayerControlView? = nil
 	
+	let topGradientLayer = CAGradientLayer()
+	let bottomGradientLayer = CAGradientLayer()
+	
 	internal var topFrameLayout 	: NKDoubleFrameLayout?
 	internal var bottomFrameLayout 	: NKTripleFrameLayout?
 	internal var mainFrameLayout 	: NKTripleFrameLayout?
@@ -173,6 +176,11 @@ open class UZTheme2: UZPlayerTheme {
 		mainFrameLayout?.bottomFrameLayout.contentAlignment = "ff"
 		mainFrameLayout!.centerFrameLayout.contentAlignment = "cc"
 		
+		topGradientLayer.colors = [UIColor(white: 0.0, alpha: 0.8).cgColor, UIColor(white: 0.0, alpha: 0.0).cgColor]
+		bottomGradientLayer.colors = [UIColor(white: 0.0, alpha: 0.0).cgColor, UIColor(white: 0.0, alpha: 0.8).cgColor]
+		controlView.containerView.layer.addSublayer(topGradientLayer)
+		controlView.containerView.layer.addSublayer(bottomGradientLayer)
+		
 		controlView.containerView.addSubview(mainFrameLayout!)
 		controlView.containerView.addSubview(topFrameLayout!)
 		controlView.containerView.addSubview(bottomFrameLayout!)
@@ -184,6 +192,10 @@ open class UZTheme2: UZPlayerTheme {
 	
 	open func layoutControls(rect: CGRect) {
 		mainFrameLayout?.frame = rect
+		mainFrameLayout?.layoutIfNeeded()
+		
+		topGradientLayer.frame = topFrameLayout!.frame
+		bottomGradientLayer.frame = bottomFrameLayout!.frame
 		
 		if let controlView = controlView {
 			controlView.loadingIndicatorView?.center = controlView.center
@@ -191,7 +203,8 @@ open class UZTheme2: UZPlayerTheme {
 	}
 	
 	open func cleanUI() {
-		
+		topGradientLayer.removeFromSuperlayer()
+		bottomGradientLayer.removeFromSuperlayer()
 	}
 	
 	open func allButtons() -> [UIButton] {

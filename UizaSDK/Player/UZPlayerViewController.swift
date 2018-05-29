@@ -33,6 +33,23 @@ open class UZPlayerViewController: UIViewController {
 	open func setFullscreen(fullscreen: Bool, completion:@escaping () -> Void) {
 		if fullscreen {
 			if !isFullscreen {
+				NKModalViewManager.sharedInstance().presentModalViewController(self.playerController, animatedFrom: nil, enter: { (sender) in
+					completion()
+				}, exitBlock: nil)
+				self.playerController.player.controlView.updateUI(true)
+			}
+		}
+		else if let modalViewController = NKModalViewManager.sharedInstance().modalViewControllerThatContains(playerController) {
+			self.playerController.player.controlView.updateUI(false)
+			modalViewController.dismissWith(animated: true) { [weak self] () in
+				self?.viewDidLayoutSubviews()
+				completion()
+			}
+		}
+		
+		/*
+		if fullscreen {
+			if !isFullscreen {
 				NKFullscreenManager.sharedInstance().presentFullscreenViewController(self.playerController, animatedFrom: nil, enter: { (fullscreenController) in
 					completion()
 				}, exitBlock: nil)
@@ -46,6 +63,7 @@ open class UZPlayerViewController: UIViewController {
 				completion()
 			}
 		}
+		*/
 	}
 	
 	override open func viewDidLoad() {

@@ -15,6 +15,8 @@ import NVActivityIndicatorView
 open class UZTheme4: UZPlayerTheme {
 	public weak var controlView: UZPlayerControlView? = nil
 	
+	let topGradientLayer = CAGradientLayer()
+	
 	internal var topFrameLayout 	: NKDoubleFrameLayout?
 	internal var bottomFrameLayout 	: NKTripleFrameLayout?
 	internal var mainFrameLayout 	: NKTripleFrameLayout?
@@ -187,6 +189,9 @@ open class UZTheme4: UZPlayerTheme {
 		mainFrameLayout?.bottomFrameLayout.contentAlignment = "ff"
 		mainFrameLayout!.centerFrameLayout.contentAlignment = "cc"
 //		mainFrameLayout?.bottomFrameLayout.edgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+		
+		topGradientLayer.colors = [UIColor(white: 0.0, alpha: 0.8).cgColor, UIColor(white: 0.0, alpha: 0.0).cgColor]
+		controlView.containerView.layer.addSublayer(topGradientLayer)
 		
 		controlView.playpauseCenterButton.isHidden = true
 		controlView.containerView.addSubview(mainFrameLayout!)

@@ -15,6 +15,8 @@ import NVActivityIndicatorView
 open class UZTheme7: UZPlayerTheme {
 	public weak var controlView: UZPlayerControlView? = nil
 	
+	let topGradientLayer = CAGradientLayer()
+	
 	internal var topFrameLayout 	: NKDoubleFrameLayout?
 	internal var bottomFrameLayout 	: NKTripleFrameLayout?
 	internal var mainFrameLayout 	: NKTripleFrameLayout?
@@ -181,6 +183,9 @@ open class UZTheme7: UZPlayerTheme {
 		
 		controlView.playpauseCenterButton.isHidden = true
 		
+		topGradientLayer.colors = [UIColor(white: 0.0, alpha: 0.8).cgColor, UIColor(white: 0.0, alpha: 0.0).cgColor]
+		controlView.containerView.layer.addSublayer(topGradientLayer)
+		
 		controlView.containerView.addSubview(blurView)
 		controlView.containerView.addSubview(mainFrameLayout!)
 		controlView.containerView.addSubview(topFrameLayout!)
@@ -195,6 +200,7 @@ open class UZTheme7: UZPlayerTheme {
 	open func layoutControls(rect: CGRect) {
 		mainFrameLayout?.frame = rect
 		mainFrameLayout?.layoutIfNeeded()
+		topGradientLayer.frame = topFrameLayout!.frame
 		
 		blurView.frame = bottomFrameLayout!.frame
 		
@@ -206,7 +212,7 @@ open class UZTheme7: UZPlayerTheme {
 	}
 	
 	open func cleanUI() {
-		
+		topGradientLayer.removeFromSuperlayer()
 	}
 	
 	open func allButtons() -> [UIButton] {

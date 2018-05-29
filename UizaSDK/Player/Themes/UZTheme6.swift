@@ -199,6 +199,7 @@ open class UZTheme6: UZPlayerTheme {
 	open func layoutControls(rect: CGRect) {
 		mainFrameLayout?.frame = rect
 		mainFrameLayout?.layoutIfNeeded()
+		topGradientLayer.frame = topFrameLayout!.frame
 		
 		blurView.frame = bottomFrameLayout!.frame
 		
@@ -210,7 +211,7 @@ open class UZTheme6: UZPlayerTheme {
 	}
 	
 	open func cleanUI() {
-		
+		topGradientLayer.removeFromSuperlayer()
 	}
 	
 	open func allButtons() -> [UIButton] {

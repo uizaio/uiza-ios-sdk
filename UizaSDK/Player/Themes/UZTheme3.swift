@@ -183,7 +183,7 @@ open class UZTheme3: UZPlayerTheme {
 		mainFrameLayout?.topFrameLayout.contentAlignment = "ff"
 		mainFrameLayout?.bottomFrameLayout.contentAlignment = "ff"
 		mainFrameLayout!.centerFrameLayout.contentAlignment = "cc"
-		mainFrameLayout?.bottomFrameLayout.edgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+		mainFrameLayout?.bottomFrameLayout.edgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 10, right: 20)
 		
 		controlView.containerView.addSubview(mainFrameLayout!)
 		controlView.containerView.addSubview(topFrameLayout!)

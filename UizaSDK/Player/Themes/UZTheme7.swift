@@ -148,11 +148,11 @@ open class UZTheme7: UZPlayerTheme {
 		bottomCenterFrameLayout.spacing = 10
 		
 		bottomFrameLayout = NKTripleFrameLayout(direction: .horizontal, andViews: [bottomLeftFrameLayout, bottomCenterFrameLayout, bottomRightFrameLayout])
+		bottomFrameLayout!.addSubview(controlView.airplayButton)
 		bottomFrameLayout!.addSubview(controlView.settingsButton)
 		bottomFrameLayout!.addSubview(controlView.volumeButton)
 		bottomFrameLayout!.addSubview(controlView.playlistButton)
 		bottomFrameLayout!.addSubview(controlView.pipButton)
-		bottomFrameLayout!.addSubview(controlView.airplayButton)
 		bottomFrameLayout!.addSubview(controlView.fullscreenButton)
 		bottomFrameLayout!.addSubview(controlView.backwardButton)
 		bottomFrameLayout!.addSubview(controlView.forwardButton)

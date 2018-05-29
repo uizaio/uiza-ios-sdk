@@ -473,7 +473,6 @@ open class UZPlayerControlView: UIView {
 	}
 	
 	@objc func onTap(_ gesture: UITapGestureRecognizer) {
-		print("OK")
 		if containerView.isHidden || containerView.alpha == 0 {
 			showControlView()
 		}

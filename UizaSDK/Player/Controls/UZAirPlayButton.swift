@@ -29,7 +29,7 @@ open class UZAirPlayButton: MPVolumeView {
 		self.showsRouteButton = true
 		self.showsVolumeSlider = false
 		self.backgroundColor = .clear
-		self.isEnabled = self.areWirelessRoutesAvailable
+		self.isHidden = !self.areWirelessRoutesAvailable
 	}
 	
 	required public init?(coder aDecoder: NSCoder) {

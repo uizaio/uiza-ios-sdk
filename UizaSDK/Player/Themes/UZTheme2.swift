@@ -116,8 +116,8 @@ open class UZTheme2: UZPlayerTheme {
 		guard let controlView = controlView else { return }
 		
 		let controlFrameLayout = NKGridFrameLayout(direction: .horizontal, andViews: [controlView.pipButton, controlView.airplayButton, controlView.playlistButton, controlView.ccButton, controlView.settingsButton, controlView.volumeButton])!
-		controlFrameLayout.addSubview(controlView.pipButton)
 		controlFrameLayout.addSubview(controlView.airplayButton)
+		controlFrameLayout.addSubview(controlView.pipButton)
 		controlFrameLayout.addSubview(controlView.playlistButton)
 		controlFrameLayout.addSubview(controlView.ccButton)
 		controlFrameLayout.addSubview(controlView.settingsButton)

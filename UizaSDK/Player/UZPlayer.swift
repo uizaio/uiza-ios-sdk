@@ -156,9 +156,7 @@ open class UZPlayer: UIView {
 			currentLinkPlay = resource.definitions[definitionIndex]
 			playerLayer?.playAsset(asset: currentLinkPlay!.avURLAsset)
 			
-			if pictureInPictureController == nil {
-				setupPictureInPicture()
-			}
+			setupPictureInPicture()
 		} else {
 			controlView.showCover(url: resource.cover)
 			controlView.hideLoader()
@@ -192,9 +190,7 @@ open class UZPlayer: UIView {
 		playerLayer?.play()
 		isPauseByUser = false
 		
-		if pictureInPictureController == nil {
-			setupPictureInPicture()
-		}
+		setupPictureInPicture()
 	}
 	
 	open func stop() {
@@ -254,6 +250,12 @@ open class UZPlayer: UIView {
 	
 	private var playerViewControllerKVOContext = 0
 	func setupPictureInPicture() {
+		let keyPath = #keyPath(AVPictureInPictureController.isPictureInPicturePossible)
+		
+		pictureInPictureController?.removeObserver(self, forKeyPath: keyPath, context: &playerViewControllerKVOContext)
+		pictureInPictureController?.delegate = nil
+		pictureInPictureController = nil
+		
 		if let playerLayer = playerLayer?.playerLayer {
 			pictureInPictureController = AVPictureInPictureController(playerLayer: playerLayer)
 			pictureInPictureController?.delegate = self
@@ -326,6 +328,7 @@ open class UZPlayer: UIView {
 	
 	@objc func onAudioRouteChanged(_ notification: Notification) {
 		updateCastingUI()
+		controlView.setNeedsLayout()
 	}
 	
 	/*
@@ -704,8 +707,13 @@ extension UZPlayer: AVPictureInPictureControllerDelegate {
 		controlView.hideControlView()
 	}
 	
+	open func pictureInPictureControllerDidStartPictureInPicture(_ pictureInPictureController: AVPictureInPictureController) {
+		controlView.pipButton.isSelected = true
+	}
+	
 	open func pictureInPictureControllerDidStopPictureInPicture(_ pictureInPictureController: AVPictureInPictureController) {
 		controlView.showControlView()
+		controlView.pipButton.isSelected = false
 	}
 	
 }

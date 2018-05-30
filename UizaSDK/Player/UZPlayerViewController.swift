@@ -154,7 +154,8 @@ internal class UZPlayerController: UIViewController {
 			return deviceOrientation == .landscapeRight ? .landscapeLeft : .landscapeRight
 		}
 		else {
-			return UIApplication.shared.statusBarOrientation
+			let currentOrientation = UIApplication.shared.statusBarOrientation
+			return UIInterfaceOrientationIsLandscape(currentOrientation) ? currentOrientation : .landscapeRight
 		}
 	}
 	

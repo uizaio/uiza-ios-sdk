@@ -212,6 +212,7 @@ open class UZPlayerControlView: UIView {
 		tapGesture = UITapGestureRecognizer(target: self, action: #selector(onTap))
 		doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(onDoubleTap))
 		doubleTapGesture?.numberOfTapsRequired = 2
+		doubleTapGesture?.delegate = self
 		tapGesture!.require(toFail: doubleTapGesture!)
 		
 		self.addGestureRecognizer(tapGesture!)
@@ -483,6 +484,10 @@ open class UZPlayerControlView: UIView {
 	}
 	
 	@objc func onDoubleTap(_ gesture: UITapGestureRecognizer) {
+		if gesture.view is UIButton {
+			return
+		}
+		
 		delegate?.controlView(controlView: self, didSelectButton: fullscreenButton)
 	}
 	
@@ -509,6 +514,14 @@ open class UZPlayerControlView: UIView {
 		autoFadeOutControlView(after: autoHideControlsInterval)
 		delegate?.controlView(controlView: self, slider: sender, onSliderEvent: .touchUpInside)
 		self.setNeedsLayout()
+	}
+	
+}
+
+extension UZPlayerControlView: UIGestureRecognizerDelegate {
+	
+	public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+		return (touch.view is UIButton) == false
 	}
 	
 }

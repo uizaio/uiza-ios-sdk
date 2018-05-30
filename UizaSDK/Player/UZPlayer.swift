@@ -156,9 +156,7 @@ open class UZPlayer: UIView {
 			currentLinkPlay = resource.definitions[definitionIndex]
 			playerLayer?.playAsset(asset: currentLinkPlay!.avURLAsset)
 			
-			if pictureInPictureController == nil {
-				setupPictureInPicture()
-			}
+			setupPictureInPicture()
 		} else {
 			controlView.showCover(url: resource.cover)
 			controlView.hideLoader()
@@ -252,11 +250,9 @@ open class UZPlayer: UIView {
 		}
 	}
 	
-	let pipKeyPath = #keyPath(AVPictureInPictureController.isPictureInPicturePossible)
+	private let pipKeyPath = #keyPath(AVPictureInPictureController.isPictureInPicturePossible)
 	private var playerViewControllerKVOContext = 0
 	func setupPictureInPicture() {
-		
-		
 		pictureInPictureController?.removeObserver(self, forKeyPath: pipKeyPath, context: &playerViewControllerKVOContext)
 		pictureInPictureController?.delegate = nil
 		pictureInPictureController = nil
@@ -265,7 +261,6 @@ open class UZPlayer: UIView {
 			pictureInPictureController = AVPictureInPictureController(playerLayer: playerLayer)
 			pictureInPictureController?.delegate = self
 			pictureInPictureController?.addObserver(self, forKeyPath: pipKeyPath, options: [.initial, .new], context: &playerViewControllerKVOContext)
-			
 		}
 	}
 	
@@ -288,6 +283,7 @@ open class UZPlayer: UIView {
 			playerLayer?.shouldSeekTo = currentPosition
 			
 			playerLayer?.replaceAsset(asset: linkplay.avURLAsset)
+			setupPictureInPicture() // reset it
 		}
 	}
 	

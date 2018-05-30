@@ -210,7 +210,11 @@ open class UZTheme7: UZPlayerTheme {
 	open func layoutControls(rect: CGRect) {
 		mainFrameLayout?.frame = rect
 		mainFrameLayout?.layoutIfNeeded()
+		
+		CATransaction.begin()
+		CATransaction.setValue(kCFBooleanTrue, forKey: kCATransactionDisableActions)
 		topGradientLayer.frame = topFrameLayout!.frame
+		CATransaction.commit()
 		
 		blurView.frame = bottomFrameLayout!.frame
 		

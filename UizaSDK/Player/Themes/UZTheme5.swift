@@ -211,8 +211,11 @@ open class UZTheme5: UZPlayerTheme {
 		mainFrameLayout?.frame = rect
 		mainFrameLayout?.layoutIfNeeded()
 		
+		CATransaction.begin()
+		CATransaction.setValue(kCFBooleanTrue, forKey: kCATransactionDisableActions)
 		topGradientLayer.frame = topFrameLayout!.frame
 		bottomGradientLayer.frame = bottomFrameLayout!.frame
+		CATransaction.commit()
 		
 		if let controlView = controlView {
 			let viewSize = rect.size

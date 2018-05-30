@@ -314,11 +314,10 @@ internal class UZVideoQualityCollectionViewController: UICollectionViewControlle
 	}
 	
 	override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		collectionView.deselectItem(at: indexPath, animated: true)
+//		collectionView.deselectItem(at: indexPath, animated: true)
 		
 		let item = resourceItemAtIndexPath(indexPath)
 		selectedBlock?(item)
-		
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -378,12 +377,18 @@ class UZQualityItemCollectionViewCell : UICollectionViewCell {
 	}
 	
 	func updateColor() {
-		if self.isSelected || self.isHighlighted {
+		if self.isHighlighted {
 			highlightView.alpha = 1.0
-			titleLabel.textColor = UIColor(white: 0.0, alpha: 1.0)
+			highlightView.backgroundColor = UIColor(white: 1.0, alpha: 0.5)
+			titleLabel.textColor = .black
+		}
+		else if self.isSelected {
+			highlightView.alpha = 1.0
+			highlightView.backgroundColor = UIColor(red:0.21, green:0.49, blue:0.96, alpha:1.00)
+			titleLabel.textColor = .white
 		}
 		else {
-			titleLabel.textColor = UIColor(white: 1.0, alpha: 1.0)
+			titleLabel.textColor = .white
 			
 			UIView.animate(withDuration: 0.3, animations: {() -> Void in
 				self.highlightView.alpha = 0.0
@@ -402,7 +407,6 @@ class UZQualityItemCollectionViewCell : UICollectionViewCell {
 		self.backgroundView!.layer.masksToBounds = true
 		
 		highlightView = UIView()
-		highlightView.backgroundColor = UIColor(white: 1.0, alpha: 0.5)
 		highlightView.alpha = 0.0
 		highlightView.layer.cornerRadius = 10
 		highlightView.layer.masksToBounds = true

@@ -22,9 +22,10 @@ open class UZTheme4: UZPlayerTheme {
 	internal var mainFrameLayout 	: NKTripleFrameLayout?
 	
 	internal var iconColor = UIColor.white
-	internal var iconSize: CGSize = CGSize(width: 24, height: 24)
-	internal var centerIconSize: CGSize = CGSize(width: 50, height: 50)
-	internal var seekThumbSize: CGSize = CGSize(width: 24, height: 24)
+	internal var iconSize = CGSize(width: 24, height: 24)
+	internal var centerIconSize = CGSize(width: 50, height: 50)
+	internal var seekThumbSize = CGSize(width: 24, height: 24)
+	internal var buttonMinSize = CGSize(width: 32, height: 32)
 	
 	public convenience init(iconSize: CGSize = CGSize(width: 24, height: 24), centerIconSize: CGSize = CGSize(width: 50, height: 50), seekThumbSize: CGSize = CGSize(width: 24, height: 24), iconColor: UIColor = .white) {
 		self.init()
@@ -135,6 +136,10 @@ open class UZTheme4: UZPlayerTheme {
 		controlFrameLayout.spacing = 10
 //		controlFrameLayout.showFrameDebug = true
 		
+		for frameLayout in controlFrameLayout.frameLayoutArray {
+			frameLayout.minSize = buttonMinSize
+		}
+		
 		topFrameLayout = NKDoubleFrameLayout(direction: .horizontal)!
 		topFrameLayout!.rightFrameLayout = topLeftFrameLayout
 		topFrameLayout!.leftFrameLayout = controlFrameLayout
@@ -153,6 +158,14 @@ open class UZTheme4: UZPlayerTheme {
 		bottomCenterFrameLayout.add(withTargetView: controlView.playpauseButton).contentAlignment = "cc"
 		bottomCenterFrameLayout.add(withTargetView: controlView.forwardButton).contentAlignment = "cc"
 		bottomCenterFrameLayout.layoutAlignment = .center
+		
+		for frameLayout in bottomRightFrameLayout.frameLayoutArray {
+			frameLayout.minSize = buttonMinSize
+		}
+		
+		for frameLayout in bottomCenterFrameLayout.frameLayoutArray {
+			frameLayout.minSize = buttonMinSize
+		}
 		
 		bottomRightFrameLayout.spacing = 10
 		bottomLeftFrameLayout.spacing = 10

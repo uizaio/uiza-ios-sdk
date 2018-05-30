@@ -5,7 +5,7 @@ PODS:
   - NKButton (1.2):
     - NKFrameLayoutKit
     - NVActivityIndicatorView
-  - NKFrameLayoutKit (1.9.4)
+  - NKFrameLayoutKit (1.9.6)
   - NKModalViewManager (3.3)
   - NVActivityIndicatorView (4.2.1):
     - NVActivityIndicatorView/Presenter (= 4.2.1)
@@ -46,7 +46,7 @@ SPEC CHECKSUMS:
   Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
   GoogleAds-IMA-iOS-SDK: 58693326633b35aa7e95c45693ec0bb8e88086de
   NKButton: cadcce07b76df6378c08df4bd096f94c7030bd98
-  NKFrameLayoutKit: 5113914349bdfb5f537401027f102d3e1d57ee0f
+  NKFrameLayoutKit: c529742dc3a0e523fee54f1d04b767cf0055e6ae
   NKModalViewManager: f9f9539ac36417fa1ed446f4221e62e1748cbff9
   NVActivityIndicatorView: 8068ba3ad39cb44cbaab25d89ff2546b3f092681
   SDWebImage: de4d90b5bff3571eae7bd16202b1f43135409fa5

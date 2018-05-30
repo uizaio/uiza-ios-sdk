@@ -22,11 +22,11 @@ open class UZTheme1: UZPlayerTheme {
 	internal var bottomFrameLayout 	: NKTripleFrameLayout?
 	internal var mainFrameLayout 	: NKTripleFrameLayout?
 	
-	internal var buttonMinSize = CGSize(width: 32, height: 32)
 	internal var iconColor = UIColor.white
-	internal var iconSize: CGSize = CGSize(width: 24, height: 24)
-	internal var centerIconSize: CGSize = CGSize(width: 92, height: 92)
-	internal var seekThumbSize: CGSize = CGSize(width: 24, height: 24)
+	internal var iconSize = CGSize(width: 24, height: 24)
+	internal var centerIconSize = CGSize(width: 92, height: 92)
+	internal var seekThumbSize = CGSize(width: 24, height: 24)
+	internal var buttonMinSize = CGSize(width: 32, height: 32)
 	
 	public convenience init(iconSize: CGSize = CGSize(width: 24, height: 24), centerIconSize: CGSize = CGSize(width: 92, height: 92), seekThumbSize: CGSize = CGSize(width: 24, height: 24), iconColor: UIColor = .white) {
 		self.init()
@@ -130,8 +130,8 @@ open class UZTheme1: UZPlayerTheme {
 		controlFrameLayout.spacing = 10
 //		controlFrameLayout.showFrameDebug = true
 		
-		controlFrameLayout.enumerate { (layout, index, stop) in
-			layout?.minSize = buttonMinSize
+		for frameLayout in controlFrameLayout.frameLayoutArray {
+			frameLayout.minSize = buttonMinSize
 		}
 		
 		let topLeftFrameLayout = NKDoubleFrameLayout(direction: .horizontal, andViews: [controlView.backButton, controlView.titleLabel])!
@@ -139,6 +139,7 @@ open class UZTheme1: UZPlayerTheme {
 		topLeftFrameLayout.isUserInteractionEnabled = true
 		topLeftFrameLayout.addSubview(controlView.backButton)
 		topLeftFrameLayout.addSubview(controlView.titleLabel)
+		topLeftFrameLayout.leftFrameLayout.minSize = buttonMinSize
 		
 		topFrameLayout = NKDoubleFrameLayout(direction: .horizontal)!
 		topFrameLayout!.leftFrameLayout.targetView = topLeftFrameLayout
@@ -156,6 +157,9 @@ open class UZTheme1: UZPlayerTheme {
 		let bottomLeftFrameLayout = NKGridFrameLayout(direction: .horizontal, andViews: [controlView.currentTimeLabel])!
 		let bottomRightFrameLayout = NKGridFrameLayout(direction: .horizontal, andViews: [controlView.remainTimeLabel, controlView.backwardButton, controlView.forwardButton, controlView.fullscreenButton])!
 		bottomRightFrameLayout.spacing = 10
+		for frameLayout in bottomRightFrameLayout.frameLayoutArray {
+			frameLayout.minSize = buttonMinSize
+		}
 		
 		bottomFrameLayout = NKTripleFrameLayout(direction: .horizontal, andViews: [bottomLeftFrameLayout, controlView.timeSlider, bottomRightFrameLayout])
 		bottomFrameLayout!.addSubview(controlView.currentTimeLabel)

@@ -264,8 +264,6 @@ open class UZPlayer: UIView {
 		if let playerLayer = playerLayer?.playerLayer {
 			pictureInPictureController = AVPictureInPictureController(playerLayer: playerLayer)
 			pictureInPictureController?.delegate = self
-			
-			let keyPath = #keyPath(AVPictureInPictureController.isPictureInPicturePossible)
 			pictureInPictureController?.addObserver(self, forKeyPath: pipKeyPath, options: [.initial, .new], context: &playerViewControllerKVOContext)
 			
 		}
@@ -281,7 +279,6 @@ open class UZPlayer: UIView {
 		}
 		else {
 			pictureInPictureController?.startPictureInPicture()
-			print("START \(pictureInPictureController)")
 		}
 	}
 	

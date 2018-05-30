@@ -23,9 +23,10 @@ open class UZTheme7: UZPlayerTheme {
 	internal let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
 	
 	internal var iconColor = UIColor.white
-	internal var iconSize: CGSize = CGSize(width: 24, height: 24)
-	internal var centerIconSize: CGSize = CGSize(width: 50, height: 50)
-	internal var seekThumbSize: CGSize = CGSize(width: 24, height: 24)
+	internal var iconSize = CGSize(width: 24, height: 24)
+	internal var centerIconSize = CGSize(width: 50, height: 50)
+	internal var seekThumbSize = CGSize(width: 24, height: 24)
+	internal var buttonMinSize = CGSize(width: 32, height: 32)
 	
 	public convenience init(iconSize: CGSize = CGSize(width: 24, height: 24), centerIconSize: CGSize = CGSize(width: 60, height: 60), seekThumbSize: CGSize = CGSize(width: 24, height: 24), iconColor: UIColor = .white) {
 		self.init()
@@ -124,6 +125,7 @@ open class UZTheme7: UZPlayerTheme {
 		topLeftFrameLayout.isUserInteractionEnabled = true
 		topLeftFrameLayout.addSubview(controlView.backButton)
 		topLeftFrameLayout.addSubview(controlView.titleLabel)
+		topLeftFrameLayout.rightFrameLayout.minSize = buttonMinSize
 		
 		topFrameLayout = NKDoubleFrameLayout(direction: .horizontal)!
 		topFrameLayout!.leftFrameLayout.targetView = topLeftFrameLayout
@@ -144,6 +146,14 @@ open class UZTheme7: UZPlayerTheme {
 		bottomCenterFrameLayout.add(withTargetView: controlView.playpauseButton).contentAlignment = "cc"
 		bottomCenterFrameLayout.add(withTargetView: controlView.forwardButton).contentAlignment = "cc"
 		bottomCenterFrameLayout.layoutAlignment = .center
+		
+		for frameLayout in bottomLeftFrameLayout.frameLayoutArray {
+			frameLayout.minSize = buttonMinSize
+		}
+		
+		for frameLayout in bottomRightFrameLayout.frameLayoutArray {
+			frameLayout.minSize = buttonMinSize
+		}
 		
 		bottomRightFrameLayout.spacing = 10
 		bottomLeftFrameLayout.spacing = 10

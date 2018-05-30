@@ -22,6 +22,7 @@ open class UZTheme1: UZPlayerTheme {
 	internal var bottomFrameLayout 	: NKTripleFrameLayout?
 	internal var mainFrameLayout 	: NKTripleFrameLayout?
 	
+	internal var buttonMinSize = CGSize(width: 32, height: 32)
 	internal var iconColor = UIColor.white
 	internal var iconSize: CGSize = CGSize(width: 24, height: 24)
 	internal var centerIconSize: CGSize = CGSize(width: 92, height: 92)
@@ -128,6 +129,10 @@ open class UZTheme1: UZPlayerTheme {
 		controlFrameLayout.intrinsicSizeEnabled = true
 		controlFrameLayout.spacing = 10
 //		controlFrameLayout.showFrameDebug = true
+		
+		controlFrameLayout.enumerate { (layout, index, stop) in
+			layout?.minSize = buttonMinSize
+		}
 		
 		let topLeftFrameLayout = NKDoubleFrameLayout(direction: .horizontal, andViews: [controlView.backButton, controlView.titleLabel])!
 		topLeftFrameLayout.spacing = 10

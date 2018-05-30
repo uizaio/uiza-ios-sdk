@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import NKButton
 import NKFrameLayoutKit
 import NVActivityIndicatorView
 
@@ -98,18 +99,18 @@ open class UZPlayerControlView: UIView {
 	internal let currentTimeLabel = UILabel()
 	internal let totalTimeLabel = UILabel()
 	internal let remainTimeLabel = UILabel()
-	internal let playpauseCenterButton = UIButton()
-	internal let playpauseButton = UIButton()
-	internal let forwardButton = UIButton()
-	internal let backwardButton = UIButton()
-	internal let volumeButton = UIButton()
-	internal let backButton = UIButton()
-	internal let fullscreenButton = UIButton()
-	internal let playlistButton = UIButton()
-	internal let ccButton = UIButton()
-	internal let settingsButton = UIButton()
-	internal let helpButton = UIButton()
-	internal let pipButton = UIButton()
+	internal let playpauseCenterButton = NKButton()
+	internal let playpauseButton = NKButton()
+	internal let forwardButton = NKButton()
+	internal let backwardButton = NKButton()
+	internal let volumeButton = NKButton()
+	internal let backButton = NKButton()
+	internal let fullscreenButton = NKButton()
+	internal let playlistButton = NKButton()
+	internal let ccButton = NKButton()
+	internal let settingsButton = NKButton()
+	internal let helpButton = NKButton()
+	internal let pipButton = NKButton()
 	internal let airplayButton = UZAirPlayButton()
 	internal let timeSlider = UZSlider()
 	internal let coverImageView = UIImageView()

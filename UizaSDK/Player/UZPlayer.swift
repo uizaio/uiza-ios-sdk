@@ -156,7 +156,9 @@ open class UZPlayer: UIView {
 			currentLinkPlay = resource.definitions[definitionIndex]
 			playerLayer?.playAsset(asset: currentLinkPlay!.avURLAsset)
 			
-			setupPictureInPicture()
+			if pictureInPictureController == nil {
+				setupPictureInPicture()
+			}
 		} else {
 			controlView.showCover(url: resource.cover)
 			controlView.hideLoader()
@@ -190,7 +192,9 @@ open class UZPlayer: UIView {
 		playerLayer?.play()
 		isPauseByUser = false
 		
-		setupPictureInPicture()
+		if pictureInPictureController == nil {
+			setupPictureInPicture()
+		}
 	}
 	
 	open func stop() {
@@ -248,11 +252,12 @@ open class UZPlayer: UIView {
 		}
 	}
 	
+	let pipKeyPath = #keyPath(AVPictureInPictureController.isPictureInPicturePossible)
 	private var playerViewControllerKVOContext = 0
 	func setupPictureInPicture() {
-		let keyPath = #keyPath(AVPictureInPictureController.isPictureInPicturePossible)
 		
-		pictureInPictureController?.removeObserver(self, forKeyPath: keyPath, context: &playerViewControllerKVOContext)
+		
+		pictureInPictureController?.removeObserver(self, forKeyPath: pipKeyPath, context: &playerViewControllerKVOContext)
 		pictureInPictureController?.delegate = nil
 		pictureInPictureController = nil
 		
@@ -261,7 +266,7 @@ open class UZPlayer: UIView {
 			pictureInPictureController?.delegate = self
 			
 			let keyPath = #keyPath(AVPictureInPictureController.isPictureInPicturePossible)
-			pictureInPictureController?.addObserver(self, forKeyPath: keyPath, options: [.initial, .new], context: &playerViewControllerKVOContext)
+			pictureInPictureController?.addObserver(self, forKeyPath: pipKeyPath, options: [.initial, .new], context: &playerViewControllerKVOContext)
 			
 		}
 	}
@@ -273,11 +278,10 @@ open class UZPlayer: UIView {
 		
 		if pictureInPictureController?.isPictureInPictureActive ?? false {
 			pictureInPictureController?.stopPictureInPicture()
-			controlView.pipButton.isSelected = false
 		}
 		else {
 			pictureInPictureController?.startPictureInPicture()
-			controlView.pipButton.isSelected = true
+			print("START \(pictureInPictureController)")
 		}
 	}
 	
@@ -519,7 +523,7 @@ open class UZPlayer: UIView {
 //			return
 //		}
 		
-		if keyPath == #keyPath(AVPictureInPictureController.isPictureInPicturePossible) {
+		if keyPath == pipKeyPath {
 			let newValue = change?[NSKeyValueChangeKey.newKey] as! NSNumber
 			let isPictureInPicturePossible: Bool = newValue.boolValue
 			controlView.pipButton.isEnabled = isPictureInPicturePossible
@@ -531,8 +535,8 @@ open class UZPlayer: UIView {
 	
 	deinit {
 		if pictureInPictureController != nil {
-			let keyPath = #keyPath(AVPictureInPictureController.isPictureInPicturePossible)
-			pictureInPictureController!.removeObserver(self, forKeyPath: keyPath, context: &playerViewControllerKVOContext)
+			pictureInPictureController!.delegate = nil
+			pictureInPictureController!.removeObserver(self, forKeyPath: pipKeyPath, context: &playerViewControllerKVOContext)
 		}
 		
 		playerLayer?.pause()

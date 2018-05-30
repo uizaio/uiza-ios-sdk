@@ -24,6 +24,7 @@ open class UZPlayerViewController: UIViewController {
 	
 	open var fullscreenPresentationMode: UZFullscreenPresentationMode = .modal
 	open var autoFullscreenWhenRotateDevice = true
+	open var autoFullscreenDelay: TimeInterval = 0.3
 	
 	open var isFullscreen: Bool {
 		get {
@@ -94,12 +95,14 @@ open class UZPlayerViewController: UIViewController {
 	
 	@objc func onDeviceRotated() {
 		if autoFullscreenWhenRotateDevice {
-			let orientation = UIDevice.current.orientation
-			if UIDeviceOrientationIsLandscape(orientation) {
-				self.setFullscreen(fullscreen: true)
-			}
-			else if UIDeviceOrientationIsPortrait(orientation) {
-				self.setFullscreen(fullscreen: false)
+			DispatchQueue.main.asyncAfter(deadline: .now() + autoFullscreenDelay) {
+				let orientation = UIDevice.current.orientation
+				if UIDeviceOrientationIsLandscape(orientation) {
+					self.setFullscreen(fullscreen: true)
+				}
+				else if UIDeviceOrientationIsPortrait(orientation) {
+					self.setFullscreen(fullscreen: false)
+				}
 			}
 		}
 	}

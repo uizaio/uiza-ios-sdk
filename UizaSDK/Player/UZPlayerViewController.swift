@@ -9,6 +9,11 @@
 import UIKit
 import NKModalViewManager
 
+public enum UZFullscreenPresentationMode {
+	case modal
+	case fullscreen
+}
+
 open class UZPlayerViewController: UIViewController {
 	internal let playerController = UZPlayerController()
 	open var player: UZPlayer {
@@ -17,6 +22,7 @@ open class UZPlayerViewController: UIViewController {
 		}
 	}
 	
+	open var fullscreenPresentationMode: UZFullscreenPresentationMode = .modal
 	open var autoFullscreenWhenRotateDevice = true
 	
 	open var isFullscreen: Bool {
@@ -29,40 +35,38 @@ open class UZPlayerViewController: UIViewController {
 	}
 	
 	open func setFullscreen(fullscreen: Bool, completion:(() -> Void)? = nil) {
-		/*
 		if fullscreen {
 			if !isFullscreen {
-				NKModalViewManager.sharedInstance().presentModalViewController(self.playerController, animatedFrom: nil, enter: { (sender) in
-					completion?()
-				}, exitBlock: nil)
+				if fullscreenPresentationMode == .modal {
+					NKModalViewManager.sharedInstance().presentModalViewController(self.playerController, animatedFrom: nil, enter: { (sender) in
+						completion?()
+					}, exitBlock: nil)
+				}
+				else {
+					NKFullscreenManager.sharedInstance().presentFullscreenViewController(self.playerController, animatedFrom: nil, enter: { (sender) in
+						completion?()
+					}, exitBlock: nil)
+				}
+				
 				self.playerController.player.controlView.updateUI(true)
 			}
 		}
-		else if let modalViewController = NKModalViewManager.sharedInstance().modalViewControllerThatContains(playerController) {
+		else {
 			self.playerController.player.controlView.updateUI(false)
-			modalViewController.dismissWith(animated: true) { [weak self] () in
-				self?.viewDidLayoutSubviews()
-				completion?()
-			}
-		}
-		*/
-		
-		if fullscreen {
-			if !isFullscreen {
-				NKFullscreenManager.sharedInstance().presentFullscreenViewController(self.playerController, animatedFrom: nil, enter: { (fullscreenController) in
+			
+			if let modalViewController = NKModalViewManager.sharedInstance().modalViewControllerThatContains(playerController) {
+				modalViewController.dismissWith(animated: true) { [weak self] () in
+					self?.viewDidLayoutSubviews()
 					completion?()
-				}, exitBlock: nil)
-				self.playerController.player.controlView.updateUI(true)
+				}
+			}
+			else if let fullscreenController = NKFullscreenManager.sharedInstance().fullscreenViewControllerThatContains(playerController) {
+				fullscreenController.dismissView(animated: true) { [weak self] () in
+					self?.viewDidLayoutSubviews()
+					completion?()
+				}
 			}
 		}
-		else if let modalViewController = NKFullscreenManager.sharedInstance().fullscreenViewControllerThatContains(playerController) {
-			self.playerController.player.controlView.updateUI(false)
-			modalViewController.dismissView(animated: true) { [weak self] () in
-				self?.viewDidLayoutSubviews()
-				completion?()
-			}
-		}
-		
 	}
 	
 	override open func viewDidLoad() {

@@ -13,9 +13,8 @@ import NKModalViewManager
 
 class UZMediaOptionSelectionViewController: UIViewController {
 	let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
-	let titleLabel = UILabel()
 	let collectionViewController = UZMediaOptionSelectionCollectionViewController()
-	var frameLayout: NKDoubleFrameLayout!
+	var frameLayout: NKFrameLayout!
 	
 	var selectedSubtitleOption: AVMediaSelectionOption? {
 		didSet {
@@ -53,14 +52,9 @@ class UZMediaOptionSelectionViewController: UIViewController {
 	init() {
 		super.init(nibName: nil, bundle: nil)
 		
-		titleLabel.font = UIFont.systemFont(ofSize: 15, weight: .bold)
-		titleLabel.textColor = .white
-		titleLabel.textAlignment = .center
-		
-		frameLayout = NKDoubleFrameLayout(direction: .vertical, andViews: [titleLabel, collectionViewController.view])
-		frameLayout.bottomFrameLayout.minSize = CGSize(width: 0, height: 100)
-		frameLayout.edgeInsets = UIEdgeInsets(top: 20, left: 10, bottom: 10, right: 10)
-		frameLayout.spacing = 20
+		frameLayout = NKFrameLayout(targetView: collectionViewController.view)
+		frameLayout.minSize = CGSize(width: 0, height: 100)
+		frameLayout.edgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
@@ -72,7 +66,6 @@ class UZMediaOptionSelectionViewController: UIViewController {
 		
 		self.view.backgroundColor = UIColor(white: 0.0, alpha: 0.4)
 		self.view.addSubview(blurView)
-		self.view.addSubview(titleLabel)
 		self.view.addSubview(collectionViewController.view)
 		self.view.addSubview(frameLayout)
 	}

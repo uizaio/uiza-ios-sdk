@@ -37,10 +37,12 @@ class UZMediaOptionSelectionViewController: UIViewController {
 			if let asset = asset {
 				if let group = asset.mediaSelectionGroup(forMediaCharacteristic: .legible) {
 					self.collectionViewController.subtitleOptions = group.options
+					print("Audios:\(group.options)")
 				}
 				
 				if let group = asset.mediaSelectionGroup(forMediaCharacteristic: .audible) {
 					self.collectionViewController.audioOptions = group.options
+					print("Subtitles:\(group.options)")
 				}
 			}
 			
@@ -51,7 +53,6 @@ class UZMediaOptionSelectionViewController: UIViewController {
 	init() {
 		super.init(nibName: nil, bundle: nil)
 		
-		titleLabel.text = "Video Quality"
 		titleLabel.font = UIFont.systemFont(ofSize: 15, weight: .bold)
 		titleLabel.textColor = .white
 		titleLabel.textAlignment = .center
@@ -87,7 +88,7 @@ class UZMediaOptionSelectionViewController: UIViewController {
 		get {
 			var screenSize = UIScreen.main.bounds.size
 			screenSize.width = min(320, screenSize.width * 0.8)
-			screenSize.height = min(min(400, screenSize.height * 0.8), CGFloat(self.collectionViewController.audioOptions.count * 50) + CGFloat(self.collectionViewController.subtitleOptions.count * 50) + 70)
+			screenSize.height = min(min(400, screenSize.height * 0.8), CGFloat(self.collectionViewController.audioOptions.count * 50) + CGFloat(self.collectionViewController.subtitleOptions.count * 50) + 120)
 			return frameLayout.sizeThatFits(screenSize)
 		}
 		set {
@@ -145,7 +146,9 @@ extension UZMediaOptionSelectionViewController: NKModalViewControllerProtocol {
 // MARK: - UZMediaOptionSelectionCollectionViewController
 
 internal class UZMediaOptionSelectionCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-	let CellIdentifier	= "OptionItemCell"
+	private let CellIdentifier	= "OptionItemCell"
+	private let reuseHeaderIdentifier = "GroupHeader"
+	
 	var flowLayout		: UICollectionViewFlowLayout!
 	var selectedBlock	: ((_ item: AVMediaSelectionOption?, _ indexPath: IndexPath) -> Void)? = nil
 	var messageLabel	: UILabel?
@@ -161,7 +164,7 @@ internal class UZMediaOptionSelectionCollectionViewController: UICollectionViewC
 		flowLayout = self.collectionViewLayout as! UICollectionViewFlowLayout
 		flowLayout.minimumLineSpacing = 10
 		flowLayout.minimumInteritemSpacing = 0
-		flowLayout.scrollDirection = .horizontal
+		flowLayout.scrollDirection = .vertical
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
@@ -209,7 +212,7 @@ internal class UZMediaOptionSelectionCollectionViewController: UICollectionViewC
 		
 		let collectionView = self.collectionView!
 		collectionView.register(UZMediaOptionItemCollectionViewCell.self, forCellWithReuseIdentifier: CellIdentifier)
-		collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "Header")
+		collectionView.register(UZTitleCollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: reuseHeaderIdentifier)
 		
 //		collectionView.backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
 		collectionView.showsHorizontalScrollIndicator = false
@@ -280,11 +283,18 @@ internal class UZMediaOptionSelectionCollectionViewController: UICollectionViewC
 	}
 	
 	override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-		return UICollectionReusableView()
+		if kind == UICollectionElementKindSectionHeader {
+			let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: reuseHeaderIdentifier, for: indexPath) as! UZTitleCollectionViewHeader
+			headerView.title = indexPath.section == 0 ? "Audio Tracks" : "Subtitles"
+			return headerView
+		}
+		else {
+			return UICollectionReusableView()
+		}
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-		return .zero
+		return CGSize(width: collectionView.frame.size.width, height: 50)
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
@@ -449,3 +459,55 @@ class UZMediaOptionItemCollectionViewCell : UICollectionViewCell {
 	
 }
 
+// MARK: - UZTitleCollectionViewHeader
+
+class UZTitleCollectionViewHeader: UICollectionReusableView {
+	
+	let label = UILabel()
+	var frameLayout : NKFrameLayout!
+	
+	var title: String? {
+		get {
+			return label.text
+		}
+		set {
+			label.text = newValue
+			self.setNeedsLayout()
+		}
+	}
+	
+	override init(frame: CGRect) {
+		super.init(frame: frame)
+		
+		self.backgroundColor = .clear
+		
+		label.font = UIFont.systemFont(ofSize: 14, weight: .bold)
+		label.textColor = .gray
+		
+		frameLayout = NKFrameLayout(targetView: label)
+		frameLayout.addSubview(label)
+		frameLayout.edgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 0, right: 0)
+		self.addSubview(frameLayout)
+	}
+	
+	override func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {
+//		layoutAttributes.zIndex = 0
+		super.apply(layoutAttributes)
+		self.layer.zPosition = 0
+	}
+	
+	required init?(coder aDecoder: NSCoder) {
+		super.init(coder: aDecoder)
+	}
+	
+	override func sizeThatFits(_ size: CGSize) -> CGSize {
+		return frameLayout.sizeThatFits(size)
+	}
+	
+	override func layoutSubviews() {
+		super.layoutSubviews()
+		
+		frameLayout.frame = self.bounds
+	}
+	
+}

@@ -228,7 +228,7 @@ open class UZPlayer: UIView {
 				playthrough_eventlog[0] = true
 				UZLogger().log(event: "video_starts", video: currentVideo, completionBlock: nil)
 				
-//				selectSubtitle(index: -1) // select default subtitle
+				selectSubtitle(index: -1) // select default subtitle
 //				selectAudio(index: -1) // select default audio track
 			}
 		}

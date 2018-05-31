@@ -216,13 +216,6 @@ open class UZPlayer: UIView {
 			isURLSet = true
 		}
 		
-		if currentPosition == 0 && !isPauseByUser {
-			if playthrough_eventlog[0] == false || playthrough_eventlog[0] == nil {
-				playthrough_eventlog[0] = true
-				UZLogger().log(event: "video_starts", video: currentVideo, completionBlock: nil)
-			}
-		}
-		
 		playerLayer?.play()
 		isPauseByUser = false
 		
@@ -230,11 +223,13 @@ open class UZPlayer: UIView {
 			setupPictureInPicture()
 		}
 		
-		if let currentItem = self.avPlayer?.currentItem {
-			let asset = currentItem.asset
-			
-			if let group = asset.mediaSelectionGroup(forMediaCharacteristic: .legible) {
-				currentItem.select(group.options.first, in: group)
+		if currentPosition == 0 && !isPauseByUser {
+			if playthrough_eventlog[0] == false || playthrough_eventlog[0] == nil {
+				playthrough_eventlog[0] = true
+				UZLogger().log(event: "video_starts", video: currentVideo, completionBlock: nil)
+				
+//				selectSubtitle(index: -1) // select default subtitle
+//				selectAudio(index: -1) // select default audio track
 			}
 		}
 	}
@@ -601,6 +596,30 @@ open class UZPlayer: UIView {
 		NKModalViewManager.sharedInstance().presentModalViewController(viewController)
 	}
 	
+	open func showMediaOptionSelector() {
+		if let currentItem = self.avPlayer?.currentItem {
+			let asset = currentItem.asset
+			
+			let viewController = UZMediaOptionSelectionViewController()
+			viewController.asset = asset
+//			viewController.selectedSubtitleOption = nil
+			viewController.collectionViewController.selectedBlock = { [weak self] (option, indexPath) in
+				guard let `self` = self else { return }
+				
+				if indexPath.section == 0 { // audio
+					self.selectAudio(index: indexPath.item)
+				}
+				else if indexPath.section == 1 { // subtitile
+					self.selectSubtitle(index: indexPath.item)
+				}
+				
+				NKModalViewManager.sharedInstance().modalViewControllerThatContains(viewController)?.dismissWith(animated: true, completion: nil)
+				
+			}
+			NKModalViewManager.sharedInstance().presentModalViewController(viewController)
+		}
+	}
+	
 	// MARK: - KVO
 	
 	override open func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -750,6 +769,9 @@ extension UZPlayer: UZPlayerControlViewDelegate {
 				
 			case .settings:
 				showQualitySelector()
+			
+			case .caption:
+				showMediaOptionSelector()
 				
 			default:
 				#if DEBUG

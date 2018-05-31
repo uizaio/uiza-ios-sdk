@@ -278,7 +278,7 @@ internal class UZMediaOptionSelectionCollectionViewController: UICollectionViewC
 	override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
 		if kind == UICollectionElementKindSectionHeader {
 			let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: reuseHeaderIdentifier, for: indexPath) as! UZTitleCollectionViewHeader
-			headerView.title = indexPath.section == 0 ? "Audio Tracks" : "Subtitles"
+			headerView.title = indexPath.section == 0 ? "Audio" : "Subtitle"
 			return headerView
 		}
 		else {

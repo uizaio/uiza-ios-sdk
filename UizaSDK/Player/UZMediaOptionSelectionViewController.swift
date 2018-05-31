@@ -81,7 +81,7 @@ class UZMediaOptionSelectionViewController: UIViewController {
 		get {
 			var screenSize = UIScreen.main.bounds.size
 			screenSize.width = min(320, screenSize.width * 0.8)
-			screenSize.height = min(min(400, screenSize.height * 0.8), CGFloat(self.collectionViewController.audioOptions.count * 50) + CGFloat(self.collectionViewController.subtitleOptions.count * 50) + 120)
+			screenSize.height = min(min(400, screenSize.height * 0.8), CGFloat(self.collectionViewController.audioOptions.count * 50) + CGFloat(self.collectionViewController.subtitleOptions.count * 50) + 130)
 			return frameLayout.sizeThatFits(screenSize)
 		}
 		set {
@@ -318,7 +318,7 @@ internal class UZMediaOptionSelectionCollectionViewController: UICollectionViewC
 	
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 		let itemWidth = collectionView.bounds.size.width - (collectionView.contentInset.left + collectionView.contentInset.right)
-		return CGSize(width: itemWidth, height: 50)
+		return CGSize(width: itemWidth * 0.9, height: 50)
 	}
 	
 }

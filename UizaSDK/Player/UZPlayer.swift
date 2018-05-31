@@ -63,6 +63,18 @@ open class UZPlayer: UIView {
 		return playerLayer?.player
 	}
 	
+	open var subtitleOptions: [AVMediaSelectionOption]? {
+		get {
+			return self.avPlayer?.currentItem?.asset.subtitles
+		}
+	}
+	
+	open var audioOptions: [AVMediaSelectionOption]? {
+		get {
+			return self.avPlayer?.currentItem?.asset.audioTracks
+		}
+	}
+	
 	public fileprivate(set) var currentVideo: UZVideoItem?
 	public fileprivate(set) var currentLinkPlay: UZVideoLinkPlay?
 	
@@ -193,8 +205,62 @@ open class UZPlayer: UIView {
 		if pictureInPictureController == nil {
 			setupPictureInPicture()
 		}
+		
+		if let currentItem = self.avPlayer?.currentItem {
+			let asset = currentItem.asset
+			
+			if let group = asset.mediaSelectionGroup(forMediaCharacteristic: .legible) {
+				currentItem.select(group.options.first, in: group)
+			}
+		}
 	}
 	
+	/**
+	Select subtitle track
+	
+	- parameter index: index of subtitle track, `nil` for turning off, `-1` for default track
+	*/
+	open func selectSubtitle(index: Int?) {
+		self.selectMediaOption(option: .legible, index: index)
+	}
+	
+	/**
+	Select audio track
+	
+	- parameter index: index of audio track, `nil` for turning off, `-1` for default audio track
+	*/
+	open func selectAudio(index: Int?) {
+		self.selectMediaOption(option: .audible, index: index)
+	}
+	
+	/**
+	Select media selection option
+	
+	- parameter index: index of media selection, `nil` for turning off, `-1` for default option
+	*/
+	open func selectMediaOption(option: AVMediaCharacteristic, index: Int?) {
+		if let currentItem = self.avPlayer?.currentItem {
+			let asset = currentItem.asset
+			if let group = asset.mediaSelectionGroup(forMediaCharacteristic: option) {
+				currentItem.select(nil, in: group)
+				
+				let options = group.options
+				if let index = index {
+					if index > -1 && index < options.count {
+						currentItem.select(options[index], in: group)
+					}
+					else if index == -1 {
+						let defaultOption = group.defaultOption
+						currentItem.select(defaultOption, in: group)
+					}
+				}
+			}
+		}
+	}
+	
+	/**
+	Stop and unload the player
+	*/
 	open func stop() {
 		controlView.hideEndScreen()
 		controlView.hideMessage()
@@ -205,6 +271,9 @@ open class UZPlayer: UIView {
 		playerLayer = nil
 	}
 	
+	/**
+	Seek to 0.0 and replay the video
+	*/
 	private func replay() {
 		UZLogger().log(event: "replay", video: currentVideo, completionBlock: nil)
 		

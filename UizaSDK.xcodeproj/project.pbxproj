@@ -113,6 +113,8 @@
 		63CFB7E620BBD97800647958 /* UZCastingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CFB7E420BBD97800647958 /* UZCastingView.swift */; };
 		63CFB7E820BBDAF400647958 /* UZAirPlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CFB7E720BBDAF400647958 /* UZAirPlayButton.swift */; };
 		63CFB7E920BBDAF400647958 /* UZAirPlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CFB7E720BBDAF400647958 /* UZAirPlayButton.swift */; };
+		63DFE44320BFF0BE00A9032D /* AVAsset+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DFE44220BFF0BE00A9032D /* AVAsset+Extensions.swift */; };
+		63DFE44420BFF0BE00A9032D /* AVAsset+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DFE44220BFF0BE00A9032D /* AVAsset+Extensions.swift */; };
 		63FC58C4208A1F0B009C9028 /* UizaSDK_tvos.h in Headers */ = {isa = PBXBuildFile; fileRef = 63FC58C2208A1F0B009C9028 /* UizaSDK_tvos.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		63FC58C8208A1F1F009C9028 /* UZModelObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124ED2089E1ED00720593 /* UZModelObject.swift */; };
 		63FC58C9208A1F1F009C9028 /* UZBannerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124EB2089E1ED00720593 /* UZBannerItem.swift */; };
@@ -220,6 +222,7 @@
 		63CFB78E20B29B2000647958 /* UZSubtitles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZSubtitles.swift; sourceTree = "<group>"; };
 		63CFB7E420BBD97800647958 /* UZCastingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZCastingView.swift; sourceTree = "<group>"; };
 		63CFB7E720BBDAF400647958 /* UZAirPlayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZAirPlayButton.swift; sourceTree = "<group>"; };
+		63DFE44220BFF0BE00A9032D /* AVAsset+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVAsset+Extensions.swift"; sourceTree = "<group>"; };
 		63FC58C0208A1F0B009C9028 /* UizaSDK_tvos.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UizaSDK_tvos.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		63FC58C2208A1F0B009C9028 /* UizaSDK_tvos.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UizaSDK_tvos.h; sourceTree = "<group>"; };
 		63FC58C3208A1F0B009C9028 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -391,6 +394,7 @@
 			isa = PBXGroup;
 			children = (
 				6346B7A820930D7D00A68AD4 /* AVAudioSession+Airplay.swift */,
+				63DFE44220BFF0BE00A9032D /* AVAsset+Extensions.swift */,
 				638EC14820AEA64200C0243E /* UIImage+Colorize.swift */,
 				63C65F87205BA10800DB2C96 /* Date+Comparators.swift */,
 				63C65F82205BA10800DB2C96 /* Dictionary+Append.swift */,
@@ -838,6 +842,7 @@
 				63CFB7E620BBD97800647958 /* UZCastingView.swift in Sources */,
 				63CFB79020B29B2000647958 /* UZSubtitles.swift in Sources */,
 				638EC11A20AC348000C0243E /* UZTheme1.swift in Sources */,
+				63DFE44420BFF0BE00A9032D /* AVAsset+Extensions.swift in Sources */,
 				638EC0FC20AAA2D200C0243E /* UZBannerItem.swift in Sources */,
 				638EC12A20AC968700C0243E /* UZTheme6.swift in Sources */,
 				638EC0F920AAA2CD00C0243E /* UZContentServices.swift in Sources */,
@@ -862,6 +867,7 @@
 				632124F82089E1EE00720593 /* UZCategory.swift in Sources */,
 				63714A24209B108600426948 /* UZShareView.swift in Sources */,
 				638EC12320AC426900C0243E /* UZTheme4.swift in Sources */,
+				63DFE44320BFF0BE00A9032D /* AVAsset+Extensions.swift in Sources */,
 				63C65FA5205BA10800DB2C96 /* UIDevice+Extension.swift in Sources */,
 				632124F42089E1EE00720593 /* UZModelObject.swift in Sources */,
 				6346B7A720930C3200A68AD4 /* UZPlayer.swift in Sources */,

@@ -18,7 +18,8 @@ public struct UZVideoLinkPlay {
 	
 	public var avURLAsset: AVURLAsset {
 		get {
-			return AVURLAsset(url: url, options: options)
+			return AVURLAsset(url: URL(string: "http://sample.vodobox.com/planete_interdite/planete_interdite_alternate.m3u8")!)
+//			return AVURLAsset(url: url, options: options)
 		}
 	}
 	

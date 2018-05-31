@@ -29,6 +29,30 @@ public protocol UZPlayerControlViewDelegate: class {
 	
 }
 
+extension AVAsset {
+	
+	var subtitles: [AVMediaSelectionOption]? {
+		get {
+			if let group = self.mediaSelectionGroup(forMediaCharacteristic: .legible) {
+				return group.options
+			}
+			
+			return nil
+		}
+	}
+	
+	var audioTracks: [AVMediaSelectionOption]? {
+		get {
+			if let group = self.mediaSelectionGroup(forMediaCharacteristic: .audible) {
+				return group.options
+			}
+			
+			return nil
+		}
+	}
+	
+}
+
 open class UZPlayer: UIView {
 	
 	open weak var delegate: UZPlayerDelegate?

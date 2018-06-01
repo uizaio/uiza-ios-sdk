@@ -201,7 +201,7 @@ open class UZAPIConnector {
 		
 		if UizaSDK.showRestfulInfo {
 			let headerString = self.requestHeaderFields != nil ? "Header: \(self.requestHeaderFields as NSDictionary)" : ""
-			print("[UizaSDK] [\(method.rawValue)] \(nodeURL!) \(finalParams as NSDictionary)\n\(headerString)");
+			DLog("[UizaSDK] [\(method.rawValue)] \(nodeURL!) \(finalParams as NSDictionary)\n\(headerString)");
 		}
 		
 		self.startLoadURL(nodeURL, withMethod: method, andParams: finalParams, completionBlock: { (result:Any) in
@@ -309,7 +309,7 @@ open class UZAPIConnector {
 						}
 					} else if self?.responseType == .string {
 						upload.responseString { (response) in
-//						//DLog("\(String(describing: response.result.value))")
+//						DLog("\(String(describing: response.result.value))")
 							
 							UZAPIConnector.hideNetworkLoading()
 							
@@ -321,8 +321,8 @@ open class UZAPIConnector {
 						}
 					}
 					
-				case .failure: // (let encodingError)
-					//DLog("Fail: \(encodingError)")
+				case .failure(let encodingError):
+					DLog("Fail: \(encodingError)")
 					failureBlock?(UZAPIConnector.UizaUnknownError())
 				}
 			}
@@ -334,13 +334,13 @@ open class UZAPIConnector {
 			dataRequest!.session.configuration.httpAdditionalHeaders = headers
 			
 //			dataRequest!.response { (response:DefaultDataResponse) in
-//				//DLog("\(response)")
+//				DLog("\(response)")
 //			}
 			
 			if responseType == .json || responseType == .array {
 				dataRequest!.responseJSON { response in
 					UZAPIConnector.hideNetworkLoading()
-//					//DLog("\(String(describing: response.result.value))")
+//					DLog("\(String(describing: response.result.value))")
 					
 					if response.result.isSuccess {
 						completionBlock?(response.result.value!)
@@ -350,7 +350,7 @@ open class UZAPIConnector {
 				}
 			} else if responseType == .string {
 				dataRequest!.responseString { (response) in
-//				//DLog("\(String(describing: response.result.value))")
+//				DLog("\(String(describing: response.result.value))")
 					
 					UZAPIConnector.hideNetworkLoading()
 					

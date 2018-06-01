@@ -89,6 +89,8 @@
 		638EC12D20AC97ED00C0243E /* UZTheme7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638EC12B20AC97ED00C0243E /* UZTheme7.swift */; };
 		638EC14920AEA64300C0243E /* UIImage+Colorize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638EC14820AEA64200C0243E /* UIImage+Colorize.swift */; };
 		638EC14A20AEA64300C0243E /* UIImage+Colorize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638EC14820AEA64200C0243E /* UIImage+Colorize.swift */; };
+		63910C6820C152B700B814DC /* NotificationName+Uiza.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63910C6720C152B700B814DC /* NotificationName+Uiza.swift */; };
+		63910C6920C152B700B814DC /* NotificationName+Uiza.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63910C6720C152B700B814DC /* NotificationName+Uiza.swift */; };
 		63C65F6C205B9FE600DB2C96 /* UizaSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C65F62205B9FE600DB2C96 /* UizaSDK.framework */; };
 		63C65F71205B9FE600DB2C96 /* UizaSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F70205B9FE600DB2C96 /* UizaSDKTests.swift */; };
 		63C65F73205B9FE600DB2C96 /* UizaSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 63C65F65205B9FE600DB2C96 /* UizaSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -199,6 +201,7 @@
 		638EC12820AC968700C0243E /* UZTheme6.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZTheme6.swift; sourceTree = "<group>"; };
 		638EC12B20AC97ED00C0243E /* UZTheme7.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZTheme7.swift; sourceTree = "<group>"; };
 		638EC14820AEA64200C0243E /* UIImage+Colorize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Colorize.swift"; sourceTree = "<group>"; };
+		63910C6720C152B700B814DC /* NotificationName+Uiza.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Uiza.swift"; sourceTree = "<group>"; };
 		63C65F62205B9FE600DB2C96 /* UizaSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UizaSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		63C65F65205B9FE600DB2C96 /* UizaSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UizaSDK.h; sourceTree = "<group>"; };
 		63C65F66205B9FE600DB2C96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -410,6 +413,7 @@
 				63C65F7D205BA10800DB2C96 /* UIDevice+Extension.swift */,
 				63C65F7E205BA10800DB2C96 /* UIApplication+Version.swift */,
 				63C65F80205BA10800DB2C96 /* UIColor+Hex.swift */,
+				63910C6720C152B700B814DC /* NotificationName+Uiza.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -836,6 +840,7 @@
 				63CFB7E920BBDAF400647958 /* UZAirPlayButton.swift in Sources */,
 				638EC10620AAA2D600C0243E /* UZPlayerViewController.swift in Sources */,
 				638EC0EB20AAA2CA00C0243E /* FileManager+Extends.swift in Sources */,
+				63910C6920C152B700B814DC /* NotificationName+Uiza.swift in Sources */,
 				638EC10720AAA2DD00C0243E /* NKProgressView.swift in Sources */,
 				638EC0FF20AAA2D200C0243E /* UZToken.swift in Sources */,
 				638EC0F120AAA2CA00C0243E /* NSDictionary+KeyValue.swift in Sources */,
@@ -907,6 +912,7 @@
 				63C65FAC205BA10800DB2C96 /* String+ToBool.swift in Sources */,
 				63C65FAE205BA10800DB2C96 /* String+Extension.swift in Sources */,
 				632125022089E20800720593 /* UZAPIConnector.swift in Sources */,
+				63910C6820C152B700B814DC /* NotificationName+Uiza.swift in Sources */,
 				632124F52089E1EE00720593 /* UZUser.swift in Sources */,
 				638EC12C20AC97ED00C0243E /* UZTheme7.swift in Sources */,
 				63C65FAD205BA10800DB2C96 /* NSDictionary+KeyValue.swift in Sources */,

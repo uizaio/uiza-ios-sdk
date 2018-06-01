@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 //
 // Build docs:
@@ -63,4 +64,22 @@ public class UizaSDK {
 		}
 	}
 	
+}
+
+#if DEBUG
+func DLog(_ message: String, _ file: String = #file, _ line: Int = #line) {
+	print("\((file as NSString).lastPathComponent) [Line \(line)]: \((message))")
+	PostNotification(Notification.Name.UZEventLogMessage, object: message, userInfo: nil)
+}
+#else
+func DLog(_ message: String, _ file: String = #file, _ line: Int = #line) {
+}
+#endif
+
+func PostNotification(_ notification : Notification.Name!, object: Any? = nil, userInfo: [AnyHashable : Any]? = nil) {
+	NotificationCenter.default.post(name: notification, object: object, userInfo: userInfo)
+}
+
+func PostNotificationName(_ notificationName : String!, object: Any? = nil, userInfo: [AnyHashable : Any]? = nil) {
+	NotificationCenter.default.post(name: Notification.Name(rawValue: notificationName), object: object, userInfo: userInfo)
 }

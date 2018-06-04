@@ -103,6 +103,7 @@ open class UZPlayer: UIView {
 	public fileprivate(set) var currentLinkPlay: UZVideoLinkPlay?
 	
 	open var shouldAutoPlay = true
+	open var shouldShowsControlViewAfterStoppingPiP = true
 	open var controlView: UZPlayerControlView!
 	
 	fileprivate var resource: UZPlayerResource!
@@ -228,7 +229,7 @@ open class UZPlayer: UIView {
 				playthrough_eventlog[0] = true
 				UZLogger().log(event: "video_starts", video: currentVideo, completionBlock: nil)
 				
-				selectSubtitle(index: -1) // select default subtitle
+				selectSubtitle(index: 0) // select default subtitle
 //				selectAudio(index: -1) // select default audio track
 			}
 		}
@@ -824,7 +825,10 @@ extension UZPlayer: AVPictureInPictureControllerDelegate {
 	}
 	
 	open func pictureInPictureControllerDidStopPictureInPicture(_ pictureInPictureController: AVPictureInPictureController) {
-		controlView.showControlView()
+		if shouldShowsControlViewAfterStoppingPiP {
+			controlView.showControlView()
+		}
+		
 		controlView.pipButton.isSelected = false
 	}
 	

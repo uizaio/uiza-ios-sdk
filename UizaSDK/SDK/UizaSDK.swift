@@ -18,7 +18,7 @@ import UIKit
 //
 
 internal let SDK_VERSION = "2.9.3"
-internal let PLAYER_VERSION = "1.7.3"
+internal let PLAYER_VERSION = "1.7.4"
 
 /**
 Class khởi tạo SDK
@@ -66,15 +66,13 @@ public class UizaSDK {
 	
 }
 
-#if DEBUG
 func DLog(_ message: String, _ file: String = #file, _ line: Int = #line) {
+	#if DEBUG
 	print("\((file as NSString).lastPathComponent) [Line \(line)]: \((message))")
+	#endif
+	
 	PostNotification(Notification.Name.UZEventLogMessage, object: message, userInfo: nil)
 }
-#else
-func DLog(_ message: String, _ file: String = #file, _ line: Int = #line) {
-}
-#endif
 
 func PostNotification(_ notification : Notification.Name!, object: Any? = nil, userInfo: [AnyHashable : Any]? = nil) {
 	NotificationCenter.default.post(name: notification, object: object, userInfo: userInfo)

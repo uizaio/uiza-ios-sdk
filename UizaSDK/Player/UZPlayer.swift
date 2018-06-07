@@ -1115,6 +1115,7 @@ open class UZPlayerLayerView: UIView {
 		if let videoAsset = urlAsset,
 		   let subtitleURL = subtitleURL
 		{
+			// This does not work
 			let timeRange = CMTimeRangeMake(kCMTimeZero, videoAsset.duration)
 			let mixComposition = AVMutableComposition()
 			let videoTrack = mixComposition.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid)

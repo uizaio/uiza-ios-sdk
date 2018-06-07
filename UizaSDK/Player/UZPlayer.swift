@@ -155,15 +155,18 @@ open class UZPlayer: UIView {
 		controlView.showControlView()
 		controlView.showLoader()
 		
-		UZContentServices().getLinkPlay(videoId: video.id) { [weak self] (results, error) in
+		let service = UZContentServices()
+		service.getLinkPlay(videoId: video.id) { [weak self] (results, error) in
 			guard let `self` = self else { return }
 			self.controlView.hideLoader()
 			
 			if results != nil {
-				self.currentVideo?.videoURL = results?.first?.avURLAsset.url
-				UZLogger().log(event: "plays_requested", video: video, completionBlock: nil)
-				let resource = UZPlayerResource(name: video.title, definitions: results!, cover: video.thumbnailURL)
-				self.setResource(resource: resource)
+				service.getDetail(videoId: video.id, completionBlock: { (videoItem, error) in
+					self.currentVideo?.videoURL = results?.first?.avURLAsset.url
+					UZLogger().log(event: "plays_requested", video: video, completionBlock: nil)
+					let resource = UZPlayerResource(name: video.title, definitions: results!, subtitles: videoItem?.subtitleURLs, cover: video.thumbnailURL)
+					self.setResource(resource: resource)
+				})
 			}
 			else if let error = error {
 				self.showMessage(error.localizedDescription)
@@ -956,6 +959,7 @@ open class UZPlayerLayerView: UIView {
 	
 	fileprivate var timer: Timer?
 	fileprivate var urlAsset: AVURLAsset?
+	fileprivate var subtitleURL: URL?
 	fileprivate var lastPlayerItem: AVPlayerItem?
 	fileprivate var playerLayer: AVPlayerLayer?
 	fileprivate var volumeViewSlider: UISlider!
@@ -980,16 +984,19 @@ open class UZPlayerLayerView: UIView {
 		playAsset(asset: asset)
 	}
 	
-	open func playAsset(asset: AVURLAsset) {
+	open func playAsset(asset: AVURLAsset, subtitleURL: URL? = nil) {
 		self.urlAsset = asset
-		self.onSetVideoAsset()
+		self.subtitleURL = subtitleURL
+		playDidEnd = false
+		configPlayer()
 		self.play()
 	}
 	
-	open func replaceAsset(asset: AVURLAsset) {
+	open func replaceAsset(asset: AVURLAsset, subtitleURL: URL? = nil) {
 		self.urlAsset = asset
+		self.subtitleURL = subtitleURL
 		
-		playerItem = AVPlayerItem(asset: urlAsset!)
+		playerItem = configPlayerItem()
 		player?.replaceCurrentItem(with: playerItem)
 	}
 	
@@ -1079,11 +1086,6 @@ open class UZPlayerLayerView: UIView {
 		}
 	}
 	
-	fileprivate func onSetVideoAsset() {
-		playDidEnd = false
-		configPlayer()
-	}
-	
 	fileprivate func onPlayerItemChange() {
 		if lastPlayerItem == playerItem {
 			return
@@ -1109,11 +1111,30 @@ open class UZPlayerLayerView: UIView {
 		}
 	}
 	
+	fileprivate func configPlayerItem() -> AVPlayerItem? {
+		if let videoAsset = urlAsset,
+		   let subtitleURL = subtitleURL
+		{
+			let timeRange = CMTimeRangeMake(kCMTimeZero, videoAsset.duration)
+			let mixComposition = AVMutableComposition()
+			let videoTrack = mixComposition.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid)
+			try? videoTrack?.insertTimeRange(timeRange, of: videoAsset.tracks(withMediaType: .video).first!, at: kCMTimeZero)
+			
+			let subtitleAsset = AVURLAsset(url: subtitleURL)
+			let subtitleTrack = mixComposition.addMutableTrack(withMediaType: .text, preferredTrackID: kCMPersistentTrackID_Invalid)
+			try? subtitleTrack?.insertTimeRange(timeRange, of: subtitleAsset.tracks(withMediaType: .text).first!, at: kCMTimeZero)
+			
+			return AVPlayerItem(asset: mixComposition)
+		}
+		
+		return AVPlayerItem(asset: urlAsset!)
+	}
+	
 	fileprivate func configPlayer(){
 		player?.removeObserver(self, forKeyPath: "rate")
 		playerLayer?.removeFromSuperlayer()
 		
-		playerItem = AVPlayerItem(asset: urlAsset!)
+		playerItem = configPlayerItem()
 		player = AVPlayer(playerItem: playerItem!)
 		player!.addObserver(self, forKeyPath: "rate", options: NSKeyValueObservingOptions.new, context: nil)
 		

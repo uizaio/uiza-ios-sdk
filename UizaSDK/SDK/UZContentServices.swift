@@ -119,14 +119,16 @@ open class UZContentServices: UZAPIConnector {
 		
 		let params : [String: Any] = ["id" : videoId]
 		
-		self.callAPI("v1/media/entity/detail", method: .get, params: params) { (result, error) in
-			//DLog("\(String(describing: result)) - \(String(describing: error))")
+		self.callAPI("v1/media/entity/detail", method: .post, params: params) { (result, error) in
+			DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
 				completionBlock?(nil, error)
 			}
 			else {
-				if let data = result?.value(for: "data", defaultValue: nil) as? NSDictionary {
+				if let dataArray = result?.array(for: "data", defaultValue: nil) as? [NSDictionary],
+				   let data = dataArray.first
+				{
 					let movieItem = UZVideoItem(data: data)
 					completionBlock?(movieItem, nil)
 				}

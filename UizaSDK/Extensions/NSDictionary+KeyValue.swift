@@ -108,8 +108,15 @@ extension NSDictionary {
 	}
 	
 	func url(for key:String, defaultURL:URL? = nil) -> URL? {
-		let result : String? = self.string(for: key, defaultString: nil)
-		return result != nil ? URL(string: result!) : defaultURL
+		if var result = self.string(for: key, defaultString: nil) {
+			if result.hasPrefix("//") {
+				result = "http" + result
+			}
+			
+			return URL(string: result)
+		}
+		
+		return defaultURL
 	}
 	
 	func bool(for key:String, defaultValue:Bool = false) -> Bool {

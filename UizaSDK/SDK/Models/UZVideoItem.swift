@@ -82,6 +82,8 @@ open class UZVideoItem: UZModelObject {
 	/** Năm phát hành */
 	public var releasedDate			: String? = nil
 	
+	public var subtitleURLs: [URL]? = nil
+	
 	override func parse(_ data: NSDictionary?) {
 		if data != nil {
 //			DLog("\(data!)")
@@ -102,6 +104,16 @@ open class UZVideoItem: UZModelObject {
 				}
 				
 				thumbnailURL = URL(string: thumbnailString)
+			}
+			
+			if let subtitleDataArray = data!.array(for: "subtitle", defaultValue: nil) as? [NSDictionary] {
+				subtitleURLs = [URL]()
+				
+				for subtitleData in subtitleDataArray {
+					if let url = subtitleData.url(for: "url", defaultURL: nil) {
+						subtitleURLs?.append(url)
+					}
+				}
 			}
 		}
 	}

@@ -143,7 +143,7 @@ internal class UZVideoQualityCollectionViewController: UICollectionViewControlle
 	var flowLayout		: UICollectionViewFlowLayout!
 	var selectedResource: UZVideoLinkPlay?
 	var resources		: [UZVideoLinkPlay]! = []
-	var selectedBlock	: ((_ item: UZVideoLinkPlay) -> Void)? = nil
+	var selectedBlock	: ((_ item: UZVideoLinkPlay, _ index: Int) -> Void)? = nil
 	var messageLabel	: UILabel?
 	
 	init() {
@@ -317,7 +317,7 @@ internal class UZVideoQualityCollectionViewController: UICollectionViewControlle
 //		collectionView.deselectItem(at: indexPath, animated: true)
 		
 		let item = resourceItemAtIndexPath(indexPath)
-		selectedBlock?(item)
+		selectedBlock?(item, indexPath.item)
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

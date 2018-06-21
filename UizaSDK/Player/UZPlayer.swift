@@ -104,6 +104,7 @@ open class UZPlayer: UIView {
 	
 	open var shouldAutoPlay = true
 	open var shouldShowsControlViewAfterStoppingPiP = true
+	open var autoTryNextDefinitionIfError = true
 	open var controlView: UZPlayerControlView!
 	
 	fileprivate var resource: UZPlayerResource!
@@ -454,11 +455,11 @@ open class UZPlayer: UIView {
 	}
 	
 	internal func requestAds() {
-		let testAdTagUrl = "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator="
-		let adDisplayContainer = IMAAdDisplayContainer(adContainer: self, companionSlots: nil)
-		let request = IMAAdsRequest(adTagUrl: testAdTagUrl, adDisplayContainer: adDisplayContainer, contentPlayhead: contentPlayhead, userContext: nil)
-		
-		adsLoader?.requestAds(with: request)
+//		let testAdTagUrl = "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator="
+//		let adDisplayContainer = IMAAdDisplayContainer(adContainer: self, companionSlots: nil)
+//		let request = IMAAdsRequest(adTagUrl: testAdTagUrl, adDisplayContainer: adDisplayContainer, contentPlayhead: contentPlayhead, userContext: nil)
+//
+//		adsLoader?.requestAds(with: request)
 	}
 	
 	// MARK: -
@@ -547,6 +548,15 @@ open class UZPlayer: UIView {
 		controlView.frame = self.bounds
 	}
 	
+	fileprivate func tryNextDefinition() {
+		if currentDefinition >= resource.definitions.count - 1 {
+			return
+		}
+		
+		currentDefinition += 1
+		switchVideoDefinition(resource.definitions[currentDefinition])
+	}
+	
 	// MARK: -
 	
 	open func showShare(from view: UIView) {
@@ -590,9 +600,10 @@ open class UZPlayer: UIView {
 		let viewController = UZVideoQualitySettingsViewController()
 		viewController.currentDefinition = currentLinkPlay
 		viewController.resource = resource
-		viewController.collectionViewController.selectedBlock = { [weak self] (linkPlay) in
+		viewController.collectionViewController.selectedBlock = { [weak self] (linkPlay, index) in
 			guard let `self` = self else { return }
 			
+			self.currentDefinition = index
 			self.switchVideoDefinition(linkPlay)
 			NKModalViewManager.sharedInstance().modalViewControllerThatContains(viewController)?.dismissWith(animated: true, completion: nil)
 			
@@ -673,15 +684,15 @@ extension UZPlayer: UZPlayerLayerViewDelegate {
 		controlView.playerStateDidChange(state: state)
 		
 		switch state {
-		case UZPlayerState.readyToPlay:
+		case .readyToPlay:
 			play()
 			updateCastingUI()
 //			requestAds()
 			
-		case UZPlayerState.bufferFinished:
+		case .bufferFinished:
 			autoPlay()
 			
-		case UZPlayerState.playedToTheEnd:
+		case .playedToTheEnd:
 			isPlayToTheEnd = true
 			
 			if !isReplaying {
@@ -689,6 +700,11 @@ extension UZPlayer: UZPlayerLayerViewDelegate {
 			}
 			
 			adsLoader?.contentComplete()
+			
+		case .error:
+			if autoTryNextDefinitionIfError {
+				tryNextDefinition()
+			}
 			
 		default:
 			break
@@ -998,6 +1014,7 @@ open class UZPlayerLayerView: UIView {
 		
 		playerItem = configPlayerItem()
 		player?.replaceCurrentItem(with: playerItem)
+		checkForPlayable()
 	}
 	
 	open func play() {
@@ -1115,7 +1132,7 @@ open class UZPlayerLayerView: UIView {
 		if let videoAsset = urlAsset,
 		   let subtitleURL = subtitleURL
 		{
-			// This does not work
+			// Embed external subtitle link to player item, This does not work
 			let timeRange = CMTimeRangeMake(kCMTimeZero, videoAsset.duration)
 			let mixComposition = AVMutableComposition()
 			let videoTrack = mixComposition.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid)
@@ -1146,6 +1163,18 @@ open class UZPlayerLayerView: UIView {
 		
 		setNeedsLayout()
 		layoutIfNeeded()
+		
+		checkForPlayable()
+	}
+	
+	fileprivate func checkForPlayable() {
+		if let playerItem = playerItem {
+			if playerItem.asset.isPlayable == false {
+				DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+					self.delegate?.UZPlayer(player: self, playerStateDidChange: .error)
+				}
+			}
+		}
 	}
 	
 	func setupTimer() {

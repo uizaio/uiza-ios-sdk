@@ -307,6 +307,7 @@ open class UZPlayerControlView: UIView {
 		
 		titleLabel.text = resource.name
 		shareView.title = resource.name
+		settingsButton.isHidden = true //resource.definitions.count < 2
 		autoFadeOutControlView(after: autoHideControlsInterval)
 	}
 	

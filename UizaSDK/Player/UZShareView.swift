@@ -58,8 +58,8 @@ open class UZShareView: UIView {
 		shareButton.setBorderColor(buttonColor, for: .normal)
 		replayButton.borderSize = 1.0
 		shareButton.borderSize = 1.0
-		replayButton.roundedButton = true
-		shareButton.roundedButton = true
+		replayButton.isRoundedButton = true
+		shareButton.isRoundedButton = true
 		replayButton.extendSize = CGSize(width: 24, height: 24)
 		shareButton.extendSize = CGSize(width: 24, height: 24)
 		

@@ -13,7 +13,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	var window: UIWindow?
 
-
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         UizaSDK.initWith(username: "loitp@uiza.io", password: "04021993", domain: "android.uiza.co")
 		UizaSDK.showRestfulInfo = true

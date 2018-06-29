@@ -89,7 +89,7 @@ open class UZContentServices: UZAPIConnector {
 									  "limit" : limit,
 									  "page" : page]
 		
-		self.callAPI("v1/media/entity/list", method: .post, params: params) { (result:NSDictionary?, error:Error?) in
+		self.callAPI("media/metadata", method: .post, params: params) { (result:NSDictionary?, error:Error?) in
 			//DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
@@ -119,7 +119,7 @@ open class UZContentServices: UZAPIConnector {
 		
 		let params : [String: Any] = ["id" : videoId]
 		
-		self.callAPI("v1/media/entity/detail", method: .post, params: params) { (result, error) in
+		self.callAPI("media/metadata", method: .get, params: params) { (result, error) in
 			DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
@@ -261,7 +261,7 @@ open class UZContentServices: UZAPIConnector {
 									  "page" : page,
 									  "limit" : limit]
 		
-		self.callAPI("v1/media/search", method: .post, params: params) { (result, error) in
+		self.callAPI("media/entity/search", method: .post, params: params) { (result, error) in
 			//DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {

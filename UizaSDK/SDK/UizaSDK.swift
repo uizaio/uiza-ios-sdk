@@ -17,7 +17,7 @@ import UIKit
 // pod trunk push UizaSDK.podspec
 //
 
-internal let SDK_VERSION = "2.9.3"
+internal let SDK_VERSION = "3.0"
 internal let PLAYER_VERSION = "1.7.4"
 
 /**
@@ -25,11 +25,11 @@ Class khởi tạo SDK
 */
 public class UizaSDK {
 	
-	internal static var appId		: String = "" // set this before calling the API
-	internal static var accessKey	: String = "" // set this before calling the API
-	internal static var secretKey	: String = "" // set this before calling the API
-	internal static var apiEndPoint	: String = "" // set this before calling the API
-	internal static var enviroment	: UZEnviroment = .production
+	internal static var username	: String = "" // set this before calling the API
+	internal static var password	: String = "" // set this before calling the API
+	internal static var domain  	: String = "" // set this before calling the API
+    
+    internal static var appId       : String = ""
 	internal static var token		: UZToken? = nil
 	
 	/** Hiển thị thông tin debug việc gọi các hàm API */
@@ -39,18 +39,15 @@ public class UizaSDK {
 	
 	/**
 	Hàm này bắt buộc phải gọi đầu tiên, trước khi gọi bất cứ hàm API nào khác, nếu không sẽ phát sinh lỗi crash
-	- parameter appId: AppID được cung cấp bởi Uiza
-	- parameter accessKey: AccessKey được cung cấp bởi Uiza
-	- parameter secretKey: SecretKey được cung cấp bởi Uiza
-	- parameter apiEndPoint: API endpoint, được cung cấp bởi Uiza
-	- parameter enviroment: Môi trường cần khởi tạo (production, development, stagging, sandbox)
+	- parameter username: UserName được cung cấp bởi Uiza
+	- parameter password: Password được cung cấp bởi Uiza
+	- parameter domain: Domain được cung cấp bởi Uiza
 	*/
-	public class func initWith(accessKey:String!, secretKey:String!, apiEndPoint: String!, enviroment:UZEnviroment!) {
-		if self.accessKey == "" && self.secretKey == "" && self.apiEndPoint == "" {
-			self.accessKey		= accessKey
-			self.secretKey		= secretKey
-			self.apiEndPoint 	= apiEndPoint
-			self.enviroment 	= enviroment
+	public class func initWith(username:String!, password:String!, domain: String!) {
+        if self.username == "" && self.password == "" && self.domain == "" {
+			self.username = username
+			self.password = password
+			self.domain = domain
 			
 			#if DEBUG
 			print("[UizaSDK \(SDK_VERSION)] initialized")
@@ -59,7 +56,7 @@ public class UizaSDK {
 		}
 		else {
 			#if DEBUG
-			print("AppID and ClientKey have already set")
+			print("[Uiza SDK \(SDK_VERSION)] Framework has already been initialized")
 			#endif
 		}
 	}

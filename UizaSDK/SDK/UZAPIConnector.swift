@@ -125,19 +125,8 @@ open class UZAPIConnector {
 		}
 	}
 	
-	internal func baseAPIURLPath(enviroment: UZEnviroment) -> String! {
-		return UizaSDK.apiEndPoint.stringByAppendingPathComponent("api/resource/")
-		
-		/*
-		switch enviroment {
-		case .production:
-			return "\(UizaSDK.apiEndPoint)/api/data/v1/"
-		case .development:
-			return "\(UizaSDK.apiEndPoint)/api/data/v1/"
-		case .staging:
-			return "\(UizaSDK.apiEndPoint)/api/data/v1/"
-		}
-		*/
+	internal func baseAPIURLPath() -> String! {
+		return UizaSDK.domain.stringByAppendingPathComponent("-api.uiza.co/api/public/v3/")
 	}
 	
 	
@@ -149,17 +138,11 @@ open class UZAPIConnector {
 	- parameter completionBlock: block được gọi khi hoàn thành, trả về data hoặc error nếu có lỗi
 	*/
 	public func callAPI(_ node: String!, method: HTTPMethod! = .get, params paramValue:[String: Any]? = nil, completion completionBlock:APIConnectorResultBlock? = nil) {
-		guard UizaSDK.accessKey.length > 0 else {
-			fatalError("Bạn chưa set accessKey. Bắt buộc phải gọi hàm \"UizaSDK.initWith(appId,accessKey,secretKey,apiEndPoint,enviroment)\" trước")
-		}
-		guard UizaSDK.secretKey.length > 0 else {
-			fatalError("Bạn chưa set secretKey. Bắt buộc phải gọi hàm \"UizaSDK.initWith(appId,accessKey,secretKey,apiEndPoint,enviroment)\" trước")
-		}
-		guard UizaSDK.apiEndPoint.length > 0 else {
-			fatalError("Bạn chưa set API EndPoint. Bắt buộc phải gọi hàm \"UizaSDK.initWith(appId,accessKey,secretKey,apiEndPoint,enviroment)\" trước")
+		guard UizaSDK.domain.length > 0 else {
+			fatalError("Bạn chưa khởi tạo SDK. Bắt buộc phải gọi hàm \"UizaSDK.initWith(username,password,domain)\" trước")
 		}
 		
-		let baseAPIPath : String = baseAPIURLPath(enviroment: UizaSDK.enviroment)
+		let baseAPIPath : String = baseAPIURLPath()
 		var nodeString	: String! = baseAPIPath.stringByAppendingPathComponent(node) + (node.hasSuffix("/") ? "/" : "")
 		nodeString = nodeString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
 		

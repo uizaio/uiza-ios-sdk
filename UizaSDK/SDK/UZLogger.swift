@@ -14,17 +14,6 @@ Class hỗ trợ việc logging
 */
 open class UZLogger: UZAPIConnector {
 	
-	override internal func baseAPIURLPath(enviroment: UZEnviroment) -> String! {
-		switch enviroment {
-		case .production:
-			return "http://tracking.uiza.io/"
-		case .development:
-			return "http://dev-tracking.uiza.io/"
-		case .staging:
-			return "http://stag-tracking.uiza.io/"
-		}
-	}
-	
 	open func log(event: String, video: UZVideoItem? = nil, params: [String: Any]? = nil, completionBlock: APIConnectorResultBlock? = nil) {
 		var finalParams: [String : Any]? = [:]
 		
@@ -48,7 +37,6 @@ open class UZLogger: UZAPIConnector {
 		let userId		: String = UZUser.currentUser?.id ?? ""
 		let bundleId	: String = Bundle.main.bundleIdentifier ?? ""
 		let iosVersion	: String = UIDevice.current.systemVersion
-		let enviroment	: String = UizaSDK.enviroment.rawValue
 		let timestamp	: String = Date().toString(format: .isoDateTimeMilliSec) // Date().toString(format: .custom("yyyy-MM-dd'T'HH:mm:ss.SSSZ")) // 2018-03-15T14:19:04.637Z
 		#if os(macOS)
 		let platform	: String = "macOS"
@@ -71,9 +59,7 @@ open class UZLogger: UZAPIConnector {
 											   "player_name"		: "UizaSDK_\(platform)",
 											   "player_version" 	: PLAYER_VERSION,
 											   "sdk_version"		: SDK_VERSION,
-											   "user_agent"			: UizaSDK.appId,
-											   "bundleId"			: bundleId,
-											   "env"				: enviroment]
+                                               "bundleId"            : bundleId]
 		
 		var finalParams : [String: Any]! = defaultParams
 		

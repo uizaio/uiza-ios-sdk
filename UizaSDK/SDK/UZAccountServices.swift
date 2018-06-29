@@ -21,12 +21,13 @@ open class UZAccountServices: UZAPIConnector {
 	- parameter completionBlock: block được gọi sau khi hoàn thành, trả về UZToken, hoặc error nếu có lỗi.
 	*/
 	public func authorize(completionBlock: ((_ token:UZToken?, _ error:Error?) -> Void)? = nil) {
-		self.encodingType = JSONEncoding.default
-		self.callAPI("v1/auth/credentical", method: .post, params: ["accessKeyId" : UizaSDK.accessKey, "secretKeyId" : UizaSDK.secretKey]) { (result:NSDictionary?, error:Error?) in
+//        self.encodingType = JSONEncoding.default
+        self.callAPI("admin/user/auth", method: .post, params: ["username" : UizaSDK.username, "password" : UizaSDK.password, "domain" : UizaSDK.domain]) { (result:NSDictionary?, error:Error?) in
 			if error != nil {
 				UizaSDK.token = nil
 				completionBlock?(nil, error)
-			} else {
+			}
+            else {
 				if let data = result!.value(for: "data", defaultValue: nil) as? NSDictionary {
 					let token = UZToken(data: data)
 					UizaSDK.appId = token.appId

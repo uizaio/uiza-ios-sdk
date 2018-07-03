@@ -149,25 +149,26 @@ open class UZContentServices: UZAPIConnector {
 		
 		let params : [String: Any] = ["id" : videoId]
 		
-		self.callAPI("v1/media/entity/related", method: .get , params: params) { (result, error) in
-			//DLog("\(String(describing: result)) - \(String(describing: error))")
+		self.callAPI("media/entity/related", method: .get , params: params) { (result, error) in
+			DLog("\(String(describing: result)) - \(String(describing: error))")
+			completionBlock?([], nil)
 			
-			if error != nil {
-				completionBlock?(nil, error)
-			}
-			else {
-				if let dataArray = result?.array(for: "data", defaultValue: nil) as? [NSDictionary] {
-					var results = [UZVideoItem]()
-					for data in dataArray {
-						let movieItem = UZVideoItem(data: data)
-						results.append(movieItem)
-					}
-					completionBlock?(results, nil)
-				}
-				else {
-					completionBlock?([], nil)
-				}
-			}
+//			if error != nil {
+//				completionBlock?(nil, error)
+//			}
+//			else {
+//				if let dataArray = result?.array(for: "data", defaultValue: nil) as? [NSDictionary] {
+//					var results = [UZVideoItem]()
+//					for data in dataArray {
+//						let movieItem = UZVideoItem(data: data)
+//						results.append(movieItem)
+//					}
+//					completionBlock?(results, nil)
+//				}
+//				else {
+//					completionBlock?([], nil)
+//				}
+//			}
 		}
 	}
 	

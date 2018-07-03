@@ -32,8 +32,8 @@ open class UZContentServices: UZAPIConnector {
 			}
 		}
 		
-		self.callAPI("v1/media/entity/list", method: .post, params: params) { (result:NSDictionary?, error:Error?) in
-			//DLog("\(String(describing: result)) - \(String(describing: error))")
+		self.callAPI("media/entity", method: .get, params: params) { (result:NSDictionary?, error:Error?) in
+			DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
 				completionBlock?(nil, error)
@@ -89,7 +89,7 @@ open class UZContentServices: UZAPIConnector {
 									  "limit" : limit,
 									  "page" : page]
 		
-		self.callAPI("media/metadata", method: .post, params: params) { (result:NSDictionary?, error:Error?) in
+		self.callAPI("media/metadata", method: .get, params: params) { (result:NSDictionary?, error:Error?) in
 			//DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
@@ -149,7 +149,7 @@ open class UZContentServices: UZAPIConnector {
 		
 		let params : [String: Any] = ["id" : videoId]
 		
-		self.callAPI("v1/media/entity/related", method: .post , params: params) { (result, error) in
+		self.callAPI("v1/media/entity/related", method: .get , params: params) { (result, error) in
 			//DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
@@ -176,34 +176,56 @@ open class UZContentServices: UZAPIConnector {
 	- parameter videoId: `id` của video cần lấy link play
 	- parameter completionBlock: block được gọi sau khi hoàn thành, trả về `URL`, hoặc error nếu có lỗi
 	*/
-	public func getLinkPlay(videoId: String, completionBlock:((_ results: [UZVideoLinkPlay]?, _ error: Error?) -> Void)? = nil) {
-		self.requestHeaderFields = ["Authorization" : UizaSDK.token?.token ?? ""]
+	public func getLinkPlay(videoId: String, token: String? = nil, completionBlock:((_ results: [UZVideoLinkPlay]?, _ error: Error?) -> Void)? = nil) {
+		if token == nil {
+			self.requestHeaderFields = ["Authorization" : token ?? ""]
+			let params : [String: Any] = ["entity_id" : videoId,
+										  "app_id"	 : UizaSDK.token?.appId ?? "",
+										  "content_type" : "stream"]
+			
+			self.callAPI("media/entity/playback/token", method: .post, params: params) { (result, error) in
+				if let data = result?.value(for: "data", defaultValue: nil) as? NSDictionary,
+					let tokenString = data.string(for: "token", defaultString: nil)
+				{
+					self.getLinkPlay(videoId: videoId, token: tokenString, completionBlock: completionBlock)
+				}
+				else {
+					completionBlock?(nil, error)
+				}
+			}
+			
+			return
+		}
 		
-		let params : [String: Any] = ["entityId" : videoId,
-									  "appId"	 : UizaSDK.token?.appId ?? ""]
+		self.requestHeaderFields = ["Authorization" : token ?? ""]
 		
-		self.callAPI("v1/media/entity/get-link-play-ios", method: .get, params: params) { (result, error) in
+		let params : [String: Any] = ["entity_id" : videoId,
+									  "app_id"	 : UizaSDK.token?.appId ?? ""]
+		
+//		CDN_CONTROLLER_PRO = 'ucc.uiza.io'
+//		CDN_CONTROLLER_STAG = 'stag-ucc.uiza.io'
+//		CDN_CONTROLLER_DEV = 'dev-ucc.uizadev.io'
+		
+		let domain: String! = UizaSDK.enviroment == .development ? "dev-ucc.uizadev.io" :
+			UizaSDK.enviroment == .staging ? "stag-ucc.uiza.io" : "ucc.uiza.io"
+		
+		self.callAPI("cdn/linkplay", baseURLString: "https://\(domain!)/api/private/v1/", method: .get, params: params) { (result, error) in
 			print("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
 				completionBlock?(nil, error)
 			}
-			else if let dataArray = result?.value(for: "data", defaultValue: nil) as? [NSDictionary], let data = dataArray.first {
-				let systemVersion = (UIDevice.current.systemVersion as NSString).floatValue
-				let key = systemVersion<10 ? "hls_ts" : "hls"
-				
-				if let hlsDataArray = data.value(for: key, defaultValue: nil) as? [NSDictionary], let hlsData = hlsDataArray.first {
-					if let urlsDataArray = hlsData.array(for: "urls", defaultValue: nil) as? [NSDictionary] {
-						var results = [UZVideoLinkPlay]()
-						for urlData in urlsDataArray {
-							if let definition = urlData.string(for: "definition", defaultString: ""), let url = urlData.url(for: "url", defaultURL: nil) {
-								let item = UZVideoLinkPlay(definition: definition, url: url, options: nil)
-								results.append(item)
-							}
+			else if let data = result?.value(for: "data", defaultValue: nil) as? NSDictionary{
+				if let urlsDataArray = data.array(for: "urls", defaultValue: nil) as? [NSDictionary] {
+					var results = [UZVideoLinkPlay]()
+					for urlData in urlsDataArray {
+						if let definition = urlData.string(for: "definition", defaultString: ""), let url = urlData.url(for: "url", defaultURL: nil) {
+							let item = UZVideoLinkPlay(definition: definition, url: url, options: nil)
+							results.append(item)
 						}
-						
-						completionBlock?(results, nil)
 					}
+					
+					completionBlock?(results, nil)
 				}
 				else {
 					completionBlock?(nil, UZAPIConnector.UizaUnknownError())
@@ -226,7 +248,7 @@ open class UZContentServices: UZAPIConnector {
 		
 		let params : [String: Any] = ["limit" : 50, "type" : ["folder", "playlist"]]
 		
-		self.callAPI("v1/media/metadata/list", method: .post, params: params) { (result, error) in
+		self.callAPI("v1/media/metadata/list", method: .get, params: params) { (result, error) in
 			//DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
@@ -261,7 +283,7 @@ open class UZContentServices: UZAPIConnector {
 									  "page" : page,
 									  "limit" : limit]
 		
-		self.callAPI("media/entity/search", method: .post, params: params) { (result, error) in
+		self.callAPI("media/entity/search", method: .get, params: params) { (result, error) in
 			//DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {

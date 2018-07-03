@@ -28,6 +28,7 @@ public class UizaSDK {
 	internal static var username	: String = "" // set this before calling the API
 	internal static var password	: String = "" // set this before calling the API
 	internal static var domain  	: String = "" // set this before calling the API
+	internal static var enviroment	: UZEnviroment = .production // set this before calling the API
     
     internal static var appId       : String = ""
 	internal static var token		: UZToken? = nil
@@ -43,11 +44,12 @@ public class UizaSDK {
 	- parameter password: Password được cung cấp bởi Uiza
 	- parameter domain: Domain được cung cấp bởi Uiza
 	*/
-	public class func initWith(username:String!, password:String!, domain: String!) {
+	public class func initWith(username:String!, password:String!, domain: String!, enviroment: UZEnviroment) {
         if self.username == "" && self.password == "" && self.domain == "" {
 			self.username = username
 			self.password = password
 			self.domain = domain
+			self.enviroment = enviroment
 			
 			#if DEBUG
 			print("[UizaSDK \(SDK_VERSION)] initialized")

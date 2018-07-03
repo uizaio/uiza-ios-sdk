@@ -137,12 +137,12 @@ open class UZAPIConnector {
 	- parameter paramValue: các thông số truyền vào, theo format [String:Any]
 	- parameter completionBlock: block được gọi khi hoàn thành, trả về data hoặc error nếu có lỗi
 	*/
-	public func callAPI(_ node: String!, method: HTTPMethod! = .get, params paramValue:[String: Any]? = nil, completion completionBlock:APIConnectorResultBlock? = nil) {
+	public func callAPI(_ node: String!, baseURLString: String? = nil, method: HTTPMethod! = .get, params paramValue:[String: Any]? = nil, completion completionBlock:APIConnectorResultBlock? = nil) {
 		guard UizaSDK.domain.length > 0 else {
 			fatalError("Bạn chưa khởi tạo SDK. Bắt buộc phải gọi hàm \"UizaSDK.initWith(username,password,domain)\" trước")
 		}
 		
-		let baseAPIPath : String = baseAPIURLPath()
+		let baseAPIPath : String = baseURLString ?? baseAPIURLPath()
 		var nodeString	: String! = baseAPIPath.stringByAppendingPathComponent(node) + (node.hasSuffix("/") ? "/" : "")
 		nodeString = nodeString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
 		

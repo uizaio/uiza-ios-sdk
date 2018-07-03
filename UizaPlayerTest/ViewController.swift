@@ -27,8 +27,13 @@ class ViewController: UIViewController {
 //			let videoItem = UZVideoItem(data: ["id" : "5f1b718b-157e-459b-ae42-1915991e9f72", "title" : "La Vie En Rose"])
 //			let videoItem = UZVideoItem(data: ["id" : "290cbb8e-98a3-4568-b9ca-3761c6e0f91d", "title" : "120309_SBS_ALIVE_BIGBANG"])
 //			let videoItem = UZVideoItem(data: ["id" : "27986b40-75ff-4776-b279-175d8ee50257", "title" : "Big_Buck_Bunny_1080p_LANG_ENG"])
-			let videoItem = UZVideoItem(data: ["id" : "b4ce8589-7469-4550-a0b0-4d933c1db6f0", "title" : "Big_Buck_Bunny_1080p_LANG_ENG"])
+//			let videoItem = UZVideoItem(data: ["id" : "b4ce8589-7469-4550-a0b0-4d933c1db6f0", "title" : "Big_Buck_Bunny_1080p_LANG_ENG"])
+			let videoItem = UZVideoItem(data: ["id" : "3add6c99-ff28-46fc-a2c4-e793f3e97f76", "title" : "TWICE KNOCK KNOCK"])
 			self?.playerViewController.player.loadVideo(videoItem)
+			
+			UZContentServices().getHomeData(metadataId: nil, page: 0, limit: 10, completionBlock: { (results, error) in
+				DLog("OK \(results) - \(error)")
+			})
 		}
 	}
 	

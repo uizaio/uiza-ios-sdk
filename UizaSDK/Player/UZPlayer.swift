@@ -560,7 +560,9 @@ open class UZPlayer: UIView {
 	// MARK: -
 	
 	open func showShare(from view: UIView) {
-		if let window = UIApplication.shared.keyWindow, let viewController = window.rootViewController {
+		if let window = UIApplication.shared.keyWindow,
+           let viewController = window.rootViewController
+		{
 			let activeViewController: UIViewController = viewController.presentedViewController ?? viewController
 			let itemToShare: Any = currentVideo ?? URL(string: "http://uiza.io")!
 			let activityViewController = UIActivityViewController(activityItems: [itemToShare], applicationActivities: nil)
@@ -780,6 +782,10 @@ extension UZPlayer: UZPlayerControlViewDelegate {
 				
 			case .share:
 				showShare(from: button)
+                button.isEnabled = false
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    button.isEnabled = true
+                }
 				
 			case .relates, .playlist:
 				showRelates()

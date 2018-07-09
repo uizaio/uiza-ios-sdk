@@ -91,6 +91,9 @@
 		638EC14A20AEA64300C0243E /* UIImage+Colorize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638EC14820AEA64200C0243E /* UIImage+Colorize.swift */; };
 		63910C6820C152B700B814DC /* NotificationName+Uiza.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63910C6720C152B700B814DC /* NotificationName+Uiza.swift */; };
 		63910C6920C152B700B814DC /* NotificationName+Uiza.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63910C6720C152B700B814DC /* NotificationName+Uiza.swift */; };
+		63A8264620F36136001FD7E3 /* UZPagination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A8264520F36136001FD7E3 /* UZPagination.swift */; };
+		63A8264720F36136001FD7E3 /* UZPagination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A8264520F36136001FD7E3 /* UZPagination.swift */; };
+		63A8264820F36136001FD7E3 /* UZPagination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A8264520F36136001FD7E3 /* UZPagination.swift */; };
 		63C65F6C205B9FE600DB2C96 /* UizaSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C65F62205B9FE600DB2C96 /* UizaSDK.framework */; };
 		63C65F71205B9FE600DB2C96 /* UizaSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F70205B9FE600DB2C96 /* UizaSDKTests.swift */; };
 		63C65F73205B9FE600DB2C96 /* UizaSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 63C65F65205B9FE600DB2C96 /* UizaSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -202,6 +205,7 @@
 		638EC12B20AC97ED00C0243E /* UZTheme7.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZTheme7.swift; sourceTree = "<group>"; };
 		638EC14820AEA64200C0243E /* UIImage+Colorize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Colorize.swift"; sourceTree = "<group>"; };
 		63910C6720C152B700B814DC /* NotificationName+Uiza.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Uiza.swift"; sourceTree = "<group>"; };
+		63A8264520F36136001FD7E3 /* UZPagination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZPagination.swift; sourceTree = "<group>"; };
 		63C65F62205B9FE600DB2C96 /* UizaSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UizaSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		63C65F65205B9FE600DB2C96 /* UizaSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UizaSDK.h; sourceTree = "<group>"; };
 		63C65F66205B9FE600DB2C96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -441,6 +445,7 @@
 				632124F02089E1EE00720593 /* UZToken.swift */,
 				632124EE2089E1EE00720593 /* UZUser.swift */,
 				632124EF2089E1EE00720593 /* UZVideoItem.swift */,
+				63A8264520F36136001FD7E3 /* UZPagination.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -831,6 +836,7 @@
 				638EC0F020AAA2CA00C0243E /* NSTimeInterval+ToString.swift in Sources */,
 				638EC0E820AAA2CA00C0243E /* Date+Comparators.swift in Sources */,
 				638EC0DA20AAA17D00C0243E /* ViewController.swift in Sources */,
+				63A8264820F36136001FD7E3 /* UZPagination.swift in Sources */,
 				638EC0F720AAA2CD00C0243E /* UZAccountServices.swift in Sources */,
 				638EC0F420AAA2CA00C0243E /* String+Components.swift in Sources */,
 				638EC10120AAA2D200C0243E /* UZVideoItem.swift in Sources */,
@@ -897,6 +903,7 @@
 				638EC14920AEA64300C0243E /* UIImage+Colorize.swift in Sources */,
 				63C65FAB205BA10800DB2C96 /* NSError+Uiza.swift in Sources */,
 				6346B7A620930C3200A68AD4 /* UZSlider.swift in Sources */,
+				63A8264620F36136001FD7E3 /* UZPagination.swift in Sources */,
 				632124F72089E1EE00720593 /* UZToken.swift in Sources */,
 				63C65FA7205BA10800DB2C96 /* FileManager+Extends.swift in Sources */,
 				63C65FB0205BA10800DB2C96 /* String+Components.swift in Sources */,
@@ -931,6 +938,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63A8264720F36136001FD7E3 /* UZPagination.swift in Sources */,
 				63FC58DB208A1F24009C9028 /* NSError+Uiza.swift in Sources */,
 				63FC58D5208A1F24009C9028 /* UIDevice+Extension.swift in Sources */,
 				63FC58D3208A1F1F009C9028 /* UZLogger.swift in Sources */,

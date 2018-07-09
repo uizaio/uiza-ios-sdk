@@ -35,7 +35,7 @@ internal class UZRelatedViewController: UIViewController {
 	}
 	
 	func loadRelateVideos(to video: UZVideoItem) {
-		UZContentServices().getRelates(videoId: video.id) { [weak self] (results, error) in
+		UZContentServices().loadRelates(videoId: video.id) { [weak self] (results, error) in
 			guard let `self` = self else { return }
 			
 			if let results = results {

@@ -50,7 +50,7 @@ internal class UZVideoQualitySettingsViewController: UIViewController {
 	}
 	
 	func loadResourceDefinitions(from video: UZVideoItem) {
-		UZContentServices().getLinkPlay(videoId: video.id) { [weak self] (results, error) in
+		UZContentServices().loadLinkPlay(video: video) { [weak self] (results, error) in
 			guard let `self` = self else { return }
 			
 			if let results = results {

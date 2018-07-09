@@ -21,7 +21,7 @@ open class UZContentServices: UZAPIConnector {
 	- parameter limit: giới hạn số video item trả về mỗi lần gọi (từ 1 đến 100)
 	- parameter completionBlock: block được gọi sau khi hoàn thành, trả về mảng [`UZCategory`], hoặc error nếu có lỗi
 	*/
-	public func getHomeData(metadataId: String? = nil, page: Int = 0, limit: Int = 20, completionBlock: ((_ results:[UZCategory]?, _ error:Error?) -> Void)? = nil) {
+	public func loadHomeData(metadataId: String? = nil, page: Int = 0, limit: Int = 20, completionBlock: ((_ results:[UZCategory]?, _ error:Error?) -> Void)? = nil) {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token?.token ?? ""]
 		
 		var params : [String: Any] = [:]
@@ -114,7 +114,7 @@ open class UZContentServices: UZAPIConnector {
 	- parameter videoId: `id` của video cần tải
 	- parameter completionBlock: block được gọi sau khi hoàn thành, trả về UZVideoItem với đầy đủ thông tin chi tiết, hoặc error nếu có lỗi
 	*/
-	public func getDetail(videoId: String, completionBlock:((_ video: UZVideoItem?, _ error: Error?) -> Void)? = nil) {
+	public func loadDetail(videoId: String, completionBlock:((_ video: UZVideoItem?, _ error: Error?) -> Void)? = nil) {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token?.token ?? ""]
 		
 		let params : [String: Any] = ["id" : videoId]
@@ -144,7 +144,7 @@ open class UZContentServices: UZAPIConnector {
 	- parameter videoId: `id` của video cần tải danh sách liên quan
 	- parameter completionBlock: block được gọi sau khi hoàn thành, trả về mảng [`UZVideoItem`], hoặc error nếu có lỗi
 	*/
-	public func getRelates(videoId: String, completionBlock:((_ videos: [UZVideoItem]?, _ error: Error?) -> Void)? = nil) {
+	public func loadRelates(videoId: String, completionBlock:((_ videos: [UZVideoItem]?, _ error: Error?) -> Void)? = nil) {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token?.token ?? ""]
 		
 		let params : [String: Any] = ["id" : videoId]
@@ -177,7 +177,9 @@ open class UZContentServices: UZAPIConnector {
 	- parameter videoId: `id` của video cần lấy link play
 	- parameter completionBlock: block được gọi sau khi hoàn thành, trả về `URL`, hoặc error nếu có lỗi
 	*/
-	public func getLinkPlay(videoId: String, token: String? = nil, completionBlock:((_ results: [UZVideoLinkPlay]?, _ error: Error?) -> Void)? = nil) {
+	public func loadLinkPlay(video: UZVideoItem, token: String? = nil, completionBlock:((_ results: [UZVideoLinkPlay]?, _ error: Error?) -> Void)? = nil) {
+		let videoId: String = video.id ?? ""
+		
 		if token == nil {
 			self.requestHeaderFields = ["Authorization" : token ?? ""]
 			let params : [String: Any] = ["entity_id" : videoId,
@@ -188,7 +190,7 @@ open class UZContentServices: UZAPIConnector {
 				if let data = result?.value(for: "data", defaultValue: nil) as? NSDictionary,
 					let tokenString = data.string(for: "token", defaultString: nil)
 				{
-					self.getLinkPlay(videoId: videoId, token: tokenString, completionBlock: completionBlock)
+					self.loadLinkPlay(video: video, token: tokenString, completionBlock: completionBlock)
 				}
 				else {
 					completionBlock?(nil, error)
@@ -203,14 +205,11 @@ open class UZContentServices: UZAPIConnector {
 		let params : [String: Any] = ["entity_id" : videoId,
 									  "app_id"	 : UizaSDK.token?.appId ?? ""]
 		
-//		CDN_CONTROLLER_PRO = 'ucc.uiza.io'
-//		CDN_CONTROLLER_STAG = 'stag-ucc.uiza.io'
-//		CDN_CONTROLLER_DEV = 'dev-ucc.uizadev.io'
-		
 		let domain: String! = UizaSDK.enviroment == .development ? "dev-ucc.uizadev.io" :
-			UizaSDK.enviroment == .staging ? "stag-ucc.uiza.io" : "ucc.uiza.io"
+							  UizaSDK.enviroment == .staging ? "stag-ucc.uiza.io" : "ucc.uiza.io"
 		
-		self.callAPI("cdn/linkplay", baseURLString: "https://\(domain!)/api/private/v1/", method: .get, params: params) { (result, error) in
+		let apiNode = video.isLive ? "cdn/live/linkplay" : "cdn/linkplay"
+		self.callAPI(apiNode, baseURLString: "https://\(domain!)/api/private/v1/", method: .get, params: params) { (result, error) in
 			print("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {

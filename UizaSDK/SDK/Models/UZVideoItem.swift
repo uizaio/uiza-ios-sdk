@@ -84,6 +84,8 @@ open class UZVideoItem: UZModelObject {
 	
 	public var subtitleURLs: [URL]? = nil
 	
+	internal var isLive: Bool = false
+	
 	override func parse(_ data: NSDictionary?) {
 		if data != nil {
 //			DLog("\(data!)")

@@ -31,7 +31,7 @@ class ViewController: UIViewController {
 			let videoItem = UZVideoItem(data: ["id" : "3add6c99-ff28-46fc-a2c4-e793f3e97f76", "title" : "TWICE KNOCK KNOCK"])
 			self?.playerViewController.player.loadVideo(videoItem)
 			
-			UZContentServices().getHomeData(metadataId: nil, page: 0, limit: 10, completionBlock: { (results, error) in
+			UZContentServices().loadHomeData(metadataId: nil, page: 0, limit: 10, completionBlock: { (results, error) in
 				DLog("OK \(results) - \(error)")
 			})
 		}

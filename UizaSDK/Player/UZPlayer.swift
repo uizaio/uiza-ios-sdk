@@ -157,12 +157,12 @@ open class UZPlayer: UIView {
 		controlView.showLoader()
 		
 		let service = UZContentServices()
-		service.getLinkPlay(videoId: video.id) { [weak self] (results, error) in
+		service.loadLinkPlay(video: video) { [weak self] (results, error) in
 			guard let `self` = self else { return }
 			self.controlView.hideLoader()
 			
 			if results != nil {
-				service.getDetail(videoId: video.id, completionBlock: { (videoItem, error) in
+				service.loadDetail(videoId: video.id, completionBlock: { (videoItem, error) in
 					self.currentVideo?.videoURL = results?.first?.avURLAsset.url
 					UZLogger().log(event: "plays_requested", video: video, completionBlock: nil)
 					let resource = UZPlayerResource(name: video.title, definitions: results!, subtitles: videoItem?.subtitleURLs, cover: video.thumbnailURL)

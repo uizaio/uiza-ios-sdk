@@ -64,7 +64,7 @@ open class UZTheme7: UZPlayerTheme {
 		let collapseIcon = UIImage(icon: .googleMaterialDesign(.fullscreenExit), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let forwardIcon = UIImage(icon: .googleMaterialDesign(.fastForward), size: CGSize(width: 32, height: 32), textColor: iconColor, backgroundColor: .clear)
 		let backwardIcon = UIImage(icon: .googleMaterialDesign(.fastRewind), size: CGSize(width: 32, height: 32), textColor: iconColor, backgroundColor: .clear)
-		let thumbIcon = UIImage(icon: .fontAwesome(.circle), size: seekThumbSize, textColor: .white, backgroundColor: .clear)
+		let thumbIcon = UIImage(icon: .fontAwesomeRegular(.circle), size: seekThumbSize, textColor: .white, backgroundColor: .clear)
 		
 		controlView.backButton.setImage(backIcon, for: .normal)
 		controlView.playlistButton.setImage(playlistIcon, for: .normal)

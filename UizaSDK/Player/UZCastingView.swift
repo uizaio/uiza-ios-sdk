@@ -23,7 +23,7 @@ class UZCastingView: UIView {
 		titleLabel.numberOfLines = 2
 		titleLabel.text = "Playing on \(AVAudioSession.sharedInstance().sourceName ?? "(??)")"
 		
-		imageView.image = UIImage(icon: .fontAwesome(.tv), size: CGSize(width: 120, height: 120), textColor: UIColor(white: 1.0, alpha: 0.7), backgroundColor: .clear)
+		imageView.image = UIImage(icon: .fontAwesomeSolid(.tv), size: CGSize(width: 120, height: 120), textColor: UIColor(white: 1.0, alpha: 0.7), backgroundColor: .clear)
 		imageView.contentMode = .scaleAspectFit
 		
 		self.addSubview(imageView)

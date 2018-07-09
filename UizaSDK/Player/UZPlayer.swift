@@ -422,8 +422,10 @@ open class UZPlayer: UIView {
 	}
 	
 	@objc func onAudioRouteChanged(_ notification: Notification) {
-		updateCastingUI()
-		controlView.setNeedsLayout()
+		DispatchQueue.main.async {
+			self.updateCastingUI()
+			self.controlView.setNeedsLayout()
+		}
 	}
 	
 	/*

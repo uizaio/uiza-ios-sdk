@@ -311,8 +311,14 @@ open class UZPlayerControlView: UIView {
 		
 		titleLabel.text = resource.name
 		shareView.title = resource.name
-		liveBadgeView.isHidden = !(video?.isLive ?? false)
-		titleLabel.isHidden = video?.isLive ?? false
+		
+		let isLiveVideo = (video?.isLive ?? false)
+		liveBadgeView.isHidden = !isLiveVideo
+		titleLabel.isHidden = isLiveVideo
+		totalTimeLabel.isHidden = isLiveVideo
+		remainTimeLabel.isHidden = isLiveVideo
+		currentTimeLabel.isHidden = isLiveVideo
+		timeSlider.isHidden = isLiveVideo
 		
 		settingsButton.isHidden = true //resource.definitions.count < 2
 		autoFadeOutControlView(after: autoHideControlsInterval)

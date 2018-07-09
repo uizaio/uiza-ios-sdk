@@ -80,7 +80,7 @@ open class UZContentServices: UZAPIConnector {
 						category?.displayMode = .landscape
 						category?.name = "Live"
 						category?.videos.append(contentsOf: liveVideos)
-						results.append(category!)
+						results.insert(category!, at: 0)
 					}
 					
 					completionBlock?(results, nil)
@@ -244,7 +244,7 @@ open class UZContentServices: UZAPIConnector {
 			self.requestHeaderFields = ["Authorization" 	: token ?? ""]
 			let params : [String: Any] = ["entity_id" 		: videoId,
 										  "app_id"	 		: UizaSDK.token?.appId ?? "",
-										  "content_type" 	: "stream"]
+										  "content_type" 	: video.isLive ? "live" : "stream"]
 			
 			self.callAPI("media/entity/playback/token", method: .post, params: params) { (result, error) in
 				if let data = result?.value(for: "data", defaultValue: nil) as? NSDictionary,
@@ -264,7 +264,8 @@ open class UZContentServices: UZAPIConnector {
 		
 		let apiNode = video.isLive ? "cdn/live/linkplay" : "cdn/linkplay"
 		let apiField = video.isLive ? "stream_name" : "entity_id"
-		let params : [String: Any] = [apiField : videoId,
+		let apiValue = video.isLive ? video.title ?? "" : videoId
+		let params : [String: Any] = [apiField : apiValue,
 									  "app_id"	 : UizaSDK.token?.appId ?? ""]
 		
 		let domain: String! = UizaSDK.enviroment == .development ? "dev-ucc.uizadev.io" :

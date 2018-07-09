@@ -115,6 +115,7 @@ open class UZPlayerControlView: UIView {
 	internal let timeSlider = UZSlider()
 	internal let coverImageView = UIImageView()
 	internal let shareView = UZShareView()
+	internal let liveBadgeView = UZLiveBadgeView()
 	
 	var castingView: UZCastingView? = nil
 	
@@ -523,6 +524,75 @@ extension UZPlayerControlView: UIGestureRecognizerDelegate {
 	
 	public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
 		return (touch.view is UIButton) == false
+	}
+	
+}
+
+// MARK: - UZLiveBadgeView
+import NKFrameLayoutKit
+
+open class UZLiveBadgeView: UIView {
+	
+	open var views: Int = 0 {
+		didSet {
+			if views < 0 {
+				viewBadge.setTitle("0", for: .normal)
+			}
+			else {
+				viewBadge.setTitle("\(views.abbreviated)", for: .normal)
+			}
+			
+			self.setNeedsLayout()
+		}
+	}
+	
+	fileprivate let liveBadge = NKButton()
+	fileprivate let viewBadge = NKButton()
+	fileprivate var frameLayout: NKDoubleFrameLayout!
+	
+	init() {
+		super.init(frame: .zero)
+		
+		liveBadge.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .medium)
+		liveBadge.setTitle("LIVE", for: .normal)
+		liveBadge.setTitleColor(.white, for: .normal)
+		liveBadge.setBackgroundColor(UIColor(red:0.91, green:0.31, blue:0.28, alpha:1.00), for: .normal)
+		liveBadge.isUserInteractionEnabled = false
+		liveBadge.cornerRadius = 5
+		liveBadge.extendSize = CGSize(width: 10, height: 0)
+		
+		let icon = UIImage.init(icon: .googleMaterialDesign(.removeRedEye), size: CGSize(width: 20, height: 20), textColor: .white, backgroundColor: .clear)
+		viewBadge.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .medium)
+		viewBadge.setTitleColor(.white, for: .normal)
+		viewBadge.setTitle("0", for: .normal)
+		viewBadge.setImage(icon, for: .normal)
+		viewBadge.setBackgroundColor(UIColor(white: 0.8, alpha: 0.8), for: .normal)
+		viewBadge.extendSize = CGSize(width: 10, height: 0)
+		viewBadge.cornerRadius = 5
+		viewBadge.spacing = 2
+		viewBadge.isUserInteractionEnabled = false
+		
+		self.addSubview(liveBadge)
+		self.addSubview(viewBadge)
+		
+		frameLayout = NKDoubleFrameLayout(direction: .horizontal, andViews: [liveBadge, viewBadge])
+		frameLayout.spacing = 5
+		frameLayout.intrinsicSizeEnabled = true
+		self.addSubview(frameLayout)
+	}
+	
+	public required init?(coder aDecoder: NSCoder) {
+		super.init(coder: aDecoder)
+	}
+	
+	open override func sizeThatFits(_ size: CGSize) -> CGSize {
+		return frameLayout.sizeThatFits(size)
+	}
+	
+	open override func layoutSubviews() {
+		super.layoutSubviews()
+		
+		frameLayout.frame = self.bounds
 	}
 	
 }

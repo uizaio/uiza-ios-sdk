@@ -111,6 +111,7 @@ open class UZPlayer: UIView {
 	fileprivate var currentDefinition = 0
 	fileprivate var playerLayer: UZPlayerLayerView?
 	fileprivate var customControllView: UZPlayerControlView?
+	fileprivate var liveViewTimer: Timer? = nil
 	
 	fileprivate var isFullScreen:Bool {
 		get {
@@ -167,6 +168,10 @@ open class UZPlayer: UIView {
 					UZLogger().log(event: "plays_requested", video: video, completionBlock: nil)
 					let resource = UZPlayerResource(name: video.title, definitions: results!, subtitles: videoItem?.subtitleURLs, cover: video.thumbnailURL)
 					self.setResource(resource: resource)
+					
+					if video.isLive {
+						self.loadLiveViews()
+					}
 				})
 			}
 			else if let error = error {
@@ -442,6 +447,25 @@ open class UZPlayer: UIView {
 	@objc func contentDidFinishPlaying(_ notification: Notification) {
 		if (notification.object as! AVPlayerItem) == avPlayer?.currentItem {
 			adsLoader?.contentComplete()
+		}
+	}
+	
+	@objc func loadLiveViews () {
+		liveViewTimer?.invalidate()
+		liveViewTimer = nil
+		
+		if let currentVideo = currentVideo {
+			UZContentServices().loadViews(video: currentVideo) { [weak self] (view, error) in
+				guard let `self` = self else { return }
+				
+				let changed = view != self.controlView.liveBadgeView.views
+				if changed {
+					self.controlView.liveBadgeView.views = view
+					self.controlView.setNeedsLayout()
+				}
+				
+				self.liveViewTimer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(self.loadLiveViews), userInfo: nil, repeats: false)
+			}
 		}
 	}
 	

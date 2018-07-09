@@ -315,10 +315,16 @@ open class UZPlayerControlView: UIView {
 		let isLiveVideo = (video?.isLive ?? false)
 		liveBadgeView.isHidden = !isLiveVideo
 		titleLabel.isHidden = isLiveVideo
-		totalTimeLabel.isHidden = isLiveVideo
-		remainTimeLabel.isHidden = isLiveVideo
-		currentTimeLabel.isHidden = isLiveVideo
-		timeSlider.isHidden = isLiveVideo
+		totalTimeLabel.alpha = isLiveVideo ? 0 : 1
+		remainTimeLabel.alpha = isLiveVideo ? 0 : 1
+		currentTimeLabel.alpha = isLiveVideo ? 0 : 1
+		timeSlider.alpha = isLiveVideo ? 0 : 1
+		forwardButton.alpha = isLiveVideo ? 0 : 1
+		backwardButton.alpha = isLiveVideo ? 0 : 1
+		
+		timeSlider.isUserInteractionEnabled = !isLiveVideo
+		forwardButton.isUserInteractionEnabled = !isLiveVideo
+		backwardButton.isUserInteractionEnabled = !isLiveVideo
 		
 		settingsButton.isHidden = true //resource.definitions.count < 2
 		autoFadeOutControlView(after: autoHideControlsInterval)
@@ -570,7 +576,7 @@ open class UZLiveBadgeView: UIView {
 		liveBadge.setTitleColor(.white, for: .normal)
 		liveBadge.setBackgroundColor(UIColor(red:0.91, green:0.31, blue:0.28, alpha:1.00), for: .normal)
 		liveBadge.isUserInteractionEnabled = false
-		liveBadge.cornerRadius = 5
+		liveBadge.cornerRadius = 4
 		liveBadge.extendSize = CGSize(width: 10, height: 0)
 		
 		let icon = UIImage.init(icon: .googleMaterialDesign(.removeRedEye), size: CGSize(width: 20, height: 20), textColor: .white, backgroundColor: .clear)
@@ -580,7 +586,7 @@ open class UZLiveBadgeView: UIView {
 		viewBadge.setImage(icon, for: .normal)
 		viewBadge.setBackgroundColor(UIColor(white: 0.8, alpha: 0.8), for: .normal)
 		viewBadge.extendSize = CGSize(width: 10, height: 0)
-		viewBadge.cornerRadius = 5
+		viewBadge.cornerRadius = 4
 		viewBadge.spacing = 2
 		viewBadge.isUserInteractionEnabled = false
 		

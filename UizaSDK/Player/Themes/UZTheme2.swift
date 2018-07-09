@@ -194,6 +194,8 @@ open class UZTheme2: UZPlayerTheme {
 		controlView.containerView.addSubview(bottomFrameLayout!)
 		controlView.containerView.addSubview(controlView.playpauseCenterButton)
 		
+		controlView.addSubview(controlView.liveBadgeView)
+		
 		controlView.loadingIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 30, height: 30), type: NVActivityIndicatorType.ballRotateChase, color: .white, padding: 0)
 		controlView.addSubview(controlView.loadingIndicatorView!)
 	}
@@ -210,6 +212,12 @@ open class UZTheme2: UZPlayerTheme {
 		
 		if let controlView = controlView {
 			controlView.loadingIndicatorView?.center = controlView.center
+		}
+		
+		if let controlView = controlView, controlView.liveBadgeView.isHidden == false {
+			let viewSize = controlView.bounds.size
+			let badgeSize = controlView.liveBadgeView.sizeThatFits(viewSize)
+			controlView.liveBadgeView.frame = CGRect(x: (viewSize.width - badgeSize.width)/2, y: 10, width: badgeSize.width, height: badgeSize.height)
 		}
 	}
 	

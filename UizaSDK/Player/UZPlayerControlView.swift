@@ -44,6 +44,7 @@ public protocol UZPlayerTheme {
 open class UZPlayerControlView: UIView {
 	open weak var delegate: UZPlayerControlViewDelegate?
 	open var resource: UZPlayerResource?
+	open var currentVideo: UZVideoItem?
 	open var autoHideControlsInterval: TimeInterval = 5
 	
 	open var totalDuration:TimeInterval = 0
@@ -176,6 +177,7 @@ open class UZPlayerControlView: UIView {
 		}
 		
 		shareView.isHidden = true
+		liveBadgeView.isHidden = true
 		self.addSubview(containerView)
 	}
 	
@@ -303,11 +305,15 @@ open class UZPlayerControlView: UIView {
 	
 	// MARK: - UI update related function
 	
-	open func prepareUI(for resource: UZPlayerResource) {
+	open func prepareUI(for resource: UZPlayerResource, video: UZVideoItem?) {
 		self.resource = resource
+		self.currentVideo = video
 		
 		titleLabel.text = resource.name
 		shareView.title = resource.name
+		liveBadgeView.isHidden = !(video?.isLive ?? false)
+		titleLabel.isHidden = video?.isLive ?? false
+		
 		settingsButton.isHidden = true //resource.definitions.count < 2
 		autoFadeOutControlView(after: autoHideControlsInterval)
 	}

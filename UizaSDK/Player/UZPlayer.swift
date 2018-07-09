@@ -194,7 +194,7 @@ open class UZPlayer: UIView {
 		
 		playthrough_eventlog = [:]
 		currentDefinition = definitionIndex
-		controlView.prepareUI(for: resource)
+		controlView.prepareUI(for: resource, video: currentVideo)
 		controlView.playlistButton.isHidden = currentVideo == nil
 		
 		if shouldAutoPlay {

@@ -372,4 +372,28 @@ open class UZContentServices: UZAPIConnector {
 		}
 	}
 	
+	// MARK: -
+	
+	public func loadViews(video: UZVideoItem, completionBlock: ((_ views: Int, _ error: Error?) -> Void)? = nil) {
+		self.requestHeaderFields = ["Authorization" : UizaSDK.token?.token ?? ""]
+		
+		let params : [String: Any] = ["id" : video.id]
+		
+		self.callAPI("live/entity/tracking/current-view", method: .get, params: params) { (result, error) in
+			//DLog("\(String(describing: result)) - \(String(describing: error))")
+			
+			if error != nil {
+				completionBlock?(-1, error)
+			}
+			else {
+				var views: Int = -1
+				if let data = result!.value(for: "data", defaultValue: nil) as? NSDictionary {
+					views = data.int(for: "watchnow", defaultNumber: -1)
+				}
+				
+				completionBlock?(views, nil)
+			}
+		}
+	}
+	
 }

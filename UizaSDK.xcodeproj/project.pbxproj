@@ -16,9 +16,7 @@
 		632124F42089E1EE00720593 /* UZModelObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124ED2089E1ED00720593 /* UZModelObject.swift */; };
 		632124F52089E1EE00720593 /* UZUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124EE2089E1EE00720593 /* UZUser.swift */; };
 		632124F62089E1EE00720593 /* UZVideoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124EF2089E1EE00720593 /* UZVideoItem.swift */; };
-		632124F72089E1EE00720593 /* UZToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124F02089E1EE00720593 /* UZToken.swift */; };
 		632124F82089E1EE00720593 /* UZCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124F12089E1EE00720593 /* UZCategory.swift */; };
-		632124FE2089E20800720593 /* UZAccountServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124F92089E20700720593 /* UZAccountServices.swift */; };
 		632124FF2089E20800720593 /* UizaSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124FA2089E20700720593 /* UizaSDK.swift */; };
 		632125002089E20800720593 /* UZContentServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124FB2089E20800720593 /* UZContentServices.swift */; };
 		632125012089E20800720593 /* UZLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124FC2089E20800720593 /* UZLogger.swift */; };
@@ -54,7 +52,6 @@
 		638EC0F420AAA2CA00C0243E /* String+Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F88205BA10800DB2C96 /* String+Components.swift */; };
 		638EC0F520AAA2CA00C0243E /* String+ToDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F8A205BA10800DB2C96 /* String+ToDictionary.swift */; };
 		638EC0F620AAA2CD00C0243E /* UizaSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124FA2089E20700720593 /* UizaSDK.swift */; };
-		638EC0F720AAA2CD00C0243E /* UZAccountServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124F92089E20700720593 /* UZAccountServices.swift */; };
 		638EC0F820AAA2CD00C0243E /* UZAPIConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124FD2089E20800720593 /* UZAPIConnector.swift */; };
 		638EC0F920AAA2CD00C0243E /* UZContentServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124FB2089E20800720593 /* UZContentServices.swift */; };
 		638EC0FA20AAA2CD00C0243E /* UZLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124FC2089E20800720593 /* UZLogger.swift */; };
@@ -62,7 +59,6 @@
 		638EC0FC20AAA2D200C0243E /* UZBannerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124EB2089E1ED00720593 /* UZBannerItem.swift */; };
 		638EC0FD20AAA2D200C0243E /* UZCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124F12089E1EE00720593 /* UZCategory.swift */; };
 		638EC0FE20AAA2D200C0243E /* UZMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124EC2089E1ED00720593 /* UZMenuItem.swift */; };
-		638EC0FF20AAA2D200C0243E /* UZToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124F02089E1EE00720593 /* UZToken.swift */; };
 		638EC10020AAA2D200C0243E /* UZUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124EE2089E1EE00720593 /* UZUser.swift */; };
 		638EC10120AAA2D200C0243E /* UZVideoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124EF2089E1EE00720593 /* UZVideoItem.swift */; };
 		638EC10220AAA2D600C0243E /* UZPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6346B7A120930C3200A68AD4 /* UZPlayer.swift */; };
@@ -128,11 +124,9 @@
 		63FC58C9208A1F1F009C9028 /* UZBannerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124EB2089E1ED00720593 /* UZBannerItem.swift */; };
 		63FC58CA208A1F1F009C9028 /* UZCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124F12089E1EE00720593 /* UZCategory.swift */; };
 		63FC58CB208A1F1F009C9028 /* UZMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124EC2089E1ED00720593 /* UZMenuItem.swift */; };
-		63FC58CC208A1F1F009C9028 /* UZToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124F02089E1EE00720593 /* UZToken.swift */; };
 		63FC58CD208A1F1F009C9028 /* UZUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124EE2089E1EE00720593 /* UZUser.swift */; };
 		63FC58CE208A1F1F009C9028 /* UZVideoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124EF2089E1EE00720593 /* UZVideoItem.swift */; };
 		63FC58CF208A1F1F009C9028 /* UizaSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124FA2089E20700720593 /* UizaSDK.swift */; };
-		63FC58D0208A1F1F009C9028 /* UZAccountServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124F92089E20700720593 /* UZAccountServices.swift */; };
 		63FC58D1208A1F1F009C9028 /* UZAPIConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124FD2089E20800720593 /* UZAPIConnector.swift */; };
 		63FC58D2208A1F1F009C9028 /* UZContentServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124FB2089E20800720593 /* UZContentServices.swift */; };
 		63FC58D3208A1F1F009C9028 /* UZLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124FC2089E20800720593 /* UZLogger.swift */; };
@@ -176,9 +170,7 @@
 		632124ED2089E1ED00720593 /* UZModelObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZModelObject.swift; sourceTree = "<group>"; };
 		632124EE2089E1EE00720593 /* UZUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZUser.swift; sourceTree = "<group>"; };
 		632124EF2089E1EE00720593 /* UZVideoItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZVideoItem.swift; sourceTree = "<group>"; };
-		632124F02089E1EE00720593 /* UZToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZToken.swift; sourceTree = "<group>"; };
 		632124F12089E1EE00720593 /* UZCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZCategory.swift; sourceTree = "<group>"; };
-		632124F92089E20700720593 /* UZAccountServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZAccountServices.swift; sourceTree = "<group>"; };
 		632124FA2089E20700720593 /* UizaSDK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UizaSDK.swift; sourceTree = "<group>"; };
 		632124FB2089E20800720593 /* UZContentServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZContentServices.swift; sourceTree = "<group>"; };
 		632124FC2089E20800720593 /* UZLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZLogger.swift; sourceTree = "<group>"; };
@@ -433,7 +425,6 @@
 				63C65FCC205BA12A00DB2C96 /* Models */,
 				632124FA2089E20700720593 /* UizaSDK.swift */,
 				632124FD2089E20800720593 /* UZAPIConnector.swift */,
-				632124F92089E20700720593 /* UZAccountServices.swift */,
 				632124FB2089E20800720593 /* UZContentServices.swift */,
 				632124FC2089E20800720593 /* UZLogger.swift */,
 			);
@@ -447,7 +438,6 @@
 				632124EB2089E1ED00720593 /* UZBannerItem.swift */,
 				632124F12089E1EE00720593 /* UZCategory.swift */,
 				632124EC2089E1ED00720593 /* UZMenuItem.swift */,
-				632124F02089E1EE00720593 /* UZToken.swift */,
 				632124EE2089E1EE00720593 /* UZUser.swift */,
 				632124EF2089E1EE00720593 /* UZVideoItem.swift */,
 				63A8264520F36136001FD7E3 /* UZPagination.swift */,
@@ -842,7 +832,6 @@
 				638EC0E820AAA2CA00C0243E /* Date+Comparators.swift in Sources */,
 				638EC0DA20AAA17D00C0243E /* ViewController.swift in Sources */,
 				63A8264820F36136001FD7E3 /* UZPagination.swift in Sources */,
-				638EC0F720AAA2CD00C0243E /* UZAccountServices.swift in Sources */,
 				638EC0F420AAA2CA00C0243E /* String+Components.swift in Sources */,
 				638EC10120AAA2D200C0243E /* UZVideoItem.swift in Sources */,
 				638EC12720AC90F000C0243E /* UZTheme5.swift in Sources */,
@@ -854,7 +843,6 @@
 				63910C6920C152B700B814DC /* NotificationName+Uiza.swift in Sources */,
 				638EC10720AAA2DD00C0243E /* NKProgressView.swift in Sources */,
 				63A8264C20F36BE0001FD7E3 /* Number+Extentions.swift in Sources */,
-				638EC0FF20AAA2D200C0243E /* UZToken.swift in Sources */,
 				638EC0F120AAA2CA00C0243E /* NSDictionary+KeyValue.swift in Sources */,
 				63DFE44720BFFB7600A9032D /* UZMediaOptionSelectionViewController.swift in Sources */,
 				63CFB7E620BBD97800647958 /* UZCastingView.swift in Sources */,
@@ -887,7 +875,6 @@
 				63C65FA5205BA10800DB2C96 /* UIDevice+Extension.swift in Sources */,
 				632124F42089E1EE00720593 /* UZModelObject.swift in Sources */,
 				6346B7A720930C3200A68AD4 /* UZPlayer.swift in Sources */,
-				632124FE2089E20800720593 /* UZAccountServices.swift in Sources */,
 				638EC11D20AC3E9D00C0243E /* UZTheme2.swift in Sources */,
 				6346B7A320930C3200A68AD4 /* UZPlayerViewController.swift in Sources */,
 				63C65FAA205BA10800DB2C96 /* Dictionary+Append.swift in Sources */,
@@ -911,7 +898,6 @@
 				63C65FAB205BA10800DB2C96 /* NSError+Uiza.swift in Sources */,
 				6346B7A620930C3200A68AD4 /* UZSlider.swift in Sources */,
 				63A8264620F36136001FD7E3 /* UZPagination.swift in Sources */,
-				632124F72089E1EE00720593 /* UZToken.swift in Sources */,
 				63C65FA7205BA10800DB2C96 /* FileManager+Extends.swift in Sources */,
 				63C65FB0205BA10800DB2C96 /* String+Components.swift in Sources */,
 				63CFB7E520BBD97800647958 /* UZCastingView.swift in Sources */,
@@ -959,10 +945,8 @@
 				63FC58CD208A1F1F009C9028 /* UZUser.swift in Sources */,
 				63FC58D8208A1F24009C9028 /* UIColor+Hex.swift in Sources */,
 				63FC58DE208A1F24009C9028 /* String+Extension.swift in Sources */,
-				63FC58CC208A1F1F009C9028 /* UZToken.swift in Sources */,
 				63A8264B20F36BE0001FD7E3 /* Number+Extentions.swift in Sources */,
 				6346B7AC20930DAC00A68AD4 /* NSTimeInterval+ToString.swift in Sources */,
-				63FC58D0208A1F1F009C9028 /* UZAccountServices.swift in Sources */,
 				63FC58D2208A1F1F009C9028 /* UZContentServices.swift in Sources */,
 				63FC58DA208A1F24009C9028 /* Dictionary+Append.swift in Sources */,
 				63FC58C9208A1F1F009C9028 /* UZBannerItem.swift in Sources */,

@@ -8,7 +8,7 @@
 
 import UIKit
 
-let CURRENT_USER_KEY = "com.uiza.currentUser.3_0_\(UizaSDK.username)"
+let CURRENT_USER_KEY = "com.uiza.currentUser.3_0"
 
 /**
 Class chứa thông tin người dùng

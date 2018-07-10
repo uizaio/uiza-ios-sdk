@@ -500,7 +500,7 @@ class UZMovieItemCollectionViewCell : UICollectionViewCell {
 //			frameLayout.bottomFrameLayout.edgeInsets = UIEdgeInsets.zero
 			
 			if detailMode {
-				titleLabel.text = videoItem.title
+				titleLabel.text = videoItem.name
 				
 				let descriptionText = videoItem.shortDescription.length>0 ? videoItem.shortDescription : videoItem.details
 				detailLabel.text = descriptionText
@@ -512,7 +512,7 @@ class UZMovieItemCollectionViewCell : UICollectionViewCell {
 				frameLayout.leftFrameLayout.fixSize = CGSize(width: 160, height: 0)
 			}
 			else {
-				titleLabel.text = videoItem.title
+				titleLabel.text = videoItem.name
 				titleLabel.numberOfLines = 1
 				
 				detailLabel.text = ""

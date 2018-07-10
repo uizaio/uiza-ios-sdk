@@ -584,7 +584,7 @@ open class UZLiveBadgeView: UIView {
 		viewBadge.setTitleColor(.white, for: .normal)
 		viewBadge.setTitle("0", for: .normal)
 		viewBadge.setImage(icon, for: .normal)
-		viewBadge.setBackgroundColor(UIColor(white: 0.8, alpha: 0.8), for: .normal)
+		viewBadge.setBackgroundColor(UIColor(white: 0.6, alpha: 0.8), for: .normal)
 		viewBadge.extendSize = CGSize(width: 10, height: 0)
 		viewBadge.cornerRadius = 4
 		viewBadge.spacing = 2

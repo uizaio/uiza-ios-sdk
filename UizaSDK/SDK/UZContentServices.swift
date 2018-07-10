@@ -264,7 +264,7 @@ open class UZContentServices: UZAPIConnector {
 		
 		let apiNode = video.isLive ? "cdn/live/linkplay" : "cdn/linkplay"
 		let apiField = video.isLive ? "stream_name" : "entity_id"
-		let apiValue = video.isLive ? video.title ?? "" : videoId
+		let apiValue = video.isLive ? video.channelName ?? "" : videoId
 		let params : [String: Any] = [apiField : apiValue,
 									  "app_id"	 : UizaSDK.token?.appId ?? ""]
 		
@@ -380,7 +380,7 @@ open class UZContentServices: UZAPIConnector {
 		
 		let params : [String: Any] = ["id" : video.id]
 		
-		self.callAPI("live/entity/tracking/current-view", method: .get, params: params) { (result, error) in
+		self.callAPI("live/entity/tracking/current-view", baseURLString: basePrivateAPIURLPath(), method: .get, params: params) { (result, error) in
 			//DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {

@@ -19,7 +19,7 @@ open class UZLogger: UZAPIConnector {
 		
 		if let video = video {
 			finalParams = ["entity_id" : video.id,
-						   "entity_name" : video.title]
+						   "entity_name" : video.name]
 		}
 		
 		if let params = params {

@@ -125,8 +125,12 @@ open class UZAPIConnector {
 		}
 	}
 	
-	internal func baseAPIURLPath() -> String! {
-		return "https://" + UizaSDK.domain.stringByAppendingPathComponent("api/public/v3/")
+	internal func basePublicAPIURLPath() -> String! {
+		return "https://" + UizaSDK.apiEndPoint.stringByAppendingPathComponent("api/public/v3/")
+	}
+	
+	internal func basePrivateAPIURLPath() -> String! {
+		return "https://" + UizaSDK.apiEndPoint.stringByAppendingPathComponent("api/private/v3/")
 	}
 	
 	
@@ -138,11 +142,11 @@ open class UZAPIConnector {
 	- parameter completionBlock: block được gọi khi hoàn thành, trả về data hoặc error nếu có lỗi
 	*/
 	public func callAPI(_ node: String!, baseURLString: String? = nil, method: HTTPMethod! = .get, params paramValue:[String: Any]? = nil, completion completionBlock:APIConnectorResultBlock? = nil) {
-		guard UizaSDK.domain.length > 0 else {
-			fatalError("Bạn chưa khởi tạo SDK. Bắt buộc phải gọi hàm \"UizaSDK.initWith(username,password,domain)\" trước")
+		guard UizaSDK.domain.length > 0, UizaSDK.apiEndPoint.length > 0 else {
+			fatalError("Bạn chưa khởi tạo SDK. Bắt buộc phải gọi hàm \"UizaSDK.initWith(username,password,domain,apiEndPoint)\" trước")
 		}
 		
-		let baseAPIPath : String = baseURLString ?? baseAPIURLPath()
+		let baseAPIPath : String = baseURLString ?? basePublicAPIURLPath()
 		var nodeString	: String! = baseAPIPath.stringByAppendingPathComponent(node) + (node.hasSuffix("/") ? "/" : "")
 		nodeString = nodeString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
 		

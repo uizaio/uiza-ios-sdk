@@ -22,7 +22,9 @@ open class UZAccountServices: UZAPIConnector {
 	*/
 	public func authorize(completionBlock: ((_ token:UZToken?, _ error:Error?) -> Void)? = nil) {
 //        self.encodingType = JSONEncoding.default
-        self.callAPI("admin/user/auth", method: .post, params: ["username" : UizaSDK.username, "password" : UizaSDK.password, "domain" : UizaSDK.domain]) { (result:NSDictionary?, error:Error?) in
+		let endPoint = "https://" + UizaSDK.domain.stringByAppendingPathComponent("api/public/v3/")
+        self.callAPI("admin/user/auth", baseURLString: endPoint, method: .post, params: ["username" : UizaSDK.username, "password" : UizaSDK.password, "domain" : UizaSDK.domain]) { (result:NSDictionary?, error:Error?) in
+			print("OK \(result) - \(error)")
 			if error != nil {
 				UizaSDK.token = nil
 				completionBlock?(nil, error)

@@ -166,7 +166,7 @@ open class UZPlayer: UIView {
 				service.loadDetail(videoId: video.id, completionBlock: { (videoItem, error) in
 					self.currentVideo?.videoURL = results?.first?.avURLAsset.url
 					UZLogger().log(event: "plays_requested", video: video, completionBlock: nil)
-					let resource = UZPlayerResource(name: video.title, definitions: results!, subtitles: videoItem?.subtitleURLs, cover: video.thumbnailURL)
+					let resource = UZPlayerResource(name: video.name, definitions: results!, subtitles: videoItem?.subtitleURLs, cover: video.thumbnailURL)
 					self.setResource(resource: resource)
 					
 					if video.isLive {
@@ -459,7 +459,7 @@ open class UZPlayer: UIView {
 		if let currentVideo = currentVideo {
 			UZContentServices().loadViews(video: currentVideo) { [weak self] (view, error) in
 				guard let `self` = self else { return }
-				
+				print("OK \(view) - \(error)")
 				let changed = view != self.controlView.liveBadgeView.views
 				if changed {
 					self.controlView.liveBadgeView.views = view

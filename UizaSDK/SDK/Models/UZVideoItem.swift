@@ -63,10 +63,12 @@ open class UZVideoItem: UZModelObject {
 	public var categoryId			: String! = ""
 	/** Tên chuyên mục của video này */
 	public var categoryName			: String! = ""
+	/** Tên của kênh */
+	public var channelName			: String! = ""
 	/** Thể loại của video này */
 	public var type					: String! = ""
 	/** Tựa đề chính */
-	public var title				: String! = ""
+	public var name					: String! = ""
 	/** Tựa đề phụ */
 	public var subTitle				: String! = ""
 	/** Mô tả nội dung chi tiết */
@@ -92,7 +94,8 @@ open class UZVideoItem: UZModelObject {
 			id					= data!.string(for: "id", defaultString: "")
 			categoryId			= data!.string(for: "category_id", defaultString: "")
 			categoryName		= data!.string(for: "category", defaultString: "")
-			title				= data!.string(for: "name", defaultString: "")
+			channelName			= data!.string(for: "channelName", defaultString: "")
+			name				= data!.string(for: "name", defaultString: "")
 			subTitle			= data!.string(for: "subTitle", defaultString: "")
 			type				= data!.string(for: "type", defaultString: "")
 			details				= data!.string(for: "description", defaultString: "")
@@ -122,7 +125,7 @@ open class UZVideoItem: UZModelObject {
 	
 	/** Mô tả object */
 	override open var description : String {
-		return "\(super.description) [\(id ?? "")] [\(title ?? "")]"
+		return "\(super.description) [\(id ?? "")] [\(name ?? "")]"
 	}
 	
 }

@@ -459,7 +459,7 @@ open class UZPlayer: UIView {
 		if let currentVideo = currentVideo {
 			UZContentServices().loadViews(video: currentVideo) { [weak self] (view, error) in
 				guard let `self` = self else { return }
-				print("OK \(view) - \(error)")
+				
 				let changed = view != self.controlView.liveBadgeView.views
 				if changed {
 					self.controlView.liveBadgeView.views = view

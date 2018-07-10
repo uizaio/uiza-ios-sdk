@@ -378,10 +378,10 @@ open class UZContentServices: UZAPIConnector {
 	public func loadViews(video: UZVideoItem, completionBlock: ((_ views: Int, _ error: Error?) -> Void)? = nil) {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token?.token ?? ""]
 		
-		let params : [String: Any] = ["id" : video.id]
+		let params : [String: Any] = ["id" : video.id ?? ""]
 		
 		self.callAPI("live/entity/tracking/current-view", baseURLString: basePrivateAPIURLPath(), method: .get, params: params) { (result, error) in
-			//DLog("\(String(describing: result)) - \(String(describing: error))")
+//			DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
 				completionBlock?(-1, error)

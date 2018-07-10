@@ -24,7 +24,6 @@ open class UZAccountServices: UZAPIConnector {
 //        self.encodingType = JSONEncoding.default
 		let endPoint = "https://" + UizaSDK.domain.stringByAppendingPathComponent("api/public/v3/")
         self.callAPI("admin/user/auth", baseURLString: endPoint, method: .post, params: ["username" : UizaSDK.username, "password" : UizaSDK.password, "domain" : UizaSDK.domain]) { (result:NSDictionary?, error:Error?) in
-			print("OK \(result) - \(error)")
 			if error != nil {
 				UizaSDK.token = nil
 				completionBlock?(nil, error)

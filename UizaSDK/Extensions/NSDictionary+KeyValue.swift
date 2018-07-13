@@ -140,4 +140,9 @@ extension NSDictionary {
 		return result != nil ? UIColor(hex: result!) : defaultColor
 	}
 	
+	func date(for key:String, defaultDate:Date? = nil) -> Date? {
+		let result : String? = self.string(for: key, defaultString: nil)
+		return result != nil ? Date(fromString: result!, format: .isoDateTimeMilliSec, timeZone: .local, locale: Locale(identifier: "vi_VN")) : defaultDate
+	}
+	
 }

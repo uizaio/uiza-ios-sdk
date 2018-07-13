@@ -397,7 +397,7 @@ open class UZContentServices: UZAPIConnector {
 		}
 	}
 	
-	public func loadStartTime(video: UZVideoItem, completionBlock: ((_ views: Int, _ error: Error?) -> Void)? = nil) {
+	public func loadLiveStatus(video: UZVideoItem, completionBlock: ((_ result: UZLiveVideoStatus?, _ error: Error?) -> Void)? = nil) {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.key]
 		
 		let params : [String: Any] = ["entityId" : video.id ?? "",
@@ -410,9 +410,9 @@ open class UZContentServices: UZAPIConnector {
 				completionBlock?(-1, error)
 			}
 			else {
-				var views: Int = -1
+				var status: UZLiveVideoStatus? = nil
 				if let data = result!.value(for: "data", defaultValue: nil) as? NSDictionary {
-					views = data.int(for: "watchnow", defaultNumber: -1)
+					status = UZLiveVideoStatus(data: data)
 				}
 				
 				completionBlock?(views, nil)

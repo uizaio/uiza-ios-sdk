@@ -83,8 +83,6 @@ open class UZVideoItem: UZModelObject {
 	public var videoURL				: URL? = nil
 	/** Thời lượng của video này */
 	public var duration				: TimeInterval! = 0
-	/** Năm phát hành */
-	public var releasedDate			: String? = nil
 	
 	public var subtitleURLs: [URL]? = nil
 	
@@ -162,12 +160,18 @@ open class UZLiveVideoStatus: UZModelObject {
 	public var id: String! = ""
 	public var entityId: String! = ""
 	public var entityName: String! = ""
+	public var state: String! = ""
+	public var startDate: Date? = nil
+	public var endDate: Date? = nil
 	
 	override func parse(_ data: NSDictionary?) {
 		if let data = data {
 			id = data.string(for: "id", defaultString: "")
 			entityId = data.string(for: "entityId", defaultString: "")
 			entityName = data.string(for: "entityName", defaultString: "")
+			state = data.string(for: "process", defaultString: "")
+			startDate = data.date(for: "startTime", defaultDate: nil)
+			endDate = data.date(for: "endTime", defaultDate: nil)
 		}
 	}
 	

@@ -245,7 +245,7 @@ open class UZTheme4: UZPlayerTheme {
 			
 			if controlView.enlapseTimeLabel.isHidden == false {
 				let labelSize = controlView.enlapseTimeLabel.sizeThatFits(viewSize)
-				controlView.enlapseTimeLabel.frame = CGRect(x: 10, y: viewSize.height - labelSize.height - 20, width: labelSize.width, height: labelSize.height)
+				controlView.enlapseTimeLabel.frame = CGRect(x: 10, y: viewSize.height - labelSize.height - 18, width: labelSize.width, height: labelSize.height)
 			}
 		}
 	}

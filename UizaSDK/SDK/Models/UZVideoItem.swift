@@ -61,6 +61,8 @@ open class UZVideoItem: UZModelObject {
 	public var id					: String! = ""
 	/** id chuyên mục của video này */
 	public var categoryId			: String! = ""
+	/** feedId của video này */
+	public var feedId				: String! = ""
 	/** Tên chuyên mục của video này */
 	public var categoryName			: String! = ""
 	/** Tên của kênh */
@@ -93,6 +95,7 @@ open class UZVideoItem: UZModelObject {
 //			DLog("\(data!)")
 			id					= data!.string(for: "id", defaultString: "")
 			categoryId			= data!.string(for: "category_id", defaultString: "")
+			feedId				= data!.string(for: "lastFeedId", defaultString: "")
 			categoryName		= data!.string(for: "category", defaultString: "")
 			channelName			= data!.string(for: "channelName", defaultString: "")
 			name				= data!.string(for: "name", defaultString: "")
@@ -147,6 +150,25 @@ extension UZVideoItem: UIActivityItemSource {
 		}
 		
 		return URL(string: "http://")!
+	}
+	
+}
+
+/**
+Class chứa thông tin trạng thái của LiveVideo
+*/
+open class UZLiveVideoStatus: UZModelObject {
+	
+	public var id: String! = ""
+	public var entityId: String! = ""
+	public var entityName: String! = ""
+	
+	override func parse(_ data: NSDictionary?) {
+		if let data = data {
+			id = data.string(for: "id", defaultString: "")
+			entityId = data.string(for: "entityId", defaultString: "")
+			entityName = data.string(for: "entityName", defaultString: "")
+		}
 	}
 	
 }

@@ -397,4 +397,27 @@ open class UZContentServices: UZAPIConnector {
 		}
 	}
 	
+	public func loadStartTime(video: UZVideoItem, completionBlock: ((_ views: Int, _ error: Error?) -> Void)? = nil) {
+		self.requestHeaderFields = ["Authorization" : UizaSDK.key]
+		
+		let params : [String: Any] = ["entityId" : video.id ?? "",
+									  "feedId" : video.feedId ?? ""]
+		
+		self.callAPI("live/entity/tracking", baseURLString: basePrivateAPIURLPath(), method: .get, params: params) { (result, error) in
+//			DLog("\(String(describing: result)) - \(String(describing: error))")
+			
+			if error != nil {
+				completionBlock?(-1, error)
+			}
+			else {
+				var views: Int = -1
+				if let data = result!.value(for: "data", defaultValue: nil) as? NSDictionary {
+					views = data.int(for: "watchnow", defaultNumber: -1)
+				}
+				
+				completionBlock?(views, nil)
+			}
+		}
+	}
+	
 }

@@ -112,15 +112,24 @@ open class UZPlayerControlView: UIView {
 	internal let settingsButton = NKButton()
 	internal let helpButton = NKButton()
 	internal let pipButton = NKButton()
+	internal let enlapseTimeLabel = NKButton()
 	internal let airplayButton = UZAirPlayButton()
 	internal let timeSlider = UZSlider()
 	internal let coverImageView = UIImageView()
 	internal let shareView = UZShareView()
 	internal let liveBadgeView = UZLiveBadgeView()
-	
-	var castingView: UZCastingView? = nil
-	
+	internal var castingView: UZCastingView? = nil
 	internal var loadingIndicatorView: NVActivityIndicatorView? = nil
+	
+	internal var liveStartDate: Date? = nil {
+		didSet {
+			updateLiveDate()
+		}
+	}
+	
+	fileprivate var timer: Timer? = nil
+	
+	// MARK: -
 	
 	init() {
 		super.init(frame: .zero)
@@ -152,6 +161,13 @@ open class UZPlayerControlView: UIView {
 		timeSlider.addTarget(self, action: #selector(progressSliderTouchBegan(_:)), for: .touchDown)
 		timeSlider.addTarget(self, action: #selector(progressSliderValueChanged(_:)), for: .valueChanged)
 		timeSlider.addTarget(self, action: #selector(progressSliderTouchEnded(_:)), for: [.touchUpInside, .touchCancel, .touchUpOutside])
+		
+		enlapseTimeLabel.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .medium)
+		enlapseTimeLabel.setTitleColor(.white, for: .normal)
+		enlapseTimeLabel.setBackgroundColor(UIColor(white: 0.2, alpha: 0.8), for: .normal)
+		enlapseTimeLabel.extendSize = CGSize(width: 10, height: 4)
+		enlapseTimeLabel.cornerRadius = 4
+		enlapseTimeLabel.isUserInteractionEnabled = false
 		
 		loadingIndicatorView?.isUserInteractionEnabled = false
 		
@@ -472,6 +488,15 @@ open class UZPlayerControlView: UIView {
 		}
 	}
 	
+	private func updateLiveDate() {
+		timer?.invalidate()
+		timer = nil
+		
+		if liveStartDate != nil {
+			timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(onTimer), userInfo: nil, repeats: true)
+		}
+	}
+	
 	// MARK: - Action
 	
 	@objc open func onButtonPressed(_ button: UIButton) {
@@ -506,6 +531,18 @@ open class UZPlayerControlView: UIView {
 		}
 		
 		delegate?.controlView(controlView: self, didSelectButton: fullscreenButton)
+	}
+	
+	@objc func onTimer() {
+		if let date = liveStartDate {
+			enlapseTimeLabel.setTitle(Date().timeIntervalSince(date).toString, for: .normal)
+			enlapseTimeLabel.isHidden = false
+			enlapseTimeLabel.superview?.setNeedsLayout()
+		}
+		else {
+			enlapseTimeLabel.setTitle(nil, for: .normal)
+			enlapseTimeLabel.isHidden = true
+		}
 	}
 	
 	// MARK: - Handle slider actions
@@ -548,7 +585,7 @@ import NKFrameLayoutKit
 
 open class UZLiveBadgeView: UIView {
 	
-	open var views: Int = 0 {
+	public var views: Int = 0 {
 		didSet {
 			if views < 0 {
 				viewBadge.setTitle("0", for: .normal)

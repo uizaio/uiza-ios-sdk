@@ -156,6 +156,7 @@ open class UZPlayer: UIView {
 		controlView.hideEndScreen()
 		controlView.showControlView()
 		controlView.showLoader()
+		controlView.liveStartDate = nil
 		
 		let service = UZContentServices()
 		service.loadLinkPlay(video: video) { [weak self] (results, error) in
@@ -171,6 +172,7 @@ open class UZPlayer: UIView {
 					
 					if video.isLive {
 						self.loadLiveViews()
+						self.loadLiveStatus()
 					}
 				})
 			}
@@ -291,6 +293,7 @@ open class UZPlayer: UIView {
 	Stop and unload the player
 	*/
 	open func stop() {
+		controlView.liveStartDate = nil
 		controlView.hideEndScreen()
 		controlView.hideMessage()
 		controlView.hideCoverImageView()
@@ -467,6 +470,15 @@ open class UZPlayer: UIView {
 				}
 				
 				self.liveViewTimer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(self.loadLiveViews), userInfo: nil, repeats: false)
+			}
+		}
+	}
+	
+	func loadLiveStatus() {
+		if let currentVideo = currentVideo {
+			UZContentServices().loadLiveStatus(video: currentVideo) { [weak self] (status, error) in
+				guard let `self` = self else { return }
+				self.controlView.liveStartDate = status?.startDate
 			}
 		}
 	}

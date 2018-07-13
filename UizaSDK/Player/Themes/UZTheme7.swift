@@ -203,6 +203,7 @@ open class UZTheme7: UZPlayerTheme {
 		controlView.containerView.addSubview(controlView.timeSlider)
 //		controlView.containerView.addSubview(controlView.playpauseCenterButton)
 		
+		controlView.addSubview(controlView.enlapseTimeLabel)
 		controlView.addSubview(controlView.liveBadgeView)
 		
 		controlView.loadingIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 30, height: 30), type: NVActivityIndicatorType.ballRotateChase, color: .white, padding: 0)
@@ -226,10 +227,14 @@ open class UZTheme7: UZPlayerTheme {
 			controlView.loadingIndicatorView?.center = controlView.center
 		}
 		
-		if let controlView = controlView, controlView.liveBadgeView.isHidden == false {
+		if let controlView = controlView {
 			let viewSize = controlView.bounds.size
+			
 			let badgeSize = controlView.liveBadgeView.sizeThatFits(viewSize)
 			controlView.liveBadgeView.frame = CGRect(x: (viewSize.width - badgeSize.width)/2, y: 10, width: badgeSize.width, height: badgeSize.height)
+			
+			let labelSize = controlView.enlapseTimeLabel.sizeThatFits(viewSize)
+			controlView.enlapseTimeLabel.frame = CGRect(x: 10, y: viewSize.height - labelSize.height - 10, width: labelSize.width, height: labelSize.height)
 		}
 	}
 	

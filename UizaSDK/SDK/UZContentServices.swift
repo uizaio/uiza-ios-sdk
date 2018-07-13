@@ -407,7 +407,7 @@ open class UZContentServices: UZAPIConnector {
 //			DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
-				completionBlock?(-1, error)
+				completionBlock?(nil, error)
 			}
 			else {
 				var status: UZLiveVideoStatus? = nil
@@ -415,7 +415,7 @@ open class UZContentServices: UZAPIConnector {
 					status = UZLiveVideoStatus(data: data)
 				}
 				
-				completionBlock?(views, nil)
+				completionBlock?(status, nil)
 			}
 		}
 	}

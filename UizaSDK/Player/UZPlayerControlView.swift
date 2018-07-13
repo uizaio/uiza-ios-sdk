@@ -314,17 +314,14 @@ open class UZPlayerControlView: UIView {
 		
 		let isLiveVideo = (video?.isLive ?? false)
 		liveBadgeView.isHidden = !isLiveVideo
-		titleLabel.isHidden = isLiveVideo
-		totalTimeLabel.alpha = isLiveVideo ? 0 : 1
-		remainTimeLabel.alpha = isLiveVideo ? 0 : 1
-		currentTimeLabel.alpha = isLiveVideo ? 0 : 1
-		timeSlider.alpha = isLiveVideo ? 0 : 1
-		forwardButton.alpha = isLiveVideo ? 0 : 1
-		backwardButton.alpha = isLiveVideo ? 0 : 1
 		
-		timeSlider.isUserInteractionEnabled = !isLiveVideo
-		forwardButton.isUserInteractionEnabled = !isLiveVideo
-		backwardButton.isUserInteractionEnabled = !isLiveVideo
+		let hiddenViewsWhenLive : [UIView] = [titleLabel, totalTimeLabel, remainTimeLabel, currentTimeLabel, timeSlider, playpauseButton, playpauseCenterButton, forwardButton, backwardButton, settingsButton, playlistButton]
+		for view in hiddenViewsWhenLive {
+			view.isHidden = isLiveVideo
+		}
+		
+		helpButton.isHidden = isLiveVideo
+		ccButton.isHidden = isLiveVideo
 		
 		settingsButton.isHidden = true //resource.definitions.count < 2
 		autoFadeOutControlView(after: autoHideControlsInterval)

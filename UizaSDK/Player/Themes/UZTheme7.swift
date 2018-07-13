@@ -234,7 +234,7 @@ open class UZTheme7: UZPlayerTheme {
 			controlView.liveBadgeView.frame = CGRect(x: (viewSize.width - badgeSize.width)/2, y: 10, width: badgeSize.width, height: badgeSize.height)
 			
 			let labelSize = controlView.enlapseTimeLabel.sizeThatFits(viewSize)
-			controlView.enlapseTimeLabel.frame = CGRect(x: 10, y: viewSize.height - labelSize.height - 10, width: labelSize.width, height: labelSize.height)
+			controlView.enlapseTimeLabel.frame = CGRect(x: (viewSize.width - labelSize.width)/2, y: viewSize.height - labelSize.height - 10, width: labelSize.width, height: labelSize.height)
 		}
 	}
 	

@@ -83,10 +83,10 @@ open class UZVideoItem: UZModelObject {
 	public var videoURL				: URL? = nil
 	/** Thời lượng của video này */
 	public var duration				: TimeInterval! = 0
+	/** `true` nếu là video đang trực tiếp */
+	public var isLive: Bool = false
 	
 	public var subtitleURLs: [URL]? = nil
-	
-	internal var isLive: Bool = false
 	
 	override func parse(_ data: NSDictionary?) {
 		if data != nil {

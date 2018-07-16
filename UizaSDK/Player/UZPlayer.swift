@@ -478,7 +478,17 @@ open class UZPlayer: UIView {
 		if let currentVideo = currentVideo {
 			UZContentServices().loadLiveStatus(video: currentVideo) { [weak self] (status, error) in
 				guard let `self` = self else { return }
-				self.controlView.liveStartDate = status?.startDate
+				
+				if let status = status {
+					if status.state == "stop" || status.endDate != nil {
+						self.stop()
+						self.controlView.hideLoader()
+						self.showMessage("This live video has ended")
+					}
+					else {
+						self.controlView.liveStartDate = status.startDate
+					}
+				}
 			}
 		}
 	}

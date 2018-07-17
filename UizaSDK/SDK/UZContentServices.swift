@@ -400,11 +400,10 @@ open class UZContentServices: UZAPIConnector {
 	public func loadLiveStatus(video: UZVideoItem, completionBlock: ((_ result: UZLiveVideoStatus?, _ error: Error?) -> Void)? = nil) {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.key]
 		
-		let params : [String: Any] = ["entityId" : video.id ?? "",
-									  "feedId" : video.feedId ?? ""]
+		let params : [String: Any] = ["feedId" : video.feedId ?? ""]
 		
 		self.callAPI("live/entity/tracking", baseURLString: basePrivateAPIURLPath(), method: .get, params: params) { (result, error) in
-//			DLog("\(String(describing: result)) - \(String(describing: error))")
+			DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
 				completionBlock?(nil, error)

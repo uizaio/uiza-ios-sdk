@@ -480,7 +480,7 @@ open class UZPlayer: UIView {
 				guard let `self` = self else { return }
 				
 				if let status = status {
-					if status.state == "stop" || status.endDate != nil {
+					if status.state == "stop" { // || status.endDate != nil
 						self.stop()
 						self.controlView.hideLoader()
 						self.showMessage("This live video has ended")

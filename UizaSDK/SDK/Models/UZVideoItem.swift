@@ -90,7 +90,7 @@ open class UZVideoItem: UZModelObject {
 	
 	override func parse(_ data: NSDictionary?) {
 		if data != nil {
-//			DLog("\(data!)")
+			DLog("\(data!)")
 			id					= data!.string(for: "id", defaultString: "")
 			categoryId			= data!.string(for: "category_id", defaultString: "")
 			feedId				= data!.string(for: "lastFeedId", defaultString: "")

@@ -495,6 +495,10 @@ open class UZPlayerControlView: UIView {
 		if liveStartDate != nil {
 			timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(onTimer), userInfo: nil, repeats: true)
 		}
+		else {
+			enlapseTimeLabel.setTitle(nil, for: .normal)
+			enlapseTimeLabel.isHidden = true
+		}
 	}
 	
 	// MARK: - Action

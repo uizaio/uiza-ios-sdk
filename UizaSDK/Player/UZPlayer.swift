@@ -475,11 +475,15 @@ open class UZPlayer: UIView {
 	}
 	
 	func loadLiveStatus() {
+		self.controlView.liveStartDate = nil
+		
 		if let currentVideo = currentVideo {
 			UZContentServices().loadLiveStatus(video: currentVideo) { [weak self] (status, error) in
 				guard let `self` = self else { return }
 				
 				if let status = status {
+					self.controlView.liveStartDate = status.startDate
+					/*
 					if status.state == "stop" { // || status.endDate != nil
 						self.stop()
 						self.controlView.hideLoader()
@@ -488,6 +492,7 @@ open class UZPlayer: UIView {
 					else {
 						self.controlView.liveStartDate = status.startDate
 					}
+					*/
 				}
 			}
 		}

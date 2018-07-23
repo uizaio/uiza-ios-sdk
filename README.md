@@ -37,28 +37,35 @@ Tải `UizaSDK.framework` và kéo vào project của bạn, và phải thêm n�
 
 ## Cách Sử Dụng
 
+## Khởi tạo
 Luôn khởi động framework này trước khi gọi bất cứ hàm API nào bằng cách gọi lệnh sau:
 
 ``` swift
 import UizaSDK
 
-UizaSDK.initWith(accessKey: [YOUR_CLIENT_KEY], secretKey: [YOUR_SECRET_KEY], enviroment: .production)
+UizaSDK.initWith(appId: [YOUR_APP_ID], key: [YOUR_SECRET_KEY], domain: [YOUR_DOMAIN], enviroment: .production)
 ```
 
-Sau đó gọi hàm cấp phép hoạt động để sinh ra token phục vụ cho các hàm API khác:
-
+## Gọi hàm API
 ``` swift
-UZAccountServices().authorize { (token: UZToken?, error: Error?) in
-	if error != nil {
-		// error
-	}
-	else {
-		// đã được cấp phép, sẵn sàng gọi các hàm API khác
-	}
-}
+UZContentServices().loadDetail(videoId: VIDEO_ID, completionBlock: { (videoItem, error) in
+  if error != nil {
+    print("Error: \(error)")
+  }
+  else {
+    print("Video: \(videoItem)")
+  }
+})
 ```
 
-[Tài liệu API](https://uizaio.github.io/uiza-sdk-player-ios/)
+## Cách play video
+``` swift
+let playerViewController = UZPlayerViewController()
+playerViewController.player.loadVideo(videoItem)
+present(playerViewController, animated: true, completion: nil)
+```
+
+Xem chi tiết [Tài liệu API](https://uizaio.github.io/uiza-sdk-player-ios/)
 
 ## Hỗ Trợ
 namnh@uiza.io
@@ -96,28 +103,35 @@ Download `UizaSDK.framework` and drag it into your project, add it to Embbeded B
 
 ## Usage
 
+## Framework Init
 Always initialize the framework by the following line before calling any API functions:
 
 ``` swift
 import UizaSDK
 
-UizaSDK.initWith(accessKey: [YOUR_CLIENT_KEY], secretKey: [YOUR_SECRET_KEY], enviroment: .production)
+UizaSDK.initWith(appId: [YOUR_APP_ID], key: [YOUR_SECRET_KEY], domain: [YOUR_DOMAIN], enviroment: .production)
 ```
 
-Then call this authorize function to generate token in order to make other API functions to work:
-
+## Call API
 ``` swift
-UZAccountServices().authorize { (token: UZToken?, error: Error?) in
-	if error != nil {
-		// error
-	}
-	else {
-		// authorized, ready to call other API functions
-	}
-}
+UZContentServices().loadDetail(videoId: VIDEO_ID, completionBlock: { (videoItem, error) in
+  if error != nil {
+    print("Error: \(error)")
+  }
+  else {
+    print("Video: \(videoItem)")
+  }
+})
 ```
 
-[API Document](https://uizaio.github.io/uiza-sdk-player-ios/)
+## How to play video
+``` swift
+let playerViewController = UZPlayerViewController()
+playerViewController.player.loadVideo(videoItem)
+present(playerViewController, animated: true, completion: nil)
+```
+
+For API details, check [API Document](https://uizaio.github.io/uiza-sdk-player-ios/)
 
 ## Support
 namnh@uiza.io

@@ -33,7 +33,13 @@ class ViewController: UIViewController {
 		//				DLog("OK \(results) - \(error)")
 		//			})
 		
-		self.playerViewController.player.loadVideo(videoId: "45a908f7-a62e-4eaf-8ce2-dc5699f33406") // b7297b29-c6c4-4bd6-a74f-b60d0118d275
+//		self.playerViewController.player.loadVideo(videoId: "45a908f7-a62e-4eaf-8ce2-dc5699f33406") // b7297b29-c6c4-4bd6-a74f-b60d0118d275
+		
+		UZContentServices().loadLiveVideo(page: 0, limit: 10) { (videos, pagination, error) in
+			if let videoItem = videos?.first {
+				self.playerViewController.player.loadVideo(videoItem)
+			}
+		}
 		
 //		UZContentServices().loadLiveVideo(page: 0, limit: 10, completionBlock: { (results, pagination, error) in
 //			DLog("OK \(results) - \(error)")

@@ -188,7 +188,7 @@ open class UZAPIConnector {
 		
 		if UizaSDK.showRestfulInfo {
 			let headerString = self.requestHeaderFields != nil ? "Header: \(self.requestHeaderFields as NSDictionary)" : ""
-			DLog("[UizaSDK] [\(method.rawValue)] \(nodeURL!) \(finalParams as NSDictionary)\n\(headerString)");
+			print("[UizaSDK] [\(method.rawValue)] \(nodeURL!) \(finalParams as NSDictionary)\n\(headerString)");
 		}
 		
 		self.startLoadURL(nodeURL, withMethod: method, andParams: finalParams, completionBlock: { (result:Any) in

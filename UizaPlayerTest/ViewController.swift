@@ -33,14 +33,16 @@ class ViewController: UIViewController {
 		//				DLog("OK \(results) - \(error)")
 		//			})
 		
-		UZContentServices().loadLiveVideo(page: 0, limit: 10, completionBlock: { (results, pagination, error) in
-			DLog("OK \(results) - \(error)")
-			
-			if let videoItem = results?.first {
-				DLog("OK \(videoItem.data)")
-				self.playerViewController.player.loadVideo(videoItem)
-			}
-		})
+		self.playerViewController.player.loadVideo(videoId: "45a908f7-a62e-4eaf-8ce2-dc5699f33406") // b7297b29-c6c4-4bd6-a74f-b60d0118d275
+		
+//		UZContentServices().loadLiveVideo(page: 0, limit: 10, completionBlock: { (results, pagination, error) in
+//			DLog("OK \(results) - \(error)")
+//
+//			if let videoItem = results?.first {
+//				DLog("OK \(videoItem.data)")
+//				self.playerViewController.player.loadVideo(videoItem)
+//			}
+//		})
 	}
 	
 	override func viewDidLayoutSubviews() {
@@ -80,18 +82,4 @@ class ViewController: UIViewController {
 		themeIndex += 1
 	}
 
-}
-
-extension NSObject {
-	// create a static method to get a swift class for a string name
-	class func swiftClassFromString(className: String) -> AnyClass! {
-		// get the project name
-		if let appName = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String {
-			// generate the full name of your class (take a look into your "YourProject-swift.h" file)
-			let classStringName = "_TtC\(appName.count)\(appName)\(className.count)\(className)"
-			// return the class!
-			return NSClassFromString(classStringName)
-		}
-		return nil;
-	}
 }

@@ -138,6 +138,28 @@ open class UZPlayer: UIView {
 	// MARK: - Public functions
 	
 	/**
+	Load and play a videoId
+	
+	- parameter videoId: `id` of video
+	- parameter completionBlock: callback block with `[UZVideoLinkPlay]` or Error
+	*/
+	open func loadVideo(videoId: String, completionBlock:((_ linkPlays: [UZVideoLinkPlay]?, _ error: Error?) -> Void)? = nil) {
+		UZContentServices().loadDetail(videoId: videoId) { [weak self] (videoItem, error) in
+			guard let `self` = self else { return }
+			
+			if videoItem != nil {
+				self.loadVideo(videoItem!, completionBlock: completionBlock)
+			}
+			else if error != nil {
+				self.showMessage(error!.localizedDescription)
+			}
+			else {
+				self.showMessage("Unable to load video")
+			}
+		}
+	}
+	
+	/**
 	Play an `UZVideoItem`
 	
 	- parameter video: UZVideoItem

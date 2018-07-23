@@ -174,23 +174,30 @@ open class UZContentServices: UZAPIConnector {
 	- parameter videoId: `id` của video cần tải
 	- parameter completionBlock: block được gọi sau khi hoàn thành, trả về UZVideoItem với đầy đủ thông tin chi tiết, hoặc error nếu có lỗi
 	*/
-	public func loadDetail(videoId: String, completionBlock:((_ video: UZVideoItem?, _ error: Error?) -> Void)? = nil) {
+	public func loadDetail(videoId: String, isLive: Bool = false, completionBlock:((_ video: UZVideoItem?, _ error: Error?) -> Void)? = nil) {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.key]
 		
 		let params : [String: Any] = ["id" : videoId]
 		
-		self.callAPI("media/metadata", method: .get, params: params) { (result, error) in
+		self.callAPI(isLive ? "live/entity" : "media/entity", method: .get, params: params) { (result, error) in
 			DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
 				completionBlock?(nil, error)
 			}
 			else {
-				if let dataArray = result?.array(for: "data", defaultValue: nil) as? [NSDictionary],
-				   let data = dataArray.first
-				{
-					let movieItem = UZVideoItem(data: data)
-					completionBlock?(movieItem, nil)
+				if let data = result?.value(for: "data", defaultValue: nil) as? NSDictionary {
+					if data.allKeys.isEmpty && !isLive {
+						self.loadDetail(videoId: videoId, isLive: true, completionBlock: completionBlock)
+					}
+					else {
+						let movieItem = UZVideoItem(data: data)
+						movieItem.isLive = isLive
+						completionBlock?(movieItem, nil)
+					}
+				}
+				else if !isLive {
+					self.loadDetail(videoId: videoId, isLive: true, completionBlock: completionBlock)
 				}
 				else {
 					completionBlock?(nil, nil)

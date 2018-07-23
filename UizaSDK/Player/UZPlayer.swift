@@ -180,23 +180,19 @@ open class UZPlayer: UIView {
 		controlView.showLoader()
 		controlView.liveStartDate = nil
 		
-		let service = UZContentServices()
-		service.loadLinkPlay(video: video) { [weak self] (results, error) in
-			guard let `self` = self else { return }
+		UZContentServices().loadLinkPlay(video: video) { (results, error) in
 			self.controlView.hideLoader()
 			
-			if results != nil {
-				service.loadDetail(videoId: video.id, completionBlock: { (videoItem, error) in
-					self.currentVideo?.videoURL = results?.first?.avURLAsset.url
-					UZLogger().log(event: "plays_requested", video: video, completionBlock: nil)
-					let resource = UZPlayerResource(name: video.name, definitions: results!, subtitles: videoItem?.subtitleURLs, cover: video.thumbnailURL)
-					self.setResource(resource: resource)
-					
-					if video.isLive {
-						self.loadLiveViews()
-						self.loadLiveStatus()
-					}
-				})
+			if let results = results {
+				self.currentVideo?.videoURL = results.first?.avURLAsset.url
+				UZLogger().log(event: "plays_requested", video: video, completionBlock: nil)
+				let resource = UZPlayerResource(name: video.name, definitions: results, subtitles: video.subtitleURLs, cover: video.thumbnailURL)
+				self.setResource(resource: resource)
+				
+				if video.isLive {
+					self.loadLiveViews()
+					self.loadLiveStatus()
+				}
 			}
 			else if let error = error {
 				self.showMessage(error.localizedDescription)
@@ -315,6 +311,9 @@ open class UZPlayer: UIView {
 	Stop and unload the player
 	*/
 	open func stop() {
+		liveViewTimer?.invalidate()
+		liveViewTimer = nil
+		
 		controlView.liveStartDate = nil
 		controlView.hideEndScreen()
 		controlView.hideMessage()

@@ -711,6 +711,10 @@ open class UZPlayer: UIView {
 		}
 	}
 	
+	open func showAirPlayDevicesSelection() {
+//		let viewController = MPAudioVideoRoutingPopoverController()
+	}
+	
 	// MARK: - KVO
 	
 	override open func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {

@@ -29,6 +29,7 @@ public enum UZButtonTag: Int {
 	case pip		= 116
 	case chromecast = 117
 	case airplay	= 118
+	case casting	= 119
 }
 
 public protocol UZPlayerTheme {
@@ -112,6 +113,7 @@ open class UZPlayerControlView: UIView {
 	internal let settingsButton = NKButton()
 	internal let helpButton = NKButton()
 	internal let pipButton = NKButton()
+	internal let castingButton = NKButton()
 	internal let enlapseTimeLabel = NKButton()
 	internal let airplayButton = UZAirPlayButton()
 	internal let timeSlider = UZSlider()
@@ -184,6 +186,7 @@ open class UZPlayerControlView: UIView {
 		helpButton.tag = UZButtonTag.help.rawValue
 		pipButton.tag = UZButtonTag.pip.rawValue
 		airplayButton.tag = UZButtonTag.airplay.rawValue
+		castingButton.tag = UZButtonTag.casting.rawValue
 		
 		var allButtons: [UIButton] = self.allButtons
 		allButtons.append(contentsOf: shareView.allButtons)

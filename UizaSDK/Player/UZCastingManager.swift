@@ -15,10 +15,21 @@ open class UZCastingManager: NSObject {
 	private init() {}
 	
 	let discoverManager = GCKCastContext.sharedInstance().discoveryManager
+	let sessionManager = GCKCastContext.sharedInstance().sessionManager
+	
+	var hasConnectedSession: Bool {
+		return sessionManager.hasConnectedCastSession
+	}
 	
 	var deviceCount: UInt {
 		return discoverManager.deviceCount
 	}
+	
+	func device(at index: UInt) -> GCKDevice {
+		return discoverManager.device(at: index)
+	}
+	
+	// MARK: - Discover
 	
 	func startDiscovering() {
 		discoverManager.passiveScan = true
@@ -30,8 +41,15 @@ open class UZCastingManager: NSObject {
 		discoverManager.stopDiscovery()
 	}
 	
-	func device(at index: UInt) -> GCKDevice {
-		return discoverManager.device(at: index)
+	// MARK: - Connect
+	
+	func connect(to device: GCKDevice) {
+		sessionManager.add(self)
+		sessionManager.startSession(with: device)
+	}
+	
+	func disconnect() {
+		sessionManager.endSessionAndStopCasting(true)
 	}
 
 }
@@ -41,5 +59,9 @@ extension UZCastingManager: GCKDiscoveryManagerListener {
 	func didUpdateDeviceList() {
 		DLog("OK \(List updated)")
 	}
+	
+}
+
+extension UZCastingManager: GCKSessionManagerListener {
 	
 }

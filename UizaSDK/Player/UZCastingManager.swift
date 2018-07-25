@@ -11,18 +11,18 @@ import GoogleCast
 
 open class UZCastingManager: NSObject {
 	
-	static let sharedInstance = UZCastingManager()
-	private init() {}
+	static let shared = UZCastingManager()
+	private override init() {}
 	
 	let discoverManager = GCKCastContext.sharedInstance().discoveryManager
 	let sessionManager = GCKCastContext.sharedInstance().sessionManager
 	
 	var hasConnectedSession: Bool {
-		return sessionManager.hasConnectedCastSession
+		return sessionManager.hasConnectedCastSession()
 	}
 	
-	var deviceCount: UInt {
-		return discoverManager.deviceCount
+	var deviceCount: Int {
+		return Int(discoverManager.deviceCount)
 	}
 	
 	func device(at index: UInt) -> GCKDevice {
@@ -56,8 +56,8 @@ open class UZCastingManager: NSObject {
 
 extension UZCastingManager: GCKDiscoveryManagerListener {
 	
-	func didUpdateDeviceList() {
-		DLog("OK \(List updated)")
+	public func didUpdateDeviceList() {
+		DLog("Device list updated")
 	}
 	
 }

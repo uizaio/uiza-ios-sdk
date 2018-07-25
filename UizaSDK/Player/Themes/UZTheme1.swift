@@ -65,6 +65,8 @@ open class UZTheme1: UZPlayerTheme {
 		let fullscreenIcon = UIImage(icon: .fontAwesomeSolid(.expand), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let collapseIcon = UIImage(icon: .fontAwesomeSolid(.compress), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let thumbIcon = UIImage(icon: .fontAwesomeSolid(.circle), size: seekThumbSize, textColor: iconColor, backgroundColor: .clear)
+		let castIcon = UIImage(icon: .googleMaterialDesign(.cast), size: iconSize, textColor: iconColor, backgroundColor: .clear)
+		let castConnectedIcon = UIImage(icon: .googleMaterialDesign(.castConnected), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		
 		controlView.backButton.setImage(backIcon, for: .normal)
 		controlView.playlistButton.setImage(playlistIcon, for: .normal)
@@ -82,6 +84,8 @@ open class UZTheme1: UZPlayerTheme {
 		controlView.fullscreenButton.setImage(fullscreenIcon, for: .normal)
 		controlView.fullscreenButton.setImage(collapseIcon, for: .selected)
 		controlView.timeSlider.setThumbImage(thumbIcon, for: .normal)
+		controlView.castingButton.setImage(castIcon, for: .normal)
+		controlView.castingButton.setImage(castConnectedIcon, for: .selected)
 		
 		let pipStartIcon = AVPictureInPictureController.pictureInPictureButtonStartImage(compatibleWith: nil).colorize(with: iconColor)
 		let pipStopIcon = AVPictureInPictureController.pictureInPictureButtonStopImage(compatibleWith: nil).colorize(with: iconColor)
@@ -119,8 +123,8 @@ open class UZTheme1: UZPlayerTheme {
 	func setupLayout() {
 		guard let controlView = controlView else { return }
 		
-		let controlFrameLayout = NKGridFrameLayout(direction: .horizontal, andViews: [controlView.pipButton, controlView.airplayButton, controlView.playlistButton, controlView.settingsButton, controlView.volumeButton])!
-		controlFrameLayout.addSubview(controlView.airplayButton)
+		let controlFrameLayout = NKGridFrameLayout(direction: .horizontal, andViews: [controlView.pipButton, controlView.castingButton, controlView.playlistButton, controlView.settingsButton, controlView.volumeButton])!
+		controlFrameLayout.addSubview(controlView.castingButton)
 		controlFrameLayout.addSubview(controlView.pipButton)
 		controlFrameLayout.addSubview(controlView.playlistButton)
 		controlFrameLayout.addSubview(controlView.settingsButton)

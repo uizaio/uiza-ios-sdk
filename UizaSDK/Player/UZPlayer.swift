@@ -715,6 +715,11 @@ open class UZPlayer: UIView {
 //		let viewController = MPAudioVideoRoutingPopoverController()
 	}
 	
+	open func showCastingDeviceList() {
+		let viewController = UZDeviceListTableViewController()
+		NKModalViewManager.sharedInstance().presentModalViewController(viewController)
+	}
+	
 	// MARK: - KVO
 	
 	override open func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -876,6 +881,9 @@ extension UZPlayer: UZPlayerControlViewDelegate {
 			
 			case .caption:
 				showMediaOptionSelector()
+				
+			case .casting:
+				showCastingDeviceList()
 				
 			default:
 				#if DEBUG

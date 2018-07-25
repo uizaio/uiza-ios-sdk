@@ -717,7 +717,7 @@ open class UZPlayer: UIView {
 	
 	open func showCastingDeviceList() {
 		let viewController = UZDeviceListTableViewController()
-		NKModalViewManager.sharedInstance().presentModalViewController(viewController)
+		NKModalViewManager.sharedInstance().presentModalViewController(viewController).tapOutsideToDismiss = true
 	}
 	
 	// MARK: - KVO

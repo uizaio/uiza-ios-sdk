@@ -713,7 +713,21 @@ open class UZPlayer: UIView {
 	}
 	
 	@objc open func showAirPlayDevicesSelection() {
-//		let viewController = MPAudioVideoRoutingPopoverController()
+		let volumeView = UZAirPlayButton()
+		volumeView.alpha = 0
+		volumeView.isUserInteractionEnabled = false
+		self.addSubview(volumeView)
+		
+		for subview in volumeView.subviews {
+			if subview is UIButton {
+				let button = subview as! UIButton
+				button.sendActions(for: .touchUpInside)
+			}
+		}
+		
+		DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+			volumeView.removeFromSuperview()
+		}
 	}
 	
 	open func showCastingDeviceList() {

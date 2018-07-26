@@ -9,12 +9,23 @@
 import UIKit
 import GoogleCast
 
+extension Notification.Name {
+	
+	static let UZDeviceListDidUpdate 	= Notification.Name(rawValue: "UZDeviceListDidUpdate")
+	static let UZCastSessionDidStart	= Notification.Name(rawValue: "UZCastSessionDidStart")
+	static let UZCastSessionDidStop 	= Notification.Name(rawValue: "UZCastSessionDidStop")
+	static let UZDeviceDidReceiveText 	= Notification.Name(rawValue: "UZDeviceDidReceiveText")
+	static let UZShowAirPlayDeviceList	= Notification.Name(rawValue: "UZShowAirPlayDeviceList")
+	
+}
+
 open class UZCastingManager: NSObject {
 	
 	static let shared = UZCastingManager()
 	
 	var discoverManager : GCKDiscoveryManager!
 	var sessionManager : GCKSessionManager!
+	var currentCastSession: GCKCastSession? = nil
 	
 	var hasConnectedSession: Bool {
 		return sessionManager.hasConnectedCastSession()
@@ -50,6 +61,7 @@ open class UZCastingManager: NSObject {
 	}
 	
 	func stopDiscovering() {
+		DLog("Stop Discovering")
 		discoverManager.stopDiscovery()
 	}
 	
@@ -62,6 +74,7 @@ open class UZCastingManager: NSObject {
 	
 	func disconnect() {
 		sessionManager.endSessionAndStopCasting(true)
+		currentCastSession = nil
 	}
 
 }
@@ -70,6 +83,7 @@ extension UZCastingManager: GCKDiscoveryManagerListener {
 	
 	public func didUpdateDeviceList() {
 		DLog("Device list updated")
+		PostNotification(Notification.Name.UZDeviceListDidUpdate)
 	}
 	
 }
@@ -78,22 +92,36 @@ extension UZCastingManager: GCKSessionManagerListener {
 	
 	public func sessionManager(_ sessionManager: GCKSessionManager, didStart session: GCKCastSession) {
 		DLog("Did start cast session \(session)")
+		
+		currentCastSession = session
+		PostNotification(Notification.Name.UZCastSessionDidStart, object: session, userInfo: nil)
 	}
 	
 	public func sessionManager(_ sessionManager: GCKSessionManager, didResumeCastSession session: GCKCastSession) {
 		DLog("Did resume cast session \(session)")
+		
+		currentCastSession = session
+		PostNotification(Notification.Name.UZCastSessionDidStart, object: session, userInfo: nil)
 	}
 	
 	public func sessionManager(_ sessionManager: GCKSessionManager, session: GCKSession, didReceiveDeviceStatus statusText: String?) {
 		DLog("Did receive status: \(String(describing: statusText))")
+		
+		PostNotification(Notification.Name.UZDeviceDidReceiveText, object: statusText, userInfo: nil)
 	}
 	
 	public func sessionManager(_ sessionManager: GCKSessionManager, didEnd session: GCKSession, withError error: Error?) {
 		DLog("Did end with error \(String(describing: error))")
+		
+		PostNotification(Notification.Name.UZCastSessionDidStop, object: currentCastSession, userInfo: nil)
+		currentCastSession = nil
 	}
 	
 	public func sessionManager(_ sessionManager: GCKSessionManager, didSuspend session: GCKCastSession, with reason: GCKConnectionSuspendReason) {
 		DLog("Did suspend with reason: \(reason.rawValue)")
+		
+		PostNotification(Notification.Name.UZCastSessionDidStop, object: currentCastSession, userInfo: nil)
+		currentCastSession = nil
 	}
 	
 }

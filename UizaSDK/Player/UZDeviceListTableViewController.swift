@@ -15,6 +15,7 @@ open class UZDeviceListTableViewController: UITableViewController {
 	override open func viewDidLoad() {
         super.viewDidLoad()
 		
+		NotificationCenter.default.addObserver(self, selector: #selector(onDeviceListUpdated), name: NSNotification.Name.UZDeviceListDidUpdate, object: nil)
     }
 	
 	override open func viewDidAppear(_ animated: Bool) {
@@ -44,22 +45,55 @@ open class UZDeviceListTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override open func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
 
     override open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return section == 0 ? castingManager.deviceCount : 1
+		return section == 1 ? castingManager.deviceCount : 1
     }
 	
     override open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCell(withIdentifier: "Cell")
 		
 		if cell == nil {
-			cell = UITableViewCell(style: .default, reuseIdentifier: "Cell")
+			cell = UITableViewCell(style: .subtitle, reuseIdentifier: "Cell")
 		}
 		
         return cell!
     }
+	
+	override open func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+		let normalColor = UIColor(white: 0.2, alpha: 1.0)
+		let selectedColor = UIColor(red:0.28, green:0.49, blue:0.93, alpha:1.00)
+		
+		if indexPath.section == 0 {
+			if UIDevice.isPhone() {
+				cell.textLabel?.text = "This iPhone"
+				cell.imageView?.image = UIImage(icon: .googleMaterialDesign(.phoneIphone), size: CGSize(width: 32, height: 32), textColor: normalColor, backgroundColor: .clear)
+				cell.imageView?.highlightedImage = UIImage(icon: .googleMaterialDesign(.phoneIphone), size: CGSize(width: 32, height: 32), textColor: selectedColor, backgroundColor: .clear)
+			}
+			else {
+				cell.textLabel?.text = "This iPad"
+				cell.imageView?.image = UIImage(icon: .googleMaterialDesign(.tablet), size: CGSize(width: 32, height: 32), textColor: normalColor, backgroundColor: .clear)
+				cell.imageView?.highlightedImage = UIImage(icon: .googleMaterialDesign(.tablet), size: CGSize(width: 32, height: 32), textColor: selectedColor, backgroundColor: .clear)
+			}
+			
+			cell.detailTextLabel?.text = "Playing here"
+		}
+		else if indexPath.section == 1 {
+			let device = castingManager.device(at: UInt(indexPath.row))
+			cell.textLabel?.text = device.modelName
+			cell.detailTextLabel?.text = "Connect"
+			cell.imageView?.image = UIImage(icon: .googleMaterialDesign(.cast), size: CGSize(width: 32, height: 32), textColor: normalColor, backgroundColor: .clear)
+			cell.imageView?.highlightedImage = UIImage(icon: .googleMaterialDesign(.cast), size: CGSize(width: 32, height: 32), textColor: selectedColor, backgroundColor: .clear)
+		}
+		else if indexPath.section == 2 {
+			cell.textLabel?.text = "AirPlay and Bluetooth"
+			cell.detailTextLabel?.text = "Show more devices..."
+			cell.imageView?.image = UIImage(icon: .googleMaterialDesign(.airplay), size: CGSize(width: 32, height: 32), textColor: normalColor, backgroundColor: .clear)
+			cell.imageView?.highlightedImage = UIImage(icon: .googleMaterialDesign(.airplay), size: CGSize(width: 32, height: 32), textColor: selectedColor, backgroundColor: .clear)
+		}
+	}
 	
 	override open func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		return 50
@@ -67,11 +101,24 @@ open class UZDeviceListTableViewController: UITableViewController {
 	
 	override open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		if indexPath.section == 0 {
-			
+			castingManager.disconnect()
+		}
+		else if indexPath.section == 1 {
+			let device = castingManager.device(at: UInt(indexPath.row))
+			castingManager.connect(to: device)
 		}
 		else {
-			
+			self.dismiss(animated: true) {
+				PostNotification(.UZShowAirPlayDeviceList)
+			}
 		}
+	}
+	
+	// MARK: -
+	
+	@objc func onDeviceListUpdated() {
+		self.tableView.reloadData()
+		self.presentingModalViewController()?.setNeedsLayoutView()
 	}
 
 }

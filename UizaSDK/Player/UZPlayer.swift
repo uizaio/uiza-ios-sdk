@@ -577,6 +577,7 @@ open class UZPlayer: UIView {
 		
 		NotificationCenter.default.addObserver(self, selector: #selector(onOrientationChanged), name: .UIApplicationDidChangeStatusBarOrientation, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(onAudioRouteChanged), name: .AVAudioSessionRouteChange, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(showAirPlayDevicesSelection), name: .UZShowAirPlayDeviceList, object: nil)
 	}
 	
 	fileprivate func preparePlayer() {
@@ -711,7 +712,7 @@ open class UZPlayer: UIView {
 		}
 	}
 	
-	open func showAirPlayDevicesSelection() {
+	@objc open func showAirPlayDevicesSelection() {
 //		let viewController = MPAudioVideoRoutingPopoverController()
 	}
 	

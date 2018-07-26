@@ -34,7 +34,7 @@ open class UZDeviceListTableViewController: UITableViewController {
 		get {
 			var screenSize = UIScreen.main.bounds.size
 			screenSize.width = min(320, screenSize.width * 0.8)
-			screenSize.height = min(min(400, screenSize.height * 0.8), CGFloat((castingManager.deviceCount + 1) * 50))
+			screenSize.height = min(min(400, screenSize.height * 0.8), CGFloat((castingManager.deviceCount + 2) * 50))
 			return screenSize
 		}
 		set {
@@ -79,6 +79,7 @@ open class UZDeviceListTableViewController: UITableViewController {
 			}
 			
 			cell.detailTextLabel?.text = "Playing here"
+			cell.accessoryType = castingManager.currentCastSession == nil ? .checkmark : .none
 		}
 		else if indexPath.section == 1 {
 			let device = castingManager.device(at: UInt(indexPath.row))
@@ -86,12 +87,20 @@ open class UZDeviceListTableViewController: UITableViewController {
 			cell.detailTextLabel?.text = "Connect"
 			cell.imageView?.image = UIImage(icon: .googleMaterialDesign(.cast), size: CGSize(width: 32, height: 32), textColor: normalColor, backgroundColor: .clear)
 			cell.imageView?.highlightedImage = UIImage(icon: .googleMaterialDesign(.cast), size: CGSize(width: 32, height: 32), textColor: selectedColor, backgroundColor: .clear)
+			
+			if let currentCastSession = castingManager.currentCastSession {
+				cell.accessoryType = currentCastSession.device == device ? .checkmark : .none
+			}
+			else {
+				cell.accessoryType = .none
+			}
 		}
 		else if indexPath.section == 2 {
 			cell.textLabel?.text = "AirPlay and Bluetooth"
 			cell.detailTextLabel?.text = "Show more devices..."
 			cell.imageView?.image = UIImage(icon: .googleMaterialDesign(.airplay), size: CGSize(width: 32, height: 32), textColor: normalColor, backgroundColor: .clear)
 			cell.imageView?.highlightedImage = UIImage(icon: .googleMaterialDesign(.airplay), size: CGSize(width: 32, height: 32), textColor: selectedColor, backgroundColor: .clear)
+			cell.accessoryType = .none
 		}
 	}
 	

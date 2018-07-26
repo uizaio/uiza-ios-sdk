@@ -8,6 +8,7 @@
 
 import UIKit
 import NKModalViewManager
+import GoogleCast
 
 open class UZDeviceListTableViewController: UITableViewController {
 	
@@ -17,6 +18,8 @@ open class UZDeviceListTableViewController: UITableViewController {
         super.viewDidLoad()
 		
 		NotificationCenter.default.addObserver(self, selector: #selector(onDeviceListUpdated), name: NSNotification.Name.UZDeviceListDidUpdate, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(onSessionDidStart), name: NSNotification.Name.UZCastSessionDidStart, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(onSessionDidStop), name: NSNotification.Name.UZCastSessionDidStop, object: nil)
     }
 	
 	override open func viewDidAppear(_ animated: Bool) {
@@ -49,6 +52,23 @@ open class UZDeviceListTableViewController: UITableViewController {
 		}
 		else {
 			super.dismiss(animated: flag, completion: completion)
+		}
+	}
+	
+	func reloadCell(with device: GCKDevice) {
+		let count = castingManager.deviceCount
+		if count > 0 {
+			var index: Int? = nil
+			for i in 0..<count {
+				if device == castingManager.device(at: UInt(i)) {
+					index = i
+					break
+				}
+			}
+			
+			if let index = index {
+				tableView.reloadRows(at: [IndexPath(row: 0, section: 0), IndexPath(row: index, section: 1)], with: .none)
+			}
 		}
 	}
 	
@@ -146,6 +166,28 @@ open class UZDeviceListTableViewController: UITableViewController {
 	@objc func onDeviceListUpdated() {
 		self.tableView.reloadData()
 		self.presentingModalViewController()?.setNeedsLayoutView()
+	}
+	
+	@objc func onSessionDidStart(_ notification: Notification) {
+		if let device = castingManager.currentCastSession?.device {
+			reloadCell(with: device)
+		}
+		else {
+			tableView.reloadData()
+		}
+		
+		DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+			self.dismiss(animated: true, completion: nil)
+		}
+	}
+	
+	@objc func onSessionDidStop(_ notification: Notification) {
+		if let device = castingManager.currentCastSession?.device {
+			reloadCell(with: device)
+		}
+		else {
+			tableView.reloadData()
+		}
 	}
 
 }

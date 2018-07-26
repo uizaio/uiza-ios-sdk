@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import NKModalViewManager
 
 open class UZDeviceListTableViewController: UITableViewController {
 	
@@ -39,6 +40,15 @@ open class UZDeviceListTableViewController: UITableViewController {
 		}
 		set {
 			super.preferredContentSize = newValue
+		}
+	}
+	
+	override open func dismiss(animated flag: Bool, completion: (() -> Void)?) {
+		if let viewController = NKModalViewManager.sharedInstance().modalViewControllerThatContains(self) {
+			viewController.dismissWith(animated: flag, completion: completion)
+		}
+		else {
+			super.dismiss(animated: flag, completion: completion)
 		}
 	}
 	
@@ -111,10 +121,18 @@ open class UZDeviceListTableViewController: UITableViewController {
 	override open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		if indexPath.section == 0 {
 			castingManager.disconnect()
+			self.dismiss(animated: true, completion: nil)
 		}
 		else if indexPath.section == 1 {
 			let device = castingManager.device(at: UInt(indexPath.row))
 			castingManager.connect(to: device)
+			
+			if let cell = tableView.cellForRow(at: indexPath) {
+				let loadingView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+				loadingView.hidesWhenStopped = true
+				loadingView.startAnimating()
+				cell.accessoryView = loadingView
+			}
 		}
 		else {
 			self.dismiss(animated: true) {

@@ -19,7 +19,7 @@ internal class UZRelatedViewController: UIViewController {
 	init() {
 		super.init(nibName: nil, bundle: nil)
 		
-		titleLabel.text = "Video liên quan"
+		titleLabel.text = "Related Videos"
 		titleLabel.font = UIFont.systemFont(ofSize: 15, weight: .medium)
 		titleLabel.textColor = .white
 		titleLabel.textAlignment = .left
@@ -43,7 +43,7 @@ internal class UZRelatedViewController: UIViewController {
 				self.collectionViewController.collectionView?.reloadData()
 				
 				if results.isEmpty {
-					self.collectionViewController.showMessage(message: "(Không có video liên quan)")
+					self.collectionViewController.showMessage(message: "(No related videos)")
 				}
 				else {
 					self.collectionViewController.hideMessage()

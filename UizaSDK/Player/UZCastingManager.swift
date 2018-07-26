@@ -22,7 +22,7 @@ extension Notification.Name {
 public struct UZCastItem {
 	var id: String
 	var title: String
-	var customData: [String: AnyHashable]
+	var customData: [String: AnyHashable]?
 	var streamType: GCKMediaStreamType
 	var url: URL
 	var duration: TimeInterval

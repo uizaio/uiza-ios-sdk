@@ -476,6 +476,19 @@ open class UZPlayer: UIView {
 		}
 	}
 	
+	@objc func onCastSessionDidStart(_ notification: Notification) {
+		if let currentVideo = currentVideo, let linkPlay = currentLinkPlay {
+			let item = UZCastItem(id: currentVideo.id, title: currentVideo.name, customData: nil, streamType: currentVideo.isLive ? .live : .buffered, url: linkPlay.avURLAsset.url, duration: currentVideo.duration, playPosition: 0, mediaTracks: nil)
+			UZCastingManager.shared.castItem(item: item)
+		}
+	}
+	
+	@objc func onCastSessionDidStop(_ notification: Notification) {
+		
+	}
+	
+	// MARK: -
+	
 	@objc func loadLiveViews () {
 		liveViewTimer?.invalidate()
 		liveViewTimer = nil
@@ -578,6 +591,8 @@ open class UZPlayer: UIView {
 		NotificationCenter.default.addObserver(self, selector: #selector(onOrientationChanged), name: .UIApplicationDidChangeStatusBarOrientation, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(onAudioRouteChanged), name: .AVAudioSessionRouteChange, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(showAirPlayDevicesSelection), name: .UZShowAirPlayDeviceList, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(onCastSessionDidStart), name: NSNotification.Name.UZCastSessionDidStart, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(onCastSessionDidStop), name: NSNotification.Name.UZCastSessionDidStop, object: nil)
 	}
 	
 	fileprivate func preparePlayer() {

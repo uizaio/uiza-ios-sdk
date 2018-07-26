@@ -12,10 +12,9 @@ import GoogleCast
 open class UZCastingManager: NSObject {
 	
 	static let shared = UZCastingManager()
-	private override init() {}
 	
-	let discoverManager = GCKCastContext.sharedInstance().discoveryManager
-	let sessionManager = GCKCastContext.sharedInstance().sessionManager
+	var discoverManager : GCKDiscoveryManager!
+	var sessionManager : GCKSessionManager!
 	
 	var hasConnectedSession: Bool {
 		return sessionManager.hasConnectedCastSession()
@@ -29,9 +28,22 @@ open class UZCastingManager: NSObject {
 		return discoverManager.device(at: index)
 	}
 	
+	// MARK: -
+	
+	private override init() {
+		super.init()
+		
+		let option = GCKCastOptions(discoveryCriteria: GCKDiscoveryCriteria(applicationID: kGCKDefaultMediaReceiverApplicationID))
+		GCKCastContext.setSharedInstanceWith(option)
+		
+		discoverManager = GCKCastContext.sharedInstance().discoveryManager
+		sessionManager = GCKCastContext.sharedInstance().sessionManager
+	}
+	
 	// MARK: - Discover
 	
 	func startDiscovering() {
+		DLog("Start Discovering")
 		discoverManager.passiveScan = true
 		discoverManager.add(self)
 		discoverManager.startDiscovery()
@@ -63,5 +75,25 @@ extension UZCastingManager: GCKDiscoveryManagerListener {
 }
 
 extension UZCastingManager: GCKSessionManagerListener {
+	
+	public func sessionManager(_ sessionManager: GCKSessionManager, didStart session: GCKCastSession) {
+		DLog("Did start cast session \(session)")
+	}
+	
+	public func sessionManager(_ sessionManager: GCKSessionManager, didResumeCastSession session: GCKCastSession) {
+		DLog("Did resume cast session \(session)")
+	}
+	
+	public func sessionManager(_ sessionManager: GCKSessionManager, session: GCKSession, didReceiveDeviceStatus statusText: String?) {
+		DLog("Did receive status: \(String(describing: statusText))")
+	}
+	
+	public func sessionManager(_ sessionManager: GCKSessionManager, didEnd session: GCKSession, withError error: Error?) {
+		DLog("Did end with error \(String(describing: error))")
+	}
+	
+	public func sessionManager(_ sessionManager: GCKSessionManager, didSuspend session: GCKCastSession, with reason: GCKConnectionSuspendReason) {
+		DLog("Did suspend with reason: \(reason.rawValue)")
+	}
 	
 }

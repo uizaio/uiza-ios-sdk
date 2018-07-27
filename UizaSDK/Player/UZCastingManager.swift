@@ -106,6 +106,7 @@ open class UZCastingManager: NSObject {
 		
 		let metadata = GCKMediaMetadata(metadataType: .movie)
 		metadata.setString(item.title, forKey: kGCKMetadataKeyTitle)
+		
 		if let device = currentCastSession?.device, let deviceName = device.friendlyName {
 			metadata.setString(deviceName, forKey: kGCKMetadataKeyStudio)
 		}
@@ -121,7 +122,7 @@ open class UZCastingManager: NSObject {
 		builder.streamDuration = item.duration
 		builder.textTrackStyle = GCKMediaTextTrackStyle.createDefault()
 		builder.metadata = metadata
-		builder.contentType = "movie"
+		builder.contentType = "video/m3u8"
 		
 		let mediaInformation = builder.build()
 		
@@ -147,6 +148,29 @@ open class UZCastingManager: NSObject {
 		option.interval = interval
 		option.resumeState = resumeState
 		remoteClient?.seek(with: option)
+	}
+	
+	open func getSessionCurrentTime(completion: (TimeInterval?) -> Void) {
+		if let castSession = currentCastSession {
+			let remoteClient = castSession.remoteMediaClient
+			let currentTime = remoteClient?.approximateStreamPosition()
+			completion(currentTime)
+		}
+		else {
+			completion(nil)
+		}
+	}
+	
+	open func getMediaPlayerState(completion: (GCKMediaPlayerState) -> Void) {
+		if let castSession = sessionManager.currentCastSession,
+			let remoteClient = castSession.remoteMediaClient,
+			let mediaStatus = remoteClient.mediaStatus
+		{
+			completion(mediaStatus.playerState)
+		}
+		else {
+			completion(GCKMediaPlayerState.unknown)
+		}
 	}
 
 }

@@ -8,13 +8,13 @@
 
 import UIKit
 import NKModalViewManager
-import NKFrameLayoutKit
+import FrameLayoutKit
 
 internal class UZRelatedViewController: UIViewController {
 	let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
 	let titleLabel = UILabel()
 	let collectionViewController = UZRelatedVideoCollectionViewController()
-	var frameLayout: NKDoubleFrameLayout!
+	var frameLayout: DoubleFrameLayout!
 	
 	init() {
 		super.init(nibName: nil, bundle: nil)
@@ -24,7 +24,7 @@ internal class UZRelatedViewController: UIViewController {
 		titleLabel.textColor = .white
 		titleLabel.textAlignment = .left
 		
-		frameLayout = NKDoubleFrameLayout(direction: .vertical, andViews: [titleLabel, collectionViewController.view])
+		frameLayout = DoubleFrameLayout(direction: .vertical, views: [titleLabel, collectionViewController.view])
 		frameLayout.bottomFrameLayout.minSize = CGSize(width: 0, height: 100)
 		frameLayout.edgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
 		frameLayout.spacing = 10
@@ -327,7 +327,7 @@ internal class UZRelatedVideoCollectionViewController: UICollectionViewControlle
 // MARK: - UZMovieItemCollectionViewCell
 
 import SDWebImage
-import NKFrameLayoutKit
+import FrameLayoutKit
 
 class UZMovieItemCollectionViewCell : UICollectionViewCell {
 	var imageView			: UIImageView!
@@ -336,8 +336,8 @@ class UZMovieItemCollectionViewCell : UICollectionViewCell {
 	var detailLabel			: UILabel!
 	var placeholderImage	: UIImage! = nil
 	var displayMode			: UZCellDisplayMode! = .portrait
-	var textFrameLayout		: NKDoubleFrameLayout!
-	var frameLayout			: NKDoubleFrameLayout!
+	var textFrameLayout		: DoubleFrameLayout!
+	var frameLayout			: DoubleFrameLayout!
 	var highlightMode		= false {
 		didSet {
 			self.isSelected = super.isSelected
@@ -445,13 +445,13 @@ class UZMovieItemCollectionViewCell : UICollectionViewCell {
 		self.contentView.addSubview(titleLabel)
 		self.contentView.addSubview(detailLabel)
 		
-		textFrameLayout = NKDoubleFrameLayout(direction: .vertical, andViews: [detailLabel])!
+		textFrameLayout = DoubleFrameLayout(direction: .vertical, views: [detailLabel])
 		textFrameLayout.spacing = 5
 		textFrameLayout.edgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
 		textFrameLayout.isHidden = true
 		self.contentView.addSubview(textFrameLayout)
 		
-		frameLayout = NKDoubleFrameLayout(direction: .vertical, andViews: [imageView, textFrameLayout])
+		frameLayout = DoubleFrameLayout(direction: .vertical, views: [imageView, textFrameLayout])
 		frameLayout.bottomFrameLayout.fixSize = CGSize(width: 0, height: 40)
 		frameLayout.layoutAlignment = .bottom
 		frameLayout.spacing = 0

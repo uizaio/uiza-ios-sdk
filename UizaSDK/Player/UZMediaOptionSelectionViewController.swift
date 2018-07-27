@@ -8,13 +8,13 @@
 
 import UIKit
 import AVFoundation
-import NKFrameLayoutKit
+import FrameLayoutKit
 import NKModalViewManager
 
 class UZMediaOptionSelectionViewController: UIViewController {
 	let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
 	let collectionViewController = UZMediaOptionSelectionCollectionViewController()
-	var frameLayout: NKFrameLayout!
+	var frameLayout: FrameLayout!
 	
 	var selectedSubtitleOption: AVMediaSelectionOption? {
 		didSet {
@@ -52,7 +52,7 @@ class UZMediaOptionSelectionViewController: UIViewController {
 	init() {
 		super.init(nibName: nil, bundle: nil)
 		
-		frameLayout = NKFrameLayout(targetView: collectionViewController.view)
+		frameLayout = FrameLayout(targetView: collectionViewController.view)
 		frameLayout.minSize = CGSize(width: 0, height: 100)
 		frameLayout.edgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
 	}
@@ -325,12 +325,12 @@ internal class UZMediaOptionSelectionCollectionViewController: UICollectionViewC
 
 // MARK: - UZMediaOptionItemCollectionViewCell
 
-import NKFrameLayoutKit
+import FrameLayoutKit
 
 class UZMediaOptionItemCollectionViewCell : UICollectionViewCell {
 	var highlightView		: UIView!
 	var titleLabel			: UILabel!
-	var frameLayout			: NKDoubleFrameLayout!
+	var frameLayout			: DoubleFrameLayout!
 	var highlightMode		= false {
 		didSet {
 			self.isSelected = super.isSelected
@@ -416,7 +416,7 @@ class UZMediaOptionItemCollectionViewCell : UICollectionViewCell {
 		self.contentView.addSubview(highlightView)
 		self.contentView.addSubview(titleLabel)
 		
-		frameLayout = NKDoubleFrameLayout(direction: .horizontal, andViews: [titleLabel])
+		frameLayout = DoubleFrameLayout(direction: .horizontal, views: [titleLabel])
 		frameLayout.bottomFrameLayout.fixSize = CGSize(width: 0, height: 40)
 		frameLayout.layoutAlignment = .center
 		frameLayout.spacing = 0
@@ -457,7 +457,7 @@ class UZMediaOptionItemCollectionViewCell : UICollectionViewCell {
 class UZTitleCollectionViewHeader: UICollectionReusableView {
 	
 	let label = UILabel()
-	var frameLayout : NKFrameLayout!
+	var frameLayout : FrameLayout!
 	
 	var title: String? {
 		get {
@@ -477,7 +477,7 @@ class UZTitleCollectionViewHeader: UICollectionReusableView {
 		label.font = UIFont.systemFont(ofSize: 14, weight: .bold)
 		label.textColor = .gray
 		
-		frameLayout = NKFrameLayout(targetView: label)
+		frameLayout = FrameLayout(targetView: label)
 		frameLayout.addSubview(label)
 		frameLayout.edgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 0, right: 0)
 		self.addSubview(frameLayout)

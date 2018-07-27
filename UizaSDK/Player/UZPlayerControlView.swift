@@ -8,7 +8,7 @@
 
 import UIKit
 import NKButton
-import NKFrameLayoutKit
+import FrameLayoutKit
 import NVActivityIndicatorView
 
 public enum UZButtonTag: Int {
@@ -588,7 +588,7 @@ extension UZPlayerControlView: UIGestureRecognizerDelegate {
 }
 
 // MARK: - UZLiveBadgeView
-import NKFrameLayoutKit
+import FrameLayoutKit
 
 open class UZLiveBadgeView: UIView {
 	
@@ -607,7 +607,7 @@ open class UZLiveBadgeView: UIView {
 	
 	fileprivate let liveBadge = NKButton()
 	fileprivate let viewBadge = NKButton()
-	fileprivate var frameLayout: NKDoubleFrameLayout!
+	fileprivate var frameLayout: DoubleFrameLayout!
 	
 	init() {
 		super.init(frame: .zero)
@@ -634,9 +634,9 @@ open class UZLiveBadgeView: UIView {
 		self.addSubview(liveBadge)
 		self.addSubview(viewBadge)
 		
-		frameLayout = NKDoubleFrameLayout(direction: .horizontal, andViews: [liveBadge, viewBadge])
+		frameLayout = DoubleFrameLayout(direction: .horizontal, views: [liveBadge, viewBadge])
 		frameLayout.spacing = 5
-		frameLayout.intrinsicSizeEnabled = true
+		frameLayout.isIntrinsicSizeEnabled = true
 		self.addSubview(frameLayout)
 	}
 	

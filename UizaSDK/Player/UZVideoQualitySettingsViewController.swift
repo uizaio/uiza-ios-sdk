@@ -7,14 +7,14 @@
 //
 
 import UIKit
-import NKFrameLayoutKit
+import FrameLayoutKit
 import NKModalViewManager
 
 internal class UZVideoQualitySettingsViewController: UIViewController {
 	let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
 	let titleLabel = UILabel()
 	let collectionViewController = UZVideoQualityCollectionViewController()
-	var frameLayout: NKDoubleFrameLayout!
+	var frameLayout: DoubleFrameLayout!
 	
 	var currentDefinition: UZVideoLinkPlay? {
 		didSet {
@@ -39,7 +39,7 @@ internal class UZVideoQualitySettingsViewController: UIViewController {
 		titleLabel.textColor = .white
 		titleLabel.textAlignment = .center
 		
-		frameLayout = NKDoubleFrameLayout(direction: .vertical, andViews: [titleLabel, collectionViewController.view])
+		frameLayout = DoubleFrameLayout(direction: .vertical, views: [titleLabel, collectionViewController.view])
 		frameLayout.bottomFrameLayout.minSize = CGSize(width: 0, height: 100)
 		frameLayout.edgeInsets = UIEdgeInsets(top: 20, left: 10, bottom: 10, right: 10)
 		frameLayout.spacing = 20
@@ -329,12 +329,12 @@ internal class UZVideoQualityCollectionViewController: UICollectionViewControlle
 
 // MARK: - UZQualityItemCollectionViewCell
 
-import NKFrameLayoutKit
+import FrameLayoutKit
 
 class UZQualityItemCollectionViewCell : UICollectionViewCell {
 	var highlightView		: UIView!
 	var titleLabel			: UILabel!
-	var frameLayout			: NKDoubleFrameLayout!
+	var frameLayout			: DoubleFrameLayout!
 	var highlightMode		= false {
 		didSet {
 			self.isSelected = super.isSelected
@@ -420,7 +420,7 @@ class UZQualityItemCollectionViewCell : UICollectionViewCell {
 		self.contentView.addSubview(highlightView)
 		self.contentView.addSubview(titleLabel)
 		
-		frameLayout = NKDoubleFrameLayout(direction: .horizontal, andViews: [titleLabel])
+		frameLayout = DoubleFrameLayout(direction: .horizontal, views: [titleLabel])
 		frameLayout.bottomFrameLayout.fixSize = CGSize(width: 0, height: 40)
 		frameLayout.layoutAlignment = .center
 		frameLayout.spacing = 0

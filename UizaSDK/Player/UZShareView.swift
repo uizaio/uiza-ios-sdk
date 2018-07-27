@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import NKFrameLayoutKit
+import FrameLayoutKit
 import NKButton
 
 open class UZShareView: UIView {
@@ -15,7 +15,7 @@ open class UZShareView: UIView {
 	let titleLabel = UILabel()
 	let replayButton = NKButton()
 	let shareButton = NKButton()
-	var frameLayout: NKStackFrameLayout?
+	var frameLayout: StackFrameLayout?
 	
 	open var allButtons: [UIButton]! {
 		get {
@@ -71,10 +71,10 @@ open class UZShareView: UIView {
 		self.addSubview(replayButton)
 		self.addSubview(shareButton)
 		
-		frameLayout = NKStackFrameLayout(direction: .horizontal)
-//		frameLayout!.add(withTargetView: titleLabel)
-		frameLayout!.add(withTargetView: replayButton).contentAlignment = "cc"
-		frameLayout!.add(withTargetView: shareButton).contentAlignment = "cc"
+		frameLayout = StackFrameLayout(direction: .horizontal)
+//		frameLayout!.append(view: titleLabel)
+		frameLayout!.append(view: replayButton).contentAlignment = (.center, .center)
+		frameLayout!.append(view: shareButton).contentAlignment = (.center, .center)
 		frameLayout!.spacing = 30
 		frameLayout!.layoutAlignment = .center
 		frameLayout!.edgeInsets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)

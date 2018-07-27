@@ -139,16 +139,13 @@ open class UZTheme7: UZPlayerTheme {
 		topFrameLayout!.edgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 0, right: 5)
 //		topFrameLayout!.showFrameDebug = true
 		
-		let bottomLeftFrameLayout = StackFrameLayout(direction: .horizontal, views: [controlView.settingsButton, controlView.volumeButton, controlView.pipButton])
-		bottomLeftFrameLayout.ignoreHiddenView = false
-		
+		let bottomLeftFrameLayout = StackFrameLayout(direction: .horizontal, views: [controlView.volumeButton, controlView.settingsButton, controlView.pipButton])
 		let bottomRightFrameLayout = StackFrameLayout(direction: .horizontal, views: [controlView.castingButton, controlView.playlistButton, controlView.fullscreenButton])
 		let bottomCenterFrameLayout = StackFrameLayout(direction: .horizontal)
 		bottomCenterFrameLayout.append(view: controlView.backwardButton).contentAlignment = (.center, .center)
 		bottomCenterFrameLayout.append(view: controlView.playpauseButton).contentAlignment = (.center, .center)
 		bottomCenterFrameLayout.append(view: controlView.forwardButton).contentAlignment = (.center, .center)
 		bottomCenterFrameLayout.layoutAlignment = .center
-		bottomCenterFrameLayout.ignoreHiddenView = false
 		
 		for frameLayout in bottomLeftFrameLayout.frameLayouts {
 			frameLayout.minSize = buttonMinSize
@@ -179,6 +176,11 @@ open class UZTheme7: UZPlayerTheme {
 		bottomFrameLayout!.edgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
 //		bottomFrameLayout!.backgroundColor = UIColor(white: 0.0, alpha: 0.8)
 		bottomFrameLayout?.minSize = CGSize(width: 0, height: 50)
+		
+		bottomFrameLayout?.ignoreHiddenView = false
+		bottomLeftFrameLayout.ignoreHiddenView = false
+		bottomRightFrameLayout.ignoreHiddenView = false
+		bottomCenterFrameLayout.ignoreHiddenView = false
 		
 		mainFrameLayout = StackFrameLayout(direction: .vertical) // views: [topFrameLayout!, playpauseCenterButton, bottomFrameLayout!]
 		mainFrameLayout?.layoutAlignment = .top

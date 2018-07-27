@@ -119,7 +119,7 @@ open class UZCastingManager: NSObject {
 	}
 	
 	open func disconnect() {
-		lastPosition = currentPosition
+		lastPosition = self.currentPosition
 		
 		sessionManager.endSessionAndStopCasting(true)
 		currentCastSession = nil
@@ -173,7 +173,7 @@ open class UZCastingManager: NSObject {
 	}
 	
 	open func stop() {
-		lastPosition = currentPosition
+		lastPosition = self.currentPosition
 		remoteClient?.stop()
 	}
 	
@@ -232,7 +232,7 @@ extension UZCastingManager: GCKSessionManagerListener {
 	public func sessionManager(_ sessionManager: GCKSessionManager, didEnd session: GCKSession, withError error: Error?) {
 		DLog("Did end with error \(String(describing: error))")
 		
-		lastPosition = currentPosition
+		lastPosition = self.currentPosition
 		currentCastSession = nil
 		PostNotification(Notification.Name.UZCastSessionDidStop, object: currentCastSession, userInfo: nil)
 	}
@@ -240,7 +240,7 @@ extension UZCastingManager: GCKSessionManagerListener {
 	public func sessionManager(_ sessionManager: GCKSessionManager, didSuspend session: GCKCastSession, with reason: GCKConnectionSuspendReason) {
 		DLog("Did suspend with reason: \(reason.rawValue)")
 		
-		lastPosition = currentPosition
+		lastPosition = self.currentPosition
 		currentCastSession = nil
 		PostNotification(Notification.Name.UZCastSessionDidStop, object: currentCastSession, userInfo: nil)
 	}
@@ -268,7 +268,7 @@ extension UZCastingManager: GCKRequestDelegate {
 	
 	public func request(_ request: GCKRequest, didFailWithError error: GCKError) {
 		DLog("Request failed: \(error)")
-		lastPosition = currentPosition
+		lastPosition = self.currentPosition
 	}
 	
 	public func request(_ request: GCKRequest, didAbortWith abortReason: GCKRequestAbortReason) {

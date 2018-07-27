@@ -176,6 +176,8 @@ class UZDeviceListTableViewController: UITableViewController {
 			tableView.reloadData()
 		}
 		
+		tableView.isUserInteractionEnabled = false
+		
 		DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
 			self.dismiss(animated: true, completion: nil)
 		}

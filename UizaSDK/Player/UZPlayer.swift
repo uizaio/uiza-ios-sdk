@@ -501,7 +501,6 @@ open class UZPlayer: UIView {
 	
 	@objc func onCastSessionDidStop(_ notification: Notification) {
 		let lastPosision = UZCastingManager.shared.lastPosition
-		DLog("Did stop at position: \(lastPosision)")
 		
 		playerLayer?.seek(to: lastPosision, completion: {
 			self.playerLayer?.play()

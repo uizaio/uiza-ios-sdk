@@ -115,7 +115,7 @@ open class UZCastingManager: NSObject {
 			metadata.addImage(GCKImage(url: thumbnailUrl, width: 720, height: 480))
 		}
 		
-		let builder = GCKMediaInformationBuilder(contentID: item.id)
+		let builder = GCKMediaInformationBuilder(contentID: item.url.path)
 		builder.streamType = item.streamType
 		builder.mediaTracks = item.mediaTracks
 		builder.customData = item.customData
@@ -233,7 +233,7 @@ extension UZCastingManager: GCKRemoteMediaClientListener {
 	}
 	
 	public func remoteMediaClient(_ client: GCKRemoteMediaClient, didUpdate mediaStatus: GCKMediaStatus?) {
-		DLog("Client did update: \(String(describing: mediaStatus))")
+		DLog("Client did update: \(String(describing: mediaStatus?.idleReason.rawValue))")
 	}
 	
 }

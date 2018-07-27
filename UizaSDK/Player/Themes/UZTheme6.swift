@@ -140,6 +140,7 @@ open class UZTheme6: UZPlayerTheme {
 //		topFrameLayout!.showFrameDebug = true
 		
 		let bottomLeftFrameLayout = StackFrameLayout(direction: .horizontal, views: [controlView.settingsButton, controlView.castingButton, controlView.pipButton])
+		bottomLeftFrameLayout.minSize = CGSize(width: (iconSize.width * 3) + 20, height: 0)
 		let bottomRightFrameLayout = StackFrameLayout(direction: .horizontal, views: [controlView.playlistButton, controlView.fullscreenButton])
 		let bottomCenterFrameLayout = StackFrameLayout(direction: .horizontal)
 		bottomCenterFrameLayout.append(view: controlView.backwardButton).contentAlignment = (.center, .center)

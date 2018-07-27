@@ -104,8 +104,8 @@ class UZDeviceListTableViewController: UITableViewController {
 			}
 			else {
 				cell.textLabel?.text = "This iPad"
-				cell.imageView?.image = UIImage(icon: .googleMaterialDesign(.tablet), size: CGSize(width: 32, height: 32), textColor: normalColor, backgroundColor: .clear)
-				cell.imageView?.highlightedImage = UIImage(icon: .googleMaterialDesign(.tablet), size: CGSize(width: 32, height: 32), textColor: selectedColor, backgroundColor: .clear)
+				cell.imageView?.image = UIImage(icon: .googleMaterialDesign(.tabletMac), size: CGSize(width: 32, height: 32), textColor: normalColor, backgroundColor: .clear)
+				cell.imageView?.highlightedImage = UIImage(icon: .googleMaterialDesign(.tabletMac), size: CGSize(width: 32, height: 32), textColor: selectedColor, backgroundColor: .clear)
 			}
 			
 			cell.detailTextLabel?.text = "Playing here"

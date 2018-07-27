@@ -10,11 +10,11 @@ import UIKit
 import NKModalViewManager
 import GoogleCast
 
-open class UZDeviceListTableViewController: UITableViewController {
+class UZDeviceListTableViewController: UITableViewController {
 	
 	let castingManager = UZCastingManager.shared
 
-	override open func viewDidLoad() {
+	override func viewDidLoad() {
         super.viewDidLoad()
 		
 		NotificationCenter.default.addObserver(self, selector: #selector(onDeviceListUpdated), name: NSNotification.Name.UZDeviceListDidUpdate, object: nil)
@@ -22,19 +22,19 @@ open class UZDeviceListTableViewController: UITableViewController {
 		NotificationCenter.default.addObserver(self, selector: #selector(onSessionDidStop), name: NSNotification.Name.UZCastSessionDidStop, object: nil)
     }
 	
-	override open func viewDidAppear(_ animated: Bool) {
+	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		
 		castingManager.startDiscovering()
 	}
 	
-	override open func viewDidDisappear(_ animated: Bool) {
+	override func viewDidDisappear(_ animated: Bool) {
 		super.viewDidDisappear(animated)
 		
 		castingManager.stopDiscovering()
 	}
 	
-	override open var preferredContentSize: CGSize {
+	override var preferredContentSize: CGSize {
 		get {
 			var screenSize = UIScreen.main.bounds.size
 			screenSize.width = min(320, screenSize.width * 0.8)
@@ -46,7 +46,7 @@ open class UZDeviceListTableViewController: UITableViewController {
 		}
 	}
 	
-	override open func dismiss(animated flag: Bool, completion: (() -> Void)?) {
+	override func dismiss(animated flag: Bool, completion: (() -> Void)?) {
 		if let viewController = NKModalViewManager.sharedInstance().modalViewControllerThatContains(self) {
 			viewController.dismissWith(animated: flag, completion: completion)
 		}
@@ -74,15 +74,15 @@ open class UZDeviceListTableViewController: UITableViewController {
 	
     // MARK: - Table view data source
 
-    override open func numberOfSections(in tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 3
     }
 
-    override open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return section == 1 ? castingManager.deviceCount : 1
     }
 	
-    override open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCell(withIdentifier: "Cell")
 		
 		if cell == nil {
@@ -92,7 +92,7 @@ open class UZDeviceListTableViewController: UITableViewController {
         return cell!
     }
 	
-	override open func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
 		let normalColor = UIColor(white: 0.2, alpha: 1.0)
 		let selectedColor = UIColor(red:0.28, green:0.49, blue:0.93, alpha:1.00)
 		
@@ -134,11 +134,11 @@ open class UZDeviceListTableViewController: UITableViewController {
 		}
 	}
 	
-	override open func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		return 50
 	}
 	
-	override open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		if indexPath.section == 0 {
 			castingManager.disconnect()
 			self.dismiss(animated: true, completion: nil)
@@ -190,4 +190,36 @@ open class UZDeviceListTableViewController: UITableViewController {
 		}
 	}
 
+}
+
+
+// MARK: -
+
+extension UZDeviceListTableViewController: NKModalViewControllerProtocol {
+	
+	func viewController(forPresenting modalViewController: NKModalViewController!) -> UIViewController! {
+		if let window = UIApplication.shared.keyWindow, let viewController = window.rootViewController {
+			var result: UIViewController? = viewController
+			while result?.presentedViewController != nil {
+				result = result?.presentedViewController
+			}
+			
+			return result
+		}
+		
+		return nil
+	}
+	
+	func shouldTapOutside(toDismiss modalViewController: NKModalViewController!) -> Bool {
+		return true
+	}
+	
+	func presentingStyle(for modalViewController: NKModalViewController!) -> NKModalPresentingStyle {
+		return .zoomIn
+	}
+	
+	func dismissingStyle(for modalViewController: NKModalViewController!) -> NKModalDismissingStyle {
+		return .zoomOut
+	}
+	
 }

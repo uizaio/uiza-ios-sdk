@@ -113,7 +113,7 @@ open class UZPlayerControlView: UIView {
 	internal let settingsButton = NKButton()
 	internal let helpButton = NKButton()
 	internal let pipButton = NKButton()
-	internal let castingButton = NKButton()
+	internal let castingButton = UZCastButton()
 	internal let enlapseTimeLabel = NKButton()
 	internal let airplayButton = UZAirPlayButton()
 	internal let timeSlider = UZSlider()

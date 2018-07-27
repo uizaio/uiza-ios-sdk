@@ -90,7 +90,7 @@ open class UZTheme7: UZPlayerTheme {
 		controlView.pipButton.imageView?.contentMode = .scaleAspectFit
 		controlView.pipButton.isHidden = !AVPictureInPictureController.isPictureInPictureSupported()
 		
-		controlView.airplayButton.setupDefaultIcon(iconSize: iconSize, offColor: iconColor)
+		controlView.castingButton.setupDefaultIcon(iconSize: iconSize, offColor: iconColor)
 		
 		controlView.titleLabel.textColor = .white
 		controlView.titleLabel.font = UIFont.systemFont(ofSize: 14)
@@ -140,7 +140,7 @@ open class UZTheme7: UZPlayerTheme {
 //		topFrameLayout!.showFrameDebug = true
 		
 		let bottomLeftFrameLayout = NKGridFrameLayout(direction: .horizontal, andViews: [controlView.settingsButton, controlView.volumeButton, controlView.pipButton])!
-		let bottomRightFrameLayout = NKGridFrameLayout(direction: .horizontal, andViews: [controlView.airplayButton, controlView.playlistButton, controlView.fullscreenButton])!
+		let bottomRightFrameLayout = NKGridFrameLayout(direction: .horizontal, andViews: [controlView.castingButton, controlView.playlistButton, controlView.fullscreenButton])!
 		let bottomCenterFrameLayout = NKGridFrameLayout(direction: .horizontal)!
 		bottomCenterFrameLayout.add(withTargetView: controlView.backwardButton).contentAlignment = "cc"
 		bottomCenterFrameLayout.add(withTargetView: controlView.playpauseButton).contentAlignment = "cc"
@@ -160,7 +160,7 @@ open class UZTheme7: UZPlayerTheme {
 		bottomCenterFrameLayout.spacing = 10
 		
 		bottomFrameLayout = NKTripleFrameLayout(direction: .horizontal, andViews: [bottomLeftFrameLayout, bottomCenterFrameLayout, bottomRightFrameLayout])
-		bottomFrameLayout!.addSubview(controlView.airplayButton)
+		bottomFrameLayout!.addSubview(controlView.castingButton)
 		bottomFrameLayout!.addSubview(controlView.settingsButton)
 		bottomFrameLayout!.addSubview(controlView.volumeButton)
 		bottomFrameLayout!.addSubview(controlView.playlistButton)

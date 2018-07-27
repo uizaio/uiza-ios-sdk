@@ -89,7 +89,8 @@ open class UZTheme3: UZPlayerTheme {
 		controlView.pipButton.imageView?.contentMode = .scaleAspectFit
 		controlView.pipButton.isHidden = !AVPictureInPictureController.isPictureInPictureSupported()
 		
-		controlView.airplayButton.setupDefaultIcon(iconSize: iconSize, offColor: iconColor)
+//		controlView.airplayButton.setupDefaultIcon(iconSize: iconSize, offColor: iconColor)
+		controlView.castingButton.setupDefaultIcon(iconSize: iconSize, offColor: iconColor)
 		
 		controlView.titleLabel.textColor = .white
 		controlView.titleLabel.font = UIFont.systemFont(ofSize: 14)
@@ -121,8 +122,8 @@ open class UZTheme3: UZPlayerTheme {
 	func setupLayout() {
 		guard let controlView = controlView else { return }
 		
-		let controlFrameLayout = NKGridFrameLayout(direction: .horizontal, andViews: [controlView.pipButton, controlView.airplayButton, controlView.playlistButton, controlView.ccButton, controlView.settingsButton, controlView.volumeButton])!
-		controlFrameLayout.addSubview(controlView.airplayButton)
+		let controlFrameLayout = NKGridFrameLayout(direction: .horizontal, andViews: [controlView.pipButton, controlView.castingButton, controlView.playlistButton, controlView.ccButton, controlView.settingsButton, controlView.volumeButton])!
+		controlFrameLayout.addSubview(controlView.castingButton)
 		controlFrameLayout.addSubview(controlView.pipButton)
 		controlFrameLayout.addSubview(controlView.playlistButton)
 		controlFrameLayout.addSubview(controlView.ccButton)

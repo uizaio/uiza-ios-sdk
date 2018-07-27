@@ -65,8 +65,6 @@ open class UZTheme1: UZPlayerTheme {
 		let fullscreenIcon = UIImage(icon: .fontAwesomeSolid(.expand), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let collapseIcon = UIImage(icon: .fontAwesomeSolid(.compress), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let thumbIcon = UIImage(icon: .fontAwesomeSolid(.circle), size: seekThumbSize, textColor: iconColor, backgroundColor: .clear)
-		let castIcon = UIImage(icon: .googleMaterialDesign(.cast), size: iconSize, textColor: iconColor, backgroundColor: .clear)
-		let castConnectedIcon = UIImage(icon: .googleMaterialDesign(.castConnected), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		
 		controlView.backButton.setImage(backIcon, for: .normal)
 		controlView.playlistButton.setImage(playlistIcon, for: .normal)
@@ -84,8 +82,6 @@ open class UZTheme1: UZPlayerTheme {
 		controlView.fullscreenButton.setImage(fullscreenIcon, for: .normal)
 		controlView.fullscreenButton.setImage(collapseIcon, for: .selected)
 		controlView.timeSlider.setThumbImage(thumbIcon, for: .normal)
-		controlView.castingButton.setImage(castIcon, for: .normal)
-		controlView.castingButton.setImage(castConnectedIcon, for: .selected)
 		
 		let pipStartIcon = AVPictureInPictureController.pictureInPictureButtonStartImage(compatibleWith: nil).colorize(with: iconColor)
 		let pipStopIcon = AVPictureInPictureController.pictureInPictureButtonStopImage(compatibleWith: nil).colorize(with: iconColor)
@@ -94,7 +90,8 @@ open class UZTheme1: UZPlayerTheme {
 		controlView.pipButton.imageView?.contentMode = .scaleAspectFit
 		controlView.pipButton.isHidden = !AVPictureInPictureController.isPictureInPictureSupported()
 		
-		controlView.airplayButton.setupDefaultIcon(iconSize: iconSize, offColor: iconColor)
+//		controlView.airplayButton.setupDefaultIcon(iconSize: iconSize, offColor: iconColor)
+		controlView.castingButton.setupDefaultIcon(iconSize: iconSize, offColor: iconColor)
 		
 		controlView.titleLabel.textColor = .white
 		controlView.titleLabel.font = UIFont.systemFont(ofSize: 14)

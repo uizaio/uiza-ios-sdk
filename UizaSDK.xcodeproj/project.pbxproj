@@ -25,6 +25,8 @@
 		6335BDA321085D8200A9C0C5 /* UZDeviceListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6335BDA221085D8200A9C0C5 /* UZDeviceListTableViewController.swift */; };
 		6335BDA5210860EA00A9C0C5 /* UZDeviceListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6335BDA221085D8200A9C0C5 /* UZDeviceListTableViewController.swift */; };
 		6335BDA6210860EA00A9C0C5 /* UZCastingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6335BDA02108529500A9C0C5 /* UZCastingManager.swift */; };
+		6335BDA8210AE6F700A9C0C5 /* UZCastButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6335BDA7210AE6F700A9C0C5 /* UZCastButton.swift */; };
+		6335BDA9210AE6F700A9C0C5 /* UZCastButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6335BDA7210AE6F700A9C0C5 /* UZCastButton.swift */; };
 		6346B7A220930C3200A68AD4 /* UZPlayerControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6346B79A20930C3200A68AD4 /* UZPlayerControlView.swift */; };
 		6346B7A320930C3200A68AD4 /* UZPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6346B79B20930C3200A68AD4 /* UZPlayerViewController.swift */; };
 		6346B7A420930C3200A68AD4 /* UZMediaResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6346B79D20930C3200A68AD4 /* UZMediaResource.swift */; };
@@ -181,6 +183,7 @@
 		632124FD2089E20800720593 /* UZAPIConnector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZAPIConnector.swift; sourceTree = "<group>"; };
 		6335BDA02108529500A9C0C5 /* UZCastingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZCastingManager.swift; sourceTree = "<group>"; };
 		6335BDA221085D8200A9C0C5 /* UZDeviceListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZDeviceListTableViewController.swift; sourceTree = "<group>"; };
+		6335BDA7210AE6F700A9C0C5 /* UZCastButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZCastButton.swift; sourceTree = "<group>"; };
 		6346B79A20930C3200A68AD4 /* UZPlayerControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZPlayerControlView.swift; sourceTree = "<group>"; };
 		6346B79B20930C3200A68AD4 /* UZPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZPlayerViewController.swift; sourceTree = "<group>"; };
 		6346B79D20930C3200A68AD4 /* UZMediaResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZMediaResource.swift; sourceTree = "<group>"; };
@@ -326,6 +329,7 @@
 				6346B79F20930C3200A68AD4 /* NKProgressView.swift */,
 				6346B7A020930C3200A68AD4 /* UZSlider.swift */,
 				63CFB7E720BBDAF400647958 /* UZAirPlayButton.swift */,
+				6335BDA7210AE6F700A9C0C5 /* UZCastButton.swift */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -846,6 +850,7 @@
 				638EC0E720AAA2CA00C0243E /* AVAudioSession+Airplay.swift in Sources */,
 				638EC0F020AAA2CA00C0243E /* NSTimeInterval+ToString.swift in Sources */,
 				638EC0E820AAA2CA00C0243E /* Date+Comparators.swift in Sources */,
+				6335BDA9210AE6F700A9C0C5 /* UZCastButton.swift in Sources */,
 				638EC0DA20AAA17D00C0243E /* ViewController.swift in Sources */,
 				6335BDA5210860EA00A9C0C5 /* UZDeviceListTableViewController.swift in Sources */,
 				63A8264820F36136001FD7E3 /* UZPagination.swift in Sources */,
@@ -888,6 +893,7 @@
 				632125002089E20800720593 /* UZContentServices.swift in Sources */,
 				6346B7A920930D7D00A68AD4 /* AVAudioSession+Airplay.swift in Sources */,
 				632124F82089E1EE00720593 /* UZCategory.swift in Sources */,
+				6335BDA8210AE6F700A9C0C5 /* UZCastButton.swift in Sources */,
 				63714A24209B108600426948 /* UZShareView.swift in Sources */,
 				638EC12320AC426900C0243E /* UZTheme4.swift in Sources */,
 				63C65FA5205BA10800DB2C96 /* UIDevice+Extension.swift in Sources */,

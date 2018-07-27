@@ -125,7 +125,7 @@ open class UZTheme4: UZPlayerTheme {
 		topLeftFrameLayout.addSubview(controlView.backButton)
 		topLeftFrameLayout.addSubview(controlView.titleLabel)
 		
-		let controlFrameLayout = NKGridFrameLayout(direction: .horizontal, andViews: [controlView.settingsButton, controlView.volumeButton])!
+		let controlFrameLayout = NKStackFrameLayout(direction: .horizontal, andViews: [controlView.settingsButton, controlView.volumeButton])!
 //		controlFrameLayout.addSubview(controlView.pipButton)
 //		controlFrameLayout.addSubview(controlView.playlistButton)
 //		controlFrameLayout.addSubview(controlView.ccButton)
@@ -151,9 +151,9 @@ open class UZTheme4: UZPlayerTheme {
 		topFrameLayout!.edgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 0, right: 5)
 //		topFrameLayout!.showFrameDebug = true
 		
-		let bottomLeftFrameLayout = NKGridFrameLayout(direction: .horizontal, andViews: [controlView.currentTimeLabel, controlView.totalTimeLabel])!
-		let bottomRightFrameLayout = NKGridFrameLayout(direction: .horizontal, andViews: [controlView.pipButton, controlView.castingButton, controlView.playlistButton, controlView.fullscreenButton])!
-		let bottomCenterFrameLayout = NKGridFrameLayout(direction: .horizontal)!
+		let bottomLeftFrameLayout = NKStackFrameLayout(direction: .horizontal, andViews: [controlView.currentTimeLabel, controlView.totalTimeLabel])!
+		let bottomRightFrameLayout = NKStackFrameLayout(direction: .horizontal, andViews: [controlView.pipButton, controlView.castingButton, controlView.playlistButton, controlView.fullscreenButton])!
+		let bottomCenterFrameLayout = NKStackFrameLayout(direction: .horizontal)!
 		bottomCenterFrameLayout.add(withTargetView: controlView.backwardButton).contentAlignment = "cc"
 		bottomCenterFrameLayout.add(withTargetView: controlView.playpauseButton).contentAlignment = "cc"
 		bottomCenterFrameLayout.add(withTargetView: controlView.forwardButton).contentAlignment = "cc"

@@ -491,10 +491,12 @@ open class UZPlayer: UIView {
 		}
 		
 		playerLayer?.pause(alsoPauseCasting: false)
+		controlView.showLoader()
 		updateCastingUI()
 	}
 	
 	@objc func onCastClientDidStart(_ notification: Notification) {
+		controlView.hideLoader()
 		playerLayer?.setupTimer()
 		playerLayer?.isPlaying = true
 	}

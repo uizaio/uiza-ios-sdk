@@ -120,7 +120,7 @@ open class UZTheme2: UZPlayerTheme {
 	func setupLayout() {
 		guard let controlView = controlView else { return }
 		
-		let controlFrameLayout = NKGridFrameLayout(direction: .horizontal, andViews: [controlView.pipButton, controlView.castingButton, controlView.playlistButton, controlView.ccButton, controlView.settingsButton, controlView.volumeButton])!
+		let controlFrameLayout = NKStackFrameLayout(direction: .horizontal, andViews: [controlView.pipButton, controlView.castingButton, controlView.playlistButton, controlView.ccButton, controlView.settingsButton, controlView.volumeButton])!
 		controlFrameLayout.addSubview(controlView.castingButton)
 		controlFrameLayout.addSubview(controlView.pipButton)
 		controlFrameLayout.addSubview(controlView.playlistButton)
@@ -155,8 +155,8 @@ open class UZTheme2: UZPlayerTheme {
 		topFrameLayout!.edgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 0, right: 10)
 //		topFrameLayout!.showFrameDebug = true
 		
-		let bottomLeftFrameLayout = NKGridFrameLayout(direction: .horizontal, andViews: [controlView.currentTimeLabel])!
-		let bottomRightFrameLayout = NKGridFrameLayout(direction: .horizontal, andViews: [controlView.remainTimeLabel, controlView.backwardButton, controlView.forwardButton, controlView.fullscreenButton])!
+		let bottomLeftFrameLayout = NKStackFrameLayout(direction: .horizontal, andViews: [controlView.currentTimeLabel])!
+		let bottomRightFrameLayout = NKStackFrameLayout(direction: .horizontal, andViews: [controlView.remainTimeLabel, controlView.backwardButton, controlView.forwardButton, controlView.fullscreenButton])!
 		bottomRightFrameLayout.spacing = 10
 		for frameLayout in bottomRightFrameLayout.frameLayoutArray {
 			frameLayout.minSize = buttonMinSize

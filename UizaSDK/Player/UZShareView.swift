@@ -15,7 +15,7 @@ open class UZShareView: UIView {
 	let titleLabel = UILabel()
 	let replayButton = NKButton()
 	let shareButton = NKButton()
-	var frameLayout: NKGridFrameLayout?
+	var frameLayout: NKStackFrameLayout?
 	
 	open var allButtons: [UIButton]! {
 		get {
@@ -71,7 +71,7 @@ open class UZShareView: UIView {
 		self.addSubview(replayButton)
 		self.addSubview(shareButton)
 		
-		frameLayout = NKGridFrameLayout(direction: .horizontal)
+		frameLayout = NKStackFrameLayout(direction: .horizontal)
 //		frameLayout!.add(withTargetView: titleLabel)
 		frameLayout!.add(withTargetView: replayButton).contentAlignment = "cc"
 		frameLayout!.add(withTargetView: shareButton).contentAlignment = "cc"

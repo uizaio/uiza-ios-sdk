@@ -214,6 +214,8 @@ open class UZPlayerControlView: UIView {
 		timeSlider.setThumbImage(nil, for: .highlighted)
 		timeSlider.setThumbImage(nil, for: .selected)
 		timeSlider.setThumbImage(nil, for: .disabled)
+		
+		playpauseCenterButton.isHidden = false
 	}
 	
 	func resetLayout() {

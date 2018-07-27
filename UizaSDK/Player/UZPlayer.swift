@@ -237,9 +237,16 @@ open class UZPlayer: UIView {
 	}
 	
 	open func play() {
+		if isPauseByUser && UZCastingManager.shared.hasConnectedSession {
+			isPauseByUser = false
+			UZCastingManager.shared.play()
+			return
+		}
+		
 		if resource == nil {
 			return
 		}
+		
 		if !isURLSet {
 			currentLinkPlay = resource.definitions[currentDefinition]
 			playerLayer?.playAsset(asset: currentLinkPlay!.avURLAsset)
@@ -323,6 +330,10 @@ open class UZPlayer: UIView {
 		controlView.loadedTimeDidChange(loadedDuration: 0, totalDuration: 0)
 		playerLayer?.prepareToDeinit()
 		playerLayer = nil
+		
+		if UZCastingManager.shared.hasConnectedSession {
+			UZCastingManager.shared.disconnect()
+		}
 	}
 	
 	/**
@@ -348,6 +359,10 @@ open class UZPlayer: UIView {
 	open func pause(allowAutoPlay allow: Bool = false) {
 		playerLayer?.pause()
 		isPauseByUser = !allow
+		
+		if UZCastingManager.shared.hasConnectedSession {
+			UZCastingManager.shared.pause()
+		}
 	}
 	
 	/**

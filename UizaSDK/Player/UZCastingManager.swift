@@ -168,6 +168,10 @@ open class UZCastingManager: NSObject {
 		remoteClient?.play()
 	}
 	
+	open func pause() {
+		remoteClient?.pause()
+	}
+	
 	open func stop() {
 		lastPosition = currentPosition
 		remoteClient?.stop()

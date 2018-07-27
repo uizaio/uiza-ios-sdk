@@ -9,7 +9,6 @@ PODS:
   - NKButton (3.0):
     - FrameLayoutKit
     - NVActivityIndicatorView/AppExtension
-  - NKFrameLayoutKit (2.3)
   - NKModalViewManager (3.3)
   - NVActivityIndicatorView (4.3.0):
     - NVActivityIndicatorView/Presenter (= 4.3.0)
@@ -28,7 +27,6 @@ DEPENDENCIES:
   - google-cast-sdk
   - GoogleAds-IMA-iOS-SDK
   - NKButton
-  - NKFrameLayoutKit
   - NKModalViewManager
   - NVActivityIndicatorView
   - SDWebImage
@@ -43,7 +41,6 @@ SPEC REPOS:
     - google-cast-sdk
     - GoogleAds-IMA-iOS-SDK
     - NKButton
-    - NKFrameLayoutKit
     - NKModalViewManager
     - NVActivityIndicatorView
     - SDWebImage
@@ -57,13 +54,12 @@ SPEC CHECKSUMS:
   google-cast-sdk: 57cd67b4a0966802b2738fcbbc103125c98cc8a1
   GoogleAds-IMA-iOS-SDK: 58693326633b35aa7e95c45693ec0bb8e88086de
   NKButton: 65710d1e4e2c9ec756c23dec1b2834f0a97eb460
-  NKFrameLayoutKit: 8e4f2cb4847049a779bca6e43111871c4cabdcc1
   NKModalViewManager: f9f9539ac36417fa1ed446f4221e62e1748cbff9
   NVActivityIndicatorView: 963f62bf9f993fcf23218e55958e5b1761b9504c
   SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
   SwiftIcons: e414be7906347ef584d10280715d88aceac052e5
   SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
 
-PODFILE CHECKSUM: 06eafd47f507eccdeb289945ca66bcf33edb8b14
+PODFILE CHECKSUM: 1911c77022ee470b0d71a324225c900ed4c34747
 
 COCOAPODS: 1.5.3

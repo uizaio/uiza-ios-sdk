@@ -783,6 +783,15 @@ open class UZPlayer: UIView {
 				let deviceName = UZCastingManager.shared.currentCastSession?.device.modelName ?? "(?)"
 				let alert = UIAlertController(title: "Disconnect", message: "Disconnect from \(deviceName)?", preferredStyle: .actionSheet)
 				
+				alert.addAction(UIAlertAction(title: "Disconnect", style: .destructive, handler: { (action) in
+					UZCastingManager.shared.disconnect()
+					alert.dismiss(animated: true, completion: nil)
+				}))
+				
+				alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
+					alert.dismiss(animated: true, completion: nil)
+				}))
+				
 				if UIDevice.current.userInterfaceIdiom == .pad {
 					alert.modalPresentationStyle = .popover
 					alert.popoverPresentationController?.sourceView = view

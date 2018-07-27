@@ -479,7 +479,7 @@ open class UZPlayer: UIView {
 	
 	@objc func onCastSessionDidStart(_ notification: Notification) {
 		if let currentVideo = currentVideo, let linkPlay = currentLinkPlay {
-			let item = UZCastItem(id: currentVideo.id, title: currentVideo.name, customData: nil, streamType: currentVideo.isLive ? .live : .buffered, url: linkPlay.url, thumbnailUrl: currentVideo.thumbnailURL, duration: currentVideo.duration, playPosition: 0, mediaTracks: nil)
+			let item = UZCastItem(id: currentVideo.id, title: currentVideo.name, customData: nil, streamType: currentVideo.isLive ? .live : .buffered, url: linkPlay.url, thumbnailUrl: currentVideo.thumbnailURL, duration: currentVideo.duration, playPosition: self.currentPosition, mediaTracks: nil)
 			UZCastingManager.shared.castItem(item: item)
 		}
 		

@@ -9,7 +9,7 @@
 import UIKit
 import AVKit
 import SwiftIcons
-import NKFrameLayoutKit
+import FrameLayoutKit
 import NVActivityIndicatorView
 
 open class UZTheme4: UZPlayerTheme {
@@ -17,9 +17,9 @@ open class UZTheme4: UZPlayerTheme {
 	
 	let topGradientLayer = CAGradientLayer()
 	
-	internal var topFrameLayout 	: NKDoubleFrameLayout?
-	internal var bottomFrameLayout 	: NKTripleFrameLayout?
-	internal var mainFrameLayout 	: NKTripleFrameLayout?
+	internal var topFrameLayout 	: DoubleFrameLayout?
+	internal var bottomFrameLayout 	: StackFrameLayout?
+	internal var mainFrameLayout 	: StackFrameLayout?
 	
 	internal var iconColor = UIColor.white
 	internal var iconSize = CGSize(width: 24, height: 24)
@@ -118,52 +118,52 @@ open class UZTheme4: UZPlayerTheme {
 	func setupLayout() {
 		guard let controlView = controlView else { return }
 		
-		let topLeftFrameLayout = NKDoubleFrameLayout(direction: .horizontal, andViews: [controlView.titleLabel, controlView.backButton])!
+		let topLeftFrameLayout = DoubleFrameLayout(direction: .horizontal, views: [controlView.titleLabel, controlView.backButton])
 		topLeftFrameLayout.spacing = 10
 		topLeftFrameLayout.layoutAlignment = .right
 		topLeftFrameLayout.isUserInteractionEnabled = true
 		topLeftFrameLayout.addSubview(controlView.backButton)
 		topLeftFrameLayout.addSubview(controlView.titleLabel)
 		
-		let controlFrameLayout = NKStackFrameLayout(direction: .horizontal, andViews: [controlView.settingsButton, controlView.volumeButton])!
+		let controlFrameLayout = StackFrameLayout(direction: .horizontal, views: [controlView.settingsButton, controlView.volumeButton])
 //		controlFrameLayout.addSubview(controlView.pipButton)
 //		controlFrameLayout.addSubview(controlView.playlistButton)
 //		controlFrameLayout.addSubview(controlView.ccButton)
 		controlFrameLayout.addSubview(controlView.settingsButton)
 		controlFrameLayout.addSubview(controlView.volumeButton)
 		controlFrameLayout.isUserInteractionEnabled = true
-		controlFrameLayout.intrinsicSizeEnabled = true
+		controlFrameLayout.isIntrinsicSizeEnabled = true
 		controlFrameLayout.spacing = 10
 //		controlFrameLayout.showFrameDebug = true
 		
-		for frameLayout in controlFrameLayout.frameLayoutArray {
+		for frameLayout in controlFrameLayout.frameLayouts {
 			frameLayout.minSize = buttonMinSize
 		}
 		
-		topFrameLayout = NKDoubleFrameLayout(direction: .horizontal)!
+		topFrameLayout = DoubleFrameLayout(direction: .horizontal)
 		topFrameLayout!.rightFrameLayout = topLeftFrameLayout
 		topFrameLayout!.leftFrameLayout = controlFrameLayout
-		topFrameLayout!.leftFrameLayout.contentAlignment = "cf"
-		topFrameLayout!.rightFrameLayout.contentAlignment = "cr"
+		topFrameLayout!.leftFrameLayout.contentAlignment = (.center, .fill)
+		topFrameLayout!.rightFrameLayout.contentAlignment = (.center, .right)
 		topFrameLayout!.spacing = 10
 		topFrameLayout!.isUserInteractionEnabled = true
 		topFrameLayout!.layoutAlignment = .left
 		topFrameLayout!.edgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 0, right: 5)
 //		topFrameLayout!.showFrameDebug = true
 		
-		let bottomLeftFrameLayout = NKStackFrameLayout(direction: .horizontal, andViews: [controlView.currentTimeLabel, controlView.totalTimeLabel])!
-		let bottomRightFrameLayout = NKStackFrameLayout(direction: .horizontal, andViews: [controlView.pipButton, controlView.castingButton, controlView.playlistButton, controlView.fullscreenButton])!
-		let bottomCenterFrameLayout = NKStackFrameLayout(direction: .horizontal)!
-		bottomCenterFrameLayout.add(withTargetView: controlView.backwardButton).contentAlignment = "cc"
-		bottomCenterFrameLayout.add(withTargetView: controlView.playpauseButton).contentAlignment = "cc"
-		bottomCenterFrameLayout.add(withTargetView: controlView.forwardButton).contentAlignment = "cc"
+		let bottomLeftFrameLayout = StackFrameLayout(direction: .horizontal, views: [controlView.currentTimeLabel, controlView.totalTimeLabel])
+		let bottomRightFrameLayout = StackFrameLayout(direction: .horizontal, views: [controlView.pipButton, controlView.castingButton, controlView.playlistButton, controlView.fullscreenButton])
+		let bottomCenterFrameLayout = StackFrameLayout(direction: .horizontal)
+		bottomCenterFrameLayout.append(view: controlView.backwardButton).contentAlignment = (.center, .center)
+		bottomCenterFrameLayout.append(view: controlView.playpauseButton).contentAlignment = (.center, .center)
+		bottomCenterFrameLayout.append(view: controlView.forwardButton).contentAlignment = (.center, .center)
 		bottomCenterFrameLayout.layoutAlignment = .center
 		
-		for frameLayout in bottomRightFrameLayout.frameLayoutArray {
+		for frameLayout in bottomRightFrameLayout.frameLayouts {
 			frameLayout.minSize = buttonMinSize
 		}
 		
-		for frameLayout in bottomCenterFrameLayout.frameLayoutArray {
+		for frameLayout in bottomCenterFrameLayout.frameLayouts {
 			frameLayout.minSize = buttonMinSize
 		}
 		
@@ -171,7 +171,8 @@ open class UZTheme4: UZPlayerTheme {
 		bottomLeftFrameLayout.spacing = 10
 		bottomCenterFrameLayout.spacing = 10
 		
-		bottomFrameLayout = NKTripleFrameLayout(direction: .horizontal, andViews: [bottomLeftFrameLayout, bottomCenterFrameLayout, bottomRightFrameLayout])
+		bottomFrameLayout = StackFrameLayout(direction: .horizontal, views: [bottomLeftFrameLayout, bottomCenterFrameLayout, bottomRightFrameLayout])
+		bottomFrameLayout?.frameLayout(at: 1)?.isFlexible = true
 		bottomFrameLayout!.addSubview(controlView.currentTimeLabel)
 		bottomFrameLayout!.addSubview(controlView.totalTimeLabel)
 		bottomFrameLayout!.addSubview(controlView.castingButton)
@@ -182,26 +183,20 @@ open class UZTheme4: UZPlayerTheme {
 		bottomFrameLayout!.addSubview(controlView.forwardButton)
 		bottomFrameLayout!.addSubview(controlView.playpauseButton)
 		bottomFrameLayout!.spacing = 10
-		bottomFrameLayout!.layoutAlignment = .right
-		bottomFrameLayout!.leftContentLayout.layoutAlignment = .left
-		bottomFrameLayout!.centerFrameLayout.contentAlignment = "cc"
-		bottomFrameLayout!.leftFrameLayout.contentAlignment = "cf"
-		bottomFrameLayout!.rightFrameLayout.contentAlignment = "cf"
+		bottomFrameLayout!.layoutAlignment = .left
 		bottomFrameLayout!.isUserInteractionEnabled = true
 		bottomFrameLayout!.edgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
 		bottomFrameLayout!.backgroundColor = UIColor(white: 0.0, alpha: 0.8)
 		bottomFrameLayout?.minSize = CGSize(width: 0, height: 50)
 		
-		mainFrameLayout = NKTripleFrameLayout(direction: .vertical) // andViews: [topFrameLayout!, playpauseCenterButton, bottomFrameLayout!]
-		mainFrameLayout?.topFrameLayout.targetView = topFrameLayout
-//		mainFrameLayout?.centerFrameLayout.targetView = controlView.playpauseCenterButton
-		mainFrameLayout?.bottomFrameLayout.targetView = bottomFrameLayout
-		mainFrameLayout?.layoutAlignment = .bottom
-		mainFrameLayout?.leftContentLayout.layoutAlignment = .top
-		mainFrameLayout?.topFrameLayout.contentAlignment = "ff"
-		mainFrameLayout?.bottomFrameLayout.contentAlignment = "ff"
-		mainFrameLayout!.centerFrameLayout.contentAlignment = "cc"
-//		mainFrameLayout?.bottomFrameLayout.edgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+		mainFrameLayout = StackFrameLayout(direction: .vertical, alignment: .top)
+		mainFrameLayout?.append(view: topFrameLayout!)
+		mainFrameLayout?.append(view: controlView.playpauseCenterButton).configurationBlock = { layout in
+			layout.isFlexible = true
+			layout.ignoreHiddenView = false
+			layout.contentAlignment = (.center, .center)
+		}
+		mainFrameLayout?.append(view: bottomFrameLayout) //.edgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 10, right: 20)
 		
 		topGradientLayer.colors = [UIColor(white: 0.0, alpha: 0.8).cgColor, UIColor(white: 0.0, alpha: 0.0).cgColor]
 		controlView.containerView.layer.addSublayer(topGradientLayer)

@@ -17,6 +17,7 @@ open class UZCastButton: NKButton {
 		
 		NotificationCenter.default.addObserver(self, selector: #selector(updateState), name: NSNotification.Name.UZCastSessionDidStart, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(updateState), name: NSNotification.Name.UZCastSessionDidStop, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(updateState), name: .AVAudioSessionRouteChange, object: nil)
 	}
 	
 	required public init?(coder aDecoder: NSCoder) {
@@ -32,7 +33,9 @@ open class UZCastButton: NKButton {
 	}
 	
 	@objc func updateState() {
-		self.isSelected = UZCastingManager.shared.hasConnectedSession
+		DispatchQueue.main.async {
+			self.isSelected = UZCastingManager.shared.hasConnectedSession || AVAudioSession.sharedInstance().isAirPlaying
+		}
 	}
 	
 }

@@ -24,6 +24,7 @@ public struct UZCastItem {
 	var title: String
 	var customData: [String: AnyHashable]?
 	var streamType: GCKMediaStreamType
+	var contentType: String
 	var url: URL
 	var thumbnailUrl: URL?
 	var duration: TimeInterval
@@ -50,22 +51,19 @@ open class UZCastingManager: NSObject {
 	open var lastPosition: TimeInterval = 0
 	open var currentPosition: TimeInterval {
 		get {
-			if let castSession = currentCastSession {
-				let remoteClient = castSession.remoteMediaClient
-				return remoteClient?.approximateStreamPosition() ?? 0
+			if let remoteClient = remoteClient {
+				return remoteClient.approximateStreamPosition()
 			}
 			else {
-				return 0
+				return initPosition
 			}
 		}
 	}
+	var initPosition: TimeInterval = 0
 	
 	open var currentPlayerState: GCKMediaPlayerState {
 		get {
-			if let castSession = sessionManager.currentCastSession,
-				let remoteClient = castSession.remoteMediaClient,
-				let mediaStatus = remoteClient.mediaStatus
-			{
+			if let remoteClient = remoteClient,	let mediaStatus = remoteClient.mediaStatus {
 				return mediaStatus.playerState
 			}
 			else {
@@ -122,8 +120,10 @@ open class UZCastingManager: NSObject {
 	
 	open func disconnect() {
 		lastPosition = currentPosition
+		
 		sessionManager.endSessionAndStopCasting(true)
 		currentCastSession = nil
+		currentCastItem = nil
 	}
 	
 	open func castItem(item: UZCastItem) {
@@ -145,18 +145,19 @@ open class UZCastingManager: NSObject {
 		
 		let builder = GCKMediaInformationBuilder(contentID: item.url.absoluteString)
 		builder.streamType = item.streamType
+		builder.contentType = item.contentType // "video/m3u8" , "application/dash+xml"
 		builder.mediaTracks = item.mediaTracks
 		builder.customData = item.customData
 		builder.streamDuration = item.duration
 		builder.textTrackStyle = GCKMediaTextTrackStyle.createDefault()
 		builder.metadata = metadata
-		builder.contentType = "application/dash+xml" // "video/m3u8"
 		
 		let mediaInformation = builder.build()
 		
 		let loadOptions = GCKMediaLoadOptions()
 		loadOptions.autoplay = true
 		loadOptions.playPosition = item.playPosition
+		initPosition = item.playPosition
 		
 		remoteClient?.loadMedia(mediaInformation, with: loadOptions).delegate = self
 	}
@@ -179,15 +180,12 @@ open class UZCastingManager: NSObject {
 		remoteClient?.seek(with: option)
 	}
 	
-	open func getSessionCurrentTime(completion: (TimeInterval?) -> Void) {
-		if let castSession = currentCastSession {
-			let remoteClient = castSession.remoteMediaClient
-			let currentTime = remoteClient?.approximateStreamPosition()
-			completion(currentTime)
-		}
-		else {
-			completion(nil)
-		}
+	open func setVolume(_ volume: Float) {
+		remoteClient?.setStreamVolume(volume)
+	}
+	
+	open func setMute(_ muted: Bool) {
+		remoteClient?.setStreamMuted(muted)
 	}
 
 }

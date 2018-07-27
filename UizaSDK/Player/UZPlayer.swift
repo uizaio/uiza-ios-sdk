@@ -355,9 +355,15 @@ open class UZPlayer: UIView {
 	
 	- parameter to: target time
 	*/
-	open func seek(to: TimeInterval, completion: (() -> Void)? = nil) {
-		self.currentPosition = to
-		playerLayer?.seek(to: to, completion: completion)
+	open func seek(to interval: TimeInterval, completion: (() -> Void)? = nil) {
+		self.currentPosition = interval
+		playerLayer?.seek(to: interval, completion: completion)
+		
+		let castingManager = UZCastingManager.shared
+		if castingManager.hasConnectedSession {
+			playerLayer?.pause()
+			castingManager.seek(to: interval)
+		}
 	}
 	
 	/**
@@ -477,22 +483,39 @@ open class UZPlayer: UIView {
 		}
 	}
 	
+	var castTimer: Timer? = nil
 	@objc func onCastSessionDidStart(_ notification: Notification) {
 		if let currentVideo = currentVideo, let linkPlay = currentLinkPlay {
-			let item = UZCastItem(id: currentVideo.id, title: currentVideo.name, customData: nil, streamType: currentVideo.isLive ? .live : .buffered, url: linkPlay.url, thumbnailUrl: currentVideo.thumbnailURL, duration: currentVideo.duration, playPosition: self.currentPosition, mediaTracks: nil)
+			let item = UZCastItem(id: currentVideo.id, title: currentVideo.name, customData: nil, streamType: currentVideo.isLive ? .live : .buffered, contentType: "application/dash+xml", url: linkPlay.url, thumbnailUrl: currentVideo.thumbnailURL, duration: currentVideo.duration, playPosition: self.currentPosition, mediaTracks: nil)
 			UZCastingManager.shared.castItem(item: item)
 		}
 		
 		playerLayer?.pause()
 		updateCastingUI()
+		
+		castTimer?.invalidate()
+		castTimer = Timer(timeInterval: 1.0, target: self, selector: #selector(onCastTimer), userInfo: nil, repeats: true)
 	}
 	
 	@objc func onCastSessionDidStop(_ notification: Notification) {
+		castTimer?.invalidate()
+		castTimer = nil
+		
 		let lastPosision = UZCastingManager.shared.lastPosition
+		DLog("Did stop at position: \(lastPosision)")
+		
 		playerLayer?.seek(to: lastPosision, completion: {
 			self.playerLayer?.play()
 		})
+		
 		updateCastingUI()
+	}
+	
+	@objc func onCastTimer() {
+		let castingManager = UZCastingManager.shared
+		if castingManager.hasConnectedSession {
+			self.UZPlayer(player: playerLayer!, playTimeDidChange: castingManager.currentPosition, totalTime: self.totalDuration)
+		}
 	}
 	
 	// MARK: -
@@ -934,6 +957,35 @@ extension UZPlayer: UZPlayerControlViewDelegate {
 	}
 	
 	open func controlView(controlView: UZPlayerControlView, slider: UISlider, onSliderEvent event: UIControlEvents) {
+		let castingManager = UZCastingManager.shared
+		if castingManager.hasConnectedSession {
+			switch event {
+			case .touchDown:
+				isSliderSliding = true
+				
+			case .touchUpInside :
+				isSliderSliding = false
+				let target = self.totalDuration * Double(slider.value)
+				
+				if isPlayToTheEnd {
+					isPlayToTheEnd = false
+					
+					controlView.hideEndScreen()
+					seek(to: target, completion: {
+						self.play()
+					})
+				}
+				else {
+					seek(to: target, completion: {
+						self.autoPlay()
+					})
+				}
+			default:
+				break
+			}
+			return
+		}
+		
 		switch event {
 		case .touchDown:
 			playerLayer?.onTimeSliderBegan()

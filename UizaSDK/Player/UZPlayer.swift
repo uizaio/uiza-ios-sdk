@@ -425,7 +425,7 @@ open class UZPlayer: UIView {
 	}
 	
 	internal func updateCastingUI() {
-		if AVAudioSession.sharedInstance().isAirPlaying {
+		if AVAudioSession.sharedInstance().isAirPlaying || UZCastingManager.shared.hasConnectedSession {
 			controlView.showCastingScreen()
 		}
 		else {
@@ -482,10 +482,17 @@ open class UZPlayer: UIView {
 			let item = UZCastItem(id: currentVideo.id, title: currentVideo.name, customData: nil, streamType: currentVideo.isLive ? .live : .buffered, url: linkPlay.url, thumbnailUrl: currentVideo.thumbnailURL, duration: currentVideo.duration, playPosition: 0, mediaTracks: nil)
 			UZCastingManager.shared.castItem(item: item)
 		}
+		
+		playerLayer?.pause()
+		updateCastingUI()
 	}
 	
 	@objc func onCastSessionDidStop(_ notification: Notification) {
-		
+		let lastPosision = UZCastingManager.shared.lastPosition
+		playerLayer?.seek(to: lastPosision, completion: {
+			self.playerLayer?.play()
+		})
+		updateCastingUI()
 	}
 	
 	// MARK: -

@@ -47,6 +47,33 @@ open class UZCastingManager: NSObject {
 		return discoverManager.device(at: index)
 	}
 	
+	open var lastPosition: TimeInterval = 0
+	open var currentPosition: TimeInterval {
+		get {
+			if let castSession = currentCastSession {
+				let remoteClient = castSession.remoteMediaClient
+				return remoteClient?.approximateStreamPosition() ?? 0
+			}
+			else {
+				return 0
+			}
+		}
+	}
+	
+	open var currentPlayerState: GCKMediaPlayerState {
+		get {
+			if let castSession = sessionManager.currentCastSession,
+				let remoteClient = castSession.remoteMediaClient,
+				let mediaStatus = remoteClient.mediaStatus
+			{
+				return mediaStatus.playerState
+			}
+			else {
+				return .unknown
+			}
+		}
+	}
+	
 	fileprivate var discoverManager : GCKDiscoveryManager!
 	fileprivate var sessionManager : GCKSessionManager!
 	fileprivate var remoteClient: GCKRemoteMediaClient?
@@ -94,6 +121,7 @@ open class UZCastingManager: NSObject {
 	}
 	
 	open func disconnect() {
+		lastPosition = currentPosition
 		sessionManager.endSessionAndStopCasting(true)
 		currentCastSession = nil
 	}
@@ -140,6 +168,7 @@ open class UZCastingManager: NSObject {
 	}
 	
 	open func stop() {
+		lastPosition = currentPosition
 		remoteClient?.stop()
 	}
 	
@@ -158,18 +187,6 @@ open class UZCastingManager: NSObject {
 		}
 		else {
 			completion(nil)
-		}
-	}
-	
-	open func getMediaPlayerState(completion: (GCKMediaPlayerState) -> Void) {
-		if let castSession = sessionManager.currentCastSession,
-			let remoteClient = castSession.remoteMediaClient,
-			let mediaStatus = remoteClient.mediaStatus
-		{
-			completion(mediaStatus.playerState)
-		}
-		else {
-			completion(GCKMediaPlayerState.unknown)
 		}
 	}
 
@@ -213,6 +230,7 @@ extension UZCastingManager: GCKSessionManagerListener {
 	public func sessionManager(_ sessionManager: GCKSessionManager, didEnd session: GCKSession, withError error: Error?) {
 		DLog("Did end with error \(String(describing: error))")
 		
+		lastPosition = currentPosition
 		currentCastSession = nil
 		PostNotification(Notification.Name.UZCastSessionDidStop, object: currentCastSession, userInfo: nil)
 	}
@@ -220,6 +238,7 @@ extension UZCastingManager: GCKSessionManagerListener {
 	public func sessionManager(_ sessionManager: GCKSessionManager, didSuspend session: GCKCastSession, with reason: GCKConnectionSuspendReason) {
 		DLog("Did suspend with reason: \(reason.rawValue)")
 		
+		lastPosition = currentPosition
 		currentCastSession = nil
 		PostNotification(Notification.Name.UZCastSessionDidStop, object: currentCastSession, userInfo: nil)
 	}
@@ -247,6 +266,7 @@ extension UZCastingManager: GCKRequestDelegate {
 	
 	public func request(_ request: GCKRequest, didFailWithError error: GCKError) {
 		DLog("Request failed: \(error)")
+		lastPosition = currentPosition
 	}
 	
 	public func request(_ request: GCKRequest, didAbortWith abortReason: GCKRequestAbortReason) {

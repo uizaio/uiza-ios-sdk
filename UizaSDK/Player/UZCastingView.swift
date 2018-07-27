@@ -21,7 +21,14 @@ class UZCastingView: UIView {
 		titleLabel.textColor = .white
 		titleLabel.textAlignment = .center
 		titleLabel.numberOfLines = 2
-		titleLabel.text = "Playing on \(AVAudioSession.sharedInstance().sourceName ?? "(??)")"
+		
+		if AVAudioSession.sharedInstance().isAirPlaying {
+			titleLabel.text = "Playing on \(AVAudioSession.sharedInstance().sourceName ?? "(??)")"
+		}
+		else if let castSession = UZCastingManager.shared.currentCastSession {
+			let device = castSession.device
+			titleLabel.text = "Playing on \(device.modelName ?? "(??)")"
+		}
 		
 		imageView.image = UIImage(icon: .fontAwesomeSolid(.tv), size: CGSize(width: 120, height: 120), textColor: UIColor(white: 1.0, alpha: 0.7), backgroundColor: .clear)
 		imageView.contentMode = .scaleAspectFit

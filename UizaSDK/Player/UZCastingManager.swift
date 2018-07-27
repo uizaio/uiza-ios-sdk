@@ -25,6 +25,7 @@ public struct UZCastItem {
 	var customData: [String: AnyHashable]?
 	var streamType: GCKMediaStreamType
 	var url: URL
+	var thumbnailUrl: URL?
 	var duration: TimeInterval
 	var playPosition: TimeInterval
 	var mediaTracks: [GCKMediaTrack]?
@@ -105,6 +106,13 @@ open class UZCastingManager: NSObject {
 		
 		let metadata = GCKMediaMetadata(metadataType: .movie)
 		metadata.setString(item.title, forKey: kGCKMetadataKeyTitle)
+		if let device = currentCastSession?.device, let deviceName = device.friendlyName {
+			metadata.setString(deviceName, forKey: kGCKMetadataKeyStudio)
+		}
+		
+		if let thumbnailUrl = item.thumbnailUrl {
+			metadata.addImage(GCKImage(url: thumbnailUrl, width: 720, height: 480))
+		}
 		
 		let builder = GCKMediaInformationBuilder(contentID: item.id)
 		builder.streamType = item.streamType

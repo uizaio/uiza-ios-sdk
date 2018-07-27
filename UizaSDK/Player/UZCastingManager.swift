@@ -14,6 +14,7 @@ extension Notification.Name {
 	static let UZDeviceListDidUpdate 	= Notification.Name(rawValue: "UZDeviceListDidUpdate")
 	static let UZCastSessionDidStart	= Notification.Name(rawValue: "UZCastSessionDidStart")
 	static let UZCastSessionDidStop 	= Notification.Name(rawValue: "UZCastSessionDidStop")
+	static let UZCastClientDidStart		= Notification.Name(rawValue: "UZCastClientDidStart")
 	static let UZDeviceDidReceiveText 	= Notification.Name(rawValue: "UZDeviceDidReceiveText")
 	static let UZShowAirPlayDeviceList	= Notification.Name(rawValue: "UZShowAirPlayDeviceList")
 	
@@ -232,8 +233,8 @@ extension UZCastingManager: GCKSessionManagerListener {
 	public func sessionManager(_ sessionManager: GCKSessionManager, didEnd session: GCKSession, withError error: Error?) {
 		DLog("Did end with error \(String(describing: error))")
 		
-		lastPosition = self.currentPosition
 		currentCastSession = nil
+		currentCastItem = nil
 		PostNotification(Notification.Name.UZCastSessionDidStop, object: currentCastSession, userInfo: nil)
 	}
 	
@@ -251,6 +252,7 @@ extension UZCastingManager: GCKRemoteMediaClientListener {
 	
 	public func remoteMediaClient(_ client: GCKRemoteMediaClient, didStartMediaSessionWithID sessionID: Int) {
 		DLog("Client did start: \(sessionID)")
+		PostNotification(Notification.Name.UZCastClientDidStart, object: sessionID, userInfo: nil)
 	}
 	
 	public func remoteMediaClient(_ client: GCKRemoteMediaClient, didUpdate mediaStatus: GCKMediaStatus?) {

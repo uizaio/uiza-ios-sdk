@@ -491,9 +491,12 @@ open class UZPlayer: UIView {
 		}
 		
 		playerLayer?.pause(alsoPauseCasting: false)
+		updateCastingUI()
+	}
+	
+	@objc func onCastClientDidStart(_ notification: Notification) {
 		playerLayer?.setupTimer()
 		playerLayer?.isPlaying = true
-		updateCastingUI()
 	}
 	
 	@objc func onCastSessionDidStop(_ notification: Notification) {
@@ -614,6 +617,7 @@ open class UZPlayer: UIView {
 		NotificationCenter.default.addObserver(self, selector: #selector(showAirPlayDevicesSelection), name: .UZShowAirPlayDeviceList, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(onCastSessionDidStart), name: NSNotification.Name.UZCastSessionDidStart, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(onCastSessionDidStop), name: NSNotification.Name.UZCastSessionDidStop, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(onCastClientDidStart), name: NSNotification.Name.UZCastClientDidStart, object: nil)
 	}
 	
 	fileprivate func preparePlayer() {

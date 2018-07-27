@@ -13,6 +13,7 @@ import Foundation
 import CoreGraphics
 import NKModalViewManager
 import GoogleInteractiveMediaAds
+import GoogleCast
 
 public protocol UZPlayerDelegate : class {
 	func UZPlayer(player: UZPlayer, playerStateDidChange state: UZPlayerState)

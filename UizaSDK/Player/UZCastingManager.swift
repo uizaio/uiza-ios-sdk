@@ -106,7 +106,16 @@ open class UZCastingManager: NSObject {
 		let metadata = GCKMediaMetadata(metadataType: .movie)
 		metadata.setString(item.title, forKey: kGCKMetadataKeyTitle)
 		
-		let mediaInformation = GCKMediaInformation(contentID: item.id, streamType: item.streamType, contentType: "application/dash+xml", metadata: metadata, adBreaks: nil, adBreakClips: nil, streamDuration: item.duration, mediaTracks: item.mediaTracks, textTrackStyle: nil, customData: item.customData)
+		let builder = GCKMediaInformationBuilder(contentID: item.id)
+		builder.streamType = item.streamType
+		builder.mediaTracks = item.mediaTracks
+		builder.customData = item.customData
+		builder.streamDuration = item.duration
+		builder.textTrackStyle = GCKMediaTextTrackStyle.createDefault()
+		builder.metadata = metadata
+		builder.contentType = "movie"
+		
+		let mediaInformation = builder.build()
 		
 		let loadOptions = GCKMediaLoadOptions()
 		loadOptions.autoplay = true

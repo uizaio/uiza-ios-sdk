@@ -162,7 +162,7 @@ open class UZTheme1: UZPlayerTheme {
 			frameLayout.minSize = buttonMinSize
 		}
 		
-		bottomFrameLayout = StackFrameLayout(direction: .horizontal, views: [bottomLeftFrameLayout, controlView.timeSlider, bottomRightFrameLayout])
+		bottomFrameLayout = StackFrameLayout(direction: .horizontal, alignment: . left, views: [bottomLeftFrameLayout, controlView.timeSlider, bottomRightFrameLayout])
 		bottomFrameLayout!.frameLayout(at: 1)?.isFlexible = true
 		bottomFrameLayout!.addSubview(controlView.currentTimeLabel)
 		bottomFrameLayout!.addSubview(controlView.remainTimeLabel)
@@ -171,17 +171,15 @@ open class UZTheme1: UZPlayerTheme {
 		bottomFrameLayout!.addSubview(controlView.fullscreenButton)
 		bottomFrameLayout!.addSubview(controlView.timeSlider)
 		bottomFrameLayout!.spacing = 10
-		bottomFrameLayout!.layoutAlignment = .left
 		bottomFrameLayout!.isUserInteractionEnabled = true
 		bottomFrameLayout!.edgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
 		
-		mainFrameLayout = StackFrameLayout(direction: .vertical, views: [topFrameLayout!, controlView.playpauseCenterButton, bottomFrameLayout!])
+		mainFrameLayout = StackFrameLayout(direction: .vertical, alignment: . top, views: [topFrameLayout!, controlView.playpauseCenterButton, bottomFrameLayout!])
 		mainFrameLayout!.frameLayout(at: 1)?.configurationBlock = { layout in
 			layout.isFlexible = true
 			layout.ignoreHiddenView = false
 			layout.contentAlignment = (.center, .center)
 		}
-		mainFrameLayout!.layoutAlignment = .top
 		mainFrameLayout!.ignoreHiddenView = false
 		
 		topGradientLayer.colors = [UIColor(white: 0.0, alpha: 0.8).cgColor, UIColor(white: 0.0, alpha: 0.0).cgColor]
@@ -228,6 +226,8 @@ open class UZTheme1: UZPlayerTheme {
 				controlView.enlapseTimeLabel.frame = CGRect(x: 10, y: viewSize.height - labelSize.height - 10, width: labelSize.width, height: labelSize.height)
 			}
 		}
+		
+		controlView?.loadingIndicatorView?.center = controlView?.center ?? .zero
 	}
 	
 	open func cleanUI() {

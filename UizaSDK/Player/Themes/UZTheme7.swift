@@ -236,6 +236,8 @@ open class UZTheme7: UZPlayerTheme {
 			let labelSize = controlView.enlapseTimeLabel.sizeThatFits(viewSize)
 			controlView.enlapseTimeLabel.frame = CGRect(x: (viewSize.width - labelSize.width)/2, y: viewSize.height - labelSize.height - 18, width: labelSize.width, height: labelSize.height)
 		}
+		
+		controlView?.loadingIndicatorView?.center = controlView?.center ?? .zero
 	}
 	
 	open func cleanUI() {

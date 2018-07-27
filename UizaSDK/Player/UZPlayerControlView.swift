@@ -441,8 +441,6 @@ open class UZPlayerControlView: UIView {
 	open func showLoader() {
 		loadingIndicatorView?.isHidden = false
 		loadingIndicatorView?.startAnimating()
-		loadingIndicatorView?.center = self.center
-		self.setNeedsLayout()
 	}
 	
 	open func hideLoader() {

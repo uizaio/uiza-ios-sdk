@@ -774,6 +774,29 @@ open class UZPlayer: UIView {
 		NKModalViewManager.sharedInstance().presentModalViewController(viewController).tapOutsideToDismiss = true
 	}
 	
+	func showCastDisconnectConfirmation(at view: UIView) {
+		if UZCastingManager.shared.hasConnectedSession {
+			if let window = UIApplication.shared.keyWindow,
+				let viewController = window.rootViewController
+			{
+				let activeViewController: UIViewController = viewController.presentedViewController ?? viewController
+				let deviceName = UZCastingManager.shared.currentCastSession?.device.modelName ?? "(?)"
+				let alert = UIAlertController(title: "Disconnect", message: "Disconnect from \(deviceName)?", preferredStyle: .actionSheet)
+				
+				if UIDevice.current.userInterfaceIdiom == .pad {
+					alert.modalPresentationStyle = .popover
+					alert.popoverPresentationController?.sourceView = view
+					alert.popoverPresentationController?.sourceRect = view.bounds
+				}
+				
+				activeViewController.present(alert, animated: true, completion: nil)
+			}
+		}
+		else if AVAudioSession.sharedInstance().isAirPlaying {
+			showAirPlayDevicesSelection()
+		}
+	}
+	
 	// MARK: - KVO
 	
 	override open func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -939,7 +962,12 @@ extension UZPlayer: UZPlayerControlViewDelegate {
 				showMediaOptionSelector()
 				
 			case .casting:
-				showCastingDeviceList()
+				if button.isSelected {
+					showCastDisconnectConfirmation(at: button)
+				}
+				else {
+					showCastingDeviceList()
+				}
 				
 			default:
 				#if DEBUG

@@ -158,6 +158,7 @@ open class UZTheme4: UZPlayerTheme {
 		bottomCenterFrameLayout.append(view: controlView.playpauseButton).contentAlignment = (.center, .center)
 		bottomCenterFrameLayout.append(view: controlView.forwardButton).contentAlignment = (.center, .center)
 		bottomCenterFrameLayout.layoutAlignment = .center
+		bottomCenterFrameLayout.ignoreHiddenView = false
 		
 		for frameLayout in bottomRightFrameLayout.frameLayouts {
 			frameLayout.minSize = buttonMinSize
@@ -240,7 +241,9 @@ open class UZTheme4: UZPlayerTheme {
 			}
 		}
 		
-		controlView?.loadingIndicatorView?.center = controlView?.center ?? .zero
+		bottomFrameLayout?.setNeedsLayout()
+		bottomFrameLayout?.layoutIfNeeded()
+		controlView?.loadingIndicatorView?.center = controlView?.playpauseButton.center ?? .zero
 	}
 	
 	open func cleanUI() {
@@ -252,20 +255,23 @@ open class UZTheme4: UZPlayerTheme {
 	}
 	
 	open func showLoader() {
-		if let controlView = controlView {
+		if let controlView = controlView, let bottomFrameLayout = bottomFrameLayout {
 			if controlView.loadingIndicatorView == nil {
 				controlView.loadingIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 30, height: 30), type: NVActivityIndicatorType.ballScaleRippleMultiple, color: .white, padding: 0)
-				controlView.addSubview(controlView.loadingIndicatorView!)
+				bottomFrameLayout.addSubview(controlView.loadingIndicatorView!)
+				controlView.setNeedsLayout()
 			}
 			
 			controlView.loadingIndicatorView?.isHidden = false
 			controlView.loadingIndicatorView?.startAnimating()
+			controlView.playpauseButton.isHidden = true
 		}
 	}
 	
 	open func hideLoader() {
 		controlView?.loadingIndicatorView?.isHidden = true
 		controlView?.loadingIndicatorView?.stopAnimating()
+		controlView?.playpauseButton.isHidden = false
 	}
 	
 }

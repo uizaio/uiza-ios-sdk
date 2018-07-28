@@ -39,6 +39,8 @@ public protocol UZPlayerTheme {
 	func layoutControls(rect: CGRect)
 	func cleanUI()
 	func allButtons() -> [UIButton]
+	func showLoader()
+	func hideLoader()
 	
 }
 
@@ -214,6 +216,9 @@ open class UZPlayerControlView: UIView {
 		timeSlider.setThumbImage(nil, for: .highlighted)
 		timeSlider.setThumbImage(nil, for: .selected)
 		timeSlider.setThumbImage(nil, for: .disabled)
+		
+		loadingIndicatorView?.removeFromSuperview()
+		loadingIndicatorView = nil
 		
 		playpauseCenterButton.isHidden = false
 	}
@@ -439,13 +444,11 @@ open class UZPlayerControlView: UIView {
 	}
 	
 	open func showLoader() {
-		loadingIndicatorView?.isHidden = false
-		loadingIndicatorView?.startAnimating()
+		theme?.showLoader()
 	}
 	
 	open func hideLoader() {
-		loadingIndicatorView?.isHidden = true
-		loadingIndicatorView?.stopAnimating()
+		theme?.hideLoader()
 	}
 	
 	open func showCoverWithLink(_ cover:String) {

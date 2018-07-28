@@ -33,6 +33,9 @@ public struct UZCastItem {
 	var mediaTracks: [GCKMediaTrack]?
 }
 
+/*
+Class quản lý việc casting
+*/
 open class UZCastingManager: NSObject {
 	
 	open static let shared = UZCastingManager()
@@ -49,6 +52,10 @@ open class UZCastingManager: NSObject {
 		return discoverManager.device(at: index)
 	}
 	
+	open var mediaDuration: TimeInterval {
+		return remoteClient?.mediaStatus?.currentQueueItem?.mediaInformation.streamDuration ?? 0
+	}
+	
 	open var lastPosition: TimeInterval = 0
 	open var currentPosition: TimeInterval {
 		get {
@@ -60,7 +67,7 @@ open class UZCastingManager: NSObject {
 			}
 		}
 	}
-	var initPosition: TimeInterval = 0
+	private var initPosition: TimeInterval = 0
 	
 	open var currentPlayerState: GCKMediaPlayerState {
 		get {
@@ -73,9 +80,9 @@ open class UZCastingManager: NSObject {
 		}
 	}
 	
-	fileprivate var discoverManager : GCKDiscoveryManager!
-	fileprivate var sessionManager : GCKSessionManager!
-	fileprivate var remoteClient: GCKRemoteMediaClient?
+	open private(set) var discoverManager : GCKDiscoveryManager!
+	open private(set) var sessionManager : GCKSessionManager!
+	open private(set) var remoteClient: GCKRemoteMediaClient?
 	
 	open private(set) var currentCastSession: GCKCastSession? = nil
 	open private(set) var currentCastItem: UZCastItem? = nil
@@ -192,13 +199,16 @@ open class UZCastingManager: NSObject {
 	open func setMute(_ muted: Bool) {
 		remoteClient?.setStreamMuted(muted)
 	}
+	
+	open func selectTracksIDs(_ tracks: [NSNumber]) {
+		remoteClient?.setActiveTrackIDs(tracks)
+	}
 
 }
 
 extension UZCastingManager: GCKDiscoveryManagerListener {
 	
 	public func didUpdateDeviceList() {
-		DLog("Device list updated")
 		PostNotification(Notification.Name.UZDeviceListDidUpdate)
 	}
 	

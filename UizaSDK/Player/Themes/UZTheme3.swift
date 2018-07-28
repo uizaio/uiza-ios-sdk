@@ -200,9 +200,6 @@ open class UZTheme3: UZPlayerTheme {
 		
 		controlView.addSubview(controlView.enlapseTimeLabel)
 		controlView.addSubview(controlView.liveBadgeView)
-		
-		controlView.loadingIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 30, height: 30), type: NVActivityIndicatorType.ballRotateChase, color: .white, padding: 0)
-		controlView.addSubview(controlView.loadingIndicatorView!)
 	}
 	
 	open func layoutControls(rect: CGRect) {
@@ -213,10 +210,6 @@ open class UZTheme3: UZPlayerTheme {
 		CATransaction.setValue(kCFBooleanTrue, forKey: kCATransactionDisableActions)
 		topGradientLayer.frame = topFrameLayout!.frame
 		CATransaction.commit()
-		
-		if let controlView = controlView {
-			controlView.loadingIndicatorView?.center = controlView.center
-		}
 		
 		if let controlView = controlView {
 			let viewSize = controlView.bounds.size
@@ -242,6 +235,23 @@ open class UZTheme3: UZPlayerTheme {
 	
 	open func allButtons() -> [UIButton] {
 		return []
+	}
+	
+	open func showLoader() {
+		if let controlView = controlView {
+			if controlView.loadingIndicatorView == nil {
+				controlView.loadingIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 30, height: 30), type: NVActivityIndicatorType.ballSpinFadeLoader, color: .white, padding: 0)
+				controlView.addSubview(controlView.loadingIndicatorView!)
+			}
+			
+			controlView.loadingIndicatorView?.isHidden = false
+			controlView.loadingIndicatorView?.startAnimating()
+		}
+	}
+	
+	open func hideLoader() {
+		controlView?.loadingIndicatorView?.isHidden = true
+		controlView?.loadingIndicatorView?.stopAnimating()
 	}
 	
 }

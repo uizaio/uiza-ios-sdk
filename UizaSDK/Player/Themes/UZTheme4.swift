@@ -210,9 +210,6 @@ open class UZTheme4: UZPlayerTheme {
 		
 		controlView.addSubview(controlView.enlapseTimeLabel)
 		controlView.addSubview(controlView.liveBadgeView)
-		
-		controlView.loadingIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 30, height: 30), type: NVActivityIndicatorType.ballRotateChase, color: .white, padding: 0)
-		controlView.addSubview(controlView.loadingIndicatorView!)
 	}
 	
 	open func layoutControls(rect: CGRect) {
@@ -227,7 +224,6 @@ open class UZTheme4: UZPlayerTheme {
 		if let controlView = controlView {
 			let viewSize = rect.size
 			controlView.timeSlider.frame = CGRect(x: 0, y: viewSize.height - bottomFrameLayout!.frame.size.height - 8, width: viewSize.width, height: 16)
-			controlView.loadingIndicatorView?.center = controlView.center
 		}
 		
 		if let controlView = controlView {
@@ -253,6 +249,23 @@ open class UZTheme4: UZPlayerTheme {
 	
 	open func allButtons() -> [UIButton] {
 		return []
+	}
+	
+	open func showLoader() {
+		if let controlView = controlView {
+			if controlView.loadingIndicatorView == nil {
+				controlView.loadingIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 30, height: 30), type: NVActivityIndicatorType.ballScaleRippleMultiple, color: .white, padding: 0)
+				controlView.addSubview(controlView.loadingIndicatorView!)
+			}
+			
+			controlView.loadingIndicatorView?.isHidden = false
+			controlView.loadingIndicatorView?.startAnimating()
+		}
+	}
+	
+	open func hideLoader() {
+		controlView?.loadingIndicatorView?.isHidden = true
+		controlView?.loadingIndicatorView?.stopAnimating()
 	}
 	
 }

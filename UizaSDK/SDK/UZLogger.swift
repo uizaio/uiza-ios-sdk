@@ -14,6 +14,21 @@ Class hỗ trợ việc logging
 */
 open class UZLogger: UZAPIConnector {
 	
+	private let URL_TRACKING_DEV = "https://dev-tracking.uiza.io/analytic-tracking/"
+	private let URL_TRACKING_STAG = "https://stag-tracking.uiza.io/analytic-tracking/"
+	private let URL_TRACKING_PROD = "https://tracking.uiza.io/analytic-tracking/"
+	
+	lazy private var loggingURLString: String = {
+		switch UizaSDK.enviroment {
+		case .production:
+			return URL_TRACKING_PROD
+		case .development:
+			return URL_TRACKING_DEV
+		case .staging:
+			return URL_TRACKING_STAG
+		}
+	}()
+	
 	open func log(event: String, video: UZVideoItem? = nil, params: [String: Any]? = nil, completionBlock: APIConnectorResultBlock? = nil) {
 		var finalParams: [String : Any]? = [:]
 		
@@ -67,7 +82,7 @@ open class UZLogger: UZAPIConnector {
 			finalParams.appendFrom(params!)
 		}
 		
-		self.callAPI("analytic-tracking", method: .post, params: finalParams, completion: completionBlock)
+		self.callAPI("analytic-tracking", baseURLString: loggingURLString, method: .post, params: finalParams, completion: completionBlock)
 	}
 
 }

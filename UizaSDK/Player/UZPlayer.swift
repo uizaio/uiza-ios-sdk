@@ -141,11 +141,11 @@ open class UZPlayer: UIView {
 	/**
 	Load and play a videoId
 	
-	- parameter videoId: `id` of video
+	- parameter entityId: `id` of video
 	- parameter completionBlock: callback block with `[UZVideoLinkPlay]` or Error
 	*/
-	open func loadVideo(videoId: String, completionBlock:((_ linkPlays: [UZVideoLinkPlay]?, _ error: Error?) -> Void)? = nil) {
-		UZContentServices().loadDetail(videoId: videoId) { [weak self] (videoItem, error) in
+	open func loadVideo(entityId: String, completionBlock:((_ linkPlays: [UZVideoLinkPlay]?, _ error: Error?) -> Void)? = nil) {
+		UZContentServices().loadDetail(entityId: entityId) { [weak self] (videoItem, error) in
 			guard let `self` = self else { return }
 			
 			if videoItem != nil {

@@ -22,7 +22,7 @@ open class UZContentServices: UZAPIConnector {
 	- parameter completionBlock: block được gọi sau khi hoàn thành, trả về mảng [`UZCategory`], hoặc error nếu có lỗi
 	*/
 	public func loadHomeData(metadataId: String? = nil, page: Int = 0, limit: Int = 20, completionBlock: ((_ results:[UZCategory]?, _ error:Error?) -> Void)? = nil) {
-		self.requestHeaderFields = ["Authorization" : UizaSDK.key]
+		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
 		
 		var params : [String: Any] = [:]
 		
@@ -97,7 +97,7 @@ open class UZContentServices: UZAPIConnector {
 	- parameter completionBlock: block được gọi sau khi hoàn thành, trả về mảng [`UZVideoItem`], hoặc error nếu có lỗi
 	*/
 	public func loadMetadata(metadataId: String, page: Int = 0, limit: Int = 20, completionBlock: ((_ results:[UZVideoItem]?, _ pagination: UZPagination?, _ error:Error?) -> Void)? = nil) {
-		self.requestHeaderFields = ["Authorization" : UizaSDK.key]
+		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
 		
 		let params : [String: Any] = ["metadataId" 	: metadataId,
 									  "limit"		: limit,
@@ -136,7 +136,7 @@ open class UZContentServices: UZAPIConnector {
 	- parameter completionBlock: block được gọi sau khi hoàn thành, trả về mảng [`UZVideoItem`], hoặc error nếu có lỗi
 	*/
 	public func loadLiveVideo(page: Int = 0, limit: Int = 20, completionBlock: ((_ results:[UZVideoItem]?, _ pagination: UZPagination?, _ error:Error?) -> Void)? = nil) {
-		self.requestHeaderFields = ["Authorization" : UizaSDK.key]
+		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
 		
 		let params : [String: Any] = ["limit" 		: limit,
 									  "page" 		: page,
@@ -175,7 +175,7 @@ open class UZContentServices: UZAPIConnector {
 	- parameter completionBlock: block được gọi sau khi hoàn thành, trả về UZVideoItem với đầy đủ thông tin chi tiết, hoặc error nếu có lỗi
 	*/
 	public func loadDetail(entityId: String, isLive: Bool = false, completionBlock:((_ video: UZVideoItem?, _ error: Error?) -> Void)? = nil) {
-		self.requestHeaderFields = ["Authorization" : UizaSDK.key]
+		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
 		
 		let params : [String: Any] = ["id" : entityId]
 		
@@ -212,7 +212,7 @@ open class UZContentServices: UZAPIConnector {
 	- parameter completionBlock: block được gọi sau khi hoàn thành, trả về mảng [`UZVideoItem`], hoặc error nếu có lỗi
 	*/
 	public func loadRelates(entityId: String, completionBlock:((_ videos: [UZVideoItem]?, _ error: Error?) -> Void)? = nil) {
-		self.requestHeaderFields = ["Authorization" : UizaSDK.key]
+		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
 		
 		let params : [String: Any] = ["id" : entityId]
 		
@@ -313,7 +313,7 @@ open class UZContentServices: UZAPIConnector {
 	- parameter completionBlock: block được gọi sau khi hoàn thành, trả về mảng [`UZMenuItem`], hoặc error nếu có lỗi
 	*/
 	public func loadSideMenu(completionBlock:((_ results: [UZMenuItem]?, _ error: Error?) -> Void)? = nil) {
-		self.requestHeaderFields = ["Authorization" : UizaSDK.key]
+		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
 		
 		let params : [String: Any] = ["limit" : 50, "type" : ["folder", "playlist"]]
 		
@@ -346,7 +346,7 @@ open class UZContentServices: UZAPIConnector {
 	- parameter completionBlock: block được gọi sau khi hoàn thành, trả về mảng [`UZVideoItem`], hoặc error nếu có lỗi
 	*/
 	public func search(for keyword:String, page: Int = 0, limit: Int = 20, completionBlock:((_ results: [UZVideoItem]?, _ pagination: UZPagination?, _ error: Error?) -> Void)? = nil) {
-		self.requestHeaderFields = ["Authorization" : UizaSDK.key]
+		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
 		
 		let params : [String: Any] = ["keyword" 	: keyword,
 									  "page" 		: page,
@@ -383,7 +383,7 @@ open class UZContentServices: UZAPIConnector {
 	// MARK: -
 	
 	public func loadViews(video: UZVideoItem, completionBlock: ((_ views: Int, _ error: Error?) -> Void)? = nil) {
-		self.requestHeaderFields = ["Authorization" : UizaSDK.key]
+		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
 		
 		let params : [String: Any] = ["id" : video.id ?? ""]
 		
@@ -405,7 +405,7 @@ open class UZContentServices: UZAPIConnector {
 	}
 	
 	public func loadLiveStatus(video: UZVideoItem, completionBlock: ((_ result: UZLiveVideoStatus?, _ error: Error?) -> Void)? = nil) {
-		self.requestHeaderFields = ["Authorization" : UizaSDK.key]
+		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
 		
 		let params : [String: Any] = ["entityId" : video.id ?? "",
 									  "feedId" : video.feedId ?? ""]

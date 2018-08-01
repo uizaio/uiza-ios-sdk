@@ -15,7 +15,7 @@ UizaSDK yêu cầu Swift 4.1 và iOS10+, TVOS 10+
 ## Cài Đặt
 
 
-### CocoaPods
+### CocoaPods (nên dùng)
 
 Cài đặt thông qua [CocoaPods](http://cocoapods.org)
 
@@ -33,7 +33,7 @@ $ pod install
 
 ### Tự Cài Đặt
 
-Tải `UizaSDK.framework` và kéo vào project của bạn, và phải thêm nó vào mục Embbeded Binaries
+Tải [`UizaSDK.framework`](https://github.com/uizaio/uiza-sdk-player-ios/tree/master/UizaSDK.framework) và kéo vào project của bạn, và phải thêm nó vào mục Embbeded Binaries
 
 ## Cách Sử Dụng
 
@@ -43,12 +43,15 @@ Luôn khởi động framework này trước khi gọi bất cứ hàm API nào 
 ``` swift
 import UizaSDK
 
-UizaSDK.initWith(appId: [YOUR_APP_ID], key: [YOUR_SECRET_KEY], domain: [YOUR_DOMAIN], enviroment: .production)
+UizaSDK.initWith(appId: [YOUR_APP_ID], token: [TOKEN], api: [YOUR_DOMAIN])
 ```
+
+[YOUR_APP_ID] và [YOUR_DOMAIN] : lấy từ thông tin trong email đăng ký
+[TOKEN]: được tạo từ trang https://docs.uiza.io/#get-api-key
 
 ## Gọi hàm API
 ``` swift
-UZContentServices().loadDetail(videoId: VIDEO_ID, completionBlock: { (videoItem, error) in
+UZContentServices().loadDetail(entityId: ENTITY_ID, completionBlock: { (videoItem, error) in
   if error != nil {
     print("Error: \(error)")
   }
@@ -61,7 +64,7 @@ UZContentServices().loadDetail(videoId: VIDEO_ID, completionBlock: { (videoItem,
 ## Cách play video
 ``` swift
 let playerViewController = UZPlayerViewController()
-playerViewController.player.loadVideo(videoItem)
+playerViewController.player.loadVideo(entityId: [ENTITY_ID])
 present(playerViewController, animated: true, completion: nil)
 ```
 
@@ -83,7 +86,7 @@ UizaSDK requires Swift 4.1 and iOS9+, TVOS 10+
 ## Installation
 
 
-### CocoaPods
+### CocoaPods (Recommended)
 
 To integrate UizaSDK into your Xcode project using [CocoaPods](http://cocoapods.org), specify it in your `Podfile`:
 
@@ -99,7 +102,7 @@ $ pod install
 
 ### Manual Installation
 
-Download `UizaSDK.framework` and drag it into your project, add it to Embbeded Binaries section
+Download [`UizaSDK.framework`](https://github.com/uizaio/uiza-sdk-player-ios/tree/master/UizaSDK.framework) and drag it into your project, add it to Embbeded Binaries section
 
 ## Usage
 
@@ -109,12 +112,14 @@ Always initialize the framework by the following line before calling any API fun
 ``` swift
 import UizaSDK
 
-UizaSDK.initWith(appId: [YOUR_APP_ID], key: [YOUR_SECRET_KEY], domain: [YOUR_DOMAIN], enviroment: .production)
+UizaSDK.initWith(appId: [YOUR_APP_ID], token: [TOKEN], api: [YOUR_DOMAIN])
 ```
+
+[YOUR_APP_ID] and [YOUR_DOMAIN] : get from registration email
 
 ## Call API
 ``` swift
-UZContentServices().loadDetail(videoId: VIDEO_ID, completionBlock: { (videoItem, error) in
+UZContentServices().loadDetail(entityId: ENTITY_ID, completionBlock: { (videoItem, error) in
   if error != nil {
     print("Error: \(error)")
   }
@@ -127,7 +132,7 @@ UZContentServices().loadDetail(videoId: VIDEO_ID, completionBlock: { (videoItem,
 ## How to play video
 ``` swift
 let playerViewController = UZPlayerViewController()
-playerViewController.player.loadVideo(videoItem)
+playerViewController.player.loadVideo(entityId: [ENTITY_ID])
 present(playerViewController, animated: true, completion: nil)
 ```
 

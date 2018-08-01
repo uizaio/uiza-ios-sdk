@@ -27,6 +27,7 @@
 		6335BDA6210860EA00A9C0C5 /* UZCastingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6335BDA02108529500A9C0C5 /* UZCastingManager.swift */; };
 		6335BDA8210AE6F700A9C0C5 /* UZCastButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6335BDA7210AE6F700A9C0C5 /* UZCastButton.swift */; };
 		6335BDA9210AE6F700A9C0C5 /* UZCastButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6335BDA7210AE6F700A9C0C5 /* UZCastButton.swift */; };
+		633C09A82111A20E00D2AEFA /* NotificationName+Uiza.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63910C6720C152B700B814DC /* NotificationName+Uiza.swift */; };
 		6346B7A220930C3200A68AD4 /* UZPlayerControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6346B79A20930C3200A68AD4 /* UZPlayerControlView.swift */; };
 		6346B7A320930C3200A68AD4 /* UZPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6346B79B20930C3200A68AD4 /* UZPlayerViewController.swift */; };
 		6346B7A420930C3200A68AD4 /* UZMediaResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6346B79D20930C3200A68AD4 /* UZMediaResource.swift */; };
@@ -513,6 +514,7 @@
 				638EC0D220AAA17D00C0243E /* Frameworks */,
 				638EC0D320AAA17D00C0243E /* Resources */,
 				A9A0282F082ECBABA36F3D62 /* [CP] Embed Pods Frameworks */,
+				43BBD3116AB28D2F72055C07 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -532,6 +534,7 @@
 				63C65F5E205B9FE600DB2C96 /* Frameworks */,
 				63C65F5F205B9FE600DB2C96 /* Headers */,
 				63C65F60205B9FE600DB2C96 /* Resources */,
+				87EF6C35D9455B7D03494F0F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -551,6 +554,7 @@
 				63C65F68205B9FE600DB2C96 /* Frameworks */,
 				63C65F69205B9FE600DB2C96 /* Resources */,
 				648FD499C1B96C1C99D5F713 /* [CP] Embed Pods Frameworks */,
+				A6DEF55E40D66BBD52F4225E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -688,6 +692,26 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		43BBD3116AB28D2F72055C07 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-UizaPlayerTest/Pods-UizaPlayerTest-resources.sh",
+				"${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-ios-4.3.1_static/GoogleCast.framework/GoogleCastCoreResources.bundle",
+				"${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-ios-4.3.1_static/GoogleCast.framework/GoogleCastUIResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleCastCoreResources.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleCastUIResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-UizaPlayerTest/Pods-UizaPlayerTest-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		482DC50A7C5C92F55B66A5EE /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -722,8 +746,8 @@
 				"${BUILT_PRODUCTS_DIR}/NKButton/NKButton.framework",
 				"${BUILT_PRODUCTS_DIR}/NKModalViewManager/NKModalViewManager.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftIcons/SwiftIcons.framework",
-				"${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-ios-4.3.0/GoogleCast.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -736,12 +760,32 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NKButton.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NKModalViewManager.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftIcons.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleCast.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-UizaSDKTests/Pods-UizaSDKTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		87EF6C35D9455B7D03494F0F /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-UizaSDK/Pods-UizaSDK-resources.sh",
+				"${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-ios-4.3.1_static/GoogleCast.framework/GoogleCastCoreResources.bundle",
+				"${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-ios-4.3.1_static/GoogleCast.framework/GoogleCastUIResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleCastCoreResources.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleCastUIResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-UizaSDK/Pods-UizaSDK-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A0E04875E96286A174123FBA /* [CP] Check Pods Manifest.lock */ = {
@@ -762,6 +806,26 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		A6DEF55E40D66BBD52F4225E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-UizaSDKTests/Pods-UizaSDKTests-resources.sh",
+				"${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-ios-4.3.1_static/GoogleCast.framework/GoogleCastCoreResources.bundle",
+				"${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-ios-4.3.1_static/GoogleCast.framework/GoogleCastUIResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleCastCoreResources.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleCastUIResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-UizaSDKTests/Pods-UizaSDKTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		A9A0282F082ECBABA36F3D62 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -776,10 +840,10 @@
 				"${BUILT_PRODUCTS_DIR}/NKButton/NKButton.framework",
 				"${BUILT_PRODUCTS_DIR}/NKModalViewManager/NKModalViewManager.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftIcons/SwiftIcons.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON-iOS/SwiftyJSON.framework",
-				"${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-ios-4.3.0/GoogleCast.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -790,10 +854,10 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NKButton.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NKModalViewManager.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftIcons.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleCast.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -972,6 +1036,7 @@
 				63FC58D2208A1F1F009C9028 /* UZContentServices.swift in Sources */,
 				63FC58DA208A1F24009C9028 /* Dictionary+Append.swift in Sources */,
 				63FC58C9208A1F1F009C9028 /* UZBannerItem.swift in Sources */,
+				633C09A82111A20E00D2AEFA /* NotificationName+Uiza.swift in Sources */,
 				63FC58E2208A1F24009C9028 /* String+ToDictionary.swift in Sources */,
 				63FC58E0208A1F24009C9028 /* String+Components.swift in Sources */,
 				63FC58D1208A1F1F009C9028 /* UZAPIConnector.swift in Sources */,
@@ -1177,6 +1242,13 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"$(inherited)",
+					"GPB_USE_PROTOBUF_FRAMEWORK_IMPORTS=1",
+					"TVOS_VERSION=0",
+				);
 				INFOPLIST_FILE = UizaSDK/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -1201,6 +1273,13 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"$(inherited)",
+					"GPB_USE_PROTOBUF_FRAMEWORK_IMPORTS=1",
+					"TVOS_VERSION=0",
+				);
 				INFOPLIST_FILE = UizaSDK/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -1258,6 +1337,11 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"TVOS_VERSION=1",
+				);
 				INFOPLIST_FILE = "UizaSDK-tvos/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1265,6 +1349,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = appletvos;
 				SKIP_INSTALL = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG TVOS_VERSION";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 10.0;
@@ -1284,6 +1369,11 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"TVOS_VERSION=1",
+				);
 				INFOPLIST_FILE = "UizaSDK-tvos/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1291,6 +1381,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = appletvos;
 				SKIP_INSTALL = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = TVOS_VERSION;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 10.0;

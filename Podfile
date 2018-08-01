@@ -53,7 +53,6 @@ target 'UizaSDKTests' do
 
 	pod 'Alamofire'
 	pod 'AFDateHelper'
-#	pod 'CryptoSwift'
 	pod 'SDWebImage'
 	pod 'SwiftyJSON'
 

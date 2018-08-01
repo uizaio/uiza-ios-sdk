@@ -48,7 +48,11 @@ open class UZLogger: UZAPIConnector {
 		let modelId		: String = UIDevice.current.hardwareModel()
 		let modelName	: String = UIDevice.current.hardwareName()
 		let macAddress	: String = UIDevice.current.identifierForVendor?.uuidString ?? ""
+		#if TVOS_VERSION
+		let appVersion	: String = ""
+		#else
 		let appVersion	: String = UIApplication.shared.applicationVersion()
+		#endif
 		let userId		: String = UZUser.currentUser?.id ?? ""
 		let bundleId	: String = Bundle.main.bundleIdentifier ?? ""
 		let iosVersion	: String = UIDevice.current.systemVersion

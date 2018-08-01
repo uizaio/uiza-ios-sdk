@@ -131,6 +131,7 @@ open class UZVideoItem: UZModelObject {
 	
 }
 
+#if !TVOS_VERSION
 extension UZVideoItem: UIActivityItemSource {
 	
 	public func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivityType?) -> Any? {
@@ -151,6 +152,7 @@ extension UZVideoItem: UIActivityItemSource {
 	}
 	
 }
+#endif
 
 /**
 Class chứa thông tin trạng thái của LiveVideo

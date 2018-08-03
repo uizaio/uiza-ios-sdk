@@ -68,6 +68,14 @@ playerViewController.player.loadVideo(entityId: [ENTITY_ID])
 present(playerViewController, animated: true, completion: nil)
 ```
 
+Nếu gặp trường hợp video không play được do vấn đề App Transport Security (ATS), bạn phải thêm dòng sau vào file `Info.plist` để có thể play được video:
+``` xml
+<key>NSAppTransportSecurity</key>  
+<dict>  
+  <key>NSAllowsArbitraryLoads</key><true/>  
+</dict>
+```
+
 Xem chi tiết [Tài liệu API](https://uizaio.github.io/uiza-sdk-player-ios/)
 
 ## Hỗ Trợ
@@ -134,6 +142,14 @@ UZContentServices().loadDetail(entityId: ENTITY_ID, completionBlock: { (videoIte
 let playerViewController = UZPlayerViewController()
 playerViewController.player.loadVideo(entityId: [ENTITY_ID])
 present(playerViewController, animated: true, completion: nil)
+```
+
+ You might have to add these lines to `Info.plist` to disable App Transport Security (ATS) to be able to play video:
+``` xml
+<key>NSAppTransportSecurity</key>  
+<dict>  
+  <key>NSAllowsArbitraryLoads</key><true/>  
+</dict>
 ```
 
 For API details, check [API Document](https://uizaio.github.io/uiza-sdk-player-ios/)

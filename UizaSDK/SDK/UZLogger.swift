@@ -14,7 +14,7 @@ Class hỗ trợ việc logging
 */
 open class UZLogger: UZAPIConnector {
 	
-	private let URL_TRACKING_DEV = "https://dev-tracking.uiza.io/analytic-tracking/"
+	private let URL_TRACKING_DEV = "https://dev-tracking.uizadev.io/analytic-tracking/"
 	private let URL_TRACKING_STAG = "https://stag-tracking.uiza.io/analytic-tracking/"
 	private let URL_TRACKING_PROD = "https://tracking.uiza.io/analytic-tracking/"
 	

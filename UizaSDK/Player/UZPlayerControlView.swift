@@ -199,6 +199,8 @@ open class UZPlayerControlView: UIView {
 		
 		shareView.isHidden = true
 		liveBadgeView.isHidden = true
+		settingsButton.isHidden = true
+		
 		self.addSubview(containerView)
 	}
 	

@@ -101,7 +101,7 @@ open class UZPlayer: UIView {
 	}
 	
 	open var playlist: [UZVideoItem]? = nil
-	public var currentVideoIndex: Int? {
+	public var currentVideoIndex: Int {
 		get {
 			if let currentVideo = currentVideo, let playlist = playlist {
 				if let result = playlist.index(of: currentVideo) {
@@ -119,12 +119,12 @@ open class UZPlayer: UIView {
 				}
 			}
 			
-			return nil
+			return -1
 		}
 		set {
-			if let index = newValue, let playlist = playlist {
-				if index > -1 && index < playlist.count {
-					self.loadVideo(playlist[index])
+			if let playlist = playlist {
+				if newValue > -1 && newValue < playlist.count {
+					self.loadVideo(playlist[newValue])
 				}
 			}
 		}
@@ -435,11 +435,11 @@ open class UZPlayer: UIView {
 	}
 	
 	func nextVideo() {
-		
+		self.currentVideoIndex += 1
 	}
 	
 	func previousVideo() {
-		
+		self.currentVideoIndex -= 1
 	}
 	
 	private let pipKeyPath = #keyPath(AVPictureInPictureController.isPictureInPicturePossible)
@@ -935,6 +935,8 @@ extension UZPlayer: UZPlayerLayerViewDelegate {
 			}
 			
 			adsLoader?.contentComplete()
+			nextVideo()
+			
 			
 		case .error:
 			if autoTryNextDefinitionIfError {
@@ -1005,6 +1007,12 @@ extension UZPlayer: UZPlayerControlViewDelegate {
 				
 			case .backward:
 				seek(offset: -5)
+				
+			case .next:
+				nextVideo()
+				
+			case .previous:
+				previousVideo()
 				
 			case .fullscreen:
 				fullscreenBlock?(isFullScreen)
@@ -1144,7 +1152,7 @@ extension UZPlayer: IMAAdsLoaderDelegate, IMAAdsManagerDelegate {
 	}
 	
 	public func adsLoader(_ loader: IMAAdsLoader!, failedWith adErrorData: IMAAdLoadingErrorData!) {
-		print("Error loading ads: \(adErrorData.adError.message)")
+//		print("Error loading ads: \(adErrorData.adError.message)")
 		avPlayer?.play()
 	}
 	
@@ -1157,7 +1165,7 @@ extension UZPlayer: IMAAdsLoaderDelegate, IMAAdsManagerDelegate {
 	}
 	
 	public func adsManager(_ adsManager: IMAAdsManager!, didReceive error: IMAAdError!) {
-		print("AdsManager error: \(error.message)")
+//		print("AdsManager error: \(error.message)")
 		avPlayer?.play()
 	}
 	

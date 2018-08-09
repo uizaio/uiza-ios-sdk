@@ -30,6 +30,8 @@ public enum UZButtonTag: Int {
 	case chromecast = 117
 	case airplay	= 118
 	case casting	= 119
+	case next		= 120
+	case previous	= 121
 }
 
 public protocol UZPlayerTheme {
@@ -90,7 +92,7 @@ open class UZPlayerControlView: UIView {
 	
 	open var allButtons: [UIButton]! {
 		get {
-			return [backButton, helpButton, ccButton, playlistButton, settingsButton, fullscreenButton, playpauseCenterButton, playpauseButton, forwardButton, backwardButton, volumeButton, pipButton, castingButton]
+			return [backButton, helpButton, ccButton, playlistButton, settingsButton, fullscreenButton, playpauseCenterButton, playpauseButton, forwardButton, backwardButton, nextButton, previousButton, volumeButton, pipButton, castingButton]
 		}
 	}
 	
@@ -107,6 +109,8 @@ open class UZPlayerControlView: UIView {
 	public let playpauseButton = NKButton()
 	public let forwardButton = NKButton()
 	public let backwardButton = NKButton()
+	public let nextButton = NKButton()
+	public let previousButton = NKButton()
 	public let volumeButton = NKButton()
 	public let backButton = NKButton()
 	public let fullscreenButton = NKButton()
@@ -182,6 +186,8 @@ open class UZPlayerControlView: UIView {
 		settingsButton.tag = UZButtonTag.settings.rawValue
 		forwardButton.tag = UZButtonTag.forward.rawValue
 		backwardButton.tag = UZButtonTag.backward.rawValue
+		nextButton.tag = UZButtonTag.next.rawValue
+		previousButton.tag = UZButtonTag.previous.rawValue
 		volumeButton.tag = UZButtonTag.volume.rawValue
 		playlistButton.tag = UZButtonTag.playlist.rawValue
 		ccButton.tag = UZButtonTag.caption.rawValue

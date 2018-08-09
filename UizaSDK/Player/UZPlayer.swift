@@ -100,6 +100,8 @@ open class UZPlayer: UIView {
 		}
 	}
 	
+	open var playlist: [UZVideoItem]? = nil
+	
 	public fileprivate(set) var currentVideo: UZVideoItem?
 	public fileprivate(set) var currentLinkPlay: UZVideoLinkPlay?
 	
@@ -200,6 +202,30 @@ open class UZPlayer: UIView {
 			}
 			
 			completionBlock?(results, error)
+		}
+	}
+	
+	/**
+	Load and play a playlist
+	
+	- parameter metadataId: playlist id
+	- parameter page: pagination, start from 0
+	- parameter limit: limit item
+	- parameter playIndex: index of item to start playing, set -1 to disable auto start
+	- parameter completionBlock: callback block with `[UZVideoItem]`, pagination info, or Error
+	*/
+	open func loadPlaylist(metadataId: String, page: Int = 0, limit: Int = 20, playIndex: Int = 0, completionBlock:((_ playlist: [UZVideoItem]?, _ pagination: UZPagination, _ error: Error?) -> Void)? = nil) {
+		UZContentServices().loadMetadata(metadataId: metadataId, page: page, limit: limit) { [weak self] (results, pagination, error) in
+			guard let `self` = self else { return }
+			
+			if let playlist = results {
+				self.playlist = results
+				
+				let count = playlist.count
+				if playIndex > -1 && playIndex < count {
+					self.loadVideo(playlist[playIndex])
+				}
+			}
 		}
 	}
 	

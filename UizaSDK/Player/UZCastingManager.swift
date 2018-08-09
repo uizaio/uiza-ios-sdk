@@ -168,6 +168,14 @@ open class UZCastingManager: NSObject {
 		initPosition = item.playPosition
 		
 		remoteClient?.loadMedia(mediaInformation, with: loadOptions).delegate = self
+		
+//		let queueItemBuilder = GCKMediaQueueItemBuilder()
+//		queueItemBuilder.mediaInformation = mediaInformation
+//		queueItemBuilder.autoplay = true
+//		
+//		let queueLoadOptions = GCKMediaQueueLoadOptions()
+//		queueLoadOptions.repeatMode = .all
+//		remoteClient?.queueLoad([queueItemBuilder.build()], with: queueLoadOptions)
 	}
 	
 	// MARK: -

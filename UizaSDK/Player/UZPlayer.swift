@@ -101,6 +101,34 @@ open class UZPlayer: UIView {
 	}
 	
 	open var playlist: [UZVideoItem]? = nil
+	public var currentVideoIndex: Int? {
+		get {
+			if let currentVideo = currentVideo, let playlist = playlist {
+				if let result = playlist.index(of: currentVideo) {
+					return result
+				}
+				else {
+					var index = 0
+					for video in playlist {
+						if video.id == currentVideo.id {
+							return index
+						}
+						
+						index += 1
+					}
+				}
+			}
+			
+			return nil
+		}
+		set {
+			if let index = newValue, let playlist = playlist {
+				if index > -1 && index < playlist.count {
+					self.loadVideo(playlist[index])
+				}
+			}
+		}
+	}
 	
 	public fileprivate(set) var currentVideo: UZVideoItem?
 	public fileprivate(set) var currentLinkPlay: UZVideoLinkPlay?
@@ -406,9 +434,17 @@ open class UZPlayer: UIView {
 		}
 	}
 	
+	func nextVideo() {
+		
+	}
+	
+	func previousVideo() {
+		
+	}
+	
 	private let pipKeyPath = #keyPath(AVPictureInPictureController.isPictureInPicturePossible)
 	private var playerViewControllerKVOContext = 0
-	func setupPictureInPicture() {
+	private func setupPictureInPicture() {
 		pictureInPictureController?.removeObserver(self, forKeyPath: pipKeyPath, context: &playerViewControllerKVOContext)
 		pictureInPictureController?.delegate = nil
 		pictureInPictureController = nil

@@ -48,13 +48,16 @@ public protocol UZPlayerTheme {
 
 open class UZPlayerControlView: UIView {
 	open weak var delegate: UZPlayerControlViewDelegate?
-	open var resource: UZPlayerResource?
-	open var currentVideo: UZVideoItem?
 	open var autoHideControlsInterval: TimeInterval = 5
 	
 	open var totalDuration:TimeInterval = 0
+	
 	internal var seekedTime : TimeInterval = 0
 	internal var delayItem: DispatchWorkItem?
+	
+	internal var resource: UZPlayerResource?
+	internal var currentVideo: UZVideoItem?
+	internal var currentPlaylist: [UZVideoItem]?
 	
 	open var tapGesture: UITapGestureRecognizer?
 	open var doubleTapGesture: UITapGestureRecognizer?
@@ -92,7 +95,7 @@ open class UZPlayerControlView: UIView {
 	
 	open var allButtons: [UIButton]! {
 		get {
-			return [backButton, helpButton, ccButton, playlistButton, settingsButton, fullscreenButton, playpauseCenterButton, playpauseButton, forwardButton, backwardButton, nextButton, previousButton, volumeButton, pipButton, castingButton]
+			return [backButton, helpButton, ccButton, relateButton, settingsButton, fullscreenButton, playpauseCenterButton, playpauseButton, forwardButton, backwardButton, nextButton, previousButton, volumeButton, pipButton, castingButton]
 		}
 	}
 	
@@ -115,6 +118,7 @@ open class UZPlayerControlView: UIView {
 	public let backButton = NKButton()
 	public let fullscreenButton = NKButton()
 	public let playlistButton = NKButton()
+	public let relateButton = NKButton()
 	public let ccButton = NKButton()
 	public let settingsButton = NKButton()
 	public let helpButton = NKButton()
@@ -190,6 +194,7 @@ open class UZPlayerControlView: UIView {
 		previousButton.tag = UZButtonTag.previous.rawValue
 		volumeButton.tag = UZButtonTag.volume.rawValue
 		playlistButton.tag = UZButtonTag.playlist.rawValue
+		relateButton.tag = UZButtonTag.relates.rawValue
 		ccButton.tag = UZButtonTag.caption.rawValue
 		helpButton.tag = UZButtonTag.help.rawValue
 		pipButton.tag = UZButtonTag.pip.rawValue
@@ -339,9 +344,10 @@ open class UZPlayerControlView: UIView {
 	
 	// MARK: - UI update related function
 	
-	open func prepareUI(for resource: UZPlayerResource, video: UZVideoItem?) {
+	open func prepareUI(for resource: UZPlayerResource, video: UZVideoItem?, playlist: [UZVideoItem]?) {
 		self.resource = resource
 		self.currentVideo = video
+		self.currentPlaylist = playlist
 		
 		titleLabel.text = resource.name
 		shareView.title = resource.name
@@ -359,6 +365,7 @@ open class UZPlayerControlView: UIView {
 		
 		settingsButton.isHidden = true //resource.definitions.count < 2
 		autoFadeOutControlView(after: autoHideControlsInterval)
+		setNeedsLayout()
 	}
 	
 	open func playStateDidChange(isPlaying: Bool) {

@@ -100,7 +100,13 @@ open class UZPlayer: UIView {
 		}
 	}
 	
-	open var playlist: [UZVideoItem]? = nil
+	open var playlist: [UZVideoItem]? = nil {
+		didSet {
+			controlView.playlistButton.isHidden = (playlist?.isEmpty ?? true)
+			controlView.setNeedsLayout()
+		}
+	}
+	
 	public var currentVideoIndex: Int {
 		get {
 			if let currentVideo = currentVideo, let playlist = playlist {
@@ -269,8 +275,9 @@ open class UZPlayer: UIView {
 		
 		playthrough_eventlog = [:]
 		currentDefinition = definitionIndex
-		controlView.prepareUI(for: resource, video: currentVideo)
-		controlView.playlistButton.isHidden = currentVideo == nil || (currentVideo?.isLive ?? false)
+		controlView.prepareUI(for: resource, video: currentVideo, playlist: playlist)
+		controlView.relateButton.isHidden = true // currentVideo == nil || (currentVideo?.isLive ?? false)
+		controlView.playlistButton.isHidden = (playlist?.isEmpty ?? true)
 		
 		if shouldAutoPlay {
 			isURLSet = true

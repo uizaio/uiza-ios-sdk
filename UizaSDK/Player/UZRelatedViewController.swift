@@ -394,6 +394,7 @@ class UZMovieItemCollectionViewCell : UICollectionViewCell {
 	var isPlaying: Bool = false {
 		didSet {
 			self.isUserInteractionEnabled = isPlaying
+			playingLabel.isHidden = !isPlaying
 		}
 	}
 	
@@ -446,10 +447,18 @@ class UZMovieItemCollectionViewCell : UICollectionViewCell {
 		detailLabel.numberOfLines = 3
 		detailLabel.isHidden = true
 		
+		playingLabel.text = "PLAYING"
+		playingLabel.font = UIFont.systemFont(ofSize: 12, weight: .medium)
+		playingLabel.textColor = .white
+		playingLabel.textAlignment = .center
+		playingLabel.backgroundColor = UIColor(red:0.91, green:0.31, blue:0.28, alpha:1.00)
+		playingLabel.isHidden = true
+		
 		self.contentView.addSubview(highlightView)
 		self.contentView.addSubview(imageView)
 		self.contentView.addSubview(titleLabel)
 		self.contentView.addSubview(detailLabel)
+		self.contentView.addSubview(playingLabel)
 		
 		textFrameLayout = DoubleFrameLayout(direction: .vertical, views: [detailLabel])
 		textFrameLayout.spacing = 5
@@ -547,6 +556,10 @@ class UZMovieItemCollectionViewCell : UICollectionViewCell {
 		
 		let viewSize = self.bounds.size
 		titleLabel.frame = CGRect(x: 5, y: viewSize.height - 20, width: viewSize.width - 10, height: 15)
+		
+		var labelSize = playingLabel.sizeThatFits(viewSize)
+		labelSize.width += 10
+		playingLabel.frame = CGRect(x: viewSize.width - labelSize.width - 5, y: 5, width: labelSize.width, height: labelSize.height)
 	}
 	
 }

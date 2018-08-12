@@ -1054,8 +1054,11 @@ extension UZPlayer: UZPlayerControlViewDelegate {
                     button.isEnabled = true
                 }
 				
-			case .relates, .playlist:
+			case .relates:
 				showRelates()
+				
+			case .playlist:
+				showPlaylist()
 				
 			case .pip:
 				togglePiP()

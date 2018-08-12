@@ -758,6 +758,7 @@ open class UZPlayer: UIView {
 	open func showRelates() {
 		if let currentVideo = currentVideo {
 			let viewController = UZRelatedViewController()
+			viewController.collectionViewController.currentVideo = self.currentVideo
 			viewController.loadRelateVideos(to: currentVideo)
 			viewController.collectionViewController.selectedBlock = { [weak self] (videoItem) in
 				guard let `self` = self else { return }
@@ -772,6 +773,29 @@ open class UZPlayer: UIView {
 		else {
 			#if DEBUG
 			print("[UZPlayer] currentVideo not set")
+			#endif
+		}
+	}
+	
+	open func showPlaylist() {
+		if let playlist = self.playlist {
+			let viewController = UZPlaylistViewController()
+			viewController.collectionViewController.currentVideo = self.currentVideo
+			viewController.collectionViewController.videos = playlist
+//			viewController.loadPlaylist(metadataId: currentMetadata)
+			viewController.collectionViewController.selectedBlock = { [weak self] (videoItem) in
+				guard let `self` = self else { return }
+				
+				self.loadVideo(videoItem)
+				self.videoChangedBlock?(videoItem)
+				NKModalViewManager.sharedInstance().modalViewControllerThatContains(viewController)?.dismissWith(animated: true, completion: nil)
+				
+			}
+			NKModalViewManager.sharedInstance().presentModalViewController(viewController)
+		}
+		else {
+			#if DEBUG
+			print("[UZPlayer] playlist not set")
 			#endif
 		}
 	}

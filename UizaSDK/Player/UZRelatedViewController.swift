@@ -1,5 +1,5 @@
 //
-//  UZRelatedVideoCollectionViewController.swift
+//  UZVideoCollectionViewController.swift
 //  UizaSDK
 //
 //  Created by Nam Kennic on 5/10/18.
@@ -13,7 +13,8 @@ import FrameLayoutKit
 internal class UZRelatedViewController: UIViewController {
 	let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
 	let titleLabel = UILabel()
-	let collectionViewController = UZRelatedVideoCollectionViewController()
+	let collectionViewController = UZVideoCollectionViewController()
+	
 	var frameLayout: DoubleFrameLayout!
 	
 	init() {
@@ -128,15 +129,16 @@ extension UZRelatedViewController: NKModalViewControllerProtocol {
 	
 }
 
-// MARK: - UZRelatedVideoCollectionViewController
+// MARK: - UZVideoCollectionViewController
 
-internal class UZRelatedVideoCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+internal class UZVideoCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 	let CellIdentifier	= "VideoItemCell"
 	var flowLayout		: UICollectionViewFlowLayout!
 	var videos			: [UZVideoItem]! = []
 	var displayMode		: UZCellDisplayMode = .landscape
 	var selectedBlock	: ((_ item:UZVideoItem) -> Void)? = nil
 	var messageLabel	: UILabel?
+	var currentVideo	: UZVideoItem? = nil
 	
 	init() {
 		super.init(collectionViewLayout: UICollectionViewFlowLayout())
@@ -251,6 +253,7 @@ internal class UZRelatedVideoCollectionViewController: UICollectionViewControlle
 	func config(cell: UZMovieItemCollectionViewCell, with videoItem: UZVideoItem, and indexPath: IndexPath) {
 		cell.displayMode = displayMode
 		cell.videoItem = videoItem
+		cell.isPlaying = videoItem == currentVideo
 	}
 	
 	func showMessage(message: String) {
@@ -330,10 +333,11 @@ import SDWebImage
 import FrameLayoutKit
 
 class UZMovieItemCollectionViewCell : UICollectionViewCell {
-	var imageView			: UIImageView!
-	var highlightView		: UIView!
-	var titleLabel			: UILabel!
-	var detailLabel			: UILabel!
+	let imageView			= UIImageView()
+	let highlightView		= UIView()
+	let titleLabel			= UILabel()
+	let detailLabel			= UILabel()
+	let playingLabel		= UILabel()
 	var placeholderImage	: UIImage! = nil
 	var displayMode			: UZCellDisplayMode! = .portrait
 	var textFrameLayout		: DoubleFrameLayout!
@@ -387,6 +391,12 @@ class UZMovieItemCollectionViewCell : UICollectionViewCell {
 		}
 	}
 	
+	var isPlaying: Bool = false {
+		didSet {
+			self.isUserInteractionEnabled = isPlaying
+		}
+	}
+	
 	var videoItem : UZVideoItem! {
 		didSet {
 			if videoItem != oldValue {
@@ -419,22 +429,18 @@ class UZMovieItemCollectionViewCell : UICollectionViewCell {
 		self.contentView.backgroundColor = UIColor.white.withAlphaComponent(0.2)
 		//self.clipsToBounds = true
 		
-		imageView = UIImageView()
 		imageView.contentMode = .scaleAspectFill
 		imageView.clipsToBounds = true
 		
-		highlightView = UIView()
 		highlightView.backgroundColor = UIColor(white: 1.0, alpha: 0.5)
 		highlightView.alpha = 0.0
 		
-		titleLabel = UILabel()
 		titleLabel.textAlignment = .left
 		titleLabel.font = UIFont.systemFont(ofSize: 14)
 		titleLabel.numberOfLines = 2
 		titleLabel.textColor = .white
 //		titleLabel.isHidden = true
 		
-		detailLabel = UILabel()
 		detailLabel.textAlignment = .left
 		detailLabel.font = UIFont.systemFont(ofSize: 12)
 		detailLabel.numberOfLines = 3

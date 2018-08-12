@@ -100,6 +100,8 @@
 		63A8264A20F36BE0001FD7E3 /* Number+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A8264920F36BE0001FD7E3 /* Number+Extentions.swift */; };
 		63A8264B20F36BE0001FD7E3 /* Number+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A8264920F36BE0001FD7E3 /* Number+Extentions.swift */; };
 		63A8264C20F36BE0001FD7E3 /* Number+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A8264920F36BE0001FD7E3 /* Number+Extentions.swift */; };
+		63BBDE8D211FF1EF00E9E167 /* UZPlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BBDE8C211FF1EF00E9E167 /* UZPlaylistViewController.swift */; };
+		63BBDE8E211FF1EF00E9E167 /* UZPlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BBDE8C211FF1EF00E9E167 /* UZPlaylistViewController.swift */; };
 		63C65F6C205B9FE600DB2C96 /* UizaSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C65F62205B9FE600DB2C96 /* UizaSDK.framework */; };
 		63C65F71205B9FE600DB2C96 /* UizaSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F70205B9FE600DB2C96 /* UizaSDKTests.swift */; };
 		63C65F73205B9FE600DB2C96 /* UizaSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 63C65F65205B9FE600DB2C96 /* UizaSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -212,6 +214,7 @@
 		63910C6720C152B700B814DC /* NotificationName+Uiza.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Uiza.swift"; sourceTree = "<group>"; };
 		63A8264520F36136001FD7E3 /* UZPagination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZPagination.swift; sourceTree = "<group>"; };
 		63A8264920F36BE0001FD7E3 /* Number+Extentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Number+Extentions.swift"; sourceTree = "<group>"; };
+		63BBDE8C211FF1EF00E9E167 /* UZPlaylistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZPlaylistViewController.swift; sourceTree = "<group>"; };
 		63C65F62205B9FE600DB2C96 /* UizaSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UizaSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		63C65F65205B9FE600DB2C96 /* UizaSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UizaSDK.h; sourceTree = "<group>"; };
 		63C65F66205B9FE600DB2C96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -306,6 +309,7 @@
 				63714A23209B108600426948 /* UZShareView.swift */,
 				63CFB7E420BBD97800647958 /* UZCastingView.swift */,
 				6309D95D20A4078E008CC538 /* UZRelatedViewController.swift */,
+				63BBDE8C211FF1EF00E9E167 /* UZPlaylistViewController.swift */,
 				63CFB78B20B282F600647958 /* UZVideoQualitySettingsViewController.swift */,
 				63DFE44520BFFB7600A9032D /* UZMediaOptionSelectionViewController.swift */,
 				6335BDA221085D8200A9C0C5 /* UZDeviceListTableViewController.swift */,
@@ -919,6 +923,7 @@
 				638EC12720AC90F000C0243E /* UZTheme5.swift in Sources */,
 				638EC0FE20AAA2D200C0243E /* UZMenuItem.swift in Sources */,
 				638EC0D820AAA17D00C0243E /* AppDelegate.swift in Sources */,
+				63BBDE8E211FF1EF00E9E167 /* UZPlaylistViewController.swift in Sources */,
 				63CFB7E920BBDAF400647958 /* UZAirPlayButton.swift in Sources */,
 				638EC10620AAA2D600C0243E /* UZPlayerViewController.swift in Sources */,
 				638EC0EB20AAA2CA00C0243E /* FileManager+Extends.swift in Sources */,
@@ -1000,6 +1005,7 @@
 				63910C6820C152B700B814DC /* NotificationName+Uiza.swift in Sources */,
 				632124F52089E1EE00720593 /* UZUser.swift in Sources */,
 				638EC12C20AC97ED00C0243E /* UZTheme7.swift in Sources */,
+				63BBDE8D211FF1EF00E9E167 /* UZPlaylistViewController.swift in Sources */,
 				63C65FAD205BA10800DB2C96 /* NSDictionary+KeyValue.swift in Sources */,
 				6335BDA321085D8200A9C0C5 /* UZDeviceListTableViewController.swift in Sources */,
 			);

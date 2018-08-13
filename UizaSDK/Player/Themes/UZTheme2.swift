@@ -62,6 +62,8 @@ open class UZTheme2: UZPlayerTheme {
 		let pauseIcon = UIImage(icon: .googleMaterialDesign(.pause), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let forwardIcon = UIImage(icon: .googleMaterialDesign(.forward5), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let backwardIcon = UIImage(icon: .googleMaterialDesign(.replay5), size: iconSize, textColor: iconColor, backgroundColor: .clear)
+		let nextIcon = UIImage(icon: .googleMaterialDesign(.skipNext), size: iconSize, textColor: iconColor, backgroundColor: .clear)
+		let previousIcon = UIImage(icon: .googleMaterialDesign(.skipPrevious), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let fullscreenIcon = UIImage(icon: .googleMaterialDesign(.fullscreen), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let collapseIcon = UIImage(icon: .googleMaterialDesign(.fullscreenExit), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let thumbIcon = UIImage(icon: .fontAwesomeSolid(.circle), size: seekThumbSize, textColor: iconColor, backgroundColor: .clear)
@@ -79,6 +81,8 @@ open class UZTheme2: UZPlayerTheme {
 		controlView.playpauseButton.setImage(pauseIcon, for: .selected)
 		controlView.forwardButton.setImage(forwardIcon, for: .normal)
 		controlView.backwardButton.setImage(backwardIcon, for: .normal)
+		controlView.nextButton.setImage(nextIcon, for: .normal)
+		controlView.previousButton.setImage(previousIcon, for: .normal)
 		controlView.fullscreenButton.setImage(fullscreenIcon, for: .normal)
 		controlView.fullscreenButton.setImage(collapseIcon, for: .selected)
 		controlView.timeSlider.setThumbImage(thumbIcon, for: .normal)
@@ -89,6 +93,9 @@ open class UZTheme2: UZPlayerTheme {
 		controlView.pipButton.setImage(pipStopIcon, for: .selected)
 		controlView.pipButton.imageView?.contentMode = .scaleAspectFit
 		controlView.pipButton.isHidden = !AVPictureInPictureController.isPictureInPictureSupported()
+		
+		controlView.nextButton.isHidden = true
+		controlView.previousButton.isHidden = true
 		
 //		controlView.airplayButton.setupDefaultIcon(iconSize: iconSize, offColor: iconColor)
 		controlView.castingButton.setupDefaultIcon(iconSize: iconSize, offColor: iconColor)
@@ -156,7 +163,7 @@ open class UZTheme2: UZPlayerTheme {
 //		topFrameLayout!.showFrameDebug = true
 		
 		let bottomLeftFrameLayout = StackFrameLayout(direction: .horizontal, views: [controlView.currentTimeLabel])
-		let bottomRightFrameLayout = StackFrameLayout(direction: .horizontal, views: [controlView.remainTimeLabel, controlView.backwardButton, controlView.forwardButton, controlView.fullscreenButton])
+		let bottomRightFrameLayout = StackFrameLayout(direction: .horizontal, views: [controlView.remainTimeLabel, controlView.previousButton, controlView.nextButton, controlView.backwardButton, controlView.forwardButton, controlView.fullscreenButton])
 		bottomRightFrameLayout.spacing = 10
 		for frameLayout in bottomRightFrameLayout.frameLayouts {
 			frameLayout.minSize = buttonMinSize
@@ -166,6 +173,8 @@ open class UZTheme2: UZPlayerTheme {
 		bottomFrameLayout!.frameLayout(at: 1)?.isFlexible = true
 		bottomFrameLayout!.addSubview(controlView.currentTimeLabel)
 		bottomFrameLayout!.addSubview(controlView.remainTimeLabel)
+		bottomFrameLayout!.addSubview(controlView.nextButton)
+		bottomFrameLayout!.addSubview(controlView.previousButton)
 		bottomFrameLayout!.addSubview(controlView.backwardButton)
 		bottomFrameLayout!.addSubview(controlView.forwardButton)
 		bottomFrameLayout!.addSubview(controlView.fullscreenButton)
@@ -181,6 +190,7 @@ open class UZTheme2: UZPlayerTheme {
 			layout.contentAlignment = (.center, .center)
 		}
 		mainFrameLayout!.ignoreHiddenView = false
+		bottomRightFrameLayout.ignoreHiddenView = true
 		
 		topGradientLayer.colors = [UIColor(white: 0.0, alpha: 0.8).cgColor, UIColor(white: 0.0, alpha: 0.0).cgColor]
 		bottomGradientLayer.colors = [UIColor(white: 0.0, alpha: 0.0).cgColor, UIColor(white: 0.0, alpha: 0.8).cgColor]

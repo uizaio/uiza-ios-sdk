@@ -190,6 +190,7 @@ open class UZTheme1: UZPlayerTheme {
 			layout.contentAlignment = (.center, .center)
 		}
 		mainFrameLayout!.ignoreHiddenView = false
+		bottomRightFrameLayout.ignoreHiddenView = true
 		
 		topGradientLayer.colors = [UIColor(white: 0.0, alpha: 0.8).cgColor, UIColor(white: 0.0, alpha: 0.0).cgColor]
 		bottomGradientLayer.colors = [UIColor(white: 0.0, alpha: 0.0).cgColor, UIColor(white: 0.0, alpha: 0.8).cgColor]

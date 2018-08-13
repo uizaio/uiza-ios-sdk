@@ -63,6 +63,8 @@ open class UZTheme4: UZPlayerTheme {
 		let collapseIcon = UIImage(icon: .googleMaterialDesign(.fullscreenExit), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let forwardIcon = UIImage(icon: .googleMaterialDesign(.fastForward), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let backwardIcon = UIImage(icon: .googleMaterialDesign(.fastRewind), size: iconSize, textColor: iconColor, backgroundColor: .clear)
+		let nextIcon = UIImage(icon: .googleMaterialDesign(.skipNext), size: iconSize, textColor: iconColor, backgroundColor: .clear)
+		let previousIcon = UIImage(icon: .googleMaterialDesign(.skipPrevious), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let thumbIcon = UIImage(icon: .fontAwesomeSolid(.circle), size: seekThumbSize, textColor: iconColor, backgroundColor: .clear)
 		
 		controlView.backButton.setImage(backIcon, for: .normal)
@@ -78,6 +80,8 @@ open class UZTheme4: UZPlayerTheme {
 		controlView.playpauseButton.setImage(pauseIcon, for: .selected)
 		controlView.forwardButton.setImage(forwardIcon, for: .normal)
 		controlView.backwardButton.setImage(backwardIcon, for: .normal)
+		controlView.nextButton.setImage(nextIcon, for: .normal)
+		controlView.previousButton.setImage(previousIcon, for: .normal)
 		controlView.fullscreenButton.setImage(fullscreenIcon, for: .normal)
 		controlView.fullscreenButton.setImage(collapseIcon, for: .selected)
 		controlView.timeSlider.setThumbImage(thumbIcon, for: .normal)
@@ -155,10 +159,12 @@ open class UZTheme4: UZPlayerTheme {
 		let bottomRightFrameLayout = StackFrameLayout(direction: .horizontal, views: [controlView.pipButton, controlView.castingButton, controlView.playlistButton, controlView.fullscreenButton])
 		let bottomCenterFrameLayout = StackFrameLayout(direction: .horizontal)
 		bottomCenterFrameLayout.append(view: controlView.backwardButton).contentAlignment = (.center, .center)
+		bottomCenterFrameLayout.append(view: controlView.previousButton).contentAlignment = (.center, .center)
 		bottomCenterFrameLayout.append(view: controlView.playpauseButton).contentAlignment = (.center, .center)
+		bottomCenterFrameLayout.append(view: controlView.nextButton).contentAlignment = (.center, .center)
 		bottomCenterFrameLayout.append(view: controlView.forwardButton).contentAlignment = (.center, .center)
 		bottomCenterFrameLayout.layoutAlignment = .center
-		bottomCenterFrameLayout.ignoreHiddenView = false
+		bottomCenterFrameLayout.ignoreHiddenView = true
 		
 		for frameLayout in bottomRightFrameLayout.frameLayouts {
 			frameLayout.minSize = buttonMinSize
@@ -182,6 +188,8 @@ open class UZTheme4: UZPlayerTheme {
 		bottomFrameLayout!.addSubview(controlView.fullscreenButton)
 		bottomFrameLayout!.addSubview(controlView.backwardButton)
 		bottomFrameLayout!.addSubview(controlView.forwardButton)
+		bottomFrameLayout!.addSubview(controlView.previousButton)
+		bottomFrameLayout!.addSubview(controlView.nextButton)
 		bottomFrameLayout!.addSubview(controlView.playpauseButton)
 		bottomFrameLayout!.spacing = 10
 		bottomFrameLayout!.layoutAlignment = .left

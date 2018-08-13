@@ -279,6 +279,13 @@ open class UZPlayer: UIView {
 		controlView.relateButton.isHidden = true // currentVideo == nil || (currentVideo?.isLive ?? false)
 		controlView.playlistButton.isHidden = (playlist?.isEmpty ?? true)
 		
+		if UZCastingManager.shared.hasConnectedSession {
+			if let currentVideo = currentVideo, let linkPlay = currentLinkPlay {
+				let item = UZCastItem(id: currentVideo.id, title: currentVideo.name, customData: nil, streamType: currentVideo.isLive ? .live : .buffered, contentType: "application/dash+xml", url: linkPlay.url, thumbnailUrl: currentVideo.thumbnailURL, duration: currentVideo.duration, playPosition: self.currentPosition, mediaTracks: nil)
+				UZCastingManager.shared.castItem(item: item)
+			}
+		}
+		
 		if shouldAutoPlay {
 			isURLSet = true
 			currentLinkPlay = resource.definitions[definitionIndex]

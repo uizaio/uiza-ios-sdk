@@ -38,6 +38,7 @@ public protocol UZPlayerTheme {
 	var controlView: UZPlayerControlView? {get set}
 	
 	func updateUI()
+	func update(withResource: UZPlayerResource?, video: UZVideoItem?, playlist: [UZVideoItem]?)
 	func layoutControls(rect: CGRect)
 	func cleanUI()
 	func allButtons() -> [UIButton]
@@ -348,6 +349,7 @@ open class UZPlayerControlView: UIView {
 		self.resource = resource
 		self.currentVideo = video
 		self.currentPlaylist = playlist
+		theme?.update(withResource: resource, video: video, playlist: playlist)
 		
 		titleLabel.text = resource.name
 		shareView.title = resource.name

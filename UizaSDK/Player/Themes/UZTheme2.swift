@@ -249,4 +249,12 @@ open class UZTheme2: UZPlayerTheme {
 		controlView?.loadingIndicatorView?.stopAnimating()
 	}
 	
+	open func update(withResource: UZPlayerResource?, video: UZVideoItem?, playlist: [UZVideoItem]?) {
+		let isEmptyPlaylist = playlist?.isEmpty ?? true
+		controlView?.nextButton.isHidden = isEmptyPlaylist
+		controlView?.previousButton.isHidden = isEmptyPlaylist
+		controlView?.forwardButton.isHidden = !isEmptyPlaylist
+		controlView?.backwardButton.isHidden = !isEmptyPlaylist
+	}
+	
 }

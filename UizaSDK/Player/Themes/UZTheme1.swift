@@ -62,6 +62,8 @@ open class UZTheme1: UZPlayerTheme {
 		let pauseIcon = UIImage(icon: .googleMaterialDesign(.pause), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let forwardIcon = UIImage(icon: .fontAwesomeSolid(.forward), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let backwardIcon = UIImage(icon: .fontAwesomeSolid(.backward), size: iconSize, textColor: iconColor, backgroundColor: .clear)
+		let nextIcon = UIImage(icon: .fontAwesomeSolid(.stepForward), size: iconSize, textColor: iconColor, backgroundColor: .clear)
+		let previousIcon = UIImage(icon: .fontAwesomeSolid(.stepBackward), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let fullscreenIcon = UIImage(icon: .fontAwesomeSolid(.expand), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let collapseIcon = UIImage(icon: .fontAwesomeSolid(.compress), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let thumbIcon = UIImage(icon: .fontAwesomeSolid(.circle), size: seekThumbSize, textColor: iconColor, backgroundColor: .clear)
@@ -79,9 +81,14 @@ open class UZTheme1: UZPlayerTheme {
 		controlView.playpauseButton.setImage(pauseIcon, for: .selected)
 		controlView.forwardButton.setImage(forwardIcon, for: .normal)
 		controlView.backwardButton.setImage(backwardIcon, for: .normal)
+		controlView.nextButton.setImage(nextIcon, for: .normal)
+		controlView.previousButton.setImage(previousIcon, for: .normal)
 		controlView.fullscreenButton.setImage(fullscreenIcon, for: .normal)
 		controlView.fullscreenButton.setImage(collapseIcon, for: .selected)
 		controlView.timeSlider.setThumbImage(thumbIcon, for: .normal)
+		
+		controlView.nextButton.isHidden = true
+		controlView.previousButton.isHidden = true
 		
 		let pipStartIcon = AVPictureInPictureController.pictureInPictureButtonStartImage(compatibleWith: nil).colorize(with: iconColor)
 		let pipStopIcon = AVPictureInPictureController.pictureInPictureButtonStopImage(compatibleWith: nil).colorize(with: iconColor)
@@ -156,7 +163,7 @@ open class UZTheme1: UZPlayerTheme {
 //		topFrameLayout!.showFrameDebug = true
 		
 		let bottomLeftFrameLayout = StackFrameLayout(direction: .horizontal, views: [controlView.currentTimeLabel])
-		let bottomRightFrameLayout = StackFrameLayout(direction: .horizontal, views: [controlView.remainTimeLabel, controlView.backwardButton, controlView.forwardButton, controlView.fullscreenButton])
+		let bottomRightFrameLayout = StackFrameLayout(direction: .horizontal, views: [controlView.remainTimeLabel, controlView.previousButton, controlView.nextButton, controlView.backwardButton, controlView.forwardButton, controlView.fullscreenButton])
 		bottomRightFrameLayout.spacing = 10
 		for frameLayout in bottomRightFrameLayout.frameLayouts {
 			frameLayout.minSize = buttonMinSize
@@ -166,6 +173,8 @@ open class UZTheme1: UZPlayerTheme {
 		bottomFrameLayout!.frameLayout(at: 1)?.isFlexible = true
 		bottomFrameLayout!.addSubview(controlView.currentTimeLabel)
 		bottomFrameLayout!.addSubview(controlView.remainTimeLabel)
+		bottomFrameLayout!.addSubview(controlView.previousButton)
+		bottomFrameLayout!.addSubview(controlView.nextButton)
 		bottomFrameLayout!.addSubview(controlView.backwardButton)
 		bottomFrameLayout!.addSubview(controlView.forwardButton)
 		bottomFrameLayout!.addSubview(controlView.fullscreenButton)
@@ -247,6 +256,14 @@ open class UZTheme1: UZPlayerTheme {
 	open func hideLoader() {
 		controlView?.loadingIndicatorView?.isHidden = true
 		controlView?.loadingIndicatorView?.stopAnimating()
+	}
+	
+	open func update(withResource: UZPlayerResource?, video: UZVideoItem?, playlist: [UZVideoItem]?) {
+		let isEmptyPlaylist = playlist?.isEmpty ?? true
+		controlView?.nextButton.isHidden = isEmptyPlaylist
+		controlView?.previousButton.isHidden = isEmptyPlaylist
+		controlView?.forwardButton.isHidden = !isEmptyPlaylist
+		controlView?.backwardButton.isHidden = !isEmptyPlaylist
 	}
 	
 }

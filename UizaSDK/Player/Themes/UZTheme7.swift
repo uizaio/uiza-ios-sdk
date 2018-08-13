@@ -189,7 +189,7 @@ open class UZTheme7: UZPlayerTheme {
 		bottomFrameLayout?.ignoreHiddenView = false
 		bottomLeftFrameLayout.ignoreHiddenView = false
 		bottomRightFrameLayout.ignoreHiddenView = false
-		bottomCenterFrameLayout.ignoreHiddenView = false
+		bottomCenterFrameLayout.ignoreHiddenView = true
 		
 		mainFrameLayout = StackFrameLayout(direction: .vertical) // views: [topFrameLayout!, playpauseCenterButton, bottomFrameLayout!]
 		mainFrameLayout?.layoutAlignment = .top

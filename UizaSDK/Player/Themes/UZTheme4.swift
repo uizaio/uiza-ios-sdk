@@ -156,6 +156,8 @@ open class UZTheme4: UZPlayerTheme {
 //		topFrameLayout!.showFrameDebug = true
 		
 		let bottomLeftFrameLayout = StackFrameLayout(direction: .horizontal, views: [controlView.currentTimeLabel, controlView.totalTimeLabel])
+		bottomLeftFrameLayout.appendEmptySpace(size: iconSize.width)
+		
 		let bottomRightFrameLayout = StackFrameLayout(direction: .horizontal, views: [controlView.pipButton, controlView.castingButton, controlView.playlistButton, controlView.fullscreenButton])
 		let bottomCenterFrameLayout = StackFrameLayout(direction: .horizontal)
 		bottomCenterFrameLayout.append(view: controlView.backwardButton).contentAlignment = (.center, .center)
@@ -177,6 +179,7 @@ open class UZTheme4: UZPlayerTheme {
 		bottomRightFrameLayout.spacing = 10
 		bottomLeftFrameLayout.spacing = 10
 		bottomCenterFrameLayout.spacing = 10
+		bottomLeftFrameLayout.minSize = CGSize(width: (iconSize.width * 3) + bottomLeftFrameLayout.spacing * 2, height: 0)
 		
 		bottomFrameLayout = StackFrameLayout(direction: .horizontal, views: [bottomLeftFrameLayout, bottomCenterFrameLayout, bottomRightFrameLayout])
 		bottomFrameLayout?.frameLayout(at: 1)?.isFlexible = true

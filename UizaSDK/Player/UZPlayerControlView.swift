@@ -56,9 +56,23 @@ open class UZPlayerControlView: UIView {
 	internal var seekedTime : TimeInterval = 0
 	internal var delayItem: DispatchWorkItem?
 	
-	internal var resource: UZPlayerResource?
-	internal var currentVideo: UZVideoItem?
-	internal var currentPlaylist: [UZVideoItem]?
+	internal var resource: UZPlayerResource? {
+		didSet {
+			theme?.update(withResource: self.resource, video: self.currentVideo, playlist: self.currentPlaylist)
+		}
+	}
+	
+	internal var currentVideo: UZVideoItem? {
+		didSet {
+			theme?.update(withResource: self.resource, video: self.currentVideo, playlist: self.currentPlaylist)
+		}
+	}
+	
+	internal var currentPlaylist: [UZVideoItem]? {
+		didSet {
+			theme?.update(withResource: self.resource, video: self.currentVideo, playlist: self.currentPlaylist)
+		}
+	}
 	
 	open var tapGesture: UITapGestureRecognizer?
 	open var doubleTapGesture: UITapGestureRecognizer?
@@ -351,7 +365,6 @@ open class UZPlayerControlView: UIView {
 		self.resource = resource
 		self.currentVideo = video
 		self.currentPlaylist = playlist
-		theme?.update(withResource: resource, video: video, playlist: playlist)
 		
 		titleLabel.text = resource.name
 		shareView.title = resource.name

@@ -24,6 +24,7 @@ open class UZTheme5: UZPlayerTheme {
 	
 	internal var iconColor = UIColor.white
 	internal var iconSize = CGSize(width: 24, height: 24)
+	internal var skipIconSize = CGSize(width: 32, height: 32)
 	internal var centerIconSize = CGSize(width: 92, height: 92)
 	internal var seekThumbSize = CGSize(width: 24, height: 24)
 	internal var buttonMinSize = CGSize(width: 32, height: 32)
@@ -64,8 +65,8 @@ open class UZTheme5: UZPlayerTheme {
 		let collapseIcon = UIImage(icon: .googleMaterialDesign(.fullscreenExit), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let forwardIcon = UIImage(icon: .googleMaterialDesign(.forward5), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let backwardIcon = UIImage(icon: .googleMaterialDesign(.replay5), size: iconSize, textColor: iconColor, backgroundColor: .clear)
-		let nextIcon = UIImage(icon: .googleMaterialDesign(.skipNext), size: iconSize, textColor: iconColor, backgroundColor: .clear)
-		let previousIcon = UIImage(icon: .googleMaterialDesign(.skipPrevious), size: iconSize, textColor: iconColor, backgroundColor: .clear)
+		let nextIcon = UIImage(icon: .googleMaterialDesign(.skipNext), size: skipIconSize, textColor: iconColor, backgroundColor: .clear)
+		let previousIcon = UIImage(icon: .googleMaterialDesign(.skipPrevious), size: skipIconSize, textColor: iconColor, backgroundColor: .clear)
 		let thumbIcon = UIImage(icon: .fontAwesomeSolid(.circle), size: seekThumbSize, textColor: iconColor, backgroundColor: .clear)
 		
 		controlView.backButton.setImage(backIcon, for: .normal)
@@ -156,7 +157,7 @@ open class UZTheme5: UZPlayerTheme {
 		topFrameLayout!.edgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 0, right: 10)
 //		topFrameLayout!.showFrameDebug = true
 		
-		let bottomLeftFrameLayout = StackFrameLayout(direction: .horizontal, views: [controlView.playpauseButton, controlView.previousButton, controlView.nextButton])
+		let bottomLeftFrameLayout = StackFrameLayout(direction: .horizontal, views: [controlView.playpauseButton])
 		let bottomRightFrameLayout = StackFrameLayout(direction: .horizontal, views: [controlView.currentTimeLabel, controlView.totalTimeLabel, controlView.settingsButton, controlView.fullscreenButton])
 		bottomRightFrameLayout.spacing = 10
 		bottomLeftFrameLayout.spacing = 10
@@ -186,10 +187,17 @@ open class UZTheme5: UZPlayerTheme {
 		
 //		bottomFrameLayout!.backgroundColor = UIColor(white: 0.0, alpha: 0.8)
 		
+		let centerFrameLayout = StackFrameLayout(direction: .horizontal, alignment: .center, views: [controlView.previousButton, controlView.playpauseCenterButton, controlView.nextButton])
+		centerFrameLayout.spacing = 40
+		centerFrameLayout.isUserInteractionEnabled = true
+		centerFrameLayout.addSubview(controlView.previousButton)
+		centerFrameLayout.addSubview(controlView.nextButton)
+		centerFrameLayout.addSubview(controlView.playpauseCenterButton)
+		
 		mainFrameLayout = StackFrameLayout(direction: .vertical)
 		mainFrameLayout?.layoutAlignment = .top
 		mainFrameLayout?.append(view: topFrameLayout!)
-		mainFrameLayout?.append(view: controlView.playpauseCenterButton).configurationBlock = { layout in
+		mainFrameLayout?.append(view: centerFrameLayout).configurationBlock = { layout in
 			layout.isFlexible = true
 			layout.ignoreHiddenView = false
 			layout.contentAlignment = (.center, .center)
@@ -204,7 +212,7 @@ open class UZTheme5: UZPlayerTheme {
 		controlView.containerView.addSubview(mainFrameLayout!)
 		controlView.containerView.addSubview(topFrameLayout!)
 		controlView.containerView.addSubview(bottomFrameLayout!)
-		controlView.containerView.addSubview(controlView.playpauseCenterButton)
+		controlView.containerView.addSubview(centerFrameLayout)
 		
 		controlView.addSubview(controlView.enlapseTimeLabel)
 		controlView.addSubview(controlView.liveBadgeView)
@@ -269,11 +277,11 @@ open class UZTheme5: UZPlayerTheme {
 	}
 	
 	open func update(withResource: UZPlayerResource?, video: UZVideoItem?, playlist: [UZVideoItem]?) {
-		let isEmptyPlaylist = playlist?.isEmpty ?? true
+		let isEmptyPlaylist = (playlist?.count ?? 0) < 2
 		controlView?.nextButton.isHidden = isEmptyPlaylist
 		controlView?.previousButton.isHidden = isEmptyPlaylist
-		controlView?.forwardButton.isHidden = !isEmptyPlaylist
-		controlView?.backwardButton.isHidden = !isEmptyPlaylist
+//		controlView?.forwardButton.isHidden = !isEmptyPlaylist
+//		controlView?.backwardButton.isHidden = !isEmptyPlaylist
 	}
 	
 }

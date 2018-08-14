@@ -24,6 +24,7 @@ open class UZTheme6: UZPlayerTheme {
 	
 	internal var iconColor = UIColor.black
 	internal var iconSize = CGSize(width: 24, height: 24)
+	internal var skipIconSize = CGSize(width: 32, height: 32)
 	internal var centerIconSize = CGSize(width: 50, height: 50)
 	internal var seekThumbSize = CGSize(width: 24, height: 24)
 	internal var buttonMinSize = CGSize(width: 32, height: 32)
@@ -64,8 +65,8 @@ open class UZTheme6: UZPlayerTheme {
 		let collapseIcon = UIImage(icon: .googleMaterialDesign(.fullscreenExit), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let forwardIcon = UIImage(icon: .googleMaterialDesign(.fastForward), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let backwardIcon = UIImage(icon: .googleMaterialDesign(.fastRewind), size: iconSize, textColor: iconColor, backgroundColor: .clear)
-		let nextIcon = UIImage(icon: .googleMaterialDesign(.skipNext), size: iconSize, textColor: iconColor, backgroundColor: .clear)
-		let previousIcon = UIImage(icon: .googleMaterialDesign(.skipPrevious), size: iconSize, textColor: iconColor, backgroundColor: .clear)
+		let nextIcon = UIImage(icon: .googleMaterialDesign(.skipNext), size: skipIconSize, textColor: iconColor, backgroundColor: .clear)
+		let previousIcon = UIImage(icon: .googleMaterialDesign(.skipPrevious), size: skipIconSize, textColor: iconColor, backgroundColor: .clear)
 		let thumbIcon = UIImage(icon: .fontAwesomeSolid(.circle), size: seekThumbSize, textColor: .white, backgroundColor: .clear)
 		
 		controlView.backButton.setImage(backIcon, for: .normal)
@@ -271,7 +272,7 @@ open class UZTheme6: UZPlayerTheme {
 	}
 	
 	open func update(withResource: UZPlayerResource?, video: UZVideoItem?, playlist: [UZVideoItem]?) {
-		let isEmptyPlaylist = playlist?.isEmpty ?? true
+		let isEmptyPlaylist = (playlist?.count ?? 0) < 2
 		controlView?.nextButton.isHidden = isEmptyPlaylist
 		controlView?.previousButton.isHidden = isEmptyPlaylist
 		controlView?.forwardButton.isHidden = !isEmptyPlaylist

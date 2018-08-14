@@ -272,7 +272,7 @@ open class UZTheme7: UZPlayerTheme {
 	}
 	
 	open func update(withResource: UZPlayerResource?, video: UZVideoItem?, playlist: [UZVideoItem]?) {
-		let isEmptyPlaylist = playlist?.isEmpty ?? true
+		let isEmptyPlaylist = (playlist?.count ?? 0) < 2
 		controlView?.nextButton.isHidden = isEmptyPlaylist
 		controlView?.previousButton.isHidden = isEmptyPlaylist
 		controlView?.forwardButton.isHidden = !isEmptyPlaylist

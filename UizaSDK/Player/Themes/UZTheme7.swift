@@ -186,7 +186,7 @@ open class UZTheme7: UZPlayerTheme {
 //		bottomFrameLayout!.backgroundColor = UIColor(white: 0.0, alpha: 0.8)
 		bottomFrameLayout?.minSize = CGSize(width: 0, height: 50)
 		
-		bottomFrameLayout?.ignoreHiddenView = false
+		bottomFrameLayout?.ignoreHiddenView = true
 		bottomLeftFrameLayout.ignoreHiddenView = false
 		bottomRightFrameLayout.ignoreHiddenView = false
 		bottomCenterFrameLayout.ignoreHiddenView = true

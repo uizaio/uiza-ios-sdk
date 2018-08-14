@@ -96,7 +96,7 @@ open class UZPlayerControlView: UIView {
 	
 	open var allButtons: [UIButton]! {
 		get {
-			return [backButton, helpButton, ccButton, relateButton, settingsButton, fullscreenButton, playpauseCenterButton, playpauseButton, forwardButton, backwardButton, nextButton, previousButton, volumeButton, pipButton, castingButton]
+			return [backButton, helpButton, ccButton, relateButton, playlistButton, settingsButton, fullscreenButton, playpauseCenterButton, playpauseButton, forwardButton, backwardButton, nextButton, previousButton, volumeButton, pipButton, castingButton]
 		}
 	}
 	
@@ -357,7 +357,7 @@ open class UZPlayerControlView: UIView {
 		let isLiveVideo = (video?.isLive ?? false)
 		liveBadgeView.isHidden = !isLiveVideo
 		
-		let hiddenViewsWhenLive : [UIView] = [titleLabel, totalTimeLabel, remainTimeLabel, currentTimeLabel, timeSlider, playpauseButton, playpauseCenterButton, forwardButton, backwardButton, settingsButton, playlistButton]
+		let hiddenViewsWhenLive : [UIView] = [titleLabel, totalTimeLabel, remainTimeLabel, currentTimeLabel, timeSlider, playpauseButton, playpauseCenterButton, forwardButton, backwardButton, settingsButton, playlistButton, relateButton]
 		for view in hiddenViewsWhenLive {
 			view.isHidden = isLiveVideo
 		}

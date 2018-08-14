@@ -82,6 +82,8 @@ open class UZPlayerControlView: UIView {
 		didSet {
 			theme?.controlView = self
 			theme?.updateUI()
+			theme?.update(withResource: self.resource, video: self.currentVideo, playlist: self.currentPlaylist)
+			
 			self.addSubview(shareView)
 			
 			if let allButtons = theme?.allButtons() {

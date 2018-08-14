@@ -393,7 +393,7 @@ class UZMovieItemCollectionViewCell : UICollectionViewCell {
 	
 	var isPlaying: Bool = false {
 		didSet {
-			self.isUserInteractionEnabled = isPlaying
+			self.isUserInteractionEnabled = !isPlaying
 			playingLabel.isHidden = !isPlaying
 		}
 	}

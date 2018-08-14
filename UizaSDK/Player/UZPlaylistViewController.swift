@@ -20,7 +20,7 @@ internal class UZPlaylistViewController: UIViewController {
 	init() {
 		super.init(nibName: nil, bundle: nil)
 		
-		titleLabel.text = "Related Videos"
+		titleLabel.text = "Playlist"
 		titleLabel.font = UIFont.systemFont(ofSize: 15, weight: .medium)
 		titleLabel.textColor = .white
 		titleLabel.textAlignment = .left

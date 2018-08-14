@@ -23,6 +23,7 @@ open class UZTheme3: UZPlayerTheme {
 	
 	internal var iconColor = UIColor.white
 	internal var iconSize = CGSize(width: 24, height: 24)
+	internal var skipIconSize = CGSize(width: 32, height: 32)
 	internal var centerIconSize = CGSize(width: 92, height: 92)
 	internal var seekThumbSize = CGSize(width: 24, height: 24)
 	internal var buttonMinSize = CGSize(width: 32, height: 32)
@@ -63,8 +64,8 @@ open class UZTheme3: UZPlayerTheme {
 		let collapseIcon = UIImage(icon: .googleMaterialDesign(.fullscreenExit), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let forwardIcon = UIImage(icon: .googleMaterialDesign(.forward5), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let backwardIcon = UIImage(icon: .googleMaterialDesign(.replay5), size: iconSize, textColor: iconColor, backgroundColor: .clear)
-		let nextIcon = UIImage(icon: .googleMaterialDesign(.skipNext), size: iconSize, textColor: iconColor, backgroundColor: .clear)
-		let previousIcon = UIImage(icon: .googleMaterialDesign(.skipPrevious), size: iconSize, textColor: iconColor, backgroundColor: .clear)
+		let nextIcon = UIImage(icon: .googleMaterialDesign(.skipNext), size: skipIconSize, textColor: iconColor, backgroundColor: .clear)
+		let previousIcon = UIImage(icon: .googleMaterialDesign(.skipPrevious), size: skipIconSize, textColor: iconColor, backgroundColor: .clear)
 		let thumbIcon = UIImage(icon: .fontAwesomeSolid(.circle), size: seekThumbSize, textColor: iconColor, backgroundColor: .clear)
 		
 		controlView.backButton.setImage(backIcon, for: .normal)
@@ -92,6 +93,9 @@ open class UZTheme3: UZPlayerTheme {
 		controlView.pipButton.setImage(pipStopIcon, for: .selected)
 		controlView.pipButton.imageView?.contentMode = .scaleAspectFit
 		controlView.pipButton.isHidden = !AVPictureInPictureController.isPictureInPictureSupported()
+		
+		controlView.nextButton.isHidden = true
+		controlView.previousButton.isHidden = true
 		
 //		controlView.airplayButton.setupDefaultIcon(iconSize: iconSize, offColor: iconColor)
 		controlView.castingButton.setupDefaultIcon(iconSize: iconSize, offColor: iconColor)
@@ -161,7 +165,7 @@ open class UZTheme3: UZPlayerTheme {
 		topFrameLayout!.edgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 0, right: 10)
 //		topFrameLayout!.showFrameDebug = true
 		
-		let bottomLeftFrameLayout = StackFrameLayout(direction: .horizontal, views: [controlView.playpauseButton, controlView.previousButton, controlView.nextButton, controlView.currentTimeLabel])
+		let bottomLeftFrameLayout = StackFrameLayout(direction: .horizontal, views: [controlView.playpauseButton, controlView.currentTimeLabel])
 		let bottomRightFrameLayout = StackFrameLayout(direction: .horizontal, views: [controlView.remainTimeLabel, controlView.fullscreenButton])
 		bottomRightFrameLayout.spacing = 10
 		bottomLeftFrameLayout.spacing = 10
@@ -181,8 +185,6 @@ open class UZTheme3: UZPlayerTheme {
 		bottomFrameLayout!.addSubview(controlView.timeSlider)
 		bottomFrameLayout!.addSubview(controlView.fullscreenButton)
 		bottomFrameLayout!.addSubview(controlView.playpauseButton)
-		bottomFrameLayout!.addSubview(controlView.nextButton)
-		bottomFrameLayout!.addSubview(controlView.previousButton)
 		bottomFrameLayout!.spacing = 10
 		bottomFrameLayout!.isUserInteractionEnabled = true
 		bottomFrameLayout!.edgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
@@ -190,9 +192,16 @@ open class UZTheme3: UZPlayerTheme {
 		bottomFrameLayout!.layer.cornerRadius = 10
 		bottomFrameLayout!.layer.masksToBounds = true
 		
+		let centerFrameLayout = StackFrameLayout(direction: .horizontal, alignment: .center, views: [controlView.previousButton, controlView.playpauseCenterButton, controlView.nextButton])
+		centerFrameLayout.spacing = 40
+		centerFrameLayout.isUserInteractionEnabled = true
+		centerFrameLayout.addSubview(controlView.previousButton)
+		centerFrameLayout.addSubview(controlView.nextButton)
+		centerFrameLayout.addSubview(controlView.playpauseCenterButton)
+		
 		mainFrameLayout = StackFrameLayout(direction: .vertical, alignment: .top)
 		mainFrameLayout?.append(view: topFrameLayout!)
-		mainFrameLayout?.append(view: controlView.playpauseCenterButton).configurationBlock = { layout in
+		mainFrameLayout?.append(view: centerFrameLayout).configurationBlock = { layout in
 			layout.isFlexible = true
 			layout.ignoreHiddenView = false
 			layout.contentAlignment = (.center, .center)
@@ -204,7 +213,7 @@ open class UZTheme3: UZPlayerTheme {
 		controlView.containerView.addSubview(mainFrameLayout!)
 		controlView.containerView.addSubview(topFrameLayout!)
 		controlView.containerView.addSubview(bottomFrameLayout!)
-		controlView.containerView.addSubview(controlView.playpauseCenterButton)
+		controlView.containerView.addSubview(centerFrameLayout)
 		
 		controlView.addSubview(controlView.enlapseTimeLabel)
 		controlView.addSubview(controlView.liveBadgeView)

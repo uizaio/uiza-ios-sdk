@@ -34,6 +34,22 @@ class UZDeviceListTableViewController: UITableViewController {
 		castingManager.stopDiscovering()
 	}
 	
+	override var prefersStatusBarHidden: Bool {
+		return UIApplication.shared.isStatusBarHidden
+	}
+	
+	override var shouldAutorotate : Bool {
+		return true
+	}
+	
+	override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+		return .all
+	}
+	
+	override var preferredInterfaceOrientationForPresentation : UIInterfaceOrientation {
+		return UIApplication.shared.statusBarOrientation
+	}
+	
 	override var preferredContentSize: CGSize {
 		get {
 			var screenSize = UIScreen.main.bounds.size

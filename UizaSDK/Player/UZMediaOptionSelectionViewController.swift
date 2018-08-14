@@ -90,7 +90,7 @@ class UZMediaOptionSelectionViewController: UIViewController {
 	}
 	
 	override var prefersStatusBarHidden: Bool {
-		return true
+		return UIApplication.shared.isStatusBarHidden
 	}
 	
 	override var shouldAutorotate : Bool {

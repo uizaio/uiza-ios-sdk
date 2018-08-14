@@ -15,6 +15,7 @@ extension Notification.Name {
 	static let UZCastSessionDidStart	= Notification.Name(rawValue: "UZCastSessionDidStart")
 	static let UZCastSessionDidStop 	= Notification.Name(rawValue: "UZCastSessionDidStop")
 	static let UZCastClientDidStart		= Notification.Name(rawValue: "UZCastClientDidStart")
+	static let UZCastClientDidUpdate	= Notification.Name(rawValue: "UZCastClientDidUpdate")
 	static let UZDeviceDidReceiveText 	= Notification.Name(rawValue: "UZDeviceDidReceiveText")
 	static let UZShowAirPlayDeviceList	= Notification.Name(rawValue: "UZShowAirPlayDeviceList")
 	
@@ -134,12 +135,39 @@ open class UZCastingManager: NSObject {
 		currentCastItem = nil
 	}
 	
-	open func castItem(item: UZCastItem) {
+	open func castItem(item: UZCastItem, with playlist: [UZCastItem]? = nil) {
 		if let currentCastSession = currentCastSession {
 			remoteClient = currentCastSession.remoteMediaClient
 			remoteClient?.add(self)
 		}
 		
+		if let playlist = playlist {
+			for item in playlist {
+				let queueItemBuilder = GCKMediaQueueItemBuilder()
+				queueItemBuilder.mediaInformation = buildMediaInformation(from: item)
+				queueItemBuilder.autoplay = true
+				
+				let queueLoadOptions = GCKMediaQueueLoadOptions()
+				queueLoadOptions.repeatMode = .all
+				queueLoadOptions.startIndex = 0
+				queueLoadOptions.playPosition = playlist[Int(queueLoadOptions.startIndex)].playPosition
+				
+				remoteClient?.queueLoad([queueItemBuilder.build()], with: queueLoadOptions)
+			}
+		}
+		else {
+			let mediaInformation = buildMediaInformation(from: item)
+			
+			let loadOptions = GCKMediaLoadOptions()
+			loadOptions.autoplay = true
+			loadOptions.playPosition = item.playPosition
+			initPosition = item.playPosition
+			
+			remoteClient?.loadMedia(mediaInformation, with: loadOptions).delegate = self
+		}
+	}
+	
+	fileprivate func buildMediaInformation(from item: UZCastItem) -> GCKMediaInformation {
 		let metadata = GCKMediaMetadata(metadataType: .movie)
 		metadata.setString(item.title, forKey: kGCKMetadataKeyTitle)
 		
@@ -160,22 +188,7 @@ open class UZCastingManager: NSObject {
 		builder.textTrackStyle = GCKMediaTextTrackStyle.createDefault()
 		builder.metadata = metadata
 		
-		let mediaInformation = builder.build()
-		
-		let loadOptions = GCKMediaLoadOptions()
-		loadOptions.autoplay = true
-		loadOptions.playPosition = item.playPosition
-		initPosition = item.playPosition
-		
-		remoteClient?.loadMedia(mediaInformation, with: loadOptions).delegate = self
-		
-//		let queueItemBuilder = GCKMediaQueueItemBuilder()
-//		queueItemBuilder.mediaInformation = mediaInformation
-//		queueItemBuilder.autoplay = true
-//		
-//		let queueLoadOptions = GCKMediaQueueLoadOptions()
-//		queueLoadOptions.repeatMode = .all
-//		remoteClient?.queueLoad([queueItemBuilder.build()], with: queueLoadOptions)
+		return builder.build()
 	}
 	
 	// MARK: -
@@ -275,6 +288,7 @@ extension UZCastingManager: GCKRemoteMediaClientListener {
 	
 	public func remoteMediaClient(_ client: GCKRemoteMediaClient, didUpdate mediaStatus: GCKMediaStatus?) {
 		DLog("Client did update: \(String(describing: mediaStatus?.idleReason.rawValue))")
+		PostNotification(Notification.Name.UZCastClientDidUpdate, object: mediaStatus, userInfo: nil)
 	}
 	
 }

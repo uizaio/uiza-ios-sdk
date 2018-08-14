@@ -577,6 +577,30 @@ open class UZPlayer: UIView {
 		playerLayer?.isPlaying = true
 	}
 	
+	@objc func onCastClientDidUpdate(_ notification: Notification) {
+		if let mediaStatus = notification.object as? GCKMediaStatus,
+			let currentQueueItem = mediaStatus.currentQueueItem,
+			let playlist = playlist
+		{
+			let count = mediaStatus.queueItemCount()
+			var index = 0
+			var found = false
+			
+			while index < count {
+				if currentQueueItem == mediaStatus.queueItem(at: UInt(index)) {
+					found = true
+					break
+				}
+				
+				index += 1
+			}
+			
+			if found && index >= 0 && index < playlist.count {
+				currentVideo = playlist[index]
+			}
+		}
+	}
+	
 	@objc func onCastSessionDidStop(_ notification: Notification) {
 		let lastPosision = UZCastingManager.shared.lastPosition
 		
@@ -695,6 +719,7 @@ open class UZPlayer: UIView {
 		NotificationCenter.default.addObserver(self, selector: #selector(onCastSessionDidStart), name: NSNotification.Name.UZCastSessionDidStart, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(onCastSessionDidStop), name: NSNotification.Name.UZCastSessionDidStop, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(onCastClientDidStart), name: NSNotification.Name.UZCastClientDidStart, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(onCastClientDidUpdate), name: NSNotification.Name.UZCastClientDidUpdate, object: nil)
 	}
 	
 	fileprivate func preparePlayer() {

@@ -137,7 +137,12 @@ open class UZPlayer: UIView {
 		}
 	}
 	
-	public fileprivate(set) var currentVideo: UZVideoItem?
+	public fileprivate(set) var currentVideo: UZVideoItem? {
+		didSet {
+			controlView.currentVideo = currentVideo
+		}
+	}
+	
 	public fileprivate(set) var currentLinkPlay: UZVideoLinkPlay?
 	
 	open var shouldAutoPlay = true
@@ -145,7 +150,12 @@ open class UZPlayer: UIView {
 	open var autoTryNextDefinitionIfError = true
 	open var controlView: UZPlayerControlView!
 	
-	fileprivate var resource: UZPlayerResource!
+	fileprivate var resource: UZPlayerResource! {
+		didSet {
+			controlView.resource = resource
+		}
+	}
+	
 	fileprivate var currentDefinition = 0
 	fileprivate var playerLayer: UZPlayerLayerView?
 	fileprivate var customControllView: UZPlayerControlView?

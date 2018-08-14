@@ -362,9 +362,10 @@ open class UZPlayerControlView: UIView {
 	// MARK: - UI update related function
 	
 	open func prepareUI(for resource: UZPlayerResource, video: UZVideoItem?, playlist: [UZVideoItem]?) {
+		self.currentPlaylist = playlist
 		self.resource = resource
 		self.currentVideo = video
-		self.currentPlaylist = playlist
+		
 		
 		titleLabel.text = resource.name
 		shareView.title = resource.name
@@ -459,6 +460,7 @@ open class UZPlayerControlView: UIView {
 		playpauseCenterButton.isHidden = false
 		messageLabel?.removeFromSuperview()
 		messageLabel = nil
+		self.setNeedsLayout()
 	}
 	
 	open func updateUI(_ isForFullScreen: Bool) {

@@ -224,6 +224,7 @@ open class UZPlayer: UIView {
 			if let results = results {
 				self.currentVideo?.videoURL = results.first?.avURLAsset.url
 				UZLogger().log(event: "plays_requested", video: video, completionBlock: nil)
+				
 				let resource = UZPlayerResource(name: video.name, definitions: results, subtitles: video.subtitleURLs, cover: video.thumbnailURL)
 				self.setResource(resource: resource)
 				
@@ -276,6 +277,7 @@ open class UZPlayer: UIView {
 		
 		playthrough_eventlog = [:]
 		currentDefinition = definitionIndex
+		
 		controlView.prepareUI(for: resource, video: currentVideo, playlist: playlist)
 		controlView.relateButton.isHidden = true // currentVideo == nil || (currentVideo?.isLive ?? false)
 		controlView.playlistButton.isHidden = (playlist?.isEmpty ?? true)

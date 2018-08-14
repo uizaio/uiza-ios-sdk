@@ -199,8 +199,6 @@ open class UZTheme5: UZPlayerTheme {
 		mainFrameLayout?.append(view: topFrameLayout!)
 		mainFrameLayout?.append(view: centerFrameLayout).configurationBlock = { layout in
 			layout.isFlexible = true
-			layout.ignoreHiddenView = false
-			layout.contentAlignment = (.center, .center)
 		}
 		mainFrameLayout?.append(view: bottomFrameLayout)
 		

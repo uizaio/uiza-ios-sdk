@@ -193,7 +193,7 @@ open class UZTheme3: UZPlayerTheme {
 		bottomFrameLayout!.layer.masksToBounds = true
 		
 		let centerFrameLayout = StackFrameLayout(direction: .horizontal, alignment: .center, views: [controlView.previousButton, controlView.playpauseCenterButton, controlView.nextButton])
-		centerFrameLayout.spacing = 40
+		centerFrameLayout.spacing = 30
 		centerFrameLayout.isUserInteractionEnabled = true
 		centerFrameLayout.addSubview(controlView.previousButton)
 		centerFrameLayout.addSubview(controlView.nextButton)
@@ -203,8 +203,6 @@ open class UZTheme3: UZPlayerTheme {
 		mainFrameLayout?.append(view: topFrameLayout!)
 		mainFrameLayout?.append(view: centerFrameLayout).configurationBlock = { layout in
 			layout.isFlexible = true
-			layout.ignoreHiddenView = false
-			layout.contentAlignment = (.center, .center)
 		}
 		mainFrameLayout?.append(view: bottomFrameLayout).edgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 10, right: 20)
 		

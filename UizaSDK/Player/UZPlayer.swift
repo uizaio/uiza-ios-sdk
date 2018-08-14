@@ -102,6 +102,7 @@ open class UZPlayer: UIView {
 	
 	open var playlist: [UZVideoItem]? = nil {
 		didSet {
+			controlView.currentPlaylist = playlist
 			controlView.playlistButton.isHidden = (playlist?.isEmpty ?? true)
 			controlView.setNeedsLayout()
 		}

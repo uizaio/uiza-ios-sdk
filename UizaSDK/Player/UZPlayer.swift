@@ -167,7 +167,6 @@ open class UZPlayer: UIView {
 		}
 	}
 	
-	fileprivate var sumTime         : TimeInterval = 0
 	fileprivate var totalDuration   : TimeInterval = 0
 	fileprivate var currentPosition : TimeInterval = 0
 	

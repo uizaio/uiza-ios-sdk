@@ -76,6 +76,32 @@ Nếu gặp trường hợp video không play được do vấn đề App Transp
 </dict>
 ```
 
+## Thay đổi giao diện
+``` swift
+let playerViewController = UZPlayerViewController()
+playerViewController.player.theme = UZTheme1()
+```
+
+UizaPlayer có sẵn 7 giao diện sau:
+
+[UZTheme1](https://github.com/uizaio/uiza-sdk-player-ios/blob/master/themes/theme1.jpg)
+
+[UZTheme2](https://github.com/uizaio/uiza-sdk-player-ios/blob/master/themes/theme2.jpg)
+
+[UZTheme3](https://github.com/uizaio/uiza-sdk-player-ios/blob/master/themes/theme3.jpg)
+
+[UZTheme4](https://github.com/uizaio/uiza-sdk-player-ios/blob/master/themes/theme4.jpg)
+
+[UZTheme5](https://github.com/uizaio/uiza-sdk-player-ios/blob/master/themes/theme5.jpg)
+
+[UZTheme6](https://github.com/uizaio/uiza-sdk-player-ios/blob/master/themes/theme6.jpg)
+
+[UZTheme7](https://github.com/uizaio/uiza-sdk-player-ios/blob/master/themes/theme7.jpg)
+
+## Tự tạo giao diện (CustomTheme)
+
+Bạn có thể tự tạo giao diện riêng bằng cách tạo class kế thừa [UZPlayerTheme Protocol](https://uizaio.github.io/uiza-sdk-player-ios/Protocols/UZPlayerTheme.html) theo mẫu code này: [UZCustomTheme](https://github.com/uizaio/uiza-sdk-player-ios/blob/master/themes/UZCustomTheme.swift)
+
 Xem chi tiết [Tài liệu API](https://uizaio.github.io/uiza-sdk-player-ios/)
 
 ## Hỗ Trợ
@@ -151,6 +177,32 @@ present(playerViewController, animated: true, completion: nil)
   <key>NSAllowsArbitraryLoads</key><true/>  
 </dict>
 ```
+
+## Change Player Themes
+``` swift
+let playerViewController = UZPlayerViewController()
+playerViewController.player.theme = UZTheme1()
+```
+
+UizaPlayer currently has 7 built-in themes:
+
+[UZTheme1](https://github.com/uizaio/uiza-sdk-player-ios/blob/master/themes/theme1.jpg)
+
+[UZTheme2](https://github.com/uizaio/uiza-sdk-player-ios/blob/master/themes/theme2.jpg)
+
+[UZTheme3](https://github.com/uizaio/uiza-sdk-player-ios/blob/master/themes/theme3.jpg)
+
+[UZTheme4](https://github.com/uizaio/uiza-sdk-player-ios/blob/master/themes/theme4.jpg)
+
+[UZTheme5](https://github.com/uizaio/uiza-sdk-player-ios/blob/master/themes/theme5.jpg)
+
+[UZTheme6](https://github.com/uizaio/uiza-sdk-player-ios/blob/master/themes/theme6.jpg)
+
+[UZTheme7](https://github.com/uizaio/uiza-sdk-player-ios/blob/master/themes/theme7.jpg)
+
+## Create CustomTheme
+
+You can create your own custom theme by creating a class inheriting from [UZPlayerTheme Protocol](https://uizaio.github.io/uiza-sdk-player-ios/Protocols/UZPlayerTheme.html) following this template: [UZCustomTheme](https://github.com/uizaio/uiza-sdk-player-ios/blob/master/themes/UZCustomTheme.swift)
 
 For API details, check [API Document](https://uizaio.github.io/uiza-sdk-player-ios/)
 

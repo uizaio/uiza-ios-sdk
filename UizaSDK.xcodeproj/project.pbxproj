@@ -10,6 +10,8 @@
 		0197156A0CC97D9DEF6F51DB /* Pods_UizaSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3EF719FF3F438E076EB2A5C /* Pods_UizaSDK.framework */; };
 		4AB1E76502B2FC8B6ACF578B /* Pods_UizaPlayerTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96E9DDDB0BEAFCDD89AF7DFF /* Pods_UizaPlayerTest.framework */; };
 		538D3A8A952E43B54F6CC2FE /* Pods_UizaSDKTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 202A368E44ECEC2CBD8A1F2F /* Pods_UizaSDKTests.framework */; };
+		6300A824213530C700C27195 /* UZLiveServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6300A823213530C700C27195 /* UZLiveServices.swift */; };
+		6300A826213530C700C27195 /* UZLiveServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6300A823213530C700C27195 /* UZLiveServices.swift */; };
 		6309D95E20A4078E008CC538 /* UZRelatedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6309D95D20A4078E008CC538 /* UZRelatedViewController.swift */; };
 		632124F22089E1EE00720593 /* UZBannerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124EB2089E1ED00720593 /* UZBannerItem.swift */; };
 		632124F32089E1EE00720593 /* UZMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124EC2089E1ED00720593 /* UZMenuItem.swift */; };
@@ -173,6 +175,7 @@
 		202A368E44ECEC2CBD8A1F2F /* Pods_UizaSDKTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UizaSDKTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		28836A3ED419476454084AC0 /* Pods-UizaSDKTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UizaSDKTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UizaSDKTests/Pods-UizaSDKTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4BC432C22A6BF2074ECD5F97 /* Pods-UizaSDKTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UizaSDKTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-UizaSDKTests/Pods-UizaSDKTests.release.xcconfig"; sourceTree = "<group>"; };
+		6300A823213530C700C27195 /* UZLiveServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZLiveServices.swift; sourceTree = "<group>"; };
 		6309D95D20A4078E008CC538 /* UZRelatedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZRelatedViewController.swift; sourceTree = "<group>"; };
 		632124EB2089E1ED00720593 /* UZBannerItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZBannerItem.swift; sourceTree = "<group>"; };
 		632124EC2089E1ED00720593 /* UZMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZMenuItem.swift; sourceTree = "<group>"; };
@@ -298,6 +301,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		6300A8222135164700C27195 /* Live */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Live;
+			sourceTree = "<group>";
+		};
 		6346B79920930C0B00A68AD4 /* Player */ = {
 			isa = PBXGroup;
 			children = (
@@ -395,6 +405,7 @@
 			children = (
 				63C65F7C205BA10800DB2C96 /* Extensions */,
 				63C65F8B205BA10800DB2C96 /* SDK */,
+				6300A8222135164700C27195 /* Live */,
 				6346B79920930C0B00A68AD4 /* Player */,
 				63C65F65205B9FE600DB2C96 /* UizaSDK.h */,
 				63C65F66205B9FE600DB2C96 /* Info.plist */,
@@ -443,6 +454,7 @@
 				632124FA2089E20700720593 /* UizaSDK.swift */,
 				632124FD2089E20800720593 /* UZAPIConnector.swift */,
 				632124FB2089E20800720593 /* UZContentServices.swift */,
+				6300A823213530C700C27195 /* UZLiveServices.swift */,
 				632124FC2089E20800720593 /* UZLogger.swift */,
 			);
 			path = SDK;
@@ -743,6 +755,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-UizaSDKTests/Pods-UizaSDKTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AFDateHelper-iOS/AFDateHelper.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire-iOS/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/LFLiveKit/LFLiveKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON-iOS/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/FrameLayoutKit/FrameLayoutKit.framework",
@@ -757,6 +770,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFDateHelper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LFLiveKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FrameLayoutKit.framework",
@@ -841,6 +855,7 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire-iOS/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/FrameLayoutKit/FrameLayoutKit.framework",
 				"${PODS_ROOT}/GoogleAds-IMA-iOS-SDK/GoogleInteractiveMediaAds.framework",
+				"${BUILT_PRODUCTS_DIR}/LFLiveKit/LFLiveKit.framework",
 				"${BUILT_PRODUCTS_DIR}/NKButton/NKButton.framework",
 				"${BUILT_PRODUCTS_DIR}/NKModalViewManager/NKModalViewManager.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
@@ -855,6 +870,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FrameLayoutKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleInteractiveMediaAds.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LFLiveKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NKButton.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NKModalViewManager.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
@@ -903,6 +919,7 @@
 				638EC0FB20AAA2D200C0243E /* UZModelObject.swift in Sources */,
 				63CFB78D20B282F600647958 /* UZVideoQualitySettingsViewController.swift in Sources */,
 				638EC0ED20AAA2CA00C0243E /* UIApplication+Version.swift in Sources */,
+				6300A826213530C700C27195 /* UZLiveServices.swift in Sources */,
 				638EC12120AC3FA100C0243E /* UZTheme3.swift in Sources */,
 				638EC0EF20AAA2CA00C0243E /* NSError+Uiza.swift in Sources */,
 				638EC10920AAA2E000C0243E /* UZMediaResource.swift in Sources */,
@@ -955,6 +972,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6300A824213530C700C27195 /* UZLiveServices.swift in Sources */,
 				632125002089E20800720593 /* UZContentServices.swift in Sources */,
 				6346B7A920930D7D00A68AD4 /* AVAudioSession+Airplay.swift in Sources */,
 				632124F82089E1EE00720593 /* UZCategory.swift in Sources */,

@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
+ platform :ios, '10.0'
 
 target 'UizaSDK' do
   platform :ios, '10.0'
@@ -16,6 +16,7 @@ target 'UizaSDK' do
   pod 'SDWebImage'
   pod 'SwiftyJSON'
   pod 'SwiftIcons'
+  pod 'LFLiveKit'
 
 end
 
@@ -44,6 +45,7 @@ target 'UizaPlayerTest' do
 	pod 'SDWebImage'
 	pod 'SwiftyJSON'
 	pod 'SwiftIcons'
+	pod 'LFLiveKit'
 	
 end
 
@@ -55,5 +57,6 @@ target 'UizaSDKTests' do
 	pod 'AFDateHelper'
 	pod 'SDWebImage'
 	pod 'SwiftyJSON'
+	pod 'LFLiveKit'
 
 end

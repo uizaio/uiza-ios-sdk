@@ -106,12 +106,12 @@ open class UZLiveStreamViewController: UIViewController {
 		startButton.setBackgroundColor(UIColor(red:0.13, green:0.77, blue:0.38, alpha:0.5), for: .disabled)
 		startButton.setTitleColor(.white, for: .normal)
 		startButton.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-		startButton.title = "Bắt đầu"
+		startButton.title = "START"
 		startButton.loadingIndicatorStyle = .ballScaleRippleMultiple
 		startButton.isRoundedButton = true
 		startButton.extendSize = CGSize(width: 60, height: 20)
 		startButton.alpha = 0.0
-		startButton.addTarget(self, action: #selector(createSession), for: .touchUpInside)
+		startButton.addTarget(self, action: #selector(start), for: .touchUpInside)
 		
 		NotificationCenter.default.addObserver(self, selector: #selector(onOrientationChanged(_:)), name: .UIApplicationDidChangeStatusBarOrientation, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(onApplicationDidActive(_:)), name: .UIApplicationDidBecomeActive, object: nil)
@@ -168,13 +168,13 @@ open class UZLiveStreamViewController: UIViewController {
 	
 	// MARK: -
 	
-	@objc private func createSession() {
+	@objc public func start() {
 		livestreamUIView.closeButton.isEnabled = false
 //		startButton.isLoading = true
 		isLive = true
 		self.view.setNeedsLayout()
 		
-		streamService.createLiveEvent(name: "\(Date())", encode: false, linkStream: nil, description: nil, poster: nil, thumbnail: nil) { [weak self] (liveEvent, error) in
+		streamService.createLiveEvent(name: "Live", encode: false, linkStream: nil, description: nil, poster: nil, thumbnail: nil) { [weak self] (liveEvent, error) in
 			guard let `self` = self else { return }
 			
 			self.livestreamUIView.closeButton.isEnabled = true
@@ -194,7 +194,7 @@ open class UZLiveStreamViewController: UIViewController {
 		}
 	}
 	
-	func startLive(event: UZLiveEvent!) -> Void {
+	public func startLive(event: UZLiveEvent!) -> Void {
 		self.currentLiveEvent = event
 		
 		startButton.isLoading = false
@@ -334,9 +334,8 @@ open class UZLiveStreamViewController: UIViewController {
 		livestreamUIView.setNeedsLayout()
 		
 		let viewSize = self.view.frame.size
-		
 		let buttonSize = startButton.sizeThatFits(viewSize)
-		startButton.frame = CGRect(x: (viewSize.width - buttonSize.width)/2, y: viewSize.height - buttonSize.height - 90, width: buttonSize.width, height: buttonSize.height)
+		startButton.frame = CGRect(x: (viewSize.width - buttonSize.width)/2, y: viewSize.height - buttonSize.height - 40, width: buttonSize.width, height: buttonSize.height)
 		
 		layoutDurationLabel()
 	}

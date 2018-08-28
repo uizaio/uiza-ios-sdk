@@ -27,10 +27,19 @@ open class UZLiveServices: UZAPIConnector {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
 		var params : [String: Any] = ["name" : name,
 									  "encode" : encode ? "1" : "0",
-									  "description" : description ?? "",
-									  "poster" : poster ?? "",
-									  "thumbnail" : thumbnail ?? "",
-									  "resourceMode" : "single"]
+									 "resourceMode" : "single"]
+		
+		if let poster = poster {
+			params["poster"] = poster
+		}
+		
+		if let thumbnail = thumbnail {
+			params["thumbnail"] = thumbnail
+		}
+		
+		if let description = description {
+			params["description"] = description
+		}
 		
 		if let linkStream = linkStream {
 			params["mode"] = "pull"

@@ -38,6 +38,7 @@ open class UZLiveStreamUIView: UIView, UITextFieldDelegate {
 		beautyButton.setImage(UIImage(icon: .fontAwesomeSolid(.magic), size: CGSize(width: 32, height: 32), textColor: .blue, backgroundColor: .clear), for: .selected)
 		beautyButton.setImage(UIImage(icon: .googleMaterialDesign(.cameraRear), size: CGSize(width: 32, height: 32), textColor: .white, backgroundColor: .clear), for: .normal)
 		beautyButton.setImage(UIImage(icon: .googleMaterialDesign(.cameraFront), size: CGSize(width: 32, height: 32), textColor: .white, backgroundColor: .clear), for: .selected)
+		
 		beautyButton.showsTouchWhenHighlighted = true
 		cameraButton.showsTouchWhenHighlighted = true
 		
@@ -47,11 +48,13 @@ open class UZLiveStreamUIView: UIView, UITextFieldDelegate {
 		}
 		
 		buttonFrameLayout = StackFrameLayout(direction: .horizontal, alignment: .right, views: [beautyButton, cameraButton])
+		buttonFrameLayout.spacing = 10
 		containerView.addSubview(beautyButton)
 		containerView.addSubview(cameraButton)
 		containerView.addSubview(buttonFrameLayout)
 		
 		self.addSubview(containerView)
+		self.addSubview(closeButton)
 		
 		setupGestures()
 	}
@@ -96,7 +99,8 @@ open class UZLiveStreamUIView: UIView, UITextFieldDelegate {
 		containerView.frame = self.bounds
 		let viewSize = self.bounds.size
 		let buttonSize = buttonFrameLayout.sizeThatFits(viewSize)
-		buttonFrameLayout.frame = CGRect(x: 0, y: viewSize.height - buttonSize.height, width: viewSize.width - buttonSize.width, height: buttonSize.height)
+		buttonFrameLayout.frame = CGRect(x: viewSize.width - buttonSize.width - 10, y: viewSize.height - buttonSize.height - 10, width: buttonSize.width, height: buttonSize.height)
+		closeButton.frame = CGRect(x: viewSize.width - 42, y: 20, width: 32, height: 32)
 	}
 	
 	func allButtons() -> [UIButton] {

@@ -33,7 +33,7 @@ class ViewController: UIViewController {
 		//				DLog("OK \(results) - \(error)")
 		//			})
 		
-		self.playerViewController.player.loadVideo(entityId: "b7297b29-c6c4-4bd6-a74f-b60d0118d275") // 45a908f7-a62e-4eaf-8ce2-dc5699f33406
+//		self.playerViewController.player.loadVideo(entityId: "b7297b29-c6c4-4bd6-a74f-b60d0118d275") // 45a908f7-a62e-4eaf-8ce2-dc5699f33406
 		
 //		self.playerViewController.player.loadPlaylist(metadataId: "", page: 0, limit: 20, playIndex: 0, completionBlock: nil)
 		
@@ -51,6 +51,15 @@ class ViewController: UIViewController {
 //				self.playerViewController.player.loadVideo(videoItem)
 //			}
 //		})
+		
+		DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+			self.showLive()
+		}
+	}
+	
+	func showLive() {
+		let viewController = UZLiveStreamViewController()
+		self.present(viewController, animated: true, completion: nil)
 	}
 	
 	override func viewDidLayoutSubviews() {

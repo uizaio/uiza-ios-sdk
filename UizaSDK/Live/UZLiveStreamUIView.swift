@@ -34,10 +34,10 @@ open class UZLiveStreamUIView: UIView, UITextFieldDelegate {
 		closeButton.showsTouchWhenHighlighted = true
 		closeButton.isRoundedButton = true
 		
-//		beautyButton.setImage(#imageLiteral(resourceName: "lighting_button"), for: .normal)
-//		beautyButton.setImage(#imageLiteral(resourceName: "lighting_button_highlighted"), for: .selected)
-//		cameraButton.setImage(#imageLiteral(resourceName: "camera_button"), for: .normal)
-//		cameraButton.setImage(#imageLiteral(resourceName: "camera_blue"), for: .selected)
+		beautyButton.setImage(UIImage(icon: .fontAwesomeSolid(.magic), size: CGSize(width: 32, height: 32), textColor: .white, backgroundColor: .clear), for: .normal)
+		beautyButton.setImage(UIImage(icon: .fontAwesomeSolid(.magic), size: CGSize(width: 32, height: 32), textColor: .blue, backgroundColor: .clear), for: .selected)
+		beautyButton.setImage(UIImage(icon: .googleMaterialDesign(.cameraRear), size: CGSize(width: 32, height: 32), textColor: .white, backgroundColor: .clear), for: .normal)
+		beautyButton.setImage(UIImage(icon: .googleMaterialDesign(.cameraFront), size: CGSize(width: 32, height: 32), textColor: .white, backgroundColor: .clear), for: .selected)
 		beautyButton.showsTouchWhenHighlighted = true
 		cameraButton.showsTouchWhenHighlighted = true
 		

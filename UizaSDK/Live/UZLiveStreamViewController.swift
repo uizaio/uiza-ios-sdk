@@ -201,7 +201,7 @@ open class UZLiveStreamViewController: UIViewController {
 			livestreamUIView.closeButton.isEnabled = true
 			
 			let stream = LFLiveStreamInfo()
-			stream.url = event.broadcastURL?.absoluteString ?? ""
+			stream.url = broadcastURL.absoluteString
 			session.startLive(stream)
 			
 			UIApplication.shared.isIdleTimerDisabled = true

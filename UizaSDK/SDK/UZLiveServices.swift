@@ -48,19 +48,29 @@ open class UZLiveServices: UZAPIConnector {
 		self.callAPI("live/entity", method: .post, params: params) { (result, error) in
 			if let data = result?.value(for: "data", defaultValue: nil) as? NSDictionary {
 				if let idString = data.string(for: "id", defaultString: nil) {
-					self.callAPI("live/entity", method: .get, params: ["id" : idString]) { (result, error) in
-						if let data = result?.value(for: "data", defaultValue: nil) as? NSDictionary {
-							let result = UZLiveEvent(data: data)
-							completionBlock?(result, nil)
-						}
-						else {
-							completionBlock?(nil, error)
-						}
-					}
+					self.loadLiveEvent(id: idString, completionBlock: completionBlock)
 				}
 				else {
 					completionBlock?(nil , UZAPIConnector.UizaUnknownError())
 				}
+			}
+			else {
+				completionBlock?(nil, error)
+			}
+		}
+	}
+	
+	/**
+	Lấy sự kiện live từ id
+	- parameter id: `id` của sự kiện
+	*/
+	public func loadLiveEvent(id: String, completionBlock: ((UZLiveEvent?, Error?) -> Void)? = nil) {
+		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
+		
+		self.callAPI("live/entity", method: .get, params: ["id" : id]) { (result, error) in
+			if let data = result?.value(for: "data", defaultValue: nil) as? NSDictionary {
+				let result = UZLiveEvent(data: data)
+				completionBlock?(result, nil)
 			}
 			else {
 				completionBlock?(nil, error)

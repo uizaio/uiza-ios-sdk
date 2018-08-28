@@ -37,6 +37,8 @@ public class UZLiveEvent: UZModelObject {
 	/// Kiểu nguồn phát livestream
 	public var mode: UZLiveMode = .push
 	
+	public var broadcastURL: URL? = nil
+	
 	override func parse(_ data: NSDictionary?) {
 		if let data = data {
 //			DLog("\(data)")
@@ -50,6 +52,10 @@ public class UZLiveEvent: UZModelObject {
 			
 			if let modeString = data.string(for: "mode", defaultString: "push"), modeString == "pull" || modeString == "push" {
 				mode = UZLiveMode(rawValue: modeString)!
+			}
+			
+			if let streamUrlPath = data.string(for: "streamUrl", defaultString: nil), let streamKey = data.string(for: "streamKey", defaultString: nil) {
+				broadcastURL = URL(string: streamUrlPath + "/" + streamKey)
 			}
 		}
 	}

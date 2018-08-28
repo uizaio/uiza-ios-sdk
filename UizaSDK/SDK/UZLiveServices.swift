@@ -12,11 +12,6 @@ import UIKit
 Class quản lý các hàm livestream
 */
 open class UZLiveServices: UZAPIConnector {
-	/// Singleton instance
-	static public let shared = UZLiveServices()
-	private override init() {
-		super.init()
-	}
 	
 	/**
 	Tạo 1 sự kiện livestream
@@ -75,6 +70,18 @@ open class UZLiveServices: UZAPIConnector {
 			else {
 				completionBlock?(nil, error)
 			}
+		}
+	}
+	
+	/**
+	Dừng phát live
+	- parameter id: `id` của sự kiện
+	*/
+	public func endLiveEvent(id: String, completionBlock: ((Error?) -> Void)? = nil) {
+		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
+		
+		self.callAPI("live/entity", method: .put, params: ["id" : id]) { (result, error) in
+			completionBlock?(error)
 		}
 	}
 

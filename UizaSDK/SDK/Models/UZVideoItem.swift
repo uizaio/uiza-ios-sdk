@@ -9,13 +9,19 @@
 import UIKit
 import AVFoundation
 
+/**
+Cấu trúc linkplay của video
+*/
 public struct UZVideoLinkPlay {
+	/// Mô tả độ phân giải của linkplay này (Ví dụ 480, 720, 1080)
 	public var definition: String
+	/// Linkplay
 	public var url: URL
 	
 	/// An instance of NSDictionary that contains keys for specifying options for the initialization of the AVURLAsset. See AVURLAssetPreferPreciseDurationAndTimingKey and AVURLAssetReferenceRestrictionsKey above.
 	public var options: [String : Any]?
 	
+	/// Trả về loại `AVURLAsset` cho linkplay này
 	public var avURLAsset: AVURLAsset {
 		get {
 			return AVURLAsset(url: url, options: options)

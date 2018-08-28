@@ -26,9 +26,9 @@ open class UZLiveServices: UZAPIConnector {
 	- parameter description: Mô tả thông tin sự kiện này
 	- parameter poster: Hình ảnh poster của sự kiện
 	- parameter thumbnail: Hình ảnh thumbnail của sự kiện
-	- parameter completionBlock: Block được gọi sau khi hoàn thành, trả về `id` của sự kiện, hoặc Error nếu có lỗi
+	- parameter completionBlock: Block được gọi sau khi hoàn thành, trả về sự kiện `UZLiveEvent` hoặc Error nếu có lỗi
 	*/
-	public func createLiveEvent(name: String, encode: Bool, linkStream: String? = nil, description: String? = nil, poster: String? = nil, thumbnail: String? = nil, completionBlock: ((String?, Error?) -> Void)? = nil) {
+	public func createLiveEvent(name: String, encode: Bool, linkStream: String? = nil, description: String? = nil, poster: String? = nil, thumbnail: String? = nil, completionBlock: ((UZLiveEvent?, Error?) -> Void)? = nil) {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
 		var params : [String: Any] = ["name" : name,
 									  "encode" : encode ? "1" : "0",
@@ -47,8 +47,20 @@ open class UZLiveServices: UZAPIConnector {
 		
 		self.callAPI("live/entity", method: .post, params: params) { (result, error) in
 			if let data = result?.value(for: "data", defaultValue: nil) as? NSDictionary {
-				let idString = data.string(for: "id", defaultString: nil)
-				completionBlock?(idString, nil)
+				if let idString = data.string(for: "id", defaultString: nil) {
+					self.callAPI("live/entity", method: .get, params: ["id" : idString]) { (result, error) in
+						if let data = result?.value(for: "data", defaultValue: nil) as? NSDictionary {
+							let result = UZLiveEvent(data: data)
+							completionBlock?(result, nil)
+						}
+						else {
+							completionBlock?(nil, error)
+						}
+					}
+				}
+				else {
+					completionBlock?(nil , UZAPIConnector.UizaUnknownError())
+				}
 			}
 			else {
 				completionBlock?(nil, error)

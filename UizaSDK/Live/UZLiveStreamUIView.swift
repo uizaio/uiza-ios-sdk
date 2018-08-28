@@ -12,17 +12,18 @@ import NKModalViewManager
 import NKButton
 
 open class UZLiveStreamUIView: UIView, UITextFieldDelegate {
-	var onButtonSelected: ((_ button: UIControl?) -> Void)? = nil
+	public var onButtonSelected: ((_ button: UIControl?) -> Void)? = nil
 	
-    let closeButton = NKButton()
+	public let closeButton = NKButton()
+	public let beautyButton = NKButton()
+	public let cameraButton = NKButton()
+	
 	let containerView = UIView()
-	let beautyButton = NKButton()
-	let cameraButton = NKButton()
 	var buttonFrameLayout: StackFrameLayout!
 	
 	// MARK: -
 	
-	init() {
+	public init() {
 		super.init(frame: .zero)
 		
 		self.backgroundColor = .clear
@@ -34,10 +35,11 @@ open class UZLiveStreamUIView: UIView, UITextFieldDelegate {
 		closeButton.showsTouchWhenHighlighted = true
 		closeButton.isRoundedButton = true
 		
+		let selectedColor = UIColor(red:0.28, green:0.49, blue:0.93, alpha:1.00)
 		beautyButton.setImage(UIImage(icon: .fontAwesomeSolid(.magic), size: CGSize(width: 32, height: 32), textColor: .white, backgroundColor: .clear), for: .normal)
-		beautyButton.setImage(UIImage(icon: .fontAwesomeSolid(.magic), size: CGSize(width: 32, height: 32), textColor: .blue, backgroundColor: .clear), for: .selected)
-		beautyButton.setImage(UIImage(icon: .googleMaterialDesign(.cameraRear), size: CGSize(width: 32, height: 32), textColor: .white, backgroundColor: .clear), for: .normal)
-		beautyButton.setImage(UIImage(icon: .googleMaterialDesign(.cameraFront), size: CGSize(width: 32, height: 32), textColor: .white, backgroundColor: .clear), for: .selected)
+		beautyButton.setImage(UIImage(icon: .fontAwesomeSolid(.magic), size: CGSize(width: 32, height: 32), textColor: selectedColor, backgroundColor: .clear), for: .selected)
+		cameraButton.setImage(UIImage(icon: .googleMaterialDesign(.repeatIcon), size: CGSize(width: 32, height: 32), textColor: .white, backgroundColor: .clear), for: .normal)
+		cameraButton.setImage(UIImage(icon: .googleMaterialDesign(.repeatIcon), size: CGSize(width: 32, height: 32), textColor: .white, backgroundColor: .clear), for: .selected)
 		
 		beautyButton.showsTouchWhenHighlighted = true
 		cameraButton.showsTouchWhenHighlighted = true
@@ -47,8 +49,10 @@ open class UZLiveStreamUIView: UIView, UITextFieldDelegate {
 			button.addTarget(self, action: #selector(onButtonSelected(_:)), for: .touchUpInside)
 		}
 		
-		buttonFrameLayout = StackFrameLayout(direction: .horizontal, alignment: .right, views: [beautyButton, cameraButton])
+		buttonFrameLayout = StackFrameLayout(direction: .horizontal, alignment: .left, views: [beautyButton, cameraButton])
 		buttonFrameLayout.spacing = 10
+		buttonFrameLayout.isIntrinsicSizeEnabled = true
+		
 		containerView.addSubview(beautyButton)
 		containerView.addSubview(cameraButton)
 		containerView.addSubview(buttonFrameLayout)

@@ -57,8 +57,14 @@ class ViewController: UIViewController {
 		}
 	}
 	
+	
+	private let entityIdDefaultLIVE_TRANSCODE = "b61e21bf-ceaf-4176-8e88-c13243284bea"
+	private let entityIdDefaultLIVE_NO_TRANSCODE = "9925fcbd-0fbe-41c5-8b16-1b250642a7e9"
+	
+	
 	func showLive() {
 		let viewController = UZLiveStreamViewController()
+		viewController.liveEventId = entityIdDefaultLIVE_NO_TRANSCODE
 		self.present(viewController, animated: true, completion: nil)
 	}
 	

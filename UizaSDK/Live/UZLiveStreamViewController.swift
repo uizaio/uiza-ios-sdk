@@ -57,6 +57,8 @@ extension LFLiveVideoConfiguration {
 open class UZLiveStreamViewController: UIViewController {
 	let livestreamUIView = UZLiveStreamUIView()
 	let startButton = NKButton()
+	
+	public var liveEventId: String? = nil
 	public fileprivate (set) var liveLabel = UILabel()
 	fileprivate let streamService = UZLiveServices()
 //	var resultScreen : LiveStreamResultView? = nil
@@ -174,19 +176,15 @@ open class UZLiveStreamViewController: UIViewController {
 		isLive = true
 		self.view.setNeedsLayout()
 		
-		streamService.createLiveEvent(name: "Live", encode: false, linkStream: nil, description: nil, poster: nil, thumbnail: nil) { [weak self] (liveEvent, error) in
+		streamService.loadLiveEvent(id: liveEventId ?? "") { [weak self] (liveEvent, error) in
 			guard let `self` = self else { return }
 			
 			self.livestreamUIView.closeButton.isEnabled = true
 			self.startButton.isLoading = false
 			
-			if error != nil {
-				let alert = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
-				alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { (action) in
-					alert.dismiss(animated: true, completion: nil)
-				}))
-				
-				self.present(alert, animated: true, completion: nil)
+			if error != nil || liveEvent == nil {
+				let errorMessage = error != nil ? error!.localizedDescription : "No live event was set"
+				self.showAlert(title: "Error", message: errorMessage)
 			}
 			else {
 				self.startLive(event: liveEvent)
@@ -195,18 +193,31 @@ open class UZLiveStreamViewController: UIViewController {
 	}
 	
 	public func startLive(event: UZLiveEvent!) -> Void {
-		self.currentLiveEvent = event
+		if let broadcastURL = event.broadcastURL {
+			self.currentLiveEvent = event
+			
+			startButton.isLoading = false
+			startButton.isHidden = true
+			livestreamUIView.closeButton.isEnabled = true
+			
+			let stream = LFLiveStreamInfo()
+			stream.url = event.broadcastURL?.absoluteString ?? ""
+			session.startLive(stream)
+			
+			UIApplication.shared.isIdleTimerDisabled = true
+		}
+		else {
+			showAlert(title: "Error", message: "No broadcast url")
+		}
+	}
+	
+	func showAlert(title: String, message: String) {
+		let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+		alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { (action) in
+			alert.dismiss(animated: true, completion: nil)
+		}))
 		
-		startButton.isLoading = false
-		startButton.isHidden = true
-		livestreamUIView.closeButton.isEnabled = true
-//		livestreamUIView.facebookButton.isEnabled = true
-		
-		let stream = LFLiveStreamInfo()
-		stream.url = event.broadcastURL?.absoluteString ?? ""
-		session.startLive(stream)
-		
-		UIApplication.shared.isIdleTimerDisabled = true
+		self.present(alert, animated: true, completion: nil)
 	}
 	
 	func stopLive() -> Void {

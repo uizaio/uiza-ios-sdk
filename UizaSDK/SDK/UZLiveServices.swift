@@ -76,12 +76,68 @@ open class UZLiveServices: UZAPIConnector {
 	/**
 	Dừng phát live
 	- parameter id: `id` của sự kiện
+	- parameter completionBlock: Block được trả về với Error nếu có lỗi
 	*/
 	public func endLiveEvent(id: String, completionBlock: ((Error?) -> Void)? = nil) {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
 		
 		self.callAPI("live/entity", method: .put, params: ["id" : id]) { (result, error) in
 			completionBlock?(error)
+		}
+	}
+	
+	/**
+	Lấy thông tin số lượng người xem hiện tại
+	- parameter liveId: `id` của live event
+	- parameter completionBlock: Block được trả về với giá trị số lượng người xem hoặc Error nếu có lỗi
+	*/
+	public func loadViews(liveId: String, completionBlock: ((_ views: Int, _ error: Error?) -> Void)? = nil) {
+		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
+		
+		let params : [String: Any] = ["id" : liveId]
+		
+		self.callAPI("live/entity/tracking/current-view", baseURLString: basePrivateAPIURLPath(), method: .get, params: params) { (result, error) in
+//			DLog("\(String(describing: result)) - \(String(describing: error))")
+			
+			if error != nil {
+				completionBlock?(-1, error)
+			}
+			else {
+				var views: Int = -1
+				if let data = result!.value(for: "data", defaultValue: nil) as? NSDictionary {
+					views = data.int(for: "watchnow", defaultNumber: -1)
+				}
+				
+				completionBlock?(views, nil)
+			}
+		}
+	}
+	
+	/**
+	Lấy trạng thái của live event
+	- parameter video: sự kiện cần lấy giá trị
+	- parameter completionBlock: Block được trả về kèm giá trị trạng thái hoặc Error nếu có lỗi
+	*/
+	public func loadLiveStatus(video: UZVideoItem, completionBlock: ((_ result: UZLiveVideoStatus?, _ error: Error?) -> Void)? = nil) {
+		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
+		
+		let params : [String: Any] = ["entityId" : video.id ?? "",
+									  "feedId" : video.feedId ?? ""]
+		
+		self.callAPI("live/entity/tracking", baseURLString: basePrivateAPIURLPath(), method: .get, params: params) { (result, error) in
+//			DLog("\(String(describing: result)) - \(String(describing: error))")
+			
+			if error != nil {
+				completionBlock?(nil, error)
+			}
+			else {
+				var status: UZLiveVideoStatus? = nil
+				if let data = result!.value(for: "data", defaultValue: nil) as? NSDictionary {
+					status = UZLiveVideoStatus(data: data)
+				}
+				
+				completionBlock?(status, nil)
+			}
 		}
 	}
 

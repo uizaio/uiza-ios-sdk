@@ -19,15 +19,7 @@ public enum UZLiveMode: String {
 /**
 Thông tin một sự kiện đang phát trực tiếp
 */
-public class UZLiveEvent: UZModelObject {
-	/// id của sự kiện
-	public var `id`: String? = nil
-	/// Tên của sự kiện
-	public var name: String? = nil
-	/// Tên channel của sự kiện
-	public var channelName: String? = nil
-	/// Mô tả của sự kiện
-	public var eventDescription: String? = nil
+public class UZLiveEvent: UZVideoItem {
 	/// Hình ảnh thumbnnail của sự kiện
 	public var thumbnail: URL? = nil
 	/// Hình ảnh poster của sự kiện
@@ -36,17 +28,17 @@ public class UZLiveEvent: UZModelObject {
 	public var isEncoded: Bool = false
 	/// Kiểu nguồn phát livestream
 	public var mode: UZLiveMode = .push
-	
-	public var broadcastURL: URL? = nil
+	/// Link phát livestream
+	public fileprivate(set) var broadcastURL: URL? = nil
 	
 	override func parse(_ data: NSDictionary?) {
 		if let data = data {
 //			DLog("\(data)")
+			super.parse(data)
 			
 			id = data.string(for: "id", defaultString: nil)
 			name = data.string(for: "name", defaultString: nil)
 			channelName = data.string(for: "channelName", defaultString: nil)
-			eventDescription = data.string(for: "description", defaultString: nil)
 			thumbnail = data.url(for: "thumbnail", defaultURL: nil)
 			poster = data.url(for: "poster", defaultURL: nil)
 			

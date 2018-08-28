@@ -631,7 +631,7 @@ open class UZPlayer: UIView {
 		liveViewTimer = nil
 		
 		if let currentVideo = currentVideo {
-			UZContentServices().loadViews(video: currentVideo) { [weak self] (view, error) in
+			UZLiveServices().loadViews(liveId: currentVideo.id) { [weak self] (view, error) in
 				guard let `self` = self else { return }
 				
 				let changed = view != self.controlView.liveBadgeView.views
@@ -649,7 +649,7 @@ open class UZPlayer: UIView {
 		self.controlView.liveStartDate = nil
 		
 		if let currentVideo = currentVideo {
-			UZContentServices().loadLiveStatus(video: currentVideo) { [weak self] (status, error) in
+			UZLiveServices().loadLiveStatus(video: currentVideo) { [weak self] (status, error) in
 				guard let `self` = self else { return }
 				
 				if let status = status {

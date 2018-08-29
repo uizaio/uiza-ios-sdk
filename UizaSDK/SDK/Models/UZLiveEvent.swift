@@ -31,7 +31,7 @@ public class UZLiveEvent: UZVideoItem {
 	
 	override func parse(_ data: NSDictionary?) {
 		if let data = data {
-//			DLog("\(data)")
+			DLog("\(data)")
 			super.parse(data)
 			
 			if var posterString = data.string(for: "poster", defaultString: "https://static.uiza.io/2017/11/27/uiza-logo-demo-mobile.png") {
@@ -46,9 +46,12 @@ public class UZLiveEvent: UZVideoItem {
 				mode = UZLiveMode(rawValue: modeString)!
 			}
 			
-			if let pushInfoData = data.value(for: "lastPushInfo", defaultValue: nil) as? NSDictionary {
-				if let streamUrlPath = pushInfoData.string(for: "streamUrl", defaultString: nil), let streamKey = pushInfoData.string(for: "streamKey", defaultString: nil) {
-					broadcastURL = URL(string: streamUrlPath.stringByAppendingPathComponent(streamKey))
+			if let pushInfoDataArray = data.value(for: "lastPushInfo", defaultValue: nil) as? [NSDictionary],
+				pushInfoDataArray.count > 0,
+				let pushInfoData = pushInfoDataArray.first
+			{
+				if let streamUrl = pushInfoData.url(for: "streamUrl", defaultURL: nil), let streamKey = pushInfoData.string(for: "streamKey", defaultString: nil) {
+					broadcastURL = streamUrl.appendingPathComponent(streamKey)
 				}
 			}
 			

@@ -59,24 +59,29 @@ open class UZLiveStreamViewController: UIViewController {
 	let startButton = NKButton()
 	
 	public var liveEventId: String? = nil
+	public var getViewsInterval: TimeInterval = 5.0
 	public fileprivate (set) var liveLabel = UILabel()
+	public fileprivate(set)var isLive = false
+	
 	fileprivate let streamService = UZLiveServices()
 //	var resultScreen : LiveStreamResultView? = nil
-	public fileprivate(set)var isLive = false
-	var currentLiveEvent : UZLiveEvent? = nil {
+	
+	public fileprivate(set) var currentLiveEvent : UZLiveEvent? = nil {
 		didSet {
 //			livestreamUIView.textField.isEnabled = currentLiveEvent != nil
 			
-			if currentLiveEvent != nil {
+//			if currentLiveEvent != nil {
 //				livestreamUIView.streamSessionId = currentLiveEvent!.sessionId
-			}
+//			}
 		}
 	}
-	var startTime: Date? = nil
-	var timer: Timer? = nil
-	var inactiveTimer: Timer? = nil
 	
-	lazy var session: LFLiveSession = {
+	fileprivate var startTime: Date? = nil
+	fileprivate var timer: Timer? = nil
+	fileprivate var inactiveTimer: Timer? = nil
+	fileprivate var getViewTimer: Timer? = nil
+	
+	lazy fileprivate var session: LFLiveSession = {
 		let audioConfiguration = LFLiveVideoConfiguration.UZAudioConfiguration() // LFLiveAudioConfiguration.defaultConfiguration(for: .default)
 		let videoConfiguration = LFLiveVideoConfiguration.UZVideoConfiguration() // LFLiveVideoConfiguration.defaultConfiguration(for: .high2, outputImageOrientation: UIApplication.shared.statusBarOrientation)
 //		videoConfiguration?.autorotate = true
@@ -84,6 +89,11 @@ open class UZLiveStreamViewController: UIViewController {
 		result.adaptiveBitrate = true
 		return result
 	}()
+	
+	public convenience init(liveEventId: String) {
+		self.init()
+		self.liveEventId = liveEventId
+	}
 	
 	public init() {
 		super.init(nibName: nil, bundle: nil)
@@ -125,13 +135,6 @@ open class UZLiveStreamViewController: UIViewController {
 	}
 	
 	// MARK: -
-	
-	@objc private func dismissView() {
-		session.stopLive()
-		session.delegate = nil
-		
-		self.dismiss(animated: true, completion: nil)
-	}
 	
 	public func requestAccessForVideo() -> Void {
 		let status = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
@@ -211,44 +214,40 @@ open class UZLiveStreamViewController: UIViewController {
 		}
 	}
 	
-	func showAlert(title: String, message: String) {
-		let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
-		alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { (action) in
-			alert.dismiss(animated: true, completion: nil)
-		}))
-		
-		self.present(alert, animated: true, completion: nil)
-	}
-	
-	func stopLive() -> Void {
+	public func stopLive() -> Void {
 		guard (currentLiveEvent != nil) else { return }
 		
-		endSession { [weak self] (error) in
-			guard let `self` = self else { return }
-			
-			self.streamService.cancel()
-//			self.livestreamUIView.disconnectSocket()
-			self.session.stopLive()
-		}
+		streamService.cancel()
+//		self.livestreamUIView.disconnectSocket()
+		session.stopLive()
+		session.delegate = nil
+		
+		endSession()
 		
 		liveLabel.isHidden = true
 		isLive = false
 		
 		timer?.invalidate()
 		timer = nil
-		startTime = nil
 		
+		inactiveTimer?.invalidate()
+		inactiveTimer = nil
+		
+		getViewTimer?.invalidate()
+		getViewTimer = nil
+		
+		startTime = nil
 		UIApplication.shared.isIdleTimerDisabled = false
 	}
 	
-	func startTimer() {
+	fileprivate func startTimer() {
 		timer?.invalidate()
 		timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { [weak self] (t) in
 			self?.updateTimer()
 		})
 	}
 	
-	func updateTimer() {
+	fileprivate func updateTimer() {
 		if let startTime = startTime {
 			let duration = Date().timeIntervalSince(startTime)
 			liveLabel.text = String.timeString(fromDuration: duration, shortenIfZero: true)
@@ -256,7 +255,21 @@ open class UZLiveStreamViewController: UIViewController {
 		}
 	}
 	
-	@objc func endSession(completionBlock:((_ error : Error?) -> Void)? = nil) {
+	fileprivate func getViews() {
+		getViewTimer?.invalidate()
+		getViewTimer = nil
+		
+		if let liveEvent = currentLiveEvent {
+			UZLiveServices().loadViews(liveId: liveEvent.id) { [weak self] (views, error) in
+				guard let `self` = self else { return }
+				
+				self.livestreamUIView.views = views
+				self.getViewTimer = Timer.scheduledTimer(timeInterval: self.getViewsInterval, target: self, selector: #selector(self.getViews), userInfo: false, repeats: true)
+			}
+		}
+	}
+	
+	@objc fileprivate func endSession(completionBlock:((_ error : Error?) -> Void)? = nil) {
 		isLive = false
 		
 		if let liveEvent = currentLiveEvent {
@@ -264,6 +277,15 @@ open class UZLiveStreamViewController: UIViewController {
 				completionBlock?(error)
 			}
 		}
+	}
+	
+	fileprivate func showAlert(title: String, message: String) {
+		let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+		alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { (action) in
+			alert.dismiss(animated: true, completion: nil)
+		}))
+		
+		self.present(alert, animated: true, completion: nil)
 	}
 	
 	// MARK: -
@@ -310,7 +332,7 @@ open class UZLiveStreamViewController: UIViewController {
 		self.view.addSubview(startButton)
 		
 		session.delegate = self
-		session.beautyFace = true
+		session.beautyFace = false
 		session.preView = self.view
 		session.captureDevicePosition = .front
 		

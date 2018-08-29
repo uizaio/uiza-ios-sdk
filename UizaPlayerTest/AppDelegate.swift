@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	var window: UIWindow?
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        UizaSDK.initWith(appId: "16f8e65d8e2643ffa3ff5ee9f4f9ba03", token: "uap-16f8e65d8e2643ffa3ff5ee9f4f9ba03-a07716a6", api: "android-api.uiza.co")
+        UizaSDK.initWith(appId: "9816792bb84642f09d843af4f93fb748", token: "uap-9816792bb84642f09d843af4f93fb748-b94fcbd1", api: "loctbprod01.uiza.co", enviroment: .production)
 		UizaSDK.showRestfulInfo = true
 		return true
 	}

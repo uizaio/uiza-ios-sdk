@@ -95,22 +95,22 @@ open class UZVideoItem: UZModelObject {
 	public var subtitleURLs: [URL]? = nil
 	
 	override func parse(_ data: NSDictionary?) {
-		if data != nil {
-			DLog("\(data!)")
-			id					= data!.string(for: "id", defaultString: "")
-			categoryId			= data!.string(for: "category_id", defaultString: "")
-			feedId				= data!.string(for: "lastFeedId", defaultString: "")
-			categoryName		= data!.string(for: "category", defaultString: "")
-			channelName			= data!.string(for: "channelName", defaultString: "")
-			name				= data!.string(for: "name", defaultString: "")
-			subTitle			= data!.string(for: "subTitle", defaultString: "")
-			type				= data!.string(for: "type", defaultString: "")
-			details				= data!.string(for: "description", defaultString: "")
-			shortDescription	= data!.string(for: "shortDescription", defaultString: "")
-			duration			= data!.number(for: "duration", defaultNumber: 0)!.doubleValue
-			videoURL			= data!.url(for: "url") // data!.url(for: "url", defaultURL: URL(string: "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4")!)
+		if let data = data {
+//			DLog("\(data)")
+			id					= data.string(for: "id", defaultString: "")
+			categoryId			= data.string(for: "category_id", defaultString: "")
+			feedId				= data.string(for: "lastFeedId", defaultString: "")
+			categoryName		= data.string(for: "category", defaultString: "")
+			channelName			= data.string(for: "channelName", defaultString: "")
+			name				= data.string(for: "name", defaultString: "")
+			subTitle			= data.string(for: "subTitle", defaultString: "")
+			type				= data.string(for: "type", defaultString: "")
+			details				= data.string(for: "description", defaultString: "")
+			shortDescription	= data.string(for: "shortDescription", defaultString: "")
+			duration			= data.number(for: "duration", defaultNumber: 0)!.doubleValue
+			videoURL			= data.url(for: "url") // data.url(for: "url", defaultURL: URL(string: "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4")!)
 			
-			if var thumbnailString = data!.string(for: "thumbnail", defaultString: "https://static.uiza.io/2017/11/27/uiza-logo-demo-mobile.png") {
+			if var thumbnailString = data.string(for: "thumbnail", defaultString: "https://static.uiza.io/2017/11/27/uiza-logo-demo-mobile.png") {
 				if thumbnailString.hasPrefix("//") {
 					thumbnailString = "https:" + thumbnailString
 				}
@@ -118,7 +118,7 @@ open class UZVideoItem: UZModelObject {
 				thumbnailURL = URL(string: thumbnailString)
 			}
 			
-			if let subtitleDataArray = data!.array(for: "subtitle", defaultValue: nil) as? [NSDictionary] {
+			if let subtitleDataArray = data.array(for: "subtitle", defaultValue: nil) as? [NSDictionary] {
 				subtitleURLs = [URL]()
 				
 				for subtitleData in subtitleDataArray {

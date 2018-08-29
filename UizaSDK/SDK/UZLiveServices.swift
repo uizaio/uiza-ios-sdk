@@ -72,7 +72,7 @@ open class UZLiveServices: UZAPIConnector {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
 		
 		self.callAPI("live/entity", method: .get, params: ["id" : id]) { (result, error) in
-			DLog("OK \(result) - \(error)")
+//			DLog("OK \(result) - \(error)")
 			if let data = result?.value(for: "data", defaultValue: nil) as? NSDictionary {
 				let result = UZLiveEvent(data: data)
 				completionBlock?(result, nil)

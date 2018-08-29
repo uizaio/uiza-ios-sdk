@@ -20,10 +20,8 @@ public enum UZLiveMode: String {
 Thông tin một sự kiện đang phát trực tiếp
 */
 public class UZLiveEvent: UZVideoItem {
-	/// Hình ảnh thumbnnail của sự kiện
-	public var thumbnail: URL? = nil
 	/// Hình ảnh poster của sự kiện
-	public var poster: URL? = nil
+	public var posterURL: URL? = nil
 	/// `true` nếu được encode
 	public var isEncoded: Bool = false
 	/// Kiểu nguồn phát livestream
@@ -36,19 +34,25 @@ public class UZLiveEvent: UZVideoItem {
 //			DLog("\(data)")
 			super.parse(data)
 			
-			id = data.string(for: "id", defaultString: nil)
-			name = data.string(for: "name", defaultString: nil)
-			channelName = data.string(for: "channelName", defaultString: nil)
-			thumbnail = data.url(for: "thumbnail", defaultURL: nil)
-			poster = data.url(for: "poster", defaultURL: nil)
+			if var posterString = data.string(for: "poster", defaultString: "https://static.uiza.io/2017/11/27/uiza-logo-demo-mobile.png") {
+				if posterString.hasPrefix("//") {
+					posterString = "https:" + posterString
+				}
+				
+				posterURL = URL(string: posterString)
+			}
 			
 			if let modeString = data.string(for: "mode", defaultString: "push"), modeString == "pull" || modeString == "push" {
 				mode = UZLiveMode(rawValue: modeString)!
 			}
 			
-			if let streamUrlPath = data.string(for: "streamUrl", defaultString: nil), let streamKey = data.string(for: "streamKey", defaultString: nil) {
-				broadcastURL = URL(string: streamUrlPath + "/" + streamKey)
+			if let pushInfoData = data.value(for: "lastPushInfo", defaultValue: nil) as? NSDictionary {
+				if let streamUrlPath = pushInfoData.string(for: "streamUrl", defaultString: nil), let streamKey = pushInfoData.string(for: "streamKey", defaultString: nil) {
+					broadcastURL = URL(string: streamUrlPath.stringByAppendingPathComponent(streamKey))
+				}
 			}
+			
+			isLive = true
 		}
 	}
 }

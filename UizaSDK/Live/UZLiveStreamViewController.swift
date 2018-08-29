@@ -22,7 +22,7 @@ configuration.videoSize = CGSizeMake(720, 1280)
 */
 extension LFLiveVideoConfiguration {
 	
-	class func UZVideoConfiguration() -> LFLiveVideoConfiguration {
+	open class func UZVideoConfiguration() -> LFLiveVideoConfiguration {
 		let configuration = LFLiveVideoConfiguration()
 		configuration.sessionPreset 	= .captureSessionPreset720x1280
 		configuration.videoFrameRate 	= 24
@@ -44,7 +44,7 @@ extension LFLiveVideoConfiguration {
 		return configuration
 	}
 	
-	class func UZAudioConfiguration() -> LFLiveAudioConfiguration {
+	open class func UZAudioConfiguration() -> LFLiveAudioConfiguration {
 		let configuration = LFLiveAudioConfiguration.defaultConfiguration(for: .medium)
 		configuration!.numberOfChannels = 2
 		configuration!.audioBitrate = LFLiveAudioBitRate(rawValue: 128000)!
@@ -60,8 +60,26 @@ open class UZLiveStreamViewController: UIViewController {
 	
 	public var liveEventId: String? = nil
 	public var getViewsInterval: TimeInterval = 5.0
-	public fileprivate (set) var liveLabel = UILabel()
+	public fileprivate (set) var liveDurationLabel = UILabel()
 	public fileprivate(set)var isLive = false
+	
+	public var saveLocalVideo: Bool {
+		get {
+			return session.saveLocalVideo
+		}
+		set {
+			session.saveLocalVideo = newValue
+		}
+	}
+	
+	public var localVideoURL: URL? {
+		get {
+			return session.saveLocalVideoPath
+		}
+		set {
+			session.saveLocalVideoPath = newValue
+		}
+	}
 	
 	fileprivate let streamService = UZLiveServices()
 //	var resultScreen : LiveStreamResultView? = nil
@@ -81,7 +99,7 @@ open class UZLiveStreamViewController: UIViewController {
 	fileprivate var inactiveTimer: Timer? = nil
 	fileprivate var getViewTimer: Timer? = nil
 	
-	lazy fileprivate var session: LFLiveSession = {
+	lazy open var session: LFLiveSession = {
 		let audioConfiguration = LFLiveVideoConfiguration.UZAudioConfiguration() // LFLiveAudioConfiguration.defaultConfiguration(for: .default)
 		let videoConfiguration = LFLiveVideoConfiguration.UZVideoConfiguration() // LFLiveVideoConfiguration.defaultConfiguration(for: .high2, outputImageOrientation: UIApplication.shared.statusBarOrientation)
 //		videoConfiguration?.autorotate = true
@@ -104,14 +122,14 @@ open class UZLiveStreamViewController: UIViewController {
 			self?.onButtonSelected(button)
 		}
 		
-		liveLabel.text = "00:00"
-		liveLabel.textColor = .white
-		liveLabel.backgroundColor = UIColor.red.withAlphaComponent(0.8)
-		liveLabel.textAlignment = .center
-		liveLabel.font = UIFont.systemFont(ofSize: 12, weight: .regular)
-		liveLabel.layer.cornerRadius = 4.0
-		liveLabel.layer.masksToBounds = true
-		liveLabel.isHidden = true
+		liveDurationLabel.text = "00:00"
+		liveDurationLabel.textColor = .white
+		liveDurationLabel.backgroundColor = UIColor.red.withAlphaComponent(0.8)
+		liveDurationLabel.textAlignment = .center
+		liveDurationLabel.font = UIFont.systemFont(ofSize: 12, weight: .regular)
+		liveDurationLabel.layer.cornerRadius = 4.0
+		liveDurationLabel.layer.masksToBounds = true
+		liveDurationLabel.isHidden = true
 		
 		startButton.setBackgroundColor(UIColor(red:0.13, green:0.77, blue:0.38, alpha:0.8), for: .normal)
 		startButton.setBackgroundColor(UIColor(red:0.36, green:0.86, blue:0.58, alpha:1.00), for: .highlighted)
@@ -201,11 +219,14 @@ open class UZLiveStreamViewController: UIViewController {
 			
 			startButton.isLoading = false
 			startButton.isHidden = true
-			livestreamUIView.closeButton.isEnabled = true
 			
 			let stream = LFLiveStreamInfo()
 			stream.url = broadcastURL.absoluteString
 			session.startLive(stream)
+			
+			livestreamUIView.closeButton.isEnabled = true
+			livestreamUIView.isLive = true
+			getViews(after: getViewsInterval)
 			
 			UIApplication.shared.isIdleTimerDisabled = true
 		}
@@ -218,13 +239,14 @@ open class UZLiveStreamViewController: UIViewController {
 		guard (currentLiveEvent != nil) else { return }
 		
 		streamService.cancel()
-//		self.livestreamUIView.disconnectSocket()
+//		livestreamUIView.disconnectSocket()
 		session.stopLive()
 		session.delegate = nil
 		
 		endSession()
 		
-		liveLabel.isHidden = true
+		livestreamUIView.isLive = false
+		liveDurationLabel.isHidden = true
 		isLive = false
 		
 		timer?.invalidate()
@@ -250,23 +272,32 @@ open class UZLiveStreamViewController: UIViewController {
 	fileprivate func updateTimer() {
 		if let startTime = startTime {
 			let duration = Date().timeIntervalSince(startTime)
-			liveLabel.text = String.timeString(fromDuration: duration, shortenIfZero: true)
+			liveDurationLabel.text = String.timeString(fromDuration: duration, shortenIfZero: true)
 			layoutDurationLabel()
 		}
 	}
 	
-	fileprivate func getViews() {
+	fileprivate func getViews(after interval: TimeInterval = 0) {
 		getViewTimer?.invalidate()
 		getViewTimer = nil
+		
+		if interval > 0 {
+			self.getViewTimer = Timer.scheduledTimer(timeInterval: interval, target: self, selector: #selector(self.onGetViewTimer), userInfo: false, repeats: false)
+			return
+		}
 		
 		if let liveEvent = currentLiveEvent {
 			UZLiveServices().loadViews(liveId: liveEvent.id) { [weak self] (views, error) in
 				guard let `self` = self else { return }
 				
 				self.livestreamUIView.views = views
-				self.getViewTimer = Timer.scheduledTimer(timeInterval: self.getViewsInterval, target: self, selector: #selector(self.getViews), userInfo: false, repeats: true)
+				self.getViews(after: self.getViewsInterval)
 			}
 		}
+	}
+	
+	@objc fileprivate func onGetViewTimer() {
+		getViews(after: 0)
 	}
 	
 	@objc fileprivate func endSession(completionBlock:((_ error : Error?) -> Void)? = nil) {
@@ -328,7 +359,7 @@ open class UZLiveStreamViewController: UIViewController {
 		
 		self.view.backgroundColor = .black
 		self.view.addSubview(livestreamUIView)
-		self.view.addSubview(liveLabel)
+		self.view.addSubview(liveDurationLabel)
 		self.view.addSubview(startButton)
 		
 		session.delegate = self
@@ -375,10 +406,10 @@ open class UZLiveStreamViewController: UIViewController {
 	
 	func layoutDurationLabel() {
 		let viewSize = self.view.bounds.size
-		var labelSize = liveLabel.sizeThatFits(viewSize)
+		var labelSize = liveDurationLabel.sizeThatFits(viewSize)
 		labelSize.width += 10
 		labelSize.height += 6
-		liveLabel.frame = CGRect(x: viewSize.width - labelSize.width - 10, y: 50, width: labelSize.width, height: labelSize.height)
+		liveDurationLabel.frame = CGRect(x: 10, y: 50, width: labelSize.width, height: labelSize.height)
 	}
 	
 	open override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -412,7 +443,7 @@ extension UZLiveStreamViewController: LFLiveSessionDelegate {
 	public func liveSession(_ session: LFLiveSession?, liveStateDidChange state: LFLiveState) {
 		DLog("LFLiveState: \(String(describing: state.rawValue))")
 		
-		liveLabel.isHidden = state != .start
+		liveDurationLabel.isHidden = state != .start
 		
 		if state == .start {
 			if startTime == nil {

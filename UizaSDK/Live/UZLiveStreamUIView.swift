@@ -17,20 +17,28 @@ open class UZLiveStreamUIView: UIView, UITextFieldDelegate {
 	public let closeButton = NKButton()
 	public let beautyButton = NKButton()
 	public let cameraButton = NKButton()
-	public let viewTagButton = NKButton()
+	public let viewsBadge = NKButton()
+	public let liveBadge = NKButton()
 	
 	let containerView = UIView()
-	var topFrameLayout: FrameLayout!
+	var topFrameLayout: DoubleFrameLayout!
 	var buttonFrameLayout: StackFrameLayout!
 	
 	var views: Int = 0 {
 		didSet {
 			if views != oldValue {
-				viewTagButton.title = "\(views.abbreviatedFromLimit(limit: 1000))  "
-				viewTagButton.setNeedsLayout()
+				viewsBadge.title = views >= 0 ? "\(views.abbreviatedFromLimit(limit: 1000))  " : "--  "
+				viewsBadge.setNeedsLayout()
+				
 				topFrameLayout.setNeedsLayout()
 				topFrameLayout.layoutSubviews()
 			}
+		}
+	}
+	
+	internal var isLive: Bool = false {
+		didSet {
+			topFrameLayout.isHidden = !isLive
 		}
 	}
 	
@@ -48,12 +56,21 @@ open class UZLiveStreamUIView: UIView, UITextFieldDelegate {
 		closeButton.showsTouchWhenHighlighted = true
 		closeButton.isRoundedButton = true
 		
-		viewTagButton.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .light)
-		viewTagButton.setTitleColor(.white, for: .normal)
-		viewTagButton.setBackgroundColor(UIColor(red:0.15, green:0.84, blue:0.87, alpha:0.4), for: .normal)
-		viewTagButton.setImage(UIImage(icon: .googleMaterialDesign(.removeRedEye), size: CGSize(width: 24, height: 24), textColor: .white, backgroundColor: .clear), for: .normal)
-		viewTagButton.isRoundedButton = true
-		viewTagButton.spacing = 5
+		liveBadge.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .medium)
+		liveBadge.setTitle("LIVE", for: .normal)
+		liveBadge.setTitleColor(.white, for: .normal)
+		liveBadge.setBackgroundColor(UIColor(red:0.91, green:0.31, blue:0.28, alpha:1.00), for: .normal)
+		liveBadge.isUserInteractionEnabled = false
+		liveBadge.cornerRadius = 4
+		liveBadge.extendSize = CGSize(width: 10, height: 0)
+		
+		viewsBadge.title = "--  "
+		viewsBadge.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .light)
+		viewsBadge.setTitleColor(.white, for: .normal)
+		viewsBadge.setBackgroundColor(UIColor(red:0.15, green:0.84, blue:0.87, alpha:0.4), for: .normal)
+		viewsBadge.setImage(UIImage(icon: .googleMaterialDesign(.removeRedEye), size: CGSize(width: 20, height: 20), textColor: .white, backgroundColor: .clear), for: .normal)
+		viewsBadge.isRoundedButton = true
+		viewsBadge.spacing = 5
 		
 		let selectedColor = UIColor(red:0.28, green:0.49, blue:0.93, alpha:1.00)
 		beautyButton.setImage(UIImage(icon: .fontAwesomeSolid(.magic), size: CGSize(width: 32, height: 32), textColor: .white, backgroundColor: .clear), for: .normal)
@@ -71,9 +88,11 @@ open class UZLiveStreamUIView: UIView, UITextFieldDelegate {
 			button.addTarget(self, action: #selector(onButtonSelected(_:)), for: .touchUpInside)
 		}
 		
-		topFrameLayout = FrameLayout(targetView: viewTagButton)
-		topFrameLayout.contentAlignment = (.center, .center)
-		topFrameLayout.addSubview(viewTagButton)
+		topFrameLayout = DoubleFrameLayout(direction: .horizontal, alignment: .center, views: [liveBadge, viewsBadge])
+		topFrameLayout.spacing = 5
+		topFrameLayout.addSubview(liveBadge)
+		topFrameLayout.addSubview(viewsBadge)
+		topFrameLayout.isHidden = true
 		
 		buttonFrameLayout = StackFrameLayout(direction: .horizontal, alignment: .left, views: [beautyButton, cameraButton])
 		buttonFrameLayout.spacing = 10
@@ -137,7 +156,7 @@ open class UZLiveStreamUIView: UIView, UITextFieldDelegate {
 		let buttonSize = buttonFrameLayout.sizeThatFits(viewSize)
 		buttonFrameLayout.frame = CGRect(x: viewSize.width - buttonSize.width - 10, y: viewSize.height - buttonSize.height - 10, width: buttonSize.width, height: buttonSize.height)
 		
-		closeButton.frame = CGRect(x: viewSize.width - 42, y: 20, width: 32, height: 32)
+		closeButton.frame = CGRect(x: viewSize.width - 42, y: 30, width: 32, height: 32)
 	}
 	
 	func allButtons() -> [UIButton] {

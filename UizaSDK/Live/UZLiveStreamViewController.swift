@@ -55,8 +55,8 @@ extension LFLiveVideoConfiguration {
 }
 
 open class UZLiveStreamViewController: UIViewController {
-	let livestreamUIView = UZLiveStreamUIView()
-	let startButton = NKButton()
+	public let livestreamUIView = UZLiveStreamUIView()
+	public let startButton = NKButton()
 	
 	public var liveEventId: String? = nil
 	public var getViewsInterval: TimeInterval = 5.0
@@ -321,7 +321,7 @@ open class UZLiveStreamViewController: UIViewController {
 	
 	// MARK: -
 	
-	func onButtonSelected(_ button: UIControl?) {
+	open func onButtonSelected(_ button: UIControl?) {
 		if button == livestreamUIView.closeButton {
 			stopLive()
 			self.dismiss(animated: true, completion: nil)

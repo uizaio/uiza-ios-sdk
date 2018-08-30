@@ -192,24 +192,36 @@ open class UZLiveStreamViewController: UIViewController {
 	// MARK: -
 	
 	@objc public func start() {
-		livestreamUIView.closeButton.isEnabled = false
-//		startButton.isLoading = true
-		isLive = true
-		self.view.setNeedsLayout()
-		
-		streamService.loadLiveEvent(id: liveEventId ?? "") { [weak self] (liveEvent, error) in
-			guard let `self` = self else { return }
+		if let liveEventId = liveEventId {
+			livestreamUIView.closeButton.isEnabled = false
+//			startButton.isLoading = true
+			isLive = true
+			self.view.setNeedsLayout()
 			
-			self.livestreamUIView.closeButton.isEnabled = true
-			self.startButton.isLoading = false
-			
-			if error != nil || liveEvent == nil {
-				let errorMessage = error != nil ? error!.localizedDescription : "No live event was set"
-				self.showAlert(title: "Error", message: errorMessage)
+			UZLiveServices().startLiveEvent(id: liveEventId) { (error) in
+				self.livestreamUIView.closeButton.isEnabled = true
+				self.startButton.isLoading = false
+				
+				if error != nil {
+					self.showAlert(title: "Error", message: error!.localizedDescription)
+				}
+				else {
+					self.streamService.loadLiveEvent(id: liveEventId) { [weak self] (liveEvent, error) in
+						guard let `self` = self else { return }
+						
+						if error != nil || liveEvent == nil {
+							let errorMessage = error != nil ? error!.localizedDescription : "No live event was set"
+							self.showAlert(title: "Error", message: errorMessage)
+						}
+						else {
+							self.startLive(event: liveEvent)
+						}
+					}
+				}
 			}
-			else {
-				self.startLive(event: liveEvent)
-			}
+		}
+		else {
+			self.showAlert(title: "Error", message: "No live event id was set")
 		}
 	}
 	

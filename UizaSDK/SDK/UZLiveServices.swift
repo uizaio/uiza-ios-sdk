@@ -84,6 +84,20 @@ open class UZLiveServices: UZAPIConnector {
 	}
 	
 	/**
+	Bắt đầu phát live
+	- parameter id: `id` của sự kiện live
+	- parameter completionBlock: Block được trả về với Error nếu có lỗi
+	*/
+	public func startLiveEvent(id: String, completionBlock: ((Error?) -> Void)? = nil) {
+		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
+		
+		self.callAPI("live/entity/feed", method: .post, params: ["id" : id]) { (result, error) in
+			DLog("\(result) - \(error)")
+			completionBlock?(error)
+		}
+	}
+	
+	/**
 	Dừng phát live
 	- parameter id: `id` của sự kiện
 	- parameter completionBlock: Block được trả về với Error nếu có lỗi

@@ -29,6 +29,8 @@ public class UZLiveEvent: UZVideoItem {
 	/// Link phát livestream
 	public fileprivate(set) var broadcastURL: URL? = nil
 	
+	internal var isReadyToLive: Bool = false
+	
 	override func parse(_ data: NSDictionary?) {
 		if let data = data {
 			DLog("\(data)")
@@ -53,6 +55,10 @@ public class UZLiveEvent: UZVideoItem {
 				if let streamUrl = pushInfoData.url(for: "streamUrl", defaultURL: nil), let streamKey = pushInfoData.string(for: "streamKey", defaultString: nil) {
 					broadcastURL = streamUrl.appendingPathComponent(streamKey)
 				}
+			}
+			
+			if let lastProcess = data.string(for: "lastProcess", defaultString: nil) {
+				isReadyToLive = (lastProcess == "init" || lastProcess == "start")
 			}
 			
 			isLive = true

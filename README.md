@@ -10,7 +10,7 @@ UizaSDK là bộ Framework hỗ trợ kết nối đến API của hệ thống 
 
 ## Tương Thích
 
-UizaSDK yêu cầu Swift 4.1 và iOS10+, TVOS 10+
+UizaSDK yêu cầu Swift 4.1 và iOS 10+, TVOS 10+
 
 ## Cài Đặt
 
@@ -115,7 +115,7 @@ UizaSDK is a framework to connect to Uiza OTT API system
 
 ## Compatibility
 
-UizaSDK requires Swift 4.1 and iOS9+, TVOS 10+
+UizaSDK requires Swift 4.1 and iOS 10+, TVOS 10+
 
 ## Installation
 

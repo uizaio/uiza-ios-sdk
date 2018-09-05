@@ -9,6 +9,13 @@
 import UIKit
 import Alamofire
 
+public enum UZPublishStatus: String {
+	case queue
+	case notReady = "not-ready"
+	case success
+	case failed
+}
+
 /**
 Class quản lý các hàm lấy thông tin
 */
@@ -17,14 +24,15 @@ open class UZContentServices: UZAPIConnector {
 	/**
 	Tải dữ liệu cho trang Home
 	- parameter metadataId: `metadataId` đính kèm nếu có (mặc định là `nil`)
+	- parameter publishStatus: trạng thái của video cần lọc ra
 	- parameter page: chỉ số trang, bắt đầu từ 0
 	- parameter limit: giới hạn số video item trả về mỗi lần gọi (từ 1 đến 100)
 	- parameter completionBlock: block được gọi sau khi hoàn thành, trả về mảng [`UZCategory`], hoặc error nếu có lỗi
 	*/
-	public func loadHomeData(metadataId: String? = nil, page: Int = 0, limit: Int = 20, completionBlock: ((_ results:[UZCategory]?, _ error:Error?) -> Void)? = nil) {
+	public func loadHomeData(metadataId: String? = nil, publishStatus: UZPublishStatus = .success, page: Int = 0, limit: Int = 20, completionBlock: ((_ results:[UZCategory]?, _ error:Error?) -> Void)? = nil) {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
 		
-		var params : [String: Any] = [:]
+		var params : [String: Any] = ["publishToCdn" : publishStatus.rawValue]
 		
 		if let metadataId = metadataId {
 			if metadataId.isEmpty == false {
@@ -85,6 +93,45 @@ open class UZContentServices: UZAPIConnector {
 					
 					completionBlock?(results, nil)
 				})
+			}
+		}
+	}
+	
+	/**
+	Tải danh mục video
+	- parameter metadataId: `metadataId` đính kèm nếu có (mặc định là `nil`)
+	- parameter publishStatus: trạng thái của video cần lọc ra
+	- parameter page: chỉ số trang, bắt đầu từ 0
+	- parameter limit: giới hạn số video item trả về mỗi lần gọi (từ 1 đến 100)
+	- parameter completionBlock: block được gọi sau khi hoàn thành, trả về mảng [`UZVideoItem`], hoặc error nếu có lỗi
+	*/
+	public func loadEntity(metadataId: String? = nil, publishStatus: UZPublishStatus = .success, page: Int = 0, limit: Int = 20, completionBlock: ((_ results:[UZVideoItem]?, _ error:Error?) -> Void)? = nil) {
+		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
+		
+		var params : [String: Any] = ["publishToCdn" : publishStatus.rawValue]
+		
+		if let metadataId = metadataId {
+			if metadataId.isEmpty == false {
+				params["metadataId"] = [metadataId]
+			}
+		}
+		
+		self.callAPI("media/entity", method: .get, params: params) { (result:NSDictionary?, error:Error?) in
+			DLog("\(String(describing: result)) - \(String(describing: error))")
+			
+			if error != nil {
+				completionBlock?(nil, error)
+			}
+			else {
+				var videos: [UZVideoItem]! = []
+				
+				if let array = result!.array(for: "data", defaultValue: nil) as? [NSDictionary] {
+					for videoData in array {
+						videos.append(UZVideoItem(data: videoData))
+					}
+				}
+				
+				completionBlock?(videos, nil)
 			}
 		}
 	}

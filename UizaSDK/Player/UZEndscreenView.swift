@@ -10,12 +10,12 @@ import UIKit
 import FrameLayoutKit
 import NKButton
 
-open class UZShareView: UIView {
-	let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
-	let titleLabel = UILabel()
-	let replayButton = NKButton()
-	let shareButton = NKButton()
-	var frameLayout: StackFrameLayout?
+open class UZEndscreenView: UIView {
+	public let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+	public let titleLabel = UILabel()
+	public let replayButton = NKButton()
+	public let shareButton = NKButton()
+	public fileprivate(set)var frameLayout: StackFrameLayout?
 	
 	open var allButtons: [UIButton]! {
 		get {

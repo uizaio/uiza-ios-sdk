@@ -98,7 +98,7 @@ open class UZPlayerControlView: UIView {
 			theme?.updateUI()
 			theme?.update(withResource: self.resource, video: self.currentVideo, playlist: self.currentPlaylist)
 			
-			self.addSubview(shareView)
+			self.addSubview(endscreenView)
 			
 			if let allButtons = theme?.allButtons() {
 				for button in allButtons {
@@ -144,11 +144,11 @@ open class UZPlayerControlView: UIView {
 	public let enlapseTimeLabel = NKButton()
 	public let airplayButton = UZAirPlayButton()
 	public let timeSlider = UZSlider()
-	internal let coverImageView = UIImageView()
-	internal let shareView = UZShareView()
-	internal let liveBadgeView = UZLiveBadgeView()
+	public let coverImageView = UIImageView()
+	public let endscreenView = UZEndscreenView()
+	public let liveBadgeView = UZLiveBadgeView()
+	public var loadingIndicatorView: NVActivityIndicatorView? = nil
 	internal var castingView: UZCastingView? = nil
-	internal var loadingIndicatorView: NVActivityIndicatorView? = nil
 	
 	internal var liveStartDate: Date? = nil {
 		didSet {
@@ -219,13 +219,13 @@ open class UZPlayerControlView: UIView {
 		castingButton.tag = UZButtonTag.casting.rawValue
 		
 		var allButtons: [UIButton] = self.allButtons
-		allButtons.append(contentsOf: shareView.allButtons)
+		allButtons.append(contentsOf: endscreenView.allButtons)
 		allButtons.forEach { (button) in
 			button.showsTouchWhenHighlighted = true
 			button.addTarget(self, action: #selector(onButtonPressed(_:)), for: .touchUpInside)
 		}
 		
-		shareView.isHidden = true
+		endscreenView.isHidden = true
 		liveBadgeView.isHidden = true
 		settingsButton.isHidden = true
 		
@@ -284,7 +284,7 @@ open class UZPlayerControlView: UIView {
 		containerView.frame = self.bounds
 		theme?.layoutControls(rect: self.bounds)
 		castingView?.frame = self.bounds
-		shareView.frame = self.bounds
+		endscreenView.frame = self.bounds
 		
 		if let messageLabel = messageLabel {
 			let messageBounds = UIEdgeInsetsInsetRect(self.bounds, UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20))
@@ -368,7 +368,7 @@ open class UZPlayerControlView: UIView {
 		
 		
 		titleLabel.text = resource.name
-		shareView.title = resource.name
+		endscreenView.title = resource.name
 		
 		let isLiveVideo = (video?.isLive ?? false)
 		liveBadgeView.isHidden = !isLiveVideo
@@ -409,7 +409,7 @@ open class UZPlayerControlView: UIView {
 	}
 	
 	open func showControlView(duration: CGFloat = 0.3) {
-		if shareView.isHidden == false {
+		if endscreenView.isHidden == false {
 			return
 		}
 		
@@ -468,12 +468,12 @@ open class UZPlayerControlView: UIView {
 	}
 	
 	open func showEndScreen() {
-		shareView.isHidden = false
+		endscreenView.isHidden = false
 		containerView.isHidden = true
 	}
 	
 	open func hideEndScreen() {
-		shareView.isHidden = true
+		endscreenView.isHidden = true
 		containerView.isHidden = false
 	}
 	

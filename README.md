@@ -47,6 +47,7 @@ UizaSDK.initWith(appId: [YOUR_APP_ID], token: [TOKEN], api: [YOUR_DOMAIN])
 ```
 
 [YOUR_APP_ID] và [YOUR_DOMAIN] : lấy từ thông tin trong email đăng ký
+
 [TOKEN]: được tạo từ trang https://docs.uiza.io/#get-api-key
 
 ## Gọi hàm API
@@ -76,6 +77,21 @@ Nếu gặp trường hợp video không play được do vấn đề App Transp
 </dict>
 ```
 
+## Cách phát livestream
+``` swift
+let viewController = UZLiveStreamViewController()
+viewController.liveEventId = [ENTITY_ID]
+self.present(viewController, animated: true, completion: nil)
+```
+
+Nhớ thêm mô tả yêu cầu chức năng truy cập camera và micro vào file `Info.plist`:
+``` xml
+<key>NSCameraUsageDescription</key>
+<string>App cần truy cập camera để phát livestream</string>
+<key>NSMicrophoneUsageDescription</key>
+<string>App cần truy cập micro để thu tiếng khi phát livestream</string>
+```
+
 ## Thay đổi giao diện
 ``` swift
 let playerViewController = UZPlayerViewController()
@@ -101,6 +117,11 @@ UizaPlayer có sẵn 7 giao diện sau:
 ## Tự tạo giao diện (CustomTheme)
 
 Bạn có thể tự tạo giao diện riêng bằng cách tạo class kế thừa [UZPlayerTheme Protocol](https://uizaio.github.io/uiza-sdk-player-ios/Protocols/UZPlayerTheme.html) theo mẫu code này: [UZCustomTheme](https://github.com/uizaio/uiza-sdk-player-ios/blob/master/themes/UZCustomTheme.swift)
+
+Bạn cũng có thể thay đổi giao diện của màn hình kết thúc bằng cách tạo class kế thừa `UZEndscreenView`, sau đó đưa nó vào `player.controlView.endscreenView`
+``` swift
+self.playerViewController.player.controlView.endscreenView = MyCustomEndScreen()
+```
 
 Xem chi tiết [Tài liệu API](https://uizaio.github.io/uiza-sdk-player-ios/)
 
@@ -151,6 +172,8 @@ UizaSDK.initWith(appId: [YOUR_APP_ID], token: [TOKEN], api: [YOUR_DOMAIN])
 
 [YOUR_APP_ID] and [YOUR_DOMAIN] : get from registration email
 
+[TOKEN]: generate from https://docs.uiza.io/#get-api-key
+
 ## Call API
 ``` swift
 UZContentServices().loadDetail(entityId: ENTITY_ID, completionBlock: { (videoItem, error) in
@@ -178,6 +201,21 @@ present(playerViewController, animated: true, completion: nil)
 </dict>
 ```
 
+## How to broadcast livestream
+``` swift
+let viewController = UZLiveStreamViewController()
+viewController.liveEventId = [ENTITY_ID]
+self.present(viewController, animated: true, completion: nil)
+```
+
+Remember to add these usage description keys into `Info.plist` file:
+``` xml
+<key>NSCameraUsageDescription</key>
+<string>App needs access to camera for livestream</string>
+<key>NSMicrophoneUsageDescription</key>
+<string>App needs access to microphone for livestream</string>
+```
+
 ## Change Player Themes
 ``` swift
 let playerViewController = UZPlayerViewController()
@@ -203,6 +241,11 @@ UizaPlayer currently has 7 built-in themes:
 ## Create CustomTheme
 
 You can create your own custom theme by creating a class inheriting from [UZPlayerTheme Protocol](https://uizaio.github.io/uiza-sdk-player-ios/Protocols/UZPlayerTheme.html) following this template: [UZCustomTheme](https://github.com/uizaio/uiza-sdk-player-ios/blob/master/themes/UZCustomTheme.swift)
+
+You can also create your custom end screen by subclassing `UZEndscreenView`, then set an instance to `player.controlView.endscreenView`
+``` swift
+self.playerViewController.player.controlView.endscreenView = MyCustomEndScreen()
+```
 
 For API details, check [API Document](https://uizaio.github.io/uiza-sdk-player-ios/)
 

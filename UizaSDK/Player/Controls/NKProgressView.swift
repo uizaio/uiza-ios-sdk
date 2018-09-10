@@ -8,26 +8,26 @@
 
 import UIKit
 
-internal class NKProgressView: UIView {
+open class NKProgressView: UIView {
 	
 	fileprivate let progressLayer = CAShapeLayer()
 	
 	public private(set) var progress: Float = 0.0 // readonly
 	
-	internal var progressColor: UIColor = UIColor(red:0.22, green:0.52, blue:0.82, alpha:1.00) {
+	open var progressColor: UIColor = UIColor(red:0.22, green:0.52, blue:0.82, alpha:1.00) {
 		didSet {
 			progressLayer.backgroundColor = progressColor.cgColor
 		}
 	}
 	
-	internal var cornerRadius: CGFloat = 5 {
+	open var cornerRadius: CGFloat = 5 {
 		didSet {
 			self.setNeedsLayout()
 			self.setNeedsDisplay()
 		}
 	}
 	
-	internal var isRounded = true {
+	open var isRounded = true {
 		didSet {
 			self.setNeedsLayout()
 			self.setNeedsDisplay()
@@ -36,7 +36,7 @@ internal class NKProgressView: UIView {
 	
 	// MARK: -
 	
-	init() {
+	public init() {
 		super.init(frame: .zero)
 		
 		self.clipsToBounds = true
@@ -47,11 +47,11 @@ internal class NKProgressView: UIView {
 		self.layer.addSublayer(progressLayer)
 	}
 	
-	required internal init?(coder aDecoder: NSCoder) {
+	required public init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
 	
-	override internal func layoutSubviews() {
+	override open func layoutSubviews() {
 		super.layoutSubviews()
 		
 		if isRounded {
@@ -67,7 +67,7 @@ internal class NKProgressView: UIView {
 	
 	// MARK: -
 	
-	internal func setProgress(_ progress: Float, animated: Bool = false) {
+	open func setProgress(_ progress: Float, animated: Bool = false) {
 		self.setNeedsLayout()
 		self.progress = progress
 		updateProgressWidth(animated: animated)

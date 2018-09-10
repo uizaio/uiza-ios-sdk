@@ -10,7 +10,7 @@ import UIKit
 
 open class UZSlider: UISlider {
 	
-	let progressView = NKProgressView()
+	public let progressView = NKProgressView()
 	
 	init() {
 		super.init(frame: .zero)

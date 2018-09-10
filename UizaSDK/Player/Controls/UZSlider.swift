@@ -76,11 +76,13 @@ open class UZSlider: UISlider {
 	}
 	
 	override open func thumbRect(forBounds bounds: CGRect, trackRect rect: CGRect, value: Float) -> CGRect {
-		let rect = super.thumbRect(forBounds: bounds, trackRect: rect, value: value)
-		let thumbSize = CGSize(width: 48, height: 48)
-		let newx = rect.origin.x - 10
-		let newRect = CGRect(x: newx, y: rect.origin.y + (rect.size.height - thumbSize.height)/2, width: thumbSize.width, height: thumbSize.height)
-		return newRect
+//		let rect = super.thumbRect(forBounds: bounds, trackRect: rect, value: value)
+//		let thumbSize = CGSize(width: 48, height: 48)
+//		let newx = rect.origin.x - (CGFloat(value) * (rect.size.width + thumbSize.width))
+//		let newRect = CGRect(x: newx, y: rect.origin.y + (rect.size.height - thumbSize.height)/2, width: thumbSize.width, height: thumbSize.height)
+//		return newRect
+		
+		return super.thumbRect(forBounds: bounds, trackRect: rect, value: value)//.offsetBy(dx: 0, dy: -7)
 	}
 	
 	override open func sizeThatFits(_ size: CGSize) -> CGSize {

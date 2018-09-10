@@ -106,6 +106,16 @@ open class UZPlayerControlView: UIView {
 				}
 			}
 			
+			if let allButtons = endscreenView.allButtons {
+				for button in allButtons {
+					button.addTarget(self, action: #selector(onButtonPressed(_:)), for: .touchUpInside)
+				}
+			}
+			
+			timeSlider.addTarget(self, action: #selector(progressSliderTouchBegan(_:)), for: .touchDown)
+			timeSlider.addTarget(self, action: #selector(progressSliderValueChanged(_:)), for: .valueChanged)
+			timeSlider.addTarget(self, action: #selector(progressSliderTouchEnded(_:)), for: [.touchUpInside, .touchCancel, .touchUpOutside])
+			
 			autoFadeOutControlView(after: autoHideControlsInterval)
 		}
 	}
@@ -143,11 +153,11 @@ open class UZPlayerControlView: UIView {
 	public let castingButton = UZCastButton()
 	public let enlapseTimeLabel = NKButton()
 	public let airplayButton = UZAirPlayButton()
-	public let timeSlider = UZSlider()
 	public let coverImageView = UIImageView()
-	public let endscreenView = UZEndscreenView()
 	public let liveBadgeView = UZLiveBadgeView()
 	public var loadingIndicatorView: NVActivityIndicatorView? = nil
+	public var endscreenView = UZEndscreenView()
+	public var timeSlider: UZSlider!
 	internal var castingView: UZCastingView? = nil
 	
 	internal var liveStartDate: Date? = nil {
@@ -183,13 +193,14 @@ open class UZPlayerControlView: UIView {
 		totalTimeLabel.text = "--:--"
 		remainTimeLabel.text = "--:--"
 		
+		if timeSlider == nil {
+			timeSlider = UZSlider()
+		}
+		
 		timeSlider.maximumValue = 1.0
 		timeSlider.minimumValue = 0.0
 		timeSlider.value        = 0.0
 		timeSlider.maximumTrackTintColor = UIColor.clear
-		timeSlider.addTarget(self, action: #selector(progressSliderTouchBegan(_:)), for: .touchDown)
-		timeSlider.addTarget(self, action: #selector(progressSliderValueChanged(_:)), for: .valueChanged)
-		timeSlider.addTarget(self, action: #selector(progressSliderTouchEnded(_:)), for: [.touchUpInside, .touchCancel, .touchUpOutside])
 		
 		enlapseTimeLabel.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .medium)
 		enlapseTimeLabel.setTitleColor(.white, for: .normal)
@@ -218,9 +229,7 @@ open class UZPlayerControlView: UIView {
 		airplayButton.tag = UZButtonTag.airplay.rawValue
 		castingButton.tag = UZButtonTag.casting.rawValue
 		
-		var allButtons: [UIButton] = self.allButtons
-		allButtons.append(contentsOf: endscreenView.allButtons)
-		allButtons.forEach { (button) in
+		self.allButtons.forEach { (button) in
 			button.showsTouchWhenHighlighted = true
 			button.addTarget(self, action: #selector(onButtonPressed(_:)), for: .touchUpInside)
 		}
@@ -246,6 +255,10 @@ open class UZPlayerControlView: UIView {
 		timeSlider.setThumbImage(nil, for: .highlighted)
 		timeSlider.setThumbImage(nil, for: .selected)
 		timeSlider.setThumbImage(nil, for: .disabled)
+		
+		timeSlider.removeTarget(self, action: #selector(progressSliderTouchBegan(_:)), for: .touchDown)
+		timeSlider.removeTarget(self, action: #selector(progressSliderValueChanged(_:)), for: .valueChanged)
+		timeSlider.removeTarget(self, action: #selector(progressSliderTouchEnded(_:)), for: [.touchUpInside, .touchCancel, .touchUpOutside])
 		
 		loadingIndicatorView?.removeFromSuperview()
 		loadingIndicatorView = nil

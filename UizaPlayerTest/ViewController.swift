@@ -33,7 +33,13 @@ class ViewController: UIViewController {
 		//				DLog("OK \(results) - \(error)")
 		//			})
 		
-//		self.playerViewController.player.loadVideo(entityId: "b7297b29-c6c4-4bd6-a74f-b60d0118d275") // 45a908f7-a62e-4eaf-8ce2-dc5699f33406
+//		UZContentServices().loadEntity(metadataId: nil, publishStatus: .success, page: 0, limit: 15) { (results, error) in
+//			if let videos = results, let video = videos.first {
+//				self.playerViewController.player.loadVideo(video)
+//			}
+//		}
+		
+//		self.playerViewController.player.loadVideo(entityId: "45a908f7-a62e-4eaf-8ce2-dc5699f33406") // 45a908f7-a62e-4eaf-8ce2-dc5699f33406
 		
 //		self.playerViewController.player.loadPlaylist(metadataId: "", page: 0, limit: 20, playIndex: 0, completionBlock: nil)
 		
@@ -53,7 +59,7 @@ class ViewController: UIViewController {
 //		})
 		
 		DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-			self.showLive()
+//			self.showLive()
 		}
 	}
 	

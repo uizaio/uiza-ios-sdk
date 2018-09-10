@@ -52,8 +52,8 @@ open class UZEndscreenView: UIView {
 		titleLabel.isHidden = true
 		
 		let buttonColor = UIColor.white
-		replayButton.setIcon(icon: .googleMaterialDesign(.replay), iconSize: 32, color: buttonColor, backgroundColor: .clear, forState: .normal)
-		shareButton.setIcon(icon: .googleMaterialDesign(.share), iconSize: 32, color: buttonColor, backgroundColor: .clear, forState: .normal)
+		replayButton.setImage(UIImage(icon: .googleMaterialDesign(.replay), size: CGSize(width: 32, height: 32), textColor: buttonColor, backgroundColor: .clear), for: .normal)
+		shareButton.setImage(UIImage(icon: .googleMaterialDesign(.share), size: CGSize(width: 32, height: 32), textColor: buttonColor, backgroundColor: .clear), for: .normal)
 		replayButton.setBorderColor(buttonColor, for: .normal)
 		shareButton.setBorderColor(buttonColor, for: .normal)
 		replayButton.borderSize = 1.0

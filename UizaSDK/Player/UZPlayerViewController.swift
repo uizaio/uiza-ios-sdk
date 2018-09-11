@@ -20,6 +20,9 @@ open class UZPlayerViewController: UIViewController {
 		get {
 			return playerController.player
 		}
+		set {
+			playerController.player = newValue
+		}
 	}
 	
 	open var fullscreenPresentationMode: UZFullscreenPresentationMode = .modal
@@ -131,9 +134,17 @@ open class UZPlayerViewController: UIViewController {
 // MARK: - UZPlayerController
 
 internal class UZPlayerController: UIViewController {
-	internal let player = UZPlayer()
+	open var player: UZPlayer! = UZPlayer() {
+		didSet {
+			self.view = player
+		}
+	}
 	
 	override func loadView() {
+		if player == nil {
+			player = UZPlayer()
+		}
+		
 		self.view = player
 	}
 	

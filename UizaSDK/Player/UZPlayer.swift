@@ -158,7 +158,7 @@ open class UZPlayer: UIView {
 	
 	fileprivate var currentDefinition = 0
 	fileprivate var playerLayer: UZPlayerLayerView?
-	fileprivate var customControllView: UZPlayerControlView?
+	fileprivate var customControlView: UZPlayerControlView?
 	fileprivate var liveViewTimer: Timer? = nil
 	
 	fileprivate var isFullScreen:Bool {
@@ -700,9 +700,9 @@ open class UZPlayer: UIView {
 //		setUpAdsLoader()
 	}
 	
-	public convenience init (customControllView: UZPlayerControlView?) {
+	public convenience init (customControlView: UZPlayerControlView?) {
 		self.init(frame:CGRect.zero)
-		self.customControllView = customControllView
+		self.customControlView = customControlView
 		
 		setupUI()
 		preparePlayer()
@@ -714,13 +714,13 @@ open class UZPlayer: UIView {
 	}
 	
 	public convenience init() {
-		self.init(customControllView:nil)
+		self.init(customControlView:nil)
 	}
 	
 	fileprivate func setupUI() {
 		self.backgroundColor = UIColor.black
 		
-		controlView = customControllView ?? UZPlayerControlView()
+		controlView = customControlView ?? UZPlayerControlView()
 		controlView.updateUI(isFullScreen)
 		controlView.delegate = self
 		addSubview(controlView)

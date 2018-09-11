@@ -12,7 +12,7 @@ open class UZSlider: UISlider {
 	
 	public let progressView = NKProgressView()
 	
-	init() {
+	public init() {
 		super.init(frame: .zero)
 		
 		progressView.isRounded = true
@@ -43,7 +43,7 @@ open class UZSlider: UISlider {
 		handleTouchGesture(gesture: gesture)
 	}
 	
-	func handleTouchGesture(gesture: UITapGestureRecognizer) {
+	open func handleTouchGesture(gesture: UITapGestureRecognizer) {
 		let currentPoint = gesture.location(in: self)
 		let percentage = currentPoint.x/self.bounds.size.width;
 		let delta = Float(percentage) *  (self.maximumValue - self.minimumValue)

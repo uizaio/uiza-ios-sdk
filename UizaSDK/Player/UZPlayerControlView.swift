@@ -170,7 +170,7 @@ open class UZPlayerControlView: UIView {
 	
 	// MARK: -
 	
-	init() {
+	public init() {
 		super.init(frame: .zero)
 		
 		configUI()
@@ -573,7 +573,7 @@ open class UZPlayerControlView: UIView {
 		self.setNeedsLayout()
 	}
 	
-	@objc func onTap(_ gesture: UITapGestureRecognizer) {
+	@objc open func onTap(_ gesture: UITapGestureRecognizer) {
 		if containerView.isHidden || containerView.alpha == 0 {
 			showControlView()
 		}
@@ -582,7 +582,7 @@ open class UZPlayerControlView: UIView {
 		}
 	}
 	
-	@objc func onDoubleTap(_ gesture: UITapGestureRecognizer) {
+	@objc open func onDoubleTap(_ gesture: UITapGestureRecognizer) {
 		if gesture.view is UIButton {
 			return
 		}
@@ -603,11 +603,11 @@ open class UZPlayerControlView: UIView {
 	}
 	
 	// MARK: - Handle slider actions
-	@objc func progressSliderTouchBegan(_ sender: UISlider)  {
+	@objc open func progressSliderTouchBegan(_ sender: UISlider)  {
 		delegate?.controlView(controlView: self, slider: sender, onSliderEvent: .touchDown)
 	}
 	
-	@objc func progressSliderValueChanged(_ sender: UISlider)  {
+	@objc open func progressSliderValueChanged(_ sender: UISlider)  {
 		hideEndScreen()
 		cancelAutoFadeOutAnimation()
 		
@@ -621,7 +621,7 @@ open class UZPlayerControlView: UIView {
 		self.setNeedsLayout()
 	}
 	
-	@objc func progressSliderTouchEnded(_ sender: UISlider)  {
+	@objc open func progressSliderTouchEnded(_ sender: UISlider)  {
 		autoFadeOutControlView(after: autoHideControlsInterval)
 		delegate?.controlView(controlView: self, slider: sender, onSliderEvent: .touchUpInside)
 		self.setNeedsLayout()

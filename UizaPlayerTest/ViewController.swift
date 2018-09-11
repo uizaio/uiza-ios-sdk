@@ -41,7 +41,7 @@ class ViewController: UIViewController {
 		
 //		self.playerViewController.player.loadVideo(entityId: "45a908f7-a62e-4eaf-8ce2-dc5699f33406") // 45a908f7-a62e-4eaf-8ce2-dc5699f33406
 		
-//		self.playerViewController.player.loadPlaylist(metadataId: "", page: 0, limit: 20, playIndex: 0, completionBlock: nil)
+//		self.playerViewController.player.loadPlaylist(metadataId: "8f24c324-4113-4b2d-b821-25969851d759", page: 0, limit: 20, playIndex: 0, completionBlock: nil)
 		
 //		UZContentServices().loadLiveVideo(page: 0, limit: 10) { (videos, pagination, error) in
 //			if let videoItem = videos?.first {

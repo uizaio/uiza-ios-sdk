@@ -20,11 +20,11 @@ open class UZLiveStreamUIView: UIView, UITextFieldDelegate {
 	public let viewsBadge = NKButton()
 	public let liveBadge = NKButton()
 	
-	let containerView = UIView()
-	var topFrameLayout: DoubleFrameLayout!
-	var buttonFrameLayout: StackFrameLayout!
+	public let containerView = UIView()
+	public var topFrameLayout: DoubleFrameLayout!
+	public var buttonFrameLayout: StackFrameLayout!
 	
-	var views: Int = 0 {
+	open var views: Int = 0 {
 		didSet {
 			if views != oldValue {
 				viewsBadge.title = views >= 0 ? "\(views.abbreviatedFromLimit(limit: 1000))  " : "--  "
@@ -110,13 +110,13 @@ open class UZLiveStreamUIView: UIView, UITextFieldDelegate {
 		self.views = 0
 	}
 	
-	internal func setupGestures() {
+	open func setupGestures() {
 		let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onTap))
 		tapGesture.delegate = self
 		self.addGestureRecognizer(tapGesture)
 	}
 	
-	@objc func onTap(_ gesture: UITapGestureRecognizer) {
+	@objc open func onTap(_ gesture: UITapGestureRecognizer) {
 		if containerView.isHidden {
 			containerView.alpha = 0
 			containerView.isHidden = false
@@ -136,7 +136,7 @@ open class UZLiveStreamUIView: UIView, UITextFieldDelegate {
 		}
 	}
 	
-	@objc func onButtonSelected(_ button: UIButton) {
+	@objc open func onButtonSelected(_ button: UIButton) {
 		self.onButtonSelected?(button)
 	}
 	
@@ -159,11 +159,11 @@ open class UZLiveStreamUIView: UIView, UITextFieldDelegate {
 		closeButton.frame = CGRect(x: viewSize.width - 42, y: 30, width: 32, height: 32)
 	}
 	
-	func allButtons() -> [UIButton] {
+	open func allButtons() -> [UIButton] {
 		return [closeButton, beautyButton, cameraButton]
 	}
 	
-	func clear() {
+	open func clear() {
 		containerView.alpha = 1.0
 		containerView.isHidden = false
 	}

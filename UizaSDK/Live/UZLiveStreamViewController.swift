@@ -55,7 +55,7 @@ extension LFLiveVideoConfiguration {
 }
 
 open class UZLiveStreamViewController: UIViewController {
-	public let livestreamUIView = UZLiveStreamUIView()
+	public var livestreamUIView = UZLiveStreamUIView()
 	public let startButton = NKButton()
 	
 	public var liveEventId: String? = nil

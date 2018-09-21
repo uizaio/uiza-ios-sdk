@@ -284,6 +284,13 @@ open class UZPlayer: UIView {
 		}
 	}
 	
+	open func loadConfigId(configId: String, completionBlock: ((UZThemeConfig?, Error?) -> Void)? = nil) {
+		UZPlayerService().load(configId: configId) { [weak self] (config, error) in
+			self?.themeConfig = config
+			completionBlock?(config, error)
+		}
+	}
+	
 	/**
 	Set video resource
 	

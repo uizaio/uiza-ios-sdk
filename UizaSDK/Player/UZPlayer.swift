@@ -145,6 +145,16 @@ open class UZPlayer: UIView {
 	
 	public fileprivate(set) var currentLinkPlay: UZVideoLinkPlay?
 	
+	public var themeConfig: UZThemeConfig? = nil {
+		didSet {
+			controlView.themeConfig = themeConfig
+			
+			if let config = themeConfig {
+				shouldAutoPlay = config.autoStart
+			}
+		}
+	}
+	
 	open var shouldAutoPlay = true
 	open var shouldShowsControlViewAfterStoppingPiP = true
 	open var autoTryNextDefinitionIfError = true
@@ -402,6 +412,7 @@ open class UZPlayer: UIView {
 		controlView.hideCoverImageView()
 		controlView.playTimeDidChange(currentTime: 0, totalTime: 0)
 		controlView.loadedTimeDidChange(loadedDuration: 0, totalDuration: 0)
+		
 		playerLayer?.prepareToDeinit()
 		playerLayer = nil
 	}

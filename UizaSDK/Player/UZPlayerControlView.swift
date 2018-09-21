@@ -50,6 +50,11 @@ public protocol UZPlayerTheme {
 open class UZPlayerControlView: UIView {
 	open weak var delegate: UZPlayerControlViewDelegate?
 	open var autoHideControlsInterval: TimeInterval = 5
+	open var themeConfig: UZThemeConfig? = nil {
+		didSet {
+			
+		}
+	}
 	
 	open var totalDuration:TimeInterval = 0
 	
@@ -380,7 +385,7 @@ open class UZPlayerControlView: UIView {
 		self.currentVideo = video
 		
 		titleLabel.text = resource.name
-		endscreenView.title = resource.name
+		endscreenView.title = themeConfig?.endscreenMessage ?? resource.name
 		
 		let isLiveVideo = (video?.isLive ?? false)
 		liveBadgeView.isHidden = !isLiveVideo
@@ -393,7 +398,7 @@ open class UZPlayerControlView: UIView {
 		helpButton.isHidden = isLiveVideo
 		ccButton.isHidden = isLiveVideo
 		
-		settingsButton.isHidden = true //resource.definitions.count < 2
+		settingsButton.isHidden = (themeConfig?.qualitySelector ?? true) && resource.definitions.count < 2
 		autoFadeOutControlView(after: autoHideControlsInterval)
 		setNeedsLayout()
 	}
@@ -482,6 +487,9 @@ open class UZPlayerControlView: UIView {
 	open func showEndScreen() {
 		endscreenView.isHidden = false
 		containerView.isHidden = true
+		
+		endscreenView.shareButton.isHidden = themeConfig?.allowSharing ?? false
+		endscreenView.setNeedsLayout()
 	}
 	
 	open func hideEndScreen() {
@@ -586,7 +594,9 @@ open class UZPlayerControlView: UIView {
 			return
 		}
 		
-		delegate?.controlView(controlView: self, didSelectButton: fullscreenButton)
+		if themeConfig?.allowFullscreen ?? true {
+			delegate?.controlView(controlView: self, didSelectButton: fullscreenButton)
+		}
 	}
 	
 	@objc func onTimer() {

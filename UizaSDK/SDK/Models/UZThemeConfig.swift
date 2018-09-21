@@ -10,6 +10,7 @@ import UIKit
 
 public class UZThemeConfig: UZModelObject {
 	public var configId: String?
+	public var themeId: String?
 	public var endscreenMessage: String?
 	public var autoStart = true
 	public var preloadVideo = true
@@ -21,6 +22,7 @@ public class UZThemeConfig: UZModelObject {
 	override func parse(_ data: NSDictionary?) {
 		if let data = data {
 			self.configId = data.string(for: "id", defaultString: nil)
+			self.themeId = data.string(for: "skinId", defaultString: nil)
 			self.endscreenMessage = data.string(for: "endscreen", defaultString: nil)
 			self.autoStart = data.bool(for: "autoStart", defaultValue: true)
 			self.preloadVideo = data.bool(for: "preloadVideo", defaultValue: true)

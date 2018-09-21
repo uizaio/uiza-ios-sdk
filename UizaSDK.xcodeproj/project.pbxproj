@@ -46,6 +46,12 @@
 		6346B7AB20930DAC00A68AD4 /* NSTimeInterval+ToString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6346B7AA20930DAC00A68AD4 /* NSTimeInterval+ToString.swift */; };
 		6346B7AC20930DAC00A68AD4 /* NSTimeInterval+ToString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6346B7AA20930DAC00A68AD4 /* NSTimeInterval+ToString.swift */; };
 		63714A24209B108600426948 /* UZEndscreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63714A23209B108600426948 /* UZEndscreenView.swift */; };
+		637996DF2154D17900DCBADF /* UZPlayerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637996DE2154D17900DCBADF /* UZPlayerService.swift */; };
+		637996E02154D17900DCBADF /* UZPlayerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637996DE2154D17900DCBADF /* UZPlayerService.swift */; };
+		637996E12154D17900DCBADF /* UZPlayerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637996DE2154D17900DCBADF /* UZPlayerService.swift */; };
+		637996E32154D31400DCBADF /* UZThemeConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637996E22154D31400DCBADF /* UZThemeConfig.swift */; };
+		637996E42154D31400DCBADF /* UZThemeConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637996E22154D31400DCBADF /* UZThemeConfig.swift */; };
+		637996E52154D31400DCBADF /* UZThemeConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637996E22154D31400DCBADF /* UZThemeConfig.swift */; };
 		638EC0D820AAA17D00C0243E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638EC0D720AAA17D00C0243E /* AppDelegate.swift */; };
 		638EC0DA20AAA17D00C0243E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638EC0D920AAA17D00C0243E /* ViewController.swift */; };
 		638EC0DD20AAA17D00C0243E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 638EC0DB20AAA17D00C0243E /* Main.storyboard */; };
@@ -208,6 +214,8 @@
 		6346B7A820930D7D00A68AD4 /* AVAudioSession+Airplay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AVAudioSession+Airplay.swift"; sourceTree = "<group>"; };
 		6346B7AA20930DAC00A68AD4 /* NSTimeInterval+ToString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSTimeInterval+ToString.swift"; sourceTree = "<group>"; };
 		63714A23209B108600426948 /* UZEndscreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZEndscreenView.swift; sourceTree = "<group>"; };
+		637996DE2154D17900DCBADF /* UZPlayerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZPlayerService.swift; sourceTree = "<group>"; };
+		637996E22154D31400DCBADF /* UZThemeConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZThemeConfig.swift; sourceTree = "<group>"; };
 		638EC0D520AAA17D00C0243E /* UizaPlayerTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UizaPlayerTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		638EC0D720AAA17D00C0243E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		638EC0D920AAA17D00C0243E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -465,6 +473,7 @@
 				632124FA2089E20700720593 /* UizaSDK.swift */,
 				632124FD2089E20800720593 /* UZAPIConnector.swift */,
 				632124FB2089E20800720593 /* UZContentServices.swift */,
+				637996DE2154D17900DCBADF /* UZPlayerService.swift */,
 				6300A823213530C700C27195 /* UZLiveServices.swift */,
 				632124FC2089E20800720593 /* UZLogger.swift */,
 			);
@@ -482,6 +491,7 @@
 				632124EF2089E1EE00720593 /* UZVideoItem.swift */,
 				63A8264520F36136001FD7E3 /* UZPagination.swift */,
 				6300A8272135385E00C27195 /* UZLiveEvent.swift */,
+				637996E22154D31400DCBADF /* UZThemeConfig.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -930,6 +940,7 @@
 				638EC12420AC426900C0243E /* UZTheme4.swift in Sources */,
 				638EC0FB20AAA2D200C0243E /* UZModelObject.swift in Sources */,
 				63CFB78D20B282F600647958 /* UZVideoQualitySettingsViewController.swift in Sources */,
+				637996E12154D17900DCBADF /* UZPlayerService.swift in Sources */,
 				638EC0ED20AAA2CA00C0243E /* UIApplication+Version.swift in Sources */,
 				6300A826213530C700C27195 /* UZLiveServices.swift in Sources */,
 				638EC12120AC3FA100C0243E /* UZTheme3.swift in Sources */,
@@ -939,6 +950,7 @@
 				638EC10820AAA2DD00C0243E /* UZSlider.swift in Sources */,
 				638EC0F220AAA2CA00C0243E /* String+ToBool.swift in Sources */,
 				638EC0EC20AAA2CA00C0243E /* UIDevice+Extension.swift in Sources */,
+				637996E52154D31400DCBADF /* UZThemeConfig.swift in Sources */,
 				638EC0EA20AAA2CA00C0243E /* Error+Code.swift in Sources */,
 				638EC10420AAA2D600C0243E /* UZEndscreenView.swift in Sources */,
 				638EC0E720AAA2CA00C0243E /* AVAudioSession+Airplay.swift in Sources */,
@@ -1010,6 +1022,7 @@
 				6346B7A420930C3200A68AD4 /* UZMediaResource.swift in Sources */,
 				632124F22089E1EE00720593 /* UZBannerItem.swift in Sources */,
 				63C65FA6205BA10800DB2C96 /* UIApplication+Version.swift in Sources */,
+				637996E32154D31400DCBADF /* UZThemeConfig.swift in Sources */,
 				632125012089E20800720593 /* UZLogger.swift in Sources */,
 				632124FF2089E20800720593 /* UizaSDK.swift in Sources */,
 				63CFB78F20B29B2000647958 /* UZSubtitles.swift in Sources */,
@@ -1032,6 +1045,7 @@
 				63C65FAF205BA10800DB2C96 /* Date+Comparators.swift in Sources */,
 				638EC12920AC968700C0243E /* UZTheme6.swift in Sources */,
 				63CFB7E820BBDAF400647958 /* UZAirPlayButton.swift in Sources */,
+				637996DF2154D17900DCBADF /* UZPlayerService.swift in Sources */,
 				638EC11920AC348000C0243E /* UZTheme1.swift in Sources */,
 				6346B7AB20930DAC00A68AD4 /* NSTimeInterval+ToString.swift in Sources */,
 				63C65FAC205BA10800DB2C96 /* String+ToBool.swift in Sources */,
@@ -1072,6 +1086,7 @@
 				63FC58CB208A1F1F009C9028 /* UZMenuItem.swift in Sources */,
 				63FC58CD208A1F1F009C9028 /* UZUser.swift in Sources */,
 				63FC58D8208A1F24009C9028 /* UIColor+Hex.swift in Sources */,
+				637996E02154D17900DCBADF /* UZPlayerService.swift in Sources */,
 				63FC58DE208A1F24009C9028 /* String+Extension.swift in Sources */,
 				63A8264B20F36BE0001FD7E3 /* Number+Extentions.swift in Sources */,
 				6346B7AC20930DAC00A68AD4 /* NSTimeInterval+ToString.swift in Sources */,
@@ -1080,6 +1095,7 @@
 				63FC58C9208A1F1F009C9028 /* UZBannerItem.swift in Sources */,
 				633C09A82111A20E00D2AEFA /* NotificationName+Uiza.swift in Sources */,
 				63FC58E2208A1F24009C9028 /* String+ToDictionary.swift in Sources */,
+				637996E42154D31400DCBADF /* UZThemeConfig.swift in Sources */,
 				63FC58E0208A1F24009C9028 /* String+Components.swift in Sources */,
 				63FC58D1208A1F1F009C9028 /* UZAPIConnector.swift in Sources */,
 				63FC58D9208A1F24009C9028 /* Error+Code.swift in Sources */,

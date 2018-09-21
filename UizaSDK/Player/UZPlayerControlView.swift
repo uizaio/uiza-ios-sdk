@@ -379,7 +379,6 @@ open class UZPlayerControlView: UIView {
 		self.resource = resource
 		self.currentVideo = video
 		
-		
 		titleLabel.text = resource.name
 		endscreenView.title = resource.name
 		

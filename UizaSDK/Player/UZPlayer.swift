@@ -327,7 +327,7 @@ open class UZPlayer: UIView {
 		}
 	}
 	
-	open func autoPlay() {
+	private func playIfApplicable() {
 		if !isPauseByUser && isURLSet && !isPlayToTheEnd {
 			play()
 		}
@@ -1018,7 +1018,7 @@ extension UZPlayer: UZPlayerLayerViewDelegate {
 //			requestAds()
 			
 		case .bufferFinished:
-			autoPlay()
+			playIfApplicable()
 			
 		case .playedToTheEnd:
 			isPlayToTheEnd = true
@@ -1177,7 +1177,7 @@ extension UZPlayer: UZPlayerControlViewDelegate {
 				}
 				else {
 					seek(to: target, completion: {
-						self.autoPlay()
+						self.playIfApplicable()
 					})
 				}
 			default:
@@ -1205,9 +1205,10 @@ extension UZPlayer: UZPlayerControlViewDelegate {
 			}
 			else {
 				seek(to: target, completion: {
-					self.autoPlay()
+					self.playIfApplicable()
 				})
 			}
+			
 		default:
 			break
 		}

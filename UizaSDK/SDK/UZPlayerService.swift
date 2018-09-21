@@ -24,7 +24,7 @@ open class UZPlayerService: UZAPIConnector {
 				
 				if let array = result!.array(for: "data", defaultValue: nil) as? [NSDictionary] {
 					for configData in array {
-						configs.append(UZThemeConfig(from: configData))
+						configs.append(UZThemeConfig(data: configData))
 					}
 				}
 				
@@ -33,8 +33,25 @@ open class UZPlayerService: UZAPIConnector {
 		}
 	}
 	
-	public func load(themeConfig: UZThemeConfig) {
+	public func load(configId: String, completionBlock: @escaping((UZThemeConfig?, Error?) -> Void)) {
+		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
 		
+		self.callAPI("private/v3/player/info/config", method: .get, params: ["id" : configId]) { (result:NSDictionary?, error:Error?) in
+			DLog("\(String(describing: result)) - \(String(describing: error))")
+			
+			if error != nil {
+				completionBlock(nil, error)
+			}
+			else {
+				if let data = result!.value(for: "data", defaultValue: nil) as? NSDictionary {
+					let config = UZThemeConfig(data: data)
+					completionBlock(config, nil)
+				}
+				else {
+					completionBlock(nil, nil)
+				}
+			}
+		}
 	}
 
 }

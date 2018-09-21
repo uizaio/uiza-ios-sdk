@@ -52,7 +52,12 @@ open class UZPlayerControlView: UIView {
 	open var autoHideControlsInterval: TimeInterval = 5
 	open var themeConfig: UZThemeConfig? = nil {
 		didSet {
-			
+			if let config = themeConfig, let themeId = config.themeId?.intValue {
+				let themeClasses: [UZPlayerTheme] = [UZTheme1(), UZTheme2(), UZTheme3(), UZTheme4(), UZTheme5(), UZTheme6(), UZTheme7()]
+				if themeId >= 0 && themeId < themeClasses.count {
+					self.theme = themeClasses[themeId]
+				}
+			}
 		}
 	}
 	

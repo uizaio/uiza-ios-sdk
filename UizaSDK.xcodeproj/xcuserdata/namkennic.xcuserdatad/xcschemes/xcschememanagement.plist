@@ -7,21 +7,41 @@
 		<key>UizaPlayerTest.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>21</integer>
+			<integer>2</integer>
 		</dict>
-		<key>UizaSDK-tvos.xcscheme</key>
+		<key>UizaSDK-tvos.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
-		<key>UizaSDK.xcscheme</key>
+		<key>UizaSDK.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>UizaSDKBuilder.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>635D437F215614C400175BE4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>637996EB215504AF00DCBADF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>638EC0D420AAA17D00C0243E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>63C65F61205B9FE600DB2C96</key>
 		<dict>
 			<key>primary</key>

@@ -39,7 +39,7 @@ Class quản lý việc casting
 */
 open class UZCastingManager: NSObject {
 	
-	open static let shared = UZCastingManager()
+	public static let shared = UZCastingManager()
 	
 	open var hasConnectedSession: Bool {
 		return sessionManager.hasConnectedCastSession()

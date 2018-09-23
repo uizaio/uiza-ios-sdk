@@ -1,22 +1,22 @@
 PODS:
   - AFDateHelper (4.2.7)
   - Alamofire (4.7.3)
-  - FrameLayoutKit (3.2.2)
-  - google-cast-sdk (4.3.1):
-    - google-cast-sdk/Core (= 4.3.1)
+  - FrameLayoutKit (3.3)
+  - google-cast-sdk (4.3.2):
+    - google-cast-sdk/Core (= 4.3.2)
     - Protobuf (~> 3.0)
-  - google-cast-sdk/Core (4.3.1):
+  - google-cast-sdk/Core (4.3.2):
     - Protobuf (~> 3.0)
   - GoogleAds-IMA-iOS-SDK (3.7.3)
   - LFLiveKit (2.6)
-  - NKButton (3.2):
+  - NKButton (3.6):
     - FrameLayoutKit
     - NVActivityIndicatorView/AppExtension
   - NKModalViewManager (3.3)
-  - NVActivityIndicatorView (4.3.0):
-    - NVActivityIndicatorView/Presenter (= 4.3.0)
-  - NVActivityIndicatorView/AppExtension (4.3.0)
-  - NVActivityIndicatorView/Presenter (4.3.0)
+  - NVActivityIndicatorView (4.4.0):
+    - NVActivityIndicatorView/Presenter (= 4.4.0)
+  - NVActivityIndicatorView/AppExtension (4.4.0)
+  - NVActivityIndicatorView/Presenter (4.4.0)
   - Protobuf (3.6.1)
   - SDWebImage (4.4.2):
     - SDWebImage/Core (= 4.4.2)
@@ -57,13 +57,13 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   AFDateHelper: 4ad66fb19503041fbba8a3018cb7ef9c71b2ff88
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
-  FrameLayoutKit: 5ae84edde016a3c39d7c66051620a1bb73b80d52
-  google-cast-sdk: 3132919e696d2e88a3ee0667ed9c4b6b8b1cdeb0
+  FrameLayoutKit: 2a4b3833c90b60b5305b9030a83e34d5c3ed7173
+  google-cast-sdk: 845b740ef8c47919185651ba62b36b2ed0cfab40
   GoogleAds-IMA-iOS-SDK: 6dc764910309dcc982d6eb8b7de19d3cf94a6857
   LFLiveKit: 2219563721f8aa0f188effc3395a06e2d53b23f2
-  NKButton: 5106661f358eb1acf7158d1a17f0d85cd45b0c7a
+  NKButton: 46e7413897726fcd890d6d3084bf82efa1c6a850
   NKModalViewManager: f9f9539ac36417fa1ed446f4221e62e1748cbff9
-  NVActivityIndicatorView: 963f62bf9f993fcf23218e55958e5b1761b9504c
+  NVActivityIndicatorView: ec7440a57af2450319d3a4181cca7da6fc127064
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
   SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
   SwiftIcons: e7eb9bf2b475d6bdd8b37c5bdedc6d120aab0829
@@ -71,4 +71,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 8b9a3b35b9a1e045459ea48f32617303e4f1abce
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.6.0.beta.1

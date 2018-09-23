@@ -200,6 +200,7 @@ open class UZLiveStreamViewController: UIViewController {
 			
 			self.streamService.loadLiveEvent(id: liveEventId) { [weak self] (liveEvent, error) in
 				guard let `self` = self else { return }
+				self.startButton.isLoading = false
 				
 				if error != nil || liveEvent == nil {
 					let errorMessage = error != nil ? error!.localizedDescription : "No live event was set"

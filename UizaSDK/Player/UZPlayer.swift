@@ -478,11 +478,11 @@ open class UZPlayer: UIView {
 		}
 	}
 	
-	func nextVideo() {
+	open func nextVideo() {
 		self.currentVideoIndex += 1
 	}
 	
-	func previousVideo() {
+	open func previousVideo() {
 		self.currentVideoIndex -= 1
 	}
 	
@@ -1625,7 +1625,7 @@ open class UZPlayerLayerView: UIView {
 		}
 	}
 	
-	@objc fileprivate func moviePlayDidEnd() {
+	@objc open func moviePlayDidEnd() {
 		if state != .playedToTheEnd {
 			if let playerItem = playerItem {
 				delegate?.UZPlayer(player: self, playTimeDidChange: CMTimeGetSeconds(playerItem.duration), totalTime: CMTimeGetSeconds(playerItem.duration))

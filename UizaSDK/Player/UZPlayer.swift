@@ -442,7 +442,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	/**
 	Seek to 0.0 and replay the video
 	*/
-	private func replay() {
+	open func replay() {
 		UZLogger().log(event: "replay", video: currentVideo, completionBlock: nil)
 		
 		playthrough_eventlog = [:]

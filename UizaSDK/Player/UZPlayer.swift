@@ -739,7 +739,10 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	
 	public convenience init (customControlView: UZPlayerControlView?) {
 		self.init()
-		self.customControlView = customControlView
+		
+		defer {
+			self.customControlView = customControlView
+		}
 	}
 	
 	fileprivate func setupUI() {

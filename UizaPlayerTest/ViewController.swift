@@ -9,6 +9,30 @@
 import UIKit
 //import UizaSDK
 
+class MyPlayerControlView: UZPlayerControlView {
+	
+	override init() {
+		super.init()
+	}
+	
+	required public init?(coder aDecoder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+	
+}
+
+class MyPlayer: UZPlayer {
+	
+	override init() {
+		super.init()
+	}
+	
+	public required init?(coder aDecoder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+	
+}
+
 class ViewController: UIViewController {
 	let playerViewController = UZPlayerViewController()
 	let themeButton = UIButton()
@@ -19,6 +43,7 @@ class ViewController: UIViewController {
 		themeButton.setImage(UIImage(icon: .googleMaterialDesign(.colorLens), size: CGSize(width: 32, height: 32), textColor: .black, backgroundColor: .clear), for: .normal)
 		themeButton.addTarget(self, action: #selector(switchTheme), for: .touchUpInside)
 		
+		playerViewController.player = MyPlayer(customControlView: MyPlayerControlView())
 		playerViewController.player.controlView.theme = UZTheme1()
 		
 		self.view.addSubview(playerViewController.view)
@@ -34,15 +59,15 @@ class ViewController: UIViewController {
 		//				DLog("OK \(results) - \(error)")
 		//			})
 		
-//		UZContentServices().loadEntity(metadataId: nil, publishStatus: .success, page: 0, limit: 15) { (results, error) in
-//			if let videos = results, let video = videos.first {
-//				self.playerViewController.player.loadVideo(video)
-//			}
-//		}
+		UZContentServices().loadEntity(metadataId: nil, publishStatus: .success, page: 0, limit: 15) { (results, error) in
+			if let videos = results, let video = videos.first {
+				self.playerViewController.player.loadVideo(video)
+			}
+		}
 		
 //		self.playerViewController.player.loadVideo(entityId: "45a908f7-a62e-4eaf-8ce2-dc5699f33406") // 45a908f7-a62e-4eaf-8ce2-dc5699f33406
 		
-		self.playerViewController.player.loadPlaylist(metadataId: "8f24c324-4113-4b2d-b821-25969851d759", page: 0, limit: 20, playIndex: 0, completionBlock: nil)
+//		self.playerViewController.player.loadPlaylist(metadataId: "8f24c324-4113-4b2d-b821-25969851d759", page: 0, limit: 20, playIndex: 0, completionBlock: nil)
 		
 //		UZContentServices().loadLiveVideo(page: 0, limit: 10) { (videos, pagination, error) in
 //			if let videoItem = videos?.first {

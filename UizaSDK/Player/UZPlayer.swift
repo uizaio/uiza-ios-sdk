@@ -54,7 +54,7 @@ extension AVAsset {
 	
 }
 
-open class UZPlayer: UIView {
+open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDelegate {
 	
 	open weak var delegate: UZPlayerDelegate?
 	
@@ -168,7 +168,22 @@ open class UZPlayer: UIView {
 	
 	fileprivate var currentDefinition = 0
 	fileprivate var playerLayer: UZPlayerLayerView?
-	fileprivate var customControlView: UZPlayerControlView?
+	fileprivate var customControlView: UZPlayerControlView? {
+		didSet {
+			guard customControlView != controlView else { return }
+			
+			if controlView != nil {
+				controlView.delegate = nil
+				controlView.removeFromSuperview()
+			}
+			
+			controlView = customControlView ?? UZPlayerControlView()
+			controlView.updateUI(isFullScreen)
+			controlView.delegate = self
+			addSubview(controlView)
+		}
+	}
+	
 	fileprivate var liveViewTimer: Timer? = nil
 	
 	fileprivate var isFullScreen:Bool {
@@ -706,21 +721,8 @@ open class UZPlayer: UIView {
 	
 	// MARK: -
 	
-	override init(frame: CGRect) {
-		super.init(frame: frame)
-	}
-	
-	required public init?(coder aDecoder: NSCoder) {
-		super.init(coder: aDecoder)
-		
-		setupUI()
-		preparePlayer()
-//		setUpAdsLoader()
-	}
-	
-	public convenience init (customControlView: UZPlayerControlView?) {
-		self.init(frame:CGRect.zero)
-		self.customControlView = customControlView
+	public init() {
+		super.init(frame: .zero)
 		
 		setupUI()
 		preparePlayer()
@@ -731,8 +733,13 @@ open class UZPlayer: UIView {
 		#endif
 	}
 	
-	public convenience init() {
-		self.init(customControlView:nil)
+	public required init?(coder aDecoder: NSCoder) {
+		super.init(coder: aDecoder)
+	}
+	
+	public convenience init (customControlView: UZPlayerControlView?) {
+		self.init()
+		self.customControlView = customControlView
 	}
 	
 	fileprivate func setupUI() {
@@ -979,43 +986,29 @@ open class UZPlayer: UIView {
 
 	}
 	
-	// MARK: -
+	// UZPlayerLayerViewDelegate
 	
-	deinit {
-		if pictureInPictureController != nil {
-			pictureInPictureController!.delegate = nil
-			pictureInPictureController!.removeObserver(self, forKeyPath: pipKeyPath, context: &playerViewControllerKVOContext)
-		}
-		
-		playerLayer?.pause()
-		playerLayer?.prepareToDeinit()
-		NotificationCenter.default.removeObserver(self)
-	}
-}
-
-extension UZPlayer: UZPlayerLayerViewDelegate {
-	
-	public func UZPlayer(player: UZPlayerLayerView, playerIsPlaying playing: Bool) {
+	open func UZPlayer(player: UZPlayerLayerView, playerIsPlaying playing: Bool) {
 		controlView.playStateDidChange(isPlaying: playing)
 		delegate?.UZPlayer(player: self, playerIsPlaying: playing)
 		playStateDidChange?(player.isPlaying)
 	}
 	
-	public func UZPlayer(player: UZPlayerLayerView ,loadedTimeDidChange loadedDuration: TimeInterval , totalDuration: TimeInterval) {
+	open func UZPlayer(player: UZPlayerLayerView ,loadedTimeDidChange loadedDuration: TimeInterval , totalDuration: TimeInterval) {
 		controlView.loadedTimeDidChange(loadedDuration: loadedDuration , totalDuration: totalDuration)
 		delegate?.UZPlayer(player: self, loadedTimeDidChange: loadedDuration, totalDuration: totalDuration)
 		controlView.totalDuration = totalDuration
 		self.totalDuration = totalDuration
 	}
 	
-	public func UZPlayer(player: UZPlayerLayerView, playerStateDidChange state: UZPlayerState) {
+	open func UZPlayer(player: UZPlayerLayerView, playerStateDidChange state: UZPlayerState) {
 		controlView.playerStateDidChange(state: state)
 		
 		switch state {
 		case .readyToPlay:
 			play()
 			updateCastingUI()
-//			requestAds()
+			//			requestAds()
 			
 		case .bufferFinished:
 			playIfApplicable()
@@ -1030,7 +1023,6 @@ extension UZPlayer: UZPlayerLayerViewDelegate {
 			adsLoader?.contentComplete()
 			nextVideo()
 			
-			
 		case .error:
 			if autoTryNextDefinitionIfError {
 				tryNextDefinition()
@@ -1043,7 +1035,7 @@ extension UZPlayer: UZPlayerLayerViewDelegate {
 		delegate?.UZPlayer(player: self, playerStateDidChange: state)
 	}
 	
-	public func UZPlayer(player: UZPlayerLayerView, playTimeDidChange currentTime: TimeInterval, totalTime: TimeInterval) {
+	open func UZPlayer(player: UZPlayerLayerView, playTimeDidChange currentTime: TimeInterval, totalTime: TimeInterval) {
 		self.currentPosition = currentTime
 		totalDuration = totalTime
 		
@@ -1058,9 +1050,7 @@ extension UZPlayer: UZPlayerLayerViewDelegate {
 		}
 	}
 	
-}
-
-extension UZPlayer: UZPlayerControlViewDelegate {
+	// UZPlayerControlViewDelegate
 	
 	open func controlView(controlView: UZPlayerControlView, didChooseDefinition index: Int) {
 		currentDefinition = index
@@ -1118,10 +1108,10 @@ extension UZPlayer: UZPlayerControlViewDelegate {
 				
 			case .share:
 				showShare(from: button)
-                button.isEnabled = false
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                    button.isEnabled = true
-                }
+				button.isEnabled = false
+				DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+					button.isEnabled = true
+				}
 				
 			case .relates:
 				showRelates()
@@ -1134,7 +1124,7 @@ extension UZPlayer: UZPlayerControlViewDelegate {
 				
 			case .settings:
 				showQualitySelector()
-			
+				
 			case .caption:
 				showMediaOptionSelector()
 				
@@ -1214,6 +1204,18 @@ extension UZPlayer: UZPlayerControlViewDelegate {
 		}
 	}
 	
+	// MARK: -
+	
+	deinit {
+		if pictureInPictureController != nil {
+			pictureInPictureController!.delegate = nil
+			pictureInPictureController!.removeObserver(self, forKeyPath: pipKeyPath, context: &playerViewControllerKVOContext)
+		}
+		
+		playerLayer?.pause()
+		playerLayer?.prepareToDeinit()
+		NotificationCenter.default.removeObserver(self)
+	}
 }
 
 extension UZPlayer: AVPictureInPictureControllerDelegate {
@@ -1517,7 +1519,7 @@ open class UZPlayerLayerView: UIView {
 		lastPlayerItem = playerItem
 		
 		if let item = playerItem {
-			NotificationCenter.default.addObserver(self, selector: #selector(moviePlayDidEnd), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: playerItem)
+			NotificationCenter.default.addObserver(self, selector: #selector(moviePlayerDidEnd), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: playerItem)
 			
 			item.addObserver(self, forKeyPath: "status", options: NSKeyValueObservingOptions.new, context: nil)
 			item.addObserver(self, forKeyPath: "loadedTimeRanges", options: NSKeyValueObservingOptions.new, context: nil)
@@ -1613,7 +1615,7 @@ open class UZPlayerLayerView: UIView {
 				
 				if let currentItem = player.currentItem {
 					if player.currentTime() >= currentItem.duration {
-						moviePlayDidEnd()
+						moviePlayerDidEnd()
 						return
 					}
 					
@@ -1625,7 +1627,7 @@ open class UZPlayerLayerView: UIView {
 		}
 	}
 	
-	@objc open func moviePlayDidEnd() {
+	@objc open func moviePlayerDidEnd() {
 		if state != .playedToTheEnd {
 			if let playerItem = playerItem {
 				delegate?.UZPlayer(player: self, playTimeDidChange: CMTimeGetSeconds(playerItem.duration), totalTime: CMTimeGetSeconds(playerItem.duration))

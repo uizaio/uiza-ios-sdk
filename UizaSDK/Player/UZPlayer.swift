@@ -160,14 +160,14 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	open var autoTryNextDefinitionIfError = true
 	open var controlView: UZPlayerControlView!
 	
-	fileprivate var resource: UZPlayerResource! {
+	public fileprivate(set) var resource: UZPlayerResource! {
 		didSet {
 			controlView.resource = resource
 		}
 	}
 	
-	fileprivate var currentDefinition = 0
-	fileprivate var playerLayer: UZPlayerLayerView?
+	public fileprivate(set) var currentDefinition = 0
+	public fileprivate(set) var playerLayer: UZPlayerLayerView?
 	fileprivate var customControlView: UZPlayerControlView? {
 		didSet {
 			guard customControlView != controlView else { return }
@@ -192,20 +192,20 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		}
 	}
 	
-	fileprivate var totalDuration   : TimeInterval = 0
-	fileprivate var currentPosition : TimeInterval = 0
+	public fileprivate(set) var totalDuration   : TimeInterval = 0
+	public fileprivate(set) var currentPosition : TimeInterval = 0
 	
-	fileprivate var isURLSet        = false
-	fileprivate var isSliderSliding = false
-	fileprivate var isPauseByUser   = false
-	fileprivate var isPlayToTheEnd  = false
-	fileprivate var isReplaying		= false
+	public fileprivate(set) var isURLSet        = false
+	public fileprivate(set) var isSliderSliding = false
+	public fileprivate(set) var isPauseByUser   = false
+	public fileprivate(set) var isPlayToTheEnd  = false
+	public fileprivate(set) var isReplaying		= false
 	
 	fileprivate var contentPlayhead: IMAAVPlayerContentPlayhead?
 	fileprivate var adsLoader: IMAAdsLoader?
 	fileprivate var adsManager: IMAAdsManager?
 	
-	internal var pictureInPictureController: AVPictureInPictureController?
+	public internal(set) var pictureInPictureController: AVPictureInPictureController?
 	
 	// MARK: - Public functions
 	
@@ -342,7 +342,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		}
 	}
 	
-	private func playIfApplicable() {
+	open func playIfApplicable() {
 		if !isPauseByUser && isURLSet && !isPlayToTheEnd {
 			play()
 		}
@@ -1011,7 +1011,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		case .readyToPlay:
 			play()
 			updateCastingUI()
-			//			requestAds()
+//			requestAds()
 			
 		case .bufferFinished:
 			playIfApplicable()
@@ -1173,9 +1173,11 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 						self.playIfApplicable()
 					})
 				}
+				
 			default:
 				break
 			}
+			
 			return
 		}
 		

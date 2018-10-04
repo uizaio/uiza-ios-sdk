@@ -167,7 +167,13 @@ open class UZPlayerControlView: UIView {
 	public let liveBadgeView = UZLiveBadgeView()
 	public var loadingIndicatorView: NVActivityIndicatorView? = nil
 	public var endscreenView = UZEndscreenView()
-	public var timeSlider: UZSlider!
+	public var timeSlider: UZSlider! {
+		didSet {
+			timeSlider.maximumValue = 1.0
+			timeSlider.minimumValue = 0.0
+			timeSlider.maximumTrackTintColor = UIColor.clear
+		}
+	}
 	internal var castingView: UZCastingView? = nil
 	
 	internal var liveStartDate: Date? = nil {

@@ -33,6 +33,10 @@ class MyPlayer: UZPlayer {
 	
 }
 
+class MySlider: UZSlider {
+	
+}
+
 class ViewController: UIViewController {
 	let playerViewController = UZPlayerViewController()
 	let themeButton = UIButton()

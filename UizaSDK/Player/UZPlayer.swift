@@ -224,9 +224,12 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 			}
 			else if error != nil {
 				self.showMessage(error!.localizedDescription)
+				completionBlock?(nil, error)
 			}
 			else {
-				self.showMessage("Unable to load video")
+				let error = UZAPIConnector.UizaError(code: 1001, message: "Unable to load video")
+				self.showMessage(error.localizedDescription)
+				completionBlock?(nil, error)
 			}
 		}
 	}

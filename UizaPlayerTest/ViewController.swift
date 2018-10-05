@@ -69,7 +69,7 @@ class ViewController: UIViewController {
 			}
 		}
 		
-//		self.playerViewController.player.loadVideo(entityId: "45a908f7-a62e-4eaf-8ce2-dc5699f33406") // 45a908f7-a62e-4eaf-8ce2-dc5699f33406
+//		self.playerViewController.player.loadVideo(entityId: "70487bb8-b800-46e0-8d4c-1d9ad251f03b") // 45a908f7-a62e-4eaf-8ce2-dc5699f33406
 		
 //		self.playerViewController.player.loadPlaylist(metadataId: "8f24c324-4113-4b2d-b821-25969851d759", page: 0, limit: 20, playIndex: 0, completionBlock: nil)
 		
@@ -117,7 +117,7 @@ class ViewController: UIViewController {
 	}
 	
 	override public var shouldAutorotate: Bool {
-		return true
+		return false
 	}
 //	
 //	override public var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {

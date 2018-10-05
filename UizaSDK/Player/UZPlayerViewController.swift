@@ -54,6 +54,9 @@ open class UZPlayerViewController: UIViewController {
 				
 				self.playerController.player.controlView.updateUI(true)
 			}
+			else {
+				completion?()
+			}
 		}
 		else {
 			self.playerController.player.controlView.updateUI(false)
@@ -69,6 +72,9 @@ open class UZPlayerViewController: UIViewController {
 					self?.viewDidLayoutSubviews()
 					completion?()
 				}
+			}
+			else {
+				completion?()
 			}
 		}
 	}

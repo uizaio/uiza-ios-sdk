@@ -715,11 +715,24 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	}
 	
 	internal func requestAds() {
-//		let testAdTagUrl = "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator="
-//		let adDisplayContainer = IMAAdDisplayContainer(adContainer: self, companionSlots: nil)
-//		let request = IMAAdsRequest(adTagUrl: testAdTagUrl, adDisplayContainer: adDisplayContainer, contentPlayhead: contentPlayhead, userContext: nil)
-//
-//		adsLoader?.requestAds(with: request)
+		if let video = currentVideo {
+			UZContentServices().loadCuePoints(video: video) { [weak self] (adsCuePoints, error) in
+				self?.requestAds(cuePoints: adsCuePoints)
+			}
+			
+		}
+	}
+	
+	internal func requestAds(cuePoints: [UZAdsCuePoint]?) {
+		guard let cuePoints = cuePoints, !cuePoints.isEmpty else { return }
+		
+		if let adsLink = cuePoints.first?.link?.absoluteString {
+//			let testAdTagUrl = "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator="
+			let adDisplayContainer = IMAAdDisplayContainer(adContainer: self, companionSlots: nil)
+			let request = IMAAdsRequest(adTagUrl: adsLink, adDisplayContainer: adDisplayContainer, contentPlayhead: contentPlayhead, userContext: nil)
+			
+			adsLoader?.requestAds(with: request)
+		}
 	}
 	
 	// MARK: -
@@ -729,7 +742,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		
 		setupUI()
 		preparePlayer()
-//		setUpAdsLoader()
+		setUpAdsLoader()
 		
 		#if DEBUG
 		print("[UizaPlayer \(PLAYER_VERSION)] initialized")
@@ -1014,7 +1027,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		case .readyToPlay:
 			play()
 			updateCastingUI()
-//			requestAds()
+			requestAds()
 			
 		case .bufferFinished:
 			playIfApplicable()
@@ -1253,7 +1266,7 @@ extension UZPlayer: IMAAdsLoaderDelegate, IMAAdsManagerDelegate {
 		adsManager?.delegate = self
 		
 		let adsRenderingSettings = IMAAdsRenderingSettings()
-//		adsRenderingSettings.webOpenerPresentingController = self
+		adsRenderingSettings.webOpenerPresentingController = UIViewController.topPresented()
 		
 		adsManager?.initialize(with: adsRenderingSettings)
 	}

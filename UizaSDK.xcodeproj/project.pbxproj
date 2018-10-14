@@ -167,6 +167,9 @@
 		63C65FE221730BB400731FD9 /* UZLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124FC2089E20800720593 /* UZLogger.swift */; };
 		63C65FE321730BC600731FD9 /* UZLiveServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6300A823213530C700C27195 /* UZLiveServices.swift */; };
 		63C65FE421730BE000731FD9 /* UZLiveEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6300A8272135385E00C27195 /* UZLiveEvent.swift */; };
+		63C65FE621730ECC00731FD9 /* UIViewController+TopPresented.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65FE521730ECC00731FD9 /* UIViewController+TopPresented.swift */; };
+		63C65FE721730ECC00731FD9 /* UIViewController+TopPresented.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65FE521730ECC00731FD9 /* UIViewController+TopPresented.swift */; };
+		63C65FE821730ECC00731FD9 /* UIViewController+TopPresented.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65FE521730ECC00731FD9 /* UIViewController+TopPresented.swift */; };
 		63CFB78C20B282F600647958 /* UZVideoQualitySettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CFB78B20B282F600647958 /* UZVideoQualitySettingsViewController.swift */; };
 		63CFB78D20B282F600647958 /* UZVideoQualitySettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CFB78B20B282F600647958 /* UZVideoQualitySettingsViewController.swift */; };
 		63CFB78F20B29B2000647958 /* UZSubtitles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CFB78E20B29B2000647958 /* UZSubtitles.swift */; };
@@ -290,6 +293,7 @@
 		63C65F88205BA10800DB2C96 /* String+Components.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Components.swift"; sourceTree = "<group>"; };
 		63C65F8A205BA10800DB2C96 /* String+ToDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+ToDictionary.swift"; sourceTree = "<group>"; };
 		63C65FCF21730BA800731FD9 /* UZAdsCuePoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZAdsCuePoint.swift; sourceTree = "<group>"; };
+		63C65FE521730ECC00731FD9 /* UIViewController+TopPresented.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+TopPresented.swift"; sourceTree = "<group>"; };
 		63CFB78B20B282F600647958 /* UZVideoQualitySettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZVideoQualitySettingsViewController.swift; sourceTree = "<group>"; };
 		63CFB78E20B29B2000647958 /* UZSubtitles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZSubtitles.swift; sourceTree = "<group>"; };
 		63CFB7E420BBD97800647958 /* UZCastingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZCastingView.swift; sourceTree = "<group>"; };
@@ -480,6 +484,7 @@
 		63C65F7C205BA10800DB2C96 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				63C65FE521730ECC00731FD9 /* UIViewController+TopPresented.swift */,
 				6346B7A820930D7D00A68AD4 /* AVAudioSession+Airplay.swift */,
 				638EC14820AEA64200C0243E /* UIImage+Colorize.swift */,
 				63C65F87205BA10800DB2C96 /* Date+Comparators.swift */,
@@ -1010,6 +1015,7 @@
 				638EC10820AAA2DD00C0243E /* UZSlider.swift in Sources */,
 				638EC0F220AAA2CA00C0243E /* String+ToBool.swift in Sources */,
 				638EC0EC20AAA2CA00C0243E /* UIDevice+Extension.swift in Sources */,
+				63C65FE821730ECC00731FD9 /* UIViewController+TopPresented.swift in Sources */,
 				637996E52154D31400DCBADF /* UZThemeConfig.swift in Sources */,
 				638EC0EA20AAA2CA00C0243E /* Error+Code.swift in Sources */,
 				638EC10420AAA2D600C0243E /* UZEndscreenView.swift in Sources */,
@@ -1111,6 +1117,7 @@
 				6346B7AB20930DAC00A68AD4 /* NSTimeInterval+ToString.swift in Sources */,
 				63C65FAC205BA10800DB2C96 /* String+ToBool.swift in Sources */,
 				63C65FAE205BA10800DB2C96 /* String+Extension.swift in Sources */,
+				63C65FE621730ECC00731FD9 /* UIViewController+TopPresented.swift in Sources */,
 				632125022089E20800720593 /* UZAPIConnector.swift in Sources */,
 				63C65FD021730BA800731FD9 /* UZAdsCuePoint.swift in Sources */,
 				63910C6820C152B700B814DC /* NotificationName+Uiza.swift in Sources */,
@@ -1128,6 +1135,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				63C65FDA21730BB400731FD9 /* UZPagination.swift in Sources */,
+				63C65FE721730ECC00731FD9 /* UIViewController+TopPresented.swift in Sources */,
 				63C65FDB21730BB400731FD9 /* UZLiveEvent.swift in Sources */,
 				63C65FE121730BB400731FD9 /* UZLiveServices.swift in Sources */,
 				63C65FD421730BB400731FD9 /* UZModelObject.swift in Sources */,

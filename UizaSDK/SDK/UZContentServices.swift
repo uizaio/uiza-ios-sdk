@@ -358,7 +358,7 @@ open class UZContentServices: UZAPIConnector {
 	- parameter video: video cần lấy nội dung quảng cáo
 	- parameter completionBlock: block được gọi sau khi hoàn thành, trả về mảng [`UZAdsCuePoint`], hoặc error nếu có lỗi
 	*/
-	public func loadCuePoints(video: UZVideoItem, token: String? = nil, completionBlock:((_ results: [UZAdsCuePoint]?, _ error: Error?) -> Void)? = nil) {
+	public func loadCuePoints(video: UZVideoItem, completionBlock:((_ results: [UZAdsCuePoint]?, _ error: Error?) -> Void)? = nil) {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
 		
 		let params : [String: Any] = ["entityId" : video.id]

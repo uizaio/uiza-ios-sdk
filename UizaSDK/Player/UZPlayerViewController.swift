@@ -211,16 +211,16 @@ internal class UZPlayerContainerController: UIViewController {
 	}
 	
 }
+*/
 
 extension UZPlayerController: NKModalViewControllerProtocol {
 	
 	func viewController(forPresenting modalViewController: NKModalViewController!) -> UIViewController! {
-		let viewController = UZPlayerContainerController()
+//		let viewController = UZPlayerContainerController()
 //		let window = UIWindow(frame: UIScreen.main.bounds)
 //		window.rootViewController = viewController
 //		window.makeKeyAndVisible()
-		return viewController
+		return UIViewController.topPresented()
 	}
 	
 }
-*/

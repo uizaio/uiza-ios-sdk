@@ -18,7 +18,7 @@ import UIKit
 //
 
 internal let SDK_VERSION = "6.4"
-internal let PLAYER_VERSION = "3.1.8"
+internal let PLAYER_VERSION = "3.2"
 
 /**
 Class khởi tạo SDK

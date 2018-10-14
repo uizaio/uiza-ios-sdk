@@ -355,11 +355,34 @@ open class UZContentServices: UZAPIConnector {
 	
 	/**
 	Tải vị trí quảng cáo
-	- parameter entityId: `id` của video cần lấy nội dung quảng cáo
-	- parameter completionBlock: block được gọi sau khi hoàn thành, trả về `URL`, hoặc error nếu có lỗi
+	- parameter video: video cần lấy nội dung quảng cáo
+	- parameter completionBlock: block được gọi sau khi hoàn thành, trả về mảng [`UZAdsCuePoint`], hoặc error nếu có lỗi
 	*/
-	public func loadLinkPlay(video: UZVideoItem, token: String? = nil, completionBlock:((_ results: [UZVideoLinkPlay]?, _ error: Error?) -> Void)? = nil) {
+	public func loadCuePoints(video: UZVideoItem, token: String? = nil, completionBlock:((_ results: [UZAdsCuePoint]?, _ error: Error?) -> Void)? = nil) {
+		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
 		
+		let params : [String: Any] = ["entityId" : video.id]
+		
+		self.callAPI("media/entity/cue-point", method: .get , params: params) { (result, error) in
+			DLog("\(String(describing: result)) - \(String(describing: error))")
+			
+			if error != nil {
+				completionBlock?(nil, error)
+			}
+			else {
+				if let dataArray = result?.array(for: "data", defaultValue: nil) as? [NSDictionary] {
+					var results = [UZAdsCuePoint]()
+					for data in dataArray {
+						let item = UZAdsCuePoint(data: data)
+						results.append(item)
+					}
+					completionBlock?(results, nil)
+				}
+				else {
+					completionBlock?([], nil)
+				}
+			}
+		}
 	}
 	
 	// MARK: -

@@ -323,7 +323,7 @@ open class UZContentServices: UZAPIConnector {
 									  "app_id"	: UizaSDK.appId]
 		
 		let domain: String! = UizaSDK.enviroment == .development ? "dev-ucc.uizadev.io" :
-							  UizaSDK.enviroment == .staging ? "stag-ucc.uiza.io" : "ucc.uiza.io"
+							  UizaSDK.enviroment == .staging ? "stag-ucc.uizadev.io" : "ucc.uiza.io"
 		
 		self.callAPI(apiNode, baseURLString: "https://\(domain!)/api/private/v1/", method: .get, params: params) { (result, error) in
 			print("\(String(describing: result)) - \(String(describing: error))")
@@ -351,6 +351,15 @@ open class UZContentServices: UZAPIConnector {
 				completionBlock?(nil, UZAPIConnector.UizaUnknownError())
 			}
 		}
+	}
+	
+	/**
+	Tải vị trí quảng cáo
+	- parameter entityId: `id` của video cần lấy nội dung quảng cáo
+	- parameter completionBlock: block được gọi sau khi hoàn thành, trả về `URL`, hoặc error nếu có lỗi
+	*/
+	public func loadLinkPlay(video: UZVideoItem, token: String? = nil, completionBlock:((_ results: [UZVideoLinkPlay]?, _ error: Error?) -> Void)? = nil) {
+		
 	}
 	
 	// MARK: -

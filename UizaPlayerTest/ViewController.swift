@@ -47,6 +47,7 @@ class ViewController: UIViewController {
 		themeButton.setImage(UIImage(icon: .googleMaterialDesign(.colorLens), size: CGSize(width: 32, height: 32), textColor: .black, backgroundColor: .clear), for: .normal)
 		themeButton.addTarget(self, action: #selector(switchTheme), for: .touchUpInside)
 		
+//		playerViewController.fullscreenPresentationMode = .fullscreen
 		playerViewController.player = MyPlayer(customControlView: MyPlayerControlView())
 		playerViewController.player.controlView.theme = UZTheme1()
 		

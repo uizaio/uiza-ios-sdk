@@ -55,6 +55,7 @@ open class UZPlayerViewController: UIViewController {
 				self.playerController.player.controlView.updateUI(true)
 			}
 			else {
+//				UIViewController.attemptRotationToDeviceOrientation()
 				completion?()
 			}
 		}
@@ -180,3 +181,46 @@ internal class UZPlayerController: UIViewController {
 	}
 	
 }
+
+/*
+internal class UZPlayerContainerController: UIViewController {
+	
+	// MARK: -
+	
+	override var prefersStatusBarHidden: Bool {
+		return true
+	}
+	
+	override var shouldAutorotate : Bool {
+		return true
+	}
+	
+	override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+		return .landscape
+	}
+	
+	override var preferredInterfaceOrientationForPresentation : UIInterfaceOrientation {
+		let deviceOrientation = UIDevice.current.orientation
+		if UIDeviceOrientationIsLandscape(deviceOrientation) {
+			return deviceOrientation == .landscapeRight ? .landscapeLeft : .landscapeRight
+		}
+		else {
+			let currentOrientation = UIApplication.shared.statusBarOrientation
+			return UIInterfaceOrientationIsLandscape(currentOrientation) ? currentOrientation : .landscapeRight
+		}
+	}
+	
+}
+
+extension UZPlayerController: NKModalViewControllerProtocol {
+	
+	func viewController(forPresenting modalViewController: NKModalViewController!) -> UIViewController! {
+		let viewController = UZPlayerContainerController()
+//		let window = UIWindow(frame: UIScreen.main.bounds)
+//		window.rootViewController = viewController
+//		window.makeKeyAndVisible()
+		return viewController
+	}
+	
+}
+*/

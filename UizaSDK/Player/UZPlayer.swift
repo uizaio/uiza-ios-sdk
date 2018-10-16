@@ -726,13 +726,22 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	internal func requestAds(cuePoints: [UZAdsCuePoint]?) {
 		guard let cuePoints = cuePoints, !cuePoints.isEmpty else { return }
 		
-		if let adsLink = cuePoints.first?.link?.absoluteString {
-//			let testAdTagUrl = "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator="
-			let adDisplayContainer = IMAAdDisplayContainer(adContainer: self, companionSlots: nil)
-			let request = IMAAdsRequest(adTagUrl: adsLink, adDisplayContainer: adDisplayContainer, contentPlayhead: contentPlayhead, userContext: nil)
-			
-			adsLoader?.requestAds(with: request)
+		for cuePoint in cuePoints {
+			if let adsLink = cuePoint.link?.absoluteString {
+				let adDisplayContainer = IMAAdDisplayContainer(adContainer: self, companionSlots: nil)
+				let request = IMAAdsRequest(adTagUrl: adsLink, adDisplayContainer: adDisplayContainer, contentPlayhead: contentPlayhead, userContext: nil)
+				
+				adsLoader?.requestAds(with: request)
+			}
 		}
+		
+//		if let adsLink = cuePoints.first?.link?.absoluteString {
+////			let testAdTagUrl = "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator="
+//			let adDisplayContainer = IMAAdDisplayContainer(adContainer: self, companionSlots: nil)
+//			let request = IMAAdsRequest(adTagUrl: adsLink, adDisplayContainer: adDisplayContainer, contentPlayhead: contentPlayhead, userContext: nil)
+//
+//			adsLoader?.requestAds(with: request)
+//		}
 	}
 	
 	// MARK: -
@@ -1279,12 +1288,18 @@ extension UZPlayer: IMAAdsLoaderDelegate, IMAAdsManagerDelegate {
 	// MARK: - IMAAdsManagerDelegate
 	
 	public func adsManager(_ adsManager: IMAAdsManager!, didReceive event: IMAAdEvent!) {
+//		DLog("OK - \(event.type.rawValue)")
+		
 		if event.type == IMAAdEventType.LOADED {
 			adsManager.start()
+		}
+		else if event.type == IMAAdEventType.STARTED {
+			avPlayer?.pause()
 		}
 	}
 	
 	public func adsManager(_ adsManager: IMAAdsManager!, didReceive error: IMAAdError!) {
+		DLog("Ads error: \(String(describing: error.message))")
 //		print("AdsManager error: \(error.message)")
 		avPlayer?.play()
 	}

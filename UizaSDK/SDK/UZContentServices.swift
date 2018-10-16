@@ -361,9 +361,9 @@ open class UZContentServices: UZAPIConnector {
 	public func loadCuePoints(video: UZVideoItem, completionBlock:((_ results: [UZAdsCuePoint]?, _ error: Error?) -> Void)? = nil) {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
 		
-		let params : [String: Any] = ["entityId" : video.id]
+		let params : [String: Any] = ["entityId" : video.id ?? ""]
 		
-		self.callAPI("media/entity/cue-point", method: .get , params: params) { (result, error) in
+		self.callAPI("media/entity/cue-point", baseURLString: basePrivateAPIURLPath(), method: .get , params: params) { (result, error) in
 			DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {

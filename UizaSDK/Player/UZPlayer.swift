@@ -828,6 +828,8 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		
 		playerLayer?.frame = self.bounds
 		controlView.frame = self.bounds
+		controlView.setNeedsLayout()
+		controlView.layoutIfNeeded()
 	}
 	
 	fileprivate func tryNextDefinition() {

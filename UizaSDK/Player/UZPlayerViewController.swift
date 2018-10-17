@@ -43,13 +43,17 @@ open class UZPlayerViewController: UIViewController {
 			if !isFullscreen {
 				if fullscreenPresentationMode == .modal {
 					NKModalViewManager.sharedInstance().presentModalViewController(self.playerController, animatedFrom: nil, enter: { [weak self] (sender) in
-						self?.viewDidLayoutSubviews()
+						DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+							self?.viewDidLayoutSubviews()
+						}
 						completion?()
 					}, exitBlock: nil)
 				}
 				else {
 					NKFullscreenManager.sharedInstance().presentFullscreenViewController(self.playerController, animatedFrom: nil, enter: { [weak self] (sender) in
-						self?.viewDidLayoutSubviews()
+						DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+							self?.viewDidLayoutSubviews()
+						}
 						completion?()
 					}, exitBlock: nil)
 				}

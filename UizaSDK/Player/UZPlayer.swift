@@ -168,7 +168,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	
 	public fileprivate(set) var currentDefinition = 0
 	public fileprivate(set) var playerLayer: UZPlayerLayerView?
-	fileprivate var customControlView: UZPlayerControlView? {
+	open var customControlView: UZPlayerControlView? {
 		didSet {
 			guard customControlView != controlView else { return }
 			
@@ -474,6 +474,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	*/
 	open func seek(to interval: TimeInterval, completion: (() -> Void)? = nil) {
 		self.currentPosition = interval
+		controlView.hideEndScreen()
 		playerLayer?.seek(to: interval, completion: completion)
 		
 		let castingManager = UZCastingManager.shared
@@ -563,6 +564,8 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 			controlView.hideCastingScreen()
 		}
 	}
+	
+	// MARK: -
 	
 	@objc fileprivate func onOrientationChanged() {
 		self.updateUI(isFullScreen)
@@ -1080,7 +1083,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		}
 	}
 	
-	// UZPlayerControlViewDelegate
+	// MARK: - UZPlayerControlViewDelegate
 	
 	open func controlView(controlView: UZPlayerControlView, didChooseDefinition index: Int) {
 		currentDefinition = index
@@ -1328,7 +1331,7 @@ Player status emun
 - playedToTheEnd: played to the End
 - error:          error with playing
 */
-public enum UZPlayerState {
+public enum UZPlayerState: Int {
 	case notSetURL
 	case readyToPlay
 	case buffering
@@ -1518,7 +1521,7 @@ open class UZPlayerLayerView: UIView {
 	open func onTimeSliderBegan() {
 		self.player?.pause()
 		
-		if self.player?.currentItem?.status == AVPlayerItemStatus.readyToPlay {
+		if self.player?.currentItem?.status == .readyToPlay {
 			self.timer?.fireDate = Date.distantFuture
 		}
 	}
@@ -1528,11 +1531,10 @@ open class UZPlayerLayerView: UIView {
 			return
 		}
 		
-		setupTimer()
-		
-		if self.player?.currentItem?.status == AVPlayerItemStatus.readyToPlay {
+		if self.player?.currentItem?.status == .readyToPlay {
 			let draggedTime = CMTimeMake(Int64(seconds), 1)
-			self.player!.seek(to: draggedTime, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: { (finished) in
+			self.player!.seek(to: draggedTime, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: { [weak self] (finished) in
+				self?.setupTimer()
 				completion?()
 			})
 		}
@@ -1557,7 +1559,7 @@ open class UZPlayerLayerView: UIView {
 		lastPlayerItem = playerItem
 		
 		if let item = playerItem {
-			NotificationCenter.default.addObserver(self, selector: #selector(moviePlayerDidEnd), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: playerItem)
+			NotificationCenter.default.addObserver(self, selector: #selector(moviePlayerDidEnd), name: .AVPlayerItemDidPlayToEndTime, object: playerItem)
 			
 			item.addObserver(self, forKeyPath: "status", options: NSKeyValueObservingOptions.new, context: nil)
 			item.addObserver(self, forKeyPath: "loadedTimeRanges", options: NSKeyValueObservingOptions.new, context: nil)
@@ -1628,6 +1630,7 @@ open class UZPlayerLayerView: UIView {
 				let totalTime   = TimeInterval(playerItem.duration.value) / TimeInterval(playerItem.duration.timescale)
 				delegate?.UZPlayer(player: self, playTimeDidChange: currentTime, totalTime: totalTime)
 			}
+			
 			updateStatus(includeLoading: true)
 		}
 	}
@@ -1657,9 +1660,9 @@ open class UZPlayerLayerView: UIView {
 						return
 					}
 					
-					if currentItem.isPlaybackLikelyToKeepUp || currentItem.isPlaybackBufferFull {
-						
-					}
+//					if currentItem.isPlaybackLikelyToKeepUp || currentItem.isPlaybackBufferFull {
+//
+//					}
 				}
 			}
 		}
@@ -1763,7 +1766,7 @@ open class UZPlayerLayerView: UIView {
 					self.bufferingSomeSecond()
 				}
 				else {
-					self.state = UZPlayerState.bufferFinished
+					self.state = .bufferFinished
 				}
 			}
 		}

@@ -103,6 +103,9 @@ open class UZPlayerViewController: UIViewController {
 		
 		if playerController.player.superview == self.view {
 			playerController.player.frame = self.view.bounds
+			playerController.player.setNeedsLayout()
+			playerController.player.controlView.setNeedsLayout()
+			playerController.player.controlView.layoutIfNeeded()
 		}
 	}
 	

@@ -8,6 +8,13 @@
 
 import UIKit
 
+public protocol UZFloatingPlayerViewProtocol : class {
+	
+	func floatingPlayer(_ player: UZFloatingPlayerViewController, didBecomeFloating: Bool)
+	func floatingPlayerDidDismiss(_ player: UZFloatingPlayerViewController)
+	
+}
+
 open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandlerProtocol {
 	static public var currentInstance: UZFloatingPlayerViewController? = nil
 	static public private(set) var playerWindow: UIWindow?
@@ -16,14 +23,16 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 	private var playerViewController: UZPlayerViewController!
 	public private(set) var player: UZPlayer!
 	public let detailsContainerView = UIView()
-	public var ratio: CGFloat = 9/16
+	public var playerRatio: CGFloat = 9/16
+	
+	public weak var delegate: UZFloatingPlayerViewProtocol? = nil
 	
 	public var videoItem: UZVideoItem? = nil {
 		didSet {
 			if videoItem != oldValue {
 				if let videoItem = videoItem {
 					if player.currentVideo != videoItem {
-						if floatingHandler != nil {
+						if let floatingHandler = floatingHandler {
 							if floatingHandler.isFloatingMode {
 								floatingHandler.backToNormalState()
 								
@@ -49,7 +58,7 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 			if videoItems != oldValue {
 				if let videoItems = videoItems {
 					if player.playlist != videoItems {
-						if floatingHandler != nil {
+						if let floatingHandler = floatingHandler {
 							if floatingHandler.isFloatingMode {
 								floatingHandler.backToNormalState()
 								
@@ -73,11 +82,11 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 		}
 	}
 	
-	public var onDismiss : (() -> Void)? = nil
-	public var onFloating : ((UZFloatingPlayerViewController) -> Void)? = nil
-	public var onUnfloating : ((UZFloatingPlayerViewController) -> Void)? = nil
+	private var onDismiss : (() -> Void)? = nil
+	private var onFloating : ((UZFloatingPlayerViewController) -> Void)? = nil
+	private var onUnfloating : ((UZFloatingPlayerViewController) -> Void)? = nil
 	
-	public private(set) var floatingHandler: NKFloatingViewHandler!
+	public private(set) var floatingHandler: NKFloatingViewHandler?
 	
 	// MARK: -
 	
@@ -120,7 +129,7 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 	// MARK: -
 	
 	@discardableResult
-	static public func present(with videoItem:UZVideoItem? = nil, playlist: [UZVideoItem]? = nil, customPlayerViewController: UZPlayerViewController? = nil) -> UZPlayerViewController {
+	static public func present(with videoItem:UZVideoItem? = nil, playlist: [UZVideoItem]? = nil, customPlayerViewController: UZPlayerViewController? = nil) -> UZFloatingPlayerViewController {
 		var viewController: UZFloatingPlayerViewController
 		
 		if playerWindow == nil {
@@ -128,10 +137,9 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 			viewController.modalPresentationStyle = .overCurrentContext
 			
 			UZFloatingPlayerViewController.currentInstance = viewController
+			lastKeyWindow = UIApplication.shared.keyWindow
 			
 			let containerViewController = UZPlayerContainerViewController()
-			
-			lastKeyWindow = UIApplication.shared.keyWindow
 			
 			playerWindow = UIWindow(frame: UIScreen.main.bounds)
 			playerWindow!.windowLevel = UIWindowLevelNormal + 1
@@ -164,29 +172,32 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 			playerWindow?.rootViewController = nil
 			playerWindow = nil
 			lastKeyWindow?.makeKeyAndVisible()
+			viewController.delegate?.floatingPlayerDidDismiss(viewController)
 //			statusBarHidden = false
 		}
 		
 		viewController.onFloating = { sender in
 			lastKeyWindow?.makeKeyAndVisible()
+			viewController.delegate?.floatingPlayer(viewController, didBecomeFloating: true)
 //			statusBarHidden = false
 		}
 		
 		viewController.onUnfloating = { sender in
 			playerWindow?.makeKeyAndVisible()
+			viewController.delegate?.floatingPlayer(viewController, didBecomeFloating: false)
 //			statusBarHidden = true
 		}
 		
 		viewController.videoItem = videoItem
 		viewController.player.playlist = playlist
 		
-		return viewController.playerViewController
+		return viewController
 	}
 	
 	// MARK: -
 	
 	open func playResource(_ resource: UZPlayerResource) {
-		if floatingHandler != nil {
+		if let floatingHandler = floatingHandler {
 			if floatingHandler.isFloatingMode {
 				floatingHandler.backToNormalState()
 				
@@ -206,7 +217,7 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 	}
 	
 	override open func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
-		self.floatingHandler.delegate = nil
+		self.floatingHandler?.delegate = nil
 		super.dismiss(animated: flag, completion: completion)
 	}
 	
@@ -228,7 +239,7 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 		
 		let viewSize = self.view.bounds
 		
-		let playerSize = CGSize(width: viewSize.width, height: viewSize.width * ratio) // 4:3
+		let playerSize = CGSize(width: viewSize.width, height: viewSize.width * playerRatio) // 4:3
 		playerViewController.view.frame = CGRect(x: 0, y: 0, width: playerSize.width, height: playerSize.height)
 	}
 	
@@ -272,7 +283,7 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 		get {
 			let screenSize = UIScreen.main.bounds.size
 			let floatingWidth: CGFloat = UIDevice.current.userInterfaceIdiom == .phone ? 180 : 220
-			let floatingSize = CGSize(width: floatingWidth, height: floatingWidth * ratio)
+			let floatingSize = CGSize(width: floatingWidth, height: floatingWidth * playerRatio)
 			return CGRect(x: screenSize.width - floatingSize.width - 10, y: screenSize.height - floatingSize.height - 10, width: floatingSize.width, height: floatingSize.height)
 		}
 	}
@@ -294,9 +305,7 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 			player.controlView.tapGesture?.isEnabled = true
 			playerViewController.autoFullscreenWhenRotateDevice = true
 			
-			if self.onUnfloating != nil {
-				self.onUnfloating!(self)
-			}
+			self.onUnfloating?(self)
 			self.view.setNeedsLayout()
 		}
 		else if progress == 1.0 {
@@ -305,9 +314,7 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 			player.shouldShowsControlViewAfterStoppingPiP = false
 			playerViewController.autoFullscreenWhenRotateDevice = false
 			
-			if self.onFloating != nil {
-				self.onFloating!(self)
-			}
+			self.onFloating?(self)
 			self.view.setNeedsLayout()
 		}
 	}

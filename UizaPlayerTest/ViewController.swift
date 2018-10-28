@@ -39,7 +39,7 @@ class MySlider: UZSlider {
 }
 
 class ViewController: UIViewController {
-	let playerViewController = UZPlayerViewController()
+//	let playerViewController = UZPlayerViewController()
 	let themeButton = UIButton()
 
 	override func viewDidLoad() {
@@ -49,10 +49,10 @@ class ViewController: UIViewController {
 		themeButton.addTarget(self, action: #selector(switchTheme), for: .touchUpInside)
 		
 //		playerViewController.fullscreenPresentationMode = .fullscreen
-		playerViewController.player = MyPlayer(customControlView: MyPlayerControlView())
-		playerViewController.player.controlView.theme = UZTheme1()
-		
-		self.view.addSubview(playerViewController.view)
+//		playerViewController.player = MyPlayer(customControlView: MyPlayerControlView())
+//		playerViewController.player.controlView.theme = UZTheme1()
+//
+//		self.view.addSubview(playerViewController.view)
 		self.view.addSubview(themeButton)
 		
 		//			let videoItem = UZVideoItem(data: ["id" : "5f1b718b-157e-459b-ae42-1915991e9f72", "title" : "La Vie En Rose"])
@@ -116,7 +116,7 @@ class ViewController: UIViewController {
 		
 		let viewSize = self.view.bounds.size
 		let playerSize = CGSize(width: viewSize.width, height: viewSize.width * (9/16))
-		playerViewController.view.frame = CGRect(x: 0, y: (viewSize.height - playerSize.height)/2, width: playerSize.width, height: playerSize.height)
+//		playerViewController.view.frame = CGRect(x: 0, y: (viewSize.height - playerSize.height)/2, width: playerSize.width, height: playerSize.height)
 		
 		var buttonSize = themeButton.sizeThatFits(viewSize)
 		buttonSize.width += 20
@@ -143,7 +143,7 @@ class ViewController: UIViewController {
 		}
 		
 		print("Theme index: \(themeIndex)")
-		playerViewController.player.controlView.theme = themeClasses[themeIndex]
+//		playerViewController.player.controlView.theme = themeClasses[themeIndex]
 		
 		themeIndex += 1
 	}

@@ -1421,6 +1421,7 @@ open class UZPlayerLayerView: UIView {
 	internal var shouldSeekTo: TimeInterval = 0
 	
 	// MARK: - Actions
+	
 	open func playURL(url: URL) {
 		let asset = AVURLAsset(url: url)
 		playAsset(asset: asset)
@@ -1726,14 +1727,13 @@ open class UZPlayerLayerView: UIView {
 						}
 					}
 					
+				case "rate":
+					updateStatus()
+					
 				default:
 					break
 				}
 			}
-		}
-		
-		if keyPath == "rate" {
-			updateStatus()
 		}
 	}
 	

@@ -13,6 +13,7 @@ class MyPlayerControlView: UZPlayerControlView {
 	
 	override init() {
 		super.init()
+		
 	}
 	
 	required public init?(coder aDecoder: NSCoder) {
@@ -66,7 +67,12 @@ class ViewController: UIViewController {
 		
 		UZContentServices().loadEntity(metadataId: nil, publishStatus: .success, page: 0, limit: 15) { (results, error) in
 			if let videos = results, let video = videos.first {
-				self.playerViewController.player.loadVideo(video)
+//				self.playerViewController.player.loadVideo(video)
+				
+				DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+					UZFloatingPlayerViewController.present(with: video)
+//					UZFloatingPlayerViewController.present(with: video, playlist: nil, customPlayerViewController: self.playerViewController)
+				}
 			}
 		}
 		

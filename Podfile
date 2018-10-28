@@ -17,6 +17,7 @@ target 'UizaSDK' do
   pod 'SwiftyJSON'
   pod 'SwiftIcons'
   pod 'LFLiveKit'
+  pod 'TweenKit'
 
 end
 
@@ -46,6 +47,7 @@ target 'UizaPlayerTest' do
 	pod 'SwiftyJSON'
 	pod 'SwiftIcons'
 	pod 'LFLiveKit'
+	pod 'TweenKit'
 	
 end
 

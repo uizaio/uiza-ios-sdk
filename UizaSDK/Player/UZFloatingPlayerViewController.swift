@@ -11,16 +11,17 @@ import UIKit
 public protocol UZFloatingPlayerViewProtocol : class {
 	
 	func floatingPlayer(_ player: UZFloatingPlayerViewController, didBecomeFloating: Bool)
+	func floatingPlayer(_ player: UZFloatingPlayerViewController, onFloatingProgress: CGFloat)
 	func floatingPlayerDidDismiss(_ player: UZFloatingPlayerViewController)
 	
 }
 
 open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandlerProtocol {
-	static public var currentInstance: UZFloatingPlayerViewController? = nil
-	static public private(set) var playerWindow: UIWindow?
-	static private var lastKeyWindow: UIWindow?
+	static public let shared = UZFloatingPlayerViewController(customPlayerViewController: nil)
+	public private(set) var playerWindow: UIWindow?
+	private var lastKeyWindow: UIWindow?
 	
-	private var playerViewController: UZPlayerViewController!
+	public private(set) var playerViewController: UZPlayerViewController!
 	public private(set) var player: UZPlayer!
 	public let detailsContainerView = UIView()
 	public var playerRatio: CGFloat = 9/16
@@ -82,15 +83,16 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 		}
 	}
 	
-	private var onDismiss : (() -> Void)? = nil
-	private var onFloating : ((UZFloatingPlayerViewController) -> Void)? = nil
-	private var onUnfloating : ((UZFloatingPlayerViewController) -> Void)? = nil
+	public var onDismiss : (() -> Void)? = nil
+	public var onFloatingProgress : ((UZFloatingPlayerViewController, CGFloat) -> Void)? = nil
+	public var onFloating : ((UZFloatingPlayerViewController) -> Void)? = nil
+	public var onUnfloating : ((UZFloatingPlayerViewController) -> Void)? = nil
 	
 	public private(set) var floatingHandler: NKFloatingViewHandler?
 	
 	// MARK: -
 	
-	private init() {
+	public init() {
 		super.init(nibName: nil, bundle: nil)
 	}
 	
@@ -102,7 +104,7 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 		}
 		else {
 			playerViewController = UZPlayerViewController()
-			playerViewController.player.controlView.theme = UZTheme2()
+			playerViewController.player.controlView.theme = UZTheme1()
 		}
 		
 		playerViewController.fullscreenPresentationMode = .modal
@@ -136,14 +138,13 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 	// MARK: -
 	
 	@discardableResult
-	static public func present(with videoItem:UZVideoItem? = nil, playlist: [UZVideoItem]? = nil, customPlayerViewController: UZPlayerViewController? = nil) -> UZFloatingPlayerViewController {
-		var viewController: UZFloatingPlayerViewController
+	public func present(with videoItem:UZVideoItem? = nil, playlist: [UZVideoItem]? = nil) -> UZPlayerViewController {
+//		var viewController: UZFloatingPlayerViewController
 		
 		if playerWindow == nil {
-			viewController = UZFloatingPlayerViewController.currentInstance ?? UZFloatingPlayerViewController(customPlayerViewController: customPlayerViewController)
-			viewController.modalPresentationStyle = .overCurrentContext
+//			viewController = UZFloatingPlayerViewController.currentInstance ?? UZFloatingPlayerViewController(customPlayerViewController: customPlayerViewController)
+			self.modalPresentationStyle = .overCurrentContext
 			
-			UZFloatingPlayerViewController.currentInstance = viewController
 			lastKeyWindow = UIApplication.shared.keyWindow
 			
 			let containerViewController = UZPlayerContainerViewController()
@@ -153,52 +154,16 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 			playerWindow!.rootViewController = containerViewController
 			playerWindow!.makeKeyAndVisible()
 			
-			containerViewController.present(viewController, animated: true, completion: nil)
+			containerViewController.present(self, animated: true, completion: nil)
 		}
 		else {
-			let presentedViewController = playerWindow!.rootViewController!.presentedViewController
-			
-			if presentedViewController != nil && presentedViewController is UZFloatingPlayerViewController {
-				viewController = presentedViewController as! UZFloatingPlayerViewController
-			}
-			else {
-				playerWindow!.rootViewController = nil
-				
-				viewController = UZFloatingPlayerViewController.currentInstance ?? UZFloatingPlayerViewController()
-				UZFloatingPlayerViewController.currentInstance = viewController
-				
-				let containerViewController = UIViewController()
-				containerViewController.present(viewController, animated: true, completion: nil)
-				playerWindow!.rootViewController = containerViewController
-			}
-		}
-		
-		viewController.onDismiss = {
-			UZFloatingPlayerViewController.currentInstance = nil
-			
-			playerWindow?.rootViewController = nil
-			playerWindow = nil
-			lastKeyWindow?.makeKeyAndVisible()
-			viewController.delegate?.floatingPlayerDidDismiss(viewController)
-//			statusBarHidden = false
-		}
-		
-		viewController.onFloating = { sender in
-			lastKeyWindow?.makeKeyAndVisible()
-			viewController.delegate?.floatingPlayer(viewController, didBecomeFloating: true)
-//			statusBarHidden = false
-		}
-		
-		viewController.onUnfloating = { sender in
 			playerWindow?.makeKeyAndVisible()
-			viewController.delegate?.floatingPlayer(viewController, didBecomeFloating: false)
-//			statusBarHidden = true
 		}
 		
-		viewController.videoItem = videoItem
-		viewController.player.playlist = playlist
+		self.videoItem = videoItem
+		self.player.playlist = playlist
 		
-		return viewController
+		return self.playerViewController
 	}
 	
 	// MARK: -
@@ -225,6 +190,7 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 	
 	override open func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
 		self.floatingHandler?.delegate = nil
+		self.delegate = nil
 		super.dismiss(animated: flag, completion: completion)
 	}
 	
@@ -233,6 +199,7 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 	override open func viewDidLoad() {
 		super.viewDidLoad()
 		
+		self.view.clipsToBounds = true
 		self.view.backgroundColor = UIColor(red:0.04, green:0.06, blue:0.12, alpha:1.00)
 		self.view.addSubview(detailsContainerView)
 		self.view.addSubview(playerViewController.view)
@@ -268,25 +235,25 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 	
 	// MARK: - NKFloatingViewHandlerProtocol
 	
-	public var containerView: UIView! {
+	open var containerView: UIView! {
 		get {
 			return self.view.window!
 		}
 	}
 	
-	public var gestureView: UIView! {
+	open var gestureView: UIView! {
 		get {
 			return self.view!
 		}
 	}
 	
-	public var fullRect: CGRect {
+	open var fullRect: CGRect {
 		get {
 			return UIScreen.main.bounds
 		}
 	}
 	
-	public var floatingRect: CGRect {
+	open var floatingRect: CGRect {
 		get {
 			let screenSize = UIScreen.main.bounds.size
 			let floatingWidth: CGFloat = UIDevice.current.userInterfaceIdiom == .phone ? 180 : 220
@@ -295,13 +262,15 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 		}
 	}
 	
-	public var panGesture: UIPanGestureRecognizer! {
+	open var panGesture: UIPanGestureRecognizer! {
 		get {
 			return UIPanGestureRecognizer()
 		}
 	}
 	
-	public func floatingHandlerDidDragging(with progress: CGFloat) {
+	open func floatingHandlerDidDragging(with progress: CGFloat) {
+		delegate?.floatingPlayer(self, onFloatingProgress: progress)
+		
 		let alpha = 1.0 - progress
 		
 		detailsContainerView.alpha = alpha
@@ -312,6 +281,9 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 			player.controlView.tapGesture?.isEnabled = true
 			playerViewController.autoFullscreenWhenRotateDevice = true
 			
+			self.playerWindow?.makeKeyAndVisible()
+			self.delegate?.floatingPlayer(self, didBecomeFloating: false)
+			
 			self.onUnfloating?(self)
 			self.view.setNeedsLayout()
 		}
@@ -321,13 +293,25 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 			player.shouldShowsControlViewAfterStoppingPiP = false
 			playerViewController.autoFullscreenWhenRotateDevice = false
 			
-			self.onFloating?(self)
+			lastKeyWindow?.makeKeyAndVisible()
+			delegate?.floatingPlayer(self, didBecomeFloating: true)
+			
 			self.view.setNeedsLayout()
+			self.onFloating?(self)
 		}
 	}
 	
-	public func floatingHandlerDidDismiss() {
-		self.dismiss(animated: true, completion: onDismiss)
+	open func floatingHandlerDidDismiss() {
+		self.dismiss(animated: true) { [weak self] in
+			guard let `self` = self else { return }
+			
+			self.playerWindow?.rootViewController = nil
+			self.playerWindow = nil
+			self.lastKeyWindow?.makeKeyAndVisible()
+			self.delegate?.floatingPlayerDidDismiss(self)
+			
+			self.onDismiss?()
+		}
 	}
 	
 }

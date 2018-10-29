@@ -29,9 +29,9 @@ open class NKFloatingViewHandler: NSObject {
 	open var swipeLeftToDismiss = true
 	open var swipeRightToDismiss = true
 	
-	fileprivate(set) var floatingProgress : CGFloat = 0
-	fileprivate(set) var isHorizontalDragging = false
-	fileprivate(set) var isVerticalDragging = false
+	public fileprivate(set) var floatingProgress : CGFloat = 0
+	public fileprivate(set) var isHorizontalDragging = false
+	public fileprivate(set) var isVerticalDragging = false
 	
 	fileprivate var floatingMode = false
 	fileprivate var dragDirection : DragDirection = .none

@@ -456,6 +456,8 @@ open class UZPlayerControlView: UIView {
 	}
 	
 	open func hideControlView(duration: CGFloat = 0.3) {
+		return
+		
 		if containerView.alpha > 0 || containerView.isHidden == false {
 			UIView.animate(withDuration: 0.3, animations: {
 				self.containerView.alpha = 0.0

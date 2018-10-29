@@ -17,11 +17,35 @@ public protocol UZFloatingPlayerViewProtocol : class {
 }
 
 open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandlerProtocol {
-	static public let shared = UZFloatingPlayerViewController(customPlayerViewController: nil)
 	public private(set) var playerWindow: UIWindow?
 	private var lastKeyWindow: UIWindow?
 	
-	public private(set) var playerViewController: UZPlayerViewController!
+	public private(set) var playerViewController: UZPlayerViewController! {
+		didSet {
+			playerViewController.fullscreenPresentationMode = .modal
+			playerViewController.autoFullscreenWhenRotateDevice = true
+			
+			player = playerViewController.player
+			player.backBlock = { [weak self] (_) in
+				guard let `self` = self else { return }
+				
+				if self.playerViewController.isFullscreen {
+					self.playerViewController.setFullscreen(fullscreen: false, completion: {
+						self.player.stop()
+						self.dismiss(animated: true, completion: self.onDismiss)
+					})
+				}
+				else {
+					self.player.stop()
+					self.dismiss(animated: true, completion: self.onDismiss)
+				}
+			}
+			
+			player.videoChangedBlock = { [weak self] (videoItem) in
+				self?.videoItem = videoItem
+			}
+		}
+	}
 	public private(set) var player: UZPlayer!
 	public let detailsContainerView = UIView()
 	public var playerRatio: CGFloat = 9/16
@@ -96,38 +120,11 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 		super.init(nibName: nil, bundle: nil)
 	}
 	
-	public convenience init(customPlayerViewController: UZPlayerViewController? = nil) {
+	public convenience init(customPlayerViewController: UZPlayerViewController!) {
 		self.init()
 		
-		if customPlayerViewController != nil {
-			playerViewController = customPlayerViewController
-		}
-		else {
-			playerViewController = UZPlayerViewController()
-			playerViewController.player.controlView.theme = UZTheme1()
-		}
-		
-		playerViewController.fullscreenPresentationMode = .modal
-		playerViewController.autoFullscreenWhenRotateDevice = true
-		
-		player = playerViewController.player
-		player.backBlock = { [weak self] (_) in
-			guard let `self` = self else { return }
-			
-			if self.playerViewController.isFullscreen {
-				self.playerViewController.setFullscreen(fullscreen: false, completion: {
-					self.player.stop()
-					self.dismiss(animated: true, completion: self.onDismiss)
-				})
-			}
-			else {
-				self.player.stop()
-				self.dismiss(animated: true, completion: self.onDismiss)
-			}
-		}
-		
-		player.videoChangedBlock = { [weak self] (videoItem) in
-			self?.videoItem = videoItem
+		defer {
+			self.playerViewController = customPlayerViewController
 		}
 	}
 	
@@ -141,8 +138,11 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 	public func present(with videoItem:UZVideoItem? = nil, playlist: [UZVideoItem]? = nil) -> UZPlayerViewController {
 //		var viewController: UZFloatingPlayerViewController
 		
+		if playerViewController == nil {
+			self.playerViewController = UZPlayerViewController()
+		}
+		
 		if playerWindow == nil {
-//			viewController = UZFloatingPlayerViewController.currentInstance ?? UZFloatingPlayerViewController(customPlayerViewController: customPlayerViewController)
 			self.modalPresentationStyle = .overCurrentContext
 			
 			lastKeyWindow = UIApplication.shared.keyWindow

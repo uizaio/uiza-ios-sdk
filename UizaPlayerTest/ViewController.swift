@@ -70,7 +70,7 @@ class ViewController: UIViewController {
 //				self.playerViewController.player.loadVideo(video)
 				
 				DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-					UZFloatingPlayerViewController.shared.present(with: video)
+					UZFloatingPlayerViewController().present(with: video).player.controlView.theme = UZTheme1()
 //					UZFloatingPlayerViewController.present(with: video, playlist: nil, customPlayerViewController: self.playerViewController)
 				}
 			}

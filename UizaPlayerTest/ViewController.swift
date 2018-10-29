@@ -115,7 +115,7 @@ class ViewController: UIViewController {
 		super.viewDidLayoutSubviews()
 		
 		let viewSize = self.view.bounds.size
-		let playerSize = CGSize(width: viewSize.width, height: viewSize.width * (9/16))
+//		let playerSize = CGSize(width: viewSize.width, height: viewSize.width * (9/16))
 //		playerViewController.view.frame = CGRect(x: 0, y: (viewSize.height - playerSize.height)/2, width: playerSize.width, height: playerSize.height)
 		
 		var buttonSize = themeButton.sizeThatFits(viewSize)
@@ -136,6 +136,7 @@ class ViewController: UIViewController {
 //	}
 	
 	var themeIndex: Int = 0
+//	let themeClasses: [UZPlayerTheme.Type] = [UZTheme1.self, UZTheme2.self, UZTheme3.self, UZTheme4.self, UZTheme5.self, UZTheme6.self, UZTheme7.self]
 	let themeClasses: [UZPlayerTheme] = [UZTheme1(), UZTheme2(), UZTheme3(), UZTheme4(), UZTheme5(), UZTheme6(), UZTheme7()]
 	@objc func switchTheme() {
 		if themeIndex == themeClasses.count {

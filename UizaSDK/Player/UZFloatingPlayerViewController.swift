@@ -135,9 +135,7 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 	// MARK: -
 	
 	@discardableResult
-	public func present(with videoItem:UZVideoItem? = nil, playlist: [UZVideoItem]? = nil) -> UZPlayerViewController {
-//		var viewController: UZFloatingPlayerViewController
-		
+	open func present(with videoItem:UZVideoItem? = nil, playlist: [UZVideoItem]? = nil) -> UZPlayerViewController {
 		if playerViewController == nil {
 			self.playerViewController = UZPlayerViewController()
 		}

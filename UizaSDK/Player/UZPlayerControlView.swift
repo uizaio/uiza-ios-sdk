@@ -34,7 +34,7 @@ public enum UZButtonTag: Int {
 	case previous	= 121
 }
 
-public protocol UZPlayerTheme {
+public protocol UZPlayerTheme: class {
 	var controlView: UZPlayerControlView? {get set}
 	
 	func updateUI()

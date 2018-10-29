@@ -97,7 +97,14 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 	public convenience init(customPlayerViewController: UZPlayerViewController? = nil) {
 		self.init()
 		
-		playerViewController = customPlayerViewController ?? UZPlayerViewController()
+		if customPlayerViewController != nil {
+			playerViewController = customPlayerViewController
+		}
+		else {
+			playerViewController = UZPlayerViewController()
+			playerViewController.player.controlView.theme = UZTheme2()
+		}
+		
 		playerViewController.fullscreenPresentationMode = .modal
 		playerViewController.autoFullscreenWhenRotateDevice = true
 		
@@ -227,9 +234,8 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 		super.viewDidLoad()
 		
 		self.view.backgroundColor = UIColor(red:0.04, green:0.06, blue:0.12, alpha:1.00)
-		
-		self.view.addSubview(playerViewController.view)
 		self.view.addSubview(detailsContainerView)
+		self.view.addSubview(playerViewController.view)
 		
 		floatingHandler = NKFloatingViewHandler(target: self)
 	}
@@ -241,6 +247,7 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 		
 		let playerSize = CGSize(width: viewSize.width, height: viewSize.width * playerRatio) // 4:3
 		playerViewController.view.frame = CGRect(x: 0, y: 0, width: playerSize.width, height: playerSize.height)
+		detailsContainerView.frame = CGRect(x: 0, y: playerSize.height, width: viewSize.width, height: viewSize.height - playerSize.height)
 	}
 	
 	override open var prefersStatusBarHidden: Bool {

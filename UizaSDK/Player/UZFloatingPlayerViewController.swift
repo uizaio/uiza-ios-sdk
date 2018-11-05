@@ -20,8 +20,14 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 	public private(set) var playerWindow: UIWindow?
 	private var lastKeyWindow: UIWindow?
 	
-	public private(set) var playerViewController: UZPlayerViewController! {
+	public var playerViewController: UZPlayerViewController! {
 		didSet {
+			if player != nil {
+				player.videoChangedBlock = nil
+				player.backBlock = nil
+				player.removeFromSuperview()
+			}
+			
 			playerViewController.fullscreenPresentationMode = .modal
 			playerViewController.autoFullscreenWhenRotateDevice = true
 			

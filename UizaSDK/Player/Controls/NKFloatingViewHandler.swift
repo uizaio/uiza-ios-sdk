@@ -44,6 +44,14 @@ open class NKFloatingViewHandler: NSObject {
 		get {
 			return floatingMode
 		}
+		set {
+			if newValue {
+				becomeFloating()
+			}
+			else {
+				backToNormalState()
+			}
+		}
 	}
 	
 	convenience init(target : NKFloatingViewHandlerProtocol!) {

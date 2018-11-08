@@ -60,54 +60,51 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 	
 	public var videoItem: UZVideoItem? = nil {
 		didSet {
-			if videoItem != oldValue {
-				if let videoItem = videoItem {
-					if player.currentVideo != videoItem {
-						if let floatingHandler = floatingHandler {
-							if floatingHandler.isFloatingMode {
-								floatingHandler.backToNormalState()
-								
-								DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-									self.view.setNeedsLayout()
-									
-								}
-							}
-						}
+			guard videoItem != oldValue else { return }
+			guard let videoItem = videoItem else {
+				self.stop()
+				return
+			}
+			guard player.currentVideo != videoItem else { return }
+			
+			if let floatingHandler = floatingHandler {
+				if floatingHandler.isFloatingMode {
+					floatingHandler.backToNormalState()
+					
+					DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+						self.view.setNeedsLayout()
 						
-						player.loadVideo(videoItem)
 					}
 				}
-				else {
-					self.stop()
-				}
 			}
+			
+			player.loadVideo(videoItem)
 		}
 	}
 	
 	public var videoItems: [UZVideoItem]? = nil {
 		didSet {
-			if videoItems != oldValue {
-				if let videoItems = videoItems {
-					if player.playlist != videoItems {
-						if let floatingHandler = floatingHandler {
-							if floatingHandler.isFloatingMode {
-								floatingHandler.backToNormalState()
-								
-								DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-									self.view.setNeedsLayout()
-									
-								}
-							}
-						}
+			guard videoItems != oldValue else { return }
+			guard let videoItems = videoItems else {
+				self.stop()
+				return
+			}
+			
+			if player.playlist != videoItems {
+				if let floatingHandler = floatingHandler {
+					if floatingHandler.isFloatingMode {
+						floatingHandler.backToNormalState()
 						
-						player.playlist = videoItems
-						if let videoItem = videoItems.first {
-							player.loadVideo(videoItem)
+						DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+							self.view.setNeedsLayout()
+							
 						}
 					}
 				}
-				else {
-					self.stop()
+				
+				player.playlist = videoItems
+				if let videoItem = videoItems.first {
+					player.loadVideo(videoItem)
 				}
 			}
 		}
@@ -146,6 +143,38 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 			self.playerViewController = UZPlayerViewController()
 		}
 		
+		playerViewController.onOrientationUpdateRequestBlock = { [weak self] fullscreen in
+//			guard let `self` = self else { return }
+			
+//
+//			guard let lastRootViewController = self.playerWindow?.rootViewController as? UZPlayerContainerViewController else { return }
+//
+//			if fullscreen {
+//				DLog("FULL")
+//				let currentOrientation = UIApplication.shared.statusBarOrientation
+//				let forceOrientation: UIInterfaceOrientation = currentOrientation == .landscapeRight ? .landscapeLeft : .landscapeRight
+//				lastRootViewController.forceOrientation = forceOrientation
+//			}
+//			else {
+//				DLog("EXIT")
+//				lastRootViewController.forceOrientation = nil
+//				self.forceDeviceRotate(to: .portrait, animated: false)
+//				self.playerWindow?.rootViewController = nil
+//				self.playerWindow?.rootViewController = lastRootViewController
+//				self.playerWindow?.makeKeyAndVisible()
+//			}
+
+//			self.forceDeviceRotate(to: forceOrientation, animated: false)
+
+//			DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//				self.playerWindow?.rootViewController = nil
+//				self.playerWindow?.rootViewController = lastRootViewController
+//				self.playerWindow?.makeKeyAndVisible()
+//
+//				DLog("OK \(lastRootViewController.supportedInterfaceOrientations)")
+//			}
+		}
+		
 		if playerWindow == nil {
 			self.modalPresentationStyle = .overCurrentContext
 			
@@ -155,7 +184,7 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 			
 			playerWindow = UIWindow(frame: UIScreen.main.bounds)
 			playerWindow!.windowLevel = UIWindowLevelNormal + 1
-			playerWindow!.rootViewController = containerViewController
+			playerWindow!.rootViewController = self
 			playerWindow!.makeKeyAndVisible()
 			
 			containerViewController.present(self, animated: true, completion: nil)
@@ -211,15 +240,25 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 		floatingHandler = NKFloatingViewHandler(target: self)
 	}
 	
-	override open func viewDidLayoutSubviews() {
-		super.viewDidLayoutSubviews()
-		
+	override open func viewWillLayoutSubviews() {
+		super.viewWillLayoutSubviews()
 		let viewSize = self.view.bounds
+		DLog("WILL: \(viewSize)")
 		
 		let playerSize = CGSize(width: viewSize.width, height: viewSize.width * playerRatio) // 4:3
 		playerViewController.view.frame = CGRect(x: 0, y: 0, width: playerSize.width, height: playerSize.height)
 		detailsContainerView.frame = CGRect(x: 0, y: playerSize.height, width: viewSize.width, height: viewSize.height - playerSize.height)
 	}
+	
+//	override open func viewDidLayoutSubviews() {
+//		super.viewDidLayoutSubviews()
+//
+//		let viewSize = self.view.bounds
+//		DLog("DID: \(viewSize)")
+//		let playerSize = CGSize(width: viewSize.width, height: viewSize.width * playerRatio) // 4:3
+//		playerViewController.view.frame = CGRect(x: 0, y: 0, width: playerSize.width, height: playerSize.height)
+//		detailsContainerView.frame = CGRect(x: 0, y: playerSize.height, width: viewSize.width, height: viewSize.height - playerSize.height)
+//	}
 	
 	override open var prefersStatusBarHidden: Bool {
 		return true
@@ -317,19 +356,30 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 			self.onDismiss?()
 		}
 	}
+
+	
+	func forceDeviceRotate(to orientation: UIInterfaceOrientation, animated: Bool) {
+		let currentDevice = UIDevice.current
+		UIView.setAnimationsEnabled(false)
+		currentDevice.beginGeneratingDeviceOrientationNotifications()
+		//GCC diagnostic ignored "-Wdeprecated-declarations"
+		UIApplication.shared.setStatusBarOrientation(orientation, animated: animated)
+		currentDevice.endGeneratingDeviceOrientationNotifications()
+		UIViewController.attemptRotationToDeviceOrientation()
+		UIView.setAnimationsEnabled(true)
+	}
 	
 }
 
 // MARK: -
 
 open class UZPlayerContainerViewController: UIViewController {
-	
 	override open var prefersStatusBarHidden: Bool {
 		return true
 	}
 	
 	override open var shouldAutorotate: Bool {
-		return false
+		return true
 	}
 	
 	override open var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
@@ -337,7 +387,7 @@ open class UZPlayerContainerViewController: UIViewController {
 	}
 	
 	override open var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-		return .all
+		return .landscape
 	}
 	
 }

@@ -12,7 +12,7 @@ PODS:
   - NKButton (3.6):
     - FrameLayoutKit
     - NVActivityIndicatorView/AppExtension
-  - NKModalViewManager (3.4)
+  - NKModalViewManager (3.4.2)
   - NVActivityIndicatorView (4.4.0):
     - NVActivityIndicatorView/Presenter (= 4.4.0)
   - NVActivityIndicatorView/AppExtension (4.4.0)
@@ -65,7 +65,7 @@ SPEC CHECKSUMS:
   GoogleAds-IMA-iOS-SDK: 6dc764910309dcc982d6eb8b7de19d3cf94a6857
   LFLiveKit: 2219563721f8aa0f188effc3395a06e2d53b23f2
   NKButton: 46e7413897726fcd890d6d3084bf82efa1c6a850
-  NKModalViewManager: 83af823e34dbb7622778d4c9305a86a25568040c
+  NKModalViewManager: 8bde936aae6183f616ba11d05353e99d89b8dac7
   NVActivityIndicatorView: ec7440a57af2450319d3a4181cca7da6fc127064
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
   SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681

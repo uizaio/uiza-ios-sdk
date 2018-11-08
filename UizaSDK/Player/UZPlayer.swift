@@ -1027,7 +1027,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		playStateDidChange?(player.isPlaying)
 	}
 	
-	open func UZPlayer(player: UZPlayerLayerView ,loadedTimeDidChange loadedDuration: TimeInterval , totalDuration: TimeInterval) {
+	open func UZPlayer(player: UZPlayerLayerView, loadedTimeDidChange loadedDuration: TimeInterval , totalDuration: TimeInterval) {
 		controlView.loadedTimeDidChange(loadedDuration: loadedDuration , totalDuration: totalDuration)
 		delegate?.UZPlayer(player: self, loadedTimeDidChange: loadedDuration, totalDuration: totalDuration)
 		controlView.totalDuration = totalDuration
@@ -1188,18 +1188,18 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 				
 			case .touchUpInside :
 				isSliderSliding = false
-				let target = self.totalDuration * Double(slider.value)
+				let targetTime = self.totalDuration * Double(slider.value)
 				
 				if isPlayToTheEnd {
 					isPlayToTheEnd = false
 					
 					controlView.hideEndScreen()
-					seek(to: target, completion: {
+					seek(to: targetTime, completion: {
 						self.play()
 					})
 				}
 				else {
-					seek(to: target, completion: {
+					seek(to: targetTime, completion: {
 						self.playIfApplicable()
 					})
 				}
@@ -1218,18 +1218,28 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 			
 		case .touchUpInside :
 			isSliderSliding = false
-			let target = self.totalDuration * Double(slider.value)
+			
+			var targetTime = self.totalDuration * Double(slider.value)
+			if targetTime.isNaN {
+				guard let currentItem = self.playerLayer?.playerItem,
+					  let seekableRange = currentItem.seekableTimeRanges.last?.timeRangeValue else { return }
+				
+				let seekableStart = CMTimeGetSeconds(seekableRange.start)
+				let seekableDuration = CMTimeGetSeconds(seekableRange.duration)
+				let livePosition = seekableStart + seekableDuration
+				targetTime = livePosition * Double(slider.value)
+			}
 			
 			if isPlayToTheEnd {
 				isPlayToTheEnd = false
 				
 				controlView.hideEndScreen()
-				seek(to: target, completion: {
+				seek(to: targetTime, completion: {
 					self.play()
 				})
 			}
 			else {
-				seek(to: target, completion: {
+				seek(to: targetTime, completion: {
 					self.playIfApplicable()
 				})
 			}
@@ -1626,11 +1636,21 @@ open class UZPlayerLayerView: UIView {
 	
 	@objc fileprivate func playerTimerAction() {
 		if let playerItem = playerItem {
+			let currentTime = UZCastingManager.shared.hasConnectedSession ? UZCastingManager.shared.currentPosition : CMTimeGetSeconds(playerItem.currentTime()) // CMTimeGetSeconds(self.player!.currentTime())
+			
+			var totalDuration: TimeInterval
 			if playerItem.duration.timescale != 0 {
-				let currentTime = UZCastingManager.shared.hasConnectedSession ? UZCastingManager.shared.currentPosition : CMTimeGetSeconds(self.player!.currentTime())
-				let totalTime   = TimeInterval(playerItem.duration.value) / TimeInterval(playerItem.duration.timescale)
-				delegate?.UZPlayer(player: self, playTimeDidChange: currentTime, totalTime: totalTime)
+				totalDuration = TimeInterval(playerItem.duration.value) / TimeInterval(playerItem.duration.timescale)
 			}
+			else {
+				guard let seekableRange = playerItem.seekableTimeRanges.last?.timeRangeValue else { return }
+				
+				let seekableStart = CMTimeGetSeconds(seekableRange.start)
+				let seekableDuration = CMTimeGetSeconds(seekableRange.duration)
+				totalDuration = seekableStart + seekableDuration
+			}
+			
+			delegate?.UZPlayer(player: self, playTimeDidChange: currentTime, totalTime: totalDuration)
 			
 			updateStatus(includeLoading: true)
 		}
@@ -1707,9 +1727,18 @@ open class UZPlayerLayerView: UIView {
 					}
 					
 				case "loadedTimeRanges":
-					if let timeInterVarl    = self.availableDuration() {
-						let duration        = item.duration
-						let totalDuration   = CMTimeGetSeconds(duration)
+					if let timeInterVarl = self.availableDuration() {
+						let duration = item.duration
+						var totalDuration = CMTimeGetSeconds(duration)
+						
+						if totalDuration.isNaN {
+							guard let seekableRange = item.seekableTimeRanges.last?.timeRangeValue else { return }
+							
+							let seekableStart = CMTimeGetSeconds(seekableRange.start)
+							let seekableDuration = CMTimeGetSeconds(seekableRange.duration)
+							totalDuration = seekableStart + seekableDuration
+						}
+						
 						delegate?.UZPlayer(player: self, loadedTimeDidChange: timeInterVarl, totalDuration: totalDuration)
 					}
 					
@@ -1746,6 +1775,13 @@ open class UZPlayerLayerView: UIView {
 			let result = startSeconds + durationSecound
 			return result
 		}
+		
+		if let seekableRange = player?.currentItem?.seekableTimeRanges.last?.timeRangeValue {
+			let seekableStart = CMTimeGetSeconds(seekableRange.start)
+			let seekableDuration = CMTimeGetSeconds(seekableRange.duration)
+			return seekableStart + seekableDuration
+		}
+		
 		return nil
 	}
 	

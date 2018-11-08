@@ -11,6 +11,10 @@ import Foundation
 extension TimeInterval {
 	
 	var toString:String {
+		if self.isNaN {
+			return "--:--"
+		}
+		
 		let interval = Int(self)
 		let seconds = interval % 60
 		let minutes = (interval / 60) % 60

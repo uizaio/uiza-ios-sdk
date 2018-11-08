@@ -328,7 +328,7 @@ open class UZPlayerControlView: UIView {
 	open func playTimeDidChange(currentTime: TimeInterval, totalTime: TimeInterval) {
 		totalTimeLabel.text = totalTime.toString
 		var remainingTime: TimeInterval
-		
+		DLog("OK \(currentTime, totalTime)")
 		if seekedTime > -1 {
 			if playerLastState == .readyToPlay {
 				seekedTime = -1
@@ -631,10 +631,11 @@ open class UZPlayerControlView: UIView {
 		hideEndScreen()
 		cancelAutoFadeOutAnimation()
 		
-		let currentTime = Double(sender.value) * totalDuration
+		let totalTime = (totalDuration.isNaN ? 1 : totalDuration)
+		let currentTime = Double(sender.value) * totalTime
 		currentTimeLabel.text = currentTime.toString
 		
-		let remainingTime: TimeInterval = totalDuration - currentTime
+		let remainingTime: TimeInterval = totalTime - currentTime
 		remainTimeLabel.text = remainingTime.toString
 		
 		delegate?.controlView(controlView: self, slider: sender, onSliderEvent: .valueChanged)

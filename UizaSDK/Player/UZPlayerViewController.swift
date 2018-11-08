@@ -28,6 +28,7 @@ open class UZPlayerViewController: UIViewController {
 	open var fullscreenPresentationMode: UZFullscreenPresentationMode = .modal
 	open var autoFullscreenWhenRotateDevice = true
 	open var autoFullscreenDelay: TimeInterval = 0.3
+	internal var onOrientationUpdateRequestBlock: ((Bool) -> Void)? = nil
 	
 	open var isFullscreen: Bool {
 		get {
@@ -61,11 +62,13 @@ open class UZPlayerViewController: UIViewController {
 				self.playerController.player.controlView.updateUI(true)
 			}
 			else {
-//				UIViewController.attemptRotationToDeviceOrientation()
+				UIViewController.attemptRotationToDeviceOrientation()
+				onOrientationUpdateRequestBlock?(true)
 				completion?()
 			}
 		}
 		else {
+			onOrientationUpdateRequestBlock?(false)
 			self.playerController.player.controlView.updateUI(false)
 			
 			if let modalViewController = NKModalViewManager.sharedInstance().modalViewControllerThatContains(playerController) {
@@ -221,6 +224,7 @@ internal class UZPlayerContainerController: UIViewController {
 	
 }
 */
+
 
 extension UZPlayerController: NKModalViewControllerProtocol {
 	

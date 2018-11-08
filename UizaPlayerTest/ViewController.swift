@@ -39,7 +39,7 @@ class MySlider: UZSlider {
 }
 
 class ViewController: UIViewController {
-//	let playerViewController = UZPlayerViewController()
+	let playerViewController = UZPlayerViewController()
 	let themeButton = UIButton()
 
 	override func viewDidLoad() {
@@ -49,10 +49,11 @@ class ViewController: UIViewController {
 		themeButton.addTarget(self, action: #selector(switchTheme), for: .touchUpInside)
 		
 //		playerViewController.fullscreenPresentationMode = .fullscreen
-//		playerViewController.player = MyPlayer(customControlView: MyPlayerControlView())
-//		playerViewController.player.controlView.theme = UZTheme1()
+		playerViewController.player = MyPlayer(customControlView: MyPlayerControlView())
+		playerViewController.player.controlView.theme = UZTheme1()
+		playerViewController.player.setResource(resource: UZPlayerResource(name: "Live Test", url: URL(string: "http://14.161.0.68:8081/live/testlive/playlist_dvr.m3u8")!, subtitles: nil, cover: nil))
 //
-//		self.view.addSubview(playerViewController.view)
+		self.view.addSubview(playerViewController.view)
 		self.view.addSubview(themeButton)
 		
 		//			let videoItem = UZVideoItem(data: ["id" : "5f1b718b-157e-459b-ae42-1915991e9f72", "title" : "La Vie En Rose"])
@@ -65,16 +66,14 @@ class ViewController: UIViewController {
 		//				DLog("OK \(results) - \(error)")
 		//			})
 		
-		UZContentServices().loadEntity(metadataId: nil, publishStatus: .success, page: 0, limit: 15) { (results, error) in
-			if let videos = results, let video = videos.first {
-//				self.playerViewController.player.loadVideo(video)
-				
-				DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-					UZFloatingPlayerViewController().present(with: video).player.controlView.theme = UZTheme1()
-//					UZFloatingPlayerViewController.present(with: video, playlist: nil, customPlayerViewController: self.playerViewController)
-				}
-			}
-		}
+//		UZContentServices().loadEntity(metadataId: nil, publishStatus: .success, page: 0, limit: 15) { (results, error) in
+//			if let videos = results, let video = videos.first {
+//
+//				DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+//					UZFloatingPlayerViewController().present(with: video).player.controlView.theme = UZTheme1()
+//				}
+//			}
+//		}
 		
 //		self.playerViewController.player.loadVideo(entityId: "70487bb8-b800-46e0-8d4c-1d9ad251f03b") // 45a908f7-a62e-4eaf-8ce2-dc5699f33406
 		
@@ -115,8 +114,8 @@ class ViewController: UIViewController {
 		super.viewDidLayoutSubviews()
 		
 		let viewSize = self.view.bounds.size
-//		let playerSize = CGSize(width: viewSize.width, height: viewSize.width * (9/16))
-//		playerViewController.view.frame = CGRect(x: 0, y: (viewSize.height - playerSize.height)/2, width: playerSize.width, height: playerSize.height)
+		let playerSize = CGSize(width: viewSize.width, height: viewSize.width * (9/16))
+		playerViewController.view.frame = CGRect(x: 0, y: (viewSize.height - playerSize.height)/2, width: playerSize.width, height: playerSize.height)
 		
 		var buttonSize = themeButton.sizeThatFits(viewSize)
 		buttonSize.width += 20
@@ -144,7 +143,7 @@ class ViewController: UIViewController {
 		}
 		
 		print("Theme index: \(themeIndex)")
-//		playerViewController.player.controlView.theme = themeClasses[themeIndex]
+		playerViewController.player.controlView.theme = themeClasses[themeIndex]
 		
 		themeIndex += 1
 	}

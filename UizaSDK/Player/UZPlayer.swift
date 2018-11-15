@@ -160,6 +160,14 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	open var autoTryNextDefinitionIfError = true
 	open var controlView: UZPlayerControlView!
 	
+	public var preferredForwardBufferDuration: TimeInterval = 0 {
+		didSet {
+			if let playerLayer = playerLayer {
+				playerLayer.preferredForwardBufferDuration = preferredForwardBufferDuration
+			}
+		}
+	}
+	
 	public fileprivate(set) var resource: UZPlayerResource! {
 		didSet {
 			controlView.resource = resource
@@ -792,6 +800,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	
 	fileprivate func preparePlayer() {
 		playerLayer = UZPlayerLayerView()
+		playerLayer!.preferredForwardBufferDuration = preferredForwardBufferDuration
 		playerLayer!.videoGravity = videoGravity
 		playerLayer!.delegate = self
 		
@@ -1381,6 +1390,14 @@ open class UZPlayerLayerView: UIView {
 		}
 	}
 	
+	public var preferredForwardBufferDuration: TimeInterval = 0 {
+		didSet {
+			if let playerItem = playerItem {
+				playerItem.preferredForwardBufferDuration = preferredForwardBufferDuration
+			}
+		}
+	}
+	
 	open lazy var player: AVPlayer? = {
 		if let item = self.playerItem {
 			let player = AVPlayer(playerItem: item)
@@ -1576,6 +1593,7 @@ open class UZPlayerLayerView: UIView {
 			item.addObserver(self, forKeyPath: "loadedTimeRanges", options: NSKeyValueObservingOptions.new, context: nil)
 			item.addObserver(self, forKeyPath: "playbackBufferEmpty", options: NSKeyValueObservingOptions.new, context: nil)
 			item.addObserver(self, forKeyPath: "playbackLikelyToKeepUp", options: NSKeyValueObservingOptions.new, context: nil)
+			item.preferredForwardBufferDuration = preferredForwardBufferDuration
 		}
 	}
 	

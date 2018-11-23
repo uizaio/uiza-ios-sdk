@@ -7,7 +7,7 @@ PODS:
     - Protobuf (~> 3.0)
   - google-cast-sdk/Core (4.3.3):
     - Protobuf (~> 3.0)
-  - GoogleAds-IMA-iOS-SDK (3.7.3)
+  - GoogleAds-IMA-iOS-SDK (3.8.1)
   - LFLiveKit (2.6)
   - NKButton (3.6):
     - FrameLayoutKit
@@ -62,7 +62,7 @@ SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
   FrameLayoutKit: 2a4b3833c90b60b5305b9030a83e34d5c3ed7173
   google-cast-sdk: 792980f4fa5afd4f9b91f41d582cc75251648f3a
-  GoogleAds-IMA-iOS-SDK: 6dc764910309dcc982d6eb8b7de19d3cf94a6857
+  GoogleAds-IMA-iOS-SDK: 9659b8999443366d2d159413c189e55d88734b78
   LFLiveKit: 2219563721f8aa0f188effc3395a06e2d53b23f2
   NKButton: 46e7413897726fcd890d6d3084bf82efa1c6a850
   NKModalViewManager: 8bde936aae6183f616ba11d05353e99d89b8dac7

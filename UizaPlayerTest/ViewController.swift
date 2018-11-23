@@ -51,7 +51,7 @@ class ViewController: UIViewController {
 //		playerViewController.fullscreenPresentationMode = .fullscreen
 		playerViewController.player = MyPlayer(customControlView: MyPlayerControlView())
 		playerViewController.player.controlView.theme = UZTheme1()
-		playerViewController.player.setResource(resource: UZPlayerResource(name: "Live Test", url: URL(string: "http://14.161.0.68:8081/live/testlive/playlist_dvr.m3u8")!, subtitles: nil, cover: nil))
+//		playerViewController.player.setResource(resource: UZPlayerResource(name: "Live Test", url: URL(string: "http://14.161.0.68:8081/live/testlive/playlist_dvr.m3u8")!, subtitles: nil, cover: nil))
 //
 		self.view.addSubview(playerViewController.view)
 		self.view.addSubview(themeButton)
@@ -75,15 +75,13 @@ class ViewController: UIViewController {
 //			}
 //		}
 		
-//		self.playerViewController.player.loadVideo(entityId: "70487bb8-b800-46e0-8d4c-1d9ad251f03b") // 45a908f7-a62e-4eaf-8ce2-dc5699f33406
-		
 //		self.playerViewController.player.loadPlaylist(metadataId: "8f24c324-4113-4b2d-b821-25969851d759", page: 0, limit: 20, playIndex: 0, completionBlock: nil)
 		
-//		UZContentServices().loadLiveVideo(page: 0, limit: 10) { (videos, pagination, error) in
-//			if let videoItem = videos?.first {
-//				self.playerViewController.player.loadVideo(videoItem)
-//			}
-//		}
+		UZContentServices().loadLiveVideo(page: 0, limit: 10) { (videos, pagination, error) in
+			if let videoItem = videos?.first {
+				self.playerViewController.player.loadVideo(videoItem)
+			}
+		}
 		
 //		UZContentServices().loadLiveVideo(page: 0, limit: 10, completionBlock: { (results, pagination, error) in
 //			DLog("OK \(results) - \(error)")

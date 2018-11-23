@@ -86,7 +86,7 @@ open class UZLogger: UZAPIConnector {
 			finalParams.appendFrom(params!)
 		}
 		
-		self.callAPI("analytic-tracking", baseURLString: loggingURLString, method: .post, params: finalParams, completion: completionBlock)
+		self.callAPI("/", baseURLString: loggingURLString, method: .post, params: finalParams, completion: completionBlock)
 	}
 
 }

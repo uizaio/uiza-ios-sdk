@@ -328,7 +328,7 @@ open class UZPlayerControlView: UIView {
 	open func playTimeDidChange(currentTime: TimeInterval, totalTime: TimeInterval) {
 		totalTimeLabel.text = totalTime.toString
 		var remainingTime: TimeInterval
-		DLog("OK \(currentTime, totalTime)")
+		
 		if seekedTime > -1 {
 			if playerLastState == .readyToPlay {
 				seekedTime = -1

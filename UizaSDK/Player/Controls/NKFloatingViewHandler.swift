@@ -9,14 +9,22 @@
 import UIKit
 import TweenKit
 
+public enum NKFloatingPosition {
+	case topLeft
+	case topRight
+	case bottomLeft
+	case bottomRight
+}
+
 public protocol NKFloatingViewHandlerProtocol: class {
 	var containerView	: UIView! { get }
 	var gestureView		: UIView! { get }
 	var panGesture		: UIPanGestureRecognizer! { get }
 	var fullRect		: CGRect { get }
-	var floatingRect	: CGRect { get }
+//	var floatingRect	: CGRect { get }
 	
-	func floatingHandlerDidDragging(with progress:CGFloat);
+	func floatingRect(for position: NKFloatingPosition) -> CGRect
+	func floatingHandlerDidDragging(with progress:CGFloat)
 	func floatingHandlerDidDismiss()
 }
 
@@ -28,6 +36,7 @@ open class NKFloatingViewHandler: NSObject {
 	open weak var delegate : NKFloatingViewHandlerProtocol?
 	open var swipeLeftToDismiss = true
 	open var swipeRightToDismiss = true
+	open var allowsCornerDocking = true
 	
 	public fileprivate(set) var floatingProgress : CGFloat = 0
 	public fileprivate(set) var isHorizontalDragging = false
@@ -65,13 +74,13 @@ open class NKFloatingViewHandler: NSObject {
 	
 	// MARK: -
 	
-	open func becomeFloating() {
+	open func becomeFloating(position: NKFloatingPosition = .bottomRight) {
 		floatingMode = true
 		tapGesture.isEnabled = true
 		
 		guard let delegate = self.delegate else { return }
 		
-		let action = InterpolationAction(from: delegate.containerView.frame, to: delegate.floatingRect, duration: 0.35, easing: .exponentialOut) { [weak self] in
+		let action = InterpolationAction(from: delegate.containerView.frame, to: delegate.floatingRect(for: position), duration: 0.35, easing: .exponentialOut) { [weak self] in
 			self?.delegate?.containerView.frame = $0
 		}
 		self.scaleAction.run(action: action)
@@ -122,7 +131,7 @@ open class NKFloatingViewHandler: NSObject {
 		self.setupTween()
 		
 		self.tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.backToNormalState))
-		self.panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.onPan(_:)))
+		self.panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.onPan))
 		self.delegate?.gestureView.addGestureRecognizer(panGesture)
 		self.delegate?.gestureView.addGestureRecognizer(tapGesture)
 		self.tapGesture.isEnabled = false
@@ -131,7 +140,7 @@ open class NKFloatingViewHandler: NSObject {
 	fileprivate func setupTween() {
 		guard let delegate = self.delegate else { return }
 		
-		let move = InterpolationAction(from: delegate.fullRect, to: delegate.floatingRect, duration: 2.0, easing: .linear) { [weak self] in
+		let move = InterpolationAction(from: delegate.fullRect, to: delegate.floatingRect(for: .bottomRight), duration: 2.0, easing: .linear) { [weak self] in
 			self?.delegate?.containerView.frame = $0
 		}
 		
@@ -142,29 +151,44 @@ open class NKFloatingViewHandler: NSObject {
 		guard let delegate = self.delegate else { return }
 		
 		if pan.state == .began || pan.state == .changed {
-			let translatedPoint = pan.translation(in: delegate.containerView.window)
-			updateDraggingState(with: translatedPoint)
-			updateFrame(with: translatedPoint)
+			if floatingMode && allowsCornerDocking {
+				guard let view = self.delegate?.containerView else { return }
+				
+				let translation = pan.translation(in: view.superview)
+				view.center = CGPoint(x: view.center.x + translation.x, y: view.center.y + translation.y)
+				pan.setTranslation(.zero, in: view.superview)
+			}
+			else {
+				let translatedPoint = pan.translation(in: delegate.containerView.window)
+				updateDraggingState(with: translatedPoint)
+				updateFrame(with: translatedPoint)
+			}
 		}
 		else if pan.state == .ended {
 			let translatedPoint = pan.translation(in: delegate.containerView.window)
 			updateDraggingState(with: translatedPoint)
 			
 			if floatingMode {
-				if isVerticalDragging {
-					if translatedPoint.y < -100 {
-						backToNormalState()
-					}
-					else {
-						becomeFloating()
-					}
+				if allowsCornerDocking {
+					DLog("OK \(self.delegate?.containerView.frame)")
+					becomeFloating()
 				}
-				else if isHorizontalDragging {
-					if (translatedPoint.x < -50 && swipeLeftToDismiss) || (translatedPoint.x > 20 && swipeRightToDismiss) {
-						hideAndDismiss()
+				else {
+					if isVerticalDragging {
+						if translatedPoint.y < -100 {
+							backToNormalState()
+						}
+						else {
+							becomeFloating()
+						}
 					}
-					else {
-						becomeFloating()
+					else if isHorizontalDragging {
+						if (translatedPoint.x < -50 && swipeLeftToDismiss) || (translatedPoint.x > 20 && swipeRightToDismiss) {
+							hideAndDismiss()
+						}
+						else {
+							becomeFloating()
+						}
 					}
 				}
 			}
@@ -253,10 +277,10 @@ open class NKFloatingViewHandler: NSObject {
 		}
 	}
 	
-	fileprivate func movingVertical(with translatedPoint:CGPoint) {
+	fileprivate func movingVertical(with translatedPoint: CGPoint) {
 		guard let delegate = self.delegate else { return }
 		
-		let totalHeight	= UIScreen.main.bounds.size.height - delegate.floatingRect.size.height
+		let totalHeight	= UIScreen.main.bounds.size.height - delegate.floatingRect(for: .bottomRight).size.height
 		let percent: CGFloat = CGFloat(translatedPoint.y / totalHeight + CGFloat((dragDirection == .down) ? 0.0 : 1.0))
 		self.tweenAction.update(t: Double(percent))
 		
@@ -264,7 +288,7 @@ open class NKFloatingViewHandler: NSObject {
 		delegate.floatingHandlerDidDragging(with: percent)
 	}
 	
-	fileprivate func movingHorizontal(with translatedPoint:CGPoint) {
+	fileprivate func movingHorizontal(with translatedPoint: CGPoint) {
 		guard let delegate = self.delegate else { return }
 		
 		let viewSize = UIScreen.main.bounds.size
@@ -278,7 +302,7 @@ open class NKFloatingViewHandler: NSObject {
 	// MARK: -
 	
 	deinit {
-		self.panGesture.removeTarget(self, action: #selector(onPan(_:)))
+		self.panGesture.removeTarget(self, action: #selector(onPan))
 		self.tapGesture.removeTarget(self, action: #selector(backToNormalState))
 	}
 	

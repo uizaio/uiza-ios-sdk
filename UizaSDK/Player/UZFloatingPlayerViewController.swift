@@ -243,7 +243,6 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 	override open func viewWillLayoutSubviews() {
 		super.viewWillLayoutSubviews()
 		let viewSize = self.view.bounds
-		DLog("WILL: \(viewSize)")
 		
 		let playerSize = CGSize(width: viewSize.width, height: viewSize.width * playerRatio) // 4:3
 		playerViewController.view.frame = CGRect(x: 0, y: 0, width: playerSize.width, height: playerSize.height)
@@ -296,13 +295,26 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 		}
 	}
 	
-	open var floatingRect: CGRect {
-		get {
-			let screenSize = UIScreen.main.bounds.size
-			let floatingWidth: CGFloat = UIDevice.current.userInterfaceIdiom == .phone ? 180 : 220
-			let floatingSize = CGSize(width: floatingWidth, height: floatingWidth * playerRatio)
-			return CGRect(x: screenSize.width - floatingSize.width - 10, y: screenSize.height - floatingSize.height - 10, width: floatingSize.width, height: floatingSize.height)
+	open func floatingRect(for position: NKFloatingPosition) -> CGRect {
+		let screenSize = UIScreen.main.bounds.size
+		let floatingWidth: CGFloat = UIDevice.current.userInterfaceIdiom == .phone ? 180 : 220
+		let floatingSize = CGSize(width: floatingWidth, height: floatingWidth * playerRatio)
+		var point: CGPoint = .zero
+		
+		if position == .bottomRight {
+			point = CGPoint(x: screenSize.width - floatingSize.width - 10, y: screenSize.height - floatingSize.height - 10)
 		}
+		else if position == .bottomLeft {
+			point = CGPoint(x: 10, y: screenSize.height - floatingSize.height - 10)
+		}
+		else if position == .topLeft {
+			point = CGPoint(x: 10, y: 10)
+		}
+		else if position == .topRight {
+			point = CGPoint(x: screenSize.width - floatingSize.width - 10, y: 10)
+		}
+		
+		return CGRect(origin: point, size: floatingSize)
 	}
 	
 	open var panGesture: UIPanGestureRecognizer! {

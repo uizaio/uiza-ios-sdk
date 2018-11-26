@@ -36,7 +36,7 @@ open class NKFloatingViewHandler: NSObject {
 	open weak var delegate : NKFloatingViewHandlerProtocol?
 	open var swipeLeftToDismiss = true
 	open var swipeRightToDismiss = true
-	open var allowsCornerDocking = true
+	open var allowsCornerDocking = false
 	
 	public fileprivate(set) var floatingProgress : CGFloat = 0
 	public fileprivate(set) var isHorizontalDragging = false

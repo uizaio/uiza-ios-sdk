@@ -9,7 +9,7 @@
 import UIKit
 import TweenKit
 
-public enum NKFloatingPosition {
+public enum NKFloatingPosition: Int {
 	case topLeft
 	case topRight
 	case bottomLeft
@@ -41,6 +41,7 @@ open class NKFloatingViewHandler: NSObject {
 	public fileprivate(set) var floatingProgress : CGFloat = 0
 	public fileprivate(set) var isHorizontalDragging = false
 	public fileprivate(set) var isVerticalDragging = false
+	public var initPosition: NKFloatingPosition = .bottomRight
 	
 	fileprivate var floatingMode = false
 	fileprivate var dragDirection : DragDirection = .none
@@ -77,6 +78,10 @@ open class NKFloatingViewHandler: NSObject {
 	open func becomeFloating(position: NKFloatingPosition = .bottomRight) {
 		floatingMode = true
 		tapGesture.isEnabled = true
+		
+		if position == .bottomLeft || position == .bottomRight {
+			initPosition = position
+		}
 		
 		guard let delegate = self.delegate else { return }
 		
@@ -115,6 +120,8 @@ open class NKFloatingViewHandler: NSObject {
 		
 		self.floatingProgress = 0.0
 		delegate.floatingHandlerDidDragging(with: self.floatingProgress)
+		
+		setupTween()
 	}
 	
 	@objc open func updatePosition() { // call this after device rotate
@@ -140,7 +147,7 @@ open class NKFloatingViewHandler: NSObject {
 	fileprivate func setupTween() {
 		guard let delegate = self.delegate else { return }
 		
-		let move = InterpolationAction(from: delegate.fullRect, to: delegate.floatingRect(for: .bottomRight), duration: 2.0, easing: .linear) { [weak self] in
+		let move = InterpolationAction(from: delegate.fullRect, to: delegate.floatingRect(for: initPosition), duration: 2.0, easing: .linear) { [weak self] in
 			self?.delegate?.containerView.frame = $0
 		}
 		
@@ -170,8 +177,32 @@ open class NKFloatingViewHandler: NSObject {
 			
 			if floatingMode {
 				if allowsCornerDocking {
-					DLog("OK \(self.delegate?.containerView.frame)")
-					becomeFloating()
+					guard let view = self.delegate?.containerView else { return }
+					
+					let center = view.center
+					let viewSize = UIScreen.main.bounds.size
+					let halfW = viewSize.width/2
+					let halfH = viewSize.height/2
+					var position: NKFloatingPosition = initPosition
+					
+					if center.x > halfW {
+						if center.y > halfH {
+							position = .bottomRight
+						}
+						else {
+							position = .topRight
+						}
+					}
+					else {
+						if center.y > halfH {
+							position = .bottomLeft
+						}
+						else {
+							position = .topLeft
+						}
+					}
+					
+					becomeFloating(position: position)
 				}
 				else {
 					if isVerticalDragging {
@@ -194,7 +225,7 @@ open class NKFloatingViewHandler: NSObject {
 			}
 			else {
 				if translatedPoint.y > 150 {
-					becomeFloating()
+					becomeFloating(position: initPosition)
 				}
 				else {
 					backToNormalState()
@@ -280,7 +311,7 @@ open class NKFloatingViewHandler: NSObject {
 	fileprivate func movingVertical(with translatedPoint: CGPoint) {
 		guard let delegate = self.delegate else { return }
 		
-		let totalHeight	= UIScreen.main.bounds.size.height - delegate.floatingRect(for: .bottomRight).size.height
+		let totalHeight	= UIScreen.main.bounds.size.height - delegate.floatingRect(for: initPosition).size.height
 		let percent: CGFloat = CGFloat(translatedPoint.y / totalHeight + CGFloat((dragDirection == .down) ? 0.0 : 1.0))
 		self.tweenAction.update(t: Double(percent))
 		

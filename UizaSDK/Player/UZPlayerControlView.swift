@@ -50,6 +50,7 @@ public protocol UZPlayerTheme: class {
 open class UZPlayerControlView: UIView {
 	open weak var delegate: UZPlayerControlViewDelegate?
 	open var autoHideControlsInterval: TimeInterval = 5
+	open var enableTimeshiftForLiveVideo = true
 	open var themeConfig: UZThemeConfig? = nil {
 		didSet {
 			if let config = themeConfig, let themeId = config.themeId?.intValue {
@@ -335,14 +336,14 @@ open class UZPlayerControlView: UIView {
 				timeSlider.value = totalTime>0 ? Float(currentTime) / Float(totalTime) : 0
 				currentTimeLabel.text = currentTime.toString
 				
-				remainingTime = totalTime - currentTime
+				remainingTime = max(totalTime - currentTime, 0)
 				remainTimeLabel.text = remainingTime.toString
 			}
 			else {
 				timeSlider.value = totalTime>0 ? Float(seekedTime) / Float(totalTime) : 0
 				currentTimeLabel.text = seekedTime.toString
 				
-				remainingTime = seekedTime - currentTime
+				remainingTime = max(seekedTime - currentTime, 0)
 				remainTimeLabel.text = remainingTime.toString
 			}
 		}
@@ -350,7 +351,7 @@ open class UZPlayerControlView: UIView {
 			timeSlider.value = totalTime>0 ? Float(currentTime) / Float(totalTime) : 0
 			currentTimeLabel.text = currentTime.toString
 			
-			remainingTime = totalTime - currentTime
+			remainingTime = max(totalTime - currentTime, 0)
 			remainTimeLabel.text = remainingTime.toString
 		}
 		
@@ -398,10 +399,15 @@ open class UZPlayerControlView: UIView {
 		titleLabel.text = resource.name
 		endscreenView.title = themeConfig?.endscreenMessage ?? resource.name
 		
-		let isLiveVideo = (video?.isLive ?? false)
+		let isLiveVideo = (video?.isLive ?? resource.isLive)
 		liveBadgeView.isHidden = !isLiveVideo
+		liveBadgeView.views = -1
 		
-		let hiddenViewsWhenLive : [UIView] = [titleLabel, totalTimeLabel, remainTimeLabel, currentTimeLabel, timeSlider, playpauseButton, playpauseCenterButton, forwardButton, backwardButton, settingsButton, playlistButton, relateButton]
+		let controlsForTimeshift: [UIView] = [totalTimeLabel, remainTimeLabel, currentTimeLabel, timeSlider]
+		var hiddenViewsWhenLive: [UIView] = [titleLabel, playpauseButton, playpauseCenterButton, forwardButton, backwardButton, settingsButton, playlistButton, relateButton]
+		if !enableTimeshiftForLiveVideo {
+			hiddenViewsWhenLive.append(contentsOf: controlsForTimeshift)
+		}
 		for view in hiddenViewsWhenLive {
 			view.isHidden = isLiveVideo
 		}
@@ -672,6 +678,7 @@ open class UZLiveBadgeView: UIView {
 				viewBadge.setTitle("\(views.abbreviated)", for: .normal)
 			}
 			
+			viewBadge.isHidden = views < 0
 			self.setNeedsLayout()
 		}
 	}

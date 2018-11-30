@@ -13,6 +13,7 @@ public struct UZPlayerResource {
 	public let cover : URL?
 	public let subtitles : [URL]?
 	public let definitions: [UZVideoLinkPlay]
+	public var isLive: Bool = false
 	
 	/**
 	Player recource item with url, used to play single difinition video
@@ -21,10 +22,11 @@ public struct UZPlayerResource {
 	- parameter url:       video url
 	- parameter subtitles:   video subtitles
 	- parameter cover:     video cover, will show before playing, and hide when play
+	- parameter isLive:     set `true` if live video
 	*/
-	public init(name: String = "", url: URL, subtitles: [URL]? = nil, cover: URL? = nil) {
+	public init(name: String = "", url: URL, subtitles: [URL]? = nil, cover: URL? = nil, isLive: Bool = false) {
 		let definition = UZVideoLinkPlay(definition: "", url: url)
-		self.init(name: name, definitions: [definition], subtitles: subtitles, cover: cover)
+		self.init(name: name, definitions: [definition], subtitles: subtitles, cover: cover, isLive: isLive)
 	}
 	
 	/**
@@ -34,11 +36,13 @@ public struct UZPlayerResource {
 	- parameter definitions: video definitions
 	- parameter subtitles:   video subtitles
 	- parameter cover:       video cover
+	- parameter isLive:     set `true` if live video
 	*/
-	public init(name: String = "", definitions: [UZVideoLinkPlay], subtitles: [URL]? = nil, cover: URL? = nil) {
+	public init(name: String = "", definitions: [UZVideoLinkPlay], subtitles: [URL]? = nil, cover: URL? = nil, isLive: Bool = false) {
 		self.name        = name
 		self.subtitles	 = subtitles
 		self.cover       = cover
 		self.definitions = definitions
+		self.isLive 	 = isLive
 	}
 }

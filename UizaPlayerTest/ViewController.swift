@@ -39,7 +39,7 @@ class MySlider: UZSlider {
 }
 
 class ViewController: UIViewController {
-	let playerViewController = UZPlayerViewController()
+//	let playerViewController = UZPlayerViewController()
 	let themeButton = UIButton()
 
 	override func viewDidLoad() {
@@ -48,12 +48,12 @@ class ViewController: UIViewController {
 		themeButton.setImage(UIImage(icon: .googleMaterialDesign(.colorLens), size: CGSize(width: 32, height: 32), textColor: .black, backgroundColor: .clear), for: .normal)
 		themeButton.addTarget(self, action: #selector(switchTheme), for: .touchUpInside)
 		
-		playerViewController.fullscreenPresentationMode = .fullscreen
-		playerViewController.player = MyPlayer(customControlView: MyPlayerControlView())
-		playerViewController.player.controlView.theme = UZTheme1()
-		playerViewController.player.setResource(resource: UZPlayerResource(name: "Live Test", url: URL(string: "http://118.69.82.182:112/this-is-thopp-live-pull-only-live/htv7-hd/playlist_dvr_timeshift-0-1800.m3u8")!, subtitles: nil, cover: nil, isLive: true))
-//
-		self.view.addSubview(playerViewController.view)
+//		playerViewController.fullscreenPresentationMode = .fullscreen
+//		playerViewController.player = MyPlayer(customControlView: MyPlayerControlView())
+//		playerViewController.player.controlView.theme = UZTheme1()
+//		playerViewController.player.setResource(resource: UZPlayerResource(name: "Live Test", url: URL(string: "http://118.69.82.182:112/this-is-thopp-live-pull-only-live/htv7-hd/playlist_dvr_timeshift-0-1800.m3u8")!, subtitles: nil, cover: nil, isLive: true))
+////
+//		self.view.addSubview(playerViewController.view)
 		self.view.addSubview(themeButton)
 		
 		//			let videoItem = UZVideoItem(data: ["id" : "5f1b718b-157e-459b-ae42-1915991e9f72", "title" : "La Vie En Rose"])
@@ -66,14 +66,16 @@ class ViewController: UIViewController {
 		//				DLog("OK \(results) - \(error)")
 		//			})
 		
-//		UZContentServices().loadEntity(metadataId: nil, publishStatus: .success, page: 0, limit: 15) { (results, error) in
-//			if let videos = results, let video = videos.first {
-//
-//				DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-//					UZFloatingPlayerViewController().present(with: video).player.controlView.theme = UZTheme1()
-//				}
-//			}
-//		}
+		UZContentServices().loadEntity(metadataId: nil, publishStatus: .success, page: 0, limit: 15) { (results, error) in
+			if let videos = results, let video = videos.first {
+
+				DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+					let viewController = UZFloatingPlayerViewController()
+					viewController.present(with: video).player.controlView.theme = UZTheme1()
+					viewController.floatingHandler?.allowsCornerDocking = true
+				}
+			}
+		}
 		
 //		self.playerViewController.player.loadPlaylist(metadataId: "8f24c324-4113-4b2d-b821-25969851d759", page: 0, limit: 20, playIndex: 0, completionBlock: nil)
 		
@@ -112,8 +114,8 @@ class ViewController: UIViewController {
 		super.viewDidLayoutSubviews()
 		
 		let viewSize = self.view.bounds.size
-		let playerSize = CGSize(width: viewSize.width, height: viewSize.width * (9/16))
-		playerViewController.view.frame = CGRect(x: 0, y: (viewSize.height - playerSize.height)/2, width: playerSize.width, height: playerSize.height)
+//		let playerSize = CGSize(width: viewSize.width, height: viewSize.width * (9/16))
+//		playerViewController.view.frame = CGRect(x: 0, y: (viewSize.height - playerSize.height)/2, width: playerSize.width, height: playerSize.height)
 		
 		var buttonSize = themeButton.sizeThatFits(viewSize)
 		buttonSize.width += 20
@@ -141,7 +143,7 @@ class ViewController: UIViewController {
 		}
 		
 		print("Theme index: \(themeIndex)")
-		playerViewController.player.controlView.theme = themeClasses[themeIndex]
+//		playerViewController.player.controlView.theme = themeClasses[themeIndex]
 		
 		themeIndex += 1
 	}

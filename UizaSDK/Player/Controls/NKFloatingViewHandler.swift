@@ -41,6 +41,7 @@ open class NKFloatingViewHandler: NSObject {
 	public fileprivate(set) var floatingProgress : CGFloat = 0
 	public fileprivate(set) var isHorizontalDragging = false
 	public fileprivate(set) var isVerticalDragging = false
+	public fileprivate(set) var currentFloatingPosition: NKFloatingPosition? = nil
 	public var initPosition: NKFloatingPosition = .bottomRight
 	
 	fileprivate var floatingMode = false
@@ -77,6 +78,7 @@ open class NKFloatingViewHandler: NSObject {
 	
 	open func becomeFloating(position: NKFloatingPosition = .bottomRight) {
 		floatingMode = true
+		currentFloatingPosition = position
 		tapGesture.isEnabled = true
 		
 		if position == .bottomLeft || position == .bottomRight {
@@ -97,6 +99,7 @@ open class NKFloatingViewHandler: NSObject {
 	@objc open func backToNormalState() {
 		tapGesture.isEnabled = false
 		floatingMode = false
+		currentFloatingPosition = nil
 		
 		isVerticalDragging = false
 		isHorizontalDragging = false
@@ -154,30 +157,58 @@ open class NKFloatingViewHandler: NSObject {
 		self.tweenAction = ActionScrubber(action: move)
 	}
 	
+	var lastPoint: CGPoint = .zero
 	@objc fileprivate func onPan(_ pan: UIPanGestureRecognizer) {
 		guard let delegate = self.delegate else { return }
+		let window = delegate.containerView.window
 		
 		if pan.state == .began || pan.state == .changed {
+			let translatedPoint = pan.translation(in: window)
+			updateDraggingState(with: translatedPoint)
+			
 			if floatingMode && allowsCornerDocking {
 				guard let view = self.delegate?.containerView else { return }
-				
-				let translation = pan.translation(in: view.superview)
-				view.center = CGPoint(x: view.center.x + translation.x, y: view.center.y + translation.y)
-				pan.setTranslation(.zero, in: view.superview)
+				if pan.state == .began {
+					lastPoint = view.center
+				}
+				else {
+					view.center = CGPoint(x: lastPoint.x + translatedPoint.x, y: lastPoint.y + translatedPoint.y)
+				}
 			}
 			else {
-				let translatedPoint = pan.translation(in: delegate.containerView.window)
-				updateDraggingState(with: translatedPoint)
 				updateFrame(with: translatedPoint)
 			}
 		}
 		else if pan.state == .ended {
-			let translatedPoint = pan.translation(in: delegate.containerView.window)
+			let translatedPoint = pan.translation(in: window)
 			updateDraggingState(with: translatedPoint)
 			
 			if floatingMode {
 				if allowsCornerDocking {
 					guard let view = self.delegate?.containerView else { return }
+					
+					if let currentPosition = currentFloatingPosition {
+						if isVerticalDragging {
+							if translatedPoint.y < -50 && (currentPosition == .topLeft || currentPosition == .topRight) {
+								hideAndDismiss()
+								return
+							}
+							else if translatedPoint.y > 50 && (currentPosition == .bottomLeft || currentPosition == .bottomRight) {
+								hideAndDismiss()
+								return
+							}
+						}
+						else if isHorizontalDragging {
+							if translatedPoint.x < -50 && (currentPosition == .topLeft || currentPosition == .bottomLeft) {
+								hideAndDismiss()
+								return
+							}
+							else if translatedPoint.x > 50 && (currentPosition == .topRight || currentPosition == .bottomRight) {
+								hideAndDismiss()
+								return
+							}
+						}
+					}
 					
 					let center = view.center
 					let viewSize = UIScreen.main.bounds.size

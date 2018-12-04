@@ -225,10 +225,6 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 		self.floatingHandler?.delegate = nil
 		self.delegate = nil
 		
-		player.stop()
-		player.removeFromSuperview()
-		self.view.removeFromSuperview()
-		
 		super.dismiss(animated: flag, completion: completion)
 	}
 	
@@ -375,16 +371,16 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 	}
 
 	
-	func forceDeviceRotate(to orientation: UIInterfaceOrientation, animated: Bool) {
-		let currentDevice = UIDevice.current
-		UIView.setAnimationsEnabled(false)
-		currentDevice.beginGeneratingDeviceOrientationNotifications()
-		//GCC diagnostic ignored "-Wdeprecated-declarations"
-		UIApplication.shared.setStatusBarOrientation(orientation, animated: animated)
-		currentDevice.endGeneratingDeviceOrientationNotifications()
-		UIViewController.attemptRotationToDeviceOrientation()
-		UIView.setAnimationsEnabled(true)
-	}
+//	func forceDeviceRotate(to orientation: UIInterfaceOrientation, animated: Bool) {
+//		let currentDevice = UIDevice.current
+//		UIView.setAnimationsEnabled(false)
+//		currentDevice.beginGeneratingDeviceOrientationNotifications()
+//		//GCC diagnostic ignored "-Wdeprecated-declarations"
+//		UIApplication.shared.setStatusBarOrientation(orientation, animated: animated)
+//		currentDevice.endGeneratingDeviceOrientationNotifications()
+//		UIViewController.attemptRotationToDeviceOrientation()
+//		UIView.setAnimationsEnabled(true)
+//	}
 	
 	deinit {
 		DLog("DEINIT")
@@ -401,7 +397,7 @@ open class UZPlayerContainerViewController: UIViewController {
 	}
 	
 	override open var shouldAutorotate: Bool {
-		return true
+		return false
 	}
 	
 	override open var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {

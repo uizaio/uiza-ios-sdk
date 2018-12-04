@@ -184,7 +184,7 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 			
 			playerWindow = UIWindow(frame: UIScreen.main.bounds)
 			playerWindow!.windowLevel = UIWindowLevelNormal + 1
-			playerWindow!.rootViewController = self
+			playerWindow!.rootViewController = containerViewController
 			playerWindow!.makeKeyAndVisible()
 			
 			containerViewController.present(self, animated: true, completion: nil)
@@ -224,6 +224,11 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 	override open func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
 		self.floatingHandler?.delegate = nil
 		self.delegate = nil
+		
+		player.stop()
+		player.removeFromSuperview()
+		self.view.removeFromSuperview()
+		
 		super.dismiss(animated: flag, completion: completion)
 	}
 	
@@ -381,11 +386,16 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 		UIView.setAnimationsEnabled(true)
 	}
 	
+	deinit {
+		DLog("DEINIT")
+	}
+	
 }
 
 // MARK: -
 
 open class UZPlayerContainerViewController: UIViewController {
+	
 	override open var prefersStatusBarHidden: Bool {
 		return true
 	}
@@ -399,7 +409,7 @@ open class UZPlayerContainerViewController: UIViewController {
 	}
 	
 	override open var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-		return .landscape
+		return .all
 	}
 	
 }

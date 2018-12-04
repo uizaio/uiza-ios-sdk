@@ -73,6 +73,7 @@ class ViewController: UIViewController {
 					let viewController = UZFloatingPlayerViewController()
 					viewController.present(with: video).player.controlView.theme = UZTheme1()
 					viewController.floatingHandler?.allowsCornerDocking = true
+//					viewController.player.delegate = self
 				}
 			}
 		}
@@ -148,4 +149,24 @@ class ViewController: UIViewController {
 		themeIndex += 1
 	}
 
+}
+
+extension ViewController: UZPlayerDelegate {
+	
+	func UZPlayer(player: UZPlayer, playerStateDidChange state: UZPlayerState) {
+//		print("State: \(state)")
+	}
+	
+	func UZPlayer(player: UZPlayer, loadedTimeDidChange loadedDuration: TimeInterval, totalDuration: TimeInterval) {
+//		print("loadedDuration: \(loadedDuration) - totalDuration: \(totalDuration)")
+	}
+	
+	func UZPlayer(player: UZPlayer, playTimeDidChange currentTime : TimeInterval, totalTime: TimeInterval) {
+//		print("currentTime: \(currentTime) - totalTime: \(totalTime)")
+	}
+	
+	func UZPlayer(player: UZPlayer, playerIsPlaying playing: Bool) {
+//		print("Playing: \(playing)")
+	}
+	
 }

@@ -20,42 +20,13 @@ configuration.videoMaxBitRate = 1440 * 1000
 configuration.videoMinBitRate = 800 * 1000
 configuration.videoSize = CGSizeMake(720, 1280)
 */
-extension LFLiveVideoConfiguration {
-	
-	open class func UZVideoConfiguration() -> LFLiveVideoConfiguration {
-		let configuration = LFLiveVideoConfiguration()
-		configuration.sessionPreset 	= .captureSessionPreset720x1280
-		configuration.videoFrameRate 	= 24
-		configuration.videoMaxFrameRate = 24
-		configuration.videoMinFrameRate = 12
-		configuration.videoBitRate		= 1000 * 1000
-		configuration.videoMaxBitRate 	= 1000 * 1000
-		configuration.videoMinBitRate 	= 1000 * 1000
-		configuration.videoSize 		= CGSize(width: 720, height: 1280)
-		configuration.videoMaxKeyframeInterval = 12
-		configuration.outputImageOrientation = UIApplication.shared.statusBarOrientation
-		configuration.autorotate = true //IS_IPAD
-//		DLog("videoMaxKeyframeInterval: \(configuration.videoMaxKeyframeInterval)")
-		if configuration.landscape {
-			let size = configuration.videoSize
-			configuration.videoSize = CGSize(width: size.height, height: size.width)
-		}
-		
-		return configuration
-	}
-	
-	open class func UZAudioConfiguration() -> LFLiveAudioConfiguration {
-		let configuration = LFLiveAudioConfiguration.defaultConfiguration(for: .medium)
-		configuration!.numberOfChannels = 2
-		configuration!.audioBitrate = LFLiveAudioBitRate(rawValue: 128000)!
-		configuration!.audioSampleRate = LFLiveAudioSampleRate(rawValue: 44100)! //._44100Hz
-		return configuration!
-	}
-	
-}
 
 open class UZLiveStreamViewController: UIViewController {
-	public var livestreamUIView = UZLiveStreamUIView()
+	public var livestreamUIView = UZLiveStreamUIView() {
+		didSet {
+			view.insertSubview(livestreamUIView, at: 0)
+		}
+	}
 	public let startButton = NKButton()
 	
 	public var liveEventId: String? = nil
@@ -100,13 +71,44 @@ open class UZLiveStreamViewController: UIViewController {
 	fileprivate var getViewTimer: Timer? = nil
 	
 	lazy open var session: LFLiveSession = {
-		let audioConfiguration = LFLiveVideoConfiguration.UZAudioConfiguration() // LFLiveAudioConfiguration.defaultConfiguration(for: .default)
-		let videoConfiguration = LFLiveVideoConfiguration.UZVideoConfiguration() // LFLiveVideoConfiguration.defaultConfiguration(for: .high2, outputImageOrientation: UIApplication.shared.statusBarOrientation)
+		let audioConfiguration = self.audioConfiguration() // LFLiveAudioConfiguration.defaultConfiguration(for: .default)
+		let videoConfiguration = self.videoConfiguration() // LFLiveVideoConfiguration.defaultConfiguration(for: .high2, outputImageOrientation: UIApplication.shared.statusBarOrientation)
 //		videoConfiguration?.autorotate = true
 		let result = LFLiveSession(audioConfiguration: audioConfiguration, videoConfiguration: videoConfiguration)!
 		result.adaptiveBitrate = true
 		return result
 	}()
+	
+	open func videoConfiguration() -> LFLiveVideoConfiguration {
+		let configuration = LFLiveVideoConfiguration()
+		configuration.sessionPreset 	= .captureSessionPreset720x1280
+		configuration.videoFrameRate 	= 24
+		configuration.videoMaxFrameRate = 24
+		configuration.videoMinFrameRate = 12
+		configuration.videoBitRate		= 1000 * 1000
+		configuration.videoMaxBitRate 	= 1000 * 1000
+		configuration.videoMinBitRate 	= 1000 * 1000
+		configuration.videoSize 		= CGSize(width: 720, height: 1280)
+		configuration.videoMaxKeyframeInterval = 12
+		configuration.outputImageOrientation = UIApplication.shared.statusBarOrientation
+		configuration.autorotate = true //IS_IPAD
+		
+		//		DLog("videoMaxKeyframeInterval: \(configuration.videoMaxKeyframeInterval)")
+		if configuration.landscape {
+			let size = configuration.videoSize
+			configuration.videoSize = CGSize(width: size.height, height: size.width)
+		}
+		
+		return configuration
+	}
+	
+	open func audioConfiguration() -> LFLiveAudioConfiguration {
+		let configuration = LFLiveAudioConfiguration.defaultConfiguration(for: .medium)
+		configuration!.numberOfChannels = 2
+		configuration!.audioBitrate = ._128Kbps
+		configuration!.audioSampleRate = ._44100Hz
+		return configuration!
+	}
 	
 	public convenience init(liveEventId: String) {
 		self.init()
@@ -418,6 +420,9 @@ open class UZLiveStreamViewController: UIViewController {
 		startButton.frame = CGRect(x: (viewSize.width - buttonSize.width)/2, y: viewSize.height - buttonSize.height - 40, width: buttonSize.width, height: buttonSize.height)
 		
 		layoutDurationLabel()
+		
+		view.bringSubview(toFront: liveDurationLabel)
+		view.bringSubview(toFront: startButton)
 	}
 	
 	func layoutDurationLabel() {

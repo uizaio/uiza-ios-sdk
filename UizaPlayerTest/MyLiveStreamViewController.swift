@@ -48,6 +48,10 @@ class MyLiveStreamViewController: UZLiveStreamViewController {
 		startButton.title = "Go Live!"
 		
 		self.livestreamUIView = MyLiveStreamUIView()
+		
+		// save local
+//		session.saveLocalVideo = true
+//		session.saveLocalVideoPath = /*your local videoPath here*/
 	}
 	
 	override func viewDidLayoutSubviews() {

@@ -17,7 +17,11 @@ class UZCastingView: UIView {
 		super.init(frame: .zero)
 		self.backgroundColor = .black
 		
-		titleLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+		if #available(iOS 8.2, *) {
+			titleLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+		} else {
+			titleLabel.font = UIFont.systemFont(ofSize: 14)
+		}
 		titleLabel.textColor = .white
 		titleLabel.textAlignment = .center
 		titleLabel.numberOfLines = 2

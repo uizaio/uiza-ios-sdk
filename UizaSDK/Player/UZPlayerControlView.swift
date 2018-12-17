@@ -219,7 +219,11 @@ open class UZPlayerControlView: UIView {
 		timeSlider.value        = 0.0
 		timeSlider.maximumTrackTintColor = UIColor.clear
 		
-		enlapseTimeLabel.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .medium)
+		if #available(iOS 8.2, *) {
+			enlapseTimeLabel.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .medium)
+		} else {
+			enlapseTimeLabel.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+		}
 		enlapseTimeLabel.setTitleColor(.white, for: .normal)
 		enlapseTimeLabel.setBackgroundColor(UIColor(white: 0.2, alpha: 0.8), for: .normal)
 		enlapseTimeLabel.extendSize = CGSize(width: 10, height: 4)
@@ -476,7 +480,11 @@ open class UZPlayerControlView: UIView {
 	open func showMessage(_ message: String) {
 		if messageLabel == nil {
 			messageLabel = UILabel()
-			messageLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+			if #available(iOS 8.2, *) {
+				messageLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+			} else {
+				messageLabel?.font = UIFont.systemFont(ofSize: 14)
+			}
 			messageLabel?.textColor = .white
 			messageLabel?.textAlignment = .center
 			messageLabel?.numberOfLines = 3
@@ -690,7 +698,11 @@ open class UZLiveBadgeView: UIView {
 	init() {
 		super.init(frame: .zero)
 		
-		liveBadge.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .medium)
+		if #available(iOS 8.2, *) {
+			liveBadge.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .medium)
+		} else {
+			liveBadge.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+		}
 		liveBadge.setTitle("LIVE", for: .normal)
 		liveBadge.setTitleColor(.white, for: .normal)
 		liveBadge.setBackgroundColor(UIColor(red:0.91, green:0.31, blue:0.28, alpha:1.00), for: .normal)
@@ -699,7 +711,11 @@ open class UZLiveBadgeView: UIView {
 		liveBadge.extendSize = CGSize(width: 10, height: 0)
 		
 		let icon = UIImage.init(icon: .googleMaterialDesign(.removeRedEye), size: CGSize(width: 20, height: 20), textColor: .white, backgroundColor: .clear)
-		viewBadge.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .medium)
+		if #available(iOS 8.2, *) {
+			viewBadge.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .medium)
+		} else {
+			viewBadge.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+		}
 		viewBadge.setTitleColor(.white, for: .normal)
 		viewBadge.setTitle("0", for: .normal)
 		viewBadge.setImage(icon, for: .normal)

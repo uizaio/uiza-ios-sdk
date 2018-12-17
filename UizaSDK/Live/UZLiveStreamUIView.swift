@@ -49,14 +49,22 @@ open class UZLiveStreamUIView: UIView, UITextFieldDelegate {
 		
 		self.backgroundColor = .clear
 		
-		closeButton.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+		if #available(iOS 8.2, *) {
+			closeButton.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+		} else {
+			closeButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)
+		}
 		closeButton.setTitle("✕", for: .normal)
 		closeButton.setTitleColor(.white, for: .normal)
 		closeButton.setBackgroundColor(UIColor(white: 0.0, alpha: 0.8), for: .normal)
 		closeButton.showsTouchWhenHighlighted = true
 		closeButton.isRoundedButton = true
 		
-		liveBadge.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .medium)
+		if #available(iOS 8.2, *) {
+			liveBadge.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .medium)
+		} else {
+			liveBadge.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+		}
 		liveBadge.setTitle("LIVE", for: .normal)
 		liveBadge.setTitleColor(.white, for: .normal)
 		liveBadge.setBackgroundColor(UIColor(red:0.91, green:0.31, blue:0.28, alpha:1.00), for: .normal)
@@ -65,7 +73,11 @@ open class UZLiveStreamUIView: UIView, UITextFieldDelegate {
 		liveBadge.extendSize = CGSize(width: 10, height: 0)
 		
 		viewsBadge.title = "--  "
-		viewsBadge.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .light)
+		if #available(iOS 8.2, *) {
+			viewsBadge.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .light)
+		} else {
+			viewsBadge.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+		}
 		viewsBadge.setTitleColor(.white, for: .normal)
 		viewsBadge.setBackgroundColor(UIColor(red:0.15, green:0.84, blue:0.87, alpha:0.4), for: .normal)
 		viewsBadge.setImage(UIImage(icon: .googleMaterialDesign(.removeRedEye), size: CGSize(width: 20, height: 20), textColor: .white, backgroundColor: .clear), for: .normal)

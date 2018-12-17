@@ -45,7 +45,12 @@ open class UZEndscreenView: UIView {
 	open func setupUI() {
 		self.backgroundColor = UIColor(white: 0.0, alpha: 0.35)
 		
-		titleLabel.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+		if #available(iOS 8.2, *) {
+			titleLabel.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+		} else {
+			titleLabel.font = UIFont.systemFont(ofSize: 15)
+		}
+		
 		titleLabel.textColor = .white
 		titleLabel.textAlignment = .center
 		titleLabel.numberOfLines = 3

@@ -150,7 +150,11 @@ extension UIDevice {
 	}
 	
 	public static func isTV() -> Bool {
-		return current.userInterfaceIdiom == .tv
+		if #available(iOS 9.0, *) {
+			return current.userInterfaceIdiom == .tv
+		} else {
+			return false
+		}
 	}
 	
 	public static func isSimulator() -> Bool {
@@ -167,7 +171,11 @@ extension UIDevice {
 	}
 	
 	public static func isCarPlay() -> Bool {
-		return current.userInterfaceIdiom == .carPlay
+		if #available(iOS 9.0, *) {
+			return current.userInterfaceIdiom == .carPlay
+		} else {
+			return false
+		}
 	}
 	#endif
 	

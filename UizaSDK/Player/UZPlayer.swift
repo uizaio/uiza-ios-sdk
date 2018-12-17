@@ -13,7 +13,9 @@ import Foundation
 import CoreGraphics
 import NKModalViewManager
 import GoogleInteractiveMediaAds
+#if ALLOW_GOOGLECAST
 import GoogleCast
+#endif
 
 public protocol UZPlayerDelegate : class {
 	func UZPlayer(player: UZPlayer, playerStateDidChange state: UZPlayerState)
@@ -213,7 +215,16 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	fileprivate var adsLoader: IMAAdsLoader?
 	fileprivate var adsManager: IMAAdsManager?
 	
-	public internal(set) var pictureInPictureController: AVPictureInPictureController?
+	fileprivate var _pictureInPictureController: Any? = nil
+	@available(iOS 9.0, *)
+	public internal(set) var pictureInPictureController: AVPictureInPictureController? {
+		get {
+			return _pictureInPictureController as? AVPictureInPictureController
+		}
+		set {
+			_pictureInPictureController = newValue
+		}
+	}
 	
 	// MARK: - Public functions
 	
@@ -374,8 +385,12 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		playerLayer?.play()
 		isPauseByUser = false
 		
-		if pictureInPictureController == nil {
-			setupPictureInPicture()
+		if #available(iOS 9.0, *) {
+			if pictureInPictureController == nil {
+				setupPictureInPicture()
+			}
+		} else {
+			// Fallback on earlier versions
 		}
 		
 		if currentPosition == 0 && !isPauseByUser {
@@ -516,27 +531,36 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	private let pipKeyPath = #keyPath(AVPictureInPictureController.isPictureInPicturePossible)
 	private var playerViewControllerKVOContext = 0
 	private func setupPictureInPicture() {
-		pictureInPictureController?.removeObserver(self, forKeyPath: pipKeyPath, context: &playerViewControllerKVOContext)
-		pictureInPictureController?.delegate = nil
-		pictureInPictureController = nil
-		
-		if let playerLayer = playerLayer?.playerLayer {
-			pictureInPictureController = AVPictureInPictureController(playerLayer: playerLayer)
-			pictureInPictureController?.delegate = self
-			pictureInPictureController?.addObserver(self, forKeyPath: pipKeyPath, options: [.initial, .new], context: &playerViewControllerKVOContext)
+		if #available(iOS 9.0, *) {
+			pictureInPictureController?.removeObserver(self, forKeyPath: pipKeyPath, context: &playerViewControllerKVOContext)
+			pictureInPictureController?.delegate = nil
+			pictureInPictureController = nil
+			
+			if let playerLayer = playerLayer?.playerLayer {
+				pictureInPictureController = AVPictureInPictureController(playerLayer: playerLayer)
+				pictureInPictureController?.delegate = self
+				pictureInPictureController?.addObserver(self, forKeyPath: pipKeyPath, options: [.initial, .new], context: &playerViewControllerKVOContext)
+			}
+		} else {
+			// Fallback on earlier versions
 		}
 	}
 	
 	open func togglePiP() {
-		if pictureInPictureController == nil {
-			setupPictureInPicture()
-		}
-		
-		if pictureInPictureController?.isPictureInPictureActive ?? false {
-			pictureInPictureController?.stopPictureInPicture()
+		if #available(iOS 9.0, *) {
+			if pictureInPictureController == nil {
+				setupPictureInPicture()
+			}
+			
+			if pictureInPictureController?.isPictureInPictureActive ?? false {
+				pictureInPictureController?.stopPictureInPicture()
+			}
+			else {
+				pictureInPictureController?.startPictureInPicture()
+			}
 		}
 		else {
-			pictureInPictureController?.startPictureInPicture()
+			
 		}
 	}
 	
@@ -580,11 +604,15 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	}
 	
 	@objc func onApplicationInactive(notification:Notification) {
-		if AVAudioSession.sharedInstance().isAirPlaying || (pictureInPictureController?.isPictureInPictureActive ?? false) {
-			// user close app or turn off the phone, don't pause video while casting
-		}
-		else {
-			self.pause()
+		if #available(iOS 9.0, *) {
+			if AVAudioSession.sharedInstance().isAirPlaying || (pictureInPictureController?.isPictureInPictureActive ?? false) {
+				// user close app or turn off the phone, don't pause video while casting
+			}
+			else {
+				self.pause()
+			}
+		} else {
+			// Fallback on earlier versions
 		}
 	}
 	
@@ -1261,9 +1289,13 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	// MARK: -
 	
 	deinit {
-		if pictureInPictureController != nil {
-			pictureInPictureController!.delegate = nil
-			pictureInPictureController!.removeObserver(self, forKeyPath: pipKeyPath, context: &playerViewControllerKVOContext)
+		if #available(iOS 9.0, *) {
+			if pictureInPictureController != nil {
+				pictureInPictureController!.delegate = nil
+				pictureInPictureController!.removeObserver(self, forKeyPath: pipKeyPath, context: &playerViewControllerKVOContext)
+			}
+		} else {
+			// Fallback on earlier versions
 		}
 		
 		playerLayer?.pause()
@@ -1274,14 +1306,17 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 
 extension UZPlayer: AVPictureInPictureControllerDelegate {
 	
+	@available(iOS 9.0, *)
 	open func pictureInPictureControllerWillStartPictureInPicture(_ pictureInPictureController: AVPictureInPictureController) {
 		controlView.hideControlView()
 	}
 	
+	@available(iOS 9.0, *)
 	open func pictureInPictureControllerDidStartPictureInPicture(_ pictureInPictureController: AVPictureInPictureController) {
 		controlView.pipButton.isSelected = true
 	}
 	
+	@available(iOS 9.0, *)
 	open func pictureInPictureControllerDidStopPictureInPicture(_ pictureInPictureController: AVPictureInPictureController) {
 		if shouldShowsControlViewAfterStoppingPiP {
 			controlView.showControlView()

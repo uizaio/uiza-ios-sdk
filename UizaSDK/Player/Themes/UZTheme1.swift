@@ -91,12 +91,16 @@ open class UZTheme1: UZPlayerTheme {
 		controlView.nextButton.isHidden = true
 		controlView.previousButton.isHidden = true
 		
-		let pipStartIcon = AVPictureInPictureController.pictureInPictureButtonStartImage(compatibleWith: nil).colorize(with: iconColor)
-		let pipStopIcon = AVPictureInPictureController.pictureInPictureButtonStopImage(compatibleWith: nil).colorize(with: iconColor)
-		controlView.pipButton.setImage(pipStartIcon, for: .normal)
-		controlView.pipButton.setImage(pipStopIcon, for: .selected)
-		controlView.pipButton.imageView?.contentMode = .scaleAspectFit
-		controlView.pipButton.isHidden = !AVPictureInPictureController.isPictureInPictureSupported()
+		if #available(iOS 9.0, *) {
+			let pipStartIcon = AVPictureInPictureController.pictureInPictureButtonStartImage(compatibleWith: nil).colorize(with: iconColor)
+			let pipStopIcon = AVPictureInPictureController.pictureInPictureButtonStopImage(compatibleWith: nil).colorize(with: iconColor)
+			controlView.pipButton.setImage(pipStartIcon, for: .normal)
+			controlView.pipButton.setImage(pipStopIcon, for: .selected)
+			controlView.pipButton.imageView?.contentMode = .scaleAspectFit
+			controlView.pipButton.isHidden = !AVPictureInPictureController.isPictureInPictureSupported()
+		} else {
+			// Fallback on earlier versions
+		}
 		
 //		controlView.airplayButton.setupDefaultIcon(iconSize: iconSize, offColor: iconColor)
 		controlView.castingButton.setupDefaultIcon(iconSize: iconSize, offColor: iconColor)

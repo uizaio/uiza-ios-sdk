@@ -8,7 +8,9 @@
 
 import UIKit
 import NKModalViewManager
+#if ALLOW_GOOGLECAST
 import GoogleCast
+#endif
 
 class UZDeviceListTableViewController: UITableViewController {
 	

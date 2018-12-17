@@ -251,7 +251,11 @@ internal class UZMediaOptionSelectionCollectionViewController: UICollectionViewC
 	func showMessage(message: String) {
 		if messageLabel == nil {
 			messageLabel = UILabel()
-			messageLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+			if #available(iOS 8.2, *) {
+				messageLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+			} else {
+				messageLabel?.font = UIFont.systemFont(ofSize: 14)
+			}
 			messageLabel?.textColor = .white
 			messageLabel?.textAlignment = .center
 			self.view.addSubview(messageLabel!)
@@ -352,7 +356,11 @@ class UZMediaOptionItemCollectionViewCell : UICollectionViewCell {
 		}
 		set (value) {
 			super.isSelected = value
-			titleLabel.font = UIFont.systemFont(ofSize: 14, weight: value ? .bold : .regular)
+			if #available(iOS 8.2, *) {
+				titleLabel.font = UIFont.systemFont(ofSize: 14, weight: value ? .bold : .regular)
+			} else {
+				titleLabel.font = UIFont.systemFont(ofSize: 14)
+			}
 			
 			if highlightMode {
 				UIView.animate(withDuration: 0.3) {
@@ -474,7 +482,11 @@ class UZTitleCollectionViewHeader: UICollectionReusableView {
 		
 		self.backgroundColor = .clear
 		
-		label.font = UIFont.systemFont(ofSize: 14, weight: .bold)
+		if #available(iOS 8.2, *) {
+			label.font = UIFont.systemFont(ofSize: 14, weight: .bold)
+		} else {
+			label.font = UIFont.systemFont(ofSize: 14)
+		}
 		label.textColor = .gray
 		
 		frameLayout = FrameLayout(targetView: label)

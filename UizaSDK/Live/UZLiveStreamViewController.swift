@@ -131,7 +131,11 @@ open class UZLiveStreamViewController: UIViewController {
 		liveDurationLabel.textColor = .white
 		liveDurationLabel.backgroundColor = UIColor.red.withAlphaComponent(0.8)
 		liveDurationLabel.textAlignment = .center
-		liveDurationLabel.font = UIFont.systemFont(ofSize: 12, weight: .regular)
+		if #available(iOS 8.2, *) {
+			liveDurationLabel.font = UIFont.systemFont(ofSize: 12, weight: .regular)
+		} else {
+			liveDurationLabel.font = UIFont.systemFont(ofSize: 12)
+		}
 		liveDurationLabel.layer.cornerRadius = 4.0
 		liveDurationLabel.layer.masksToBounds = true
 		liveDurationLabel.isHidden = true
@@ -140,7 +144,11 @@ open class UZLiveStreamViewController: UIViewController {
 		startButton.setBackgroundColor(UIColor(red:0.36, green:0.86, blue:0.58, alpha:1.00), for: .highlighted)
 		startButton.setBackgroundColor(UIColor(red:0.13, green:0.77, blue:0.38, alpha:0.5), for: .disabled)
 		startButton.setTitleColor(.white, for: .normal)
-		startButton.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+		if #available(iOS 8.2, *) {
+			startButton.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+		} else {
+			startButton.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+		}
 		startButton.title = "START"
 		startButton.loadingIndicatorStyle = .ballScaleRippleMultiple
 		startButton.isRoundedButton = true

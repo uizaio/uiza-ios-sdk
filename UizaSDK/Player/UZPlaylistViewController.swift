@@ -21,7 +21,11 @@ internal class UZPlaylistViewController: UIViewController {
 		super.init(nibName: nil, bundle: nil)
 		
 		titleLabel.text = "Playlist"
-		titleLabel.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+		if #available(iOS 8.2, *) {
+			titleLabel.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+		} else {
+			titleLabel.font = UIFont.systemFont(ofSize: 15)
+		}
 		titleLabel.textColor = .white
 		titleLabel.textAlignment = .left
 		

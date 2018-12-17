@@ -87,12 +87,16 @@ open class UZTheme3: UZPlayerTheme {
 		controlView.fullscreenButton.setImage(collapseIcon, for: .selected)
 		controlView.timeSlider.setThumbImage(thumbIcon, for: .normal)
 		
-		let pipStartIcon = AVPictureInPictureController.pictureInPictureButtonStartImage(compatibleWith: nil).colorize(with: iconColor)
-		let pipStopIcon = AVPictureInPictureController.pictureInPictureButtonStopImage(compatibleWith: nil).colorize(with: iconColor)
-		controlView.pipButton.setImage(pipStartIcon, for: .normal)
-		controlView.pipButton.setImage(pipStopIcon, for: .selected)
-		controlView.pipButton.imageView?.contentMode = .scaleAspectFit
-		controlView.pipButton.isHidden = !AVPictureInPictureController.isPictureInPictureSupported()
+		if #available(iOS 9.0, *) {
+			let pipStartIcon = AVPictureInPictureController.pictureInPictureButtonStartImage(compatibleWith: nil).colorize(with: iconColor)
+			let pipStopIcon = AVPictureInPictureController.pictureInPictureButtonStopImage(compatibleWith: nil).colorize(with: iconColor)
+			controlView.pipButton.setImage(pipStartIcon, for: .normal)
+			controlView.pipButton.setImage(pipStopIcon, for: .selected)
+			controlView.pipButton.imageView?.contentMode = .scaleAspectFit
+			controlView.pipButton.isHidden = !AVPictureInPictureController.isPictureInPictureSupported()
+		} else {
+			// Fallback on earlier versions
+		}
 		
 		controlView.nextButton.isHidden = true
 		controlView.previousButton.isHidden = true

@@ -35,7 +35,11 @@ internal class UZVideoQualitySettingsViewController: UIViewController {
 		super.init(nibName: nil, bundle: nil)
 		
 		titleLabel.text = "Video Quality"
-		titleLabel.font = UIFont.systemFont(ofSize: 15, weight: .bold)
+		if #available(iOS 8.2, *) {
+			titleLabel.font = UIFont.systemFont(ofSize: 15, weight: .bold)
+		} else {
+			titleLabel.font = UIFont.systemFont(ofSize: 15)
+		}
 		titleLabel.textColor = .white
 		titleLabel.textAlignment = .center
 		
@@ -262,7 +266,11 @@ internal class UZVideoQualityCollectionViewController: UICollectionViewControlle
 	func showMessage(message: String) {
 		if messageLabel == nil {
 			messageLabel = UILabel()
-			messageLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+			if #available(iOS 8.2, *) {
+				messageLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+			} else {
+				messageLabel?.font = UIFont.systemFont(ofSize: 14)
+			}
 			messageLabel?.textColor = .white
 			messageLabel?.textAlignment = .center
 			self.view.addSubview(messageLabel!)
@@ -356,7 +364,11 @@ class UZQualityItemCollectionViewCell : UICollectionViewCell {
 		}
 		set (value) {
 			super.isSelected = value
-			titleLabel.font = UIFont.systemFont(ofSize: 14, weight: value ? .bold : .regular)
+			if #available(iOS 8.2, *) {
+				titleLabel.font = UIFont.systemFont(ofSize: 14, weight: value ? .bold : .regular)
+			} else {
+				titleLabel.font = UIFont.systemFont(ofSize: 14)
+			}
 			
 			if highlightMode {
 				UIView.animate(withDuration: 0.3) {

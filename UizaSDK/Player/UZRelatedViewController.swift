@@ -21,7 +21,11 @@ internal class UZRelatedViewController: UIViewController {
 		super.init(nibName: nil, bundle: nil)
 		
 		titleLabel.text = "Related Videos"
-		titleLabel.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+		if #available(iOS 8.2, *) {
+			titleLabel.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+		} else {
+			titleLabel.font = UIFont.systemFont(ofSize: 15)
+		}
 		titleLabel.textColor = .white
 		titleLabel.textAlignment = .left
 		
@@ -259,7 +263,11 @@ internal class UZVideoCollectionViewController: UICollectionViewController, UICo
 	func showMessage(message: String) {
 		if messageLabel == nil {
 			messageLabel = UILabel()
-			messageLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+			if #available(iOS 8.2, *) {
+				messageLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+			} else {
+				messageLabel?.font = UIFont.systemFont(ofSize: 14)
+			}
 			messageLabel?.textColor = .white
 			messageLabel?.textAlignment = .center
 			self.view.addSubview(messageLabel!)
@@ -448,7 +456,11 @@ class UZMovieItemCollectionViewCell : UICollectionViewCell {
 		detailLabel.isHidden = true
 		
 		playingLabel.text = "PLAYING"
-		playingLabel.font = UIFont.systemFont(ofSize: 12, weight: .medium)
+		if #available(iOS 8.2, *) {
+			playingLabel.font = UIFont.systemFont(ofSize: 12, weight: .medium)
+		} else {
+			playingLabel.font = UIFont.systemFont(ofSize: 12)
+		}
 		playingLabel.textColor = .white
 		playingLabel.textAlignment = .center
 		playingLabel.backgroundColor = UIColor(red:0.91, green:0.31, blue:0.28, alpha:1.00)

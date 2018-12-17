@@ -25,6 +25,9 @@ open class UZLiveStreamViewController: UIViewController {
 	public var livestreamUIView = UZLiveStreamUIView() {
 		didSet {
 			view.insertSubview(livestreamUIView, at: 0)
+			livestreamUIView.onButtonSelected = { [weak self] (button: UIControl?) in
+				self?.onButtonSelected(button)
+			}
 		}
 	}
 	public let startButton = NKButton()
@@ -282,9 +285,11 @@ open class UZLiveStreamViewController: UIViewController {
 	
 	fileprivate func startTimer() {
 		timer?.invalidate()
-		timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { [weak self] (t) in
-			self?.updateTimer()
-		})
+		timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(onTimer), userInfo: nil, repeats: true)
+	}
+	
+	@objc func onTimer() {
+		self.updateTimer()
 	}
 	
 	fileprivate func updateTimer() {
@@ -365,9 +370,11 @@ open class UZLiveStreamViewController: UIViewController {
 	
 	@objc func onApplicationDidInactive(_ notification: Notification) {
 		inactiveTimer?.invalidate()
-		inactiveTimer = Timer.scheduledTimer(withTimeInterval: 5, repeats: false, block: { [weak self] (timer) in
-			self?.stopLive()
-		})
+		inactiveTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(onInactiveTimer), userInfo: nil, repeats: true)
+	}
+	
+	@objc func onInactiveTimer() {
+		stopLive()
 	}
 	
 	// MARK: -

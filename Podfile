@@ -1,8 +1,8 @@
 # Uncomment the next line to define a global platform for your project
- platform :ios, '10.0'
+ platform :ios, '9.0'
 
 target 'UizaSDK' do
-  platform :ios, '10.0'
+  platform :ios, '9.0'
   use_frameworks!
 
   pod 'Alamofire'
@@ -15,7 +15,6 @@ target 'UizaSDK' do
   pod 'NVActivityIndicatorView'
   pod 'SDWebImage'
   pod 'SwiftyJSON'
-  pod 'SwiftIcons'
   pod 'LFLiveKit'
   pod 'TweenKit'
 
@@ -32,7 +31,7 @@ target 'UizaSDK-tvos' do
 end
 
 target 'UizaPlayerTest' do
-	platform :ios, '10.0'
+	platform :ios, '9.0'
 	use_frameworks!
 	
 	pod 'Alamofire'
@@ -45,14 +44,13 @@ target 'UizaPlayerTest' do
 	pod 'NVActivityIndicatorView'
 	pod 'SDWebImage'
 	pod 'SwiftyJSON'
-	pod 'SwiftIcons'
 	pod 'LFLiveKit'
 	pod 'TweenKit'
 	
 end
 
 target 'UizaSDKTests' do
-	platform :ios, '10.0'
+	platform :ios, '9.0'
 	use_frameworks!
 
 	pod 'Alamofire'

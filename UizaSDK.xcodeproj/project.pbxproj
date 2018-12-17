@@ -33,6 +33,70 @@
 		6300A82E21353FCE00C27195 /* UZLiveStreamUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6300A82D21353FCE00C27195 /* UZLiveStreamUIView.swift */; };
 		6300A82F21353FCE00C27195 /* UZLiveStreamUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6300A82D21353FCE00C27195 /* UZLiveStreamUIView.swift */; };
 		6309D95E20A4078E008CC538 /* UZRelatedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6309D95D20A4078E008CC538 /* UZRelatedViewController.swift */; };
+		630B4E9921C768CB00DC0AA6 /* SwiftIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630B4E9821C768CB00DC0AA6 /* SwiftIcons.swift */; };
+		630B4E9A21C768CB00DC0AA6 /* SwiftIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630B4E9821C768CB00DC0AA6 /* SwiftIcons.swift */; };
+		630B4E9B21C768CB00DC0AA6 /* SwiftIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630B4E9821C768CB00DC0AA6 /* SwiftIcons.swift */; };
+		630B4E9C21C768CB00DC0AA6 /* SwiftIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630B4E9821C768CB00DC0AA6 /* SwiftIcons.swift */; };
+		630B4EAD21C768D100DC0AA6 /* Icofont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4E9E21C768D100DC0AA6 /* Icofont.ttf */; };
+		630B4EAE21C768D100DC0AA6 /* Icofont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4E9E21C768D100DC0AA6 /* Icofont.ttf */; };
+		630B4EAF21C768D100DC0AA6 /* Icofont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4E9E21C768D100DC0AA6 /* Icofont.ttf */; };
+		630B4EB021C768D100DC0AA6 /* Icofont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4E9E21C768D100DC0AA6 /* Icofont.ttf */; };
+		630B4EB121C768D100DC0AA6 /* MapIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4E9F21C768D100DC0AA6 /* MapIcons.ttf */; };
+		630B4EB221C768D100DC0AA6 /* MapIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4E9F21C768D100DC0AA6 /* MapIcons.ttf */; };
+		630B4EB321C768D100DC0AA6 /* MapIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4E9F21C768D100DC0AA6 /* MapIcons.ttf */; };
+		630B4EB421C768D100DC0AA6 /* MapIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4E9F21C768D100DC0AA6 /* MapIcons.ttf */; };
+		630B4EB521C768D100DC0AA6 /* Dripicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EA021C768D100DC0AA6 /* Dripicons.ttf */; };
+		630B4EB621C768D100DC0AA6 /* Dripicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EA021C768D100DC0AA6 /* Dripicons.ttf */; };
+		630B4EB721C768D100DC0AA6 /* Dripicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EA021C768D100DC0AA6 /* Dripicons.ttf */; };
+		630B4EB821C768D100DC0AA6 /* Dripicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EA021C768D100DC0AA6 /* Dripicons.ttf */; };
+		630B4EB921C768D100DC0AA6 /* OpenIconic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EA121C768D100DC0AA6 /* OpenIconic.ttf */; };
+		630B4EBA21C768D100DC0AA6 /* OpenIconic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EA121C768D100DC0AA6 /* OpenIconic.ttf */; };
+		630B4EBB21C768D100DC0AA6 /* OpenIconic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EA121C768D100DC0AA6 /* OpenIconic.ttf */; };
+		630B4EBC21C768D100DC0AA6 /* OpenIconic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EA121C768D100DC0AA6 /* OpenIconic.ttf */; };
+		630B4EBD21C768D100DC0AA6 /* FontAwesomeSolid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EA221C768D100DC0AA6 /* FontAwesomeSolid.ttf */; };
+		630B4EBE21C768D100DC0AA6 /* FontAwesomeSolid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EA221C768D100DC0AA6 /* FontAwesomeSolid.ttf */; };
+		630B4EBF21C768D100DC0AA6 /* FontAwesomeSolid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EA221C768D100DC0AA6 /* FontAwesomeSolid.ttf */; };
+		630B4EC021C768D100DC0AA6 /* FontAwesomeSolid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EA221C768D100DC0AA6 /* FontAwesomeSolid.ttf */; };
+		630B4EC121C768D100DC0AA6 /* WeatherIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EA321C768D100DC0AA6 /* WeatherIcons.ttf */; };
+		630B4EC221C768D100DC0AA6 /* WeatherIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EA321C768D100DC0AA6 /* WeatherIcons.ttf */; };
+		630B4EC321C768D100DC0AA6 /* WeatherIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EA321C768D100DC0AA6 /* WeatherIcons.ttf */; };
+		630B4EC421C768D100DC0AA6 /* WeatherIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EA321C768D100DC0AA6 /* WeatherIcons.ttf */; };
+		630B4EC521C768D100DC0AA6 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EA421C768D100DC0AA6 /* Ionicons.ttf */; };
+		630B4EC621C768D100DC0AA6 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EA421C768D100DC0AA6 /* Ionicons.ttf */; };
+		630B4EC721C768D100DC0AA6 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EA421C768D100DC0AA6 /* Ionicons.ttf */; };
+		630B4EC821C768D100DC0AA6 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EA421C768D100DC0AA6 /* Ionicons.ttf */; };
+		630B4EC921C768D100DC0AA6 /* TypIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EA521C768D100DC0AA6 /* TypIcons.ttf */; };
+		630B4ECA21C768D100DC0AA6 /* TypIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EA521C768D100DC0AA6 /* TypIcons.ttf */; };
+		630B4ECB21C768D100DC0AA6 /* TypIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EA521C768D100DC0AA6 /* TypIcons.ttf */; };
+		630B4ECC21C768D100DC0AA6 /* TypIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EA521C768D100DC0AA6 /* TypIcons.ttf */; };
+		630B4ECD21C768D100DC0AA6 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EA621C768D100DC0AA6 /* FontAwesome.ttf */; };
+		630B4ECE21C768D100DC0AA6 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EA621C768D100DC0AA6 /* FontAwesome.ttf */; };
+		630B4ECF21C768D100DC0AA6 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EA621C768D100DC0AA6 /* FontAwesome.ttf */; };
+		630B4ED021C768D100DC0AA6 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EA621C768D100DC0AA6 /* FontAwesome.ttf */; };
+		630B4ED121C768D100DC0AA6 /* FontAwesomeRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EA721C768D100DC0AA6 /* FontAwesomeRegular.ttf */; };
+		630B4ED221C768D100DC0AA6 /* FontAwesomeRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EA721C768D100DC0AA6 /* FontAwesomeRegular.ttf */; };
+		630B4ED321C768D100DC0AA6 /* FontAwesomeRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EA721C768D100DC0AA6 /* FontAwesomeRegular.ttf */; };
+		630B4ED421C768D100DC0AA6 /* FontAwesomeRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EA721C768D100DC0AA6 /* FontAwesomeRegular.ttf */; };
+		630B4ED521C768D100DC0AA6 /* Stateface.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EA821C768D100DC0AA6 /* Stateface.ttf */; };
+		630B4ED621C768D100DC0AA6 /* Stateface.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EA821C768D100DC0AA6 /* Stateface.ttf */; };
+		630B4ED721C768D100DC0AA6 /* Stateface.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EA821C768D100DC0AA6 /* Stateface.ttf */; };
+		630B4ED821C768D100DC0AA6 /* Stateface.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EA821C768D100DC0AA6 /* Stateface.ttf */; };
+		630B4ED921C768D100DC0AA6 /* Linearicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EA921C768D100DC0AA6 /* Linearicons.ttf */; };
+		630B4EDA21C768D100DC0AA6 /* Linearicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EA921C768D100DC0AA6 /* Linearicons.ttf */; };
+		630B4EDB21C768D100DC0AA6 /* Linearicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EA921C768D100DC0AA6 /* Linearicons.ttf */; };
+		630B4EDC21C768D100DC0AA6 /* Linearicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EA921C768D100DC0AA6 /* Linearicons.ttf */; };
+		630B4EDD21C768D100DC0AA6 /* Emoji.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EAA21C768D100DC0AA6 /* Emoji.ttf */; };
+		630B4EDE21C768D100DC0AA6 /* Emoji.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EAA21C768D100DC0AA6 /* Emoji.ttf */; };
+		630B4EDF21C768D100DC0AA6 /* Emoji.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EAA21C768D100DC0AA6 /* Emoji.ttf */; };
+		630B4EE021C768D100DC0AA6 /* Emoji.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EAA21C768D100DC0AA6 /* Emoji.ttf */; };
+		630B4EE121C768D100DC0AA6 /* FontAwesomeBrands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EAB21C768D100DC0AA6 /* FontAwesomeBrands.ttf */; };
+		630B4EE221C768D100DC0AA6 /* FontAwesomeBrands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EAB21C768D100DC0AA6 /* FontAwesomeBrands.ttf */; };
+		630B4EE321C768D100DC0AA6 /* FontAwesomeBrands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EAB21C768D100DC0AA6 /* FontAwesomeBrands.ttf */; };
+		630B4EE421C768D100DC0AA6 /* FontAwesomeBrands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EAB21C768D100DC0AA6 /* FontAwesomeBrands.ttf */; };
+		630B4EE521C768D100DC0AA6 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EAC21C768D100DC0AA6 /* MaterialIcons.ttf */; };
+		630B4EE621C768D100DC0AA6 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EAC21C768D100DC0AA6 /* MaterialIcons.ttf */; };
+		630B4EE721C768D100DC0AA6 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EAC21C768D100DC0AA6 /* MaterialIcons.ttf */; };
+		630B4EE821C768D100DC0AA6 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EAC21C768D100DC0AA6 /* MaterialIcons.ttf */; };
 		631933BD2181C2AE00350A9A /* NKFloatingViewHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631933BC2181C2AE00350A9A /* NKFloatingViewHandler.swift */; };
 		631933BE2181C2AE00350A9A /* NKFloatingViewHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631933BC2181C2AE00350A9A /* NKFloatingViewHandler.swift */; };
 		631933C32184309C00350A9A /* UZFloatingPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631933C22184309C00350A9A /* UZFloatingPlayerViewController.swift */; };
@@ -235,6 +299,22 @@
 		6300A82A21353BC000C27195 /* UZLiveStreamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZLiveStreamViewController.swift; sourceTree = "<group>"; };
 		6300A82D21353FCE00C27195 /* UZLiveStreamUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZLiveStreamUIView.swift; sourceTree = "<group>"; };
 		6309D95D20A4078E008CC538 /* UZRelatedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZRelatedViewController.swift; sourceTree = "<group>"; };
+		630B4E9821C768CB00DC0AA6 /* SwiftIcons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftIcons.swift; sourceTree = "<group>"; };
+		630B4E9E21C768D100DC0AA6 /* Icofont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Icofont.ttf; sourceTree = "<group>"; };
+		630B4E9F21C768D100DC0AA6 /* MapIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MapIcons.ttf; sourceTree = "<group>"; };
+		630B4EA021C768D100DC0AA6 /* Dripicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Dripicons.ttf; sourceTree = "<group>"; };
+		630B4EA121C768D100DC0AA6 /* OpenIconic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = OpenIconic.ttf; sourceTree = "<group>"; };
+		630B4EA221C768D100DC0AA6 /* FontAwesomeSolid.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesomeSolid.ttf; sourceTree = "<group>"; };
+		630B4EA321C768D100DC0AA6 /* WeatherIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = WeatherIcons.ttf; sourceTree = "<group>"; };
+		630B4EA421C768D100DC0AA6 /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ionicons.ttf; sourceTree = "<group>"; };
+		630B4EA521C768D100DC0AA6 /* TypIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = TypIcons.ttf; sourceTree = "<group>"; };
+		630B4EA621C768D100DC0AA6 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.ttf; sourceTree = "<group>"; };
+		630B4EA721C768D100DC0AA6 /* FontAwesomeRegular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesomeRegular.ttf; sourceTree = "<group>"; };
+		630B4EA821C768D100DC0AA6 /* Stateface.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Stateface.ttf; sourceTree = "<group>"; };
+		630B4EA921C768D100DC0AA6 /* Linearicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Linearicons.ttf; sourceTree = "<group>"; };
+		630B4EAA21C768D100DC0AA6 /* Emoji.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Emoji.ttf; sourceTree = "<group>"; };
+		630B4EAB21C768D100DC0AA6 /* FontAwesomeBrands.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesomeBrands.ttf; sourceTree = "<group>"; };
+		630B4EAC21C768D100DC0AA6 /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialIcons.ttf; sourceTree = "<group>"; };
 		631933BC2181C2AE00350A9A /* NKFloatingViewHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NKFloatingViewHandler.swift; sourceTree = "<group>"; };
 		631933C22184309C00350A9A /* UZFloatingPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZFloatingPlayerViewController.swift; sourceTree = "<group>"; };
 		632124EB2089E1ED00720593 /* UZBannerItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZBannerItem.swift; sourceTree = "<group>"; };
@@ -375,6 +455,45 @@
 			path = Live;
 			sourceTree = "<group>";
 		};
+		630B4E9721C768A900DC0AA6 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				630B4EE921C768D600DC0AA6 /* SwiftIcons */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		630B4E9D21C768D100DC0AA6 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				630B4E9E21C768D100DC0AA6 /* Icofont.ttf */,
+				630B4E9F21C768D100DC0AA6 /* MapIcons.ttf */,
+				630B4EA021C768D100DC0AA6 /* Dripicons.ttf */,
+				630B4EA121C768D100DC0AA6 /* OpenIconic.ttf */,
+				630B4EA221C768D100DC0AA6 /* FontAwesomeSolid.ttf */,
+				630B4EA321C768D100DC0AA6 /* WeatherIcons.ttf */,
+				630B4EA421C768D100DC0AA6 /* Ionicons.ttf */,
+				630B4EA521C768D100DC0AA6 /* TypIcons.ttf */,
+				630B4EA621C768D100DC0AA6 /* FontAwesome.ttf */,
+				630B4EA721C768D100DC0AA6 /* FontAwesomeRegular.ttf */,
+				630B4EA821C768D100DC0AA6 /* Stateface.ttf */,
+				630B4EA921C768D100DC0AA6 /* Linearicons.ttf */,
+				630B4EAA21C768D100DC0AA6 /* Emoji.ttf */,
+				630B4EAB21C768D100DC0AA6 /* FontAwesomeBrands.ttf */,
+				630B4EAC21C768D100DC0AA6 /* MaterialIcons.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		630B4EE921C768D600DC0AA6 /* SwiftIcons */ = {
+			isa = PBXGroup;
+			children = (
+				630B4E9D21C768D100DC0AA6 /* Fonts */,
+				630B4E9821C768CB00DC0AA6 /* SwiftIcons.swift */,
+			);
+			path = SwiftIcons;
+			sourceTree = "<group>";
+		};
 		6346B79920930C0B00A68AD4 /* Player */ = {
 			isa = PBXGroup;
 			children = (
@@ -473,6 +592,7 @@
 		63C65F64205B9FE600DB2C96 /* UizaSDK */ = {
 			isa = PBXGroup;
 			children = (
+				630B4E9721C768A900DC0AA6 /* Components */,
 				63C65F7C205BA10800DB2C96 /* Extensions */,
 				63C65F8B205BA10800DB2C96 /* SDK */,
 				6300A8222135164700C27195 /* Live */,
@@ -605,7 +725,7 @@
 				638EC0D220AAA17D00C0243E /* Frameworks */,
 				638EC0D320AAA17D00C0243E /* Resources */,
 				A9A0282F082ECBABA36F3D62 /* [CP] Embed Pods Frameworks */,
-				43BBD3116AB28D2F72055C07 /* [CP] Copy Pods Resources */,
+				84FFFC58039A1E50614E8FE9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -625,7 +745,7 @@
 				63C65F5E205B9FE600DB2C96 /* Frameworks */,
 				63C65F5F205B9FE600DB2C96 /* Headers */,
 				63C65F60205B9FE600DB2C96 /* Resources */,
-				87EF6C35D9455B7D03494F0F /* [CP] Copy Pods Resources */,
+				507E1A712D12DC5A9F3437F1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -645,7 +765,7 @@
 				63C65F68205B9FE600DB2C96 /* Frameworks */,
 				63C65F69205B9FE600DB2C96 /* Resources */,
 				648FD499C1B96C1C99D5F713 /* [CP] Embed Pods Frameworks */,
-				A6DEF55E40D66BBD52F4225E /* [CP] Copy Pods Resources */,
+				1EBC46DF1B4FD651F3B45DBA /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -740,9 +860,24 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				630B4EDC21C768D100DC0AA6 /* Linearicons.ttf in Resources */,
+				630B4EC821C768D100DC0AA6 /* Ionicons.ttf in Resources */,
 				638EC0E220AAA17F00C0243E /* LaunchScreen.storyboard in Resources */,
+				630B4EC421C768D100DC0AA6 /* WeatherIcons.ttf in Resources */,
+				630B4ED821C768D100DC0AA6 /* Stateface.ttf in Resources */,
+				630B4EB021C768D100DC0AA6 /* Icofont.ttf in Resources */,
+				630B4EB421C768D100DC0AA6 /* MapIcons.ttf in Resources */,
+				630B4EC021C768D100DC0AA6 /* FontAwesomeSolid.ttf in Resources */,
 				638EC0DF20AAA17F00C0243E /* Assets.xcassets in Resources */,
+				630B4EE021C768D100DC0AA6 /* Emoji.ttf in Resources */,
+				630B4EE421C768D100DC0AA6 /* FontAwesomeBrands.ttf in Resources */,
+				630B4EB821C768D100DC0AA6 /* Dripicons.ttf in Resources */,
+				630B4EBC21C768D100DC0AA6 /* OpenIconic.ttf in Resources */,
+				630B4ED421C768D100DC0AA6 /* FontAwesomeRegular.ttf in Resources */,
+				630B4EE821C768D100DC0AA6 /* MaterialIcons.ttf in Resources */,
+				630B4ECC21C768D100DC0AA6 /* TypIcons.ttf in Resources */,
 				638EC0DD20AAA17D00C0243E /* Main.storyboard in Resources */,
+				630B4ED021C768D100DC0AA6 /* FontAwesome.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -750,6 +885,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				630B4ED521C768D100DC0AA6 /* Stateface.ttf in Resources */,
+				630B4EE121C768D100DC0AA6 /* FontAwesomeBrands.ttf in Resources */,
+				630B4EE521C768D100DC0AA6 /* MaterialIcons.ttf in Resources */,
+				630B4EB121C768D100DC0AA6 /* MapIcons.ttf in Resources */,
+				630B4EC921C768D100DC0AA6 /* TypIcons.ttf in Resources */,
+				630B4EB921C768D100DC0AA6 /* OpenIconic.ttf in Resources */,
+				630B4EB521C768D100DC0AA6 /* Dripicons.ttf in Resources */,
+				630B4ED121C768D100DC0AA6 /* FontAwesomeRegular.ttf in Resources */,
+				630B4ED921C768D100DC0AA6 /* Linearicons.ttf in Resources */,
+				630B4EC521C768D100DC0AA6 /* Ionicons.ttf in Resources */,
+				630B4ECD21C768D100DC0AA6 /* FontAwesome.ttf in Resources */,
+				630B4EBD21C768D100DC0AA6 /* FontAwesomeSolid.ttf in Resources */,
+				630B4EC121C768D100DC0AA6 /* WeatherIcons.ttf in Resources */,
+				630B4EAD21C768D100DC0AA6 /* Icofont.ttf in Resources */,
+				630B4EDD21C768D100DC0AA6 /* Emoji.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -757,6 +907,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				630B4ED721C768D100DC0AA6 /* Stateface.ttf in Resources */,
+				630B4EE321C768D100DC0AA6 /* FontAwesomeBrands.ttf in Resources */,
+				630B4EE721C768D100DC0AA6 /* MaterialIcons.ttf in Resources */,
+				630B4EB321C768D100DC0AA6 /* MapIcons.ttf in Resources */,
+				630B4ECB21C768D100DC0AA6 /* TypIcons.ttf in Resources */,
+				630B4EBB21C768D100DC0AA6 /* OpenIconic.ttf in Resources */,
+				630B4EB721C768D100DC0AA6 /* Dripicons.ttf in Resources */,
+				630B4ED321C768D100DC0AA6 /* FontAwesomeRegular.ttf in Resources */,
+				630B4EDB21C768D100DC0AA6 /* Linearicons.ttf in Resources */,
+				630B4EC721C768D100DC0AA6 /* Ionicons.ttf in Resources */,
+				630B4ECF21C768D100DC0AA6 /* FontAwesome.ttf in Resources */,
+				630B4EBF21C768D100DC0AA6 /* FontAwesomeSolid.ttf in Resources */,
+				630B4EC321C768D100DC0AA6 /* WeatherIcons.ttf in Resources */,
+				630B4EAF21C768D100DC0AA6 /* Icofont.ttf in Resources */,
+				630B4EDF21C768D100DC0AA6 /* Emoji.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -764,12 +929,51 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				630B4ED621C768D100DC0AA6 /* Stateface.ttf in Resources */,
+				630B4EE221C768D100DC0AA6 /* FontAwesomeBrands.ttf in Resources */,
+				630B4EE621C768D100DC0AA6 /* MaterialIcons.ttf in Resources */,
+				630B4EB221C768D100DC0AA6 /* MapIcons.ttf in Resources */,
+				630B4ECA21C768D100DC0AA6 /* TypIcons.ttf in Resources */,
+				630B4EBA21C768D100DC0AA6 /* OpenIconic.ttf in Resources */,
+				630B4EB621C768D100DC0AA6 /* Dripicons.ttf in Resources */,
+				630B4ED221C768D100DC0AA6 /* FontAwesomeRegular.ttf in Resources */,
+				630B4EDA21C768D100DC0AA6 /* Linearicons.ttf in Resources */,
+				630B4EC621C768D100DC0AA6 /* Ionicons.ttf in Resources */,
+				630B4ECE21C768D100DC0AA6 /* FontAwesome.ttf in Resources */,
+				630B4EBE21C768D100DC0AA6 /* FontAwesomeSolid.ttf in Resources */,
+				630B4EC221C768D100DC0AA6 /* WeatherIcons.ttf in Resources */,
+				630B4EAE21C768D100DC0AA6 /* Icofont.ttf in Resources */,
+				630B4EDE21C768D100DC0AA6 /* Emoji.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		1EBC46DF1B4FD651F3B45DBA /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-UizaSDKTests/Pods-UizaSDKTests-resources.sh",
+				"${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-ios-4.3.3_static/GoogleCast.framework/GoogleCastCoreResources.bundle",
+				"${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-ios-4.3.3_static/GoogleCast.framework/GoogleCastUIResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleCastCoreResources.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleCastUIResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-UizaSDKTests/Pods-UizaSDKTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		25A48D8B9952AB1662EF83D3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -788,26 +992,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		43BBD3116AB28D2F72055C07 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-UizaPlayerTest/Pods-UizaPlayerTest-resources.sh",
-				"${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-ios-4.3.3_static/GoogleCast.framework/GoogleCastCoreResources.bundle",
-				"${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-ios-4.3.3_static/GoogleCast.framework/GoogleCastUIResources.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleCastCoreResources.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleCastUIResources.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-UizaPlayerTest/Pods-UizaPlayerTest-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		482DC50A7C5C92F55B66A5EE /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -824,6 +1008,30 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		507E1A712D12DC5A9F3437F1 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-UizaSDK/Pods-UizaSDK-resources.sh",
+				"${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-ios-4.3.3_static/GoogleCast.framework/GoogleCastCoreResources.bundle",
+				"${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-ios-4.3.3_static/GoogleCast.framework/GoogleCastUIResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleCastCoreResources.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleCastUIResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-UizaSDK/Pods-UizaSDK-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		635D4383215614D400175BE4 /* Build Framework */ = {
@@ -862,7 +1070,6 @@
 				"${BUILT_PRODUCTS_DIR}/NKModalViewManager/NKModalViewManager.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftIcons/SwiftIcons.framework",
 				"${BUILT_PRODUCTS_DIR}/TweenKit/TweenKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -878,7 +1085,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NKModalViewManager.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftIcons.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TweenKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -886,24 +1092,28 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-UizaSDKTests/Pods-UizaSDKTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		87EF6C35D9455B7D03494F0F /* [CP] Copy Pods Resources */ = {
+		84FFFC58039A1E50614E8FE9 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
+			inputFileListPaths = (
+			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-UizaSDK/Pods-UizaSDK-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-UizaPlayerTest/Pods-UizaPlayerTest-resources.sh",
 				"${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-ios-4.3.3_static/GoogleCast.framework/GoogleCastCoreResources.bundle",
 				"${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-ios-4.3.3_static/GoogleCast.framework/GoogleCastUIResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleCastCoreResources.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleCastUIResources.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-UizaSDK/Pods-UizaSDK-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-UizaPlayerTest/Pods-UizaPlayerTest-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A0E04875E96286A174123FBA /* [CP] Check Pods Manifest.lock */ = {
@@ -924,26 +1134,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A6DEF55E40D66BBD52F4225E /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-UizaSDKTests/Pods-UizaSDKTests-resources.sh",
-				"${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-ios-4.3.3_static/GoogleCast.framework/GoogleCastCoreResources.bundle",
-				"${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-ios-4.3.3_static/GoogleCast.framework/GoogleCastUIResources.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleCastCoreResources.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleCastUIResources.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-UizaSDKTests/Pods-UizaSDKTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		A9A0282F082ECBABA36F3D62 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -961,7 +1151,6 @@
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftIcons/SwiftIcons.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON-iOS/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/TweenKit/TweenKit.framework",
 			);
@@ -977,7 +1166,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftIcons.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TweenKit.framework",
 			);
@@ -1034,6 +1222,7 @@
 				63C65FE821730ECC00731FD9 /* UIViewController+TopPresented.swift in Sources */,
 				637996E52154D31400DCBADF /* UZThemeConfig.swift in Sources */,
 				638EC0EA20AAA2CA00C0243E /* Error+Code.swift in Sources */,
+				630B4E9C21C768CB00DC0AA6 /* SwiftIcons.swift in Sources */,
 				638EC10420AAA2D600C0243E /* UZEndscreenView.swift in Sources */,
 				638EC0E720AAA2CA00C0243E /* AVAudioSession+Airplay.swift in Sources */,
 				638EC0F020AAA2CA00C0243E /* NSTimeInterval+ToString.swift in Sources */,
@@ -1136,6 +1325,7 @@
 				638EC11920AC348000C0243E /* UZTheme1.swift in Sources */,
 				6346B7AB20930DAC00A68AD4 /* NSTimeInterval+ToString.swift in Sources */,
 				63C65FAC205BA10800DB2C96 /* String+ToBool.swift in Sources */,
+				630B4E9921C768CB00DC0AA6 /* SwiftIcons.swift in Sources */,
 				63C65FAE205BA10800DB2C96 /* String+Extension.swift in Sources */,
 				63C65FE621730ECC00731FD9 /* UIViewController+TopPresented.swift in Sources */,
 				632125022089E20800720593 /* UZAPIConnector.swift in Sources */,
@@ -1162,6 +1352,7 @@
 				63C65FDD21730BB400731FD9 /* UizaSDK.swift in Sources */,
 				63C65FD921730BB400731FD9 /* UZVideoItem.swift in Sources */,
 				63C65FD521730BB400731FD9 /* UZBannerItem.swift in Sources */,
+				630B4E9B21C768CB00DC0AA6 /* SwiftIcons.swift in Sources */,
 				63C65FE221730BB400731FD9 /* UZLogger.swift in Sources */,
 				63C65FDC21730BB400731FD9 /* UZThemeConfig.swift in Sources */,
 				63C65FD721730BB400731FD9 /* UZMenuItem.swift in Sources */,
@@ -1181,6 +1372,7 @@
 			files = (
 				63A8264720F36136001FD7E3 /* UZPagination.swift in Sources */,
 				63FC58DB208A1F24009C9028 /* NSError+Uiza.swift in Sources */,
+				630B4E9A21C768CB00DC0AA6 /* SwiftIcons.swift in Sources */,
 				63FC58D5208A1F24009C9028 /* UIDevice+Extension.swift in Sources */,
 				63FC58D3208A1F1F009C9028 /* UZLogger.swift in Sources */,
 				63FC58D7208A1F24009C9028 /* FileManager+Extends.swift in Sources */,
@@ -1271,7 +1463,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = N553UPX8WV;
 				INFOPLIST_FILE = UizaPlayerTest/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.uiza.UizaPlayerTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1289,7 +1481,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = N553UPX8WV;
 				INFOPLIST_FILE = UizaPlayerTest/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.uiza.UizaPlayerTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1349,7 +1541,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1405,7 +1597,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -1436,7 +1628,7 @@
 				);
 				INFOPLIST_FILE = UizaSDK/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.uiza.UizaSDK;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -1467,7 +1659,7 @@
 				);
 				INFOPLIST_FILE = UizaSDK/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.uiza.UizaSDK;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";

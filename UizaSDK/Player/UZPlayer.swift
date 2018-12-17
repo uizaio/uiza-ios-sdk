@@ -1393,7 +1393,11 @@ open class UZPlayerLayerView: UIView {
 	public var preferredForwardBufferDuration: TimeInterval = 0 {
 		didSet {
 			if let playerItem = playerItem {
-				playerItem.preferredForwardBufferDuration = preferredForwardBufferDuration
+				if #available(iOS 10.0, *) {
+					playerItem.preferredForwardBufferDuration = preferredForwardBufferDuration
+				} else {
+					// Fallback on earlier versions
+				}
 			}
 		}
 	}
@@ -1593,7 +1597,11 @@ open class UZPlayerLayerView: UIView {
 			item.addObserver(self, forKeyPath: "loadedTimeRanges", options: NSKeyValueObservingOptions.new, context: nil)
 			item.addObserver(self, forKeyPath: "playbackBufferEmpty", options: NSKeyValueObservingOptions.new, context: nil)
 			item.addObserver(self, forKeyPath: "playbackLikelyToKeepUp", options: NSKeyValueObservingOptions.new, context: nil)
-			item.preferredForwardBufferDuration = preferredForwardBufferDuration
+			if #available(iOS 10.0, *) {
+				item.preferredForwardBufferDuration = preferredForwardBufferDuration
+			} else {
+				// Fallback on earlier versions
+			}
 		}
 	}
 	

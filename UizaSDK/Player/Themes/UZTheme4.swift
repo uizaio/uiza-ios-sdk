@@ -8,7 +8,6 @@
 
 import UIKit
 import AVKit
-import SwiftIcons
 import FrameLayoutKit
 import NVActivityIndicatorView
 

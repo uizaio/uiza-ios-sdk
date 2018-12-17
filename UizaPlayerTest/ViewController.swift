@@ -66,17 +66,17 @@ class ViewController: UIViewController {
 		//				DLog("OK \(results) - \(error)")
 		//			})
 		
-//		UZContentServices().loadEntity(metadataId: nil, publishStatus: .success, page: 0, limit: 15) { (results, error) in
-//			if let videos = results, let video = videos.first {
-//
-//				DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-//					let viewController = UZFloatingPlayerViewController()
-//					viewController.present(with: video).player.controlView.theme = UZTheme1()
-//					viewController.floatingHandler?.allowsCornerDocking = true
-////					viewController.player.delegate = self
-//				}
-//			}
-//		}
+		UZContentServices().loadEntity(metadataId: nil, publishStatus: .success, page: 0, limit: 15) { (results, error) in
+			if let videos = results, let video = videos.first {
+
+				DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+					let viewController = UZFloatingPlayerViewController()
+					viewController.present(with: video).player.controlView.theme = UZTheme1()
+					viewController.floatingHandler?.allowsCornerDocking = true
+//					viewController.player.delegate = self
+				}
+			}
+		}
 		
 //		self.playerViewController.player.loadPlaylist(metadataId: "8f24c324-4113-4b2d-b821-25969851d759", page: 0, limit: 20, playIndex: 0, completionBlock: nil)
 		
@@ -95,9 +95,9 @@ class ViewController: UIViewController {
 //			}
 //		})
 		
-		DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-			self.showLive()
-		}
+//		DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//			self.showLive()
+//		}
 	}
 	
 	

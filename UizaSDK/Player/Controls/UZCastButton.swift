@@ -15,8 +15,10 @@ open class UZCastButton: NKButton {
 	override init() {
 		super.init()
 		
+		#if ALLOW_GOOGLECAST
 		NotificationCenter.default.addObserver(self, selector: #selector(updateState), name: NSNotification.Name.UZCastSessionDidStart, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(updateState), name: NSNotification.Name.UZCastSessionDidStop, object: nil)
+		#endif
 		NotificationCenter.default.addObserver(self, selector: #selector(updateState), name: .AVAudioSessionRouteChange, object: nil)
 		
 		updateState()
@@ -36,7 +38,11 @@ open class UZCastButton: NKButton {
 	
 	@objc func updateState() {
 		DispatchQueue.main.async {
+			#if ALLOW_GOOGLECAST
 			self.isSelected = UZCastingManager.shared.hasConnectedSession || AVAudioSession.sharedInstance().isAirPlaying
+			#else
+			self.isSelected = AVAudioSession.sharedInstance().isAirPlaying
+			#endif
 		}
 	}
 	

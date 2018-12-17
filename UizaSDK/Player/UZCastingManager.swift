@@ -17,7 +17,6 @@ extension Notification.Name {
 	static let UZCastClientDidStart		= Notification.Name(rawValue: "UZCastClientDidStart")
 	static let UZCastClientDidUpdate	= Notification.Name(rawValue: "UZCastClientDidUpdate")
 	static let UZDeviceDidReceiveText 	= Notification.Name(rawValue: "UZDeviceDidReceiveText")
-	static let UZShowAirPlayDeviceList	= Notification.Name(rawValue: "UZShowAirPlayDeviceList")
 	
 }
 

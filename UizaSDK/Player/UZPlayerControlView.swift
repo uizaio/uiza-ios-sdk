@@ -175,7 +175,9 @@ open class UZPlayerControlView: UIView {
 			timeSlider.maximumTrackTintColor = UIColor.clear
 		}
 	}
+	#if ALLOW_GOOGLECAST
 	internal var castingView: UZCastingView? = nil
+	#endif
 	
 	internal var liveStartDate: Date? = nil {
 		didSet {
@@ -317,7 +319,9 @@ open class UZPlayerControlView: UIView {
 		
 		containerView.frame = self.bounds
 		theme?.layoutControls(rect: self.bounds)
+		#if ALLOW_GOOGLECAST
 		castingView?.frame = self.bounds
+		#endif
 		endscreenView.frame = self.bounds
 		
 		if let messageLabel = messageLabel {
@@ -555,6 +559,7 @@ open class UZPlayerControlView: UIView {
 	}
 	
 	open func showCastingScreen() {
+		#if ALLOW_GOOGLECAST
 		DispatchQueue.main.async {
 			if self.castingView == nil {
 				self.castingView = UZCastingView()
@@ -564,13 +569,16 @@ open class UZPlayerControlView: UIView {
 			self.insertSubview(self.castingView!, at: 0)
 			self.setNeedsLayout()
 		}
+		#endif
 	}
 	
 	open func hideCastingScreen() {
+		#if ALLOW_GOOGLECAST
 		DispatchQueue.main.async {
 			self.castingView?.removeFromSuperview()
 			self.castingView = nil
 		}
+		#endif
 	}
 	
 	private func updateLiveDate() {

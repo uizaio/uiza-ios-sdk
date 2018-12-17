@@ -12,10 +12,17 @@ import AVFoundation
 import Foundation
 import CoreGraphics
 import NKModalViewManager
-import GoogleInteractiveMediaAds
+
 #if ALLOW_GOOGLECAST
+import GoogleInteractiveMediaAds
 import GoogleCast
 #endif
+
+extension Notification.Name {
+	
+	static let UZShowAirPlayDeviceList	= Notification.Name(rawValue: "UZShowAirPlayDeviceList")
+	
+}
 
 public protocol UZPlayerDelegate : class {
 	func UZPlayer(player: UZPlayer, playerStateDidChange state: UZPlayerState)
@@ -211,9 +218,11 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	public fileprivate(set) var isPlayToTheEnd  = false
 	public fileprivate(set) var isReplaying		= false
 	
+	#if ALLOW_GOOGLECAST
 	fileprivate var contentPlayhead: IMAAVPlayerContentPlayhead?
 	fileprivate var adsLoader: IMAAdsLoader?
 	fileprivate var adsManager: IMAAdsManager?
+	#endif
 	
 	fileprivate var _pictureInPictureController: Any? = nil
 	@available(iOS 9.0, *)
@@ -345,12 +354,14 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		controlView.relateButton.isHidden = true // currentVideo == nil || (currentVideo?.isLive ?? false)
 		controlView.playlistButton.isHidden = (playlist?.isEmpty ?? true)
 		
+		#if ALLOW_GOOGLECAST
 		if UZCastingManager.shared.hasConnectedSession {
 			if let currentVideo = currentVideo, let linkPlay = currentLinkPlay {
 				let item = UZCastItem(id: currentVideo.id, title: currentVideo.name, customData: nil, streamType: currentVideo.isLive ? .live : .buffered, contentType: "application/dash+xml", url: linkPlay.url, thumbnailUrl: currentVideo.thumbnailURL, duration: currentVideo.duration, playPosition: self.currentPosition, mediaTracks: nil)
 				UZCastingManager.shared.castItem(item: item)
 			}
 		}
+		#endif
 		
 		if shouldAutoPlay {
 			isURLSet = true
@@ -500,11 +511,13 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		controlView.hideEndScreen()
 		playerLayer?.seek(to: interval, completion: completion)
 		
+		#if ALLOW_GOOGLECAST
 		let castingManager = UZCastingManager.shared
 		if castingManager.hasConnectedSession {
 			playerLayer?.pause()
 			castingManager.seek(to: interval)
 		}
+		#endif
 	}
 	
 	/**
@@ -589,12 +602,21 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	}
 	
 	internal func updateCastingUI() {
+		#if ALLOW_GOOGLECAST
 		if AVAudioSession.sharedInstance().isAirPlaying || UZCastingManager.shared.hasConnectedSession {
 			controlView.showCastingScreen()
 		}
 		else {
 			controlView.hideCastingScreen()
 		}
+		#else
+		if AVAudioSession.sharedInstance().isAirPlaying {
+			controlView.showCastingScreen()
+		}
+		else {
+			controlView.hideCastingScreen()
+		}
+		#endif
 	}
 	
 	// MARK: -
@@ -641,6 +663,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	}
 	*/
 	
+	#if ALLOW_GOOGLECAST
 	@objc func contentDidFinishPlaying(_ notification: Notification) {
 		if (notification.object as! AVPlayerItem) == avPlayer?.currentItem {
 			adsLoader?.contentComplete()
@@ -664,7 +687,6 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		playerLayer?.isPlaying = true
 	}
 	
-	#if ALLOW_GOOGLECAST
 	@objc func onCastClientDidUpdate(_ notification: Notification) {
 		if let mediaStatus = notification.object as? GCKMediaStatus,
 			let currentQueueItem = mediaStatus.currentQueueItem,
@@ -747,6 +769,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	
 	// MARK: -
 	
+	#if ALLOW_GOOGLECAST
 	internal func setUpAdsLoader() {
 		contentPlayhead = IMAAVPlayerContentPlayhead(avPlayer: avPlayer)
 		
@@ -783,6 +806,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 //			adsLoader?.requestAds(with: request)
 //		}
 	}
+	#endif
 	
 	// MARK: -
 	
@@ -791,7 +815,10 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		
 		setupUI()
 		preparePlayer()
+		
+		#if ALLOW_GOOGLECAST
 		setUpAdsLoader()
+		#endif
 		
 		#if DEBUG
 		print("[UizaPlayer \(PLAYER_VERSION)] initialized")
@@ -1007,11 +1034,16 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	}
 	
 	open func showCastingDeviceList() {
+		#if ALLOW_GOOGLECAST
 		let viewController = UZDeviceListTableViewController()
 		NKModalViewManager.sharedInstance().presentModalViewController(viewController).tapOutsideToDismiss = true
+		#else
+		showAirPlayDevicesSelection()
+		#endif
 	}
 	
 	func showCastDisconnectConfirmation(at view: UIView) {
+		#if ALLOW_GOOGLECAST
 		if UZCastingManager.shared.hasConnectedSession {
 			if let window = UIApplication.shared.keyWindow,
 				let viewController = window.rootViewController
@@ -1041,6 +1073,9 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		else if AVAudioSession.sharedInstance().isAirPlaying {
 			showAirPlayDevicesSelection()
 		}
+		#else
+		showAirPlayDevicesSelection()
+		#endif
 	}
 	
 	// MARK: - KVO
@@ -1081,7 +1116,9 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		case .readyToPlay:
 			play()
 			updateCastingUI()
+			#if ALLOW_GOOGLECAST
 			requestAds()
+			#endif
 			
 		case .bufferFinished:
 			playIfApplicable()
@@ -1093,7 +1130,9 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 				controlView.showEndScreen()
 			}
 			
+			#if ALLOW_GOOGLECAST
 			adsLoader?.contentComplete()
+			#endif
 			nextVideo()
 			
 		case .error:
@@ -1220,6 +1259,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	}
 	
 	open func controlView(controlView: UZPlayerControlView, slider: UISlider, onSliderEvent event: UIControlEvents) {
+		#if ALLOW_GOOGLECAST
 		let castingManager = UZCastingManager.shared
 		if castingManager.hasConnectedSession {
 			switch event {
@@ -1250,6 +1290,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 			
 			return
 		}
+		#endif
 		
 		switch event {
 		case .touchDown:
@@ -1330,6 +1371,7 @@ extension UZPlayer: AVPictureInPictureControllerDelegate {
 	
 }
 
+#if ALLOW_GOOGLECAST
 extension UZPlayer: IMAAdsLoaderDelegate, IMAAdsManagerDelegate {
 	
 	public func adsLoader(_ loader: IMAAdsLoader!, adsLoadedWith adsLoadedData: IMAAdsLoadedData!) {
@@ -1375,6 +1417,7 @@ extension UZPlayer: IMAAdsLoaderDelegate, IMAAdsManagerDelegate {
 	}
 	
 }
+#endif
 
 // MARK: - UZPlayerLayerView
 
@@ -1514,12 +1557,14 @@ open class UZPlayerLayerView: UIView {
 	}
 	
 	open func play() {
+		#if ALLOW_GOOGLECAST
 		if UZCastingManager.shared.hasConnectedSession {
 			UZCastingManager.shared.play()
 			setupTimer()
 			isPlaying = true
 			return
 		}
+		#endif
 		
 		if let player = player {
 			player.play()
@@ -1534,9 +1579,11 @@ open class UZPlayerLayerView: UIView {
 		isPlaying = false
 		timer?.fireDate = Date.distantFuture
 		
+		#if ALLOW_GOOGLECAST
 		if UZCastingManager.shared.hasConnectedSession && alsoPauseCasting {
 			UZCastingManager.shared.pause()
 		}
+		#endif
 	}
 	
 	override open func layoutSubviews() {
@@ -1583,9 +1630,11 @@ open class UZPlayerLayerView: UIView {
 	open func prepareToDeinit() {
 		self.resetPlayer()
 		
+		#if ALLOW_GOOGLECAST
 		if UZCastingManager.shared.hasConnectedSession {
 			UZCastingManager.shared.disconnect()
 		}
+		#endif
 	}
 	
 	open func onTimeSliderBegan() {
@@ -1700,7 +1749,11 @@ open class UZPlayerLayerView: UIView {
 	
 	@objc fileprivate func playerTimerAction() {
 		if let playerItem = playerItem {
+			#if ALLOW_GOOGLECAST
 			let currentTime = UZCastingManager.shared.hasConnectedSession ? UZCastingManager.shared.currentPosition : CMTimeGetSeconds(playerItem.currentTime()) // CMTimeGetSeconds(self.player!.currentTime())
+			#else
+			let currentTime = CMTimeGetSeconds(playerItem.currentTime()) // CMTimeGetSeconds(self.player!.currentTime())
+			#endif
 			
 			var totalDuration: TimeInterval
 			if playerItem.duration.timescale != 0 {

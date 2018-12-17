@@ -140,7 +140,6 @@
 		630B4F1721C7A2F200DC0AA6 /* FileManager+Extends.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F7F205BA10800DB2C96 /* FileManager+Extends.swift */; };
 		630B4F1821C7A2F200DC0AA6 /* String+Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F88205BA10800DB2C96 /* String+Components.swift */; };
 		630B4F1921C7A2F200DC0AA6 /* UZLiveEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6300A8272135385E00C27195 /* UZLiveEvent.swift */; };
-		630B4F1A21C7A2F200DC0AA6 /* UZCastingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CFB7E420BBD97800647958 /* UZCastingView.swift */; };
 		630B4F1B21C7A2F200DC0AA6 /* UZMediaOptionSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DFE44520BFFB7600A9032D /* UZMediaOptionSelectionViewController.swift */; };
 		630B4F1C21C7A2F200DC0AA6 /* UZFloatingPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631933C22184309C00350A9A /* UZFloatingPlayerViewController.swift */; };
 		630B4F1D21C7A2F200DC0AA6 /* NKProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6346B79F20930C3200A68AD4 /* NKProgressView.swift */; };
@@ -164,7 +163,6 @@
 		630B4F2F21C7A2F200DC0AA6 /* UZPlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BBDE8C211FF1EF00E9E167 /* UZPlaylistViewController.swift */; };
 		630B4F3021C7A2F200DC0AA6 /* UZLiveStreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6300A82A21353BC000C27195 /* UZLiveStreamViewController.swift */; };
 		630B4F3121C7A2F200DC0AA6 /* NSDictionary+KeyValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F85205BA10800DB2C96 /* NSDictionary+KeyValue.swift */; };
-		630B4F3221C7A2F200DC0AA6 /* UZDeviceListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6335BDA221085D8200A9C0C5 /* UZDeviceListTableViewController.swift */; };
 		630B4F3421C7A2F200DC0AA6 /* Pods_UizaSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3EF719FF3F438E076EB2A5C /* Pods_UizaSDK.framework */; };
 		630B4F3621C7A2F200DC0AA6 /* UizaSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 63C65F65205B9FE600DB2C96 /* UizaSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		630B4F3821C7A2F200DC0AA6 /* Stateface.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EA821C768D100DC0AA6 /* Stateface.ttf */; };
@@ -1412,7 +1410,6 @@
 				630B4F1721C7A2F200DC0AA6 /* FileManager+Extends.swift in Sources */,
 				630B4F1821C7A2F200DC0AA6 /* String+Components.swift in Sources */,
 				630B4F1921C7A2F200DC0AA6 /* UZLiveEvent.swift in Sources */,
-				630B4F1A21C7A2F200DC0AA6 /* UZCastingView.swift in Sources */,
 				630B4F1B21C7A2F200DC0AA6 /* UZMediaOptionSelectionViewController.swift in Sources */,
 				630B4F1C21C7A2F200DC0AA6 /* UZFloatingPlayerViewController.swift in Sources */,
 				630B4F1D21C7A2F200DC0AA6 /* NKProgressView.swift in Sources */,
@@ -1436,7 +1433,6 @@
 				630B4F2F21C7A2F200DC0AA6 /* UZPlaylistViewController.swift in Sources */,
 				630B4F3021C7A2F200DC0AA6 /* UZLiveStreamViewController.swift in Sources */,
 				630B4F3121C7A2F200DC0AA6 /* NSDictionary+KeyValue.swift in Sources */,
-				630B4F3221C7A2F200DC0AA6 /* UZDeviceListTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,9 +7,7 @@
 //
 
 import UIKit
-#if ALLOW_GOOGLECAST
 import GoogleCast
-#endif
 
 extension Notification.Name {
 	

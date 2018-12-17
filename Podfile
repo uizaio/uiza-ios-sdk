@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
- platform :ios, '8.0'
+# platform :ios, '8.0'
 
 target 'UizaSDK' do
   platform :ios, '9.0'
@@ -45,7 +45,7 @@ target 'UizaSDK-tvos' do
 end
 
 target 'UizaPlayerTest' do
-	platform :ios, '8.0'
+	platform :ios, '9.0'
 	use_frameworks!
 	
 	pod 'Alamofire'

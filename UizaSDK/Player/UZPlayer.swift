@@ -664,6 +664,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		playerLayer?.isPlaying = true
 	}
 	
+	#if ALLOW_GOOGLECAST
 	@objc func onCastClientDidUpdate(_ notification: Notification) {
 		if let mediaStatus = notification.object as? GCKMediaStatus,
 			let currentQueueItem = mediaStatus.currentQueueItem,
@@ -697,7 +698,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		
 		updateCastingUI()
 	}
-	
+	#endif
 	
 	// MARK: -
 	
@@ -820,10 +821,12 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		NotificationCenter.default.addObserver(self, selector: #selector(onOrientationChanged), name: .UIApplicationDidChangeStatusBarOrientation, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(onAudioRouteChanged), name: .AVAudioSessionRouteChange, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(showAirPlayDevicesSelection), name: .UZShowAirPlayDeviceList, object: nil)
+		#if ALLOW_GOOGLECAST
 		NotificationCenter.default.addObserver(self, selector: #selector(onCastSessionDidStart), name: NSNotification.Name.UZCastSessionDidStart, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(onCastSessionDidStop), name: NSNotification.Name.UZCastSessionDidStop, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(onCastClientDidStart), name: NSNotification.Name.UZCastClientDidStart, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(onCastClientDidUpdate), name: NSNotification.Name.UZCastClientDidUpdate, object: nil)
+		#endif
 	}
 	
 	fileprivate func preparePlayer() {

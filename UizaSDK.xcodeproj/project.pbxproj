@@ -115,7 +115,6 @@
 		630B4EFD21C7A2F200DC0AA6 /* UZPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6346B79B20930C3200A68AD4 /* UZPlayerViewController.swift */; };
 		630B4EFE21C7A2F200DC0AA6 /* Dictionary+Append.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F82205BA10800DB2C96 /* Dictionary+Append.swift */; };
 		630B4EFF21C7A2F200DC0AA6 /* UZMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124EC2089E1ED00720593 /* UZMenuItem.swift */; };
-		630B4F0021C7A2F200DC0AA6 /* UZCastingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6335BDA02108529500A9C0C5 /* UZCastingManager.swift */; };
 		630B4F0121C7A2F200DC0AA6 /* UZVideoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632124EF2089E1EE00720593 /* UZVideoItem.swift */; };
 		630B4F0221C7A2F200DC0AA6 /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F80205BA10800DB2C96 /* UIColor+Hex.swift */; };
 		630B4F0321C7A2F200DC0AA6 /* UZPlayerControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6346B79A20930C3200A68AD4 /* UZPlayerControlView.swift */; };
@@ -860,6 +859,7 @@
 				638EC0D220AAA17D00C0243E /* Frameworks */,
 				638EC0D320AAA17D00C0243E /* Resources */,
 				A9A0282F082ECBABA36F3D62 /* [CP] Embed Pods Frameworks */,
+				F9EEEFF3B723E70D428499C8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1246,7 +1246,7 @@
 				"${BUILT_PRODUCTS_DIR}/NKButton-iOS9.0/NKButton.framework",
 				"${BUILT_PRODUCTS_DIR}/NKModalViewManager-iOS9.0/NKModalViewManager.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView-iOS9.0/NVActivityIndicatorView.framework",
-				"${BUILT_PRODUCTS_DIR}/Protobuf-iOS9.0/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/TweenKit-iOS9.0/TweenKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -1293,17 +1293,17 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-UizaPlayerTest/Pods-UizaPlayerTest-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire-iOS8.0/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/FrameLayoutKit-iOS8.0/FrameLayoutKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Alamofire-iOS9.0/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/FrameLayoutKit-iOS9.0/FrameLayoutKit.framework",
 				"${PODS_ROOT}/GoogleAds-IMA-iOS-SDK/GoogleInteractiveMediaAds.framework",
-				"${BUILT_PRODUCTS_DIR}/LFLiveKit-iOS8.0/LFLiveKit.framework",
-				"${BUILT_PRODUCTS_DIR}/NKButton-iOS8.0/NKButton.framework",
-				"${BUILT_PRODUCTS_DIR}/NKModalViewManager-iOS8.0/NKModalViewManager.framework",
-				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView-iOS8.0/NVActivityIndicatorView.framework",
-				"${BUILT_PRODUCTS_DIR}/Protobuf-iOS8.0/Protobuf.framework",
-				"${BUILT_PRODUCTS_DIR}/SDWebImage-iOS8.0/SDWebImage.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyJSON-iOS8.0/SwiftyJSON.framework",
-				"${BUILT_PRODUCTS_DIR}/TweenKit-iOS8.0/TweenKit.framework",
+				"${BUILT_PRODUCTS_DIR}/LFLiveKit-iOS9.0/LFLiveKit.framework",
+				"${BUILT_PRODUCTS_DIR}/NKButton-iOS9.0/NKButton.framework",
+				"${BUILT_PRODUCTS_DIR}/NKModalViewManager-iOS9.0/NKModalViewManager.framework",
+				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView-iOS9.0/NVActivityIndicatorView.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage-iOS9.0/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON-iOS9.0/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/TweenKit-iOS9.0/TweenKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -1342,6 +1342,30 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		F9EEEFF3B723E70D428499C8 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-UizaPlayerTest/Pods-UizaPlayerTest-resources.sh",
+				"${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-ios-4.3.3_static/GoogleCast.framework/GoogleCastCoreResources.bundle",
+				"${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-ios-4.3.3_static/GoogleCast.framework/GoogleCastUIResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleCastCoreResources.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleCastUIResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-UizaPlayerTest/Pods-UizaPlayerTest-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1363,7 +1387,6 @@
 				630B4EFD21C7A2F200DC0AA6 /* UZPlayerViewController.swift in Sources */,
 				630B4EFE21C7A2F200DC0AA6 /* Dictionary+Append.swift in Sources */,
 				630B4EFF21C7A2F200DC0AA6 /* UZMenuItem.swift in Sources */,
-				630B4F0021C7A2F200DC0AA6 /* UZCastingManager.swift in Sources */,
 				630B4F0121C7A2F200DC0AA6 /* UZVideoItem.swift in Sources */,
 				630B4F0221C7A2F200DC0AA6 /* UIColor+Hex.swift in Sources */,
 				630B4F0321C7A2F200DC0AA6 /* UZPlayerControlView.swift in Sources */,
@@ -1753,7 +1776,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = N553UPX8WV;
 				INFOPLIST_FILE = UizaPlayerTest/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.uiza.UizaPlayerTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1771,7 +1794,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = N553UPX8WV;
 				INFOPLIST_FILE = UizaPlayerTest/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.uiza.UizaPlayerTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";

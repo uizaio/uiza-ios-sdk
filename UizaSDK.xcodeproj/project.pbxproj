@@ -1233,10 +1233,10 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-UizaSDKTests/Pods-UizaSDKTests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire-iOS8.0/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/LFLiveKit-iOS8.0/LFLiveKit.framework",
-				"${BUILT_PRODUCTS_DIR}/SDWebImage-iOS8.0/SDWebImage.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyJSON-iOS8.0/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/Alamofire-iOS9.0/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/LFLiveKit-iOS9.0/LFLiveKit.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage-iOS9.0/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON-iOS9.0/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/FrameLayoutKit-iOS9.0/FrameLayoutKit.framework",
 				"${PODS_ROOT}/GoogleAds-IMA-iOS-SDK/GoogleInteractiveMediaAds.framework",
 				"${BUILT_PRODUCTS_DIR}/NKButton-iOS9.0/NKButton.framework",
@@ -1702,7 +1702,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.uiza.UizaSDK;
+				PRODUCT_BUNDLE_IDENTIFIER = com.uiza.UizaSDK_8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -1734,7 +1734,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.uiza.UizaSDK;
+				PRODUCT_BUNDLE_IDENTIFIER = com.uiza.UizaSDK_8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "";

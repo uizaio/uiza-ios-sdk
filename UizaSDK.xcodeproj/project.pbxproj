@@ -163,7 +163,6 @@
 		630B4F2F21C7A2F200DC0AA6 /* UZPlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BBDE8C211FF1EF00E9E167 /* UZPlaylistViewController.swift */; };
 		630B4F3021C7A2F200DC0AA6 /* UZLiveStreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6300A82A21353BC000C27195 /* UZLiveStreamViewController.swift */; };
 		630B4F3121C7A2F200DC0AA6 /* NSDictionary+KeyValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C65F85205BA10800DB2C96 /* NSDictionary+KeyValue.swift */; };
-		630B4F3421C7A2F200DC0AA6 /* Pods_UizaSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3EF719FF3F438E076EB2A5C /* Pods_UizaSDK.framework */; };
 		630B4F3621C7A2F200DC0AA6 /* UizaSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 63C65F65205B9FE600DB2C96 /* UizaSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		630B4F3821C7A2F200DC0AA6 /* Stateface.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EA821C768D100DC0AA6 /* Stateface.ttf */; };
 		630B4F3921C7A2F200DC0AA6 /* FontAwesomeBrands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630B4EAB21C768D100DC0AA6 /* FontAwesomeBrands.ttf */; };
@@ -493,7 +492,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				630B4F3421C7A2F200DC0AA6 /* Pods_UizaSDK.framework in Frameworks */,
 				D5E61E4D06FC2B261CE87F75 /* Pods_UizaSDK_8.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1937,7 +1935,7 @@
 				);
 				INFOPLIST_FILE = UizaSDK/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.uiza.UizaSDK;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -1969,7 +1967,7 @@
 				);
 				INFOPLIST_FILE = UizaSDK/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.uiza.UizaSDK;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";

@@ -776,7 +776,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		}
 	}
 	
-	func onLoadLiveStatusTimer() {
+	@objc func onLoadLiveStatusTimer() {
 		loadLiveStatus()
 	}
 	

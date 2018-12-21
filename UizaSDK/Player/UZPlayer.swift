@@ -294,6 +294,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 				self.setResource(resource: resource)
 				
 				if video.isLive {
+					self.controlView.liveStartDate = nil
 					self.loadLiveViews()
 					self.loadLiveStatus()
 				}
@@ -743,28 +744,44 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		}
 	}
 	
-	func loadLiveStatus() {
-		self.controlView.liveStartDate = nil
+	var loadLiveStatusTimer: Timer? = nil
+	func loadLiveStatus(after interval: TimeInterval = 0) {
+		if interval > 0 {
+			if loadLiveStatusTimer != nil {
+				loadLiveStatusTimer!.invalidate()
+				loadLiveStatusTimer = nil
+			}
+			
+			loadLiveStatusTimer = Timer.scheduledTimer(timeInterval: interval, target: self, selector: #selector(onLoadLiveStatusTimer), userInfo: nil, repeats: false)
+			return
+		}
 		
-		if let currentVideo = currentVideo {
+		if let currentVideo = currentVideo, currentVideo.isLive {
 			UZLiveServices().loadLiveStatus(video: currentVideo) { [weak self] (status, error) in
 				guard let `self` = self else { return }
 				
 				if let status = status {
-					self.controlView.liveStartDate = status.startDate
-					/*
+//					self.controlView.liveStartDate = status.startDate
+					
 					if status.state == "stop" { // || status.endDate != nil
 						self.stop()
 						self.controlView.hideLoader()
-						self.showMessage("This live video has ended")
+						self.showLiveEndedMessage()
 					}
 					else {
 						self.controlView.liveStartDate = status.startDate
 					}
-					*/
 				}
 			}
 		}
+	}
+	
+	func onLoadLiveStatusTimer() {
+		loadLiveStatus()
+	}
+	
+	open func showLiveEndedMessage() {
+		showMessage("This live video has ended")
 	}
 	
 	// MARK: -
@@ -1120,6 +1137,11 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 			requestAds()
 			#endif
 			
+		case .buffering:
+			if currentVideo?.isLive ?? false {
+				loadLiveStatus(after: 1)
+			}
+			
 		case .bufferFinished:
 			playIfApplicable()
 			
@@ -1130,6 +1152,10 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 				controlView.showEndScreen()
 			}
 			
+			if currentVideo?.isLive ?? false {
+				loadLiveStatus(after: 1)
+			}
+			
 			#if ALLOW_GOOGLECAST
 			adsLoader?.contentComplete()
 			#endif
@@ -1138,6 +1164,10 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		case .error:
 			if autoTryNextDefinitionIfError {
 				tryNextDefinition()
+			}
+			
+			if currentVideo?.isLive ?? false {
+				loadLiveStatus(after: 1)
 			}
 			
 		default:

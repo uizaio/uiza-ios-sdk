@@ -168,6 +168,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	open var shouldShowsControlViewAfterStoppingPiP = true
 	open var autoTryNextDefinitionIfError = true
 	open var controlView: UZPlayerControlView!
+	open var liveEndedMessage = "This live video has ended"
 	
 	public var preferredForwardBufferDuration: TimeInterval = 0 {
 		didSet {
@@ -781,7 +782,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	}
 	
 	open func showLiveEndedMessage() {
-		showMessage("This live video has ended")
+		showMessage(liveEndedMessage)
 	}
 	
 	// MARK: -

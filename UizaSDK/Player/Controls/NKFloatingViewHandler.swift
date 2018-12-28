@@ -37,6 +37,12 @@ open class NKFloatingViewHandler: NSObject {
 	open var swipeLeftToDismiss = true
 	open var swipeRightToDismiss = true
 	open var allowsCornerDocking = false
+	open var isEnabled: Bool = true {
+		didSet {
+			tapGesture.isEnabled = isEnabled
+			panGesture.isEnabled = isEnabled
+		}
+	}
 	
 	public fileprivate(set) var floatingProgress : CGFloat = 0
 	public fileprivate(set) var isHorizontalDragging = false

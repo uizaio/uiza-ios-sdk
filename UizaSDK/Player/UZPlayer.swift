@@ -236,6 +236,8 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		}
 	}
 	
+	public var autoResumeWhenBackFromBackground = false
+	
 	// MARK: - Public functions
 	
 	/**
@@ -627,13 +629,13 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		self.updateUI(isFullScreen)
 	}
 	
-	@objc func onApplicationInactive(notification:Notification) {
+	@objc func onApplicationInactive(notification: Notification) {
 		if #available(iOS 9.0, *) {
 			if AVAudioSession.sharedInstance().isAirPlaying || (pictureInPictureController?.isPictureInPictureActive ?? false) {
 				// user close app or turn off the phone, don't pause video while casting
 			}
 			else {
-				self.pause()
+				self.pause(allowAutoPlay: autoResumeWhenBackFromBackground)
 			}
 		} else {
 			// Fallback on earlier versions
@@ -1132,11 +1134,14 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		
 		switch state {
 		case .readyToPlay:
-			play()
-			updateCastingUI()
-			#if ALLOW_GOOGLECAST
-			requestAds()
-			#endif
+			if !isPauseByUser {
+				play()
+				
+				updateCastingUI()
+				#if ALLOW_GOOGLECAST
+				requestAds()
+				#endif
+			}
 			
 		case .buffering:
 			if currentVideo?.isLive ?? false {

@@ -88,9 +88,9 @@ open class UZLiveStreamViewController: UIViewController {
 		configuration.videoFrameRate 	= 24
 		configuration.videoMaxFrameRate = 24
 		configuration.videoMinFrameRate = 12
-		configuration.videoBitRate		= 1000 * 1000
-		configuration.videoMaxBitRate 	= 1000 * 1000
-		configuration.videoMinBitRate 	= 1000 * 1000
+		configuration.videoBitRate		= 6291456 // 1000 * 1000
+		configuration.videoMaxBitRate 	= 6291456 // 1000 * 1000
+		configuration.videoMinBitRate 	= 6291456 // 1000 * 1000
 		configuration.videoSize 		= CGSize(width: 720, height: 1280)
 		configuration.videoMaxKeyframeInterval = 12
 		configuration.outputImageOrientation = UIApplication.shared.statusBarOrientation

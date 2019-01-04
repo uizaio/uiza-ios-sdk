@@ -74,6 +74,11 @@ class ViewController: UIViewController {
 					viewController.present(with: video).player.controlView.theme = UZTheme1()
 					viewController.floatingHandler?.allowsCornerDocking = true
 //					viewController.player.delegate = self
+					
+					
+					DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+						self.showAlert()
+					}
 				}
 			}
 		}
@@ -98,6 +103,15 @@ class ViewController: UIViewController {
 //		DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
 //			self.showLive()
 //		}
+	}
+	
+	func showAlert() {
+		let alertVC = UIAlertController(title: "Test", message: "Test alert", preferredStyle: .alert)
+		alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { (action) in
+			alertVC.dismiss(animated: true, completion: nil)
+		}))
+		
+		UIViewController.topPresented()?.present(alertVC, animated: true, completion: nil)
 	}
 	
 	

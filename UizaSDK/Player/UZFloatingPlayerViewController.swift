@@ -38,11 +38,13 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 				if self.playerViewController.isFullscreen {
 					self.playerViewController.setFullscreen(fullscreen: false, completion: {
 						self.player.stop()
+						self.floatingHandler?.delegate = nil
 						self.dismiss(animated: true, completion: self.onDismiss)
 					})
 				}
 				else {
 					self.player.stop()
+					self.floatingHandler?.delegate = nil
 					self.dismiss(animated: true, completion: self.onDismiss)
 				}
 			}
@@ -219,13 +221,6 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 	
 	open func stop() {
 		player.stop()
-	}
-	
-	override open func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
-		self.floatingHandler?.delegate = nil
-		self.delegate = nil
-		
-		super.dismiss(animated: flag, completion: completion)
 	}
 	
 	// MARK: -

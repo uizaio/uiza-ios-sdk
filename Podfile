@@ -14,7 +14,7 @@ target 'UizaSDK' do
   pod 'NVActivityIndicatorView'
   pod 'SDWebImage'
   pod 'SwiftyJSON'
-  pod 'LFLiveKit'
+  pod 'LFLiveKit+'
   pod 'TweenKit'
 
 end
@@ -30,7 +30,7 @@ target 'UizaSDK_8' do
 	pod 'NVActivityIndicatorView'
 	pod 'SDWebImage'
 	pod 'SwiftyJSON'
-	pod 'LFLiveKit'
+	pod 'LFLiveKit+'
 	pod 'TweenKit'
 	
 end
@@ -57,7 +57,7 @@ target 'UizaPlayerTest' do
 	pod 'NVActivityIndicatorView'
 	pod 'SDWebImage'
 	pod 'SwiftyJSON'
-	pod 'LFLiveKit'
+	pod 'LFLiveKit+'
 	pod 'TweenKit'
 	
 end
@@ -69,6 +69,6 @@ target 'UizaSDKTests' do
 	pod 'Alamofire'
 	pod 'SDWebImage'
 	pod 'SwiftyJSON'
-	pod 'LFLiveKit'
+	pod 'LFLiveKit+'
 
 end

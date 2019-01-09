@@ -7,35 +7,35 @@
 //
 
 import UIKit
-import LFLiveKit
+import LFLiveKit_
 
 class MyLiveStreamViewController: UZLiveStreamViewController {
 	
-	override open func videoConfiguration() -> LFLiveVideoConfiguration {
-		let configuration = LFLiveVideoConfiguration()
-		configuration.sessionPreset 	= .captureSessionPreset720x1280
-		configuration.videoFrameRate 	= 24
-		configuration.videoMaxFrameRate = 24
-		configuration.videoMinFrameRate = 12
-		configuration.videoBitRate		= 1000 * 1000
-		configuration.videoMaxBitRate 	= 1000 * 1000
-		configuration.videoMinBitRate 	= 1000 * 1000
-		configuration.videoSize 		= CGSize(width: 720, height: 1280)
-		configuration.videoMaxKeyframeInterval = 12
-		configuration.outputImageOrientation = .portrait // live in portrait only
-		configuration.autorotate = true
-		
-		return configuration
-	}
+//	override open func videoConfiguration() -> LFLiveVideoConfiguration {
+//		let configuration = LFLiveVideoConfiguration()
+//		configuration.sessionPreset 	= .captureSessionPreset720x1280
+//		configuration.videoFrameRate 	= 24
+//		configuration.videoMaxFrameRate = 24
+//		configuration.videoMinFrameRate = 12
+//		configuration.videoBitRate		= 1000 * 1000
+//		configuration.videoMaxBitRate 	= 1000 * 1000
+//		configuration.videoMinBitRate 	= 1000 * 1000
+//		configuration.videoSize 		= CGSize(width: 720, height: 1280)
+//		configuration.videoMaxKeyframeInterval = 12
+//		configuration.outputImageOrientation = .portrait // live in portrait only
+//		configuration.autorotate = true
+//
+//		return configuration
+//	}
 	
-	override open func audioConfiguration() -> LFLiveAudioConfiguration {
-		let configuration = LFLiveAudioConfiguration.defaultConfiguration(for: .medium)!
-		configuration.numberOfChannels = 2
-		configuration.audioBitrate = ._128Kbps
-		configuration.audioSampleRate = ._44100Hz
-		return configuration
-	}
-	
+//	override open func audioConfiguration() -> LFLiveAudioConfiguration {
+//		let configuration = LFLiveAudioConfiguration.defaultConfiguration(for: .medium)!
+//		configuration.numberOfChannels = 2
+//		configuration.audioBitrate = ._128Kbps
+//		configuration.audioSampleRate = ._44100Hz
+//		return configuration
+//	}
+//	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		

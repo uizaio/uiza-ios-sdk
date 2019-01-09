@@ -7,7 +7,7 @@ PODS:
   - google-cast-sdk/Core (4.3.3):
     - Protobuf (~> 3.0)
   - GoogleAds-IMA-iOS-SDK (3.8.1)
-  - LFLiveKit (2.6)
+  - "LFLiveKit+ (2.6.2)"
   - NKButton (3.7.2):
     - FrameLayoutKit
     - NVActivityIndicatorView/AppExtension
@@ -28,7 +28,7 @@ DEPENDENCIES:
   - FrameLayoutKit
   - google-cast-sdk
   - GoogleAds-IMA-iOS-SDK
-  - LFLiveKit
+  - "LFLiveKit+"
   - NKButton
   - NKModalViewManager
   - NVActivityIndicatorView
@@ -42,7 +42,7 @@ SPEC REPOS:
     - FrameLayoutKit
     - google-cast-sdk
     - GoogleAds-IMA-iOS-SDK
-    - LFLiveKit
+    - "LFLiveKit+"
     - NKButton
     - NKModalViewManager
     - NVActivityIndicatorView
@@ -56,7 +56,7 @@ SPEC CHECKSUMS:
   FrameLayoutKit: 2a4b3833c90b60b5305b9030a83e34d5c3ed7173
   google-cast-sdk: 792980f4fa5afd4f9b91f41d582cc75251648f3a
   GoogleAds-IMA-iOS-SDK: 9659b8999443366d2d159413c189e55d88734b78
-  LFLiveKit: 2219563721f8aa0f188effc3395a06e2d53b23f2
+  "LFLiveKit+": 0da21f6b18c07a4160aa61f17fb436350c558eac
   NKButton: c0d284b93fd95718ed16c411a4eaa8dc4b6dc379
   NKModalViewManager: 8bde936aae6183f616ba11d05353e99d89b8dac7
   NVActivityIndicatorView: f0a6b0ed2973d9544da268f4eb76696f0a9577b0
@@ -65,6 +65,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
   TweenKit: 881d6f587aeae21fd9cfc823929b3b2ec55bbf97
 
-PODFILE CHECKSUM: e95b48f364ec0e946ba18b621a58e839b5df27aa
+PODFILE CHECKSUM: 88b03f80b7692dbe9580482ae7380e5ceadc1655
 
 COCOAPODS: 1.6.0.beta.2

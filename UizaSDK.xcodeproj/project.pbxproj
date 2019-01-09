@@ -1234,7 +1234,7 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-UizaSDKTests/Pods-UizaSDKTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire-iOS9.0/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/LFLiveKit-iOS9.0/LFLiveKit.framework",
+				"${BUILT_PRODUCTS_DIR}/LFLiveKit+-iOS9.0/LFLiveKit_.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage-iOS9.0/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON-iOS9.0/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/FrameLayoutKit-iOS9.0/FrameLayoutKit.framework",
@@ -1248,7 +1248,7 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LFLiveKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LFLiveKit_.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FrameLayoutKit.framework",
@@ -1292,7 +1292,7 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire-iOS9.0/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/FrameLayoutKit-iOS9.0/FrameLayoutKit.framework",
 				"${PODS_ROOT}/GoogleAds-IMA-iOS-SDK/GoogleInteractiveMediaAds.framework",
-				"${BUILT_PRODUCTS_DIR}/LFLiveKit-iOS9.0/LFLiveKit.framework",
+				"${BUILT_PRODUCTS_DIR}/LFLiveKit+-iOS9.0/LFLiveKit_.framework",
 				"${BUILT_PRODUCTS_DIR}/NKButton-iOS9.0/NKButton.framework",
 				"${BUILT_PRODUCTS_DIR}/NKModalViewManager-iOS9.0/NKModalViewManager.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView-iOS9.0/NVActivityIndicatorView.framework",
@@ -1306,7 +1306,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FrameLayoutKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleInteractiveMediaAds.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LFLiveKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LFLiveKit_.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NKButton.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NKModalViewManager.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",

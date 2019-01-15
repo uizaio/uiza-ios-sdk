@@ -116,6 +116,7 @@ open class UZLiveStreamViewController: UIViewController {
 	
 	public convenience init(liveEventId: String) {
 		self.init()
+		
 		self.liveEventId = liveEventId
 	}
 	
@@ -423,7 +424,7 @@ open class UZLiveStreamViewController: UIViewController {
 		session.delegate = self
 		session.beautyFace = false
 		session.preView = self.view
-		session.captureDevicePosition = .front
+//		session.captureDevicePosition = .front
 		
 		livestreamUIView.beautyButton.isSelected = session.beautyFace
 	}

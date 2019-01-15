@@ -469,7 +469,8 @@ open class UZContentServices: UZAPIConnector {
 	public func sendCDNHeartbeat(cdnName: String, completionBlock:((Error?) -> Void)? = nil) {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
 		
-		let params : [String: Any] = ["cdn_name" : cdnName]
+		let params : [String: Any] = ["cdn_name" : cdnName,
+									  "session" : UUID().uuidString.lowercased()]
 		
 		var baseURLString: String
 		switch UizaSDK.enviroment {

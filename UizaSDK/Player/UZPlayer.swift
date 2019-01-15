@@ -399,6 +399,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		
 		playerLayer?.play()
 		isPauseByUser = false
+		startHeartbeat()
 		
 		if #available(iOS 9.0, *) {
 			if pictureInPictureController == nil {
@@ -478,6 +479,8 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		
 		playerLayer?.prepareToDeinit()
 		playerLayer = nil
+		
+		stopHeartbeat()
 	}
 	
 	/**
@@ -597,6 +600,33 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	
 	func hideMessage() {
 		controlView.hideMessage()
+	}
+	
+	// MARK: - Heartbeat
+	
+	var heartbeatTimer: Timer? = nil
+	
+	func startHeartbeat() {
+		sendHeartbeat()
+		
+		if heartbeatTimer != nil {
+			heartbeatTimer!.invalidate()
+			heartbeatTimer = nil
+		}
+		
+		heartbeatTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(sendHeartbeat), userInfo: nil, repeats: true)
+	}
+	
+	func stopHeartbeat() {
+		if heartbeatTimer != nil {
+			heartbeatTimer!.invalidate()
+			heartbeatTimer = nil
+		}
+	}
+	
+	@objc func sendHeartbeat() {
+		guard let linkplay = currentLinkPlay, let domainName = linkplay.url.host else { return }
+		UZContentServices().sendCDNHeartbeat(cdnName: domainName)
 	}
 	
 	// MARK: -

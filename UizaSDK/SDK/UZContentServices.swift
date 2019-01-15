@@ -459,4 +459,35 @@ open class UZContentServices: UZAPIConnector {
 		}
 	}
 	
+	// MARK: - HeartBeat
+	
+	/**
+	Gửi tín hiệu CDN heartbeat
+	- parameter cdnName: tên domain của link play hiện tại
+	- parameter completionBlock: block được gọi sau khi hoàn thành, trả Error nếu có lỗi
+	*/
+	public func sendCDNHeartbeat(cdnName: String, completionBlock:((Error?) -> Void)? = nil) {
+		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
+		
+		let params : [String: Any] = ["cdn_name" : cdnName]
+		
+		var baseURLString: String
+		switch UizaSDK.enviroment {
+		case .development:
+			baseURLString = "http://dev-heartbeat.uizadev.io/v1/"
+			break
+		case .staging:
+			baseURLString = "https://stag-heartbeat.uizadev.io/v1/"
+			break
+		case .production:
+			baseURLString = "https://heartbeat.uiza.io/v1/"
+			break
+		}
+		
+		self.callAPI("cdn/ccu/ping", baseURLString: baseURLString, method: .get, params: params) { (result, error) in
+			//DLog("\(String(describing: result)) - \(String(describing: error))")
+			completionBlock?(error)
+		}
+	}
+	
 }

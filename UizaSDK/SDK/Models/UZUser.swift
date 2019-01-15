@@ -105,7 +105,7 @@ open class UZUser: UZModelObject {
 	- parameter size: Kích thước hình đại diện
 	*/
 	public func facebookAvatar(size: Int = 100) -> URL? {
-		if facebookId != nil && facebookId!.length > 0 {
+		if facebookId != nil && facebookId!.count > 0 {
 			let finalSize = size * Int(UIScreen.main.scale)
 			let result = "https://graph.facebook.com/\(facebookId!)/picture?width=\(finalSize)"
 			return URL(string: result)

@@ -137,7 +137,7 @@ extension UZRelatedViewController: NKModalViewControllerProtocol {
 
 internal class UZVideoCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 	let CellIdentifier	= "VideoItemCell"
-	var flowLayout		: UICollectionViewFlowLayout!
+	let flowLayout		= UICollectionViewFlowLayout()
 	var videos			: [UZVideoItem]! = []
 	var displayMode		: UZCellDisplayMode = .landscape
 	var selectedBlock	: ((_ item:UZVideoItem) -> Void)? = nil
@@ -145,9 +145,8 @@ internal class UZVideoCollectionViewController: UICollectionViewController, UICo
 	var currentVideo	: UZVideoItem? = nil
 	
 	init() {
-		super.init(collectionViewLayout: UICollectionViewFlowLayout())
+		super.init(collectionViewLayout: flowLayout)
 		
-		flowLayout = self.collectionViewLayout as! UICollectionViewFlowLayout
 		flowLayout.minimumLineSpacing = 10
 		flowLayout.minimumInteritemSpacing = 0
 		flowLayout.scrollDirection = .horizontal
@@ -529,10 +528,10 @@ class UZMovieItemCollectionViewCell : UICollectionViewCell {
 			if detailMode {
 				titleLabel.text = videoItem.name
 				
-				let descriptionText = videoItem.shortDescription.length>0 ? videoItem.shortDescription : videoItem.details
+				let descriptionText = videoItem.shortDescription.count>0 ? videoItem.shortDescription : videoItem.details
 				detailLabel.text = descriptionText
 				
-				titleLabel.numberOfLines = description.length > 0 ? 2 : 3
+				titleLabel.numberOfLines = description.count > 0 ? 2 : 3
 				
 				frameLayout.layoutAlignment = .left
 				frameLayout.layoutDirection = .horizontal

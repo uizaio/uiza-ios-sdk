@@ -142,7 +142,7 @@ open class UZAPIConnector {
 	- parameter completionBlock: block được gọi khi hoàn thành, trả về data hoặc error nếu có lỗi
 	*/
 	public func callAPI(_ node: String!, baseURLString: String? = nil, method: HTTPMethod! = .get, params paramValue:[String: Any]? = nil, completion completionBlock:APIConnectorResultBlock? = nil) {
-		guard UizaSDK.domain.length > 0, UizaSDK.token.length > 0 else {
+		guard UizaSDK.domain.count > 0, UizaSDK.token.count > 0 else {
 			fatalError("Bạn chưa khởi tạo SDK. Bắt buộc phải gọi hàm \"UizaSDK.initWith(appId,token,api)\" trước")
 		}
 		

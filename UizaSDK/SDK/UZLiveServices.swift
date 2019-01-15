@@ -92,7 +92,7 @@ open class UZLiveServices: UZAPIConnector {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
 		
 		self.callAPI("live/entity/feed", method: .post, params: ["id" : id]) { (result, error) in
-			DLog("\(result) - \(error)")
+//			DLog("\(result) - \(error)")
 			completionBlock?(error)
 		}
 	}

@@ -144,16 +144,15 @@ extension UZVideoQualitySettingsViewController: NKModalViewControllerProtocol {
 
 internal class UZVideoQualityCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 	let CellIdentifier	= "VideoQualityItemCell"
-	var flowLayout		: UICollectionViewFlowLayout!
+	let flowLayout		= UICollectionViewFlowLayout()
 	var selectedResource: UZVideoLinkPlay?
 	var resources		: [UZVideoLinkPlay]! = []
 	var selectedBlock	: ((_ item: UZVideoLinkPlay, _ index: Int) -> Void)? = nil
 	var messageLabel	: UILabel?
 	
 	init() {
-		super.init(collectionViewLayout: UICollectionViewFlowLayout())
+		super.init(collectionViewLayout: flowLayout)
 		
-		flowLayout = self.collectionViewLayout as! UICollectionViewFlowLayout
 		flowLayout.minimumLineSpacing = 10
 		flowLayout.minimumInteritemSpacing = 0
 		flowLayout.scrollDirection = .horizontal

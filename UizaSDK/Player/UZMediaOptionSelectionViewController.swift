@@ -142,7 +142,7 @@ internal class UZMediaOptionSelectionCollectionViewController: UICollectionViewC
 	private let CellIdentifier	= "OptionItemCell"
 	private let reuseHeaderIdentifier = "GroupHeader"
 	
-	var flowLayout		: UICollectionViewFlowLayout!
+	let flowLayout		= UICollectionViewFlowLayout()
 	var selectedBlock	: ((_ item: AVMediaSelectionOption?, _ indexPath: IndexPath) -> Void)? = nil
 	var messageLabel	: UILabel?
 	
@@ -152,9 +152,8 @@ internal class UZMediaOptionSelectionCollectionViewController: UICollectionViewC
 	var audioOptions	: [AVMediaSelectionOption]! = []
 	
 	init() {
-		super.init(collectionViewLayout: UICollectionViewFlowLayout())
+		super.init(collectionViewLayout: flowLayout)
 		
-		flowLayout = self.collectionViewLayout as! UICollectionViewFlowLayout
 		flowLayout.minimumLineSpacing = 10
 		flowLayout.minimumInteritemSpacing = 0
 		flowLayout.scrollDirection = .vertical

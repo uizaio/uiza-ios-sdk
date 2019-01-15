@@ -145,7 +145,7 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 			self.playerViewController = UZPlayerViewController()
 		}
 		
-		playerViewController.onOrientationUpdateRequestBlock = { [weak self] fullscreen in
+		playerViewController.onOrientationUpdateRequestBlock = { fullscreen in
 //			guard let `self` = self else { return }
 			
 //

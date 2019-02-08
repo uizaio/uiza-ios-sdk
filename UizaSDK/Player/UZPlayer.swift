@@ -291,7 +291,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 			
 			if let results = results {
 				self.currentVideo?.videoURL = results.first?.avURLAsset.url
-				UZLogger().log(event: "plays_requested", video: video, completionBlock: nil)
+				UZLogger.shared.log(event: "plays_requested", video: video, completionBlock: nil)
 				
 				let resource = UZPlayerResource(name: video.name, definitions: results, subtitles: video.subtitleURLs, cover: video.thumbnailURL)
 				self.setResource(resource: resource)
@@ -412,7 +412,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		if currentPosition == 0 && !isPauseByUser {
 			if playthrough_eventlog[0] == false || playthrough_eventlog[0] == nil {
 				playthrough_eventlog[0] = true
-				UZLogger().log(event: "video_starts", video: currentVideo, completionBlock: nil)
+				UZLogger.shared.log(event: "video_starts", video: currentVideo, completionBlock: nil)
 				
 				selectSubtitle(index: 0) // select default subtitle
 //				selectAudio(index: -1) // select default audio track
@@ -487,7 +487,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	Seek to 0.0 and replay the video
 	*/
 	open func replay() {
-		UZLogger().log(event: "replay", video: currentVideo, completionBlock: nil)
+		UZLogger.shared.log(event: "replay", video: currentVideo, completionBlock: nil)
 		
 		playthrough_eventlog = [:]
 		isPlayToTheEnd = false
@@ -614,7 +614,8 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 			heartbeatTimer = nil
 		}
 		
-		heartbeatTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(sendHeartbeat), userInfo: nil, repeats: true)
+		let interval: TimeInterval = ((currentVideo?.isLive ?? false) ? 3 : 10)
+		heartbeatTimer = Timer.scheduledTimer(timeInterval: interval, target: self, selector: #selector(sendHeartbeat), userInfo: nil, repeats: true)
 	}
 	
 	func stopHeartbeat() {
@@ -626,7 +627,12 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	
 	@objc func sendHeartbeat() {
 		guard let linkplay = currentLinkPlay, let domainName = linkplay.url.host else { return }
-		UZContentServices().sendCDNHeartbeat(cdnName: domainName)
+		if let video = currentVideo, video.isLive {
+			UZLogger.shared.logLiveCCU(streamName: video.id, host: domainName)
+		}
+		else {
+			UZContentServices().sendCDNHeartbeat(cdnName: domainName)
+		}
 	}
 	
 	// MARK: -
@@ -927,7 +933,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 			if playthrough_eventlog[5] == false || playthrough_eventlog[5] == nil {
 				playthrough_eventlog[5] = true
 				
-				UZLogger().log(event: "view", video: currentVideo, params: ["play_through" : "0"], completionBlock: nil)
+				UZLogger.shared.log(event: "view", video: currentVideo, params: ["play_through" : "0"], completionBlock: nil)
 			}
 		}
 		else if totalTime > 0 {
@@ -937,7 +943,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 				if playthrough_eventlog[playthrough] == false || playthrough_eventlog[playthrough] == nil {
 					playthrough_eventlog[playthrough] = true
 					
-					UZLogger().log(event: "play_through", video: currentVideo, params: ["play_through" : playthrough], completionBlock: nil)
+					UZLogger.shared.log(event: "play_through", video: currentVideo, params: ["play_through" : playthrough], completionBlock: nil)
 				}
 			}
 		}

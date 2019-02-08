@@ -17,7 +17,7 @@ import UIKit
 // pod trunk push UizaSDK.podspec
 //
 
-internal let SDK_VERSION = "6.8.9"
+internal let SDK_VERSION = "6.9"
 internal let PLAYER_VERSION = "4.3.8"
 
 /**

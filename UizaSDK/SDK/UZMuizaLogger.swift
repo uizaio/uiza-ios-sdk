@@ -78,14 +78,18 @@ open class UZMuizaLogger : UZAPIConnector{
 	
 	// MARK: -
 	
-	open func log(eventName: String, params: [String: Any]? = nil, video: UZVideoItem, linkplay: UZVideoLinkPlay? = nil, player: UZPlayer? = nil) {
-		let logData: NSMutableDictionary = ["event" : eventName,
-											"entity_id" : video.id,
-											"entity_name" : video.name,
-											"entity_poster_url" : video.thumbnailURL?.absoluteString ?? "",
-											"entity_duration" : video.duration,
-											"entity_is_live" : video.isLive,
-											"entity_content_type" : "video/audio"]
+	open func log(eventName: String, params: [String: Any]? = nil, video: UZVideoItem? = nil, linkplay: UZVideoLinkPlay? = nil, player: UZPlayer? = nil) {
+		let logData: NSMutableDictionary = ["event" : eventName]
+		
+		if let video = video {
+			let videoData: [AnyHashable : Any] = ["entity_id" : video.id,
+												  "entity_name" : video.name,
+												  "entity_poster_url" : video.thumbnailURL?.absoluteString ?? "",
+												  "entity_duration" : video.duration,
+												  "entity_is_live" : video.isLive,
+												  "entity_content_type" : "video/audio"]
+			logData.addEntries(from: videoData)
+		}
 		
 		if let linkplay = linkplay {
 			let linkplayData: [AnyHashable : Any] = ["entity_source_url" : linkplay.url.absoluteString,

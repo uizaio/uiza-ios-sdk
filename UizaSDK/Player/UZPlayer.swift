@@ -397,6 +397,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 			isURLSet = true
 		}
 		
+		UZMuizaLogger.shared.log(eventName: "play", params: nil, video: currentVideo, linkplay: currentLinkPlay, player: self)
 		playerLayer?.play()
 		isPauseByUser = false
 		startHeartbeat()
@@ -418,6 +419,8 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 //				selectAudio(index: -1) // select default audio track
 			}
 		}
+		
+		UZMuizaLogger.shared.log(eventName: "playing", params: nil, video: currentVideo, linkplay: currentLinkPlay, player: self)
 	}
 	
 	/**
@@ -504,6 +507,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	- parameter allow: should allow to response `autoPlay` function
 	*/
 	open func pause(allowAutoPlay allow: Bool = false) {
+		UZMuizaLogger.shared.log(eventName: "pause", params: nil, video: currentVideo, linkplay: currentLinkPlay, player: self)
 		playerLayer?.pause()
 		isPauseByUser = !allow
 	}
@@ -516,7 +520,12 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	open func seek(to interval: TimeInterval, completion: (() -> Void)? = nil) {
 		self.currentPosition = interval
 		controlView.hideEndScreen()
-		playerLayer?.seek(to: interval, completion: completion)
+		UZMuizaLogger.shared.log(eventName: "seeking", params: nil, video: currentVideo, linkplay: currentLinkPlay, player: self)
+		
+		playerLayer?.seek(to: interval, completion: { [weak self] in
+			UZMuizaLogger.shared.log(eventName: "seeked", params: nil, video: self?.currentVideo, linkplay: self?.currentLinkPlay, player: self)
+			completion?()
+		})
 		
 		#if ALLOW_GOOGLECAST
 		let castingManager = UZCastingManager.shared
@@ -879,6 +888,8 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		#if DEBUG
 		print("[UizaPlayer \(PLAYER_VERSION)] initialized")
 		#endif
+		
+		UZMuizaLogger.shared.log(eventName: "ready", player: self)
 	}
 	
 	public required init?(coder aDecoder: NSCoder) {
@@ -1180,14 +1191,17 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 			}
 			
 		case .buffering:
+			UZMuizaLogger.shared.log(eventName: "rebufferstart", params: nil, video: currentVideo, linkplay: currentLinkPlay, player: self)
 			if currentVideo?.isLive ?? false {
 				loadLiveStatus(after: 1)
 			}
 			
 		case .bufferFinished:
+			UZMuizaLogger.shared.log(eventName: "rebufferend", params: nil, video: currentVideo, linkplay: currentLinkPlay, player: self)
 			playIfApplicable()
 			
 		case .playedToTheEnd:
+			UZMuizaLogger.shared.log(eventName: "viewended", params: nil, video: currentVideo, linkplay: currentLinkPlay, player: self)
 			isPlayToTheEnd = true
 			
 			if !isReplaying {
@@ -1204,6 +1218,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 			nextVideo()
 			
 		case .error:
+			UZMuizaLogger.shared.log(eventName: "error", params: nil, video: currentVideo, linkplay: currentLinkPlay, player: self)
 			if autoTryNextDefinitionIfError {
 				tryNextDefinition()
 			}

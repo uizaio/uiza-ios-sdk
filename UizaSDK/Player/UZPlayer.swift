@@ -219,6 +219,9 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	public fileprivate(set) var isPlayToTheEnd  = false
 	public fileprivate(set) var isReplaying		= false
 	
+	fileprivate var seekCount = 0
+	fileprivate var bufferingCount = 0
+	
 	#if ALLOW_GOOGLECAST
 	fileprivate var contentPlayhead: IMAAVPlayerContentPlayhead?
 	fileprivate var adsLoader: IMAAdsLoader?
@@ -349,8 +352,11 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	*/
 	open func setResource(resource: UZPlayerResource, definitionIndex: Int = 0) {
 		isURLSet = false
+		
 		self.resource = resource
 		
+		seekCount = 0
+		bufferingCount = 0
 		playthrough_eventlog = [:]
 		currentDefinition = definitionIndex
 		
@@ -370,6 +376,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		if shouldAutoPlay {
 			isURLSet = true
 			currentLinkPlay = resource.definitions[definitionIndex]
+			UZMuizaLogger.shared.log(eventName: "play", params: nil, video: currentVideo, linkplay: currentLinkPlay, player: self)
 			playerLayer?.playAsset(asset: currentLinkPlay!.avURLAsset)
 			
 			setupPictureInPicture()
@@ -470,6 +477,9 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	Stop and unload the player
 	*/
 	open func stop() {
+		seekCount = 0
+		bufferingCount = 0
+		
 		liveViewTimer?.invalidate()
 		liveViewTimer = nil
 		
@@ -518,12 +528,13 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	- parameter to: target time
 	*/
 	open func seek(to interval: TimeInterval, completion: (() -> Void)? = nil) {
+		seekCount += 1
 		self.currentPosition = interval
 		controlView.hideEndScreen()
-		UZMuizaLogger.shared.log(eventName: "seeking", params: nil, video: currentVideo, linkplay: currentLinkPlay, player: self)
+		UZMuizaLogger.shared.log(eventName: "seeking", params: ["view_seek_count" : seekCount], video: currentVideo, linkplay: currentLinkPlay, player: self)
 		
 		playerLayer?.seek(to: interval, completion: { [weak self] in
-			UZMuizaLogger.shared.log(eventName: "seeked", params: nil, video: self?.currentVideo, linkplay: self?.currentLinkPlay, player: self)
+			UZMuizaLogger.shared.log(eventName: "seeked", params: ["view_seek_count" : seekCount], video: self?.currentVideo, linkplay: self?.currentLinkPlay, player: self)
 			completion?()
 		})
 		

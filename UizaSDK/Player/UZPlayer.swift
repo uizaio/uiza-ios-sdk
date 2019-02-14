@@ -732,7 +732,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 			let currentQueueItem = mediaStatus.currentQueueItem,
 			let playlist = playlist
 		{
-			let count = mediaStatus.queueItemCount()
+			let count = mediaStatus.queueItemCount
 			var index = 0
 			var found = false
 			

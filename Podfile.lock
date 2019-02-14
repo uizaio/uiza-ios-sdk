@@ -1,25 +1,25 @@
 PODS:
-  - Alamofire (4.8.0)
+  - Alamofire (4.8.1)
   - FrameLayoutKit (3.3)
-  - google-cast-sdk (4.3.3):
-    - google-cast-sdk/Core (= 4.3.3)
+  - google-cast-sdk (4.3.5):
+    - google-cast-sdk/Core (= 4.3.5)
     - Protobuf (~> 3.0)
-  - google-cast-sdk/Core (4.3.3):
+  - google-cast-sdk/Core (4.3.5):
     - Protobuf (~> 3.0)
   - GoogleAds-IMA-iOS-SDK (3.8.1)
   - "LFLiveKit+ (2.6.2)"
-  - NKButton (3.7.2):
+  - NKButton (3.8.1):
     - FrameLayoutKit
     - NVActivityIndicatorView/AppExtension
-  - NKModalViewManager (3.4.2)
-  - NVActivityIndicatorView (4.4.1):
-    - NVActivityIndicatorView/Presenter (= 4.4.1)
-  - NVActivityIndicatorView/AppExtension (4.4.1)
-  - NVActivityIndicatorView/Presenter (4.4.1)
+  - NKModalViewManager (3.5.2)
+  - NVActivityIndicatorView (4.6.1):
+    - NVActivityIndicatorView/Presenter (= 4.6.1)
+  - NVActivityIndicatorView/AppExtension (4.6.1)
+  - NVActivityIndicatorView/Presenter (4.6.1)
   - Protobuf (3.6.1)
-  - SDWebImage (4.4.3):
-    - SDWebImage/Core (= 4.4.3)
-  - SDWebImage/Core (4.4.3)
+  - SDWebImage (4.4.5):
+    - SDWebImage/Core (= 4.4.5)
+  - SDWebImage/Core (4.4.5)
   - SwiftyJSON (4.2.0)
   - TweenKit (0.4)
 
@@ -52,16 +52,16 @@ SPEC REPOS:
     - TweenKit
 
 SPEC CHECKSUMS:
-  Alamofire: 3ec537f71edc9804815215393ae2b1a8ea33a844
+  Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
   FrameLayoutKit: 2a4b3833c90b60b5305b9030a83e34d5c3ed7173
-  google-cast-sdk: 792980f4fa5afd4f9b91f41d582cc75251648f3a
+  google-cast-sdk: 462e10c781ea8ad480d2e16200bb8584ef067e07
   GoogleAds-IMA-iOS-SDK: 9659b8999443366d2d159413c189e55d88734b78
   "LFLiveKit+": 0da21f6b18c07a4160aa61f17fb436350c558eac
-  NKButton: c0d284b93fd95718ed16c411a4eaa8dc4b6dc379
-  NKModalViewManager: 8bde936aae6183f616ba11d05353e99d89b8dac7
-  NVActivityIndicatorView: f0a6b0ed2973d9544da268f4eb76696f0a9577b0
+  NKButton: 809279eeb3e2af0013229acfe2835458342ee9de
+  NKModalViewManager: 8171cd4fb9315193fc2d05f011f9a29c9ca95a0f
+  NVActivityIndicatorView: 4ca19fccc84595a78957336a086d00a49be6ce61
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
-  SDWebImage: c5594f1a19c48d526d321e548902b56b479cd508
+  SDWebImage: ecc03494e973b93b80213649d32175f8d2d17d4d
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
   TweenKit: 881d6f587aeae21fd9cfc823929b3b2ec55bbf97
 

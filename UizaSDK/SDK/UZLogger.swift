@@ -130,5 +130,5 @@ open class UZLogger: UZAPIConnector {
 		
 		self.callAPI("v1/ccu/mobile", baseURLString: loggingURLString, method: .post, params: params, completion: completionBlock)
 	}
-
+	
 }

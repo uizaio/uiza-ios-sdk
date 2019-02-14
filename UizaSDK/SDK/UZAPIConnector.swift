@@ -240,7 +240,6 @@ open class UZAPIConnector {
 		}, progressBlock: nil)
 	}
 	
-	// method = GET | POST | DELETE
 	internal func startLoadURL(_ url: URL!, withMethod method: HTTPMethod! = .get, andParams params: [String: Any]? = nil, completionBlock: APIConnectorCompletionBlock? = nil, failureBlock: APIConnectorFailureBlock? = nil, progressBlock: APIConnectorProgressBlock? = nil) {
 		UZAPIConnector.showNetworkLoading()
 		

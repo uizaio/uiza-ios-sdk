@@ -145,6 +145,7 @@ open class UZMuizaLogger : UZAPIConnector{
 	}
 	
 	private func sendLogs() {
+		lastSentDate = Date()
 		self.requestHeaderFields = ["AccessToken" : accessToken]
 		self.encodingType = ArrayEncoding()
 		self.callAPI("v2/muiza/eventbulk/mobile", baseURLString: loggingURLString, method: .post, params: logArray.asParameters()) { [weak self] (result, error) in

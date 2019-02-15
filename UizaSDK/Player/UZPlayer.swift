@@ -1205,13 +1205,14 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 			}
 			
 		case .buffering:
-			UZMuizaLogger.shared.log(eventName: "rebufferstart", params: nil, video: currentVideo, linkplay: currentLinkPlay, player: self)
+			UZMuizaLogger.shared.log(eventName: "rebufferstart", params: ["view_rebuffer_count" : bufferingCount], video: currentVideo, linkplay: currentLinkPlay, player: self)
 			if currentVideo?.isLive ?? false {
 				loadLiveStatus(after: 1)
 			}
+			bufferingCount += 1
 			
 		case .bufferFinished:
-			UZMuizaLogger.shared.log(eventName: "rebufferend", params: nil, video: currentVideo, linkplay: currentLinkPlay, player: self)
+			UZMuizaLogger.shared.log(eventName: "rebufferend", params: ["view_rebuffer_count" : bufferingCount], video: currentVideo, linkplay: currentLinkPlay, player: self)
 			playIfApplicable()
 			
 		case .playedToTheEnd:

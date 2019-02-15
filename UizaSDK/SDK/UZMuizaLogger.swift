@@ -19,7 +19,7 @@ open class UZMuizaLogger : UZAPIConnector{
 	
 	fileprivate var logArray: [NSDictionary]!
 	fileprivate var fixedData: NSDictionary?
-	fileprivate var lastSentDate: Date? = nil
+	fileprivate var lastSentDate: Date! = Date()
 	
 	private static let URL_TRACKING_DEV  = "https://dev-tracking.uizadev.io/analytic-tracking/"
 	private static let URL_TRACKING_STAG = "https://stag-tracking.uiza.io/analytic-tracking/"
@@ -135,7 +135,7 @@ open class UZMuizaLogger : UZAPIConnector{
 	}
 	
 	open func sendLogsIfApplicable() {
-		if logArray.count > 0 && lastSentDate == nil || Date().timeIntervalSince(lastSentDate!) >= 10 {
+		if logArray.count > 0 && Date().timeIntervalSince(lastSentDate) >= 10 {
 			sendLogs()
 		}
 	}
@@ -156,25 +156,17 @@ open class UZMuizaLogger : UZAPIConnector{
 
 private let arrayParametersKey = "arrayParametersKey"
 
-/// Extenstion that allows an array be sent as a request parameters
 extension Array {
-	/// Convert the receiver array to a `Parameters` object.
+	
 	func asParameters() -> Parameters {
 		return [arrayParametersKey: self]
 	}
+	
 }
 
 public struct ArrayEncoding: ParameterEncoding {
-	
-	/// The options for writing the parameters as JSON data.
 	public let options: JSONSerialization.WritingOptions
 	
-	
-	/// Creates a new instance of the encoding using the given options
-	///
-	/// - parameter options: The options used to encode the json. Default is `[]`
-	///
-	/// - returns: The new instance
 	public init(options: JSONSerialization.WritingOptions = []) {
 		self.options = options
 	}
@@ -195,8 +187,8 @@ public struct ArrayEncoding: ParameterEncoding {
 			}
 			
 			urlRequest.httpBody = data
-			
-		} catch {
+		}
+		catch {
 			throw AFError.parameterEncodingFailed(reason: .jsonEncodingFailed(error: error))
 		}
 		

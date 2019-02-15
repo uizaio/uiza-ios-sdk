@@ -534,7 +534,10 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		UZMuizaLogger.shared.log(eventName: "seeking", params: ["view_seek_count" : seekCount], video: currentVideo, linkplay: currentLinkPlay, player: self)
 		
 		playerLayer?.seek(to: interval, completion: { [weak self] in
-			UZMuizaLogger.shared.log(eventName: "seeked", params: ["view_seek_count" : seekCount], video: self?.currentVideo, linkplay: self?.currentLinkPlay, player: self)
+			if let `self` = self {
+				UZMuizaLogger.shared.log(eventName: "seeked", params: ["view_seek_count" : self.seekCount], video: self.currentVideo, linkplay: self.currentLinkPlay, player: self)
+			}
+			
 			completion?()
 		})
 		

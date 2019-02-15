@@ -51,6 +51,8 @@ open class UZMuizaLogger : UZAPIConnector{
 		}
 	}()
 	
+	var timer: Timer? = nil
+	
 	private override init() {
 		super.init()
 		
@@ -132,9 +134,11 @@ open class UZMuizaLogger : UZAPIConnector{
 		finalLogData["timestamp"] = Date().toString(format: .isoDateTimeMilliSec)
 		logArray.append(finalLogData)
 		sendLogsIfApplicable()
+		
+		startAutoSendLogs(every: 10)
 	}
 	
-	open func sendLogsIfApplicable() {
+	@objc open func sendLogsIfApplicable() {
 		if logArray.count > 0 && Date().timeIntervalSince(lastSentDate) >= 10 {
 			sendLogs()
 		}
@@ -145,8 +149,21 @@ open class UZMuizaLogger : UZAPIConnector{
 		self.encodingType = ArrayEncoding()
 		self.callAPI("v2/muiza/eventbulk/mobile", baseURLString: loggingURLString, method: .post, params: logArray.asParameters()) { [weak self] (result, error) in
 			if error == nil {
+				self?.stopAutoSendLogs()
 				self?.logArray = []
 			}
+		}
+	}
+	
+	private func startAutoSendLogs(every inverval: TimeInterval) {
+		guard timer == nil else { return }
+		timer = Timer.scheduledTimer(timeInterval: inverval, target: self, selector: #selector(sendLogsIfApplicable), userInfo: nil, repeats: true)
+	}
+	
+	private func stopAutoSendLogs() {
+		if timer != nil {
+			timer!.invalidate()
+			timer = nil
 		}
 	}
 

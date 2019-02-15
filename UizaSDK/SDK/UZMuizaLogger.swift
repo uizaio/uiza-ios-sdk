@@ -89,7 +89,7 @@ open class UZMuizaLogger : UZAPIConnector{
 												  "entity_poster_url" : video.thumbnailURL?.absoluteString ?? "",
 												  "entity_duration" : video.duration,
 												  "entity_is_live" : video.isLive,
-												  "entity_content_type" : "video/audio"]
+												  "entity_content_type" : "video"]
 			logData.addEntries(from: videoData)
 		}
 		

@@ -12,10 +12,10 @@ extension String {
 	
 	func toBool() -> Bool {
 		switch self.lowercased() {
-		case "true", "yes", "1":
+		case "true", "enabled", "yes", "1":
 			return true
 			
-		case "false", "no", "0":
+		case "false", "disabled", "no", "0":
 			return false
 			
 		default:

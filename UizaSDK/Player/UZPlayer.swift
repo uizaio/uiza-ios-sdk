@@ -1220,7 +1220,9 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 			isPlayToTheEnd = true
 			
 			if !isReplaying {
-				controlView.showEndScreen()
+				if themeConfig?.showEndscreen ?? true {
+					controlView.showEndScreen()
+				}
 			}
 			
 			if currentVideo?.isLive ?? false {

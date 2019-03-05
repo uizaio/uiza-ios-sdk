@@ -126,11 +126,11 @@ open class UZAPIConnector {
 	}
 	
 	internal func basePublicAPIURLPath() -> String! {
-		return "https://" + UizaSDK.domain.stringByAppendingPathComponent("api/public/v3/")
+		return "https://" + UizaSDK.domain.stringByAppendingPathComponent("api/public/v4/")
 	}
 	
 	internal func basePrivateAPIURLPath() -> String! {
-		return "https://" + UizaSDK.domain.stringByAppendingPathComponent("api/private/v3/")
+		return "https://" + UizaSDK.domain.stringByAppendingPathComponent("api/public/v4/")
 	}
 	
 	

@@ -325,7 +325,7 @@ open class UZContentServices: UZAPIConnector {
 		let domain: String! = UizaSDK.enviroment == .development ? "dev-ucc.uizadev.io" :
 							  UizaSDK.enviroment == .staging ? "stag-ucc.uizadev.io" : "ucc.uiza.io"
 		
-		self.callAPI(apiNode, baseURLString: "https://\(domain!)/api/private/v1/", method: .get, params: params) { (result, error) in
+		self.callAPI(apiNode, baseURLString: "https://\(domain!)/api/public/v1/", method: .get, params: params) { (result, error) in
 			print("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {

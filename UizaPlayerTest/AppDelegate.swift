@@ -10,10 +10,10 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+	
 	var window: UIWindow?
-
-	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+	
+	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         UizaSDK.initWith(appId: "21502a48ca9743eeb6ed898358354cb4", token: "uap-21502a48ca9743eeb6ed898358354cb4-4e23ea12", api: "ninhprod001-api.uiza.co", enviroment: .production)
 		UizaSDK.showRestfulInfo = true
 		return true
@@ -40,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func applicationWillTerminate(_ application: UIApplication) {
 		// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 	}
-
+	
 
 }
 

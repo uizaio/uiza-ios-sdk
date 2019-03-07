@@ -35,6 +35,7 @@ open class UZLiveStreamViewController: UIViewController {
 	
 	public var liveEventId: String? = nil
 	public var getViewsInterval: TimeInterval = 5.0
+	public var inactiveTime: TimeInterval = 10.0
 	public fileprivate (set) var liveDurationLabel = UILabel()
 	public fileprivate(set)var isLive = false
 	
@@ -395,13 +396,19 @@ open class UZLiveStreamViewController: UIViewController {
 	}
 	
 	@objc func onApplicationDidActive(_ notification: Notification) {
-		inactiveTimer?.invalidate()
-		inactiveTimer = nil
+		if inactiveTimer != nil {
+			inactiveTimer!.invalidate()
+			inactiveTimer = nil
+		}
 	}
 	
 	@objc func onApplicationDidInactive(_ notification: Notification) {
-		inactiveTimer?.invalidate()
-		inactiveTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(onInactiveTimer), userInfo: nil, repeats: true)
+		if inactiveTimer != nil {
+			inactiveTimer!.invalidate()
+			inactiveTimer = nil
+		}
+		
+		inactiveTimer = Timer.scheduledTimer(timeInterval: inactiveTime, target: self, selector: #selector(onInactiveTimer), userInfo: nil, repeats: false)
 	}
 	
 	@objc func onInactiveTimer() {

@@ -51,7 +51,7 @@ open class UZPlayerControlView: UIView {
 	open weak var delegate: UZPlayerControlViewDelegate?
 	open var autoHideControlsInterval: TimeInterval = 5
 	open var enableTimeshiftForLiveVideo = true
-	open var themeConfig: UZThemeConfig? = nil {
+	open var themeConfig: UZPlayerConfig? = nil {
 		didSet {
 			if let config = themeConfig, let themeId = config.themeId?.intValue {
 				let themeClasses: [UZPlayerTheme] = [UZTheme1(), UZTheme2(), UZTheme3(), UZTheme4(), UZTheme5(), UZTheme6(), UZTheme7()]

@@ -1,5 +1,5 @@
 //
-//  UZThemeConfig.swift
+//  UZPlayerConfig.swift
 //  UizaSDK
 //
 //  Created by Nam Kennic on 9/21/18.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class UZThemeConfig: UZModelObject {
+public class UZPlayerConfig: UZModelObject {
 	public var configId: String?
 	public var themeId: String?
 	public var endscreenMessage: String?

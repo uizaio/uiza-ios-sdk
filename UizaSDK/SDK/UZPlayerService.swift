@@ -10,21 +10,21 @@ import UIKit
 
 open class UZPlayerService: UZAPIConnector {
 	
-	public func loadThemeConfigs(completionBlock: @escaping(([UZThemeConfig]?, Error?) -> Void)) {
+	public func loadPlayerConfig(completionBlock: @escaping(([UZPlayerConfig]?, Error?) -> Void)) {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
 		
-		self.callAPI("player/info", baseURLString: basePrivateAPIURLPath(), method: .get, params: ["platform" : "ios"]) { (result:NSDictionary?, error:Error?) in
+		self.callAPI("player/info/config", baseURLString: basePrivateAPIURLPath(), method: .get, params: ["platform" : "ios"]) { (result:NSDictionary?, error:Error?) in
 			DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
 				completionBlock(nil, error)
 			}
 			else {
-				var configs: [UZThemeConfig]! = []
+				var configs: [UZPlayerConfig]! = []
 				
 				if let array = result!.array(for: "data", defaultValue: nil) as? [NSDictionary] {
 					for configData in array {
-						configs.append(UZThemeConfig(data: configData))
+						configs.append(UZPlayerConfig(data: configData))
 					}
 				}
 				
@@ -33,7 +33,7 @@ open class UZPlayerService: UZAPIConnector {
 		}
 	}
 	
-	public func load(configId: String, completionBlock: @escaping((UZThemeConfig?, Error?) -> Void)) {
+	public func load(configId: String, completionBlock: @escaping((UZPlayerConfig?, Error?) -> Void)) {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
 		
 		self.callAPI("player/info/config", baseURLString: basePrivateAPIURLPath(), method: .get, params: ["id" : configId]) { (result:NSDictionary?, error:Error?) in
@@ -44,7 +44,7 @@ open class UZPlayerService: UZAPIConnector {
 			}
 			else {
 				if let data = result!.value(for: "data", defaultValue: nil) as? NSDictionary {
-					let config = UZThemeConfig(data: data)
+					let config = UZPlayerConfig(data: data)
 					completionBlock(config, nil)
 				}
 				else {

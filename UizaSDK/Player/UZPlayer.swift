@@ -154,7 +154,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	
 	public fileprivate(set) var currentLinkPlay: UZVideoLinkPlay?
 	
-	public var themeConfig: UZThemeConfig? = nil {
+	public var themeConfig: UZPlayerConfig? = nil {
 		didSet {
 			controlView.themeConfig = themeConfig
 			
@@ -337,7 +337,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		}
 	}
 	
-	open func loadConfigId(configId: String, completionBlock: ((UZThemeConfig?, Error?) -> Void)? = nil) {
+	open func loadConfigId(configId: String, completionBlock: ((UZPlayerConfig?, Error?) -> Void)? = nil) {
 		UZPlayerService().load(configId: configId) { [weak self] (config, error) in
 			self?.themeConfig = config
 			completionBlock?(config, error)

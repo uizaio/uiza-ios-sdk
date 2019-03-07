@@ -19,7 +19,7 @@ open class UZCastButton: NKButton {
 		NotificationCenter.default.addObserver(self, selector: #selector(updateState), name: NSNotification.Name.UZCastSessionDidStart, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(updateState), name: NSNotification.Name.UZCastSessionDidStop, object: nil)
 		#endif
-		NotificationCenter.default.addObserver(self, selector: #selector(updateState), name: .AVAudioSessionRouteChange, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(updateState), name: AVAudioSession.routeChangeNotification, object: nil)
 		
 		updateState()
 	}

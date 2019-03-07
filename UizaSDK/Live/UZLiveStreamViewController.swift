@@ -161,9 +161,9 @@ open class UZLiveStreamViewController: UIViewController {
 		stopButton.setImage(UIImage(icon: .googleMaterialDesign(.close), size: CGSize(width: 32, height: 32), textColor: .black, backgroundColor: .clear), for: .normal)
 		stopButton.addTarget(self, action: #selector(askToStop), for: .touchUpInside)
 		
-		NotificationCenter.default.addObserver(self, selector: #selector(onOrientationChanged(_:)), name: .UIApplicationDidChangeStatusBarOrientation, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(onApplicationDidActive(_:)), name: .UIApplicationDidBecomeActive, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(onApplicationDidInactive(_:)), name: .UIApplicationDidEnterBackground, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(onOrientationChanged(_:)), name: UIApplication.didChangeStatusBarOrientationNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(onApplicationDidActive(_:)), name: UIApplication.didBecomeActiveNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(onApplicationDidInactive(_:)), name: UIApplication.didEnterBackgroundNotification, object: nil)
 	}
 	
 	required public init?(coder aDecoder: NSCoder) {
@@ -366,7 +366,7 @@ open class UZLiveStreamViewController: UIViewController {
 	
 	fileprivate func showAlert(title: String, message: String) {
 		let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
-		alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { (action) in
+		alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { (action) in
 			alert.dismiss(animated: true, completion: nil)
 		}))
 		
@@ -462,8 +462,8 @@ open class UZLiveStreamViewController: UIViewController {
 		stopButton.frame = CGRect(x: viewSize.width - 42, y: 10, width: 32, height: 32)
 		layoutDurationLabel()
 		
-		view.bringSubview(toFront: liveDurationLabel)
-		view.bringSubview(toFront: startButton)
+		view.bringSubviewToFront(liveDurationLabel)
+		view.bringSubviewToFront(startButton)
 	}
 	
 	func layoutDurationLabel() {

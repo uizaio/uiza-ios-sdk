@@ -164,7 +164,7 @@ class UZDeviceListTableViewController: UITableViewController {
 			castingManager.connect(to: device)
 			
 			if let cell = tableView.cellForRow(at: indexPath) {
-				let loadingView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+				let loadingView = UIActivityIndicatorView(style: .gray)
 				loadingView.hidesWhenStopped = true
 				loadingView.startAnimating()
 				cell.accessoryView = loadingView

@@ -185,7 +185,7 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 			let containerViewController = UZPlayerContainerViewController()
 			
 			playerWindow = UIWindow(frame: UIScreen.main.bounds)
-			playerWindow!.windowLevel = UIWindowLevelNormal + 1
+			playerWindow!.windowLevel = UIWindow.Level.normal + 1
 			playerWindow!.rootViewController = containerViewController
 			playerWindow!.makeKeyAndVisible()
 			

@@ -140,7 +140,7 @@ open class UZVideoItem: UZModelObject {
 #if !TVOS_VERSION
 extension UZVideoItem: UIActivityItemSource {
 	
-	public func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivityType?) -> Any? {
+	public func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivity.ActivityType?) -> Any? {
 		if let videoURL = videoURL {
 			return videoURL
 		}

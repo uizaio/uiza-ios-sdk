@@ -257,7 +257,7 @@ open class UZAPIConnector {
 		if let params = params {
 			for (key, value) in params {
 				if value is UIImage {
-					imageData = UIImageJPEGRepresentation(value as! UIImage, 0.5)!
+					imageData = (value as! UIImage).jpegData(compressionQuality: 0.8)
 					dataKey = key
 					
 					break

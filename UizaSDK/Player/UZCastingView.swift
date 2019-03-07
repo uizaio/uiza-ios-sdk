@@ -54,7 +54,7 @@ class UZCastingView: UIView {
 		let viewSize = self.bounds.size
 		let labelSize = titleLabel.sizeThatFits(viewSize)
 		
-		imageView.frame = UIEdgeInsetsInsetRect(self.bounds, UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20))
+		imageView.frame = self.bounds.inset(by: UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20))
 		titleLabel.frame = CGRect(x: 0, y: viewSize.height - labelSize.height - 20, width: viewSize.width, height: labelSize.height)
 	}
 	

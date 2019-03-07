@@ -32,6 +32,7 @@ public enum UZButtonTag: Int {
 	case casting	= 119
 	case next		= 120
 	case previous	= 121
+	case logo		= 122
 }
 
 public protocol UZPlayerTheme: class {
@@ -44,6 +45,7 @@ public protocol UZPlayerTheme: class {
 	func allButtons() -> [UIButton]
 	func showLoader()
 	func hideLoader()
+	func alignLogo()
 	
 }
 
@@ -51,16 +53,28 @@ open class UZPlayerControlView: UIView {
 	open weak var delegate: UZPlayerControlViewDelegate?
 	open var autoHideControlsInterval: TimeInterval = 5
 	open var enableTimeshiftForLiveVideo = true
-	open var themeConfig: UZPlayerConfig? = nil {
+	open var playerConfig: UZPlayerConfig? = nil {
 		didSet {
-			if let config = themeConfig, let themeId = config.themeId?.intValue {
-				let themeClasses: [UZPlayerTheme] = [UZTheme1(), UZTheme2(), UZTheme3(), UZTheme4(), UZTheme5(), UZTheme6(), UZTheme7()]
-				if themeId >= 0 && themeId < themeClasses.count {
-					self.theme = themeClasses[themeId]
+			if let config = playerConfig {
+				if let themeId = config.themeId?.intValue {
+					let themeClasses: [UZPlayerTheme] = [UZTheme1(), UZTheme2(), UZTheme3(), UZTheme4(), UZTheme5(), UZTheme6(), UZTheme7()]
+					if themeId >= 0 && themeId < themeClasses.count {
+						self.theme = themeClasses[themeId]
+					}
+				}
+				
+				logoButton.isHidden = !config.showLogo || config.logoImageUrl == nil
+				if let logoImageURL = config.logoImageUrl {
+					logoButton.sd_setImage(with: logoImageURL, for: .normal) { [weak self] (image, error, cacheType, URL) in
+						self?.setNeedsLayout()
+					}
 				}
 			}
 		}
 	}
+	
+	open var logoEdgeInsetsWhenControlsInvisible: UIEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+	open var logoEdgeInsetsWhenControlsVisible: UIEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
 	
 	open var totalDuration:TimeInterval = 0
 	
@@ -163,6 +177,7 @@ open class UZPlayerControlView: UIView {
 	public let pipButton = NKButton()
 	public let castingButton = UZCastButton()
 	public let enlapseTimeLabel = NKButton()
+	public let logoButton = NKButton()
 	public let airplayButton = UZAirPlayButton()
 	public let coverImageView = UIImageView()
 	public let liveBadgeView = UZLiveBadgeView()
@@ -251,6 +266,7 @@ open class UZPlayerControlView: UIView {
 		pipButton.tag = UZButtonTag.pip.rawValue
 		airplayButton.tag = UZButtonTag.airplay.rawValue
 		castingButton.tag = UZButtonTag.casting.rawValue
+		logoButton.tag = UZButtonTag.logo.rawValue
 		
 		self.allButtons.forEach { (button) in
 			button.showsTouchWhenHighlighted = true
@@ -260,6 +276,7 @@ open class UZPlayerControlView: UIView {
 		endscreenView.isHidden = true
 		liveBadgeView.isHidden = true
 		settingsButton.isHidden = true
+		logoButton.isHidden = true
 		
 		self.addSubview(containerView)
 	}
@@ -325,11 +342,13 @@ open class UZPlayerControlView: UIView {
 		endscreenView.frame = self.bounds
 		
 		if let messageLabel = messageLabel {
-			let messageBounds = UIEdgeInsetsInsetRect(self.bounds, UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20))
+			let messageBounds = self.bounds.inset(by: UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20))
 			let viewSize = messageBounds.size
 			let labelSize = messageLabel.sizeThatFits(messageBounds.size)
 			messageLabel.frame = CGRect(x: messageBounds.origin.x, y: messageBounds.origin.y + (viewSize.height - labelSize.height)/2, width: viewSize.width, height: labelSize.height)
 		}
+		
+		alignLogo()
 	}
 	
 	// MARK: -
@@ -405,7 +424,7 @@ open class UZPlayerControlView: UIView {
 		self.currentVideo = video
 		
 		titleLabel.text = resource.name
-		endscreenView.title = themeConfig?.endscreenMessage ?? resource.name
+		endscreenView.title = playerConfig?.endscreenMessage ?? resource.name
 		
 		let isLiveVideo = (video?.isLive ?? resource.isLive)
 		liveBadgeView.isHidden = !isLiveVideo
@@ -423,7 +442,7 @@ open class UZPlayerControlView: UIView {
 		helpButton.isHidden = isLiveVideo
 		ccButton.isHidden = isLiveVideo
 		
-		settingsButton.isHidden = (themeConfig?.showQualitySelector ?? true) || resource.definitions.count < 2
+		settingsButton.isHidden = (playerConfig?.showQualitySelector ?? true) || resource.definitions.count < 2
 		autoFadeOutControlView(after: autoHideControlsInterval)
 		setNeedsLayout()
 	}
@@ -460,6 +479,7 @@ open class UZPlayerControlView: UIView {
 			containerView.isHidden = false
 			
 			UIView.animate(withDuration: 0.3, animations: {
+				self.alignLogo()
 				self.containerView.alpha = 1.0
 			}, completion: { (finished) in
 				if finished {
@@ -476,6 +496,7 @@ open class UZPlayerControlView: UIView {
 			}, completion: { (finished) in
 				if finished {
 					self.containerView.isHidden = true
+					self.alignLogo()
 				}
 			})
 		}
@@ -509,6 +530,57 @@ open class UZPlayerControlView: UIView {
 		self.setNeedsLayout()
 	}
 	
+	open func alignLogo() {
+		if !logoButton.isHidden {
+			let logoSize = logoButton.sizeThatFits(bounds.size)
+			let logoPosition = playerConfig?.logoDisplayPosition ?? "top-right"
+			let components = logoPosition.components(separatedBy: "-")
+			let position: (vertical: String, horizontal: String) = (components[0], components[1])
+			var x: CGFloat = 0.0
+			var y: CGFloat = 0.0
+			
+			switch position.horizontal.lowercased() {
+			case "left", "l":
+				x = 0.0
+				break
+				
+			case "center", "c":
+				x = (bounds.size.width - logoSize.width)/2
+				break
+				
+			case "right", "r":
+				x = bounds.size.width - logoSize.width
+				break
+				
+			default:
+				x = 0.0
+			}
+			
+			switch position.vertical.lowercased() {
+			case "top", "t":
+				y = 0.0
+				break
+				
+			case "center", "c":
+				y = (bounds.size.height - logoSize.height)/2
+				break
+				
+			case "bottom", "b":
+				y = bounds.size.height - logoSize.height
+				break
+				
+			default:
+				y = 0.0
+			}
+			
+			let logoFrame = CGRect(origin: CGPoint(x: x, y: y), size: logoSize)
+			let edgeInsets = containerView.isHidden ? logoEdgeInsetsWhenControlsInvisible : logoEdgeInsetsWhenControlsVisible
+			logoButton.frame = logoFrame.inset(by: edgeInsets)
+		}
+		
+		theme?.alignLogo()
+	}
+	
 	open func updateUI(_ isForFullScreen: Bool) {
 		fullscreenButton.isSelected = isForFullScreen
 	}
@@ -517,7 +589,7 @@ open class UZPlayerControlView: UIView {
 		endscreenView.isHidden = false
 		containerView.isHidden = true
 		
-		endscreenView.shareButton.isHidden = themeConfig?.allowSharing ?? false
+		endscreenView.shareButton.isHidden = playerConfig?.allowSharing ?? false
 		endscreenView.setNeedsLayout()
 	}
 	
@@ -627,7 +699,7 @@ open class UZPlayerControlView: UIView {
 			return
 		}
 		
-		if themeConfig?.allowFullscreen ?? true {
+		if playerConfig?.allowFullscreen ?? true {
 			delegate?.controlView(controlView: self, didSelectButton: fullscreenButton)
 		}
 	}

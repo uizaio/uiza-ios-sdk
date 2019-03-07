@@ -286,4 +286,8 @@ open class UZTheme5: UZPlayerTheme {
 //		controlView?.backwardButton.isHidden = !isEmptyPlaylist
 	}
 	
+	public func alignLogo() {
+		// align logo manually here if needed
+	}
+	
 }

@@ -226,7 +226,7 @@ internal class UZVideoQualityCollectionViewController: UICollectionViewControlle
 		
 		let collectionView = self.collectionView!
 		collectionView.register(UZQualityItemCollectionViewCell.self, forCellWithReuseIdentifier: CellIdentifier)
-		collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "Header")
+		collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "Header")
 		
 //		collectionView.backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
 		collectionView.showsHorizontalScrollIndicator = false
@@ -460,7 +460,7 @@ class UZQualityItemCollectionViewCell : UICollectionViewCell {
 		frameLayout.frame = self.bounds
 		
 		if let backgroundView = backgroundView {
-			backgroundView.frame = UIEdgeInsetsInsetRect(self.contentView.bounds, UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5))
+			backgroundView.frame = self.contentView.bounds.inset(by: UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5))
 			highlightView.frame = backgroundView.frame
 		}
 	}

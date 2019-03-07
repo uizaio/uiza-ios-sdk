@@ -35,7 +35,7 @@ public protocol UZPlayerControlViewDelegate: class {
 	
 	func controlView(controlView: UZPlayerControlView, didChooseDefinition index: Int)
 	func controlView(controlView: UZPlayerControlView, didSelectButton button: UIButton)
-	func controlView(controlView: UZPlayerControlView, slider: UISlider, onSliderEvent event: UIControlEvents)
+	func controlView(controlView: UZPlayerControlView, slider: UISlider, onSliderEvent event: UIControl.Event)
 	
 }
 
@@ -156,7 +156,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	
 	public var themeConfig: UZPlayerConfig? = nil {
 		didSet {
-			controlView.themeConfig = themeConfig
+			controlView.playerConfig = themeConfig
 			
 			if let config = themeConfig {
 				shouldAutoPlay = config.autoStart
@@ -926,8 +926,8 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		controlView.delegate = self
 		addSubview(controlView)
 		
-		NotificationCenter.default.addObserver(self, selector: #selector(onOrientationChanged), name: .UIApplicationDidChangeStatusBarOrientation, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(onAudioRouteChanged), name: .AVAudioSessionRouteChange, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(onOrientationChanged), name: UIApplication.didChangeStatusBarOrientationNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(onAudioRouteChanged), name: AVAudioSession.routeChangeNotification, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(showAirPlayDevicesSelection), name: .UZShowAirPlayDeviceList, object: nil)
 		#if ALLOW_GOOGLECAST
 		NotificationCenter.default.addObserver(self, selector: #selector(onCastSessionDidStart), name: NSNotification.Name.UZCastSessionDidStart, object: nil)
@@ -946,8 +946,18 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		self.insertSubview(playerLayer!, at: 0)
 		self.layoutIfNeeded()
 		
-		NotificationCenter.default.addObserver(self, selector: #selector(onApplicationInactive), name: .UIApplicationDidEnterBackground, object: nil)
-		try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+		NotificationCenter.default.addObserver(self, selector: #selector(onApplicationInactive), name: UIApplication.didEnterBackgroundNotification, object: nil)
+		
+		setupAudioCategory()
+	}
+	
+	open func setupAudioCategory() {
+		if #available(iOS 10.0, *) {
+		try? AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback, mode: AVAudioSession.Mode.moviePlayback, options: [.allowAirPlay])
+	}
+	else {
+//			try? AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
+		}
 	}
 	
 	fileprivate var playthrough_eventlog: [Float : Bool] = [:]
@@ -1352,6 +1362,13 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 					showCastingDeviceList()
 				}
 				
+			case .logo:
+				if let url = controlView.playerConfig?.logoRedirectUrl {
+					if UIApplication.shared.canOpenURL(url) {
+						UIApplication.shared.openURL(url)
+					}
+				}
+				
 			default:
 				#if DEBUG
 				print("[UZPlayer] Unhandled Action")
@@ -1362,7 +1379,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		buttonSelectionBlock?(button)
 	}
 	
-	open func controlView(controlView: UZPlayerControlView, slider: UISlider, onSliderEvent event: UIControlEvents) {
+	open func controlView(controlView: UZPlayerControlView, slider: UISlider, onSliderEvent event: UIControl.Event) {
 		#if ALLOW_GOOGLECAST
 		let castingManager = UZCastingManager.shared
 		if castingManager.hasConnectedSession {
@@ -1755,8 +1772,8 @@ open class UZPlayerLayerView: UIView {
 		}
 		
 		if self.player?.currentItem?.status == .readyToPlay {
-			let draggedTime = CMTimeMake(Int64(seconds), 1)
-			self.player!.seek(to: draggedTime, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: { [weak self] (finished) in
+			let draggedTime = CMTimeMake(value: Int64(seconds), timescale: 1)
+			self.player!.seek(to: draggedTime, toleranceBefore: CMTime.zero, toleranceAfter: CMTime.zero, completionHandler: { [weak self] (finished) in
 				self?.setupTimer()
 				completion?()
 			})
@@ -1801,14 +1818,14 @@ open class UZPlayerLayerView: UIView {
 		   let subtitleURL = subtitleURL
 		{
 			// Embed external subtitle link to player item, This does not work
-			let timeRange = CMTimeRangeMake(kCMTimeZero, videoAsset.duration)
+			let timeRange = CMTimeRangeMake(start: CMTime.zero, duration: videoAsset.duration)
 			let mixComposition = AVMutableComposition()
 			let videoTrack = mixComposition.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid)
-			try? videoTrack?.insertTimeRange(timeRange, of: videoAsset.tracks(withMediaType: .video).first!, at: kCMTimeZero)
+			try? videoTrack?.insertTimeRange(timeRange, of: videoAsset.tracks(withMediaType: .video).first!, at: CMTime.zero)
 			
 			let subtitleAsset = AVURLAsset(url: subtitleURL)
 			let subtitleTrack = mixComposition.addMutableTrack(withMediaType: .text, preferredTrackID: kCMPersistentTrackID_Invalid)
-			try? subtitleTrack?.insertTimeRange(timeRange, of: subtitleAsset.tracks(withMediaType: .text).first!, at: kCMTimeZero)
+			try? subtitleTrack?.insertTimeRange(timeRange, of: subtitleAsset.tracks(withMediaType: .text).first!, at: CMTime.zero)
 			
 			return AVPlayerItem(asset: mixComposition)
 		}
@@ -1928,7 +1945,7 @@ open class UZPlayerLayerView: UIView {
 			if item == self.playerItem {
 				switch keyPath {
 				case "status":
-					if player?.status == AVPlayerStatus.readyToPlay {
+					if player?.status == AVPlayer.Status.readyToPlay {
 						self.state = .buffering
 						
 						if shouldSeekTo != 0 {
@@ -1943,7 +1960,7 @@ open class UZPlayerLayerView: UIView {
 							self.state = .readyToPlay
 						}
 					}
-					else if player?.status == AVPlayerStatus.failed {
+					else if player?.status == AVPlayer.Status.failed {
 						self.state = .error
 					}
 					

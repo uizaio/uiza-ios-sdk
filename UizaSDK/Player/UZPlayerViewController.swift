@@ -98,7 +98,7 @@ open class UZPlayerViewController: UIViewController {
 		}
 		
 		self.view.addSubview(self.player)
-		NotificationCenter.default.addObserver(self, selector: #selector(onDeviceRotated), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(onDeviceRotated), name: UIDevice.orientationDidChangeNotification, object: nil)
 	}
 	
 	override open func viewDidLayoutSubviews() {
@@ -119,10 +119,10 @@ open class UZPlayerViewController: UIViewController {
 		if autoFullscreenWhenRotateDevice {
 			DispatchQueue.main.asyncAfter(deadline: .now() + autoFullscreenDelay) {
 				let orientation = UIDevice.current.orientation
-				if UIDeviceOrientationIsLandscape(orientation) {
+				if orientation.isLandscape {
 					self.setFullscreen(fullscreen: true)
 				}
-				else if UIDeviceOrientationIsPortrait(orientation) {
+				else if orientation.isPortrait {
 					self.setFullscreen(fullscreen: false)
 				}
 			}
@@ -145,7 +145,7 @@ open class UZPlayerViewController: UIViewController {
 	
 	override open var preferredInterfaceOrientationForPresentation : UIInterfaceOrientation {
 		let currentOrientation = UIApplication.shared.statusBarOrientation
-		return UIInterfaceOrientationIsLandscape(currentOrientation) ? currentOrientation : .landscapeRight
+		return currentOrientation.isLandscape ? currentOrientation : .landscapeRight
 	}
 	
 }
@@ -183,12 +183,12 @@ internal class UZPlayerController: UIViewController {
 	
 	override var preferredInterfaceOrientationForPresentation : UIInterfaceOrientation {
 		let deviceOrientation = UIDevice.current.orientation
-		if UIDeviceOrientationIsLandscape(deviceOrientation) {
+		if deviceOrientation.isLandscape {
 			return deviceOrientation == .landscapeRight ? .landscapeLeft : .landscapeRight
 		}
 		else {
 			let currentOrientation = UIApplication.shared.statusBarOrientation
-			return UIInterfaceOrientationIsLandscape(currentOrientation) ? currentOrientation : .landscapeRight
+			return currentOrientation.isLandscape ? currentOrientation : .landscapeRight
 		}
 	}
 	

@@ -44,7 +44,7 @@ open class UZAirPlayButton: MPVolumeView {
 		self.setImage(image: airplayOnIcon, for: .selected)
 	}
 	
-	open func setImage(image: UIImage?, for state: UIControlState) {
+	open func setImage(image: UIImage?, for state: UIControl.State) {
 		self.setRouteButtonImage(image, for: state)
 	}
 	

@@ -17,7 +17,7 @@ extension AVAudioSession {
 			
 			let currentRoute = AVAudioSession.sharedInstance().currentRoute
 			for port in currentRoute.outputs {
-				if port.portType == AVAudioSessionPortAirPlay {
+				if port.portType == AVAudioSession.Port.airPlay {
 					result = true
 					break
 				}

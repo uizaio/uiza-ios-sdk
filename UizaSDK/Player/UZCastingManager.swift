@@ -178,7 +178,7 @@ open class UZCastingManager: NSObject {
 			metadata.addImage(GCKImage(url: thumbnailUrl, width: 720, height: 480))
 		}
 		
-		let builder = GCKMediaInformationBuilder(contentID: item.url.absoluteString)
+		let builder = GCKMediaInformationBuilder(contentURL: item.url)
 		builder.streamType = item.streamType
 		builder.contentType = item.contentType // "video/m3u8" , "application/dash+xml"
 		builder.mediaTracks = item.mediaTracks

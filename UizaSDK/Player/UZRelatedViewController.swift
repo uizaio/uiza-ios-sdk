@@ -220,7 +220,7 @@ internal class UZVideoCollectionViewController: UICollectionViewController, UICo
 		
 		let collectionView = self.collectionView!
 		collectionView.register(UZMovieItemCollectionViewCell.self, forCellWithReuseIdentifier: CellIdentifier)
-		collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "Header")
+		collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "Header")
 		
 //		collectionView.backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
 		collectionView.showsHorizontalScrollIndicator = false

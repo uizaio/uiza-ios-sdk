@@ -204,7 +204,7 @@ internal class UZMediaOptionSelectionCollectionViewController: UICollectionViewC
 		
 		let collectionView = self.collectionView!
 		collectionView.register(UZMediaOptionItemCollectionViewCell.self, forCellWithReuseIdentifier: CellIdentifier)
-		collectionView.register(UZTitleCollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: reuseHeaderIdentifier)
+		collectionView.register(UZTitleCollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: reuseHeaderIdentifier)
 		
 //		collectionView.backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
 		collectionView.showsHorizontalScrollIndicator = false
@@ -279,8 +279,8 @@ internal class UZMediaOptionSelectionCollectionViewController: UICollectionViewC
 	}
 	
 	override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-		if kind == UICollectionElementKindSectionHeader {
-			let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: reuseHeaderIdentifier, for: indexPath) as! UZTitleCollectionViewHeader
+		if kind == UICollectionView.elementKindSectionHeader {
+			let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: reuseHeaderIdentifier, for: indexPath) as! UZTitleCollectionViewHeader
 			headerView.title = indexPath.section == 0 ? (audioOptions.isEmpty ? "Audio: (none)" : "Audio:") : (subtitleOptions.isEmpty ? "Subtitle: (none)" : "Subtitle:")
 			return headerView
 		}
@@ -452,7 +452,7 @@ class UZMediaOptionItemCollectionViewCell : UICollectionViewCell {
 		frameLayout.frame = self.bounds
 		
 		if let backgroundView = backgroundView {
-			backgroundView.frame = UIEdgeInsetsInsetRect(self.contentView.bounds, UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5))
+			backgroundView.frame = self.contentView.bounds.inset(by: UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5))
 			highlightView.frame = backgroundView.frame
 		}
 	}

@@ -969,6 +969,9 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 				playthrough_eventlog[5] = true
 				
 				UZLogger.shared.log(event: "view", video: currentVideo, params: ["play_through" : "0"], completionBlock: nil)
+				if let videoId = currentVideo?.id, let category = currentVideo?.categoryName {
+					UZLogger.shared.trackingCategory(entityId: videoId, category: category)
+				}
 			}
 		}
 		else if totalTime > 0 {

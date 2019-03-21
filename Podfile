@@ -16,6 +16,8 @@ target 'UizaSDK' do
   pod 'SwiftyJSON'
   pod 'LFLiveKit+'
   pod 'TweenKit'
+	pod 'Mux-Stats-Core'
+	pod 'Mux-Stats-AVPlayer'
 
 end
 
@@ -59,6 +61,8 @@ target 'UizaPlayerTest' do
 	pod 'SwiftyJSON'
 	pod 'LFLiveKit+'
 	pod 'TweenKit'
+	pod 'Mux-Stats-Core'
+	pod 'Mux-Stats-AVPlayer'
 	
 end
 

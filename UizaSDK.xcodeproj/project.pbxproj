@@ -1245,6 +1245,9 @@
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON-iOS9.0/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/FrameLayoutKit-iOS9.0/FrameLayoutKit.framework",
 				"${PODS_ROOT}/GoogleAds-IMA-iOS-SDK/GoogleInteractiveMediaAds.framework",
+				"${PODS_ROOT}/Mux-Stats-AVPlayer/Frameworks/iOS/fat/MUXSDKStats.framework",
+				"${PODS_ROOT}/Mux-Stats-AVPlayer/Frameworks/iOS/fat/MUXSDKStats.framework.dSYM",
+				"${PODS_ROOT}/Mux-Stats-Core/Frameworks/iOS/fat/MuxCore.framework",
 				"${BUILT_PRODUCTS_DIR}/NKButton-iOS9.0/NKButton.framework",
 				"${BUILT_PRODUCTS_DIR}/NKModalViewManager-iOS9.0/NKModalViewManager.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView-iOS9.0/NVActivityIndicatorView.framework",
@@ -1259,6 +1262,9 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FrameLayoutKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleInteractiveMediaAds.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MUXSDKStats.framework",
+				"${DWARF_DSYM_FOLDER_PATH}/MUXSDKStats.framework.dSYM",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MuxCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NKButton.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NKModalViewManager.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
@@ -1299,6 +1305,9 @@
 				"${BUILT_PRODUCTS_DIR}/FrameLayoutKit-iOS9.0/FrameLayoutKit.framework",
 				"${PODS_ROOT}/GoogleAds-IMA-iOS-SDK/GoogleInteractiveMediaAds.framework",
 				"${BUILT_PRODUCTS_DIR}/LFLiveKit+-iOS9.0/LFLiveKit_.framework",
+				"${PODS_ROOT}/Mux-Stats-AVPlayer/Frameworks/iOS/fat/MUXSDKStats.framework",
+				"${PODS_ROOT}/Mux-Stats-AVPlayer/Frameworks/iOS/fat/MUXSDKStats.framework.dSYM",
+				"${PODS_ROOT}/Mux-Stats-Core/Frameworks/iOS/fat/MuxCore.framework",
 				"${BUILT_PRODUCTS_DIR}/NKButton-iOS9.0/NKButton.framework",
 				"${BUILT_PRODUCTS_DIR}/NKModalViewManager-iOS9.0/NKModalViewManager.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView-iOS9.0/NVActivityIndicatorView.framework",
@@ -1313,6 +1322,9 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FrameLayoutKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleInteractiveMediaAds.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LFLiveKit_.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MUXSDKStats.framework",
+				"${DWARF_DSYM_FOLDER_PATH}/MUXSDKStats.framework.dSYM",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MuxCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NKButton.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NKModalViewManager.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
@@ -1950,7 +1962,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.uiza.UizaSDK;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG ALLOW_GOOGLECAST";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG ALLOW_GOOGLECAST ALLOW_MUX";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1982,7 +1994,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.uiza.UizaSDK;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = ALLOW_GOOGLECAST;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "ALLOW_GOOGLECAST ALLOW_MUX";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

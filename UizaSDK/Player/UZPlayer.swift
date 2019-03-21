@@ -18,6 +18,11 @@ import GoogleInteractiveMediaAds
 import GoogleCast
 #endif
 
+//#if ALLOW_MUX
+import MuxCore
+import MUXSDKStats
+//#endif
+
 extension Notification.Name {
 	
 	static let UZShowAirPlayDeviceList	= Notification.Name(rawValue: "UZShowAirPlayDeviceList")
@@ -149,6 +154,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	public fileprivate(set) var currentVideo: UZVideoItem? {
 		didSet {
 			controlView.currentVideo = currentVideo
+			playerLayer?.currentVideo = currentVideo
 		}
 	}
 	
@@ -1595,6 +1601,8 @@ open class UZPlayerLayerView: UIView {
 		}
 	}
 	
+	var currentVideo: UZVideoItem?
+	
 	public var preferredForwardBufferDuration: TimeInterval = 0 {
 		didSet {
 			if let playerItem = playerItem {
@@ -1846,6 +1854,27 @@ open class UZPlayerLayerView: UIView {
 		
 		playerLayer = AVPlayerLayer(player: player)
 		playerLayer!.videoGravity = videoGravity
+		
+//		#if ALLOW_MUX
+		if UizaSDK.appId == "a9383d04d7d0420bae10dbf96bb27d9b" {
+			let key = "ei4d2skl1bkrh6u2it9n3idjg"
+			let playerData = MUXSDKCustomerPlayerData(environmentKey: key)!
+			playerData.viewerUserId = "1234"
+			playerData.experimentName = "uiza_player_test"
+			playerData.playerName = "UizaPlayer"
+			playerData.playerVersion = SDK_VERSION
+			
+			let videoData = MUXSDKCustomerVideoData()
+			if let videoItem = currentVideo {
+				videoData.videoId = videoItem.id
+				videoData.videoTitle = videoItem.name
+				videoData.videoDuration = NSNumber(value: videoItem.duration * 1000)
+				videoData.videoIsLive = NSNumber(value: videoItem.isLive)
+			}
+			DLog("OK \(videoData) - \(playerData)")
+			MUXSDKStats.monitorAVPlayerLayer(playerLayer!, withPlayerName: "uizaPlayer", playerData: playerData, videoData: videoData)
+		}
+//		#endif
 		
 		layer.addSublayer(playerLayer!)
 		

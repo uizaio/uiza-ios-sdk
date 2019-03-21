@@ -66,6 +66,19 @@ class ViewController: UIViewController {
 		//				DLog("OK \(results) - \(error)")
 		//			})
 		
+		UZContentServices().loadDetail(entityId: "ffc91430-c46f-47cb-97e4-f83c4fd0fe21", isLive: false) { (videoItem, error) in
+			print("OK \(videoItem) - \(error)")
+			
+			if let video = videoItem {
+				DispatchQueue.main.async {
+					let viewController = UZFloatingPlayerViewController()
+//					viewController.delegate = self
+					viewController.present(with: video).player.controlView.theme = UZTheme1()
+					viewController.floatingHandler?.allowsCornerDocking = true
+				}
+			}
+		}
+		
 //		UZContentServices().loadEntity(metadataId: nil, publishStatus: .success, page: 0, limit: 15) { (results, error) in
 //			if let videos = results, let video = videos.first {
 //
@@ -100,9 +113,9 @@ class ViewController: UIViewController {
 //			}
 //		})
 		
-		DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-			self.showLive()
-		}
+//		DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//			self.showLive()
+//		}
 	}
 	
 	func showAlert() {

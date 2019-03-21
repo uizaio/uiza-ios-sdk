@@ -23,38 +23,39 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 	public var playerViewController: UZPlayerViewController! {
 		didSet {
 			if player != nil {
-				player.videoChangedBlock = nil
-				player.backBlock = nil
-				player.removeFromSuperview()
+				player!.videoChangedBlock = nil
+				player!.backBlock = nil
+				player!.removeFromSuperview()
+				player = nil
 			}
 			
 			playerViewController.fullscreenPresentationMode = .modal
 			playerViewController.autoFullscreenWhenRotateDevice = true
 			
 			player = playerViewController.player
-			player.backBlock = { [weak self] (_) in
+			player?.backBlock = { [weak self] (_) in
 				guard let `self` = self else { return }
 				
 				if self.playerViewController.isFullscreen {
 					self.playerViewController.setFullscreen(fullscreen: false, completion: {
-						self.player.stop()
+						self.player?.stop()
 						self.floatingHandler?.delegate = nil
 						self.dismiss(animated: true, completion: self.onDismiss)
 					})
 				}
 				else {
-					self.player.stop()
+					self.player?.stop()
 					self.floatingHandler?.delegate = nil
 					self.dismiss(animated: true, completion: self.onDismiss)
 				}
 			}
 			
-			player.videoChangedBlock = { [weak self] (videoItem) in
+			player?.videoChangedBlock = { [weak self] (videoItem) in
 				self?.videoItem = videoItem
 			}
 		}
 	}
-	public private(set) var player: UZPlayer!
+	public private(set) var player: UZPlayer?
 	public let detailsContainerView = UIView()
 	public var playerRatio: CGFloat = 9/16
 	
@@ -67,7 +68,7 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 				self.stop()
 				return
 			}
-			guard player.currentVideo != videoItem else { return }
+			guard player?.currentVideo != videoItem else { return }
 			
 			if let floatingHandler = floatingHandler {
 				if floatingHandler.isFloatingMode {
@@ -80,7 +81,7 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 				}
 			}
 			
-			player.loadVideo(videoItem)
+			player?.loadVideo(videoItem)
 		}
 	}
 	
@@ -92,7 +93,7 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 				return
 			}
 			
-			if player.playlist != videoItems {
+			if player?.playlist != videoItems {
 				if let floatingHandler = floatingHandler {
 					if floatingHandler.isFloatingMode {
 						floatingHandler.backToNormalState()
@@ -104,9 +105,9 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 					}
 				}
 				
-				player.playlist = videoItems
+				player?.playlist = videoItems
 				if let videoItem = videoItems.first {
-					player.loadVideo(videoItem)
+					player?.loadVideo(videoItem)
 				}
 			}
 		}
@@ -196,7 +197,7 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 		}
 		
 		self.videoItem = videoItem
-		self.player.playlist = playlist
+		self.player?.playlist = playlist
 		
 		return self.playerViewController
 	}
@@ -215,12 +216,12 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 			}
 		}
 		
-		player.setResource(resource: resource)
+		player?.setResource(resource: resource)
 		self.view.setNeedsLayout()
 	}
 	
 	open func stop() {
-		player.stop()
+		player?.stop()
 	}
 	
 	// MARK: -
@@ -325,11 +326,11 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 		let alpha = 1.0 - progress
 		
 		detailsContainerView.alpha = alpha
-		player.controlView.containerView.alpha = alpha
+		player?.controlView.containerView.alpha = alpha
 		
 		if progress == 0.0 {
-			player.controlView.containerView.isHidden = false
-			player.controlView.tapGesture?.isEnabled = true
+			player?.controlView.containerView.isHidden = false
+			player?.controlView.tapGesture?.isEnabled = true
 			playerViewController.autoFullscreenWhenRotateDevice = true
 			
 			self.playerWindow?.makeKeyAndVisible()
@@ -339,9 +340,9 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 			self.view.setNeedsLayout()
 		}
 		else if progress == 1.0 {
-			player.controlView.containerView.isHidden = true
-			player.controlView.tapGesture?.isEnabled = false
-			player.shouldShowsControlViewAfterStoppingPiP = false
+			player?.controlView.containerView.isHidden = true
+			player?.controlView.tapGesture?.isEnabled = false
+			player?.shouldShowsControlViewAfterStoppingPiP = false
 			playerViewController.autoFullscreenWhenRotateDevice = false
 			
 			lastKeyWindow?.makeKeyAndVisible()

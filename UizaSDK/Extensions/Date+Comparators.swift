@@ -25,7 +25,7 @@ public extension Date {
      *
      *  - returns: Bool representing comparison result
      */
-	public func equals(_ date: Date) -> Bool {
+	func equals(_ date: Date) -> Bool {
 		return self.compare(date) == .orderedSame
 	}
 	
@@ -37,7 +37,7 @@ public extension Date {
      *
      *  - returns: Bool representing comparison result
      */
-	public func isLater(than date: Date) -> Bool {
+	func isLater(than date: Date) -> Bool {
 		return self.compare(date) == .orderedDescending
 	}
     
@@ -49,7 +49,7 @@ public extension Date {
      *
      *  - returns: Bool representing comparison result
      */
-    public func isLaterThanOrEqual(to date: Date) -> Bool {
+    func isLaterThanOrEqual(to date: Date) -> Bool {
         return self.compare(date) == .orderedDescending || self.compare(date) == .orderedSame
     }
 	
@@ -61,7 +61,7 @@ public extension Date {
      *
      *  - returns: Bool representing comparison result
      */
-	public func isEarlier(than date: Date) -> Bool {
+	func isEarlier(than date: Date) -> Bool {
 		return self.compare(date) == .orderedAscending
 	}
     
@@ -73,7 +73,7 @@ public extension Date {
      *
      *  - returns:  Bool representing comparison result
      */
-    public func isEarlierThanOrEqual(to date: Date) -> Bool {
+    func isEarlierThanOrEqual(to date: Date) -> Bool {
         return self.compare(date) == .orderedAscending || self.compare(date) == .orderedSame
     }
     
@@ -84,7 +84,7 @@ public extension Date {
      *
      *  - returns: True if both paramter dates fall on the same day, false otherwise
      */
-    public func isSameDay(date : Date ) -> Bool {
+    func isSameDay(date : Date ) -> Bool {
         return Date.isSameDay(date: self, as: date)
     }
     
@@ -96,7 +96,7 @@ public extension Date {
      *
      *  - returns: True if both paramter dates fall on the same day, false otherwise
      */
-    public static func isSameDay(date: Date, as compareDate: Date) -> Bool {
+	static func isSameDay(date: Date, as compareDate: Date) -> Bool {
         let calendar = Calendar.autoupdatingCurrent
         var components = calendar.dateComponents([.era, .year, .month, .day], from: date)
         let dateOne = calendar.date(from: components)

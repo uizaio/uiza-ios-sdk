@@ -1,16 +1,16 @@
 PODS:
-  - Alamofire (4.8.1)
+  - Alamofire (4.8.2)
   - FrameLayoutKit (3.4)
   - google-cast-sdk (4.3.5):
     - google-cast-sdk/Core (= 4.3.5)
     - Protobuf (~> 3.0)
   - google-cast-sdk/Core (4.3.5):
     - Protobuf (~> 3.0)
-  - GoogleAds-IMA-iOS-SDK (3.8.1)
+  - GoogleAds-IMA-iOS-SDK (3.9.0)
   - "LFLiveKit+ (2.6.2)"
   - Mux-Stats-AVPlayer (0.1.5)
   - Mux-Stats-Core (2.0.7)
-  - NKButton (3.8.1):
+  - NKButton (3.8.3):
     - FrameLayoutKit
     - NVActivityIndicatorView/AppExtension
   - NKModalViewManager (3.5.2)
@@ -58,14 +58,14 @@ SPEC REPOS:
     - TweenKit
 
 SPEC CHECKSUMS:
-  Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
+  Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
   FrameLayoutKit: ec991b3e454e98078fb050cf172cd15cfff4bbe8
   google-cast-sdk: 462e10c781ea8ad480d2e16200bb8584ef067e07
-  GoogleAds-IMA-iOS-SDK: 9659b8999443366d2d159413c189e55d88734b78
+  GoogleAds-IMA-iOS-SDK: 8f57879738137b81a48ba792e42439e6bff5413b
   "LFLiveKit+": 0da21f6b18c07a4160aa61f17fb436350c558eac
   Mux-Stats-AVPlayer: f2311b371f2cb21de9f490cb93083d0256d8d26d
   Mux-Stats-Core: a766e391d7d1802440c8711c0fea8c7405964eae
-  NKButton: 809279eeb3e2af0013229acfe2835458342ee9de
+  NKButton: 419969081ffcf3347ad5436d6412a10ce69d777c
   NKModalViewManager: 8171cd4fb9315193fc2d05f011f9a29c9ca95a0f
   NVActivityIndicatorView: 4ca19fccc84595a78957336a086d00a49be6ce61
   Protobuf: 7a877b7f3e5964e3fce995e2eb323dbc6831bb5a

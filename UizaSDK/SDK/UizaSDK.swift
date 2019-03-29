@@ -20,7 +20,7 @@ import UIKit
 internal let SDK_VERSION = "7.0"
 internal let PLAYER_VERSION = "4.4"
 
-public enum UizaSDKVersion {
+public enum UizaSDKVersion: String {
 	case v3
 	case v4
 }

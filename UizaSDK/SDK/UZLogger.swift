@@ -134,7 +134,7 @@ open class UZLogger: UZAPIConnector {
 	open func trackingCategory(entityId: String, category: String, completionBlock: APIConnectorResultBlock? = nil) {
 		self.requestHeaderFields = ["AccessToken" : accessToken]
 		
-		let macAddress	: String = UIDevice.current.identifierForVendor?.uuidString ?? ""
+//		let macAddress	: String = UIDevice.current.identifierForVendor?.uuidString ?? ""
 		let bundleId	: String = Bundle.main.bundleIdentifier ?? ""
 		let timestamp	: String = Date().toString(format: .isoDateTimeMilliSec) // Date().toString(format: .custom("yyyy-MM-dd'T'HH:mm:ss.SSSZ")) // 2018-03-15T14:19:04.637Z
 		#if os(macOS)

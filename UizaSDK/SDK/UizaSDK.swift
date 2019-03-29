@@ -17,8 +17,13 @@ import UIKit
 // pod trunk push UizaSDK.podspec
 //
 
-internal let SDK_VERSION = "6.9.5"
+internal let SDK_VERSION = "7.0"
 internal let PLAYER_VERSION = "4.4"
+
+public enum UizaSDKVersion {
+	case v3
+	case v4
+}
 
 /**
 Class khởi tạo SDK
@@ -29,6 +34,7 @@ public class UizaSDK {
 	internal static var token  		: String = "" // set this before calling the API
 	internal static var domain  	: String = "" // set this before calling the API
 	internal static var enviroment	: UZEnviroment = .production // set this before calling the API
+	internal static var version		: UizaSDKVersion = .v3
 	
 	/** Hiển thị thông tin debug việc gọi các hàm API */
 	public static var showRestfulInfo : Bool = false
@@ -40,12 +46,13 @@ public class UizaSDK {
 	- parameter domain: domain được cung cấp bởi Uiza
 	- parameter key: key được cung cấp bởi Uiza
 	*/
-	public class func initWith(appId: String, token: String, api: String, enviroment: UZEnviroment = .production) {
+	public class func initWith(appId: String, token: String, api: String, enviroment: UZEnviroment = .production, version: UizaSDKVersion = .v3) {
         if self.appId == "" && self.token == "" && self.domain == "" {
-			self.appId = appId
-			self.token = token
-			self.domain = api
+			self.appId 		= appId
+			self.token 		= token
+			self.domain 	= api
 			self.enviroment = enviroment
+			self.version 	= version
 			
 			#if DEBUG
 			print("[UizaSDK \(SDK_VERSION)] initialized")

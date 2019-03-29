@@ -56,7 +56,7 @@ target 'UizaPlayerTest' do
 	pod 'FrameLayoutKit'
 	pod 'NKModalViewManager'
 	pod 'NKButton'
-	pod 'NVActivityIndicatorView'
+#	pod 'NVActivityIndicatorView'
 	pod 'SDWebImage'
 	pod 'SwiftyJSON'
 	pod 'LFLiveKit+'

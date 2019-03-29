@@ -1250,7 +1250,7 @@
 				"${PODS_ROOT}/Mux-Stats-Core/Frameworks/iOS/fat/MuxCore.framework",
 				"${BUILT_PRODUCTS_DIR}/NKButton-iOS9.0/NKButton.framework",
 				"${BUILT_PRODUCTS_DIR}/NKModalViewManager-iOS9.0/NKModalViewManager.framework",
-				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView-iOS9.0/NVActivityIndicatorView.framework",
+				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView.default-AppExtension-iOS9.0/NVActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/TweenKit-iOS9.0/TweenKit.framework",
 			);
@@ -1310,7 +1310,7 @@
 				"${PODS_ROOT}/Mux-Stats-Core/Frameworks/iOS/fat/MuxCore.framework",
 				"${BUILT_PRODUCTS_DIR}/NKButton-iOS9.0/NKButton.framework",
 				"${BUILT_PRODUCTS_DIR}/NKModalViewManager-iOS9.0/NKModalViewManager.framework",
-				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView-iOS9.0/NVActivityIndicatorView.framework",
+				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView-AppExtension/NVActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage-iOS9.0/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON-iOS9.0/SwiftyJSON.framework",

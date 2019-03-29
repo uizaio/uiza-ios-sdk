@@ -261,15 +261,12 @@ open class UZAPIConnector {
 		let headers = ["User-Agent" : "UizaSDK_iOS_\(SDK_VERSION)"]
 		#endif
 		
-		var dataKey: String? = nil
-		var imageData: Data? = nil
+		var containsData = false
 		
 		if let params = params {
-			for (key, value) in params {
-				if value is UIImage {
-					imageData = (value as! UIImage).jpegData(compressionQuality: 0.8)
-					dataKey = key
-					
+			for (_, value) in params {
+				if value is UIImage || value is Data {
+					containsData = true
 					break
 				}
 			}
@@ -277,11 +274,18 @@ open class UZAPIConnector {
 		
 		if dataKey != nil && dataKey?.isEmpty == false && imageData != nil {
 			Alamofire.upload(multipartFormData: { multipartFormData in
-				multipartFormData.append(imageData!, withName: dataKey!, fileName: "file.jpg", mimeType: "image/jpg")
 				if let params = params {
 					for (key, value) in params {
-						if value is String {
-							multipartFormData.append((value as! String).data(using: String.Encoding.utf8)!, withName: key)
+						if let image = value as? UIImage {
+							if let imageData = image.jpegData(compressionQuality: 0.5) {
+								multipartFormData.append(imageData, withName: key, fileName: "image.jpg", mimeType: "image/jpeg")
+							}
+						}
+						else if let data = value as? Data {
+							multipartFormData.append(data, withName: key, fileName: "data", mimeType: "multipart/form-data")
+						}
+						else if let data = "\(value)".data(using: .utf8) {
+							multipartFormData.append(data, withName: key)
 						}
 					}
 				}

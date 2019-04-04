@@ -272,7 +272,7 @@ open class UZAPIConnector {
 			}
 		}
 		
-		if dataKey != nil && dataKey?.isEmpty == false && imageData != nil {
+		if containsData {
 			Alamofire.upload(multipartFormData: { multipartFormData in
 				if let params = params {
 					for (key, value) in params {

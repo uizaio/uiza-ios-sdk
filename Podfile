@@ -11,13 +11,10 @@ target 'UizaSDK' do
   pod 'FrameLayoutKit'
   pod 'NKModalViewManager'
   pod 'NKButton'
-  pod 'NVActivityIndicatorView'
   pod 'SDWebImage'
   pod 'SwiftyJSON'
   pod 'LFLiveKit+'
   pod 'TweenKit'
-	pod 'Mux-Stats-Core'
-	pod 'Mux-Stats-AVPlayer'
 
 end
 
@@ -29,7 +26,6 @@ target 'UizaSDK_8' do
 	pod 'FrameLayoutKit'
 	pod 'NKModalViewManager'
 	pod 'NKButton'
-	pod 'NVActivityIndicatorView'
 	pod 'SDWebImage'
 	pod 'SwiftyJSON'
 	pod 'LFLiveKit+'
@@ -56,13 +52,10 @@ target 'UizaPlayerTest' do
 	pod 'FrameLayoutKit'
 	pod 'NKModalViewManager'
 	pod 'NKButton'
-#	pod 'NVActivityIndicatorView'
 	pod 'SDWebImage'
 	pod 'SwiftyJSON'
 	pod 'LFLiveKit+'
 	pod 'TweenKit'
-	pod 'Mux-Stats-Core'
-	pod 'Mux-Stats-AVPlayer'
 	
 end
 

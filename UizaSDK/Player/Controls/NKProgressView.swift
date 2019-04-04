@@ -68,6 +68,8 @@ open class NKProgressView: UIView {
 	// MARK: -
 	
 	open func setProgress(_ progress: Float, animated: Bool = false) {
+		guard progress.isNaN == false else { return }
+		
 		self.setNeedsLayout()
 		self.progress = progress
 		updateProgressWidth(animated: animated)

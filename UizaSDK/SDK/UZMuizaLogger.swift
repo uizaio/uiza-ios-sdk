@@ -104,16 +104,17 @@ open class UZMuizaLogger : UZAPIConnector{
 		
 		if let player = player {
 			let playerSize = player.frame.size
-			let playerData: [AnyHashable : Any] = ["player_width" : playerSize.width,
-												   "player_height" : playerSize.height,
+			let playerData: [AnyHashable : Any] = ["player_width" 		: playerSize.width,
+												   "player_height" 		: playerSize.height,
 												   "player_autoplay_on" : player.shouldAutoPlay,
-												   "player_is_paused" : player.isPauseByUser]
+												   "player_is_paused" 	: player.isPauseByUser]
 			logData.addEntries(from: playerData)
 			
 			if let avItem = player.avPlayer?.currentItem {
-				let itemData: [AnyHashable : Any] = ["entity_source_duration" : CMTimeGetSeconds(avItem.duration),
-													 "entity_source_width" : avItem.presentationSize.width,
-													 "entity_source_height" : avItem.presentationSize.height]
+				let duration = CMTimeGetSeconds(avItem.duration)
+				let itemData: [String: AnyHashable] = ["entity_source_duration" : duration.isNaN ? 0 : duration,
+													   "entity_source_width" 	: avItem.presentationSize.width,
+													   "entity_source_height" 	: avItem.presentationSize.height]
 				logData.addEntries(from: itemData)
 			}
 		}

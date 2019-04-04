@@ -11,8 +11,9 @@ target 'UizaSDK' do
   pod 'FrameLayoutKit'
   pod 'NKModalViewManager'
   pod 'NKButton'
+	pod 'NVActivityIndicatorView/AppExtension', '~> 4.6.1'
   pod 'SDWebImage'
-  pod 'SwiftyJSON'
+  pod 'SwiftyJSON', '~> 4.2.0'
   pod 'LFLiveKit+'
   pod 'TweenKit'
 
@@ -27,7 +28,7 @@ target 'UizaSDK_8' do
 	pod 'NKModalViewManager'
 	pod 'NKButton'
 	pod 'SDWebImage'
-	pod 'SwiftyJSON'
+	pod 'SwiftyJSON', '~> 4.2.0'
 	pod 'LFLiveKit+'
 	pod 'TweenKit'
 	
@@ -38,7 +39,7 @@ target 'UizaSDK-tvos' do
 	use_frameworks!
 	
 	pod 'Alamofire'
-	pod 'SwiftyJSON'
+	pod 'SwiftyJSON', '~> 4.2.0'
 	
 end
 
@@ -52,8 +53,9 @@ target 'UizaPlayerTest' do
 	pod 'FrameLayoutKit'
 	pod 'NKModalViewManager'
 	pod 'NKButton'
+	pod 'NVActivityIndicatorView/AppExtension', '~> 4.6.1'
 	pod 'SDWebImage'
-	pod 'SwiftyJSON'
+	pod 'SwiftyJSON', '~> 4.2.0'
 	pod 'LFLiveKit+'
 	pod 'TweenKit'
 	
@@ -65,7 +67,7 @@ target 'UizaSDKTests' do
 
 	pod 'Alamofire'
 	pod 'SDWebImage'
-	pod 'SwiftyJSON'
+	pod 'SwiftyJSON', '~> 4.2.0'
 	pod 'LFLiveKit+'
 
 end

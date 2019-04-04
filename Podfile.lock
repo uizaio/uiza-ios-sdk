@@ -12,11 +12,11 @@ PODS:
     - FrameLayoutKit
     - NVActivityIndicatorView/AppExtension
   - NKModalViewManager (3.5.2)
-  - NVActivityIndicatorView/AppExtension (4.7.0)
+  - NVActivityIndicatorView/AppExtension (4.6.1)
   - Protobuf (3.7.0)
-  - SDWebImage (4.4.6):
-    - SDWebImage/Core (= 4.4.6)
-  - SDWebImage/Core (4.4.6)
+  - SDWebImage (5.0.0):
+    - SDWebImage/Core (= 5.0.0)
+  - SDWebImage/Core (5.0.0)
   - SwiftyJSON (4.2.0)
   - TweenKit (0.4)
 
@@ -28,8 +28,9 @@ DEPENDENCIES:
   - "LFLiveKit+"
   - NKButton
   - NKModalViewManager
+  - NVActivityIndicatorView/AppExtension (~> 4.6.1)
   - SDWebImage
-  - SwiftyJSON
+  - SwiftyJSON (~> 4.2.0)
   - TweenKit
 
 SPEC REPOS:
@@ -55,12 +56,12 @@ SPEC CHECKSUMS:
   "LFLiveKit+": 0da21f6b18c07a4160aa61f17fb436350c558eac
   NKButton: 419969081ffcf3347ad5436d6412a10ce69d777c
   NKModalViewManager: 8171cd4fb9315193fc2d05f011f9a29c9ca95a0f
-  NVActivityIndicatorView: b19ddab2576f805cbe0fb2306cba3476e09a1dea
+  NVActivityIndicatorView: 4ca19fccc84595a78957336a086d00a49be6ce61
   Protobuf: 7a877b7f3e5964e3fce995e2eb323dbc6831bb5a
-  SDWebImage: 3f3f0c02f09798048c47a5ed0a13f17b063572d8
+  SDWebImage: 5de80a0302de9e377e62f47d2fa1304efff0e55f
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
   TweenKit: 881d6f587aeae21fd9cfc823929b3b2ec55bbf97
 
-PODFILE CHECKSUM: 7cb01bdb094bc97dfef1bc81b9d085253ffacdc9
+PODFILE CHECKSUM: 9e4b6a53283b5c03a437346e530809e98b8dccb9
 
-COCOAPODS: 1.6.1
+COCOAPODS: 1.7.0.beta.3

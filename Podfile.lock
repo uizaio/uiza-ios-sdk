@@ -1,6 +1,5 @@
 PODS:
   - Alamofire (4.8.2)
-  - FrameLayoutKit (3.4)
   - google-cast-sdk (4.3.5):
     - google-cast-sdk/Core (= 4.3.5)
     - Protobuf (~> 3.0)
@@ -8,60 +7,47 @@ PODS:
     - Protobuf (~> 3.0)
   - GoogleAds-IMA-iOS-SDK (3.9.0)
   - "LFLiveKit+ (2.6.2)"
-  - NKButton (3.8.3):
-    - FrameLayoutKit
-    - NVActivityIndicatorView/AppExtension
   - NKModalViewManager (3.5.2)
-  - NVActivityIndicatorView/AppExtension (4.6.1)
+  - NVActivityIndicatorView/AppExtension (4.7.0)
   - Protobuf (3.7.0)
   - SDWebImage (5.0.0):
     - SDWebImage/Core (= 5.0.0)
   - SDWebImage/Core (5.0.0)
-  - SwiftyJSON (4.2.0)
-  - TweenKit (0.4)
+  - SwiftyJSON (4.3.0)
 
 DEPENDENCIES:
   - Alamofire
-  - FrameLayoutKit
   - google-cast-sdk
   - GoogleAds-IMA-iOS-SDK
   - "LFLiveKit+"
-  - NKButton
   - NKModalViewManager
-  - NVActivityIndicatorView/AppExtension (~> 4.6.1)
+  - NVActivityIndicatorView/AppExtension
   - SDWebImage
-  - SwiftyJSON (~> 4.2.0)
-  - TweenKit
+  - SwiftyJSON
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
-    - FrameLayoutKit
     - google-cast-sdk
     - GoogleAds-IMA-iOS-SDK
     - "LFLiveKit+"
-    - NKButton
     - NKModalViewManager
     - NVActivityIndicatorView
     - Protobuf
     - SDWebImage
     - SwiftyJSON
-    - TweenKit
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
-  FrameLayoutKit: ec991b3e454e98078fb050cf172cd15cfff4bbe8
   google-cast-sdk: 462e10c781ea8ad480d2e16200bb8584ef067e07
   GoogleAds-IMA-iOS-SDK: 8f57879738137b81a48ba792e42439e6bff5413b
   "LFLiveKit+": 0da21f6b18c07a4160aa61f17fb436350c558eac
-  NKButton: 419969081ffcf3347ad5436d6412a10ce69d777c
   NKModalViewManager: 8171cd4fb9315193fc2d05f011f9a29c9ca95a0f
-  NVActivityIndicatorView: 4ca19fccc84595a78957336a086d00a49be6ce61
+  NVActivityIndicatorView: b19ddab2576f805cbe0fb2306cba3476e09a1dea
   Protobuf: 7a877b7f3e5964e3fce995e2eb323dbc6831bb5a
   SDWebImage: 5de80a0302de9e377e62f47d2fa1304efff0e55f
-  SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
-  TweenKit: 881d6f587aeae21fd9cfc823929b3b2ec55bbf97
+  SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: 9e4b6a53283b5c03a437346e530809e98b8dccb9
+PODFILE CHECKSUM: 472bdfc93ea82c2135b1c55b3d537a438cf4510f
 
 COCOAPODS: 1.7.0.beta.3

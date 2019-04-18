@@ -8,7 +8,7 @@
 
 import UIKit
 import LFLiveKit_
-import NKButton
+//import NKButton
 
 /*
 configuration.sessionPreset = LFCaptureSessionPreset720x1280
@@ -190,6 +190,7 @@ open class UZLiveStreamViewController: UIViewController {
 			break
 		case AVAuthorizationStatus.denied: break
 		case AVAuthorizationStatus.restricted:break
+		@unknown default:break
 		}
 	}
 	
@@ -205,6 +206,7 @@ open class UZLiveStreamViewController: UIViewController {
 		case AVAuthorizationStatus.authorized: break
 		case AVAuthorizationStatus.denied: break
 		case AVAuthorizationStatus.restricted:break
+		@unknown default:break
 		}
 	}
 	

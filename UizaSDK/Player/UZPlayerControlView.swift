@@ -7,8 +7,8 @@
 //
 
 import UIKit
-import NKButton
-import FrameLayoutKit
+//import NKButton
+//import FrameLayoutKit
 import NVActivityIndicatorView
 
 public enum UZButtonTag: Int {
@@ -753,7 +753,7 @@ extension UZPlayerControlView: UIGestureRecognizerDelegate {
 }
 
 // MARK: - UZLiveBadgeView
-import FrameLayoutKit
+//import FrameLayoutKit
 
 open class UZLiveBadgeView: UIView {
 	

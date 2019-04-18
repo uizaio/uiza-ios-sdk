@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import TweenKit
+//import TweenKit
 
 public enum NKFloatingPosition: Int {
 	case topLeft

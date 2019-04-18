@@ -25,7 +25,7 @@ open class UZLiveServices: UZAPIConnector {
 //	*/
 //	public func createLiveEvent(name: String, encode: Bool, linkStream: String? = nil, description: String? = nil, poster: String? = nil, thumbnail: String? = nil, completionBlock: ((UZLiveEvent?, Error?) -> Void)? = nil) {
 //		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
-//		var params : [String: Any] = ["name" : name,
+//		var params : [String: AnyHashable] = ["name" : name,
 //									  "encode" : NSNumber(value: encode),
 //									 "resourceMode" : "single"]
 //		
@@ -118,7 +118,7 @@ open class UZLiveServices: UZAPIConnector {
 	public func loadViews(liveId: String, completionBlock: ((_ views: Int, _ error: Error?) -> Void)? = nil) {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
 		
-		let params : [String: Any] = ["id" : liveId]
+		let params : [String: AnyHashable] = ["id" : liveId]
 		
 		self.callAPI("live/entity/tracking/current-view", baseURLString: basePrivateAPIURLPath(), method: .get, params: params) { (result, error) in
 //			DLog("\(String(describing: result)) - \(String(describing: error))")
@@ -145,7 +145,7 @@ open class UZLiveServices: UZAPIConnector {
 	public func loadLiveStatus(video: UZVideoItem, completionBlock: ((_ result: UZLiveVideoStatus?, _ error: Error?) -> Void)? = nil) {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
 		
-		let params : [String: Any] = ["entityId" : video.id ?? "",
+		let params : [String: AnyHashable] = ["entityId" : video.id ?? "",
 									  "feedId" : video.feedId ?? ""]
 		
 		self.callAPI("live/entity/tracking", baseURLString: basePrivateAPIURLPath(), method: .get, params: params) { (result, error) in

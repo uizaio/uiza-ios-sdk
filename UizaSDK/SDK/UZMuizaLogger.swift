@@ -80,34 +80,64 @@ open class UZMuizaLogger : UZAPIConnector{
 	
 	// MARK: -
 	
-	open func log(eventName: String, params: [String: Any]? = nil, video: UZVideoItem? = nil, linkplay: UZVideoLinkPlay? = nil, player: UZPlayer? = nil) {
+	#if TVOS_VERSION
+	open func log(eventName: String, params: [String: AnyHashable]? = nil, video: UZVideoItem? = nil, linkplay: UZVideoLinkPlay? = nil) {
 		let logData: NSMutableDictionary = ["event" : eventName]
 		
 		if let video = video {
-			let videoData: [AnyHashable : Any] = ["entity_id" : video.id,
-												  "entity_name" : video.name,
-												  "entity_poster_url" : video.thumbnailURL?.absoluteString ?? "",
-												  "entity_duration" : video.duration,
-												  "entity_is_live" : video.isLive,
+			let videoData: [String : AnyHashable] = ["entity_id" 		: video.id,
+												  "entity_name" 		: video.name,
+												  "entity_poster_url" 	: video.thumbnailURL?.absoluteString ?? "",
+												  "entity_duration" 	: video.duration,
+												  "entity_is_live" 		: video.isLive,
 												  "entity_content_type" : "video"]
 			logData.addEntries(from: videoData)
 		}
 		
 		if let linkplay = linkplay {
-			let linkplayData: [AnyHashable : Any] = ["entity_source_url" : linkplay.url.absoluteString,
-													 "entity_source_domain" : linkplay.url.host ?? "",
-													 "entity_source_hostname" : linkplay.url.host ?? "",
-													 "entity_source_cdn" : linkplay.url.host ?? "",
-													 "entity_source_mime_type" : "application/x-mpegURL"]
+			let linkplayData: [String: AnyHashable] = ["entity_source_url" 		: linkplay.url.absoluteString,
+													 "entity_source_domain" 	: linkplay.url.host ?? "",
+													 "entity_source_hostname" 	: linkplay.url.host ?? "",
+													 "entity_source_cdn" 		: linkplay.url.host ?? "",
+													 "entity_source_mime_type" 	: "application/x-mpegURL"]
+			logData.addEntries(from: linkplayData)
+		}
+		
+		if let params = params {
+			logData.addEntries(from: params)
+		}
+		
+		appendLog(logData: logData)
+	}
+	#else
+	open func log(eventName: String, params: [String: AnyHashable]? = nil, video: UZVideoItem? = nil, linkplay: UZVideoLinkPlay? = nil, player: UZPlayer? = nil) {
+		let logData: NSMutableDictionary = ["event" : eventName]
+		
+		if let video = video {
+			let videoData: [String : AnyHashable] = ["entity_id" 		: video.id,
+													 "entity_name" 		: video.name,
+													 "entity_poster_url" 	: video.thumbnailURL?.absoluteString ?? "",
+													 "entity_duration" 	: video.duration,
+													 "entity_is_live" 		: video.isLive,
+													 "entity_content_type" : "video"]
+			logData.addEntries(from: videoData)
+		}
+		
+		if let linkplay = linkplay {
+			let linkplayData: [String: AnyHashable] = ["entity_source_url" 		: linkplay.url.absoluteString,
+													   "entity_source_domain" 	: linkplay.url.host ?? "",
+													   "entity_source_hostname" 	: linkplay.url.host ?? "",
+													   "entity_source_cdn" 		: linkplay.url.host ?? "",
+													   "entity_source_mime_type" 	: "application/x-mpegURL"]
 			logData.addEntries(from: linkplayData)
 		}
 		
 		if let player = player {
 			let playerSize = player.frame.size
-			let playerData: [AnyHashable : Any] = ["player_width" 		: playerSize.width,
-												   "player_height" 		: playerSize.height,
-												   "player_autoplay_on" : player.shouldAutoPlay,
-												   "player_is_paused" 	: player.isPauseByUser]
+			let playerData: [String: AnyHashable] = ["player_width" 		: playerSize.width,
+													 "player_height" 		: playerSize.height,
+													 "player_autoplay_on" 	: player.shouldAutoPlay,
+													 "player_is_paused" 	: player.isPauseByUser]
 			logData.addEntries(from: playerData)
 			
 			if let avItem = player.avPlayer?.currentItem {
@@ -125,10 +155,11 @@ open class UZMuizaLogger : UZAPIConnector{
 		
 		appendLog(logData: logData)
 	}
+	#endif
 	
 	private func appendLog(logData: NSDictionary) {
 		let finalLogData = NSMutableDictionary(dictionary: logData)
-		if let fixedData = fixedData as? [String : Any] {
+		if let fixedData = fixedData as? [String : AnyHashable] {
 			finalLogData.addEntries(from: fixedData)
 		}
 		

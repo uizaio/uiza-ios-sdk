@@ -31,8 +31,8 @@ open class UZLogger: UZAPIConnector {
 		}
 	}()
 	
-	open func log(event: String, video: UZVideoItem? = nil, params: [String: Any]? = nil, completionBlock: APIConnectorResultBlock? = nil) {
-		var finalParams: [String : Any]? = [:]
+	open func log(event: String, video: UZVideoItem? = nil, params: [String: AnyHashable]? = nil, completionBlock: APIConnectorResultBlock? = nil) {
+		var finalParams: [String : AnyHashable]? = [:]
 		
 		if let video = video {
 			finalParams = ["entity_id" : video.id,
@@ -46,7 +46,7 @@ open class UZLogger: UZAPIConnector {
 		self.log(event: event, params: finalParams, completionBlock: completionBlock)
 	}
 	
-	open func log(event: String, params: [String: Any]? = nil, completionBlock: APIConnectorResultBlock? = nil) {
+	open func log(event: String, params: [String: AnyHashable]? = nil, completionBlock: APIConnectorResultBlock? = nil) {
 		let modelId		: String = UIDevice.current.hardwareModel()
 		let modelName	: String = UIDevice.current.hardwareName()
 		let macAddress	: String = UIDevice.current.identifierForVendor?.uuidString ?? ""
@@ -66,7 +66,7 @@ open class UZLogger: UZAPIConnector {
 		#endif
 		
 		print("timestamp: \(timestamp)")
-		let defaultParams : [String : Any]! = ["event_type" 		: event,
+		let defaultParams : [String : AnyHashable]! = ["event_type" 		: event,
 											   "timestamp"			: timestamp,
 											   "platform"			: platform,
 											   "modelId"			: modelId,
@@ -82,7 +82,7 @@ open class UZLogger: UZAPIConnector {
 											   "sdk_version"		: SDK_VERSION,
                                                "bundleId"            : bundleId]
 		
-		var finalParams : [String: Any]! = defaultParams
+		var finalParams : [String: AnyHashable]! = defaultParams
 		
 		if params != nil {
 			finalParams.appendFrom(params!)
@@ -121,7 +121,7 @@ open class UZLogger: UZAPIConnector {
 		#endif
 		
 		print("timestamp: \(timestamp)")
-		let params : [String : Any]! = ["dt"	: timestamp,
+		let params : [String : AnyHashable]! = ["dt"	: timestamp,
 										"ho"	: host,
 										"sn"	: streamName,
 										"di"	: macAddress,
@@ -144,7 +144,7 @@ open class UZLogger: UZAPIConnector {
 		#endif
 		
 		print("timestamp: \(timestamp)")
-		let params : [String : Any]! = ["timestamp"	: timestamp,
+		let params : [String : AnyHashable]! = ["timestamp"	: timestamp,
 										"entity_id"	: entityId,
 										"category" 	: category,
 										"app_id"	: bundleId,

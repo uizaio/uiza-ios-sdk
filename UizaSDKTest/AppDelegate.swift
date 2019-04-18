@@ -1,20 +1,26 @@
 //
 //  AppDelegate.swift
-//  UizaPlayerTest
+//  UizaSDKTest
 //
-//  Created by Nam Kennic on 5/15/18.
-//  Copyright © 2018 Nam Kennic. All rights reserved.
+//  Created by Nam Kennic on 4/18/19.
+//  Copyright © 2019 Uiza. All rights reserved.
 //
 
 import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-	
+
 	var window: UIWindow?
-	
+
+	/*
+	textField1.text = "f785bc511967473fbe6048ee5fb7ea59" // "9816792bb84642f09d843af4f93fb748" // "16f8e65d8e2643ffa3ff5ee9f4f9ba03"
+	textField2.text = "uap-f785bc511967473fbe6048ee5fb7ea59-69fefb79" // "uap-9816792bb84642f09d843af4f93fb748-b94fcbd1" // "uap-16f8e65d8e2643ffa3ff5ee9f4f9ba03-a07716a6"
+	textField3.text = "ap-southeast-1-api.uiza.co"
+*/
+
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        UizaSDK.initWith(appId: "a9383d04d7d0420bae10dbf96bb27d9b", token: "uap-a9383d04d7d0420bae10dbf96bb27d9b-60d5c644", api: "edm.uiza.co", enviroment: .production)
+		UizaSDK.initWith(appId: "f785bc511967473fbe6048ee5fb7ea59", token: "uap-f785bc511967473fbe6048ee5fb7ea59-69fefb79", api: "ap-southeast-1-api.uiza.co", enviroment: .production, version: .v4)
 		UizaSDK.showRestfulInfo = true
 		return true
 	}
@@ -40,7 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func applicationWillTerminate(_ application: UIApplication) {
 		// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 	}
-	
+
 
 }
 

@@ -32,7 +32,7 @@ open class UZContentServices: UZAPIConnector {
 	public func loadHomeData(metadataId: String? = nil, publishStatus: UZPublishStatus = .success, page: Int = 0, limit: Int = 20, completionBlock: ((_ results:[UZCategory]?, _ error:Error?) -> Void)? = nil) {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
 		
-		var params : [String: Any] = ["publishToCdn" : publishStatus.rawValue]
+		var params : [String: AnyHashable] = ["publishToCdn" : publishStatus.rawValue]
 		
 		if let metadataId = metadataId {
 			if metadataId.isEmpty == false {
@@ -108,7 +108,7 @@ open class UZContentServices: UZAPIConnector {
 	public func loadEntity(metadataId: String? = nil, publishStatus: UZPublishStatus = .success, page: Int = 0, limit: Int = 20, completionBlock: ((_ results:[UZVideoItem]?, _ error:Error?) -> Void)? = nil) {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
 		
-		var params : [String: Any] = ["publishToCdn" : publishStatus.rawValue]
+		var params : [String: AnyHashable] = ["publishToCdn" : publishStatus.rawValue]
 		
 		if let metadataId = metadataId {
 			if metadataId.isEmpty == false {
@@ -146,7 +146,7 @@ open class UZContentServices: UZAPIConnector {
 	public func loadMetadata(metadataId: String, page: Int = 0, limit: Int = 20, completionBlock: ((_ results:[UZVideoItem]?, _ pagination: UZPagination?, _ error:Error?) -> Void)? = nil) {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
 		
-		let params : [String: Any] = ["metadataId" 	: metadataId,
+		let params : [String: AnyHashable] = ["metadataId" 	: metadataId,
 									  "limit"		: limit,
 									  "page" 		: page,
 									  "orderBy"		: "createdAt",
@@ -185,7 +185,7 @@ open class UZContentServices: UZAPIConnector {
 	public func loadLiveVideo(page: Int = 0, limit: Int = 20, completionBlock: ((_ results:[UZVideoItem]?, _ pagination: UZPagination?, _ error:Error?) -> Void)? = nil) {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
 		
-		let params : [String: Any] = ["limit" 		: limit,
+		let params : [String: AnyHashable] = ["limit" 		: limit,
 									  "page" 		: page,
 									  "orderBy"		: "createdAt",
 									  "orderType" 	: "DESC"]
@@ -224,7 +224,7 @@ open class UZContentServices: UZAPIConnector {
 	public func loadDetail(entityId: String, isLive: Bool = false, completionBlock:((_ video: UZVideoItem?, _ error: Error?) -> Void)? = nil) {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
 		
-		let params : [String: Any] = ["id" : entityId]
+		let params : [String: AnyHashable] = ["id" : entityId]
 		
 		self.callAPI(isLive ? "live/entity" : "media/entity", method: .get, params: params) { (result, error) in
 			DLog("\(String(describing: result)) - \(String(describing: error))")
@@ -261,7 +261,7 @@ open class UZContentServices: UZAPIConnector {
 	public func loadRelates(entityId: String, completionBlock:((_ videos: [UZVideoItem]?, _ error: Error?) -> Void)? = nil) {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
 		
-		let params : [String: Any] = ["id" : entityId]
+		let params : [String: AnyHashable] = ["id" : entityId]
 		
 		self.callAPI("media/entity/related", method: .get , params: params) { (result, error) in
 			DLog("\(String(describing: result)) - \(String(describing: error))")
@@ -296,7 +296,7 @@ open class UZContentServices: UZAPIConnector {
 		
 		if token == nil {
 			self.requestHeaderFields = ["Authorization" 	: token ?? ""]
-			let params : [String: Any] = ["entity_id" 		: entityId,
+			let params : [String: AnyHashable] = ["entity_id" 		: entityId,
 										  "app_id"	 		: UizaSDK.appId,
 										  "content_type" 	: video.isLive ? "live" : "stream"]
 			
@@ -319,7 +319,7 @@ open class UZContentServices: UZAPIConnector {
 		let apiNode = video.isLive ? "cdn/live/linkplay" : "cdn/linkplay"
 		let apiField = video.isLive ? "stream_name" : "entity_id"
 		let apiValue = video.isLive ? video.channelName ?? "" : entityId
-		let params : [String: Any] = [apiField 	: apiValue,
+		let params : [String: AnyHashable] = [apiField 	: apiValue,
 									  "app_id"	: UizaSDK.appId]
 		
 		let domain: String! = UizaSDK.enviroment == .development ? "dev-ucc.uizadev.io" :
@@ -361,7 +361,7 @@ open class UZContentServices: UZAPIConnector {
 	public func loadCuePoints(video: UZVideoItem, completionBlock:((_ results: [UZAdsCuePoint]?, _ error: Error?) -> Void)? = nil) {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
 		
-		let params : [String: Any] = ["entityId" : video.id ?? ""]
+		let params : [String: AnyHashable] = ["entityId" : video.id ?? ""]
 		
 		self.callAPI("media/entity/cue-point", baseURLString: basePrivateAPIURLPath(), method: .get , params: params) { (result, error) in
 			DLog("\(String(describing: result)) - \(String(describing: error))")
@@ -394,7 +394,7 @@ open class UZContentServices: UZAPIConnector {
 	public func loadSideMenu(completionBlock:((_ results: [UZMenuItem]?, _ error: Error?) -> Void)? = nil) {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
 		
-		let params : [String: Any] = ["limit" : 50, "type" : ["folder", "playlist"]]
+		let params : [String: AnyHashable] = ["limit" : 50, "type" : ["folder", "playlist"]]
 		
 		self.callAPI("v1/media/metadata/list", method: .get, params: params) { (result, error) in
 			//DLog("\(String(describing: result)) - \(String(describing: error))")
@@ -427,7 +427,7 @@ open class UZContentServices: UZAPIConnector {
 	public func search(for keyword:String, page: Int = 0, limit: Int = 20, completionBlock:((_ results: [UZVideoItem]?, _ pagination: UZPagination?, _ error: Error?) -> Void)? = nil) {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
 		
-		let params : [String: Any] = ["keyword" 	: keyword,
+		let params : [String: AnyHashable] = ["keyword" 	: keyword,
 									  "page" 		: page,
 									  "limit" 		: limit,
 									  "orderBy"		: "createdAt",
@@ -469,7 +469,7 @@ open class UZContentServices: UZAPIConnector {
 	public func sendCDNHeartbeat(cdnName: String, completionBlock:((Error?) -> Void)? = nil) {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
 		
-		let params : [String: Any] = ["cdn_name" : cdnName,
+		let params : [String: AnyHashable] = ["cdn_name" : cdnName,
 									  "session" : UUID().uuidString.lowercased()]
 		
 		var baseURLString: String

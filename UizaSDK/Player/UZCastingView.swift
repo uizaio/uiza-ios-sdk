@@ -26,18 +26,18 @@ class UZCastingView: UIView {
 		titleLabel.textAlignment = .center
 		titleLabel.numberOfLines = 2
 		
-		var icon: UIImage? = nil
-		if AVAudioSession.sharedInstance().isAirPlaying {
-			titleLabel.text = "Playing on \(AVAudioSession.sharedInstance().sourceName ?? "(??)")"
-			icon = UIImage(icon: .googleMaterialDesign(.airplay), size: CGSize(width: 120, height: 120), textColor: UIColor(white: 1.0, alpha: 0.7), backgroundColor: .clear)
-		}
-		else if let castSession = UZCastingManager.shared.currentCastSession {
-			let device = castSession.device
-			titleLabel.text = "Playing on \(device.modelName ?? "(??)")"
-			icon = UIImage(icon: .googleMaterialDesign(.tv), size: CGSize(width: 120, height: 120), textColor: UIColor(white: 1.0, alpha: 0.7), backgroundColor: .clear)
-		}
+//		var icon: UIImage? = nil
+//		if AVAudioSession.sharedInstance().isAirPlaying {
+//			titleLabel.text = "Playing on \(AVAudioSession.sharedInstance().sourceName ?? "(??)")"
+//			icon = UIImage(icon: .googleMaterialDesign(.airplay), size: CGSize(width: 120, height: 120), textColor: UIColor(white: 1.0, alpha: 0.7), backgroundColor: .clear)
+//		}
+//		else if let castSession = UZCastingManager.shared.currentCastSession {
+//			let device = castSession.device
+//			titleLabel.text = "Playing on \(device.modelName ?? "(??)")"
+//			icon = UIImage(icon: .googleMaterialDesign(.tv), size: CGSize(width: 120, height: 120), textColor: UIColor(white: 1.0, alpha: 0.7), backgroundColor: .clear)
+//		}
 		
-		imageView.image = icon
+//		imageView.image = icon
 		imageView.contentMode = .scaleAspectFit
 		
 		self.addSubview(imageView)

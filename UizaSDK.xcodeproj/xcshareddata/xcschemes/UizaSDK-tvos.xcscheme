@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0940"
+   LastUpgradeVersion = "1020"
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "63FC58BF208A1F0B009C9028"
+               BlueprintIdentifier = "6367277F226888230072612F"
                BuildableName = "UizaSDK_tvos.framework"
                BlueprintName = "UizaSDK-tvos"
                ReferencedContainer = "container:UizaSDK.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "63FC58BF208A1F0B009C9028"
+            BlueprintIdentifier = "6367277F226888230072612F"
             BuildableName = "UizaSDK_tvos.framework"
             BlueprintName = "UizaSDK-tvos"
             ReferencedContainer = "container:UizaSDK.xcodeproj">
@@ -63,7 +63,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "63FC58BF208A1F0B009C9028"
+            BlueprintIdentifier = "6367277F226888230072612F"
             BuildableName = "UizaSDK_tvos.framework"
             BlueprintName = "UizaSDK-tvos"
             ReferencedContainer = "container:UizaSDK.xcodeproj">
@@ -85,7 +85,7 @@
                <EnvironmentBuildable>
                   <BuildableReference
                      BuildableIdentifier = "primary"
-                     BlueprintIdentifier = "63FC58BF208A1F0B009C9028"
+                     BlueprintIdentifier = "6367277F226888230072612F"
                      BuildableName = "UizaSDK_tvos.framework"
                      BlueprintName = "UizaSDK-tvos"
                      ReferencedContainer = "container:UizaSDK.xcodeproj">

@@ -18,10 +18,10 @@ import GoogleInteractiveMediaAds
 import GoogleCast
 #endif
 
-//#if ALLOW_MUX
+////#if ALLOW_MUX
 //import MuxCore
 //import MUXSDKStats
-//#endif
+////#endif
 
 extension Notification.Name {
 	
@@ -125,7 +125,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	public var currentVideoIndex: Int {
 		get {
 			if let currentVideo = currentVideo, let playlist = playlist {
-				if let result = playlist.index(of: currentVideo) {
+				if let result = playlist.firstIndex(of: currentVideo) {
 					return result
 				}
 				else {
@@ -564,7 +564,8 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	open func seek(offset: TimeInterval, completion: (() -> Void)? = nil) {
 		if let avPlayer = avPlayer {
 			let currentTime = CMTimeGetSeconds(avPlayer.currentTime())
-			let toTime = min(max(currentTime + offset, 0), totalDuration)
+			let maxTime = max(currentTime + offset, 0)
+			let toTime = min(maxTime, totalDuration)
 			self.seek(to: toTime, completion: completion)
 		}
 	}
@@ -1863,7 +1864,7 @@ open class UZPlayerLayerView: UIView {
 //			playerData.experimentName = "uiza_player_test"
 //			playerData.playerName = "UizaPlayer"
 //			playerData.playerVersion = SDK_VERSION
-//
+//			
 //			let videoData = MUXSDKCustomerVideoData()
 //			if let videoItem = currentVideo {
 //				videoData.videoId = videoItem.id
@@ -1872,7 +1873,7 @@ open class UZPlayerLayerView: UIView {
 //				videoData.videoIsLive = NSNumber(value: videoItem.isLive)
 ////				DLog("OK \(videoData) - \(playerData)")
 //			}
-//
+//			
 //			MUXSDKStats.monitorAVPlayerLayer(playerLayer!, withPlayerName: "UizaPlayer", playerData: playerData, videoData: videoData)
 //		}
 //		#endif

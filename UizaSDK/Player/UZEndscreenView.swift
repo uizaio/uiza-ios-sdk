@@ -7,8 +7,8 @@
 //
 
 import UIKit
-import FrameLayoutKit
-import NKButton
+//import FrameLayoutKit
+//import NKButton
 
 open class UZEndscreenView: UIView {
 	public let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .light))

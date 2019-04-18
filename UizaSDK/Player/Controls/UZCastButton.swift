@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import NKButton
+//import NKButton
 import MediaPlayer
 
 open class UZCastButton: NKButton {

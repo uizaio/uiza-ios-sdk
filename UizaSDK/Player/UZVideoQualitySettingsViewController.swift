@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import FrameLayoutKit
+//import FrameLayoutKit
 import NKModalViewManager
 
 internal class UZVideoQualitySettingsViewController: UIViewController {
@@ -262,27 +262,27 @@ internal class UZVideoQualityCollectionViewController: UICollectionViewControlle
 		cell.isSelected = selectedResource == resource
 	}
 	
-	func showMessage(message: String) {
-		if messageLabel == nil {
-			messageLabel = UILabel()
-			if #available(iOS 8.2, *) {
-				messageLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-			} else {
-				messageLabel?.font = UIFont.systemFont(ofSize: 14)
-			}
-			messageLabel?.textColor = .white
-			messageLabel?.textAlignment = .center
-			self.view.addSubview(messageLabel!)
-		}
-		
-		messageLabel?.text = message
-	}
-	
-	func hideMessage() {
-		messageLabel?.removeFromSuperview()
-		messageLabel = nil
-	}
-	
+//	func showMessage(message: String) {
+//		if messageLabel == nil {
+//			messageLabel = UILabel()
+//			if #available(iOS 8.2, *) {
+//				messageLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+//			} else {
+//				messageLabel?.font = UIFont.systemFont(ofSize: 14)
+//			}
+//			messageLabel?.textColor = .white
+//			messageLabel?.textAlignment = .center
+//			self.view.addSubview(messageLabel!)
+//		}
+//		
+//		messageLabel?.text = message
+//	}
+//	
+//	func hideMessage() {
+//		messageLabel?.removeFromSuperview()
+//		messageLabel = nil
+//	}
+//	
 	// MARK: -
 	
 	override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -336,7 +336,7 @@ internal class UZVideoQualityCollectionViewController: UICollectionViewControlle
 
 // MARK: - UZQualityItemCollectionViewCell
 
-import FrameLayoutKit
+//import FrameLayoutKit
 
 class UZQualityItemCollectionViewCell : UICollectionViewCell {
 	var highlightView		: UIView!

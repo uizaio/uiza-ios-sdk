@@ -19,7 +19,7 @@ public struct UZVideoLinkPlay {
 	public var url: URL
 	
 	/// An instance of NSDictionary that contains keys for specifying options for the initialization of the AVURLAsset. See AVURLAssetPreferPreciseDurationAndTimingKey and AVURLAssetReferenceRestrictionsKey above.
-	public var options: [String : Any]?
+	public var options: [String : AnyHashable]?
 	
 	/// Trả về loại `AVURLAsset` cho linkplay này
 	public var avURLAsset: AVURLAsset {
@@ -45,7 +45,7 @@ public struct UZVideoLinkPlay {
 	let definiton.options = ["AVURLAssetHTTPHeaderFieldsKey":header]
 	```
 	*/
-	public init(definition: String, url: URL, options: [String : Any]? = nil) {
+	public init(definition: String, url: URL, options: [String : AnyHashable]? = nil) {
 		self.url        = url
 		self.definition = definition
 		self.options    = options

@@ -141,7 +141,7 @@ open class UZUser: UZModelObject {
 		}
 		
 		let lastToken: String = String(describing: self.token ?? "") // copy to new instance
-		self.data!.addEntries(from: user.data! as! [AnyHashable : Any])
+		self.data!.addEntries(from: user.data! as! [String: AnyHashable])
 		self.data!.setObject(lastToken, forKey: "token" as NSCopying)
 		parse(user.data)
 		

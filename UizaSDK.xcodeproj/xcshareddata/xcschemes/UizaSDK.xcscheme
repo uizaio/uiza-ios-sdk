@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0940"
+   LastUpgradeVersion = "1020"
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "63C65F61205B9FE600DB2C96"
+               BlueprintIdentifier = "63D3A5BB224E07FA00732A0C"
                BuildableName = "UizaSDK.framework"
                BlueprintName = "UizaSDK"
                ReferencedContainer = "container:UizaSDK.xcodeproj">
@@ -28,26 +28,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "63C65F6A205B9FE600DB2C96"
-               BuildableName = "UizaSDKTests.xctest"
-               BlueprintName = "UizaSDKTests"
-               ReferencedContainer = "container:UizaSDK.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "63C65F61205B9FE600DB2C96"
-            BuildableName = "UizaSDK.framework"
-            BlueprintName = "UizaSDK"
-            ReferencedContainer = "container:UizaSDK.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -64,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "63C65F61205B9FE600DB2C96"
+            BlueprintIdentifier = "63D3A5BB224E07FA00732A0C"
             BuildableName = "UizaSDK.framework"
             BlueprintName = "UizaSDK"
             ReferencedContainer = "container:UizaSDK.xcodeproj">
@@ -82,7 +63,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "63C65F61205B9FE600DB2C96"
+            BlueprintIdentifier = "63D3A5BB224E07FA00732A0C"
             BuildableName = "UizaSDK.framework"
             BlueprintName = "UizaSDK"
             ReferencedContainer = "container:UizaSDK.xcodeproj">
@@ -104,7 +85,7 @@
                <EnvironmentBuildable>
                   <BuildableReference
                      BuildableIdentifier = "primary"
-                     BlueprintIdentifier = "63C65F61205B9FE600DB2C96"
+                     BlueprintIdentifier = "63D3A5BB224E07FA00732A0C"
                      BuildableName = "UizaSDK.framework"
                      BlueprintName = "UizaSDK"
                      ReferencedContainer = "container:UizaSDK.xcodeproj">

@@ -17,7 +17,7 @@ import UIKit
 // pod trunk push UizaSDK.podspec
 //
 
-internal let SDK_VERSION = "7.0.3"
+internal let SDK_VERSION = "7.0.8"
 internal let PLAYER_VERSION = "4.4"
 
 public enum UizaSDKVersion: String {
@@ -76,10 +76,10 @@ func DLog(_ message: String, _ file: String = #file, _ line: Int = #line) {
 	PostNotification(Notification.Name.UZEventLogMessage, object: message, userInfo: nil)
 }
 
-func PostNotification(_ notification : Notification.Name!, object: Any? = nil, userInfo: [AnyHashable : Any]? = nil) {
+func PostNotification(_ notification : Notification.Name!, object: Any? = nil, userInfo: [String: AnyHashable]? = nil) {
 	NotificationCenter.default.post(name: notification, object: object, userInfo: userInfo)
 }
 
-func PostNotificationName(_ notificationName : String!, object: Any? = nil, userInfo: [AnyHashable : Any]? = nil) {
+func PostNotificationName(_ notificationName : String!, object: Any? = nil, userInfo: [String: AnyHashable]? = nil) {
 	NotificationCenter.default.post(name: Notification.Name(rawValue: notificationName), object: object, userInfo: userInfo)
 }

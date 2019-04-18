@@ -8,7 +8,7 @@
 
 import UIKit
 import AVFoundation
-import FrameLayoutKit
+//import FrameLayoutKit
 import NKModalViewManager
 
 class UZMediaOptionSelectionViewController: UIViewController {
@@ -247,26 +247,26 @@ internal class UZMediaOptionSelectionCollectionViewController: UICollectionViewC
 		cell.isSelected = selectedSubtitleOption == option || selectedAudioOption == option
 	}
 	
-	func showMessage(message: String) {
-		if messageLabel == nil {
-			messageLabel = UILabel()
-			if #available(iOS 8.2, *) {
-				messageLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-			} else {
-				messageLabel?.font = UIFont.systemFont(ofSize: 14)
-			}
-			messageLabel?.textColor = .white
-			messageLabel?.textAlignment = .center
-			self.view.addSubview(messageLabel!)
-		}
-		
-		messageLabel?.text = message
-	}
-	
-	func hideMessage() {
-		messageLabel?.removeFromSuperview()
-		messageLabel = nil
-	}
+//	func showMessage(message: String) {
+//		if messageLabel == nil {
+//			messageLabel = UILabel()
+//			if #available(iOS 8.2, *) {
+//				messageLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+//			} else {
+//				messageLabel?.font = UIFont.systemFont(ofSize: 14)
+//			}
+//			messageLabel?.textColor = .white
+//			messageLabel?.textAlignment = .center
+//			self.view.addSubview(messageLabel!)
+//		}
+//		
+//		messageLabel?.text = message
+//	}
+//	
+//	func hideMessage() {
+//		messageLabel?.removeFromSuperview()
+//		messageLabel = nil
+//	}
 	
 	// MARK: -
 	
@@ -328,7 +328,7 @@ internal class UZMediaOptionSelectionCollectionViewController: UICollectionViewC
 
 // MARK: - UZMediaOptionItemCollectionViewCell
 
-import FrameLayoutKit
+//import FrameLayoutKit
 
 class UZMediaOptionItemCollectionViewCell : UICollectionViewCell {
 	var highlightView		: UIView!

@@ -3,6 +3,7 @@
 [![Version](https://img.shields.io/cocoapods/v/UizaSDK.svg?style=flat)](http://cocoapods.org/pods/UizaSDK)
 [![License](https://img.shields.io/cocoapods/l/UizaSDK.svg?style=flat)](http://cocoapods.org/pods/UizaSDK)
 [![Platform](https://img.shields.io/cocoapods/p/UizaSDK.svg?style=flat)](http://cocoapods.org/pods/UizaSDK)
+![Swift](https://img.shields.io/badge/%20in-swift%205.0-orange.svg)
 
 (Kéo xuống phía dưới để đọc tiếng Việt)
 
@@ -10,7 +11,7 @@ UizaSDK is a framework to connect to Uiza system
 
 ## Compatibility
 
-UizaSDK requires Swift 4.1 and iOS 10+, TVOS 10+
+UizaSDK requires Swift 5.0 and iOS 8+, TVOS 10+
 
 ## Installation
 
@@ -20,7 +21,9 @@ UizaSDK requires Swift 4.1 and iOS 10+, TVOS 10+
 To integrate UizaSDK into your Xcode project using [CocoaPods](http://cocoapods.org), specify it in your `Podfile`:
 
 ```ruby
-pod 'UizaSDK'
+pod 'UizaSDK' // for iOS 10+
+pod 'UizaSDK8' // for iOS 8,9
+pod 'UizaSDK' , '~> 7.0.7-swift3' // for Swift 3.x
 ```
 
 Then run the following command:
@@ -41,12 +44,14 @@ Always initialize the framework by the following line before calling any API fun
 ``` swift
 import UizaSDK
 
-UizaSDK.initWith(appId: [YOUR_APP_ID], token: [TOKEN], api: [YOUR_DOMAIN])
+UizaSDK.initWith(appId: YOUR_APP_ID, token: TOKEN, api: YOUR_DOMAIN, version: API_VERSION)
 ```
 
-[YOUR_APP_ID] and [YOUR_DOMAIN] : get from registration email
+YOUR_APP_ID and YOUR_DOMAIN : get from registration email
 
-[TOKEN]: generate from https://docs.uiza.io/#get-api-key
+TOKEN: generate from https://docs.uiza.io/#get-api-key
+
+API_VERSION: version of target API, set .v3 or .v4 (default is .v3)
 
 ## Call API
 ``` swift
@@ -63,7 +68,7 @@ UZContentServices().loadDetail(entityId: ENTITY_ID, completionBlock: { (videoIte
 ## How to play video
 ``` swift
 let playerViewController = UZPlayerViewController()
-playerViewController.player.loadVideo(entityId: [ENTITY_ID])
+playerViewController.player.loadVideo(entityId: ENTITY_ID)
 present(playerViewController, animated: true, completion: nil)
 ```
 
@@ -78,7 +83,7 @@ present(playerViewController, animated: true, completion: nil)
 ## How to broadcast livestream
 ``` swift
 let viewController = UZLiveStreamViewController()
-viewController.liveEventId = [ENTITY_ID]
+viewController.liveEventId = ENTITY_ID
 self.present(viewController, animated: true, completion: nil)
 ```
 
@@ -121,7 +126,22 @@ You can also create your custom end screen by subclassing `UZEndscreenView`, the
 self.playerViewController.player.controlView.endscreenView = MyCustomEndScreen()
 ```
 
+## Create Player with Floating Mode
+
+You can create player with "drag down to floating mode" like Facebook or Youtube, by subclassing [UZFloatingPlayerViewController](https://uizaio.github.io/uiza-sdk-player-ios/Classes/UZFloatingPlayerViewController.html), then you can add more UI for displaying video details and add them to  `detailsContainerView` 
+
+Then present using this code:
+``` swift
+UZFloatingPlayerViewController().present(with: videoItem, playlist: playlist)
+```
+
+See [Example](https://github.com/uizaio/uiza-sdk-player-ios/blob/master/Example/UizaSDKExample/FloatingPlayerViewController.swift)
+
 For API details, check [API Document](https://uizaio.github.io/uiza-sdk-player-ios/)
+
+## Google ChromeCast supports
+If developing using Xcode 10 and targeting iOS devices running iOS 12 or higher, the "Access WiFi Information" capability is required in order to discover and connect to Cast devices
+![](https://developers.google.com/cast/images/xcode_wifi_capability_error.png)
 
 ## Support
 namnh@uiza.io
@@ -138,7 +158,7 @@ UizaSDK là bộ Framework hỗ trợ kết nối đến API của hệ thống 
 
 ## Tương Thích
 
-UizaSDK yêu cầu Swift 4.1 và iOS 10+, TVOS 10+
+UizaSDK yêu cầu Swift 5.0 và iOS 8+, TVOS 10+
 
 ## Cài Đặt
 
@@ -150,7 +170,9 @@ Cài đặt thông qua [CocoaPods](http://cocoapods.org)
 Thêm vào `Podfile` dòng sau:
 
 ```ruby
-pod 'UizaSDK'
+pod 'UizaSDK' // dùng cho phiên bản iOS 10 trở lên
+pod 'UizaSDK8' // dùng cho phiên bản iOS 8,9
+pod 'UizaSDK' , '~> 7.0.7-swift3' // dành cho project viết bằng Swift 3.x
 ```
 
 Sau đó chạy lệnh này:
@@ -161,7 +183,7 @@ $ pod install
 
 ### Tự Cài Đặt
 
-Tải [`UizaSDK.framework`](https://github.com/uizaio/uiza-sdk-player-ios/tree/master/UizaSDK.framework) và kéo vào project của bạn, và phải thêm nó vào mục Embbeded Binaries
+Tải [`UizaSDK.framework`](https://github.com/uizaio/uiza-sdk-player-ios/tree/master/UizaSDK.framework) và kéo vào project của bạn, thêm nó vào mục Embbeded Binaries
 
 ## Cách Sử Dụng
 
@@ -171,12 +193,14 @@ Luôn khởi động framework này trước khi gọi bất cứ hàm API nào 
 ``` swift
 import UizaSDK
 
-UizaSDK.initWith(appId: [YOUR_APP_ID], token: [TOKEN], api: [YOUR_DOMAIN])
+UizaSDK.initWith(appId: YOUR_APP_ID, token: TOKEN, api: YOUR_DOMAIN, version: API_VERSION)
 ```
 
-[YOUR_APP_ID] và [YOUR_DOMAIN] : lấy từ thông tin trong email đăng ký
+YOUR_APP_ID và YOUR_DOMAIN : lấy từ thông tin trong email đăng ký
 
-[TOKEN]: được tạo từ trang https://docs.uiza.io/#get-api-key
+TOKEN: được tạo từ trang https://docs.uiza.io/#get-api-key
+
+API_VERSION: phiên bản API sử dụng, truyền vào .v3 hoặc .v4 (nếu không truyền, mặc định là .v3)
 
 ## Gọi hàm API
 ``` swift
@@ -193,7 +217,7 @@ UZContentServices().loadDetail(entityId: ENTITY_ID, completionBlock: { (videoIte
 ## Cách play video
 ``` swift
 let playerViewController = UZPlayerViewController()
-playerViewController.player.loadVideo(entityId: [ENTITY_ID])
+playerViewController.player.loadVideo(entityId: ENTITY_ID)
 present(playerViewController, animated: true, completion: nil)
 ```
 
@@ -250,6 +274,21 @@ Bạn cũng có thể thay đổi giao diện của màn hình kết thúc bằn
 ``` swift
 self.playerViewController.player.controlView.endscreenView = MyCustomEndScreen()
 ```
+
+## Tạo Player với Floating Mode
+
+Bạn có thể tạo player với chức năng "kéo xuống góc màn hình" giống Facebook hoặc Youtube bằng cách tạo class kế thừa [UZFloatingPlayerViewController](https://uizaio.github.io/uiza-sdk-player-ios/Classes//UZFloatingPlayerViewController.html), trong đó bạn có thể thêm các UI hiển thị chi tiết của video và đưa vào `detailsContainerView` 
+
+Sau đó present bằng lệnh sau:
+``` swift
+UZFloatingPlayerViewController().present(with: videoItem, playlist: playlist)
+```
+
+Xem [Ví dụ](https://github.com/uizaio/uiza-sdk-player-ios/blob/master/Example/UizaSDKExample/FloatingPlayerViewController.swift)
+
+## Hỗ trợ Google ChromeCast
+Nếu bạn sử dụng Xcode 10 và phát triển cho iOS 12 trở lên, cần phải bật "Access WiFi Information" thì chức năng tìm kiếm các thiết bị Cast mới có thể hoạt động
+![](https://developers.google.com/cast/images/xcode_wifi_capability_error.png)
 
 Xem chi tiết [Tài liệu API](https://uizaio.github.io/uiza-sdk-player-ios/)
 

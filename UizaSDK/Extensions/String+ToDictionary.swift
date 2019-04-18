@@ -7,22 +7,22 @@
 //
 
 import Foundation
-
-extension String {
-	
-	func toDictionary() -> NSDictionary? {
-		if let data = self.data(using: .utf8) {
-			do {
-				return try JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary
-			} catch {
-				print(error.localizedDescription)
-			}
-		}
-		
-		return nil
-	}
-	
-}
+//
+//extension String {
+//	
+//	func toDictionary() -> NSDictionary? {
+//		if let data = self.data(using: .utf8) {
+//			do {
+//				return try JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary
+//			} catch {
+//				print(error.localizedDescription)
+//			}
+//		}
+//		
+//		return nil
+//	}
+//	
+//}
 
 extension NSString {
 	

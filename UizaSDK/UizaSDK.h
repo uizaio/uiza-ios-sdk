@@ -2,8 +2,8 @@
 //  UizaSDK.h
 //  UizaSDK
 //
-//  Created by Nam Kennic on 3/16/18.
-//  Copyright © 2018 Nam Kennic. All rights reserved.
+//  Created by Nam Kennic on 3/29/19.
+//  Copyright © 2019 Uiza. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

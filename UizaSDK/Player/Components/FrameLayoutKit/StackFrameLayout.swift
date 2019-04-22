@@ -7,21 +7,21 @@
 
 import UIKit
 
-open class StackFrameLayout: FrameLayout {
+class StackFrameLayout: FrameLayout {
 	
-	public var layoutAlignment: NKLayoutAlignment = .top
-	public var layoutDirection: NKLayoutDirection = .auto
+	var layoutAlignment: NKLayoutAlignment = .top
+	var layoutDirection: NKLayoutDirection = .auto
 	
-	public var spacing: CGFloat = 0 {
+	var spacing: CGFloat = 0 {
 		didSet {
 			if spacing != oldValue {
 				setNeedsLayout()
 			}
 		}
 	}
-	public var splitRatio: CGFloat = 0.5
+	var splitRatio: CGFloat = 0.5
 	
-	override open var ignoreHiddenView: Bool {
+	override var ignoreHiddenView: Bool {
 		didSet {
 			for layout in frameLayouts {
 				layout.ignoreHiddenView = ignoreHiddenView
@@ -29,7 +29,7 @@ open class StackFrameLayout: FrameLayout {
 		}
 	}
 	
-	override open var shouldCacheSize: Bool {
+	override var shouldCacheSize: Bool {
 		didSet {
 			for layout in frameLayouts {
 				layout.shouldCacheSize = shouldCacheSize
@@ -37,7 +37,7 @@ open class StackFrameLayout: FrameLayout {
 		}
 	}
 	
-	override open var showFrameDebug: Bool {
+	override var showFrameDebug: Bool {
 		didSet {
 			for layout in frameLayouts {
 				layout.showFrameDebug = showFrameDebug
@@ -45,7 +45,7 @@ open class StackFrameLayout: FrameLayout {
 		}
 	}
 	
-	override open var allowContentVerticalGrowing: Bool {
+	override var allowContentVerticalGrowing: Bool {
 		didSet {
 			for layout in frameLayouts {
 				layout.allowContentVerticalGrowing = allowContentVerticalGrowing
@@ -53,7 +53,7 @@ open class StackFrameLayout: FrameLayout {
 		}
 	}
 	
-	override open var allowContentVerticalShrinking: Bool {
+	override var allowContentVerticalShrinking: Bool {
 		didSet {
 			for layout in frameLayouts {
 				layout.allowContentVerticalShrinking = allowContentVerticalShrinking
@@ -61,7 +61,7 @@ open class StackFrameLayout: FrameLayout {
 		}
 	}
 	
-	override open var allowContentHorizontalGrowing: Bool {
+	override var allowContentHorizontalGrowing: Bool {
 		didSet {
 			for layout in frameLayouts {
 				layout.allowContentHorizontalGrowing = allowContentHorizontalGrowing
@@ -69,7 +69,7 @@ open class StackFrameLayout: FrameLayout {
 		}
 	}
 	
-	override open var allowContentHorizontalShrinking: Bool {
+	override var allowContentHorizontalShrinking: Bool {
 		didSet {
 			for layout in frameLayouts {
 				layout.allowContentHorizontalShrinking = allowContentHorizontalShrinking
@@ -77,19 +77,19 @@ open class StackFrameLayout: FrameLayout {
 		}
 	}
 	
-	override open var frame: CGRect {
+	override var frame: CGRect {
 		didSet {
 			self.setNeedsLayout()
 		}
 	}
 	
-	override open var bounds: CGRect {
+	override var bounds: CGRect {
 		didSet {
 			self.setNeedsLayout()
 		}
 	}
 	
-	override open var clipsToBounds: Bool {
+	override var clipsToBounds: Bool {
 		didSet {
 			for layout in frameLayouts {
 				layout.clipsToBounds = clipsToBounds
@@ -97,21 +97,21 @@ open class StackFrameLayout: FrameLayout {
 		}
 	}
 	
-	public var firstFrameLayout: FrameLayout? {
+	var firstFrameLayout: FrameLayout? {
 		get {
 			return frameLayouts.first
 		}
 	}
 	
-	public var lastFrameLayout: FrameLayout? {
+	var lastFrameLayout: FrameLayout? {
 		get {
 			return frameLayouts.last
 		}
 	}
 	
-	public fileprivate(set) var frameLayouts: [FrameLayout]! = []
+	fileprivate(set) var frameLayouts: [FrameLayout]! = []
 	
-	public var numberOfFrameLayouts: Int {
+	var numberOfFrameLayouts: Int {
 		get {
 			return frameLayouts.count
 		}
@@ -138,7 +138,7 @@ open class StackFrameLayout: FrameLayout {
 	
 	// MARK: -
 	
-	convenience public init(direction: NKLayoutDirection, alignment: NKLayoutAlignment = .top, views: [UIView]? = nil) {
+	convenience init(direction: NKLayoutDirection, alignment: NKLayoutAlignment = .top, views: [UIView]? = nil) {
 		self.init()
 		
 		self.layoutDirection = direction
@@ -149,27 +149,27 @@ open class StackFrameLayout: FrameLayout {
 		}
 	}
 	
-	override public init() {
+	override init() {
 		super.init()
 		
 		isIntrinsicSizeEnabled = true
 	}
 	
-	public required init?(coder aDecoder: NSCoder) {
+	required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
 	
 	// MARK: -
 	
 	@discardableResult
-	open func append(frameLayout: FrameLayout) -> FrameLayout {
+	func append(frameLayout: FrameLayout) -> FrameLayout {
 		frameLayouts.append(frameLayout)
 		self.addSubview(frameLayout)
 		return frameLayout
 	}
 	
 	@discardableResult
-	open func append(view: UIView? = nil) -> FrameLayout {
+	func append(view: UIView? = nil) -> FrameLayout {
 		let frameLayout = FrameLayout(targetView: view)
 		frameLayout.showFrameDebug = showFrameDebug
 		frameLayouts.append(frameLayout)
@@ -177,7 +177,7 @@ open class StackFrameLayout: FrameLayout {
 		return frameLayout
 	}
 	
-	open func append(views: [UIView]) {
+	func append(views: [UIView]) {
 		for view in views {
 			if view is FrameLayout && view.superview == nil {
 				self.append(frameLayout: view as! FrameLayout)
@@ -189,14 +189,14 @@ open class StackFrameLayout: FrameLayout {
 	}
 	
 	@discardableResult
-	open func appendEmptySpace(size: CGFloat = 0) -> FrameLayout {
+	func appendEmptySpace(size: CGFloat = 0) -> FrameLayout {
 		let frameLayout = append(view: UIView())
 		frameLayout.fixSize = CGSize(width: size, height: size)
 		return frameLayout
 	}
 	
 	@discardableResult
-	open func insert(view: UIView? = nil, at index: Int) -> FrameLayout {
+	func insert(view: UIView? = nil, at index: Int) -> FrameLayout {
 		let frameLayout = FrameLayout(targetView: view)
 		frameLayout.showFrameDebug = showFrameDebug
 		frameLayouts.insert(frameLayout, at: index)
@@ -204,12 +204,12 @@ open class StackFrameLayout: FrameLayout {
 	}
 	
 	@discardableResult
-	open func insert(frameLayout: FrameLayout, at index: Int) -> FrameLayout {
+	func insert(frameLayout: FrameLayout, at index: Int) -> FrameLayout {
 		frameLayouts.insert(frameLayout, at: index)
 		return frameLayout
 	}
 	
-	open func removeFrameLayout(at index: Int, autoRemoveTargetView: Bool = false) {
+	func removeFrameLayout(at index: Int, autoRemoveTargetView: Bool = false) {
 		guard index >= 0 && index < frameLayouts.count else {
 			return
 		}
@@ -227,7 +227,7 @@ open class StackFrameLayout: FrameLayout {
 		frameLayouts.remove(at: index)
 	}
 	
-	open func removeAll(autoRemoveTargetView: Bool = false) {
+	func removeAll(autoRemoveTargetView: Bool = false) {
 		for layout in frameLayouts {
 			if autoRemoveTargetView {
 				layout.targetView?.removeFromSuperview()
@@ -242,7 +242,7 @@ open class StackFrameLayout: FrameLayout {
 		frameLayouts.removeAll()
 	}
 	
-	open func replace(frameLayout: FrameLayout?, at index: Int) {
+	func replace(frameLayout: FrameLayout?, at index: Int) {
 		if let frameLayout = frameLayout {
 			let count = frameLayouts.count
 			var currentFrameLayout: FrameLayout? = nil
@@ -270,7 +270,7 @@ open class StackFrameLayout: FrameLayout {
 	
 	// MARK: -
 	
-	public func frameLayout(at index: Int) -> FrameLayout? {
+	func frameLayout(at index: Int) -> FrameLayout? {
 		guard index >= 0 && index < frameLayouts.count else {
 			return nil
 		}
@@ -278,7 +278,7 @@ open class StackFrameLayout: FrameLayout {
 		return frameLayouts[index]
 	}
 	
-	public func frameLayout(with view: UIView) -> FrameLayout? {
+	func frameLayout(with view: UIView) -> FrameLayout? {
 		var result: FrameLayout? = nil
 		
 		for layout in frameLayouts {
@@ -291,7 +291,7 @@ open class StackFrameLayout: FrameLayout {
 		return result
 	}
 	
-	public func enumerate(_ block: ((FrameLayout, Int, inout Bool) -> Void)) {
+	func enumerate(_ block: ((FrameLayout, Int, inout Bool) -> Void)) {
 		var stop: Bool = false
 		var index = 0
 		
@@ -307,7 +307,7 @@ open class StackFrameLayout: FrameLayout {
 	
 	// MARK: -
 	
-	override open func setNeedsLayout() {
+	override func setNeedsLayout() {
 		super.setNeedsLayout()
 		
 		for layout in frameLayouts {
@@ -330,7 +330,7 @@ open class StackFrameLayout: FrameLayout {
 	
 	// MARK: -
 	
-	override open func sizeThatFits(_ size: CGSize) -> CGSize {
+	override func sizeThatFits(_ size: CGSize) -> CGSize {
 		var result: CGSize = size
 		let verticalEdgeValues = edgeInsets.left + edgeInsets.right
 		let horizontalEdgeValues = edgeInsets.top + edgeInsets.bottom
@@ -495,7 +495,7 @@ open class StackFrameLayout: FrameLayout {
 		return result
 	}
 	
-	override open func layoutSubviews() {
+	override func layoutSubviews() {
 		super.layoutSubviews()
 		if bounds.size == .zero {
 			return

@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		163849A827C58046540C4204 /* Pods_UizaSDK_tvos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F0DB6A0DADFF98D5467FDD3 /* Pods_UizaSDK_tvos.framework */; };
-		630C394E22607F0000ACFDAE /* NKButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630C394D22607F0000ACFDAE /* NKButton.swift */; };
+		630C394E22607F0000ACFDAE /* UZButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630C394D22607F0000ACFDAE /* UZButton.swift */; };
 		630C396922607F9400ACFDAE /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630C395022607F9400ACFDAE /* Math.swift */; };
 		630C396A22607F9400ACFDAE /* UIKit+Tweenable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630C395122607F9400ACFDAE /* UIKit+Tweenable.swift */; };
 		630C396B22607F9400ACFDAE /* BezierAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630C395222607F9400ACFDAE /* BezierAction.swift */; };
@@ -96,7 +96,7 @@
 		636725A722686A7F0072612F /* UZTheme5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D3A5F2224E08BB00732A0C /* UZTheme5.swift */; };
 		636725A822686A7F0072612F /* UZTheme6.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D3A5F5224E08BB00732A0C /* UZTheme6.swift */; };
 		636725A922686A7F0072612F /* UZTheme7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D3A5F1224E08BB00732A0C /* UZTheme7.swift */; };
-		636725AA22686A820072612F /* NKButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630C394D22607F0000ACFDAE /* NKButton.swift */; };
+		636725AA22686A820072612F /* UZButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630C394D22607F0000ACFDAE /* UZButton.swift */; };
 		636725AB22686AA70072612F /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630C395022607F9400ACFDAE /* Math.swift */; };
 		636725AC22686AAB0072612F /* UIKit+Tweenable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630C395122607F9400ACFDAE /* UIKit+Tweenable.swift */; };
 		636725AD22686AAB0072612F /* BezierAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630C395222607F9400ACFDAE /* BezierAction.swift */; };
@@ -274,7 +274,7 @@
 		16A4CDC3C71D0CAE21F66816 /* Pods-UizaSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UizaSDK.debug.xcconfig"; path = "Target Support Files/Pods-UizaSDK/Pods-UizaSDK.debug.xcconfig"; sourceTree = "<group>"; };
 		33FBEDE5A4759FA9A1B02BC5 /* Pods-UizaSDK-tvos.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UizaSDK-tvos.release.xcconfig"; path = "Target Support Files/Pods-UizaSDK-tvos/Pods-UizaSDK-tvos.release.xcconfig"; sourceTree = "<group>"; };
 		5F0DB6A0DADFF98D5467FDD3 /* Pods_UizaSDK_tvos.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UizaSDK_tvos.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		630C394D22607F0000ACFDAE /* NKButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NKButton.swift; sourceTree = "<group>"; };
+		630C394D22607F0000ACFDAE /* UZButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZButton.swift; sourceTree = "<group>"; };
 		630C395022607F9400ACFDAE /* Math.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
 		630C395122607F9400ACFDAE /* UIKit+Tweenable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIKit+Tweenable.swift"; sourceTree = "<group>"; };
 		630C395222607F9400ACFDAE /* BezierAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BezierAction.swift; sourceTree = "<group>"; };
@@ -478,7 +478,7 @@
 				63D3A5FD224E08BB00732A0C /* SwiftIcons */,
 				630C398222607FFA00ACFDAE /* FrameLayoutKit */,
 				630C394F22607F9400ACFDAE /* TweenKit */,
-				630C394D22607F0000ACFDAE /* NKButton.swift */,
+				630C394D22607F0000ACFDAE /* UZButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1068,7 +1068,7 @@
 				636725E622686ADB0072612F /* DateHelper.swift in Sources */,
 				636725C422686AC70072612F /* StackFrameLayout.swift in Sources */,
 				636725ED22686AE00072612F /* UIViewController+TopPresented.swift in Sources */,
-				636725AA22686A820072612F /* NKButton.swift in Sources */,
+				636725AA22686A820072612F /* UZButton.swift in Sources */,
 				636725F722686AE00072612F /* String+Value.swift in Sources */,
 				636725A422686A7F0072612F /* UZTheme2.swift in Sources */,
 				636725B122686AAB0072612F /* DelayAction.swift in Sources */,
@@ -1190,7 +1190,7 @@
 				630C397122607F9400ACFDAE /* CoreGraphics+Tweenable.swift in Sources */,
 				630C397622607F9400ACFDAE /* UIBezierPath+BezierPath.swift in Sources */,
 				630C397022607F9400ACFDAE /* ReverseAction.swift in Sources */,
-				630C394E22607F0000ACFDAE /* NKButton.swift in Sources */,
+				630C394E22607F0000ACFDAE /* UZButton.swift in Sources */,
 				630C397922607F9400ACFDAE /* InterpolateAction.swift in Sources */,
 				63193FF9225102E100FFC560 /* UZCastButton.swift in Sources */,
 				63193FF7225102E100FFC560 /* UZSlider.swift in Sources */,

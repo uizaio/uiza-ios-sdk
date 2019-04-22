@@ -7,7 +7,7 @@
 
 import UIKit
 
-public enum NKContentVerticalAlignment : Int {
+enum UZContentVerticalAlignment : Int {
 	case center
 	case top
 	case bottom
@@ -15,7 +15,7 @@ public enum NKContentVerticalAlignment : Int {
 	case fit
 }
 
-public enum NKContentHorizontalAlignment : Int {
+enum UZContentHorizontalAlignment : Int {
 	case center
 	case left
 	case right
@@ -23,43 +23,43 @@ public enum NKContentHorizontalAlignment : Int {
 	case fit
 }
 
-open class FrameLayout: UIView {
+class FrameLayout: UIView {
 	
-	public var targetView: UIView? = nil
-	public var ignoreHiddenView: Bool = true
-	public var edgeInsets: UIEdgeInsets = .zero
-	public var minSize: CGSize = .zero
-	public var maxSize: CGSize = .zero
-	public var heightRatio: CGFloat = 0
-	public var contentVerticalAlignment: NKContentVerticalAlignment = .fill
-	public var contentHorizontalAlignment: NKContentHorizontalAlignment = .fill
-	public var allowContentVerticalGrowing: Bool = false
-	public var allowContentVerticalShrinking: Bool = false
-	public var allowContentHorizontalGrowing: Bool = false
-	public var allowContentHorizontalShrinking: Bool = false
-	public var shouldCacheSize: Bool = false
-	public var isFlexible: Bool = false
-	public var isIntrinsicSizeEnabled: Bool = false
+	var targetView: UIView? = nil
+	var ignoreHiddenView: Bool = true
+	var edgeInsets: UIEdgeInsets = .zero
+	var minSize: CGSize = .zero
+	var maxSize: CGSize = .zero
+	var heightRatio: CGFloat = 0
+	var contentVerticalAlignment: UZContentVerticalAlignment = .fill
+	var contentHorizontalAlignment: UZContentHorizontalAlignment = .fill
+	var allowContentVerticalGrowing: Bool = false
+	var allowContentVerticalShrinking: Bool = false
+	var allowContentHorizontalGrowing: Bool = false
+	var allowContentHorizontalShrinking: Bool = false
+	var shouldCacheSize: Bool = false
+	var isFlexible: Bool = false
+	var isIntrinsicSizeEnabled: Bool = false
 	
-	public var showFrameDebug: Bool = false {
+	var showFrameDebug: Bool = false {
 		didSet {
 			self.setNeedsDisplay()
 		}
 	}
-	public var debugColor: UIColor? = nil {
+	var debugColor: UIColor? = nil {
 		didSet {
 			self.setNeedsDisplay()
 		}
 	}
 	
-	public var fixSize: CGSize = .zero {
+	var fixSize: CGSize = .zero {
 		didSet {
 			minSize = fixSize
 			maxSize = fixSize
 		}
 	}
 	
-	public var contentAlignment: (NKContentVerticalAlignment, NKContentHorizontalAlignment) = (.fill, .fill) {
+	var contentAlignment: (UZContentVerticalAlignment, UZContentHorizontalAlignment) = (.fill, .fill) {
 		didSet {
 			contentVerticalAlignment = contentAlignment.0
 			contentHorizontalAlignment = contentAlignment.1
@@ -68,13 +68,13 @@ open class FrameLayout: UIView {
 		}
 	}
 	
-	public var configurationBlock: ((_ frameLayout:FrameLayout) -> Void)? = nil {
+	var configurationBlock: ((_ frameLayout:FrameLayout) -> Void)? = nil {
 		didSet {
 			configurationBlock?(self)
 		}
 	}
 	
-	override open var frame: CGRect {
+	override var frame: CGRect {
 		get {
 			return super.frame
 		}
@@ -95,7 +95,7 @@ open class FrameLayout: UIView {
 		}
 	}
 	
-	override open var bounds: CGRect {
+	override var bounds: CGRect {
 		get {
 			return super.bounds
 		}
@@ -116,7 +116,7 @@ open class FrameLayout: UIView {
 		}
 	}
 	
-	open override var description: String {
+	override var description: String {
 		return "[\(super.description)]-targetView: \(String(describing: targetView))"
 	}
 	
@@ -132,12 +132,12 @@ open class FrameLayout: UIView {
 	
 	// MARK: -
 	
-	convenience public init(targetView: UIView? = nil) {
+	convenience init(targetView: UIView? = nil) {
 		self.init()
 		self.targetView = targetView
 	}
 	
-	public init() {
+	init() {
 		super.init(frame: .zero)
 		
 		self.backgroundColor = .clear
@@ -145,13 +145,13 @@ open class FrameLayout: UIView {
 		self.isIntrinsicSizeEnabled = true
 	}
 	
-	public required init?(coder aDecoder: NSCoder) {
+	required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
 	
 	// MARK: -
 	#if DEBUG
-	override open func draw(_ rect: CGRect) {
+	override func draw(_ rect: CGRect) {
 		guard showFrameDebug else {
 			super.draw(rect)
 			return
@@ -171,12 +171,12 @@ open class FrameLayout: UIView {
 	}
 	#endif
 	
-	public func sizeThatFits(_ size: CGSize, intrinsic: Bool = true) -> CGSize {
+	func sizeThatFits(_ size: CGSize, intrinsic: Bool = true) -> CGSize {
 		isIntrinsicSizeEnabled =  intrinsic
 		return sizeThatFits(size)
 	}
 	
-	override open func sizeThatFits(_ size: CGSize) -> CGSize {
+	override func sizeThatFits(_ size: CGSize) -> CGSize {
 		guard self.targetView != nil && self.isEmpty == false else {
 			return .zero
 		}
@@ -227,7 +227,7 @@ open class FrameLayout: UIView {
 		return result
 	}
 	
-	override open func layoutSubviews() {
+	override func layoutSubviews() {
 		super.layoutSubviews()
 		
 		guard let targetView = targetView, !targetView.isHidden, !self.isHidden, bounds.size.width > 0, bounds.size.height > 0 else {
@@ -387,12 +387,12 @@ open class FrameLayout: UIView {
 		}
 	}
 	
-	override open func setNeedsLayout() {
+	override func setNeedsLayout() {
 		super.setNeedsLayout()
 		targetView?.setNeedsLayout()
 	}
 	
-	override open func layoutIfNeeded() {
+	override func layoutIfNeeded() {
 		super.layoutIfNeeded()
 		targetView?.layoutIfNeeded()
 	}

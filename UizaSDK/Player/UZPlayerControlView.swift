@@ -7,7 +7,7 @@
 //
 
 import UIKit
-//import NKButton
+//import UZButton
 //import FrameLayoutKit
 import NVActivityIndicatorView
 
@@ -160,24 +160,24 @@ open class UZPlayerControlView: UIView {
 	public let currentTimeLabel = UILabel()
 	public let totalTimeLabel = UILabel()
 	public let remainTimeLabel = UILabel()
-	public let playpauseCenterButton = NKButton()
-	public let playpauseButton = NKButton()
-	public let forwardButton = NKButton()
-	public let backwardButton = NKButton()
-	public let nextButton = NKButton()
-	public let previousButton = NKButton()
-	public let volumeButton = NKButton()
-	public let backButton = NKButton()
-	public let fullscreenButton = NKButton()
-	public let playlistButton = NKButton()
-	public let relateButton = NKButton()
-	public let ccButton = NKButton()
-	public let settingsButton = NKButton()
-	public let helpButton = NKButton()
-	public let pipButton = NKButton()
+	public let playpauseCenterButton = UZButton()
+	public let playpauseButton = UZButton()
+	public let forwardButton = UZButton()
+	public let backwardButton = UZButton()
+	public let nextButton = UZButton()
+	public let previousButton = UZButton()
+	public let volumeButton = UZButton()
+	public let backButton = UZButton()
+	public let fullscreenButton = UZButton()
+	public let playlistButton = UZButton()
+	public let relateButton = UZButton()
+	public let ccButton = UZButton()
+	public let settingsButton = UZButton()
+	public let helpButton = UZButton()
+	public let pipButton = UZButton()
 	public let castingButton = UZCastButton()
-	public let enlapseTimeLabel = NKButton()
-	public let logoButton = NKButton()
+	public let enlapseTimeLabel = UZButton()
+	public let logoButton = UZButton()
 	public let airplayButton = UZAirPlayButton()
 	public let coverImageView = UIImageView()
 	public let liveBadgeView = UZLiveBadgeView()
@@ -771,8 +771,8 @@ open class UZLiveBadgeView: UIView {
 		}
 	}
 	
-	fileprivate let liveBadge = NKButton()
-	fileprivate let viewBadge = NKButton()
+	fileprivate let liveBadge = UZButton()
+	fileprivate let viewBadge = UZButton()
 	fileprivate var frameLayout: DoubleFrameLayout!
 	
 	init() {

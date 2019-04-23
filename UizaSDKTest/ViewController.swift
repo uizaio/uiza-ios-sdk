@@ -113,9 +113,9 @@ class ViewController: UIViewController {
 		//			}
 		//		})
 		
-		//		DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-		//			self.showLive()
-		//		}
+				DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+					self.showLive()
+				}
 	}
 	
 	func showAlert() {
@@ -132,13 +132,13 @@ class ViewController: UIViewController {
 	private let entityIdDefaultLIVE_NO_TRANSCODE = "9925fcbd-0fbe-41c5-8b16-1b250642a7e9"
 	
 	
-//	func showLive() {
-//		let viewController = MyLiveStreamViewController()
-//		viewController.liveEventId = "54bc2f97-c4dd-49fe-a24e-e7feffe8cf5c"
-//		//		viewController.livestreamUIView.closeButton.removeFromSuperview()
-//		//		viewController.session.captureDevicePosition = .back
-//		self.present(viewController, animated: true, completion: nil)
-//	}
+	func showLive() {
+		let viewController = MyLiveStreamViewController()
+		viewController.liveEventId = "afa02815-a89c-4e5c-be8b-b378e646cf9d"
+		//		viewController.livestreamUIView.closeButton.removeFromSuperview()
+		//		viewController.session.captureDevicePosition = .back
+		self.present(viewController, animated: true, completion: nil)
+	}
 	
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()

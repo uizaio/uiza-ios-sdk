@@ -41,5 +41,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>Please allow camera to start livestream</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Please allow microphone to start livestream</string>
 </dict>
 </plist>

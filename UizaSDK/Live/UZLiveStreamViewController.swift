@@ -21,7 +21,7 @@ configuration.videoMinBitRate = 800 * 1000
 configuration.videoSize = CGSizeMake(720, 1280)
 */
 
-open class UZLiveStreamViewController: UIViewController {
+open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 	public var livestreamUIView = UZLiveStreamUIView() {
 		didSet {
 			view.insertSubview(livestreamUIView, at: 0)
@@ -499,19 +499,17 @@ open class UZLiveStreamViewController: UIViewController {
 		return UIDevice.isPad() ? UIApplication.shared.statusBarOrientation : .portrait
 	}
 	
-}
-
-extension UZLiveStreamViewController: LFLiveSessionDelegate {
+	// LFLiveSessionDelegate
 	
-	public func liveSession(_ session: LFLiveSession?, debugInfo: LFLiveDebug?) {
+	open func liveSession(_ session: LFLiveSession?, debugInfo: LFLiveDebug?) {
 		DLog("LFLiveState: \(String(describing: debugInfo))")
 	}
 	
-	public func liveSession(_ session: LFLiveSession?, errorCode: LFLiveSocketErrorCode) {
+	open func liveSession(_ session: LFLiveSession?, errorCode: LFLiveSocketErrorCode) {
 		DLog("LFLiveState errorCode: \(String(describing: errorCode))")
 	}
 	
-	public func liveSession(_ session: LFLiveSession?, liveStateDidChange state: LFLiveState) {
+	open func liveSession(_ session: LFLiveSession?, liveStateDidChange state: LFLiveState) {
 		DLog("LFLiveState: \(String(describing: state.rawValue))")
 		
 		liveDurationLabel.isHidden = state != .start

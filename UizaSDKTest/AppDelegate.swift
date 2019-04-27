@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 */
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-		UizaSDK.initWith(appId: "c8b7cb03f49643649787ee26465217aa", token: "uap-c8b7cb03f49643649787ee26465217aa-fd44a44c", api: "ap-southeast-1-api.uiza.co", enviroment: .production, version: .v4)
+		UizaSDK.initWith(appId: "f785bc511967473fbe6048ee5fb7ea59", token: "uap-f785bc511967473fbe6048ee5fb7ea59-69fefb79", api: "ap-southeast-1-api.uiza.co", enviroment: .production, version: .v4)
 		UizaSDK.showRestfulInfo = true
 		return true
 	}
@@ -46,7 +46,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func applicationWillTerminate(_ application: UIApplication) {
 		// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 	}
-
 
 }
 

@@ -48,12 +48,12 @@ class ViewController: UIViewController {
 		themeButton.setImage(UIImage(icon: .googleMaterialDesign(.colorLens), size: CGSize(width: 32, height: 32), textColor: .black, backgroundColor: .clear), for: .normal)
 		themeButton.addTarget(self, action: #selector(switchTheme), for: .touchUpInside)
 		
-		//		playerViewController.fullscreenPresentationMode = .fullscreen
-		//		playerViewController.player = MyPlayer(customControlView: MyPlayerControlView())
-		//		playerViewController.player.controlView.theme = UZTheme1()
-		//		playerViewController.player.setResource(resource: UZPlayerResource(name: "Live Test", url: URL(string: "http://118.69.82.182:112/this-is-thopp-live-pull-only-live/htv7-hd/playlist_dvr_timeshift-0-1800.m3u8")!, subtitles: nil, cover: nil, isLive: true))
-		////
-		//		self.view.addSubview(playerViewController.view)
+//		playerViewController.fullscreenPresentationMode = .fullscreen
+//		playerViewController.player = MyPlayer(customControlView: MyPlayerControlView())
+//		playerViewController.player.controlView.theme = UZTheme1()
+//		playerViewController.player.setResource(resource: UZPlayerResource(name: "Live Test", url: URL(string: "http://118.69.82.182:112/this-is-thopp-live-pull-only-live/htv7-hd/playlist_dvr_timeshift-0-1800.m3u8")!, subtitles: nil, cover: nil, isLive: true))
+////
+//		self.view.addSubview(playerViewController.view)
 		self.view.addSubview(themeButton)
 		
 		//			let videoItem = UZVideoItem(data: ["id" : "5f1b718b-157e-459b-ae42-1915991e9f72", "title" : "La Vie En Rose"])
@@ -88,10 +88,9 @@ class ViewController: UIViewController {
 					viewController.floatingHandler?.allowsCornerDocking = true
 //					viewController.player.delegate = self
 					
-					
-					DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-						self.showAlert()
-					}
+//					DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+//						self.showAlert()
+//					}
 				}
 			}
 		}
@@ -113,9 +112,9 @@ class ViewController: UIViewController {
 		//			}
 		//		})
 		
-				DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-					self.showLive()
-				}
+//				DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//					self.showLive()
+//				}
 	}
 	
 	func showAlert() {
@@ -135,8 +134,8 @@ class ViewController: UIViewController {
 	func showLive() {
 		let viewController = MyLiveStreamViewController()
 		viewController.liveEventId = "afa02815-a89c-4e5c-be8b-b378e646cf9d"
-		//		viewController.livestreamUIView.closeButton.removeFromSuperview()
-		//		viewController.session.captureDevicePosition = .back
+//		viewController.livestreamUIView.closeButton.removeFromSuperview()
+//		viewController.session.captureDevicePosition = .back
 		self.present(viewController, animated: true, completion: nil)
 	}
 	
@@ -144,8 +143,8 @@ class ViewController: UIViewController {
 		super.viewDidLayoutSubviews()
 		
 		let viewSize = self.view.bounds.size
-		//		let playerSize = CGSize(width: viewSize.width, height: viewSize.width * (9/16))
-		//		playerViewController.view.frame = CGRect(x: 0, y: (viewSize.height - playerSize.height)/2, width: playerSize.width, height: playerSize.height)
+//		let playerSize = CGSize(width: viewSize.width, height: viewSize.width * (9/16))
+//		playerViewController.view.frame = CGRect(x: 0, y: (viewSize.height - playerSize.height)/2, width: playerSize.width, height: playerSize.height)
 		
 		var buttonSize = themeButton.sizeThatFits(viewSize)
 		buttonSize.width += 20
@@ -165,15 +164,14 @@ class ViewController: UIViewController {
 	//	}
 	
 	var themeIndex: Int = 0
-	//	let themeClasses: [UZPlayerTheme.Type] = [UZTheme1.self, UZTheme2.self, UZTheme3.self, UZTheme4.self, UZTheme5.self, UZTheme6.self, UZTheme7.self]
-	let themeClasses: [UZPlayerTheme] = [UZTheme1(), UZTheme2(), UZTheme3(), UZTheme4(), UZTheme5(), UZTheme6(), UZTheme7()]
+	let themeClasses: [UZPlayerTheme.Type] = [UZTheme1.self, UZTheme2.self, UZTheme3.self, UZTheme4.self, UZTheme5.self, UZTheme6.self, UZTheme7.self]
 	@objc func switchTheme() {
 		if themeIndex == themeClasses.count {
 			themeIndex = 0
 		}
 		
 		print("Theme index: \(themeIndex)")
-		//		playerViewController.player.controlView.theme = themeClasses[themeIndex]
+//		playerViewController.player.controlView.theme = themeClasses[themeIndex]()
 		
 		themeIndex += 1
 	}
@@ -183,19 +181,19 @@ class ViewController: UIViewController {
 extension ViewController: UZPlayerDelegate {
 	
 	func UZPlayer(player: UZPlayer, playerStateDidChange state: UZPlayerState) {
-		//		print("State: \(state)")
+//		print("State: \(state)")
 	}
 	
 	func UZPlayer(player: UZPlayer, loadedTimeDidChange loadedDuration: TimeInterval, totalDuration: TimeInterval) {
-		//		print("loadedDuration: \(loadedDuration) - totalDuration: \(totalDuration)")
+//		print("loadedDuration: \(loadedDuration) - totalDuration: \(totalDuration)")
 	}
 	
 	func UZPlayer(player: UZPlayer, playTimeDidChange currentTime : TimeInterval, totalTime: TimeInterval) {
-		//		print("currentTime: \(currentTime) - totalTime: \(totalTime)")
+//		print("currentTime: \(currentTime) - totalTime: \(totalTime)")
 	}
 	
 	func UZPlayer(player: UZPlayer, playerIsPlaying playing: Bool) {
-		//		print("Playing: \(playing)")
+//		print("Playing: \(playing)")
 	}
 	
 }

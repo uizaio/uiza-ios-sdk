@@ -164,6 +164,7 @@ open class NKFloatingViewHandler: NSObject {
 	}
 	
 	var lastPoint: CGPoint = .zero
+	var lastOffset: CGPoint = .zero
 	@objc fileprivate func onPan(_ pan: UIPanGestureRecognizer) {
 		guard let delegate = self.delegate else { return }
 		let window = delegate.containerView.window
@@ -174,6 +175,7 @@ open class NKFloatingViewHandler: NSObject {
 			
 			if floatingMode && allowsCornerDocking {
 				guard let view = self.delegate?.containerView else { return }
+				
 				if pan.state == .began {
 					lastPoint = view.center
 				}
@@ -183,6 +185,20 @@ open class NKFloatingViewHandler: NSObject {
 			}
 			else {
 				updateFrame(with: translatedPoint)
+				
+				if allowsCornerDocking {
+					guard let view = self.delegate?.containerView else { return }
+					
+					if pan.state == .began {
+						lastPoint = pan.location(in: view)
+						
+						let viewSize = view.frame.size
+						lastOffset = CGPoint(x: lastPoint.x/viewSize.width, y: lastPoint.y/viewSize.height)
+					}
+					else {
+						view.center = CGPoint(x: lastPoint.x + translatedPoint.x, y: view.center.y)
+					}
+				}
 			}
 		}
 		else if pan.state == .ended {
@@ -262,7 +278,24 @@ open class NKFloatingViewHandler: NSObject {
 			}
 			else {
 				if translatedPoint.y > 150 {
-					becomeFloating(position: initPosition)
+					var position: NKFloatingPosition = initPosition
+					
+					if allowsCornerDocking {
+						if let view = self.delegate?.containerView {
+							let center = view.center
+							let viewSize = UIScreen.main.bounds.size
+							let halfW = viewSize.width/2
+							
+							if center.x < halfW {
+								position = .bottomLeft
+							}
+							else {
+								position = .bottomRight
+							}
+						}
+					}
+					
+					becomeFloating(position: position)
 				}
 				else {
 					backToNormalState()

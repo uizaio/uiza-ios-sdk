@@ -17,8 +17,8 @@ import UIKit
 // pod trunk push UizaSDK.podspec
 //
 
-internal let SDK_VERSION = "7.0.9"
-internal let PLAYER_VERSION = "4.5"
+internal let SDK_VERSION = "7.1.0"
+internal let PLAYER_VERSION = "4.6"
 
 public enum UizaSDKVersion: String {
 	case v3
@@ -43,8 +43,11 @@ public class UizaSDK {
 	
 	/**
 	Hàm này bắt buộc phải gọi đầu tiên, trước khi gọi bất cứ hàm API nào khác, nếu không sẽ phát sinh lỗi crash
-	- parameter domain: domain được cung cấp bởi Uiza
-	- parameter key: key được cung cấp bởi Uiza
+	- parameter appId: AppID được cung cấp bởi Uiza
+	- parameter api: API key được cung cấp bởi Uiza
+	- parameter token: Token được cung cấp bởi Uiza
+	- parameter enviroment: Môi trường hoạt động, mặc định là `.production`
+	- parameter version: Phiên bản API, mặc định là `.v3`
 	*/
 	public class func initWith(appId: String, token: String, api: String, enviroment: UZEnviroment = .production, version: UizaSDKVersion = .v3) {
         if self.appId == "" && self.token == "" && self.domain == "" {

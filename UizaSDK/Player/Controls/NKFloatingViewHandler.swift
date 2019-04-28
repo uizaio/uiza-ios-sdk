@@ -190,7 +190,7 @@ open class NKFloatingViewHandler: NSObject {
 					guard let view = self.delegate?.containerView else { return }
 					
 					if pan.state == .began {
-						lastPoint = pan.location(in: view)
+						lastPoint = view.center//pan.location(in: view)
 						
 						let viewSize = view.frame.size
 						lastOffset = CGPoint(x: lastPoint.x/viewSize.width, y: lastPoint.y/viewSize.height)
@@ -280,18 +280,16 @@ open class NKFloatingViewHandler: NSObject {
 				if translatedPoint.y > 150 {
 					var position: NKFloatingPosition = initPosition
 					
-					if allowsCornerDocking {
-						if let view = self.delegate?.containerView {
-							let center = view.center
-							let viewSize = UIScreen.main.bounds.size
-							let halfW = viewSize.width/2
-							
-							if center.x < halfW {
-								position = .bottomLeft
-							}
-							else {
-								position = .bottomRight
-							}
+					if let view = self.delegate?.containerView {
+						let center = view.center
+						let viewSize = UIScreen.main.bounds.size
+						let halfW = viewSize.width/2
+						
+						if center.x < halfW {
+							position = .bottomLeft
+						}
+						else {
+							position = .bottomRight
 						}
 					}
 					

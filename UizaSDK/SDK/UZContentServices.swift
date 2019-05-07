@@ -21,6 +21,7 @@ Class quản lý các hàm lấy thông tin
 */
 open class UZContentServices: UZAPIConnector {
 
+	/*
 	/**
 	Tải dữ liệu cho trang Home
 	- parameter metadataId: `metadataId` đính kèm nếu có (mặc định là `nil`)
@@ -96,6 +97,7 @@ open class UZContentServices: UZAPIConnector {
 			}
 		}
 	}
+	*/
 	
 	/**
 	Tải danh mục video

@@ -39,14 +39,12 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 				if self.playerViewController.isFullscreen {
 					self.playerViewController.setFullscreen(fullscreen: false, completion: {
 						self.player?.stop()
-						DLog("XCV1")
 						self.floatingHandler?.delegate = nil
 						self.dismiss(animated: true, completion: self.onDismiss)
 					})
 				}
 				else {
 					self.player?.stop()
-					DLog("XCV2")
 					self.floatingHandler?.delegate = nil
 					self.dismiss(animated: true, completion: self.onDismiss)
 				}

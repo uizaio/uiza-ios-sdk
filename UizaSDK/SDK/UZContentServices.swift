@@ -149,10 +149,10 @@ open class UZContentServices: UZAPIConnector {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
 		
 		let params : [String: AnyHashable] = ["metadataId" 	: metadataId,
-									  "limit"		: limit,
-									  "page" 		: page,
-									  "orderBy"		: "createdAt",
-									  "orderType" 	: "DESC"]
+											  "limit"		: limit,
+											  "page" 		: page,
+											  "orderBy"		: "createdAt",
+											  "orderType" 	: "DESC"]
 		
 		self.callAPI("media/metadata", method: .get, params: params) { (result:NSDictionary?, error:Error?) in
 			//DLog("\(String(describing: result)) - \(String(describing: error))")
@@ -188,9 +188,9 @@ open class UZContentServices: UZAPIConnector {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
 		
 		let params : [String: AnyHashable] = ["limit" 		: limit,
-									  "page" 		: page,
-									  "orderBy"		: "createdAt",
-									  "orderType" 	: "DESC"]
+											  "page" 		: page,
+											  "orderBy"		: "createdAt",
+											  "orderType" 	: "DESC"]
 		
 		self.callAPI("live/entity", method: .get, params: params) { (result:NSDictionary?, error:Error?) in
 			//DLog("\(String(describing: result)) - \(String(describing: error))")
@@ -297,10 +297,11 @@ open class UZContentServices: UZAPIConnector {
 		let entityId: String = video.id ?? ""
 		
 		if token == nil {
-			self.requestHeaderFields = ["Authorization" 	: token ?? ""]
+			self.requestHeaderFields = ["Authorization" : token ?? ""]
+			
 			let params : [String: AnyHashable] = ["entity_id" 		: entityId,
-										  "app_id"	 		: UizaSDK.appId,
-										  "content_type" 	: video.isLive ? "live" : "stream"]
+												  "app_id"	 		: UizaSDK.appId,
+												  "content_type" 	: video.isLive ? "live" : "stream"]
 			
 			self.callAPI("media/entity/playback/token", method: .post, params: params) { (result, error) in
 				if let data = result?.value(for: "data", defaultValue: nil) as? NSDictionary,

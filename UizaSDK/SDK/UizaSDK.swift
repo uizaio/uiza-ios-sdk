@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import Sentry
 
 //
 // Build docs:
@@ -62,7 +61,7 @@ public class UizaSDK {
 			print("[UizaSDK \(SDK_VERSION)] initialized")
 			#endif
 			UZAPIConnector.updateIPAddress()
-			activeSentry()
+			UZSentry.activate()
 		}
 		else {
 			#if DEBUG
@@ -71,30 +70,6 @@ public class UizaSDK {
 		}
 	}
 	
-}
-
-func activeSentry() {
-    do {
-        Client.shared = try Client(dsn: "https://2fb4e767fc474b7189554bce88c628c8@sentry.io/1453018?enviroment=STAG")
-        try Client.shared?.startCrashHandler()
-        Client.shared?.environment = "GA"
-    } catch let error {
-        print(" \(error)")
-    }
-}
-
-func sendError(error: Error?) {
-    let event = Event(level: .error)
-    event.message = error?.localizedDescription ?? "Error"
-    event.extra = ["ios": true]
-    Client.shared?.send(event: event)
-}
-
-func sendNSError(error: NSError) {
-    let event = Event(level: .error)
-    event.message = error.localizedDescription
-    event.extra = ["ios": true]
-    Client.shared?.send(event: event)
 }
 
 func DLog(_ message: String, _ file: String = #file, _ line: Int = #line) {

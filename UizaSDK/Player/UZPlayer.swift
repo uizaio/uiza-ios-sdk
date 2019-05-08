@@ -265,7 +265,6 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 			}
 			else if error != nil {
 				self.showMessage(error!.localizedDescription)
-                sendError(error: error)
 				completionBlock?(nil, error)
 			}
 			else {
@@ -314,7 +313,6 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 				}
 			}
 			else if let error = error {
-                sendError(error: error)
 				self.showMessage(error.localizedDescription)
 			}
 			

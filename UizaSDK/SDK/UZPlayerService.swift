@@ -17,7 +17,6 @@ open class UZPlayerService: UZAPIConnector {
 			DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
-                sendError(error: error)
 				completionBlock(nil, error)
 			}
 			else {
@@ -41,7 +40,6 @@ open class UZPlayerService: UZAPIConnector {
 			DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
-                sendError(error: error)
 				completionBlock(nil, error)
 			}
 			else {

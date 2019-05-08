@@ -239,7 +239,7 @@ public struct ArrayEncoding: ParameterEncoding {
 			urlRequest.httpBody = data
 		}
 		catch {
-            sendError(error: AFError.parameterEncodingFailed(reason: .jsonEncodingFailed(error: error)))
+            UZSentry.sendError(error: AFError.parameterEncodingFailed(reason: .jsonEncodingFailed(error: error)))
 			throw AFError.parameterEncodingFailed(reason: .jsonEncodingFailed(error: error))
 		}
 		

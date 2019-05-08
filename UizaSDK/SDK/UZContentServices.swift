@@ -44,6 +44,7 @@ open class UZContentServices: UZAPIConnector {
 			DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
+                sendError(error: error)
 				completionBlock?(nil, error)
 			}
 			else {
@@ -120,6 +121,7 @@ open class UZContentServices: UZAPIConnector {
 			DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
+                sendError(error: error)
 				completionBlock?(nil, error)
 			}
 			else {
@@ -156,6 +158,7 @@ open class UZContentServices: UZAPIConnector {
 			//DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
+                sendError(error: error)
 				completionBlock?(nil, nil, error)
 			}
 			else {
@@ -194,6 +197,7 @@ open class UZContentServices: UZAPIConnector {
 			//DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
+                sendError(error: error)
 				completionBlock?(nil, nil, error)
 			}
 			else {
@@ -230,6 +234,7 @@ open class UZContentServices: UZAPIConnector {
 			DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
+                sendError(error: error)
 				completionBlock?(nil, error)
 			}
 			else {
@@ -307,6 +312,7 @@ open class UZContentServices: UZAPIConnector {
 					self.loadLinkPlay(video: video, token: tokenString, completionBlock: completionBlock)
 				}
 				else {
+                    sendError(error: error)
 					completionBlock?(nil, error)
 				}
 			}
@@ -329,6 +335,7 @@ open class UZContentServices: UZAPIConnector {
 			print("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
+                sendError(error: error)
 				completionBlock?(nil, error)
 			}
 			else if let data = result?.value(for: "data", defaultValue: nil) as? NSDictionary{
@@ -367,6 +374,7 @@ open class UZContentServices: UZAPIConnector {
 			DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
+                sendError(error: error)
 				completionBlock?(nil, error)
 			}
 			else {
@@ -400,6 +408,7 @@ open class UZContentServices: UZAPIConnector {
 			//DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
+                sendError(error: error)
 				completionBlock?(nil, error)
 			}
 			else {
@@ -437,6 +446,7 @@ open class UZContentServices: UZAPIConnector {
 			//DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
+                sendError(error: error)
 				completionBlock?(nil, nil, error)
 			}
 			else {

@@ -13,6 +13,7 @@ target 'UizaSDK' do
   pod 'SwiftyJSON'
   pod 'LFLiveKit+'
 	pod 'NVActivityIndicatorView/AppExtension'
+  pod 'Sentry'
 
 end
 
@@ -37,5 +38,6 @@ target 'UizaSDKTest' do
 	pod 'SwiftyJSON'
 	pod 'LFLiveKit+'
 	pod 'NVActivityIndicatorView/AppExtension'
+  pod 'Sentry'
 	
 end

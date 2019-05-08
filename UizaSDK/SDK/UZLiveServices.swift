@@ -78,6 +78,7 @@ open class UZLiveServices: UZAPIConnector {
 				completionBlock?(result, nil)
 			}
 			else {
+                sendError(error: error)
 				completionBlock?(nil, error)
 			}
 		}
@@ -124,6 +125,7 @@ open class UZLiveServices: UZAPIConnector {
 //			DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
+                sendError(error: error)
 				completionBlock?(-1, error)
 			}
 			else {
@@ -152,6 +154,7 @@ open class UZLiveServices: UZAPIConnector {
 //			DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
+                sendError(error: error)
 				completionBlock?(nil, error)
 			}
 			else {

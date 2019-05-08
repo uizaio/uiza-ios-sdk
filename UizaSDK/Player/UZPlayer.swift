@@ -12,6 +12,7 @@ import AVFoundation
 import Foundation
 import CoreGraphics
 import NKModalViewManager
+import Sentry
 
 #if ALLOW_GOOGLECAST
 import GoogleInteractiveMediaAds
@@ -264,6 +265,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 			}
 			else if error != nil {
 				self.showMessage(error!.localizedDescription)
+                sendError(error: error)
 				completionBlock?(nil, error)
 			}
 			else {
@@ -312,6 +314,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 				}
 			}
 			else if let error = error {
+                sendError(error: error)
 				self.showMessage(error.localizedDescription)
 			}
 			

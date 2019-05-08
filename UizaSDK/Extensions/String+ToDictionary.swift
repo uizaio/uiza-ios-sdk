@@ -31,6 +31,7 @@ extension NSString {
 			do {
 				return try JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary
 			} catch {
+                sendError(error: error)
 				print(error.localizedDescription)
 			}
 		}

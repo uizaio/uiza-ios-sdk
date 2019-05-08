@@ -61,6 +61,7 @@ public class UizaSDK {
 			#if DEBUG
 			print("[UizaSDK \(SDK_VERSION)] initialized")
 			#endif
+            activeSentry()
 			UZAPIConnector.updateIPAddress()
 		}
 		else {
@@ -68,7 +69,6 @@ public class UizaSDK {
 			print("[Uiza SDK \(SDK_VERSION)] Framework has already been initialized")
 			#endif
 		}
-        activeSentry()
 	}
 	
 }

@@ -431,10 +431,10 @@ open class UZContentServices: UZAPIConnector {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
 		
 		let params : [String: AnyHashable] = ["keyword" 	: keyword,
-									  "page" 		: page,
-									  "limit" 		: limit,
-									  "orderBy"		: "createdAt",
-									  "orderType" 	: "DESC"]
+											  "page" 		: page,
+											  "limit" 		: limit,
+											  "orderBy"		: "createdAt",
+											  "orderType" 	: "DESC"]
 		
 		self.callAPI("media/entity/search", method: .get, params: params) { (result, error) in
 			//DLog("\(String(describing: result)) - \(String(describing: error))")
@@ -473,7 +473,7 @@ open class UZContentServices: UZAPIConnector {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
 		
 		let params : [String: AnyHashable] = ["cdn_name" : cdnName,
-									  "session" : UUID().uuidString.lowercased()]
+											  "session"  : UUID().uuidString.lowercased()]
 		
 		var baseURLString: String
 		switch UizaSDK.enviroment {

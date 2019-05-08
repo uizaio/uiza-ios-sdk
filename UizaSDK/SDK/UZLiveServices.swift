@@ -145,8 +145,8 @@ open class UZLiveServices: UZAPIConnector {
 	public func loadLiveStatus(video: UZVideoItem, completionBlock: ((_ result: UZLiveVideoStatus?, _ error: Error?) -> Void)? = nil) {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
 		
-		let params : [String: AnyHashable] = ["entityId" : video.id ?? "",
-									  "feedId" : video.feedId ?? ""]
+		let params : [String: AnyHashable] = ["entityId" 	: video.id ?? "",
+											  "feedId" 		: video.feedId ?? ""]
 		
 		self.callAPI("live/entity/tracking", baseURLString: basePrivateAPIURLPath(), method: .get, params: params) { (result, error) in
 //			DLog("\(String(describing: result)) - \(String(describing: error))")

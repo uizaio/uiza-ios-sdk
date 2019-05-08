@@ -67,20 +67,20 @@ open class UZLogger: UZAPIConnector {
 		
 		print("timestamp: \(timestamp)")
 		let defaultParams : [String : AnyHashable]! = ["event_type" 		: event,
-											   "timestamp"			: timestamp,
-											   "platform"			: platform,
-											   "modelId"			: modelId,
-											   "modelName"			: modelName,
-											   "macAddress"			: macAddress,
-											   "version"			: appVersion,
-											   "iosVersion"			: iosVersion,
-											   "uuid"				: macAddress,
-											   "viewer_user_id"		: userId,
-											   "ip"					: UZAPIConnector.ipAddress,
-											   "player_name"		: "UizaSDK_\(platform)",
-											   "player_version" 	: PLAYER_VERSION,
-											   "sdk_version"		: SDK_VERSION,
-                                               "bundleId"            : bundleId]
+													   "timestamp"			: timestamp,
+													   "platform"			: platform,
+													   "modelId"			: modelId,
+													   "modelName"			: modelName,
+													   "macAddress"			: macAddress,
+													   "version"			: appVersion,
+													   "iosVersion"			: iosVersion,
+													   "uuid"				: macAddress,
+													   "viewer_user_id"		: userId,
+													   "ip"					: UZAPIConnector.ipAddress,
+													   "player_name"		: "UizaSDK_\(platform)",
+													   "player_version" 	: PLAYER_VERSION,
+													   "sdk_version"		: SDK_VERSION,
+													   "bundleId"           : bundleId]
 		
 		var finalParams : [String: AnyHashable]! = defaultParams
 		
@@ -93,7 +93,7 @@ open class UZLogger: UZAPIConnector {
 	
 	// MARK: CCU Live
 	
-	private static let TOKEN_DEV = "kv8O7hLkeDtN3EBviXLD01gzNz2RP2nA"
+	private static let TOKEN_DEV  = "kv8O7hLkeDtN3EBviXLD01gzNz2RP2nA"
 	private static let TOKEN_STAG = "082c2cbf515648db96069fa660523247"
 	private static let TOKEN_PROD = "27cdc337bd65420f8a88cfbd9cf8577a"
 	
@@ -122,11 +122,11 @@ open class UZLogger: UZAPIConnector {
 		
 		print("timestamp: \(timestamp)")
 		let params : [String : AnyHashable]! = ["dt"	: timestamp,
-										"ho"	: host,
-										"sn"	: streamName,
-										"di"	: macAddress,
-										"ai"	: bundleId,
-										"ua"	: "UizaSDK_\(platform)_v\(SDK_VERSION)"]
+												"ho"	: host,
+												"sn"	: streamName,
+												"di"	: macAddress,
+												"ai"	: bundleId,
+												"ua"	: "UizaSDK_\(platform)_v\(SDK_VERSION)"]
 		
 		self.callAPI("v1/ccu/mobile", baseURLString: loggingURLString, method: .post, params: params, completion: completionBlock)
 	}
@@ -145,11 +145,11 @@ open class UZLogger: UZAPIConnector {
 		
 		print("timestamp: \(timestamp)")
 		let params : [String : AnyHashable]! = ["timestamp"	: timestamp,
-										"entity_id"	: entityId,
-										"category" 	: category,
-										"app_id"	: bundleId,
-										"platform"	: platform,
-										"sdk"		: "UizaSDK_\(platform)_v\(SDK_VERSION)"]
+												"entity_id"	: entityId,
+												"category" 	: category,
+												"app_id"	: bundleId,
+												"platform"	: platform,
+												"sdk"		: "UizaSDK_\(platform)_v\(SDK_VERSION)"]
 		
 		self.callAPI("v1/rse/mobile", baseURLString: loggingURLString, method: .post, params: params, completion: completionBlock)
 	}

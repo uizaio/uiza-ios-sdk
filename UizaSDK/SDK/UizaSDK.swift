@@ -60,6 +60,7 @@ public class UizaSDK {
 			#if DEBUG
 			print("[UizaSDK \(SDK_VERSION)] initialized")
 			#endif
+            activeSentry()
 			UZAPIConnector.updateIPAddress()
 			UZSentry.activate()
 		}

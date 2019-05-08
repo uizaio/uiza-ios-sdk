@@ -246,6 +246,7 @@ open class UZAPIConnector {
 				}
 			}
 		}, failureBlock: {(error) in
+            sendError(error: error)
 			completionBlock?(nil, error)
 		}, progressBlock: nil)
 	}
@@ -304,6 +305,7 @@ open class UZAPIConnector {
 							if response.result.isSuccess {
 								completionBlock?(response.result.value!)
 							} else {
+                                sendError(error: response.result.error)
 								failureBlock?(response.result.error)
 							}
 						}
@@ -316,6 +318,7 @@ open class UZAPIConnector {
 							if response.result.isSuccess {
 								completionBlock?(response.result.value!)
 							} else {
+                                sendError(error: response.result.error)
 								failureBlock?(response.result.error)
 							}
 						}
@@ -345,6 +348,7 @@ open class UZAPIConnector {
 					if response.result.isSuccess {
 						completionBlock?(response.result.value!)
 					} else {
+                        sendError(error: response.result.error)
 						failureBlock?(response.result.error)
 					}
 				}
@@ -357,6 +361,7 @@ open class UZAPIConnector {
 					if response.result.isSuccess {
 						completionBlock?(response.result.value!)
 					} else {
+                        sendError(error: response.result.error)
 						failureBlock?(response.result.error)
 					}
 				}
@@ -376,6 +381,7 @@ open class UZAPIConnector {
 			if errorCode != nil && errorCode != 0 && errorCode != 200 {
 				let errorMessage: String?	= dictionary!["message"] as? String
 				let error: NSError!			= NSError(domain:"Uiza", code: errorCode ?? 0, userInfo: [NSLocalizedDescriptionKey: errorMessage ?? ""])
+                sendNSError(error: error)
 				completionBlock!(nil, error)
 			} else {
 				completionBlock!(dictionary! as NSDictionary, nil)
@@ -384,11 +390,15 @@ open class UZAPIConnector {
 	}
 	
 	internal class func UizaUnknownError() -> NSError {
-		return NSError(domain: "Uiza", code: 100, userInfo: [NSLocalizedDescriptionKey : "Có lỗi xảy ra"])
+        let error = NSError(domain: "Uiza", code: 100, userInfo: [NSLocalizedDescriptionKey : "Có lỗi xảy ra"])
+        sendNSError(error: error)
+		return error
 	}
 	
 	internal class func UizaError(code:Int, message:String) -> NSError {
-		return NSError(domain: "Uiza", code: 100, userInfo: [NSLocalizedDescriptionKey : message])
+        let error = NSError(domain: "Uiza", code: 100, userInfo: [NSLocalizedDescriptionKey : message])
+        sendNSError(error: error)
+		return error
 	}
 	
 	// MARK: -

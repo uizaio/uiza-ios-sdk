@@ -71,7 +71,7 @@ open class UZLiveServices: UZAPIConnector {
 	public func loadLiveEvent(id: String, completionBlock: ((UZLiveEvent?, Error?) -> Void)? = nil) {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
 		
-		self.callAPI("live/entity", method: .get, params: ["id" : id]) { (result, error) in
+		self.callAPI(APIConstant.liveEntityApi, method: .get, params: ["id" : id]) { (result, error) in
 //			DLog("OK \(result) - \(error)")
 			if let data = result?.value(for: "data", defaultValue: nil) as? NSDictionary {
 				let result = UZLiveEvent(data: data)
@@ -91,7 +91,7 @@ open class UZLiveServices: UZAPIConnector {
 	public func startLiveEvent(id: String, completionBlock: ((Error?) -> Void)? = nil) {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
 		
-		self.callAPI("live/entity/feed", method: .post, params: ["id" : id]) { (result, error) in
+		self.callAPI(APIConstant.liveEntityFeedApi, method: .post, params: ["id" : id]) { (result, error) in
 //			DLog("\(result) - \(error)")
 			completionBlock?(error)
 		}
@@ -105,7 +105,7 @@ open class UZLiveServices: UZAPIConnector {
 	public func endLiveEvent(id: String, completionBlock: ((Error?) -> Void)? = nil) {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
 		
-		self.callAPI("live/entity", method: .put, params: ["id" : id]) { (result, error) in
+		self.callAPI(APIConstant.liveEntityApi, method: .put, params: ["id" : id]) { (result, error) in
 			completionBlock?(error)
 		}
 	}
@@ -120,7 +120,7 @@ open class UZLiveServices: UZAPIConnector {
 		
 		let params : [String: AnyHashable] = ["id" : liveId]
 		
-		self.callAPI("live/entity/tracking/current-view", baseURLString: basePrivateAPIURLPath(), method: .get, params: params) { (result, error) in
+		self.callAPI(APIConstant.liveCurrentViewApi, baseURLString: basePrivateAPIURLPath(), method: .get, params: params) { (result, error) in
 //			DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
@@ -148,7 +148,7 @@ open class UZLiveServices: UZAPIConnector {
 		let params : [String: AnyHashable] = ["entityId" 	: video.id ?? "",
 											  "feedId" 		: video.feedId ?? ""]
 		
-		self.callAPI("live/entity/tracking", baseURLString: basePrivateAPIURLPath(), method: .get, params: params) { (result, error) in
+		self.callAPI(APIConstant.liveTrackingApi, baseURLString: basePrivateAPIURLPath(), method: .get, params: params) { (result, error) in
 //			DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {

@@ -41,7 +41,7 @@ open class UZContentServices: UZAPIConnector {
 			}
 		}
 		
-		self.callAPI("media/entity", method: .get, params: params) { (result:NSDictionary?, error:Error?) in
+		self.callAPI(APIConstant.mediaEntityApi, method: .get, params: params) { (result:NSDictionary?, error:Error?) in
 			DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
@@ -67,13 +67,13 @@ open class UZContentServices: UZAPIConnector {
 						category?.displayMode = .landscape
 						
                         if index == 1 {
-                            category?.name = "Top movies"
+                            category?.name = CategoryConstant.topMovie
                         }
                         else if index == 2 {
-                            category?.name = "Newest movies"
+                            category?.name = CategoryConstant.newestMovie
                         }
 						else {
-							category?.name = "Group \(index)"
+							category?.name = "\(CategoryConstant.group) \(index)"
 						}
 						
 						results.append(category!)
@@ -87,7 +87,7 @@ open class UZContentServices: UZAPIConnector {
 					if let liveVideos = liveVideos, videos.isEmpty == false {
 						category = UZCategory()
 						category?.displayMode = .landscape
-						category?.name = "Live"
+						category?.name = CategoryConstant.live
 						category?.videos.append(contentsOf: liveVideos)
 						results.insert(category!, at: 0)
 					}
@@ -118,7 +118,7 @@ open class UZContentServices: UZAPIConnector {
 			}
 		}
 		
-		self.callAPI("media/entity", method: .get, params: params) { (result:NSDictionary?, error:Error?) in
+		self.callAPI(APIConstant.mediaEntityApi, method: .get, params: params) { (result:NSDictionary?, error:Error?) in
 			DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
@@ -154,7 +154,7 @@ open class UZContentServices: UZAPIConnector {
 											  "orderBy"		: "createdAt",
 											  "orderType" 	: "DESC"]
 		
-		self.callAPI("media/metadata", method: .get, params: params) { (result:NSDictionary?, error:Error?) in
+		self.callAPI(APIConstant.mediaMetadataApi, method: .get, params: params) { (result:NSDictionary?, error:Error?) in
 			//DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
@@ -192,7 +192,7 @@ open class UZContentServices: UZAPIConnector {
 											  "orderBy"		: "createdAt",
 											  "orderType" 	: "DESC"]
 		
-		self.callAPI("live/entity", method: .get, params: params) { (result:NSDictionary?, error:Error?) in
+        self.callAPI(APIConstant.liveEntityApi, method: .get, params: params) { (result:NSDictionary?, error:Error?) in
 			//DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
@@ -228,7 +228,7 @@ open class UZContentServices: UZAPIConnector {
 		
 		let params : [String: AnyHashable] = ["id" : entityId]
 		
-		self.callAPI(isLive ? "live/entity" : "media/entity", method: .get, params: params) { (result, error) in
+		self.callAPI(isLive ? APIConstant.liveEntityApi : APIConstant.mediaEntityApi, method: .get, params: params) { (result, error) in
 			DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
@@ -265,7 +265,7 @@ open class UZContentServices: UZAPIConnector {
 		
 		let params : [String: AnyHashable] = ["id" : entityId]
 		
-		self.callAPI("media/entity/related", method: .get , params: params) { (result, error) in
+		self.callAPI(APIConstant.mediaRelatedApi, method: .get , params: params) { (result, error) in
 			DLog("\(String(describing: result)) - \(String(describing: error))")
 			completionBlock?([], nil)
 			
@@ -303,7 +303,7 @@ open class UZContentServices: UZAPIConnector {
 												  "app_id"	 		: UizaSDK.appId,
 												  "content_type" 	: video.isLive ? "live" : "stream"]
 			
-			self.callAPI("media/entity/playback/token", method: .post, params: params) { (result, error) in
+			self.callAPI(APIConstant.mediaTokenApi, method: .post, params: params) { (result, error) in
 				if let data = result?.value(for: "data", defaultValue: nil) as? NSDictionary,
 					let tokenString = data.string(for: "token", defaultString: nil)
 				{
@@ -319,16 +319,16 @@ open class UZContentServices: UZAPIConnector {
 		
 		self.requestHeaderFields = ["Authorization" : token ?? ""]
 		
-		let apiNode = video.isLive ? "cdn/live/linkplay" : "cdn/linkplay"
+		let apiNode = video.isLive ? APIConstant.cdnLiveLinkPlayApi : APIConstant.cdnLinkPlayApi
 		let apiField = video.isLive ? "stream_name" : "entity_id"
 		let apiValue = video.isLive ? video.channelName ?? "" : entityId
 		let params : [String: AnyHashable] = [apiField 	: apiValue,
 									  "app_id"	: UizaSDK.appId]
 		
-		let domain: String! = UizaSDK.enviroment == .development ? "dev-ucc.uizadev.io" :
-							  UizaSDK.enviroment == .staging ? "stag-ucc.uizadev.io" : "ucc.uiza.io"
+		let domain: String! = UizaSDK.enviroment == .development ? APIConstant.uizaDevDomain :
+							  UizaSDK.enviroment == .staging ? APIConstant.uizaStagDomain : APIConstant.uizaUccDomain
 		
-		self.callAPI(apiNode, baseURLString: "https://\(domain!)/api/public/v1/", method: .get, params: params) { (result, error) in
+		self.callAPI(apiNode, baseURLString: String(format: APIConstant.publicLinkPlay, domain!), method: .get, params: params) { (result, error) in
 			print("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
@@ -366,7 +366,7 @@ open class UZContentServices: UZAPIConnector {
 		
 		let params : [String: AnyHashable] = ["entityId" : video.id ?? ""]
 		
-		self.callAPI("media/entity/cue-point", baseURLString: basePrivateAPIURLPath(), method: .get , params: params) { (result, error) in
+		self.callAPI(APIConstant.mediaCuePointApi, baseURLString: basePrivateAPIURLPath(), method: .get , params: params) { (result, error) in
 			DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
@@ -399,7 +399,7 @@ open class UZContentServices: UZAPIConnector {
 		
 		let params : [String: AnyHashable] = ["limit" : 50, "type" : ["folder", "playlist"]]
 		
-		self.callAPI("v1/media/metadata/list", method: .get, params: params) { (result, error) in
+		self.callAPI(APIConstant.mediaListApi, method: .get, params: params) { (result, error) in
 			//DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
@@ -436,7 +436,7 @@ open class UZContentServices: UZAPIConnector {
 											  "orderBy"		: "createdAt",
 											  "orderType" 	: "DESC"]
 		
-		self.callAPI("media/entity/search", method: .get, params: params) { (result, error) in
+		self.callAPI(APIConstant.mediaSearchApi, method: .get, params: params) { (result, error) in
 			//DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
@@ -488,7 +488,7 @@ open class UZContentServices: UZAPIConnector {
 			break
 		}
 		
-		self.callAPI("cdn/ccu/ping", baseURLString: baseURLString, method: .get, params: params) { (result, error) in
+		self.callAPI(APIConstant.cdnPingApi, baseURLString: baseURLString, method: .get, params: params) { (result, error) in
 			//DLog("\(String(describing: result)) - \(String(describing: error))")
 			completionBlock?(error)
 		}

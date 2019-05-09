@@ -411,7 +411,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 			isURLSet = true
 		}
 		
-		UZMuizaLogger.shared.log(eventName: "play", params: nil, video: currentVideo, linkplay: currentLinkPlay, player: self)
+		UZMuizaLogger.shared.log(eventName: eventLogConstant.play, params: nil, video: currentVideo, linkplay: currentLinkPlay, player: self)
 		playerLayer?.play()
 		isPauseByUser = false
 		startHeartbeat()
@@ -427,14 +427,14 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		if currentPosition == 0 && !isPauseByUser {
 			if playthrough_eventlog[0] == false || playthrough_eventlog[0] == nil {
 				playthrough_eventlog[0] = true
-				UZLogger.shared.log(event: "video_starts", video: currentVideo, completionBlock: nil)
+				UZLogger.shared.log(event: eventLogConstant.videoStart, video: currentVideo, completionBlock: nil)
 				
 				selectSubtitle(index: 0) // select default subtitle
 //				selectAudio(index: -1) // select default audio track
 			}
 		}
 		
-		UZMuizaLogger.shared.log(eventName: "playing", params: nil, video: currentVideo, linkplay: currentLinkPlay, player: self)
+		UZMuizaLogger.shared.log(eventName: eventLogConstant.playing, params: nil, video: currentVideo, linkplay: currentLinkPlay, player: self)
 	}
 	
 	/**
@@ -507,7 +507,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	Seek to 0.0 and replay the video
 	*/
 	open func replay() {
-		UZLogger.shared.log(event: "replay", video: currentVideo, completionBlock: nil)
+		UZLogger.shared.log(event: eventLogConstant.replay, video: currentVideo, completionBlock: nil)
 		
 		playthrough_eventlog = [:]
 		isPlayToTheEnd = false
@@ -524,7 +524,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	- parameter allow: should allow to response `autoPlay` function
 	*/
 	open func pause(allowAutoPlay allow: Bool = false) {
-		UZMuizaLogger.shared.log(eventName: "pause", params: nil, video: currentVideo, linkplay: currentLinkPlay, player: self)
+		UZMuizaLogger.shared.log(eventName: eventLogConstant.pause, params: nil, video: currentVideo, linkplay: currentLinkPlay, player: self)
 		playerLayer?.pause()
 		isPauseByUser = !allow
 	}
@@ -538,11 +538,11 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		seekCount += 1
 		self.currentPosition = interval
 		controlView.hideEndScreen()
-		UZMuizaLogger.shared.log(eventName: "seeking", params: ["view_seek_count" : seekCount], video: currentVideo, linkplay: currentLinkPlay, player: self)
+		UZMuizaLogger.shared.log(eventName: eventLogConstant.seeking, params: ["view_seek_count" : seekCount], video: currentVideo, linkplay: currentLinkPlay, player: self)
 		
 		playerLayer?.seek(to: interval, completion: { [weak self] in
 			if let `self` = self {
-				UZMuizaLogger.shared.log(eventName: "seeked", params: ["view_seek_count" : self.seekCount], video: self.currentVideo, linkplay: self.currentLinkPlay, player: self)
+				UZMuizaLogger.shared.log(eventName: eventLogConstant.seeked, params: ["view_seek_count" : self.seekCount], video: self.currentVideo, linkplay: self.currentLinkPlay, player: self)
 			}
 			
 			completion?()
@@ -833,7 +833,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 				if let status = status {
 //					self.controlView.liveStartDate = status.startDate
 					
-					if status.state == "stop" { // || status.endDate != nil
+					if status.state == eventLogConstant.stop { // || status.endDate != nil
 						self.stop()
 						self.controlView.hideLoader()
 						self.showLiveEndedMessage()
@@ -976,7 +976,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 			if playthrough_eventlog[5] == false || playthrough_eventlog[5] == nil {
 				playthrough_eventlog[5] = true
 				
-				UZLogger.shared.log(event: "view", video: currentVideo, params: ["play_through" : "0"], completionBlock: nil)
+				UZLogger.shared.log(event: eventLogConstant.view, video: currentVideo, params: ["play_through" : "0"], completionBlock: nil)
 				if let videoId = currentVideo?.id, let category = currentVideo?.categoryName {
 					UZLogger.shared.trackingCategory(entityId: videoId, category: category)
 				}
@@ -989,7 +989,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 				if playthrough_eventlog[playthrough] == false || playthrough_eventlog[playthrough] == nil {
 					playthrough_eventlog[playthrough] = true
 					
-					UZLogger.shared.log(event: "play_through", video: currentVideo, params: ["play_through" : playthrough], completionBlock: nil)
+					UZLogger.shared.log(event: eventLogConstant.playThrough, video: currentVideo, params: ["play_through" : playthrough], completionBlock: nil)
 				}
 			}
 		}
@@ -1226,18 +1226,18 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 			}
 			
 		case .buffering:
-			UZMuizaLogger.shared.log(eventName: "rebufferstart", params: ["view_rebuffer_count" : bufferingCount], video: currentVideo, linkplay: currentLinkPlay, player: self)
+			UZMuizaLogger.shared.log(eventName: eventLogConstant.rebufferStart, params: ["view_rebuffer_count" : bufferingCount], video: currentVideo, linkplay: currentLinkPlay, player: self)
 			if currentVideo?.isLive ?? false {
 				loadLiveStatus(after: 1)
 			}
 			bufferingCount += 1
 			
 		case .bufferFinished:
-			UZMuizaLogger.shared.log(eventName: "rebufferend", params: ["view_rebuffer_count" : bufferingCount], video: currentVideo, linkplay: currentLinkPlay, player: self)
+			UZMuizaLogger.shared.log(eventName: eventLogConstant.rebufferend, params: ["view_rebuffer_count" : bufferingCount], video: currentVideo, linkplay: currentLinkPlay, player: self)
 			playIfApplicable()
 			
 		case .playedToTheEnd:
-			UZMuizaLogger.shared.log(eventName: "viewended", params: nil, video: currentVideo, linkplay: currentLinkPlay, player: self)
+			UZMuizaLogger.shared.log(eventName: eventLogConstant.viewEnded, params: nil, video: currentVideo, linkplay: currentLinkPlay, player: self)
 			isPlayToTheEnd = true
 			
 			if !isReplaying {
@@ -1256,7 +1256,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 			nextVideo()
 			
 		case .error:
-			UZMuizaLogger.shared.log(eventName: "error", params: nil, video: currentVideo, linkplay: currentLinkPlay, player: self)
+			UZMuizaLogger.shared.log(eventName: eventLogConstant.error, params: nil, video: currentVideo, linkplay: currentLinkPlay, player: self)
 			if autoTryNextDefinitionIfError {
 				tryNextDefinition()
 			}

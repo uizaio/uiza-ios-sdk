@@ -13,9 +13,9 @@ class UZSentry: NSObject {
 	
 	class func activate() {
 		do {
-			Client.shared = try Client(dsn: "https://2fb4e767fc474b7189554bce88c628c8@sentry.io/1453018?enviroment=STAG")
+			Client.shared = try Client(dsn: SentryConstant.dsn)
 			try Client.shared?.startCrashHandler()
-			Client.shared?.environment = "GA"
+			Client.shared?.environment = SentryConstant.defaultEnviroment
 		} catch let error {
 			print(" \(error)")
 		}
@@ -23,7 +23,7 @@ class UZSentry: NSObject {
 	
 	class func sendError(error: Error?) {
 		let event = Event(level: .error)
-		event.message = error?.localizedDescription ?? "Error"
+		event.message = error?.localizedDescription ?? Common.error
 		event.extra = ["ios": true]
 		Client.shared?.send(event: event)
 	}

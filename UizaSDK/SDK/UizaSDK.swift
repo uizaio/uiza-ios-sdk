@@ -17,7 +17,7 @@ import UIKit
 // pod trunk push UizaSDK.podspec
 //
 
-internal let SDK_VERSION = "7.1.1"
+internal let SDK_VERSION = "7.2"
 internal let PLAYER_VERSION = "4.6"
 
 public enum UizaSDKVersion: String {
@@ -60,7 +60,7 @@ public class UizaSDK {
 			#if DEBUG
 			print("[UizaSDK \(SDK_VERSION)] initialized")
 			#endif
-            activeSentry()
+			
 			UZAPIConnector.updateIPAddress()
 			UZSentry.activate()
 		}

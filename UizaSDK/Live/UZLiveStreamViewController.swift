@@ -8,7 +8,7 @@
 
 import UIKit
 import LFLiveKit_
-//import UZButton
+import NKButton
 
 /*
 configuration.sessionPreset = LFCaptureSessionPreset720x1280
@@ -30,8 +30,8 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 			}
 		}
 	}
-	public let startButton = UZButton()
-	public let stopButton = UZButton()
+	public let startButton = NKButton()
+	public let stopButton = NKButton()
 	
 	public var liveEventId: String? = nil
 	public var getViewsInterval: TimeInterval = 5.0

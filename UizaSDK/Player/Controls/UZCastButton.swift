@@ -7,10 +7,10 @@
 //
 
 import UIKit
-//import UZButton
+import NKButton
 import MediaPlayer
 
-open class UZCastButton: UZButton {
+open class UZCastButton: NKButton {
 
 	override init() {
 		super.init()

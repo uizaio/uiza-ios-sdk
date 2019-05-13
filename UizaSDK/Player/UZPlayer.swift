@@ -1295,7 +1295,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	}
 	
 	open func controlView(controlView: UZPlayerControlView, didSelectButton button: UIButton) {
-		if let action = UZButtonTag(rawValue: button.tag) {
+		if let action = NKButtonTag(rawValue: button.tag) {
 			switch action {
 			case .back:
 				self.stop()

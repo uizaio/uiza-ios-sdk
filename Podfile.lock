@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (4.8.2)
+  - FrameLayoutKit (3.4)
   - google-cast-sdk (4.4.1):
     - google-cast-sdk/Core (= 4.4.1)
     - Protobuf (~> 3.0)
@@ -7,6 +8,9 @@ PODS:
     - Protobuf (~> 3.0)
   - GoogleAds-IMA-iOS-SDK (3.9.0)
   - "LFLiveKit+ (2.6.2)"
+  - NKButton (3.8.3):
+    - FrameLayoutKit
+    - NVActivityIndicatorView/AppExtension
   - NKModalViewManager (3.5.2)
   - NVActivityIndicatorView/AppExtension (4.7.0)
   - Protobuf (3.7.0)
@@ -20,9 +24,11 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
+  - FrameLayoutKit
   - google-cast-sdk
   - GoogleAds-IMA-iOS-SDK
   - "LFLiveKit+"
+  - NKButton
   - NKModalViewManager
   - NVActivityIndicatorView/AppExtension
   - SDWebImage
@@ -32,9 +38,11 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
+    - FrameLayoutKit
     - google-cast-sdk
     - GoogleAds-IMA-iOS-SDK
     - "LFLiveKit+"
+    - NKButton
     - NKModalViewManager
     - NVActivityIndicatorView
     - Protobuf
@@ -44,9 +52,11 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
+  FrameLayoutKit: ec991b3e454e98078fb050cf172cd15cfff4bbe8
   google-cast-sdk: b4583a1591a94b693be5e913e0ae84447fbd6b9d
   GoogleAds-IMA-iOS-SDK: 8f57879738137b81a48ba792e42439e6bff5413b
   "LFLiveKit+": 0da21f6b18c07a4160aa61f17fb436350c558eac
+  NKButton: 419969081ffcf3347ad5436d6412a10ce69d777c
   NKModalViewManager: 8171cd4fb9315193fc2d05f011f9a29c9ca95a0f
   NVActivityIndicatorView: b19ddab2576f805cbe0fb2306cba3476e09a1dea
   Protobuf: 7a877b7f3e5964e3fce995e2eb323dbc6831bb5a
@@ -54,6 +64,6 @@ SPEC CHECKSUMS:
   Sentry: 26f0e6492b103e87434d1a5eea2d241a36f2c2a2
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
 
-PODFILE CHECKSUM: f5dd30eda865f9be513c0afd0e4506a6b477f176
+PODFILE CHECKSUM: 24b337295b8f871f24c4c0474c0ed668814d47a4
 
 COCOAPODS: 1.7.0.rc.1

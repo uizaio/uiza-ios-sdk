@@ -7,18 +7,18 @@
 //
 
 import UIKit
-//import FrameLayoutKit
+import FrameLayoutKit
 import NKModalViewManager
-//import UZButton
+import NKButton
 
 open class UZLiveStreamUIView: UIView, UITextFieldDelegate {
 	public var onButtonSelected: ((_ button: UIControl?) -> Void)? = nil
 	
-	public let closeButton = UZButton()
-	public let beautyButton = UZButton()
-	public let cameraButton = UZButton()
-	public let viewsBadge = UZButton()
-	public let liveBadge = UZButton()
+	public let closeButton = NKButton()
+	public let beautyButton = NKButton()
+	public let cameraButton = NKButton()
+	public let viewsBadge = NKButton()
+	public let liveBadge = NKButton()
 	
 	public let containerView = UIView()
 	internal var topFrameLayout: DoubleFrameLayout!

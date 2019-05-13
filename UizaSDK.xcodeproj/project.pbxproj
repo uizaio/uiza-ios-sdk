@@ -10,7 +10,6 @@
 		163849A827C58046540C4204 /* Pods_UizaSDK_tvos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F0DB6A0DADFF98D5467FDD3 /* Pods_UizaSDK_tvos.framework */; };
 		63098531226F183300D45469 /* UZLiveStreamUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D3A5FA224E08BB00732A0C /* UZLiveStreamUIView.swift */; };
 		63098532226F183300D45469 /* UZLiveStreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D3A5FB224E08BB00732A0C /* UZLiveStreamViewController.swift */; };
-		630C394E22607F0000ACFDAE /* UZButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630C394D22607F0000ACFDAE /* UZButton.swift */; };
 		630C396922607F9400ACFDAE /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630C395022607F9400ACFDAE /* Math.swift */; };
 		630C396A22607F9400ACFDAE /* UIKit+Tweenable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630C395122607F9400ACFDAE /* UIKit+Tweenable.swift */; };
 		630C396B22607F9400ACFDAE /* BezierAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630C395222607F9400ACFDAE /* BezierAction.swift */; };
@@ -34,9 +33,6 @@
 		630C397E22607F9400ACFDAE /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630C396522607F9400ACFDAE /* Action.swift */; };
 		630C397F22607F9400ACFDAE /* Lazy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630C396622607F9400ACFDAE /* Lazy.swift */; };
 		630C398122607F9400ACFDAE /* Tweenable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630C396822607F9400ACFDAE /* Tweenable.swift */; };
-		630C398722607FFA00ACFDAE /* DoubleFrameLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630C398322607FFA00ACFDAE /* DoubleFrameLayout.swift */; };
-		630C398922607FFA00ACFDAE /* FrameLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630C398522607FFA00ACFDAE /* FrameLayout.swift */; };
-		630C398A22607FFA00ACFDAE /* StackFrameLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630C398622607FFA00ACFDAE /* StackFrameLayout.swift */; };
 		63193FE9225102DD00FFC560 /* UZEndscreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D3A5DB224E08BB00732A0C /* UZEndscreenView.swift */; };
 		63193FEA225102DD00FFC560 /* UZRelatedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D3A5DC224E08BB00732A0C /* UZRelatedViewController.swift */; };
 		63193FEB225102DD00FFC560 /* UZMediaOptionSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D3A5DD224E08BB00732A0C /* UZMediaOptionSelectionViewController.swift */; };
@@ -98,7 +94,6 @@
 		636725A722686A7F0072612F /* UZTheme5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D3A5F2224E08BB00732A0C /* UZTheme5.swift */; };
 		636725A822686A7F0072612F /* UZTheme6.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D3A5F5224E08BB00732A0C /* UZTheme6.swift */; };
 		636725A922686A7F0072612F /* UZTheme7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D3A5F1224E08BB00732A0C /* UZTheme7.swift */; };
-		636725AA22686A820072612F /* UZButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630C394D22607F0000ACFDAE /* UZButton.swift */; };
 		636725AB22686AA70072612F /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630C395022607F9400ACFDAE /* Math.swift */; };
 		636725AC22686AAB0072612F /* UIKit+Tweenable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630C395122607F9400ACFDAE /* UIKit+Tweenable.swift */; };
 		636725AD22686AAB0072612F /* BezierAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630C395222607F9400ACFDAE /* BezierAction.swift */; };
@@ -122,9 +117,6 @@
 		636725BF22686AB70072612F /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630C396522607F9400ACFDAE /* Action.swift */; };
 		636725C022686AB70072612F /* Lazy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630C396622607F9400ACFDAE /* Lazy.swift */; };
 		636725C122686AB70072612F /* Tweenable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630C396822607F9400ACFDAE /* Tweenable.swift */; };
-		636725C222686AC70072612F /* DoubleFrameLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630C398322607FFA00ACFDAE /* DoubleFrameLayout.swift */; };
-		636725C322686AC70072612F /* FrameLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630C398522607FFA00ACFDAE /* FrameLayout.swift */; };
-		636725C422686AC70072612F /* StackFrameLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630C398622607FFA00ACFDAE /* StackFrameLayout.swift */; };
 		636725C522686ACD0072612F /* Icofont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63D3A5FF224E08BB00732A0C /* Icofont.ttf */; };
 		636725C622686ACD0072612F /* MapIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63D3A600224E08BB00732A0C /* MapIcons.ttf */; };
 		636725C722686ACD0072612F /* Dripicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63D3A601224E08BB00732A0C /* Dripicons.ttf */; };
@@ -279,7 +271,6 @@
 		16A4CDC3C71D0CAE21F66816 /* Pods-UizaSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UizaSDK.debug.xcconfig"; path = "Target Support Files/Pods-UizaSDK/Pods-UizaSDK.debug.xcconfig"; sourceTree = "<group>"; };
 		33FBEDE5A4759FA9A1B02BC5 /* Pods-UizaSDK-tvos.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UizaSDK-tvos.release.xcconfig"; path = "Target Support Files/Pods-UizaSDK-tvos/Pods-UizaSDK-tvos.release.xcconfig"; sourceTree = "<group>"; };
 		5F0DB6A0DADFF98D5467FDD3 /* Pods_UizaSDK_tvos.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UizaSDK_tvos.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		630C394D22607F0000ACFDAE /* UZButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZButton.swift; sourceTree = "<group>"; };
 		630C395022607F9400ACFDAE /* Math.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
 		630C395122607F9400ACFDAE /* UIKit+Tweenable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIKit+Tweenable.swift"; sourceTree = "<group>"; };
 		630C395222607F9400ACFDAE /* BezierAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BezierAction.swift; sourceTree = "<group>"; };
@@ -303,9 +294,6 @@
 		630C396522607F9400ACFDAE /* Action.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
 		630C396622607F9400ACFDAE /* Lazy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lazy.swift; sourceTree = "<group>"; };
 		630C396822607F9400ACFDAE /* Tweenable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tweenable.swift; sourceTree = "<group>"; };
-		630C398322607FFA00ACFDAE /* DoubleFrameLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoubleFrameLayout.swift; sourceTree = "<group>"; };
-		630C398522607FFA00ACFDAE /* FrameLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrameLayout.swift; sourceTree = "<group>"; };
-		630C398622607FFA00ACFDAE /* StackFrameLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackFrameLayout.swift; sourceTree = "<group>"; };
 		6367257F226868280072612F /* UizaSDKTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UizaSDKTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63672581226868290072612F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		63672583226868290072612F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -468,23 +456,11 @@
 			path = TweenKit;
 			sourceTree = "<group>";
 		};
-		630C398222607FFA00ACFDAE /* FrameLayoutKit */ = {
-			isa = PBXGroup;
-			children = (
-				630C398322607FFA00ACFDAE /* DoubleFrameLayout.swift */,
-				630C398522607FFA00ACFDAE /* FrameLayout.swift */,
-				630C398622607FFA00ACFDAE /* StackFrameLayout.swift */,
-			);
-			path = FrameLayoutKit;
-			sourceTree = "<group>";
-		};
 		630C398B2260832D00ACFDAE /* Components */ = {
 			isa = PBXGroup;
 			children = (
 				63D3A5FD224E08BB00732A0C /* SwiftIcons */,
-				630C398222607FFA00ACFDAE /* FrameLayoutKit */,
 				630C394F22607F9400ACFDAE /* TweenKit */,
-				630C394D22607F0000ACFDAE /* UZButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1053,7 +1029,6 @@
 				636725EC22686AE00072612F /* AVAudioSession+Airplay.swift in Sources */,
 				636725EF22686AE00072612F /* NSTimeInterval+ToString.swift in Sources */,
 				636725B622686AB30072612F /* RepeatAction.swift in Sources */,
-				636725C322686AC70072612F /* FrameLayout.swift in Sources */,
 				636725B822686AB30072612F /* UIBezierPath+BezierPath.swift in Sources */,
 				63098531226F183300D45469 /* UZLiveStreamUIView.swift in Sources */,
 				636725DF22686AD70072612F /* UizaSDK.swift in Sources */,
@@ -1074,9 +1049,7 @@
 				636725E822686AE00072612F /* UIApplication+Version.swift in Sources */,
 				636725A022686A7C0072612F /* UZSlider.swift in Sources */,
 				636725E622686ADB0072612F /* DateHelper.swift in Sources */,
-				636725C422686AC70072612F /* StackFrameLayout.swift in Sources */,
 				636725ED22686AE00072612F /* UIViewController+TopPresented.swift in Sources */,
-				636725AA22686A820072612F /* UZButton.swift in Sources */,
 				636725F722686AE00072612F /* String+Value.swift in Sources */,
 				636725A422686A7F0072612F /* UZTheme2.swift in Sources */,
 				636725B122686AAB0072612F /* DelayAction.swift in Sources */,
@@ -1127,7 +1100,6 @@
 				636725D922686AD70072612F /* UZAdsCuePoint.swift in Sources */,
 				636725F822686AE00072612F /* NotificationName+Uiza.swift in Sources */,
 				63672582226868290072612F /* AppDelegate.swift in Sources */,
-				636725C222686AC70072612F /* DoubleFrameLayout.swift in Sources */,
 				636725A822686A7F0072612F /* UZTheme6.swift in Sources */,
 				6367259422686A3F0072612F /* UZPlaylistViewController.swift in Sources */,
 				636725A222686A7C0072612F /* UZCastButton.swift in Sources */,
@@ -1192,7 +1164,6 @@
 				63D3A62C224E08BB00732A0C /* UZPagination.swift in Sources */,
 				630C397B22607F9400ACFDAE /* ActionScheduler.swift in Sources */,
 				63193FFE2251032E00FFC560 /* UZTheme1.swift in Sources */,
-				630C398A22607FFA00ACFDAE /* StackFrameLayout.swift in Sources */,
 				631940072251036F00FFC560 /* SwiftIcons.swift in Sources */,
 				63193FED225102DD00FFC560 /* UZCastingView.swift in Sources */,
 				631940032251032E00FFC560 /* UZTheme4.swift in Sources */,
@@ -1201,7 +1172,6 @@
 				630C397122607F9400ACFDAE /* CoreGraphics+Tweenable.swift in Sources */,
 				630C397622607F9400ACFDAE /* UIBezierPath+BezierPath.swift in Sources */,
 				630C397022607F9400ACFDAE /* ReverseAction.swift in Sources */,
-				630C394E22607F0000ACFDAE /* UZButton.swift in Sources */,
 				630C397922607F9400ACFDAE /* InterpolateAction.swift in Sources */,
 				63193FF9225102E100FFC560 /* UZCastButton.swift in Sources */,
 				63193FF7225102E100FFC560 /* UZSlider.swift in Sources */,
@@ -1268,7 +1238,6 @@
 				631940042251032E00FFC560 /* UZTheme6.swift in Sources */,
 				63D3A66A224E08BB00732A0C /* NSTimeInterval+ToString.swift in Sources */,
 				630C397222607F9400ACFDAE /* RunBlockAction.swift in Sources */,
-				630C398922607FFA00ACFDAE /* FrameLayout.swift in Sources */,
 				63193FFA225102E500FFC560 /* UZMediaResource.swift in Sources */,
 				630C397822607F9400ACFDAE /* RepeatForeverAction.swift in Sources */,
 				630C397322607F9400ACFDAE /* ActionScrubber.swift in Sources */,
@@ -1277,7 +1246,6 @@
 				63D3A62B224E08BB00732A0C /* UZMenuItem.swift in Sources */,
 				63193FEB225102DD00FFC560 /* UZMediaOptionSelectionViewController.swift in Sources */,
 				63D3A66C224E08BB00732A0C /* String+ToBool.swift in Sources */,
-				630C398722607FFA00ACFDAE /* DoubleFrameLayout.swift in Sources */,
 				63D3A628224E08BB00732A0C /* UizaSDK.swift in Sources */,
 				63D3A670224E08BB00732A0C /* Number+Extentions.swift in Sources */,
 				630C396F22607F9400ACFDAE /* DelayAction.swift in Sources */,

@@ -8,7 +8,7 @@
 
 import UIKit
 import NKModalViewManager
-//import FrameLayoutKit
+import FrameLayoutKit
 
 internal class UZRelatedViewController: UIViewController {
 	let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
@@ -337,7 +337,7 @@ internal class UZVideoCollectionViewController: UICollectionViewController, UICo
 // MARK: - UZMovieItemCollectionViewCell
 
 import SDWebImage
-//import FrameLayoutKit
+import FrameLayoutKit
 
 class UZMovieItemCollectionViewCell : UICollectionViewCell {
 	let imageView			= UIImageView()

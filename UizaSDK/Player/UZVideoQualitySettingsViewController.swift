@@ -7,7 +7,7 @@
 //
 
 import UIKit
-//import FrameLayoutKit
+import FrameLayoutKit
 import NKModalViewManager
 
 internal class UZVideoQualitySettingsViewController: UIViewController {
@@ -336,7 +336,7 @@ internal class UZVideoQualityCollectionViewController: UICollectionViewControlle
 
 // MARK: - UZQualityItemCollectionViewCell
 
-//import FrameLayoutKit
+import FrameLayoutKit
 
 class UZQualityItemCollectionViewCell : UICollectionViewCell {
 	var highlightView		: UIView!

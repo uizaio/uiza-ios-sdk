@@ -8,7 +8,7 @@
 
 import UIKit
 import AVFoundation
-//import FrameLayoutKit
+import FrameLayoutKit
 import NKModalViewManager
 
 class UZMediaOptionSelectionViewController: UIViewController {
@@ -328,7 +328,7 @@ internal class UZMediaOptionSelectionCollectionViewController: UICollectionViewC
 
 // MARK: - UZMediaOptionItemCollectionViewCell
 
-//import FrameLayoutKit
+import FrameLayoutKit
 
 class UZMediaOptionItemCollectionViewCell : UICollectionViewCell {
 	var highlightView		: UIView!

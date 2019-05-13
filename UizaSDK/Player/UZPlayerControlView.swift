@@ -7,11 +7,11 @@
 //
 
 import UIKit
-//import UZButton
-//import FrameLayoutKit
+import NKButton
+import FrameLayoutKit
 import NVActivityIndicatorView
 
-public enum UZButtonTag: Int {
+public enum NKButtonTag: Int {
 	case play       = 101
 	case pause      = 102
 	case back       = 103
@@ -160,24 +160,24 @@ open class UZPlayerControlView: UIView {
 	public let currentTimeLabel = UILabel()
 	public let totalTimeLabel = UILabel()
 	public let remainTimeLabel = UILabel()
-	public let playpauseCenterButton = UZButton()
-	public let playpauseButton = UZButton()
-	public let forwardButton = UZButton()
-	public let backwardButton = UZButton()
-	public let nextButton = UZButton()
-	public let previousButton = UZButton()
-	public let volumeButton = UZButton()
-	public let backButton = UZButton()
-	public let fullscreenButton = UZButton()
-	public let playlistButton = UZButton()
-	public let relateButton = UZButton()
-	public let ccButton = UZButton()
-	public let settingsButton = UZButton()
-	public let helpButton = UZButton()
-	public let pipButton = UZButton()
+	public let playpauseCenterButton = NKButton()
+	public let playpauseButton = NKButton()
+	public let forwardButton = NKButton()
+	public let backwardButton = NKButton()
+	public let nextButton = NKButton()
+	public let previousButton = NKButton()
+	public let volumeButton = NKButton()
+	public let backButton = NKButton()
+	public let fullscreenButton = NKButton()
+	public let playlistButton = NKButton()
+	public let relateButton = NKButton()
+	public let ccButton = NKButton()
+	public let settingsButton = NKButton()
+	public let helpButton = NKButton()
+	public let pipButton = NKButton()
 	public let castingButton = UZCastButton()
-	public let enlapseTimeLabel = UZButton()
-	public let logoButton = UZButton()
+	public let enlapseTimeLabel = NKButton()
+	public let logoButton = NKButton()
 	public let airplayButton = UZAirPlayButton()
 	public let coverImageView = UIImageView()
 	public let liveBadgeView = UZLiveBadgeView()
@@ -249,24 +249,24 @@ open class UZPlayerControlView: UIView {
 		
 		loadingIndicatorView?.isUserInteractionEnabled = false
 		
-		playpauseCenterButton.tag = UZButtonTag.play.rawValue
-		playpauseButton.tag = UZButtonTag.play.rawValue
-		backButton.tag = UZButtonTag.back.rawValue
-		fullscreenButton.tag = UZButtonTag.fullscreen.rawValue
-		settingsButton.tag = UZButtonTag.settings.rawValue
-		forwardButton.tag = UZButtonTag.forward.rawValue
-		backwardButton.tag = UZButtonTag.backward.rawValue
-		nextButton.tag = UZButtonTag.next.rawValue
-		previousButton.tag = UZButtonTag.previous.rawValue
-		volumeButton.tag = UZButtonTag.volume.rawValue
-		playlistButton.tag = UZButtonTag.playlist.rawValue
-		relateButton.tag = UZButtonTag.relates.rawValue
-		ccButton.tag = UZButtonTag.caption.rawValue
-		helpButton.tag = UZButtonTag.help.rawValue
-		pipButton.tag = UZButtonTag.pip.rawValue
-		airplayButton.tag = UZButtonTag.airplay.rawValue
-		castingButton.tag = UZButtonTag.casting.rawValue
-		logoButton.tag = UZButtonTag.logo.rawValue
+		playpauseCenterButton.tag = NKButtonTag.play.rawValue
+		playpauseButton.tag = NKButtonTag.play.rawValue
+		backButton.tag = NKButtonTag.back.rawValue
+		fullscreenButton.tag = NKButtonTag.fullscreen.rawValue
+		settingsButton.tag = NKButtonTag.settings.rawValue
+		forwardButton.tag = NKButtonTag.forward.rawValue
+		backwardButton.tag = NKButtonTag.backward.rawValue
+		nextButton.tag = NKButtonTag.next.rawValue
+		previousButton.tag = NKButtonTag.previous.rawValue
+		volumeButton.tag = NKButtonTag.volume.rawValue
+		playlistButton.tag = NKButtonTag.playlist.rawValue
+		relateButton.tag = NKButtonTag.relates.rawValue
+		ccButton.tag = NKButtonTag.caption.rawValue
+		helpButton.tag = NKButtonTag.help.rawValue
+		pipButton.tag = NKButtonTag.pip.rawValue
+		airplayButton.tag = NKButtonTag.airplay.rawValue
+		castingButton.tag = NKButtonTag.casting.rawValue
+		logoButton.tag = NKButtonTag.logo.rawValue
 		
 		self.allButtons.forEach { (button) in
 			button.showsTouchWhenHighlighted = true
@@ -671,7 +671,7 @@ open class UZPlayerControlView: UIView {
 	@objc open func onButtonPressed(_ button: UIButton) {
 		autoFadeOutControlView(after: autoHideControlsInterval)
 		
-		if let type = UZButtonTag(rawValue: button.tag) {
+		if let type = NKButtonTag(rawValue: button.tag) {
 			switch type {
 			case .play, .replay:
 				hideEndScreen()
@@ -753,7 +753,7 @@ extension UZPlayerControlView: UIGestureRecognizerDelegate {
 }
 
 // MARK: - UZLiveBadgeView
-//import FrameLayoutKit
+import FrameLayoutKit
 
 open class UZLiveBadgeView: UIView {
 	
@@ -771,8 +771,8 @@ open class UZLiveBadgeView: UIView {
 		}
 	}
 	
-	fileprivate let liveBadge = UZButton()
-	fileprivate let viewBadge = UZButton()
+	fileprivate let liveBadge = NKButton()
+	fileprivate let viewBadge = NKButton()
 	fileprivate var frameLayout: DoubleFrameLayout!
 	
 	init() {

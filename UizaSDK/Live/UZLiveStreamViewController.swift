@@ -225,7 +225,7 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 				
 				if error != nil || liveEvent == nil {
 					let errorMessage = error != nil ? error!.localizedDescription : "No live event was set"
-					self.showAlert(title: "Error", message: errorMessage)
+					self.showAlert(title: Common.error, message: errorMessage)
 				}
 				else {
 					self.startLive(event: liveEvent)
@@ -233,7 +233,7 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 			}
 		}
 		else {
-			self.showAlert(title: "Error", message: "No live event id was set")
+			self.showAlert(title: Common.error, message: "No live event id was set")
 		}
 	}
 	
@@ -256,7 +256,7 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 		if !event.isReadyToLive {
 			UZLiveServices().startLiveEvent(id: event.id) { (error) in
 				if error != nil {
-					self.showAlert(title: "Error", message: error!.localizedDescription)
+					self.showAlert(title: Common.error, message: error!.localizedDescription)
 				}
 				else {
 					event.isReadyToLive = true
@@ -284,7 +284,7 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 			UIApplication.shared.isIdleTimerDisabled = true
 		}
 		else {
-			showAlert(title: "Error", message: "No broadcast url")
+			showAlert(title: Common.error, message: "No broadcast url")
 		}
 	}
 	
@@ -368,7 +368,7 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 	}
 	
 	fileprivate func showAlert(title: String, message: String) {
-		let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+		let alert = UIAlertController(title: Common.error, message: message, preferredStyle: .alert)
 		alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { (action) in
 			alert.dismiss(animated: true, completion: nil)
 		}))

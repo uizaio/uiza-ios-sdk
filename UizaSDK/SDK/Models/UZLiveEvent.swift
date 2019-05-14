@@ -36,7 +36,7 @@ public class UZLiveEvent: UZVideoItem {
 			DLog("\(data)")
 			super.parse(data)
 			
-			if var posterString = data.string(for: "poster", defaultString: "https://static.uiza.io/2017/11/27/uiza-logo-demo-mobile.png") {
+			if var posterString = data.string(for: "poster", defaultString: APIConstant.posterLink) {
 				if posterString.hasPrefix("//") {
 					posterString = "https:" + posterString
 				}

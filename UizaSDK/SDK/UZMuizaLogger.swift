@@ -180,7 +180,7 @@ open class UZMuizaLogger : UZAPIConnector{
 		lastSentDate = Date()
 		self.requestHeaderFields = ["AccessToken" : accessToken]
 		self.encodingType = ArrayEncoding()
-		self.callAPI("v2/muiza/eventbulk/mobile", baseURLString: loggingURLString, method: .post, params: logArray.asParameters()) { [weak self] (result, error) in
+		self.callAPI(APIConstant.muizaLoggingApi, baseURLString: loggingURLString, method: .post, params: logArray.asParameters()) { [weak self] (result, error) in
 			if error == nil {
 				self?.stopAutoSendLogs()
 				self?.logArray = []

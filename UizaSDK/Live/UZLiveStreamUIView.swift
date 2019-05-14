@@ -65,7 +65,7 @@ open class UZLiveStreamUIView: UIView, UITextFieldDelegate {
 		} else {
 			liveBadge.titleLabel?.font = UIFont.systemFont(ofSize: 12)
 		}
-		liveBadge.setTitle("LIVE", for: .normal)
+		liveBadge.setTitle(Common.live, for: .normal)
 		liveBadge.setTitleColor(.white, for: .normal)
 		liveBadge.setBackgroundColor(UIColor(red:0.91, green:0.31, blue:0.28, alpha:1.00), for: .normal)
 		liveBadge.isUserInteractionEnabled = false

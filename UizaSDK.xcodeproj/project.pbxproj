@@ -269,12 +269,6 @@
 		69622F57228417E900CB3895 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69622F54228415E500CB3895 /* Common.swift */; };
 		698E9A3022891EAB0072455C /* UZPlayer+++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698E9A2F22891EAB0072455C /* UZPlayer+++.swift */; };
 		698E9A312289211F0072455C /* UZPlayer+++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698E9A2F22891EAB0072455C /* UZPlayer+++.swift */; };
-		698E9A3522894FA20072455C /* SwiftIcons+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698E9A3422894FA20072455C /* SwiftIcons+.swift */; };
-		698E9A36228950790072455C /* SwiftIcons+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698E9A3422894FA20072455C /* SwiftIcons+.swift */; };
-		698E9A38228953460072455C /* SwiftIcon++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698E9A37228953460072455C /* SwiftIcon++.swift */; };
-		69EEEC6B22852DDF0076A956 /* DataHelperExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EEEC6A22852DDF0076A956 /* DataHelperExtension.swift */; };
-		69EEEC6E228538F40076A956 /* DataHelperExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EEEC6A22852DDF0076A956 /* DataHelperExtension.swift */; };
-		69EEEC6F228538FA0076A956 /* DataHelperExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EEEC6A22852DDF0076A956 /* DataHelperExtension.swift */; };
 		69EEEC7A2285629E0076A956 /* UZPlayer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EEEC792285629E0076A956 /* UZPlayer+.swift */; };
 		69EEEC7B228562CF0076A956 /* UZPlayer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EEEC792285629E0076A956 /* UZPlayer+.swift */; };
 		69EEEC7D228569210076A956 /* UZPlayer++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EEEC7C228569210076A956 /* UZPlayer++.swift */; };
@@ -415,9 +409,6 @@
 		63D3A623224E08BB00732A0C /* String+ToDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+ToDictionary.swift"; sourceTree = "<group>"; };
 		69622F54228415E500CB3895 /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		698E9A2F22891EAB0072455C /* UZPlayer+++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UZPlayer+++.swift"; sourceTree = "<group>"; };
-		698E9A3422894FA20072455C /* SwiftIcons+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SwiftIcons+.swift"; sourceTree = "<group>"; };
-		698E9A37228953460072455C /* SwiftIcon++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SwiftIcon++.swift"; sourceTree = "<group>"; };
-		69EEEC6A22852DDF0076A956 /* DataHelperExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataHelperExtension.swift; sourceTree = "<group>"; };
 		69EEEC792285629E0076A956 /* UZPlayer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UZPlayer+.swift"; sourceTree = "<group>"; };
 		69EEEC7C228569210076A956 /* UZPlayer++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UZPlayer++.swift"; sourceTree = "<group>"; };
 		69EEEC7F2285705E0076A956 /* UZPlayerControlView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UZPlayerControlView+.swift"; sourceTree = "<group>"; };
@@ -670,7 +661,6 @@
 			children = (
 				69622F54228415E500CB3895 /* Common.swift */,
 				63D3A60F224E08BB00732A0C /* DateHelper.swift */,
-				69EEEC6A22852DDF0076A956 /* DataHelperExtension.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -680,8 +670,6 @@
 			children = (
 				63D3A5FE224E08BB00732A0C /* Fonts */,
 				63D3A60E224E08BB00732A0C /* SwiftIcons.swift */,
-				698E9A3422894FA20072455C /* SwiftIcons+.swift */,
-				698E9A37228953460072455C /* SwiftIcon++.swift */,
 			);
 			path = SwiftIcons;
 			sourceTree = "<group>";
@@ -1089,7 +1077,6 @@
 				636725F222686AE00072612F /* NSDictionary+KeyValue.swift in Sources */,
 				636725F422686AE00072612F /* String+Components.swift in Sources */,
 				636725F922686AE00072612F /* String+ToDictionary.swift in Sources */,
-				69EEEC6E228538F40076A956 /* DataHelperExtension.swift in Sources */,
 				6367259922686A3F0072612F /* UZCastingView.swift in Sources */,
 				636725BD22686AB70072612F /* ArcAction.swift in Sources */,
 				636725A622686A7F0072612F /* UZTheme4.swift in Sources */,
@@ -1116,7 +1103,6 @@
 				636725EE22686AE00072612F /* UIImage+Colorize.swift in Sources */,
 				636725DE22686AD70072612F /* UZVideoItem.swift in Sources */,
 				636725EB22686AE00072612F /* Error+Code.swift in Sources */,
-				698E9A36228950790072455C /* SwiftIcons+.swift in Sources */,
 				636725AB22686AA70072612F /* Math.swift in Sources */,
 				636725A122686A7C0072612F /* UZAirPlayButton.swift in Sources */,
 				69622F57228417E900CB3895 /* Common.swift in Sources */,
@@ -1197,7 +1183,6 @@
 				63672798226888580072612F /* UZVideoItem.swift in Sources */,
 				636727A1226888B40072612F /* NSTimeInterval+ToString.swift in Sources */,
 				63672790226888580072612F /* UZMenuItem.swift in Sources */,
-				69EEEC6F228538FA0076A956 /* DataHelperExtension.swift in Sources */,
 				6367279A226888B40072612F /* UIApplication+Version.swift in Sources */,
 				63672799226888B40072612F /* UIDevice+Extension.swift in Sources */,
 				63672788226888530072612F /* UizaSDK.swift in Sources */,
@@ -1243,7 +1228,6 @@
 				63D3A666224E08BB00732A0C /* Error+Code.swift in Sources */,
 				63D3A66F224E08BB00732A0C /* String+Components.swift in Sources */,
 				69EEEC7D228569210076A956 /* UZPlayer++.swift in Sources */,
-				69EEEC6B22852DDF0076A956 /* DataHelperExtension.swift in Sources */,
 				630C397422607F9400ACFDAE /* RepeatAction.swift in Sources */,
 				63193FEC225102DD00FFC560 /* UZPlayerViewController.swift in Sources */,
 				63B14B342282E3B900EB56FE /* UZSentry.swift in Sources */,
@@ -1287,7 +1271,6 @@
 				630C398122607F9400ACFDAE /* Tweenable.swift in Sources */,
 				63D3A66D224E08BB00732A0C /* NSDictionary+KeyValue.swift in Sources */,
 				63D3A624224E08BB00732A0C /* UZPlayerService.swift in Sources */,
-				698E9A38228953460072455C /* SwiftIcon++.swift in Sources */,
 				63D3A632224E08BB00732A0C /* UZPlayerConfig.swift in Sources */,
 				63D3A673224E08BB00732A0C /* NotificationName+Uiza.swift in Sources */,
 				63193FFF2251032E00FFC560 /* UZTheme3.swift in Sources */,
@@ -1310,7 +1293,6 @@
 				630C397322607F9400ACFDAE /* ActionScrubber.swift in Sources */,
 				63193FF5225102E100FFC560 /* NKProgressView.swift in Sources */,
 				631940052251034400FFC560 /* UZLogger.swift in Sources */,
-				698E9A3522894FA20072455C /* SwiftIcons+.swift in Sources */,
 				63D3A62B224E08BB00732A0C /* UZMenuItem.swift in Sources */,
 				63193FEB225102DD00FFC560 /* UZMediaOptionSelectionViewController.swift in Sources */,
 				63D3A66C224E08BB00732A0C /* String+ToBool.swift in Sources */,

@@ -84,7 +84,7 @@ extension UZPlayerControlView {
         }
     }
     
-    open func hideControlView(duration: CGFloat = 0.3) {
+    @objc open func hideControlView(duration: CGFloat = 0.3) {
         if containerView.alpha > 0 || containerView.isHidden == false {
             UIView.animate(withDuration: 0.3, animations: {
                 self.containerView.alpha = 0.0

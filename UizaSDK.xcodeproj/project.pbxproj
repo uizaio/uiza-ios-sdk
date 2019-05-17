@@ -270,6 +270,11 @@
 		69622F55228415E500CB3895 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69622F54228415E500CB3895 /* Common.swift */; };
 		69622F56228417E900CB3895 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69622F54228415E500CB3895 /* Common.swift */; };
 		69622F57228417E900CB3895 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69622F54228415E500CB3895 /* Common.swift */; };
+		697228E4228E931F00DEE5F1 /* UZPlayerMockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697228E1228E92C000DEE5F1 /* UZPlayerMockTests.swift */; };
+		697228EC228E936C00DEE5F1 /* UZPlayerMockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697228E1228E92C000DEE5F1 /* UZPlayerMockTests.swift */; };
+		697228F2228E945800DEE5F1 /* UZPlayerUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696072EE228A78F200911CD2 /* UZPlayerUnitTests.swift */; };
+		697228F3228E947500DEE5F1 /* UZFloatingPlayerViewControllerUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69582BEE228C14DF00200E60 /* UZFloatingPlayerViewControllerUnitTests.swift */; };
+		697228F4228E947700DEE5F1 /* UZPlayerControlViewUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694AF57B228D0D2F00C6DE7F /* UZPlayerControlViewUnitTests.swift */; };
 		698E9A3022891EAB0072455C /* UZPlayer+++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698E9A2F22891EAB0072455C /* UZPlayer+++.swift */; };
 		698E9A312289211F0072455C /* UZPlayer+++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698E9A2F22891EAB0072455C /* UZPlayer+++.swift */; };
 		69EEEC7A2285629E0076A956 /* UZPlayer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EEEC792285629E0076A956 /* UZPlayer+.swift */; };
@@ -286,6 +291,16 @@
 		69EEEC8A228580B10076A956 /* UZLiveStreamViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EEEC88228580650076A956 /* UZLiveStreamViewController+.swift */; };
 		B9D0CE07109F65922B96BD3B /* Pods_UizaSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A01B10B31103E52CE25F9D38 /* Pods_UizaSDK.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		696072F1228A78F200911CD2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 63D3A5B3224E07FA00732A0C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6367257E226868280072612F;
+			remoteInfo = UizaSDKTest;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		16A4CDC3C71D0CAE21F66816 /* Pods-UizaSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UizaSDK.debug.xcconfig"; path = "Target Support Files/Pods-UizaSDK/Pods-UizaSDK.debug.xcconfig"; sourceTree = "<group>"; };
@@ -411,7 +426,13 @@
 		63D3A621224E08BB00732A0C /* String+Value.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Value.swift"; sourceTree = "<group>"; };
 		63D3A622224E08BB00732A0C /* NotificationName+Uiza.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NotificationName+Uiza.swift"; sourceTree = "<group>"; };
 		63D3A623224E08BB00732A0C /* String+ToDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+ToDictionary.swift"; sourceTree = "<group>"; };
+		694AF57B228D0D2F00C6DE7F /* UZPlayerControlViewUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZPlayerControlViewUnitTests.swift; sourceTree = "<group>"; };
+		69582BEE228C14DF00200E60 /* UZFloatingPlayerViewControllerUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZFloatingPlayerViewControllerUnitTests.swift; sourceTree = "<group>"; };
+		696072EC228A78F200911CD2 /* UizaSDKUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UizaSDKUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		696072EE228A78F200911CD2 /* UZPlayerUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZPlayerUnitTests.swift; sourceTree = "<group>"; };
+		696072F0228A78F200911CD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		69622F54228415E500CB3895 /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
+		697228E1228E92C000DEE5F1 /* UZPlayerMockTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZPlayerMockTests.swift; sourceTree = "<group>"; };
 		698E9A2F22891EAB0072455C /* UZPlayer+++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UZPlayer+++.swift"; sourceTree = "<group>"; };
 		69EEEC792285629E0076A956 /* UZPlayer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UZPlayer+.swift"; sourceTree = "<group>"; };
 		69EEEC7C228569210076A956 /* UZPlayer++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UZPlayer++.swift"; sourceTree = "<group>"; };
@@ -449,6 +470,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				B9D0CE07109F65922B96BD3B /* Pods_UizaSDK.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		696072E9228A78F200911CD2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -523,6 +551,8 @@
 				63D3A5BE224E07FA00732A0C /* UizaSDK */,
 				63672580226868290072612F /* UizaSDKTest */,
 				63672781226888230072612F /* UizaSDK-tvos */,
+				696072ED228A78F200911CD2 /* UizaSDKUnitTests */,
+				69B4C3AD228AA88D0095043C /* UizaSDKMockTests */,
 				63D3A5BD224E07FA00732A0C /* Products */,
 				6DDFEE63A1C2408BEFF0EA90 /* Pods */,
 				A3D932B6D3933855DE087CAA /* Frameworks */,
@@ -535,6 +565,7 @@
 				63D3A5BC224E07FA00732A0C /* UizaSDK.framework */,
 				6367257F226868280072612F /* UizaSDKTest.app */,
 				63672780226888230072612F /* UizaSDK_tvos.framework */,
+				696072EC228A78F200911CD2 /* UizaSDKUnitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -727,6 +758,25 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		696072ED228A78F200911CD2 /* UizaSDKUnitTests */ = {
+			isa = PBXGroup;
+			children = (
+				696072EE228A78F200911CD2 /* UZPlayerUnitTests.swift */,
+				69582BEE228C14DF00200E60 /* UZFloatingPlayerViewControllerUnitTests.swift */,
+				694AF57B228D0D2F00C6DE7F /* UZPlayerControlViewUnitTests.swift */,
+				696072F0228A78F200911CD2 /* Info.plist */,
+			);
+			path = UizaSDKUnitTests;
+			sourceTree = "<group>";
+		};
+		69B4C3AD228AA88D0095043C /* UizaSDKMockTests */ = {
+			isa = PBXGroup;
+			children = (
+				697228E1228E92C000DEE5F1 /* UZPlayerMockTests.swift */,
+			);
+			path = UizaSDKMockTests;
+			sourceTree = "<group>";
+		};
 		6DDFEE63A1C2408BEFF0EA90 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -831,6 +881,24 @@
 			productReference = 63D3A5BC224E07FA00732A0C /* UizaSDK.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		696072EB228A78F200911CD2 /* UizaSDKUnitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 696072F5228A78F200911CD2 /* Build configuration list for PBXNativeTarget "UizaSDKUnitTests" */;
+			buildPhases = (
+				696072E8228A78F200911CD2 /* Sources */,
+				696072E9228A78F200911CD2 /* Frameworks */,
+				696072EA228A78F200911CD2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				696072F2228A78F200911CD2 /* PBXTargetDependency */,
+			);
+			name = UizaSDKUnitTests;
+			productName = UizaSDKUnitTests;
+			productReference = 696072EC228A78F200911CD2 /* UizaSDKUnitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -851,6 +919,10 @@
 					63D3A5BB224E07FA00732A0C = {
 						CreatedOnToolsVersion = 10.2;
 					};
+					696072EB228A78F200911CD2 = {
+						CreatedOnToolsVersion = 10.2;
+						TestTargetID = 6367257E226868280072612F;
+					};
 				};
 			};
 			buildConfigurationList = 63D3A5B6224E07FA00732A0C /* Build configuration list for PBXProject "UizaSDK" */;
@@ -869,6 +941,7 @@
 				63D3A5BB224E07FA00732A0C /* UizaSDK */,
 				6367277F226888230072612F /* UizaSDK-tvos */,
 				6367257E226868280072612F /* UizaSDKTest */,
+				696072EB228A78F200911CD2 /* UizaSDKUnitTests */,
 			);
 		};
 /* End PBXProject section */
@@ -925,6 +998,13 @@
 				63D3A656224E08BB00732A0C /* WeatherIcons.ttf in Resources */,
 				63D3A651224E08BB00732A0C /* Icofont.ttf in Resources */,
 				63D3A65D224E08BB00732A0C /* Emoji.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		696072EA228A78F200911CD2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1106,6 +1186,7 @@
 				6367259E22686A7C0072612F /* NKProgressView.swift in Sources */,
 				636725E422686AD70072612F /* UZMuizaLogger.swift in Sources */,
 				636725BE22686AB70072612F /* ActionSequence.swift in Sources */,
+				697228EC228E936C00DEE5F1 /* UZPlayerMockTests.swift in Sources */,
 				636725EE22686AE00072612F /* UIImage+Colorize.swift in Sources */,
 				636725DE22686AD70072612F /* UZVideoItem.swift in Sources */,
 				636725EB22686AE00072612F /* Error+Code.swift in Sources */,
@@ -1259,6 +1340,7 @@
 				63193FF0225102DD00FFC560 /* UZCastingManager.swift in Sources */,
 				63D3A663224E08BB00732A0C /* UIApplication+Version.swift in Sources */,
 				63193FF8225102E100FFC560 /* UZAirPlayButton.swift in Sources */,
+				697228E4228E931F00DEE5F1 /* UZPlayerMockTests.swift in Sources */,
 				630C397522607F9400ACFDAE /* YoyoAction.swift in Sources */,
 				630C397E22607F9400ACFDAE /* Action.swift in Sources */,
 				63193FF2225102DD00FFC560 /* UZPlaylistViewController.swift in Sources */,
@@ -1312,7 +1394,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		696072E8228A78F200911CD2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				697228F3228E947500DEE5F1 /* UZFloatingPlayerViewControllerUnitTests.swift in Sources */,
+				697228F2228E945800DEE5F1 /* UZPlayerUnitTests.swift in Sources */,
+				697228F4228E947700DEE5F1 /* UZPlayerControlViewUnitTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		696072F2228A78F200911CD2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6367257E226868280072612F /* UizaSDKTest */;
+			targetProxy = 696072F1228A78F200911CD2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		63672585226868290072612F /* Main.storyboard */ = {
@@ -1620,6 +1720,48 @@
 			};
 			name = Release;
 		};
+		696072F3228A78F200911CD2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				ENABLE_TESTABILITY = YES;
+				INFOPLIST_FILE = UizaSDKUnitTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.uiza.UizaSDKUnitTest.UizaSDKUnitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/UizaSDKTest.app/UizaSDKTest";
+			};
+			name = Debug;
+		};
+		696072F4228A78F200911CD2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				ENABLE_TESTABILITY = NO;
+				INFOPLIST_FILE = UizaSDKUnitTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.uiza.UizaSDKUnitTest.UizaSDKUnitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/UizaSDKTest.app/UizaSDKTest";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1655,6 +1797,15 @@
 			buildConfigurations = (
 				63D3A5C5224E07FA00732A0C /* Debug */,
 				63D3A5C6224E07FA00732A0C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		696072F5228A78F200911CD2 /* Build configuration list for PBXNativeTarget "UizaSDKUnitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				696072F3228A78F200911CD2 /* Debug */,
+				696072F4228A78F200911CD2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

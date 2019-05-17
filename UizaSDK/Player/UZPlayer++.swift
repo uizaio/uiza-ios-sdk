@@ -377,6 +377,7 @@ extension UZPlayer: AVPictureInPictureControllerDelegate {
 }
 
 #if ALLOW_GOOGLECAST
+import GoogleInteractiveMediaAds
 extension UZPlayer: IMAAdsLoaderDelegate, IMAAdsManagerDelegate {
     
     public func adsLoader(_ loader: IMAAdsLoader!, adsLoadedWith adsLoadedData: IMAAdsLoadedData!) {

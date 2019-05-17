@@ -210,6 +210,9 @@
 		636727AB226888B40072612F /* String+ToDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D3A623224E08BB00732A0C /* String+ToDictionary.swift */; };
 		636727AC226888B90072612F /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D3A60F224E08BB00732A0C /* DateHelper.swift */; };
 		636F1EC7A290586CB87F3772 /* Pods_UizaSDKTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B68470BD52DB4A497F5376D /* Pods_UizaSDKTest.framework */; };
+		63A4C8C6228E71880039620E /* AVAsset+Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A4C8C5228E71880039620E /* AVAsset+Selection.swift */; };
+		63A4C8C7228E71880039620E /* AVAsset+Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A4C8C5228E71880039620E /* AVAsset+Selection.swift */; };
+		63A4C8C8228E71880039620E /* AVAsset+Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A4C8C5228E71880039620E /* AVAsset+Selection.swift */; };
 		63B14B342282E3B900EB56FE /* UZSentry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B14B332282E3B900EB56FE /* UZSentry.swift */; };
 		63B14B352282E3B900EB56FE /* UZSentry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B14B332282E3B900EB56FE /* UZSentry.swift */; };
 		63B14B362282E3B900EB56FE /* UZSentry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B14B332282E3B900EB56FE /* UZSentry.swift */; };
@@ -322,6 +325,7 @@
 		63672780226888230072612F /* UizaSDK_tvos.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UizaSDK_tvos.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		63672782226888230072612F /* UizaSDK_tvos.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UizaSDK_tvos.h; sourceTree = "<group>"; };
 		63672783226888230072612F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		63A4C8C5228E71880039620E /* AVAsset+Selection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVAsset+Selection.swift"; sourceTree = "<group>"; };
 		63B14B332282E3B900EB56FE /* UZSentry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZSentry.swift; sourceTree = "<group>"; };
 		63D3A5BC224E07FA00732A0C /* UizaSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UizaSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		63D3A5BF224E07FA00732A0C /* UizaSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UizaSDK.h; sourceTree = "<group>"; };
@@ -705,6 +709,7 @@
 				63D3A614224E08BB00732A0C /* UIColor+Hex.swift */,
 				63D3A615224E08BB00732A0C /* Error+Code.swift */,
 				63D3A616224E08BB00732A0C /* AVAudioSession+Airplay.swift */,
+				63A4C8C5228E71880039620E /* AVAsset+Selection.swift */,
 				63D3A617224E08BB00732A0C /* UIViewController+TopPresented.swift */,
 				63D3A618224E08BB00732A0C /* UIImage+Colorize.swift */,
 				63D3A619224E08BB00732A0C /* NSTimeInterval+ToString.swift */,
@@ -1074,6 +1079,7 @@
 				6367259522686A3F0072612F /* UZPlayerControlView.swift in Sources */,
 				636725D722686AD70072612F /* UZPagination.swift in Sources */,
 				69EEEC812285708D0076A956 /* UZPlayerControlView+.swift in Sources */,
+				63A4C8C8228E71880039620E /* AVAsset+Selection.swift in Sources */,
 				636725F222686AE00072612F /* NSDictionary+KeyValue.swift in Sources */,
 				636725F422686AE00072612F /* String+Components.swift in Sources */,
 				636725F922686AE00072612F /* String+ToDictionary.swift in Sources */,
@@ -1164,6 +1170,7 @@
 				636727A8226888B40072612F /* NSError+Uiza.swift in Sources */,
 				63672791226888580072612F /* UZPagination.swift in Sources */,
 				636727A9226888B40072612F /* String+Value.swift in Sources */,
+				63A4C8C7228E71880039620E /* AVAsset+Selection.swift in Sources */,
 				636727A6226888B40072612F /* String+Components.swift in Sources */,
 				63672797226888580072612F /* UZPlayerConfig.swift in Sources */,
 				636727A3226888B40072612F /* String+ToBool.swift in Sources */,
@@ -1281,6 +1288,7 @@
 				631940002251032E00FFC560 /* UZTheme7.swift in Sources */,
 				63D3A627224E08BB00732A0C /* UZLiveServices.swift in Sources */,
 				69EEEC7A2285629E0076A956 /* UZPlayer+.swift in Sources */,
+				63A4C8C6228E71880039620E /* AVAsset+Selection.swift in Sources */,
 				63D3A629224E08BB00732A0C /* UZAPIConnector.swift in Sources */,
 				631940062251034400FFC560 /* UZMuizaLogger.swift in Sources */,
 				63D3A66B224E08BB00732A0C /* Dictionary+Append.swift in Sources */,

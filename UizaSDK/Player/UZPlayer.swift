@@ -107,14 +107,14 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		}
 	}
 	
-	public fileprivate(set) var currentVideo: UZVideoItem? {
+	public internal(set) var currentVideo: UZVideoItem? {
 		didSet {
 			controlView.currentVideo = currentVideo
 			playerLayer?.currentVideo = currentVideo
 		}
 	}
 	
-	public fileprivate(set) var currentLinkPlay: UZVideoLinkPlay?
+	public internal(set) var currentLinkPlay: UZVideoLinkPlay?
 	
 	public var themeConfig: UZPlayerConfig? = nil {
 		didSet {
@@ -140,14 +140,14 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		}
 	}
 	
-	public fileprivate(set) var resource: UZPlayerResource! {
+	public internal(set) var resource: UZPlayerResource! {
 		didSet {
 			controlView.resource = resource
 		}
 	}
 	
-	public fileprivate(set) var currentDefinition = 0
-	public fileprivate(set) var playerLayer: UZPlayerLayerView?
+	public internal(set) var currentDefinition = 0
+	public internal(set) var playerLayer: UZPlayerLayerView?
 	open var customControlView: UZPlayerControlView? {
 		didSet {
 			guard customControlView != controlView else { return }
@@ -174,27 +174,27 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		}
 	}
 	
-	public fileprivate(set) var totalDuration   : TimeInterval = 0
-	public fileprivate(set) var currentPosition : TimeInterval = 0
+	public internal(set) var totalDuration   : TimeInterval = 0
+	public internal(set) var currentPosition : TimeInterval = 0
 	
-	public fileprivate(set) var isURLSet        = false
-	public fileprivate(set) var isSliderSliding = false
-	public fileprivate(set) var isPauseByUser   = false
-	public fileprivate(set) var isPlayToTheEnd  = false
-	public fileprivate(set) var isReplaying		= false
+	public internal(set) var isURLSet        = false
+	public internal(set) var isSliderSliding = false
+	public internal(set) var isPauseByUser   = false
+	public internal(set) var isPlayToTheEnd  = false
+	public internal(set) var isReplaying		= false
 	
-	fileprivate var seekCount = 0
+	internal var seekCount = 0
     var bufferingCount = 0
     var playthrough_eventlog: [Float : Bool] = [:]
     let logPercent: [Float] = [25, 50, 75, 100]
 	
 	#if ALLOW_GOOGLECAST
-	fileprivate var contentPlayhead: IMAAVPlayerContentPlayhead?
-	fileprivate var adsLoader: IMAAdsLoader?
-	fileprivate var adsManager: IMAAdsManager?
+	internal var contentPlayhead: IMAAVPlayerContentPlayhead?
+	internal var adsLoader: IMAAdsLoader?
+	internal var adsManager: IMAAdsManager?
 	#endif
 	
-	fileprivate var _pictureInPictureController: Any? = nil
+	internal var _pictureInPictureController: Any? = nil
 	@available(iOS 9.0, *)
 	public internal(set) var pictureInPictureController: AVPictureInPictureController? {
 		get {
@@ -576,7 +576,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		}
 	}
 	
-	fileprivate func setupUI() {
+	internal func setupUI() {
 		self.backgroundColor = UIColor.black
 		
 		controlView = customControlView ?? UZPlayerControlView()
@@ -595,7 +595,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		#endif
 	}
 	
-	fileprivate func preparePlayer() {
+	internal func preparePlayer() {
 		playerLayer = UZPlayerLayerView()
 		playerLayer!.preferredForwardBufferDuration = preferredForwardBufferDuration
 		playerLayer!.videoGravity = videoGravity

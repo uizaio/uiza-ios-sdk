@@ -9,6 +9,10 @@
 import UIKit
 import AVFoundation
 import NKModalViewManager
+#if ALLOW_GOOGLECAST
+import GoogleCast
+#endif
+
 extension Notification.Name {
     static let UZShowAirPlayDeviceList    = Notification.Name(rawValue: "UZShowAirPlayDeviceList")
 }
@@ -25,30 +29,6 @@ public protocol UZPlayerControlViewDelegate: class {
     func controlView(controlView: UZPlayerControlView, didChooseDefinition index: Int)
     func controlView(controlView: UZPlayerControlView, didSelectButton button: UIButton)
     func controlView(controlView: UZPlayerControlView, slider: UISlider, onSliderEvent event: UIControl.Event)
-    
-}
-
-extension AVAsset {
-    
-    var subtitles: [AVMediaSelectionOption]? {
-        get {
-            if let group = self.mediaSelectionGroup(forMediaCharacteristic: .legible) {
-                return group.options
-            }
-            
-            return nil
-        }
-    }
-    
-    var audioTracks: [AVMediaSelectionOption]? {
-        get {
-            if let group = self.mediaSelectionGroup(forMediaCharacteristic: .audible) {
-                return group.options
-            }
-            
-            return nil
-        }
-    }
     
 }
 
@@ -410,7 +390,11 @@ extension UZPlayer {
             case .logo:
                 if let url = controlView.playerConfig?.logoRedirectUrl {
                     if UIApplication.shared.canOpenURL(url) {
-                        UIApplication.shared.openURL(url)
+						if #available(iOS 10.0, *) {
+							UIApplication.shared.open(url, options: [:], completionHandler: nil)
+						} else {
+							UIApplication.shared.openURL(url)
+						}
                     }
                 }
                 

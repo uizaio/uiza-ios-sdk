@@ -62,7 +62,7 @@ struct CategoryConstant {
     static let live = "Live"
 }
 
-struct eventLogConstant {
+struct EventLogConstant {
     static let play = "play"
     static let videoStart = "video_starts"
     static let playing = "playing"

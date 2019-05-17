@@ -183,7 +183,7 @@ extension UZPlayer: AVPictureInPictureControllerDelegate {
                 if let status = status {
                     //                    self.controlView.liveStartDate = status.startDate
                     
-                    if status.state == eventLogConstant.stop { // || status.endDate != nil
+                    if status.state == EventLogConstant.stop { // || status.endDate != nil
                         self.stop()
                         self.controlView.hideLoader()
                         self.showLiveEndedMessage()
@@ -234,18 +234,18 @@ extension UZPlayer: AVPictureInPictureControllerDelegate {
             }
             
         case .buffering:
-            UZMuizaLogger.shared.log(eventName: eventLogConstant.rebufferStart, params: ["view_rebuffer_count" : bufferingCount], video: currentVideo, linkplay: currentLinkPlay, player: self)
+            UZMuizaLogger.shared.log(eventName: EventLogConstant.rebufferStart, params: ["view_rebuffer_count" : bufferingCount], video: currentVideo, linkplay: currentLinkPlay, player: self)
             if currentVideo?.isLive ?? false {
                 loadLiveStatus(after: 1)
             }
             bufferingCount += 1
             
         case .bufferFinished:
-            UZMuizaLogger.shared.log(eventName: eventLogConstant.rebufferend, params: ["view_rebuffer_count" : bufferingCount], video: currentVideo, linkplay: currentLinkPlay, player: self)
+            UZMuizaLogger.shared.log(eventName: EventLogConstant.rebufferend, params: ["view_rebuffer_count" : bufferingCount], video: currentVideo, linkplay: currentLinkPlay, player: self)
             playIfApplicable()
             
         case .playedToTheEnd:
-            UZMuizaLogger.shared.log(eventName: eventLogConstant.viewEnded, params: nil, video: currentVideo, linkplay: currentLinkPlay, player: self)
+            UZMuizaLogger.shared.log(eventName: EventLogConstant.viewEnded, params: nil, video: currentVideo, linkplay: currentLinkPlay, player: self)
             updateIsPlayToTheEnd(isPlayToTheEnd: true)
             
             if !isReplaying {
@@ -264,7 +264,7 @@ extension UZPlayer: AVPictureInPictureControllerDelegate {
             nextVideo()
             
         case .error:
-            UZMuizaLogger.shared.log(eventName: eventLogConstant.error, params: nil, video: currentVideo, linkplay: currentLinkPlay, player: self)
+            UZMuizaLogger.shared.log(eventName: EventLogConstant.error, params: nil, video: currentVideo, linkplay: currentLinkPlay, player: self)
             if autoTryNextDefinitionIfError {
                 tryNextDefinition()
             }
@@ -309,7 +309,7 @@ extension UZPlayer: AVPictureInPictureControllerDelegate {
             if playthrough_eventlog[5] == false || playthrough_eventlog[5] == nil {
                 playthrough_eventlog[5] = true
                 
-                UZLogger.shared.log(event: eventLogConstant.view, video: currentVideo, params: ["play_through" : "0"], completionBlock: nil)
+                UZLogger.shared.log(event: EventLogConstant.view, video: currentVideo, params: ["play_through" : "0"], completionBlock: nil)
                 if let videoId = currentVideo?.id, let category = currentVideo?.categoryName {
                     UZLogger.shared.trackingCategory(entityId: videoId, category: category)
                 }
@@ -322,7 +322,7 @@ extension UZPlayer: AVPictureInPictureControllerDelegate {
                 if playthrough_eventlog[playthrough] == false || playthrough_eventlog[playthrough] == nil {
                     playthrough_eventlog[playthrough] = true
                     
-                    UZLogger.shared.log(event: eventLogConstant.playThrough, video: currentVideo, params: ["play_through" : playthrough], completionBlock: nil)
+                    UZLogger.shared.log(event: EventLogConstant.playThrough, video: currentVideo, params: ["play_through" : playthrough], completionBlock: nil)
                 }
             }
         }

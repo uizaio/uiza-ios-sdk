@@ -341,7 +341,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
         if shouldAutoPlay {
             isURLSet = true
             currentLinkPlay = resource.definitions[definitionIndex]
-            UZMuizaLogger.shared.log(eventName: eventLogConstant.play, params: nil, video: currentVideo, linkplay: currentLinkPlay, player: self)
+            UZMuizaLogger.shared.log(eventName: EventLogConstant.play, params: nil, video: currentVideo, linkplay: currentLinkPlay, player: self)
             playerLayer?.playAsset(asset: currentLinkPlay!.avURLAsset)
             
             setupPictureInPicture()
@@ -369,7 +369,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 			isURLSet = true
 		}
 		
-		UZMuizaLogger.shared.log(eventName: eventLogConstant.play, params: nil, video: currentVideo, linkplay: currentLinkPlay, player: self)
+		UZMuizaLogger.shared.log(eventName: EventLogConstant.play, params: nil, video: currentVideo, linkplay: currentLinkPlay, player: self)
 		playerLayer?.play()
 		isPauseByUser = false
 		startHeartbeat()
@@ -385,14 +385,14 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		if currentPosition == 0 && !isPauseByUser {
 			if playthrough_eventlog[0] == false || playthrough_eventlog[0] == nil {
 				playthrough_eventlog[0] = true
-				UZLogger.shared.log(event: eventLogConstant.videoStart, video: currentVideo, completionBlock: nil)
+				UZLogger.shared.log(event: EventLogConstant.videoStart, video: currentVideo, completionBlock: nil)
 				
 				selectSubtitle(index: 0) // select default subtitle
 //				selectAudio(index: -1) // select default audio track
 			}
 		}
 		
-		UZMuizaLogger.shared.log(eventName: eventLogConstant.playing, params: nil, video: currentVideo, linkplay: currentLinkPlay, player: self)
+		UZMuizaLogger.shared.log(eventName: EventLogConstant.playing, params: nil, video: currentVideo, linkplay: currentLinkPlay, player: self)
 	}
 	
 	/**
@@ -422,7 +422,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	Seek to 0.0 and replay the video
 	*/
 	open func replay() {
-		UZLogger.shared.log(event: eventLogConstant.replay, video: currentVideo, completionBlock: nil)
+		UZLogger.shared.log(event: EventLogConstant.replay, video: currentVideo, completionBlock: nil)
 		
 		playthrough_eventlog = [:]
 		isPlayToTheEnd = false
@@ -439,7 +439,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	- parameter allow: should allow to response `autoPlay` function
 	*/
 	open func pause(allowAutoPlay allow: Bool = false) {
-		UZMuizaLogger.shared.log(eventName: eventLogConstant.pause, params: nil, video: currentVideo, linkplay: currentLinkPlay, player: self)
+		UZMuizaLogger.shared.log(eventName: EventLogConstant.pause, params: nil, video: currentVideo, linkplay: currentLinkPlay, player: self)
 		playerLayer?.pause()
 		isPauseByUser = !allow
 	}
@@ -453,11 +453,11 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		seekCount += 1
 		self.currentPosition = interval
 		controlView.hideEndScreen()
-		UZMuizaLogger.shared.log(eventName: eventLogConstant.seeking, params: ["view_seek_count" : seekCount], video: currentVideo, linkplay: currentLinkPlay, player: self)
+		UZMuizaLogger.shared.log(eventName: EventLogConstant.seeking, params: ["view_seek_count" : seekCount], video: currentVideo, linkplay: currentLinkPlay, player: self)
 		
 		playerLayer?.seek(to: interval, completion: { [weak self] in
 			if let `self` = self {
-				UZMuizaLogger.shared.log(eventName: eventLogConstant.seeked, params: ["view_seek_count" : self.seekCount], video: self.currentVideo, linkplay: self.currentLinkPlay, player: self)
+				UZMuizaLogger.shared.log(eventName: EventLogConstant.seeked, params: ["view_seek_count" : self.seekCount], video: self.currentVideo, linkplay: self.currentLinkPlay, player: self)
 			}
 			
 			completion?()

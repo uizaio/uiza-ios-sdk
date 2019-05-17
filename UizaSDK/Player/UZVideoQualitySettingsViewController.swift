@@ -466,4 +466,3 @@ class UZQualityItemCollectionViewCell : UICollectionViewCell {
 	}
 	
 }
-

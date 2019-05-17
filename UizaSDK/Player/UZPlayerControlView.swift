@@ -27,12 +27,11 @@ public enum NKButtonTag: Int {
 	case share		= 114
 	case relates	= 115
 	case pip		= 116
-	case chromecast = 117
-	case airplay	= 118
-	case casting	= 119
-	case next		= 120
-	case previous	= 121
-	case logo		= 122
+	case airplay	= 117
+	case casting	= 118
+	case next		= 119
+	case previous	= 120
+	case logo		= 121
 }
 
 public protocol UZPlayerTheme: class {
@@ -189,6 +188,9 @@ open class UZPlayerControlView: UIView {
 			timeSlider.minimumValue = 0.0
 			timeSlider.maximumTrackTintColor = UIColor.clear
 		}
+	}
+	public var castButton: UZCastButton! {
+		return castingButton
 	}
 	#if ALLOW_GOOGLECAST
 	internal var castingView: UZCastingView? = nil

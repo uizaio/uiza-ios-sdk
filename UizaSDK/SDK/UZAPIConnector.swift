@@ -42,7 +42,7 @@ Class quản lý việc gọi các hàm API
 */
 open class UZAPIConnector {
 	internal static var ipAddress		: String = ""
-	static internal let headerPlatform	: String = UIDevice.isTV() ? ConnectorConstant.appleTV : UIDevice.isPad() ? ConnectorConstant.tablet : ConnectorConstant.mobile
+	static internal let headerPlatform	: String = UIDevice.isTV() ? "appletv" : UIDevice.isPad() ? "tablet" : "mobile"
 	
 	/** Số giây hết hạn gọi lệnh */
 	public var timeoutInterval			: TimeInterval = 30.0
@@ -87,7 +87,7 @@ open class UZAPIConnector {
 	}
 	
 	internal class func updateIPAddress() {
-		let host = CFHostCreateWithName(nil,ConnectorConstant.google as CFString).takeRetainedValue()
+		let host = CFHostCreateWithName(nil,"www.google.com" as CFString).takeRetainedValue()
 		CFHostStartInfoResolution(host, .addresses, nil)
 		var success: DarwinBoolean = false
 		if let addresses = CFHostGetAddressing(host, &success)?.takeUnretainedValue() as NSArray?,
@@ -255,11 +255,11 @@ open class UZAPIConnector {
 		UZAPIConnector.showNetworkLoading()
 		
 		#if os(tvOS)
-		let headers = ["User-Agent" : "\(ConnectorConstant.tvOS)\(SDK_VERSION)"]
+		let headers = ["User-Agent" : "UizaSDK_tvOS_\(SDK_VERSION)"]
 		#elseif os(macOS)
-		let headers = ["User-Agent" : "\(ConnectorConstant.macOS)\(SDK_VERSION)"]
+		let headers = ["User-Agent" : "UizaSDK_macOS_\(SDK_VERSION)"]
 		#else
-		let headers = ["User-Agent" : "\(ConnectorConstant.iOS)\(SDK_VERSION)"]
+		let headers = ["User-Agent" : "UizaSDK_iOS_\(SDK_VERSION)"]
 		#endif
 		
 		var containsData = false
@@ -380,7 +380,7 @@ open class UZAPIConnector {
 			
 			if errorCode != nil && errorCode != 0 && errorCode != 200 {
 				let errorMessage: String? = dictionary!["message"] as? String
-				let error: NSError! = NSError(domain: Common.domain, code: errorCode ?? 0, userInfo: [NSLocalizedDescriptionKey: errorMessage ?? ""])
+				let error: NSError! = NSError(domain: "Uiza", code: errorCode ?? 0, userInfo: [NSLocalizedDescriptionKey: errorMessage ?? ""])
                 UZSentry.sendNSError(error: error)
 				completionBlock!(nil, error)
 			} else {
@@ -390,13 +390,13 @@ open class UZAPIConnector {
 	}
 	
 	internal class func UizaUnknownError() -> NSError {
-        let error = NSError(domain: Common.domain, code: 100, userInfo: [NSLocalizedDescriptionKey : "Có lỗi xảy ra"])
+        let error = NSError(domain: "Uiza", code: 100, userInfo: [NSLocalizedDescriptionKey : "Có lỗi xảy ra"])
         UZSentry.sendNSError(error: error)
 		return error
 	}
 	
 	internal class func UizaError(code:Int, message:String) -> NSError {
-        let error = NSError(domain: Common.domain, code: 100, userInfo: [NSLocalizedDescriptionKey : message])
+        let error = NSError(domain: "Uiza", code: 100, userInfo: [NSLocalizedDescriptionKey : message])
         UZSentry.sendNSError(error: error)
 		return error
 	}

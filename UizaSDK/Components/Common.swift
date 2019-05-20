@@ -12,22 +12,6 @@ struct SentryConstant {
     static let defaultEnviroment = "GA"
 }
 
-struct Common {
-    static let error = "Error"
-    static let domain = "Uiza"
-    static let live = "LIVE"
-}
-
-struct ConnectorConstant {
-    static let google = "www.google.com"
-    static let appleTV = "appletv"
-    static let tablet = "tablet"
-    static let mobile = "mobile"
-    static let tvOS = "UizaSDK_tvOS_"
-    static let macOS = "UizaSDK_macOS_"
-    static let iOS = "UizaSDK_iOS_"
-}
-
 struct APIConstant {
     static let posterLink = "https://static.uiza.io/2017/11/27/uiza-logo-demo-mobile.png"
     static let publicLinkPlay = "https://%@/api/public/v1/"

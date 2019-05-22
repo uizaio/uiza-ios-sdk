@@ -15,7 +15,6 @@ struct SentryConstant {
 struct APIConstant {
     static let posterLink = "https://static.uiza.io/2017/11/27/uiza-logo-demo-mobile.png"
     static let publicLinkPlay = "https://%@/api/public/v1/"
-    static let https = "https://"
     static let mediaEntityApi = "media/entity"
     static let mediaMetadataApi = "media/metadata"
     static let liveEntityApi = "live/entity"

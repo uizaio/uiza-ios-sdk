@@ -131,18 +131,18 @@ open class UZAPIConnector {
 	internal func basePublicAPIURLPath() -> String! {
 		switch UizaSDK.version {
 		case .v3:
-			return APIConstant.https + UizaSDK.domain.stringByAppendingPathComponent("api/public/v3/")
+			return "https://" + UizaSDK.domain.stringByAppendingPathComponent("api/public/v3/")
 		case .v4:
-			return APIConstant.https + UizaSDK.domain.stringByAppendingPathComponent("api/public/v4/")
+			return "https://" + UizaSDK.domain.stringByAppendingPathComponent("api/public/v4/")
 		}
 	}
 	
 	internal func basePrivateAPIURLPath() -> String! {
 		switch UizaSDK.version {
 		case .v3:
-			return APIConstant.https + UizaSDK.domain.stringByAppendingPathComponent("api/private/v3/")
+			return "https://" + UizaSDK.domain.stringByAppendingPathComponent("api/private/v3/")
 		case .v4:
-			return APIConstant.https + UizaSDK.domain.stringByAppendingPathComponent("api/public/v4/")
+			return "https://" + UizaSDK.domain.stringByAppendingPathComponent("api/public/v4/")
 		}
 	}
 	

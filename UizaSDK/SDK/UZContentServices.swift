@@ -334,24 +334,23 @@ open class UZContentServices: UZAPIConnector {
 			if error != nil {
 				completionBlock?(nil, error)
 			}
-			else if let data = result?.value(for: "data", defaultValue: nil) as? NSDictionary{
-				if let urlsDataArray = data.array(for: "urls", defaultValue: nil) as? [NSDictionary] {
-					var results = [UZVideoLinkPlay]()
-					for urlData in urlsDataArray {
-						if let definition = urlData.string(for: "definition", defaultString: ""), let url = urlData.url(for: "url", defaultURL: nil) {
-							let item = UZVideoLinkPlay(definition: definition, url: url, options: nil)
-							results.append(item)
-						}
-					}
-					
-					completionBlock?(results, nil)
-				}
-				else {
-					completionBlock?(nil, UZAPIConnector.UizaUnknownError())
-				}
-			}
 			else {
-				completionBlock?(nil, UZAPIConnector.UizaUnknownError())
+				guard   let data = result?.value(for: "data", defaultValue: nil) as? NSDictionary,
+						let urlsDataArray = data.array(for: "urls", defaultValue: nil) as? [NSDictionary] else
+				{
+					completionBlock?(nil, UZAPIConnector.UizaUnknownError())
+					return
+				}
+				
+				var results = [UZVideoLinkPlay]()
+				for urlData in urlsDataArray {
+					if let definition = urlData.string(for: "definition", defaultString: ""), let url = urlData.url(for: "url", defaultURL: nil) {
+						let item = UZVideoLinkPlay(definition: definition, url: url, options: nil)
+						results.append(item)
+					}
+				}
+				
+				completionBlock?(results, nil)
 			}
 		}
 	}

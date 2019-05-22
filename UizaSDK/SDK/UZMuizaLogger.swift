@@ -11,7 +11,7 @@ import CoreMedia
 import Alamofire
 
 /**
-Class hỗ trợ muiza logging
+Class for Muiza logging
 */
 open class UZMuizaLogger : UZAPIConnector{
 	/// Singleton instance

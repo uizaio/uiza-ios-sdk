@@ -9,7 +9,7 @@
 import UIKit
 
 /**
-Class quản lý các hàm livestream
+Class manages livestream functions
 */
 open class UZLiveServices: UZAPIConnector {
 //	
@@ -65,8 +65,8 @@ open class UZLiveServices: UZAPIConnector {
 //	}
 //	
 	/**
-	Lấy sự kiện live từ id
-	- parameter id: `id` của sự kiện
+	Load a live event
+	- parameter id: `id` of live event
 	*/
 	public func loadLiveEvent(id: String, completionBlock: ((UZLiveEvent?, Error?) -> Void)? = nil) {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
@@ -84,9 +84,9 @@ open class UZLiveServices: UZAPIConnector {
 	}
 	
 	/**
-	Bắt đầu phát live
-	- parameter id: `id` của sự kiện live
-	- parameter completionBlock: Block được trả về với Error nếu có lỗi
+	Start a live event
+	- parameter id: `id` of live event
+	- parameter completionBlock: Block called when finished, return `Error` if occured
 	*/
 	public func startLiveEvent(id: String, completionBlock: ((Error?) -> Void)? = nil) {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
@@ -98,9 +98,9 @@ open class UZLiveServices: UZAPIConnector {
 	}
 	
 	/**
-	Dừng phát live
-	- parameter id: `id` của sự kiện
-	- parameter completionBlock: Block được trả về với Error nếu có lỗi
+	Stop a live event
+	- parameter id: `id` of live evnt
+	- parameter completionBlock: Block called when finished, return `Error` if occured
 	*/
 	public func endLiveEvent(id: String, completionBlock: ((Error?) -> Void)? = nil) {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
@@ -111,7 +111,7 @@ open class UZLiveServices: UZAPIConnector {
 	}
 	
 	/**
-	Lấy thông tin số lượng người xem hiện tại
+	Get current views of a live video
 	- parameter liveId: `id` của live event
 	- parameter completionBlock: Block được trả về với giá trị số lượng người xem hoặc Error nếu có lỗi
 	*/
@@ -138,9 +138,9 @@ open class UZLiveServices: UZAPIConnector {
 	}
 	
 	/**
-	Lấy trạng thái của live event
-	- parameter video: sự kiện cần lấy giá trị
-	- parameter completionBlock: Block được trả về kèm giá trị trạng thái hoặc Error nếu có lỗi
+	Get status of a live video
+	- parameter video: target video
+	- parameter completionBlock: block called when completed, returns `UZLiveVideoStatus` or `Error` if occurred
 	*/
 	public func loadLiveStatus(video: UZVideoItem, completionBlock: ((_ result: UZLiveVideoStatus?, _ error: Error?) -> Void)? = nil) {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token]

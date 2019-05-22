@@ -9,7 +9,7 @@
 import UIKit
 
 /**
-Class hỗ trợ việc logging
+Class for logging
 */
 open class UZLogger: UZAPIConnector {
 	/// Singleton instance

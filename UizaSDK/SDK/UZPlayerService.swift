@@ -8,6 +8,9 @@
 
 import UIKit
 
+/**
+
+*/
 open class UZPlayerService: UZAPIConnector {
 	
 	public func loadPlayerConfig(completionBlock: @escaping(([UZPlayerConfig]?, Error?) -> Void)) {

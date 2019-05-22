@@ -37,6 +37,9 @@ public typealias APIConnectorProgressBlock		= (_ progress: Float) -> Void
 /** Kiểu block được gọi khi trả về kết quả */
 public typealias APIConnectorResultBlock		= (_ data:NSDictionary?, _ error:Error?) -> Void
 
+/// kiểu Parameter truyền vào các lệnh gọi API
+public typealias Parameters = [String: Any]
+
 /**
 Class quản lý việc gọi các hàm API
 */
@@ -49,7 +52,7 @@ open class UZAPIConnector {
 	/** Thiết lập kiểu cache */
 	public var cachePolicy				: NSURLRequest.CachePolicy = .useProtocolCachePolicy
 	/** Các tham số cho header */
-	public var requestHeaderFields		: [String:String]! = [:]
+	public var requestHeaderFields		: [String: String]! = [:]
 	/** Block được gọi khi hoàn thành */
 	public var completionBlock			: APIConnectorCompletionBlock? = nil
 	/** Block được gọi khi có lỗi */
@@ -151,14 +154,12 @@ open class UZAPIConnector {
 	- parameter paramValue: các thông số truyền vào, theo format [String:Any]
 	- parameter completionBlock: block được gọi khi hoàn thành, trả về data hoặc error nếu có lỗi
 	*/
-	public func callAPI(_ node: String!, baseURLString: String? = nil, method: HTTPMethod! = .get, params paramValue:[String: Any]? = nil, completion completionBlock:APIConnectorResultBlock? = nil) {
+	public func callAPI(_ node: String!, baseURLString: String? = nil, method: HTTPMethod! = .get, params paramValue :Parameters? = nil, completion completionBlock: APIConnectorResultBlock? = nil) {
 		guard UizaSDK.domain.count > 0, UizaSDK.token.count > 0 else {
 			fatalError("Bạn chưa khởi tạo SDK. Bắt buộc phải gọi hàm \"UizaSDK.initWith(appId,token,api)\" trước")
 		}
 		
 		let baseAPIPath : String = baseURLString ?? basePublicAPIURLPath()
-		var nodeString	: String! = baseAPIPath.stringByAppendingPathComponent(node) + (node.hasSuffix("/") ? "/" : "")
-		nodeString = nodeString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
 		
 //		let modelId		: String = UIDevice.current.hardwareModel()
 //		let modelName	: String = UIDevice.current.hardwareName()
@@ -174,7 +175,7 @@ open class UZAPIConnector {
 //		let platform	: String = UIDevice.isTV() ? "tvos" : "ios"
 //		#endif
 //
-//		let defaultParams : [String : Any]! = ["platform"	: platform,
+//		let defaultParams : Parameters! = ["platform"	: platform,
 //		                                       "modelId"	: modelId,
 //		                                       "modelName"	: modelName,
 //		                                       "macAddress"	: macAddress,
@@ -188,12 +189,12 @@ open class UZAPIConnector {
 //		                                       "bundleId"	: bundleId,
 //		                                       "env"		: enviroment]
 		
-		let defaultParams 	: [String : Any]! = [:]
-		let nodeURL			: URL! = URL(string: nodeString)!
-		var finalParams		: [String: Any]! = defaultParams
+		let nodeURL  = URL(string: baseAPIPath)?.appendingPathComponent(node)
+		let defaultParams 	: Parameters! = [:]
+		var finalParams		: Parameters! = defaultParams
 		
-		if paramValue != nil {
-			finalParams.appendFrom(paramValue!)
+		if let params = paramValue {
+			finalParams.appendFrom(params)
 		}
 		
 		if UizaSDK.showRestfulInfo {

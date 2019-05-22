@@ -31,8 +31,8 @@ open class UZLogger: UZAPIConnector {
 		}
 	}()
 	
-	open func log(event: String, video: UZVideoItem? = nil, params: [String: AnyHashable]? = nil, completionBlock: APIConnectorResultBlock? = nil) {
-		var finalParams: [String : AnyHashable]? = [:]
+	open func log(event: String, video: UZVideoItem? = nil, params: Parameters? = nil, completionBlock: APIConnectorResultBlock? = nil) {
+		var finalParams: Parameters? = [:]
 		
 		if let video = video {
 			finalParams = ["entity_id" : video.id,
@@ -46,7 +46,7 @@ open class UZLogger: UZAPIConnector {
 		self.log(event: event, params: finalParams, completionBlock: completionBlock)
 	}
 	
-	open func log(event: String, params: [String: AnyHashable]? = nil, completionBlock: APIConnectorResultBlock? = nil) {
+	open func log(event: String, params: Parameters? = nil, completionBlock: APIConnectorResultBlock? = nil) {
 		let modelId		: String = UIDevice.current.hardwareModel()
 		let modelName	: String = UIDevice.current.hardwareName()
 		let macAddress	: String = UIDevice.current.identifierForVendor?.uuidString ?? ""
@@ -66,23 +66,23 @@ open class UZLogger: UZAPIConnector {
 		#endif
 		
 		print("timestamp: \(timestamp)")
-		let defaultParams : [String : AnyHashable]! = ["event_type" 		: event,
-													   "timestamp"			: timestamp,
-													   "platform"			: platform,
-													   "modelId"			: modelId,
-													   "modelName"			: modelName,
-													   "macAddress"			: macAddress,
-													   "version"			: appVersion,
-													   "iosVersion"			: iosVersion,
-													   "uuid"				: macAddress,
-													   "viewer_user_id"		: userId,
-													   "ip"					: UZAPIConnector.ipAddress,
-													   "player_name"		: "UizaSDK_\(platform)",
-													   "player_version" 	: PLAYER_VERSION,
-													   "sdk_version"		: SDK_VERSION,
-													   "bundleId"           : bundleId]
+		let defaultParams: Parameters! = ["event_type" 		: event,
+										  "timestamp"		: timestamp,
+										  "platform"		: platform,
+										  "modelId"			: modelId,
+										  "modelName"		: modelName,
+										  "macAddress"		: macAddress,
+										  "version"			: appVersion,
+										  "iosVersion"		: iosVersion,
+										  "uuid"			: macAddress,
+										  "viewer_user_id"	: userId,
+										  "ip"				: UZAPIConnector.ipAddress,
+										  "player_name"		: "UizaSDK_\(platform)",
+			"player_version" 	: PLAYER_VERSION,
+			"sdk_version"		: SDK_VERSION,
+			"bundleId"           : bundleId]
 		
-		var finalParams : [String: AnyHashable]! = defaultParams
+		var finalParams: Parameters! = defaultParams
 		
 		if params != nil {
 			finalParams.appendFrom(params!)
@@ -121,12 +121,12 @@ open class UZLogger: UZAPIConnector {
 		#endif
 		
 		print("timestamp: \(timestamp)")
-		let params : [String : AnyHashable]! = ["dt"	: timestamp,
-												"ho"	: host,
-												"sn"	: streamName,
-												"di"	: macAddress,
-												"ai"	: bundleId,
-												"ua"	: "UizaSDK_\(platform)_v\(SDK_VERSION)"]
+		let params: Parameters! = ["dt"	: timestamp,
+								   "ho"	: host,
+								   "sn"	: streamName,
+								   "di"	: macAddress,
+								   "ai"	: bundleId,
+								   "ua"	: "UizaSDK_\(platform)_v\(SDK_VERSION)"]
 		
 		self.callAPI(APIConstant.liveLoggingApi, baseURLString: loggingURLString, method: .post, params: params, completion: completionBlock)
 	}
@@ -144,12 +144,12 @@ open class UZLogger: UZAPIConnector {
 		#endif
 		
 		print("timestamp: \(timestamp)")
-		let params : [String : AnyHashable]! = ["timestamp"	: timestamp,
-												"entity_id"	: entityId,
-												"category" 	: category,
-												"app_id"	: bundleId,
-												"platform"	: platform,
-												"sdk"		: "UizaSDK_\(platform)_v\(SDK_VERSION)"]
+		let params: Parameters! = ["timestamp"	: timestamp,
+								   "entity_id"	: entityId,
+								   "category" 	: category,
+								   "app_id"		: bundleId,
+								   "platform"	: platform,
+								   "sdk"		: "UizaSDK_\(platform)_v\(SDK_VERSION)"]
 		
 		self.callAPI(APIConstant.trackingCategoryLoggingApi, baseURLString: loggingURLString, method: .post, params: params, completion: completionBlock)
 	}

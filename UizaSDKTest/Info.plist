@@ -49,5 +49,9 @@
 	<string>Please allow camera to start livestream</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Please allow microphone to start livestream</string>
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsArbitraryLoads</key><true/>
+    </dict>
 </dict>
 </plist>

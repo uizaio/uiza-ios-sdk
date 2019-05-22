@@ -17,18 +17,18 @@ public enum UZPublishStatus: String {
 }
 
 /**
-Class quản lý các hàm lấy thông tin
+Class manages functions that get information of videos
 */
 open class UZContentServices: UZAPIConnector {
 
 	/*
 	/**
-	Tải dữ liệu cho trang Home
-	- parameter metadataId: `metadataId` đính kèm nếu có (mặc định là `nil`)
-	- parameter publishStatus: trạng thái của video cần lọc ra
-	- parameter page: chỉ số trang, bắt đầu từ 0
-	- parameter limit: giới hạn số video item trả về mỗi lần gọi (từ 1 đến 100)
-	- parameter completionBlock: block được gọi sau khi hoàn thành, trả về mảng [`UZCategory`], hoặc error nếu có lỗi
+	Get Home data
+	- parameter metadataId: `metadataId` if any (default is `nil`)
+	- parameter publishStatus: status of video that need to be filtered
+	- parameter page: page index, started from 0
+	- parameter limit: limitation of video items (from 1 to 100)
+	- parameter completionBlock: block called when completed, returns array of [`UZCategory`], or `Error` if occurred
 	*/
 	public func loadHomeData(metadataId: String? = nil, publishStatus: UZPublishStatus = .success, page: Int = 0, limit: Int = 20, completionBlock: ((_ results:[UZCategory]?, _ error:Error?) -> Void)? = nil) {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
@@ -100,14 +100,14 @@ open class UZContentServices: UZAPIConnector {
 	*/
 	
 	/**
-	Tải danh mục video
-	- parameter metadataId: `metadataId` đính kèm nếu có (mặc định là `nil`)
-	- parameter publishStatus: trạng thái của video cần lọc ra
-	- parameter page: chỉ số trang, bắt đầu từ 0
-	- parameter limit: giới hạn số video item trả về mỗi lần gọi (từ 1 đến 100)
-	- parameter completionBlock: block được gọi sau khi hoàn thành, trả về mảng [`UZVideoItem`], hoặc error nếu có lỗi
+	Get video list
+	- parameter metadataId: `metadataId` if any (default is `nil`)
+	- parameter publishStatus: status of video that need to be filtered
+	- parameter page: page index, started from 0
+	- parameter limit: limitation of video items (from 1 to 100)
+	- parameter completionBlock: block called when completed, returns array of [`UZVideoItem`], or `Error` if occurred
 	*/
-	public func loadEntity(metadataId: String? = nil, publishStatus: UZPublishStatus = .success, page: Int = 0, limit: Int = 20, completionBlock: ((_ results:[UZVideoItem]?, _ error:Error?) -> Void)? = nil) {
+	public func loadEntity(metadataId: String? = nil, publishStatus: UZPublishStatus = .success, page: Int = 0, limit: Int = 20, completionBlock: ((_ results: [UZVideoItem]?, _ error: Error?) -> Void)? = nil) {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
 		
 		var params: Parameters = ["publishToCdn" : publishStatus.rawValue]
@@ -139,11 +139,11 @@ open class UZContentServices: UZAPIConnector {
 	}
 	
 	/**
-	Tải danh sách các video item cho chuyên mục
-	- parameter metadataId: `id` của chuyên mục cần tải
-	- parameter page: chỉ số trang, bắt đầu từ 0
-	- parameter limit: giới hạn số video item trả về mỗi lần gọi (từ 1 đến 100)
-	- parameter completionBlock: block được gọi sau khi hoàn thành, trả về mảng [`UZVideoItem`], hoặc error nếu có lỗi
+	Get list of video items of a category
+	- parameter metadataId: `id` of a category
+	- parameter page: page index, started from 0
+	- parameter limit: limitation of items (from 1 to 100)
+	- parameter completionBlock: block called when completed, returns array of [`UZVideoItem`], or `Error` if occurred
 	*/
 	public func loadMetadata(metadataId: String, page: Int = 0, limit: Int = 20, completionBlock: ((_ results:[UZVideoItem]?, _ pagination: UZPagination?, _ error:Error?) -> Void)? = nil) {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
@@ -179,10 +179,10 @@ open class UZContentServices: UZAPIConnector {
 	}
 	
 	/**
-	Tải danh sách các video đang quay trực tiếp
-	- parameter page: chỉ số trang, bắt đầu từ 0
-	- parameter limit: giới hạn số video item trả về mỗi lần gọi (từ 1 đến 100)
-	- parameter completionBlock: block được gọi sau khi hoàn thành, trả về mảng [`UZVideoItem`], hoặc error nếu có lỗi
+	Get list of live videos
+	- parameter page: page index, started from 0
+	- parameter limit: limitation of video items (from 1 to 100)
+	- parameter completionBlock: block called when completed, returns array of [`UZVideoItem`], or `Error` if occurred
 	*/
 	public func loadLiveVideo(page: Int = 0, limit: Int = 20, completionBlock: ((_ results:[UZVideoItem]?, _ pagination: UZPagination?, _ error:Error?) -> Void)? = nil) {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
@@ -219,9 +219,9 @@ open class UZContentServices: UZAPIConnector {
 	}
 	
 	/**
-	Tải thông tin chi tiết của video
+	Get video details
 	- parameter entityId: `id` của video cần tải
-	- parameter completionBlock: block được gọi sau khi hoàn thành, trả về UZVideoItem với đầy đủ thông tin chi tiết, hoặc error nếu có lỗi
+	- parameter completionBlock: block called when completed, returns UZVideoItem với đầy đủ thông tin chi tiết, or `Error` if occurred
 	*/
 	public func loadDetail(entityId: String, isLive: Bool = false, completionBlock:((_ video: UZVideoItem?, _ error: Error?) -> Void)? = nil) {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
@@ -256,9 +256,9 @@ open class UZContentServices: UZAPIConnector {
 	}
 	
 	/**
-	Tải danh sách các video liên quan
+	Get list of related videos
 	- parameter entityId: `id` của video cần tải danh sách liên quan
-	- parameter completionBlock: block được gọi sau khi hoàn thành, trả về mảng [`UZVideoItem`], hoặc error nếu có lỗi
+	- parameter completionBlock: block called when completed, returns array of [`UZVideoItem`], or `Error` if occurred
 	*/
 	public func loadRelates(entityId: String, completionBlock:((_ videos: [UZVideoItem]?, _ error: Error?) -> Void)? = nil) {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
@@ -289,9 +289,9 @@ open class UZContentServices: UZAPIConnector {
 	}
 	
 	/**
-	Lấy link play cho video
-	- parameter entityId: `id` của video cần lấy link play
-	- parameter completionBlock: block được gọi sau khi hoàn thành, trả về `URL`, hoặc error nếu có lỗi
+	Get video link play
+	- parameter entityId: `id` of video
+	- parameter completionBlock: block called when completed, returns `URL`, or `Error` if occurred
 	*/
 	public func loadLinkPlay(video: UZVideoItem, token: String? = nil, completionBlock:((_ results: [UZVideoLinkPlay]?, _ error: Error?) -> Void)? = nil) {
 		let entityId: String = video.id ?? ""
@@ -356,9 +356,9 @@ open class UZContentServices: UZAPIConnector {
 	}
 	
 	/**
-	Tải vị trí quảng cáo
-	- parameter video: video cần lấy nội dung quảng cáo
-	- parameter completionBlock: block được gọi sau khi hoàn thành, trả về mảng [`UZAdsCuePoint`], hoặc error nếu có lỗi
+	Get advertising cue points
+	- parameter video: video that needs to display ads contents
+	- parameter completionBlock: block called when completed, returns array of [`UZAdsCuePoint`], or `Error` if occurred
 	*/
 	public func loadCuePoints(video: UZVideoItem, completionBlock:((_ results: [UZAdsCuePoint]?, _ error: Error?) -> Void)? = nil) {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
@@ -390,8 +390,8 @@ open class UZContentServices: UZAPIConnector {
 	// MARK: -
 	
 	/**
-	Tải danh sách các menu item
-	- parameter completionBlock: block được gọi sau khi hoàn thành, trả về mảng [`UZMenuItem`], hoặc error nếu có lỗi
+	Get list of menu items
+	- parameter completionBlock: block called when completed, returns array of [`UZMenuItem`], or `Error` if occurred
 	*/
 	public func loadSideMenu(completionBlock:((_ results: [UZMenuItem]?, _ error: Error?) -> Void)? = nil) {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
@@ -421,11 +421,11 @@ open class UZContentServices: UZAPIConnector {
 	}
 	
 	/**
-	Hàm tìm kiếm
-	- parameter keyword: keyword cần tìm kiếm
-	- parameter page: chỉ số trang, bắt đầu từ 0
-	- parameter limit: giới hạn số video item trả về mỗi lần gọi (từ 1 đến 100)
-	- parameter completionBlock: block được gọi sau khi hoàn thành, trả về mảng [`UZVideoItem`], hoặc error nếu có lỗi
+	Search for videos
+	- parameter keyword: keyword for searching
+	- parameter page: page index, started from 0
+	- parameter limit: limitation of items (from 1 to 100)
+	- parameter completionBlock: block called when completed, returns array of [`UZVideoItem`], or `Error` if occurred
 	*/
 	public func search(for keyword:String, page: Int = 0, limit: Int = 20, completionBlock:((_ results: [UZVideoItem]?, _ pagination: UZPagination?, _ error: Error?) -> Void)? = nil) {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
@@ -465,9 +465,9 @@ open class UZContentServices: UZAPIConnector {
 	// MARK: - HeartBeat
 	
 	/**
-	Gửi tín hiệu CDN heartbeat
-	- parameter cdnName: tên domain của link play hiện tại
-	- parameter completionBlock: block được gọi sau khi hoàn thành, trả Error nếu có lỗi
+	Send CDN heartbeat signal
+	- parameter cdnName: domain of current link play
+	- parameter completionBlock: block called when finished, returns Error if occurred
 	*/
 	public func sendCDNHeartbeat(cdnName: String, completionBlock:((Error?) -> Void)? = nil) {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token]

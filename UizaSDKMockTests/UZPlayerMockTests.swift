@@ -32,11 +32,6 @@ class UZPlayerMock: UZPlayer {
         isSeeked = true
     }
     
-    var isUpdateCurrentDefinition = false
-    override func updateCurrentDefinition(index: Int) {
-        isUpdateCurrentDefinition = true
-    }
-    
     var isSwitchVideoDefinition = false
     override func switchVideoDefinition(_ linkplay: UZVideoLinkPlay) {
         isSwitchVideoDefinition = true

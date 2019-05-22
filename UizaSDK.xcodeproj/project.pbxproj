@@ -275,12 +275,6 @@
 		697228F2228E945800DEE5F1 /* UZPlayerUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696072EE228A78F200911CD2 /* UZPlayerUnitTests.swift */; };
 		697228F3228E947500DEE5F1 /* UZFloatingPlayerViewControllerUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69582BEE228C14DF00200E60 /* UZFloatingPlayerViewControllerUnitTests.swift */; };
 		697228F4228E947700DEE5F1 /* UZPlayerControlViewUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694AF57B228D0D2F00C6DE7F /* UZPlayerControlViewUnitTests.swift */; };
-		698E9A3022891EAB0072455C /* UZPlayer+++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698E9A2F22891EAB0072455C /* UZPlayer+++.swift */; };
-		698E9A312289211F0072455C /* UZPlayer+++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698E9A2F22891EAB0072455C /* UZPlayer+++.swift */; };
-		69EEEC7A2285629E0076A956 /* UZPlayer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EEEC792285629E0076A956 /* UZPlayer+.swift */; };
-		69EEEC7B228562CF0076A956 /* UZPlayer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EEEC792285629E0076A956 /* UZPlayer+.swift */; };
-		69EEEC7D228569210076A956 /* UZPlayer++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EEEC7C228569210076A956 /* UZPlayer++.swift */; };
-		69EEEC7E2285698F0076A956 /* UZPlayer++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EEEC7C228569210076A956 /* UZPlayer++.swift */; };
 		69EEEC802285705E0076A956 /* UZPlayerControlView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EEEC7F2285705E0076A956 /* UZPlayerControlView+.swift */; };
 		69EEEC812285708D0076A956 /* UZPlayerControlView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EEEC7F2285705E0076A956 /* UZPlayerControlView+.swift */; };
 		69EEEC8322857DCB0076A956 /* UZRelatedViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EEEC8222857DCB0076A956 /* UZRelatedViewController+.swift */; };
@@ -433,9 +427,6 @@
 		696072F0228A78F200911CD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		69622F54228415E500CB3895 /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		697228E1228E92C000DEE5F1 /* UZPlayerMockTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZPlayerMockTests.swift; sourceTree = "<group>"; };
-		698E9A2F22891EAB0072455C /* UZPlayer+++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UZPlayer+++.swift"; sourceTree = "<group>"; };
-		69EEEC792285629E0076A956 /* UZPlayer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UZPlayer+.swift"; sourceTree = "<group>"; };
-		69EEEC7C228569210076A956 /* UZPlayer++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UZPlayer++.swift"; sourceTree = "<group>"; };
 		69EEEC7F2285705E0076A956 /* UZPlayerControlView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UZPlayerControlView+.swift"; sourceTree = "<group>"; };
 		69EEEC8222857DCB0076A956 /* UZRelatedViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UZRelatedViewController+.swift"; sourceTree = "<group>"; };
 		69EEEC8522857EDE0076A956 /* UZMediaOptionSelectionViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UZMediaOptionSelectionViewController+.swift"; sourceTree = "<group>"; };
@@ -625,9 +616,6 @@
 				63D3A5E4224E08BB00732A0C /* Controls */,
 				63D3A5EE224E08BB00732A0C /* Themes */,
 				63D3A5EB224E08BB00732A0C /* UZPlayer.swift */,
-				69EEEC792285629E0076A956 /* UZPlayer+.swift */,
-				69EEEC7C228569210076A956 /* UZPlayer++.swift */,
-				698E9A2F22891EAB0072455C /* UZPlayer+++.swift */,
 				63D3A5DE224E08BB00732A0C /* UZPlayerViewController.swift */,
 				63D3A5F8224E08BB00732A0C /* UZFloatingPlayerViewController.swift */,
 				63D3A5F6224E08BB00732A0C /* UZPlaylistViewController.swift */,
@@ -1172,14 +1160,12 @@
 				636725A022686A7C0072612F /* UZSlider.swift in Sources */,
 				636725E622686ADB0072612F /* DateHelper.swift in Sources */,
 				636725ED22686AE00072612F /* UIViewController+TopPresented.swift in Sources */,
-				698E9A312289211F0072455C /* UZPlayer+++.swift in Sources */,
 				636725F722686AE00072612F /* String+Value.swift in Sources */,
 				636725A422686A7F0072612F /* UZTheme2.swift in Sources */,
 				636725B122686AAB0072612F /* DelayAction.swift in Sources */,
 				636725B422686AAB0072612F /* RunBlockAction.swift in Sources */,
 				69EEEC8422857EA30076A956 /* UZRelatedViewController+.swift in Sources */,
 				636725D822686AD70072612F /* UZUser.swift in Sources */,
-				69EEEC7E2285698F0076A956 /* UZPlayer++.swift in Sources */,
 				6367259722686A3F0072612F /* UZRelatedViewController.swift in Sources */,
 				63098532226F183300D45469 /* UZLiveStreamViewController.swift in Sources */,
 				636725DC22686AD70072612F /* UZModelObject.swift in Sources */,
@@ -1237,7 +1223,6 @@
 				636725C122686AB70072612F /* Tweenable.swift in Sources */,
 				6367277A226887730072612F /* MyLiveStreamViewController.swift in Sources */,
 				636725F322686AE00072612F /* Date+Comparators.swift in Sources */,
-				69EEEC7B228562CF0076A956 /* UZPlayer+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1315,7 +1300,6 @@
 				630C396A22607F9400ACFDAE /* UIKit+Tweenable.swift in Sources */,
 				63D3A666224E08BB00732A0C /* Error+Code.swift in Sources */,
 				63D3A66F224E08BB00732A0C /* String+Components.swift in Sources */,
-				69EEEC7D228569210076A956 /* UZPlayer++.swift in Sources */,
 				630C397422607F9400ACFDAE /* RepeatAction.swift in Sources */,
 				63193FEC225102DD00FFC560 /* UZPlayerViewController.swift in Sources */,
 				63B14B342282E3B900EB56FE /* UZSentry.swift in Sources */,
@@ -1323,7 +1307,6 @@
 				63D3A671224E08BB00732A0C /* NSError+Uiza.swift in Sources */,
 				63D3A62A224E08BB00732A0C /* UZCategory.swift in Sources */,
 				69EEEC89228580650076A956 /* UZLiveStreamViewController+.swift in Sources */,
-				698E9A3022891EAB0072455C /* UZPlayer+++.swift in Sources */,
 				631940022251032E00FFC560 /* UZTheme2.swift in Sources */,
 				63193FF3225102DD00FFC560 /* UZDeviceListTableViewController.swift in Sources */,
 				63193FF1225102DD00FFC560 /* UZVideoQualitySettingsViewController.swift in Sources */,
@@ -1369,7 +1352,6 @@
 				630C396E22607F9400ACFDAE /* Animation.swift in Sources */,
 				631940002251032E00FFC560 /* UZTheme7.swift in Sources */,
 				63D3A627224E08BB00732A0C /* UZLiveServices.swift in Sources */,
-				69EEEC7A2285629E0076A956 /* UZPlayer+.swift in Sources */,
 				63A4C8C6228E71880039620E /* AVAsset+Selection.swift in Sources */,
 				63D3A629224E08BB00732A0C /* UZAPIConnector.swift in Sources */,
 				631940062251034400FFC560 /* UZMuizaLogger.swift in Sources */,

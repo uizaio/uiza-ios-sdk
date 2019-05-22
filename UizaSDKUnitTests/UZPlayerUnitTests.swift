@@ -184,7 +184,6 @@ class UZPlayerUnitTests: XCTestCase {
         testSetCustomControlView()
         player.stop()
         
-        XCTAssertNil(player.liveViewTimer)
         XCTAssertNil(player.playerLayer)
         XCTAssertNil(player.controlView.messageLabel)
         XCTAssertEqual(player.controlView.endscreenView.isHidden, true)
@@ -197,7 +196,6 @@ class UZPlayerUnitTests: XCTestCase {
     func testReplay() {
         player.replay()
         
-        XCTAssertEqual(player.playthrough_eventlog, [:])
         XCTAssertEqual(player.isPlayToTheEnd, false)
         XCTAssertEqual(player.isReplaying, true)
         XCTAssertEqual(player.isSeeked, true)
@@ -279,7 +277,6 @@ class UZPlayerUnitTests: XCTestCase {
         player.loadVideo(video!, completionBlock: { [unowned self] (_, _) in
             self.player.showQualitySelector()
 
-            XCTAssertEqual(self.player.isUpdateCurrentDefinition, true)
             XCTAssertEqual(self.player.isSwitchVideoDefinition, true)
         })
     }

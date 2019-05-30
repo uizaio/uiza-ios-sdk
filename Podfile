@@ -7,7 +7,7 @@ target 'UizaSDK' do
 
   pod 'Alamofire'
   pod 'GoogleAds-IMA-iOS-SDK'
-  pod 'google-cast-sdk'
+  # pod 'google-cast-sdk'
   pod 'NKModalViewManager'
 	pod 'NKButton'
 	pod 'FrameLayoutKit'

@@ -858,7 +858,6 @@
 				63D3A5B8224E07FA00732A0C /* Sources */,
 				63D3A5B9224E07FA00732A0C /* Frameworks */,
 				63D3A5BA224E07FA00732A0C /* Resources */,
-				356EEC7E3B5F383A59A465A3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1053,23 +1052,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-UizaSDKTest/Pods-UizaSDKTest-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		356EEC7E3B5F383A59A465A3 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-UizaSDK/Pods-UizaSDK-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-UizaSDK/Pods-UizaSDK-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-UizaSDK/Pods-UizaSDK-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		7D01088C0CB992A9CC93325E /* [CP] Check Pods Manifest.lock */ = {

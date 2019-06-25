@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name = 'UizaSDK'
-    s.version = '6.8.1'
+    s.version = '7.6.3'
     s.summary = 'UizaSDK'
     s.homepage = 'https://uiza.io/'
     s.social_media_url = 'https://twitter.com'
@@ -13,8 +13,8 @@ Pod::Spec.new do |s|
         'UizaSDK' => ['UizaSDK/Fonts/*.{ttf}']
     }
     s.pod_target_xcconfig = { 'SWIFT_VERSION' => '5.0' }
-    
     s.ios.deployment_target = '8.0'
+    
     s.ios.dependency "Alamofire"
     s.ios.dependency "SwiftyJSON"
     s.ios.dependency "LFLiveKit_"

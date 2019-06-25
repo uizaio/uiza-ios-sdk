@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name = 'UizaSDK'
-    s.version = '7.6.3'
+    s.version = '8.0'
     s.summary = 'UizaSDK'
     s.homepage = 'https://uiza.io/'
     s.social_media_url = 'https://twitter.com'

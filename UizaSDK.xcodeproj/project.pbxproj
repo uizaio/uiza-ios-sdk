@@ -570,6 +570,7 @@
 		63D3A5BE224E07FA00732A0C /* UizaSDK */ = {
 			isa = PBXGroup;
 			children = (
+				63D3A5FE224E08BB00732A0C /* Fonts */,
 				63D3A610224E08BB00732A0C /* Extensions */,
 				63D3A5FC224E08BB00732A0C /* Components */,
 				63D3A5C7224E08BB00732A0C /* SDK */,
@@ -699,7 +700,6 @@
 		63D3A5FD224E08BB00732A0C /* SwiftIcons */ = {
 			isa = PBXGroup;
 			children = (
-				63D3A5FE224E08BB00732A0C /* Fonts */,
 				63D3A60E224E08BB00732A0C /* SwiftIcons.swift */,
 			);
 			path = SwiftIcons;
@@ -1434,7 +1434,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 385YL4KG69;
 				INFOPLIST_FILE = UizaSDKTest/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1454,7 +1454,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 385YL4KG69;
 				INFOPLIST_FILE = UizaSDKTest/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (

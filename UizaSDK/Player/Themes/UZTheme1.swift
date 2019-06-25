@@ -133,7 +133,7 @@ open class UZTheme1: UZPlayerTheme {
 		guard let controlView = controlView else { return }
 		
 		let controlFrameLayout = StackFrameLayout(direction: .horizontal, views: [controlView.pipButton, controlView.castingButton, controlView.playlistButton, controlView.settingsButton, controlView.volumeButton])
-		controlFrameLayout.addSubview(controlView.castingButton)
+        controlFrameLayout.addSubview(controlView.castingButton)
 		controlFrameLayout.addSubview(controlView.pipButton)
 		controlFrameLayout.addSubview(controlView.playlistButton)
 		controlFrameLayout.addSubview(controlView.settingsButton)

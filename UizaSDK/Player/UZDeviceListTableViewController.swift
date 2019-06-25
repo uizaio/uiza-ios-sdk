@@ -8,6 +8,7 @@
 
 import UIKit
 import NKModalViewManager
+#if canImport(GoogleCast)
 import GoogleCast
 
 class UZDeviceListTableViewController: UITableViewController {
@@ -241,3 +242,4 @@ extension UZDeviceListTableViewController: NKModalViewControllerProtocol {
 	}
 	
 }
+#endif

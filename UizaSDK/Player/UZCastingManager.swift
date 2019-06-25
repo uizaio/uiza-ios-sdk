@@ -7,6 +7,7 @@
 //
 
 import UIKit
+#if canImport(GoogleCast)
 import GoogleCast
 
 extension Notification.Name {
@@ -309,3 +310,4 @@ extension UZCastingManager: GCKRequestDelegate {
 	}
 	
 }
+#endif

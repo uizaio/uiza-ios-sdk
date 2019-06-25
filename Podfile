@@ -6,16 +6,15 @@ target 'UizaSDK' do
   use_frameworks!
 
   pod 'Alamofire'
-  pod 'GoogleAds-IMA-iOS-SDK'
-  # pod 'google-cast-sdk'
   pod 'NKModalViewManager'
 	pod 'NKButton'
 	pod 'FrameLayoutKit'
   pod 'SDWebImage'
   pod 'SwiftyJSON'
-  pod 'LFLiveKit+'
+  pod 'LFLiveKit_'
 	pod 'NVActivityIndicatorView/AppExtension'
   pod 'Sentry'
+	pod 'google-cast-sdk'
 
 end
 
@@ -33,15 +32,14 @@ target 'UizaSDKTest' do
 	use_frameworks!
 	
 	pod 'Alamofire'
-	pod 'GoogleAds-IMA-iOS-SDK'
-	pod 'google-cast-sdk'
 	pod 'NKModalViewManager'
 	pod 'NKButton'
 	pod 'FrameLayoutKit'
 	pod 'SDWebImage'
 	pod 'SwiftyJSON'
-	pod 'LFLiveKit+'
+	pod 'LFLiveKit_'
 	pod 'NVActivityIndicatorView/AppExtension'
   pod 'Sentry'
+	pod 'google-cast-sdk'
 	
 end

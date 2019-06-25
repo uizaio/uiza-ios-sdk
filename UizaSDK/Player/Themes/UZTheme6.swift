@@ -98,7 +98,6 @@ open class UZTheme6: UZPlayerTheme {
 		} else {
 			// Fallback on earlier versions
 		}
-		
 		controlView.castingButton.setupDefaultIcon(iconSize: iconSize, offColor: iconColor)
 		
 		controlView.titleLabel.textColor = .white

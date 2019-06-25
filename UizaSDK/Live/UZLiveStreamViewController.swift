@@ -189,7 +189,28 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 					self.showAlert(title: "Error", message: errorMessage)
 				}
 				else {
-					self.startLive(event: liveEvent)
+                    if let liveEvent = liveEvent {
+                        if liveEvent.isInitStatus {
+                            self.streamService.loadLiveEvent(id: liveEventId) { [weak self] (liveEvent, error) in
+                                guard let `self` = self else { return }
+                                
+                                if error != nil || liveEvent == nil {
+                                    let errorMessage = error != nil ? error!.localizedDescription : "No live event was set"
+                                    self.showAlert(title: "Error", message: errorMessage)
+                                }
+                                else {
+                                    if let event = liveEvent, event.isInitStatus {
+                                        self.showAlert(title: "Error", message: "Event is still waiting for resource, please try again later")
+                                    } else {
+                                        self.startLive(event: liveEvent)
+                                    }
+                                }
+                            }
+                            return
+                        }
+						
+						self.startLive(event: liveEvent)
+                    }
 				}
 			}
 		}

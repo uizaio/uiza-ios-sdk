@@ -335,6 +335,7 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 			
 			self.playerWindow?.makeKeyAndVisible()
 			self.delegate?.floatingPlayer(self, didBecomeFloating: false)
+            player?.updateVisualizeInformationView(isShow: true)
 			
 			self.onUnfloating?(self)
 			self.view.setNeedsLayout()
@@ -347,6 +348,7 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 			
 			lastKeyWindow?.makeKeyAndVisible()
 			delegate?.floatingPlayer(self, didBecomeFloating: true)
+            player?.updateVisualizeInformationView(isShow: false)
 			
 			self.view.setNeedsLayout()
 			self.onFloating?(self)

@@ -109,7 +109,7 @@ open class UZPlayerControlView: UIView {
 	
 	open var allButtons: [UIButton]! {
 		get {
-			return [backButton, helpButton, ccButton, relateButton, playlistButton, settingsButton, fullscreenButton, playpauseCenterButton, playpauseButton, forwardButton, backwardButton, nextButton, previousButton, volumeButton, pipButton, castingButton]
+            return [backButton, helpButton, ccButton, relateButton, playlistButton, settingsButton, fullscreenButton, playpauseCenterButton, playpauseButton, forwardButton, backwardButton, nextButton, previousButton, volumeButton, pipButton, castingButton]
 		}
 	}
 	
@@ -152,9 +152,7 @@ open class UZPlayerControlView: UIView {
 			timeSlider.maximumTrackTintColor = UIColor.clear
 		}
 	}
-	#if ALLOW_GOOGLECAST
 	internal var castingView: UZCastingView? = nil
-	#endif
 	
 	internal var liveStartDate: Date? = nil {
 		didSet {
@@ -298,9 +296,7 @@ open class UZPlayerControlView: UIView {
 		
 		containerView.frame = self.bounds
 		theme?.layoutControls(rect: self.bounds)
-		#if ALLOW_GOOGLECAST
 		castingView?.frame = self.bounds
-		#endif
 		endscreenView.frame = self.bounds
 		
 		if let messageLabel = messageLabel {

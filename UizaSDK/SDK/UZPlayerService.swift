@@ -9,7 +9,7 @@
 import UIKit
 
 /**
-
+Class manages player configurations
 */
 open class UZPlayerService: UZAPIConnector {
 	

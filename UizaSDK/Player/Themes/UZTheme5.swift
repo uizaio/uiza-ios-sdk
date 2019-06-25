@@ -98,7 +98,6 @@ open class UZTheme5: UZPlayerTheme {
 		} else {
 			// Fallback on earlier versions
 		}
-		
 		controlView.castingButton.setupDefaultIcon(iconSize: iconSize, offColor: iconColor)
 		
 		controlView.titleLabel.textColor = .white
@@ -127,7 +126,6 @@ open class UZTheme5: UZPlayerTheme {
 	
 	func setupLayout() {
 		guard let controlView = controlView else { return }
-		
 		let controlFrameLayout = StackFrameLayout(direction: .horizontal, views: [controlView.pipButton, controlView.castingButton, controlView.playlistButton, controlView.volumeButton])
 		controlFrameLayout.addSubview(controlView.castingButton)
 		controlFrameLayout.addSubview(controlView.pipButton)

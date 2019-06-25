@@ -30,6 +30,7 @@ public class UZLiveEvent: UZVideoItem {
 	public fileprivate(set) var broadcastURL: URL? = nil
 	
 	internal var isReadyToLive: Bool = false
+    internal var isInitStatus: Bool = false
 	
 	override func parse(_ data: NSDictionary?) {
 		if let data = data {
@@ -58,7 +59,8 @@ public class UZLiveEvent: UZVideoItem {
 			}
 			
 			if let lastProcess = data.string(for: "lastProcess", defaultString: nil) {
-				isReadyToLive = (lastProcess == "init" || lastProcess == "start")
+				isReadyToLive = (lastProcess == "start" || lastProcess == "in-process")
+                isInitStatus = lastProcess == "init"
 			}
 			
 			isLive = true

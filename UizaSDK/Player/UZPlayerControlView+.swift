@@ -171,7 +171,6 @@ extension UZPlayerControlView {
     }
     
     open func showCastingScreen() {
-        #if ALLOW_GOOGLECAST
         DispatchQueue.main.async {
             if self.castingView == nil {
                 self.castingView = UZCastingView()
@@ -181,16 +180,14 @@ extension UZPlayerControlView {
             self.insertSubview(self.castingView!, at: 0)
             self.setNeedsLayout()
         }
-        #endif
     }
     
+    
     open func hideCastingScreen() {
-        #if ALLOW_GOOGLECAST
         DispatchQueue.main.async {
             self.castingView?.removeFromSuperview()
             self.castingView = nil
         }
-        #endif
     }
     
     // MARK: - Action

@@ -14,10 +14,10 @@ import UIKit
 // jazzy -a "Nam Kennic" -e "UizaSDK/Extensions/*.*"
 //
 // Push to CocoaPods:
-// pod trunk push UizaSDK.podspec
+// pod trunk push UizaSDK.podspec --allow-warnings
 //
 
-internal let SDK_VERSION = "7.2.2"
+internal let SDK_VERSION = "7.6.3"
 internal let PLAYER_VERSION = "4.6"
 
 public enum UizaSDKVersion: String {
@@ -29,7 +29,6 @@ public enum UizaSDKVersion: String {
 Class khởi tạo SDK
 */
 public class UizaSDK {
-	
 	internal static var appId       : String = "" // set this before calling the API
 	internal static var token  		: String = "" // set this before calling the API
 	internal static var domain  	: String = "" // set this before calling the API

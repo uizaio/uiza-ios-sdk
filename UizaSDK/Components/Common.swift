@@ -5,7 +5,8 @@
 //  Created by phan.huynh.thien.an on 5/9/19.
 //  Copyright © 2019 Uiza. All rights reserved.
 //
-
+import UIKit
+import Foundation
 
 struct SentryConstant {
     static let dsn = "https://2fb4e767fc474b7189554bce88c628c8@sentry.io/1453018"
@@ -60,4 +61,13 @@ struct EventLogConstant {
     static let rebufferend = "rebufferend"
     static let viewEnded = "viewended"
     static let error = "error"
+}
+
+struct VisualizeInforConstant {
+    static let entityIDTitle = "Entity ID:"
+    static let SDKInforTitle = "SDK:"
+    static let OSInforTitle = "OS:"
+    static let volumeTitle = "Volume:"
+    static let hostTitle = "Host:"
+    static let videoQualityTitle = "Video quality:"
 }

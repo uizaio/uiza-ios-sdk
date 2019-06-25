@@ -13,9 +13,12 @@ import Foundation
 import CoreGraphics
 import NKModalViewManager
 import Sentry
+import FrameLayoutKit
 
-#if ALLOW_GOOGLECAST
+#if canImport(GoogleInteractiveMediaAds)
 import GoogleInteractiveMediaAds
+#endif
+#if canImport(GoogleCast)
 import GoogleCast
 #endif
 
@@ -205,11 +208,11 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	fileprivate var seekCount = 0
 	fileprivate var bufferingCount = 0
 	
-	#if ALLOW_GOOGLECAST
+    #if canImport(GoogleInteractiveMediaAds)
 	fileprivate var contentPlayhead: IMAAVPlayerContentPlayhead?
 	fileprivate var adsLoader: IMAAdsLoader?
 	fileprivate var adsManager: IMAAdsManager?
-	#endif
+    #endif
 	
 	fileprivate var _pictureInPictureController: Any? = nil
 	@available(iOS 9.0, *)
@@ -221,6 +224,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 			_pictureInPictureController = newValue
 		}
 	}
+    private var visualizeInformationView: UZVisualizeInformationView?
 	
 	public var autoResumeWhenBackFromBackground = false
 	
@@ -271,12 +275,16 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		controlView.showControlView()
 		controlView.showLoader()
 		controlView.liveStartDate = nil
+        VisualizeSavedInformation.shared.currentVideo = video
 		
-		UZContentServices().loadLinkPlay(video: video) { (results, error) in
+		UZContentServices().loadLinkPlay(video: video) { [unowned self] (results, error) in
 			self.controlView.hideLoader()
 			
 			if let results = results {
 				self.currentVideo?.videoURL = results.first?.avURLAsset.url
+                if let host = results.first?.url.host {
+                    VisualizeSavedInformation.shared.host = host
+                }
 				UZLogger.shared.log(event: "plays_requested", video: video, completionBlock: nil)
 				
 				let resource = UZPlayerResource(name: video.name, definitions: results, subtitles: video.subtitleURLs, cover: video.thumbnailURL)
@@ -347,7 +355,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		controlView.relateButton.isHidden = true // currentVideo == nil || (currentVideo?.isLive ?? false)
 		controlView.playlistButton.isHidden = (playlist?.isEmpty ?? true)
 		
-		#if ALLOW_GOOGLECAST
+        #if canImport(GoogleCast)
 		if UZCastingManager.shared.hasConnectedSession {
 			if let currentVideo = currentVideo, let linkPlay = currentLinkPlay {
 				let item = UZCastItem(id: currentVideo.id, title: currentVideo.name, customData: nil, streamType: currentVideo.isLive ? .live : .buffered, contentType: "application/dash+xml", url: linkPlay.url, thumbnailUrl: currentVideo.thumbnailURL, duration: currentVideo.duration, playPosition: self.currentPosition, mediaTracks: nil)
@@ -524,7 +532,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 			completion?()
 		})
 		
-		#if ALLOW_GOOGLECAST
+        #if canImport(GoogleCast)
 		let castingManager = UZCastingManager.shared
 		if castingManager.hasConnectedSession {
 			playerLayer?.pause()
@@ -648,24 +656,26 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		controlView.updateUI(isFullScreen)
 	}
 	
+    
+    
 	internal func updateCastingUI() {
-		#if ALLOW_GOOGLECAST
+        #if canImport(GoogleCast)
 		if AVAudioSession.sharedInstance().isAirPlaying || UZCastingManager.shared.hasConnectedSession {
 			controlView.showCastingScreen()
 		}
 		else {
 			controlView.hideCastingScreen()
 		}
-		#else
-		if AVAudioSession.sharedInstance().isAirPlaying {
-			controlView.showCastingScreen()
-		}
-		else {
-			controlView.hideCastingScreen()
-		}
-		#endif
+        #else
+        if AVAudioSession.sharedInstance().isAirPlaying {
+            controlView.showCastingScreen()
+        }
+        else {
+            controlView.hideCastingScreen()
+        }
+        #endif
 	}
-	
+    
 	// MARK: -
 	
 	@objc fileprivate func onOrientationChanged() {
@@ -710,13 +720,15 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	}
 	*/
 	
-	#if ALLOW_GOOGLECAST
 	@objc func contentDidFinishPlaying(_ notification: Notification) {
 		if (notification.object as! AVPlayerItem) == avPlayer?.currentItem {
+            #if canImport(GoogleInteractiveMediaAds)
 			adsLoader?.contentComplete()
+            #endif
 		}
 	}
 	
+    #if canImport(GoogleCast)
 	@objc func onCastSessionDidStart(_ notification: Notification) {
 		if let currentVideo = currentVideo, let linkPlay = currentLinkPlay {
 			let item = UZCastItem(id: currentVideo.id, title: currentVideo.name, customData: nil, streamType: currentVideo.isLive ? .live : .buffered, contentType: "application/dash+xml", url: linkPlay.url, thumbnailUrl: currentVideo.thumbnailURL, duration: currentVideo.duration, playPosition: self.currentPosition, mediaTracks: nil)
@@ -832,12 +844,13 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	
 	// MARK: -
 	
-	#if ALLOW_GOOGLECAST
 	internal func setUpAdsLoader() {
+        #if canImport(GoogleInteractiveMediaAds)
 		contentPlayhead = IMAAVPlayerContentPlayhead(avPlayer: avPlayer)
 		
 		adsLoader = IMAAdsLoader(settings: nil)
 		adsLoader!.delegate = self
+        #endif
 	}
 	
 	internal func requestAds() {
@@ -850,6 +863,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	}
 	
 	internal func requestAds(cuePoints: [UZAdsCuePoint]?) {
+        #if canImport(GoogleInteractiveMediaAds)
 		guard let cuePoints = cuePoints, !cuePoints.isEmpty else { return }
 		
 		for cuePoint in cuePoints {
@@ -860,6 +874,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 				adsLoader?.requestAds(with: request)
 			}
 		}
+        #endif
 		
 //		if let adsLink = cuePoints.first?.link?.absoluteString {
 ////			let testAdTagUrl = "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator="
@@ -869,7 +884,6 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 //			adsLoader?.requestAds(with: request)
 //		}
 	}
-	#endif
 	
 	// MARK: -
 	
@@ -879,9 +893,9 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		setupUI()
 		preparePlayer()
 		
-		#if ALLOW_GOOGLECAST
+        NotificationCenter.default.addObserver(self, selector: #selector(volumeDidChange(notification:)), name: NSNotification.Name(rawValue: "AVSystemController_SystemVolumeDidChangeNotification"), object: nil)
+		
 		setUpAdsLoader()
-		#endif
 		
 		#if DEBUG
 		print("[UizaPlayer \(PLAYER_VERSION)] initialized")
@@ -901,6 +915,33 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 			self.customControlView = customControlView
 		}
 	}
+    
+    public var isVisualizeInfoEnabled: Bool = false {
+        didSet {
+            if isVisualizeInfoEnabled {
+				if visualizeInformationView == nil {
+					visualizeInformationView = UZVisualizeInformationView()
+				}
+				
+                addSubview(visualizeInformationView!)
+                addSubview(visualizeInformationView!.closeVisualizeViewButton)
+            } else {
+                visualizeInformationView?.removeFromSuperview()
+                visualizeInformationView?.closeVisualizeViewButton.removeFromSuperview()
+            }
+        }
+    }
+    
+    func updateVisualizeInformationView(isShow: Bool) {
+        visualizeInformationView?.isHidden = !isShow
+        visualizeInformationView?.closeVisualizeViewButton.isHidden = !isShow
+    }
+    
+    @objc func volumeDidChange(notification: NSNotification) {
+        if let volume = notification.userInfo?["AVSystemController_AudioVolumeNotificationParameter"] as? Float{
+            VisualizeSavedInformation.shared.volume = volume
+        }
+    }
 	
 	fileprivate func setupUI() {
 		self.backgroundColor = UIColor.black
@@ -913,7 +954,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		NotificationCenter.default.addObserver(self, selector: #selector(onOrientationChanged), name: UIApplication.didChangeStatusBarOrientationNotification, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(onAudioRouteChanged), name: AVAudioSession.routeChangeNotification, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(showAirPlayDevicesSelection), name: .UZShowAirPlayDeviceList, object: nil)
-		#if ALLOW_GOOGLECAST
+		#if canImport(GoogleCast)
 		NotificationCenter.default.addObserver(self, selector: #selector(onCastSessionDidStart), name: NSNotification.Name.UZCastSessionDidStart, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(onCastSessionDidStop), name: NSNotification.Name.UZCastSessionDidStop, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(onCastClientDidStart), name: NSNotification.Name.UZCastClientDidStart, object: nil)
@@ -974,6 +1015,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	override open func layoutSubviews() {
 		super.layoutSubviews()
 		
+        visualizeInformationView?.frame = self.bounds
 		playerLayer?.frame = self.bounds
 		controlView.frame = self.bounds
 		controlView.setNeedsLayout()
@@ -1112,7 +1154,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	}
 	
 	open func showCastingDeviceList() {
-		#if ALLOW_GOOGLECAST
+		#if canImport(GoogleCast)
 		let viewController = UZDeviceListTableViewController()
 		NKModalViewManager.sharedInstance().presentModalViewController(viewController).tapOutsideToDismiss = true
 		#else
@@ -1121,7 +1163,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	}
 	
 	func showCastDisconnectConfirmation(at view: UIView) {
-		#if ALLOW_GOOGLECAST
+		#if canImport(GoogleCast)
 		if UZCastingManager.shared.hasConnectedSession {
 			if let window = UIApplication.shared.keyWindow,
 				let viewController = window.rootViewController
@@ -1152,7 +1194,9 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 			showAirPlayDevicesSelection()
 		}
 		#else
-		showAirPlayDevicesSelection()
+		if AVAudioSession.sharedInstance().isAirPlaying {
+			showAirPlayDevicesSelection()
+		}
 		#endif
 	}
 	
@@ -1196,9 +1240,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 				play()
 				
 				updateCastingUI()
-				#if ALLOW_GOOGLECAST
 				requestAds()
-				#endif
 			}
 			
 		case .buffering:
@@ -1226,9 +1268,9 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 				loadLiveStatus(after: 1)
 			}
 			
-			#if ALLOW_GOOGLECAST
+            #if canImport(GoogleInteractiveMediaAds)
 			adsLoader?.contentComplete()
-			#endif
+            #endif
 			nextVideo()
 			
 		case .error:
@@ -1367,7 +1409,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	}
 	
 	open func controlView(controlView: UZPlayerControlView, slider: UISlider, onSliderEvent event: UIControl.Event) {
-		#if ALLOW_GOOGLECAST
+		#if canImport(GoogleCast)
 		let castingManager = UZCastingManager.shared
 		if castingManager.hasConnectedSession {
 			switch event {
@@ -1479,7 +1521,7 @@ extension UZPlayer: AVPictureInPictureControllerDelegate {
 	
 }
 
-#if ALLOW_GOOGLECAST
+#if canImport(GoogleInteractiveMediaAds)
 extension UZPlayer: IMAAdsLoaderDelegate, IMAAdsManagerDelegate {
 	
 	public func adsLoader(_ loader: IMAAdsLoader!, adsLoadedWith adsLoadedData: IMAAdsLoadedData!) {
@@ -1667,7 +1709,7 @@ open class UZPlayerLayerView: UIView {
 	}
 	
 	open func play() {
-		#if ALLOW_GOOGLECAST
+		#if canImport(GoogleCast)
 		if UZCastingManager.shared.hasConnectedSession {
 			UZCastingManager.shared.play()
 			setupTimer()
@@ -1683,13 +1725,12 @@ open class UZPlayerLayerView: UIView {
 		}
 	}
 	
-	
 	open func pause(alsoPauseCasting: Bool = true) {
 		player?.pause()
 		isPlaying = false
 		timer?.fireDate = Date.distantFuture
 		
-		#if ALLOW_GOOGLECAST
+		#if canImport(GoogleCast)
 		if UZCastingManager.shared.hasConnectedSession && alsoPauseCasting {
 			UZCastingManager.shared.pause()
 		}
@@ -1740,7 +1781,7 @@ open class UZPlayerLayerView: UIView {
 	open func prepareToDeinit() {
 		self.resetPlayer()
 		
-		#if ALLOW_GOOGLECAST
+		#if canImport(GoogleCast)
 		if UZCastingManager.shared.hasConnectedSession {
 			UZCastingManager.shared.disconnect()
 		}
@@ -1881,7 +1922,7 @@ open class UZPlayerLayerView: UIView {
 	
 	@objc fileprivate func playerTimerAction() {
 		if let playerItem = playerItem {
-			#if ALLOW_GOOGLECAST
+			#if canImport(GoogleCast)
 			let currentTime = UZCastingManager.shared.hasConnectedSession ? UZCastingManager.shared.currentPosition : CMTimeGetSeconds(playerItem.currentTime()) // CMTimeGetSeconds(self.player!.currentTime())
 			#else
 			let currentTime = CMTimeGetSeconds(playerItem.currentTime()) // CMTimeGetSeconds(self.player!.currentTime())
@@ -1950,12 +1991,19 @@ open class UZPlayerLayerView: UIView {
 			self.timer?.invalidate()
 		}
 	}
+    
+    private func updateVideoQuality() {
+        if let item = player?.currentItem {
+            VisualizeSavedInformation.shared.quality = item.presentationSize.height
+        }
+    }
 	
 	override open func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
 		if let item = object as? AVPlayerItem, let keyPath = keyPath {
 			if item == self.playerItem {
 				switch keyPath {
 				case "status":
+                    updateVideoQuality()
 					if player?.status == AVPlayer.Status.readyToPlay {
 						self.state = .buffering
 						

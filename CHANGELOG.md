@@ -1,3 +1,9 @@
+### Version 8.1 (Jun 26 2019)
+- [Updated] Supports mixed Swift versions
+
+### Version 8.0 (Jun 26 2019)
+- [New] UizaSDK is now released as Open Source
+
 ### Version 7.6.2 (Jun 12 2019)
 - [Added] New Visualize information for debugging
 

@@ -3,14 +3,13 @@ Pod::Spec.new do |s|
     s.version = '8.1.1'
     s.summary = 'UizaSDK'
     s.homepage = 'https://uiza.io/'
-    s.social_media_url = 'https://twitter.com'
     s.documentation_url = 'https://docs.uiza.io/v4'
-    s.author = { 'Uiza' => 'yann@uiza.io' }
+    s.author = { 'Uiza' => 'namnh@uiza.io' }
     #s.license = { :type => "Commercial", :file => "LICENSE.md" }
     s.source = { :git => "https://github.com/uizaio/uiza-ios-sdk.git", :tag => s.version.to_s }
     s.source_files = 'UizaSDK/Components/*','UizaSDK/Extensions/*','UizaSDK/Live/*','UizaSDK/Player/**/*','UizaSDK/SDK/*','UizaSDK/SDK/**/*'
     s.resource_bundles = {
-        'UizaSDK' => ['UizaSDK/Fonts/*.{ttf}']
+        'Fonts' => ['UizaSDK/Fonts/*.{ttf}']
     }
     s.pod_target_xcconfig = { 'SWIFT_VERSION' => '5.0' }
     s.ios.deployment_target = '8.0'

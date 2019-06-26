@@ -742,7 +742,7 @@ private class FontLoader {
             let identifier = bundle.bundleIdentifier
 
             if (identifier?.hasPrefix("org.cocoapods"))! {
-				fontURL = bundle.url(forResource: fileName, withExtension: "ttf", subdirectory: "UizaSDK.bundle")!
+				fontURL = bundle.url(forResource: fileName, withExtension: "ttf", subdirectory: "Fonts.bundle")!
             } else {
                 fontURL = bundle.url(forResource: fileName, withExtension: "ttf")!
             }

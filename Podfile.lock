@@ -1,13 +1,13 @@
 PODS:
   - Alamofire (4.8.2)
-  - FrameLayoutKit (3.4)
+  - FrameLayoutKit (3.5)
   - google-cast-sdk (4.4.2):
     - google-cast-sdk/Core (= 4.4.2)
     - Protobuf (~> 3.0)
   - google-cast-sdk/Core (4.4.2):
     - Protobuf (~> 3.0)
   - LFLiveKit_ (2.6.2)
-  - NKButton (3.8.3):
+  - NKButton (3.8.4):
     - FrameLayoutKit
     - NVActivityIndicatorView/AppExtension
   - NKModalViewManager (3.5.2)
@@ -49,10 +49,10 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
-  FrameLayoutKit: ec991b3e454e98078fb050cf172cd15cfff4bbe8
+  FrameLayoutKit: 363450537f699f03d5eee85b4137a5eca0764019
   google-cast-sdk: ac9ea41d61026406869bf696b2e7f87971a4cf1f
   LFLiveKit_: 809917d93edae7acfcc6eef23b24933ba976a203
-  NKButton: 419969081ffcf3347ad5436d6412a10ce69d777c
+  NKButton: 6f79617684e3149921e050dd643c3bdb3f25280c
   NKModalViewManager: 8171cd4fb9315193fc2d05f011f9a29c9ca95a0f
   NVActivityIndicatorView: b19ddab2576f805cbe0fb2306cba3476e09a1dea
   Protobuf: 3f617b9a6e73605565086864c9bc26b2bf2dd5a3

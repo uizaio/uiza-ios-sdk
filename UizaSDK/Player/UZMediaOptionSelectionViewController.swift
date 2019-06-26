@@ -204,7 +204,11 @@ internal class UZMediaOptionSelectionCollectionViewController: UICollectionViewC
 		
 		let collectionView = self.collectionView!
 		collectionView.register(UZMediaOptionItemCollectionViewCell.self, forCellWithReuseIdentifier: CellIdentifier)
+		#if swift(>=4.2)
 		collectionView.register(UZTitleCollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: reuseHeaderIdentifier)
+		#else
+		collectionView.register(UZTitleCollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: reuseHeaderIdentifier)
+		#endif
 		
 //		collectionView.backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
 		collectionView.showsHorizontalScrollIndicator = false
@@ -279,8 +283,13 @@ internal class UZMediaOptionSelectionCollectionViewController: UICollectionViewC
 	}
 	
 	override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-		if kind == UICollectionView.elementKindSectionHeader {
-			let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: reuseHeaderIdentifier, for: indexPath) as! UZTitleCollectionViewHeader
+		#if swift(>=4.2)
+		let headerKind = UICollectionView.elementKindSectionHeader
+		#else
+		let headerKind = UICollectionElementKindSectionHeader
+		#endif
+		if kind == headerKind {
+			let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: headerKind, withReuseIdentifier: reuseHeaderIdentifier, for: indexPath) as! UZTitleCollectionViewHeader
 			headerView.title = indexPath.section == 0 ? (audioOptions.isEmpty ? "Audio: (none)" : "Audio:") : (subtitleOptions.isEmpty ? "Subtitle: (none)" : "Subtitle:")
 			return headerView
 		}

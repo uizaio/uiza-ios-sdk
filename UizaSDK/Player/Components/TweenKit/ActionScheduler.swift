@@ -171,12 +171,13 @@ import QuartzCore
         
         super.init()
         
-        caDisplayLink = CADisplayLink(target: self,
-                                      selector: #selector(displayLinkCallback(displaylink:)))
-        
-        caDisplayLink?.add(to: .current,
-                           forMode: .common)
-        
+        caDisplayLink = CADisplayLink(target: self, selector: #selector(displayLinkCallback(displaylink:)))
+		
+		#if swift(>=4.2)
+        caDisplayLink?.add(to: .current, forMode: .common)
+		#else
+		caDisplayLink?.add(to: .current, forMode: RunLoopMode.commonModes)
+		#endif
     }
     
     @objc private func displayLinkCallback(displaylink: CADisplayLink) {

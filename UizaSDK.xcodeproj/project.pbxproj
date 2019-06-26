@@ -285,8 +285,6 @@
 		69EEEC8422857EA30076A956 /* UZRelatedViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EEEC8222857DCB0076A956 /* UZRelatedViewController+.swift */; };
 		69EEEC8622857EDE0076A956 /* UZMediaOptionSelectionViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EEEC8522857EDE0076A956 /* UZMediaOptionSelectionViewController+.swift */; };
 		69EEEC8722857EF40076A956 /* UZMediaOptionSelectionViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EEEC8522857EDE0076A956 /* UZMediaOptionSelectionViewController+.swift */; };
-		69EEEC89228580650076A956 /* UZLiveStreamViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EEEC88228580650076A956 /* UZLiveStreamViewController+.swift */; };
-		69EEEC8A228580B10076A956 /* UZLiveStreamViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EEEC88228580650076A956 /* UZLiveStreamViewController+.swift */; };
 		B9D0CE07109F65922B96BD3B /* Pods_UizaSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A01B10B31103E52CE25F9D38 /* Pods_UizaSDK.framework */; };
 /* End PBXBuildFile section */
 
@@ -436,7 +434,6 @@
 		69EEEC7F2285705E0076A956 /* UZPlayerControlView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UZPlayerControlView+.swift"; sourceTree = "<group>"; };
 		69EEEC8222857DCB0076A956 /* UZRelatedViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UZRelatedViewController+.swift"; sourceTree = "<group>"; };
 		69EEEC8522857EDE0076A956 /* UZMediaOptionSelectionViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UZMediaOptionSelectionViewController+.swift"; sourceTree = "<group>"; };
-		69EEEC88228580650076A956 /* UZLiveStreamViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UZLiveStreamViewController+.swift"; sourceTree = "<group>"; };
 		836B002CADF98834F35F6796 /* Pods-UizaSDK-tvos.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UizaSDK-tvos.debug.xcconfig"; path = "Target Support Files/Pods-UizaSDK-tvos/Pods-UizaSDK-tvos.debug.xcconfig"; sourceTree = "<group>"; };
 		8B68470BD52DB4A497F5376D /* Pods_UizaSDKTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UizaSDKTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A01B10B31103E52CE25F9D38 /* Pods_UizaSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UizaSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -683,7 +680,6 @@
 			children = (
 				63D3A5FA224E08BB00732A0C /* UZLiveStreamUIView.swift */,
 				63D3A5FB224E08BB00732A0C /* UZLiveStreamViewController.swift */,
-				69EEEC88228580650076A956 /* UZLiveStreamViewController+.swift */,
 			);
 			path = Live;
 			sourceTree = "<group>";
@@ -1143,7 +1139,6 @@
 				636725EC22686AE00072612F /* AVAudioSession+Airplay.swift in Sources */,
 				636725EF22686AE00072612F /* NSTimeInterval+ToString.swift in Sources */,
 				69EEEC8722857EF40076A956 /* UZMediaOptionSelectionViewController+.swift in Sources */,
-				69EEEC8A228580B10076A956 /* UZLiveStreamViewController+.swift in Sources */,
 				636725B622686AB30072612F /* RepeatAction.swift in Sources */,
 				636725B822686AB30072612F /* UIBezierPath+BezierPath.swift in Sources */,
 				63098531226F183300D45469 /* UZLiveStreamUIView.swift in Sources */,
@@ -1317,7 +1312,6 @@
 				631940012251032E00FFC560 /* UZTheme5.swift in Sources */,
 				63D3A671224E08BB00732A0C /* NSError+Uiza.swift in Sources */,
 				63D3A62A224E08BB00732A0C /* UZCategory.swift in Sources */,
-				69EEEC89228580650076A956 /* UZLiveStreamViewController+.swift in Sources */,
 				631940022251032E00FFC560 /* UZTheme2.swift in Sources */,
 				63193FF3225102DD00FFC560 /* UZDeviceListTableViewController.swift in Sources */,
 				63193FF1225102DD00FFC560 /* UZVideoQualitySettingsViewController.swift in Sources */,

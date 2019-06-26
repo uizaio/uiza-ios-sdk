@@ -107,17 +107,14 @@ open class UZPlayerControlView: UIView {
 		}
 	}
 	
-	open var allButtons: [UIButton]! {
-		get {
-            return [backButton, helpButton, ccButton, relateButton, playlistButton, settingsButton, fullscreenButton, playpauseCenterButton, playpauseButton, forwardButton, backwardButton, nextButton, previousButton, volumeButton, pipButton, castingButton]
-		}
-	}
+	open lazy var allButtons: [UIButton]! = {
+		return [backButton, helpButton, ccButton, relateButton, playlistButton, settingsButton, fullscreenButton, playpauseCenterButton, playpauseButton, forwardButton, backwardButton, nextButton, previousButton, volumeButton, pipButton, castingButton]
+	}()
 	
 	internal var playerLastState: UZPlayerState = .notSetURL
 	internal var messageLabel: UILabel?
 	
-	public let containerView = UIView() // this should be public
-	
+	public let containerView = UIView()
 	public let titleLabel = UILabel()
 	public let currentTimeLabel = UILabel()
 	public let totalTimeLabel = UILabel()
@@ -300,7 +297,13 @@ open class UZPlayerControlView: UIView {
 		endscreenView.frame = self.bounds
 		
 		if let messageLabel = messageLabel {
-			let messageBounds = self.bounds.inset(by: UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20))
+			let edgeInsets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+			#if swift(>=4.2)
+			let messageBounds = self.bounds.inset(by: edgeInsets)
+			#else
+			let messageBounds = UIEdgeInsetsInsetRect(self.bounds, edgeInsets)
+			#endif
+			
 			let viewSize = messageBounds.size
 			let labelSize = messageLabel.sizeThatFits(messageBounds.size)
 			messageLabel.frame = CGRect(x: messageBounds.origin.x, y: messageBounds.origin.y + (viewSize.height - labelSize.height)/2, width: viewSize.width, height: labelSize.height)
@@ -466,7 +469,13 @@ open class UZPlayerControlView: UIView {
 			
 			let logoFrame = CGRect(origin: CGPoint(x: x, y: y), size: logoSize)
 			let edgeInsets = containerView.isHidden ? logoEdgeInsetsWhenControlsInvisible : logoEdgeInsetsWhenControlsVisible
+			
+			#if swift(>=4.2)
 			logoButton.frame = logoFrame.inset(by: edgeInsets)
+			#else
+			logoButton.frame = UIEdgeInsetsInsetRect(logoFrame, edgeInsets)
+			#endif
+			
 		}
 		
 		theme?.alignLogo()

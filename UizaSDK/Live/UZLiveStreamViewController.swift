@@ -162,9 +162,15 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 		stopButton.setImage(UIImage(icon: .googleMaterialDesign(.close), size: CGSize(width: 32, height: 32), textColor: .black, backgroundColor: .clear), for: .normal)
 		stopButton.addTarget(self, action: #selector(askToStop), for: .touchUpInside)
 		
+		#if swift(>=4.2)
 		NotificationCenter.default.addObserver(self, selector: #selector(onOrientationChanged(_:)), name: UIApplication.didChangeStatusBarOrientationNotification, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(onApplicationDidActive(_:)), name: UIApplication.didBecomeActiveNotification, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(onApplicationDidInactive(_:)), name: UIApplication.didEnterBackgroundNotification, object: nil)
+		#else
+		NotificationCenter.default.addObserver(self, selector: #selector(onOrientationChanged(_:)), name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(onApplicationDidActive(_:)), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(onApplicationDidInactive(_:)), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+		#endif
 	}
 	
 	required public init?(coder aDecoder: NSCoder) {
@@ -271,7 +277,7 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 	}
 	
 	public func stopLive() -> Void {
-		DLog("STOP")
+		DLog("STOPPING")
 		guard (currentLiveEvent != nil) else { return }
 		
 		streamService.cancel()
@@ -285,14 +291,20 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 		liveDurationLabel.isHidden = true
 		isLive = false
 		
-		timer?.invalidate()
-		timer = nil
+		if timer != nil {
+			timer!.invalidate()
+			timer = nil
+		}
 		
-		inactiveTimer?.invalidate()
-		inactiveTimer = nil
+		if inactiveTimer != nil {
+			inactiveTimer!.invalidate()
+			inactiveTimer = nil
+		}
 		
-		getViewTimer?.invalidate()
-		getViewTimer = nil
+		if getViewTimer != nil {
+			getViewTimer!.invalidate()
+			getViewTimer = nil
+		}
 		
 		startTime = nil
 		UIApplication.shared.isIdleTimerDisabled = false
@@ -317,8 +329,10 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 	}
 	
 	fileprivate func getViews(after interval: TimeInterval = 0) {
-		getViewTimer?.invalidate()
-		getViewTimer = nil
+		if getViewTimer != nil {
+			getViewTimer!.invalidate()
+			getViewTimer = nil
+		}
 		
 		if interval > 0 {
 			self.getViewTimer = Timer.scheduledTimer(timeInterval: interval, target: self, selector: #selector(self.onGetViewTimer), userInfo: false, repeats: false)
@@ -435,8 +449,10 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 	open override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 		
-		timer?.invalidate()
-		timer = nil
+		if timer != nil {
+			timer!.invalidate()
+			timer = nil
+		}
 		
 		UIApplication.shared.isIdleTimerDisabled = false
 	}
@@ -453,8 +469,13 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 		stopButton.frame = CGRect(x: viewSize.width - 42, y: 10, width: 32, height: 32)
 		layoutDurationLabel()
 		
+		#if swift(>=4.2)
 		view.bringSubviewToFront(liveDurationLabel)
 		view.bringSubviewToFront(startButton)
+		#else
+		view.bringSubview(toFront: liveDurationLabel)
+		view.bringSubview(toFront: startButton)
+		#endif
 	}
 	
 	func layoutDurationLabel() {
@@ -488,4 +509,61 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 		}
 	}
 	
+}
+
+extension UZLiveStreamViewController {
+	// MARK: -
+	
+	public func requestAccessForVideo() -> Void {
+		let status = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
+		switch status  {
+		case AVAuthorizationStatus.notDetermined:
+			AVCaptureDevice.requestAccess(for: AVMediaType.video, completionHandler: { (granted) in
+				if(granted){
+					DispatchQueue.main.async {
+						self.session.running = true
+					}
+				}
+			})
+			break
+		case AVAuthorizationStatus.authorized:
+			session.running = true
+			break
+		case AVAuthorizationStatus.denied: break
+		case AVAuthorizationStatus.restricted:break
+		@unknown default:break
+		}
+	}
+	
+	public func requestAccessForAudio() -> Void {
+		let status = AVCaptureDevice.authorizationStatus(for: AVMediaType.audio)
+		switch status  {
+		case AVAuthorizationStatus.notDetermined:
+			AVCaptureDevice.requestAccess(for: AVMediaType.audio, completionHandler: { (granted) in
+				
+			})
+			break
+			
+		case AVAuthorizationStatus.authorized: break
+		case AVAuthorizationStatus.denied: break
+		case AVAuthorizationStatus.restricted:break
+		@unknown default:break
+		}
+	}
+	
+	open override var preferredStatusBarStyle: UIStatusBarStyle {
+		return .lightContent
+	}
+	
+	open override var shouldAutorotate : Bool {
+		return UIDevice.isPad()
+	}
+	
+	open override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+		return UIDevice.isPhone() ? .portrait : .all
+	}
+	
+	open override var preferredInterfaceOrientationForPresentation : UIInterfaceOrientation {
+		return UIDevice.isPad() ? UIApplication.shared.statusBarOrientation : .portrait
+	}
 }

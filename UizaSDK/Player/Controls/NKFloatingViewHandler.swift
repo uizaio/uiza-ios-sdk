@@ -77,7 +77,11 @@ open class NKFloatingViewHandler: NSObject {
 		self.delegate = target
 		setup()
 		
+		#if swift(>=4.2)
 		NotificationCenter.default.addObserver(self, selector: #selector(updatePosition), name: UIApplication.didChangeStatusBarOrientationNotification, object: nil)
+		#else
+		NotificationCenter.default.addObserver(self, selector: #selector(updatePosition), name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation, object: nil)
+		#endif
 	}
 	
 	// MARK: -

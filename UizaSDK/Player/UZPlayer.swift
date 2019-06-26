@@ -951,8 +951,14 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		controlView.delegate = self
 		addSubview(controlView)
 		
+		#if swift(>=4.2)
 		NotificationCenter.default.addObserver(self, selector: #selector(onOrientationChanged), name: UIApplication.didChangeStatusBarOrientationNotification, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(onAudioRouteChanged), name: AVAudioSession.routeChangeNotification, object: nil)
+		#else
+		NotificationCenter.default.addObserver(self, selector: #selector(onOrientationChanged), name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(onAudioRouteChanged), name: NSNotification.Name.AVAudioSessionRouteChange, object: nil)
+		#endif
+		
 		NotificationCenter.default.addObserver(self, selector: #selector(showAirPlayDevicesSelection), name: .UZShowAirPlayDeviceList, object: nil)
 		#if canImport(GoogleCast)
 		NotificationCenter.default.addObserver(self, selector: #selector(onCastSessionDidStart), name: NSNotification.Name.UZCastSessionDidStart, object: nil)
@@ -971,14 +977,22 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		self.insertSubview(playerLayer!, at: 0)
 		self.layoutIfNeeded()
 		
+		#if swift(>=4.2)
 		NotificationCenter.default.addObserver(self, selector: #selector(onApplicationInactive), name: UIApplication.didEnterBackgroundNotification, object: nil)
+		#else
+		NotificationCenter.default.addObserver(self, selector: #selector(onApplicationInactive), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+		#endif
 		
 		setupAudioCategory()
 	}
 	
 	open func setupAudioCategory() {
 		if #available(iOS 10.0, *) {
-		try? AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback, mode: AVAudioSession.Mode.moviePlayback, options: [.allowAirPlay])
+			#if swift(>=4.2)
+			try? AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback, mode: AVAudioSession.Mode.moviePlayback, options: [.allowAirPlay])
+			#else
+			try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, mode: AVAudioSessionModeMoviePlayback, options: [.allowAirPlay])
+			#endif
 	}
 	else {
 //			try? AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
@@ -1802,8 +1816,15 @@ open class UZPlayerLayerView: UIView {
 		}
 		
 		if self.player?.currentItem?.status == .readyToPlay {
+			#if swift(>=4.2)
 			let draggedTime = CMTimeMake(value: Int64(seconds), timescale: 1)
-			self.player!.seek(to: draggedTime, toleranceBefore: CMTime.zero, toleranceAfter: CMTime.zero, completionHandler: { [weak self] (finished) in
+			let zeroTime = CMTime.zero
+			#else
+			let draggedTime = CMTimeMake(Int64(seconds), 1)
+			let zeroTime = kCMTimeZero
+			#endif
+			
+			self.player!.seek(to: draggedTime, toleranceBefore: zeroTime, toleranceAfter: zeroTime, completionHandler: { [weak self] (finished) in
 				self?.setupTimer()
 				completion?()
 			})
@@ -1848,14 +1869,20 @@ open class UZPlayerLayerView: UIView {
 		   let subtitleURL = subtitleURL
 		{
 			// Embed external subtitle link to player item, This does not work
-			let timeRange = CMTimeRangeMake(start: CMTime.zero, duration: videoAsset.duration)
+			#if swift(>=4.2)
+			let zeroTime = CMTime.zero
+			let timeRange = CMTimeRangeMake(start: zeroTime, duration: videoAsset.duration)
+			#else
+			let zeroTime = kCMTimeZero
+			let timeRange = CMTimeRangeMake(zeroTime, videoAsset.duration)
+			#endif
 			let mixComposition = AVMutableComposition()
 			let videoTrack = mixComposition.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid)
-			try? videoTrack?.insertTimeRange(timeRange, of: videoAsset.tracks(withMediaType: .video).first!, at: CMTime.zero)
+			try? videoTrack?.insertTimeRange(timeRange, of: videoAsset.tracks(withMediaType: .video).first!, at: zeroTime)
 			
 			let subtitleAsset = AVURLAsset(url: subtitleURL)
 			let subtitleTrack = mixComposition.addMutableTrack(withMediaType: .text, preferredTrackID: kCMPersistentTrackID_Invalid)
-			try? subtitleTrack?.insertTimeRange(timeRange, of: subtitleAsset.tracks(withMediaType: .text).first!, at: CMTime.zero)
+			try? subtitleTrack?.insertTimeRange(timeRange, of: subtitleAsset.tracks(withMediaType: .text).first!, at: zeroTime)
 			
 			return AVPlayerItem(asset: mixComposition)
 		}

@@ -98,7 +98,12 @@ open class UZPlayerViewController: UIViewController {
 		}
 		
 		self.view.addSubview(self.player)
+		
+		#if swift(>=4.2)
 		NotificationCenter.default.addObserver(self, selector: #selector(onDeviceRotated), name: UIDevice.orientationDidChangeNotification, object: nil)
+		#else
+		NotificationCenter.default.addObserver(self, selector: #selector(onDeviceRotated), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+		#endif
 	}
 	
 	override open func viewDidLayoutSubviews() {

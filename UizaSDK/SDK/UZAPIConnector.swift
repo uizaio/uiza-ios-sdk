@@ -264,7 +264,13 @@ open class UZAPIConnector {
 				if let params = params {
 					for (key, value) in params {
 						if let image = value as? UIImage {
-							if let imageData = image.jpegData(compressionQuality: 0.5) {
+							#if swift(>=4.2)
+							let jpegData = image.jpegData(compressionQuality: 0.5)
+							#else
+							let jpegData = UIImageJPEGRepresentation(image, 0.5)
+							#endif
+							
+							if let imageData = jpegData {
 								multipartFormData.append(imageData, withName: key, fileName: "image.jpg", mimeType: "image/jpeg")
 							}
 						}

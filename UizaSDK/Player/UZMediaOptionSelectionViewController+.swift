@@ -136,7 +136,14 @@ class UZMediaOptionItemCollectionViewCell : UICollectionViewCell {
         frameLayout.frame = self.bounds
         
         if let backgroundView = backgroundView {
-            backgroundView.frame = self.contentView.bounds.inset(by: UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5))
+			let edgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+			
+			#if swift(>=4.2)
+			backgroundView.frame = self.contentView.bounds.inset(by: edgeInsets)
+			#else
+			backgroundView.frame = UIEdgeInsetsInsetRect(self.contentView.bounds, edgeInsets)
+			#endif
+			
             highlightView.frame = backgroundView.frame
         }
     }

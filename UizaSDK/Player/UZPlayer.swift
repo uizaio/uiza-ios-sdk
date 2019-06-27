@@ -1556,7 +1556,7 @@ extension UZPlayer: IMAAdsLoaderDelegate, IMAAdsManagerDelegate {
 	// MARK: - IMAAdsManagerDelegate
 	
 	public func adsManager(_ adsManager: IMAAdsManager!, didReceive event: IMAAdEvent!) {
-//		DLog("OK - \(event.type.rawValue)")
+//		DLog("- \(event.type.rawValue)")
 		
 		if event.type == IMAAdEventType.LOADED {
 			adsManager.start()
@@ -1916,7 +1916,7 @@ open class UZPlayerLayerView: UIView {
 //				videoData.videoTitle = videoItem.name
 //				videoData.videoDuration = NSNumber(value: videoItem.duration * 1000)
 //				videoData.videoIsLive = NSNumber(value: videoItem.isLive)
-////				DLog("OK \(videoData) - \(playerData)")
+////				DLog("\(videoData) - \(playerData)")
 //			}
 //			
 //			MUXSDKStats.monitorAVPlayerLayer(playerLayer!, withPlayerName: "UizaPlayer", playerData: playerData, videoData: videoData)

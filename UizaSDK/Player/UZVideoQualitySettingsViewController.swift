@@ -226,12 +226,14 @@ internal class UZVideoQualityCollectionViewController: UICollectionViewControlle
 		
 		let collectionView = self.collectionView!
 		collectionView.register(UZQualityItemCollectionViewCell.self, forCellWithReuseIdentifier: CellIdentifier)
+		
 		#if swift(>=4.2)
-		collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "Header")
+		let headerKind = UICollectionView.elementKindSectionHeader
 		#else
-		collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "Header")
+		let headerKind = UICollectionElementKindSectionHeader
 		#endif
 		
+		collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: headerKind, withReuseIdentifier: "Header")
 //		collectionView.backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
 		collectionView.showsHorizontalScrollIndicator = false
 		collectionView.backgroundColor = UIColor.clear

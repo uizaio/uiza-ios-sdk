@@ -174,7 +174,7 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 //				self.playerWindow?.rootViewController = lastRootViewController
 //				self.playerWindow?.makeKeyAndVisible()
 //
-//				DLog("OK \(lastRootViewController.supportedInterfaceOrientations)")
+//				DLog("\(lastRootViewController.supportedInterfaceOrientations)")
 //			}
 		}
 		
@@ -189,7 +189,7 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 			#if swift(>=4.2)
 			playerWindow!.windowLevel = UIWindow.Level.normal + 1
 			#else
-			playerWindow!.windowLevel = UIWindowLevelNormal
+			playerWindow!.windowLevel = UIWindowLevelNormal + 1
 			#endif
 			
 			playerWindow!.rootViewController = containerViewController

@@ -46,20 +46,22 @@ import SDWebImage
 import FrameLayoutKit
 
 class UZMovieItemCollectionViewCell : UICollectionViewCell {
-    let imageView            = UIImageView()
-    let highlightView        = UIView()
-    let titleLabel            = UILabel()
-    let detailLabel            = UILabel()
-    let playingLabel        = UILabel()
-    var placeholderImage    : UIImage! = nil
-    var displayMode            : UZCellDisplayMode! = .portrait
-    var textFrameLayout        : DoubleFrameLayout!
-    var frameLayout            : DoubleFrameLayout!
+    let imageView		= UIImageView()
+    let highlightView	= UIView()
+    let titleLabel		= UILabel()
+    let detailLabel		= UILabel()
+    let playingLabel		= UILabel()
+    var placeholderImage	: UIImage! = nil
+    var displayMode			: UZCellDisplayMode! = .portrait
+    var textFrameLayout		: DoubleFrameLayout!
+    var frameLayout			: DoubleFrameLayout!
+	
     var highlightMode        = false {
         didSet {
             self.isSelected = super.isSelected
         }
     }
+	
     var detailMode = false {
         didSet {
             updateView()
@@ -79,8 +81,8 @@ class UZMovieItemCollectionViewCell : UICollectionViewCell {
         get {
             return super.isHighlighted
         }
-        set (value) {
-            super.isHighlighted = value
+        set {
+            super.isHighlighted = newValue
             self.updateColor()
         }
     }
@@ -89,12 +91,12 @@ class UZMovieItemCollectionViewCell : UICollectionViewCell {
         get {
             return super.isSelected
         }
-        set (value) {
-            super.isSelected = value
+        set {
+            super.isSelected = newValue
             
             if highlightMode {
                 UIView.animate(withDuration: 0.3) {
-                    self.contentView.alpha = value ? 1.0 : 0.25
+                    self.contentView.alpha = newValue ? 1.0 : 0.25
                 }
             }
             else {
@@ -153,7 +155,7 @@ class UZMovieItemCollectionViewCell : UICollectionViewCell {
         titleLabel.font = UIFont.systemFont(ofSize: 14)
         titleLabel.numberOfLines = 2
         titleLabel.textColor = .white
-        //        titleLabel.isHidden = true
+//		titleLabel.isHidden = true
         
         detailLabel.textAlignment = .left
         detailLabel.font = UIFont.systemFont(ofSize: 12)
@@ -210,26 +212,25 @@ class UZMovieItemCollectionViewCell : UICollectionViewCell {
             let imageURL = displayMode == .portrait ? videoItem.thumbnailURL : videoItem.thumbnailURL
             
             if imageURL != nil {
-                weak var weakSelf = self
-                imageView.sd_setImage(with: imageURL, placeholderImage: placeholderImage, options: .avoidAutoSetImage, completed: { (image, error, cache, url) -> Void in
+                imageView.sd_setImage(with: imageURL, placeholderImage: placeholderImage, options: .avoidAutoSetImage, completed: { [weak self] (image, error, cache, url) -> Void in
+					guard let self = self else { return }
+					
                     if cache == .none {
-                        if weakSelf != nil {
-                            UIView.transition(with: weakSelf!.imageView, duration: 0.35, options: [.transitionCrossDissolve, .curveEaseOut], animations: { () -> Void in
-                                weakSelf?.imageView.image = image
-                            }, completion: nil)
-                        }
+						UIView.transition(with: self.imageView, duration: 0.35, options: [.transitionCrossDissolve, .curveEaseOut], animations: { () -> Void in
+							self.imageView.image = image
+						}, completion: nil)
                     }
                     else {
-                        weakSelf?.imageView.image = image
+                        self.imageView.image = image
                     }
                 })
             }
             
-            //self.contentView.layer.borderColor = UIColor.clear.cgColor
-            //self.contentView.layer.borderWidth = 0.0
+//			self.contentView.layer.borderColor = UIColor.clear.cgColor
+//			self.contentView.layer.borderWidth = 0.0
             
-            //            frameLayout.topFrameLayout.edgeInsets = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
-            //            frameLayout.bottomFrameLayout.edgeInsets = UIEdgeInsets.zero
+//			frameLayout.topFrameLayout.edgeInsets = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
+//			frameLayout.bottomFrameLayout.edgeInsets = UIEdgeInsets.zero
             
             if detailMode {
                 titleLabel.text = videoItem.name
@@ -255,7 +256,7 @@ class UZMovieItemCollectionViewCell : UICollectionViewCell {
             }
         }
         else {
-            //            self.clipsToBounds = true
+//            self.clipsToBounds = true
         }
         
         self.setNeedsLayout()
@@ -267,7 +268,7 @@ class UZMovieItemCollectionViewCell : UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        //        self.layer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: 10).cgPath
+//		self.layer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: 10).cgPath
         frameLayout.frame = self.bounds
         highlightView.frame = self.bounds
         

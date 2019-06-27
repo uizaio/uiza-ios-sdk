@@ -63,7 +63,7 @@ class ViewController: UIViewController {
 		
 		
 		//			UZContentServices().loadHomeData(metadataId: nil, page: 0, limit: 10, completionBlock: { (results, error) in
-		//				DLog("OK \(results) - \(error)")
+		//				DLog("\(results) - \(error)")
 		//			})
 		
 		//		UZContentServices().loadDetail(entityId: "ffc91430-c46f-47cb-97e4-f83c4fd0fe21", isLive: false) { (videoItem, error) in
@@ -87,49 +87,15 @@ class ViewController: UIViewController {
 					viewController.present(with: video).player.controlView.theme = UZTheme1()
 					viewController.floatingHandler?.allowsCornerDocking = true
 //					viewController.player.delegate = self
-					
-//					DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-//						self.showAlert()
-//					}
+
 				}
 			}
 		}
-		
-		//		self.playerViewController.player.loadPlaylist(metadataId: "8f24c324-4113-4b2d-b821-25969851d759", page: 0, limit: 20, playIndex: 0, completionBlock: nil)
-		
-		//		UZContentServices().loadLiveVideo(page: 0, limit: 10) { (videos, pagination, error) in
-		//			if let videoItem = videos?.first {
-		//				self.playerViewController.player.loadVideo(videoItem)
-		//			}
-		//		}
-		
-		//		UZContentServices().loadLiveVideo(page: 0, limit: 10, completionBlock: { (results, pagination, error) in
-		//			DLog("OK \(results) - \(error)")
-		//
-		//			if let videoItem = results?.first {
-		//				DLog("OK \(videoItem.data)")
-		//				self.playerViewController.player.loadVideo(videoItem)
-		//			}
-		//		})
 		
 //				DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
 //					self.showLive()
 //				}
 	}
-	
-	func showAlert() {
-		let alertVC = UIAlertController(title: "Test", message: "Test alert", preferredStyle: .alert)
-		alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { (action) in
-			alertVC.dismiss(animated: true, completion: nil)
-		}))
-		
-		UIViewController.topPresented()?.present(alertVC, animated: true, completion: nil)
-	}
-	
-	
-	private let entityIdDefaultLIVE_TRANSCODE = "b61e21bf-ceaf-4176-8e88-c13243284bea"
-	private let entityIdDefaultLIVE_NO_TRANSCODE = "9925fcbd-0fbe-41c5-8b16-1b250642a7e9"
-	
 	
 	func showLive() {
 		let viewController = MyLiveStreamViewController()

@@ -8,11 +8,6 @@
 import UIKit
 import Foundation
 
-struct SentryConstant {
-    static let dsn = "https://2fb4e767fc474b7189554bce88c628c8@sentry.io/1453018"
-    static let defaultEnviroment = "GA"
-}
-
 struct APIConstant {
     static let posterLink = "https://static.uiza.io/2017/11/27/uiza-logo-demo-mobile.png"
     static let publicLinkPlay = "https://%@/api/public/v1/"
@@ -37,30 +32,6 @@ struct APIConstant {
     static let uizaDevDomain = "dev-ucc.uizadev.io"
     static let uizaStagDomain = "stag-ucc.uizadev.io"
     static let uizaUccDomain = "ucc.uiza.io"
-}
-
-struct CategoryConstant {
-    static let topMovie = "Top movies"
-    static let newestMovie = "Newest movies"
-    static let group = "Group"
-    static let live = "Live"
-}
-
-struct EventLogConstant {
-    static let play = "play"
-    static let videoStart = "video_starts"
-    static let playing = "playing"
-    static let replay = "replay"
-    static let pause = "pause"
-    static let seeking = "seeking"
-    static let seeked = "seeked"
-    static let stop = "stop"
-    static let view = "view"
-    static let playThrough = "play_through"
-    static let rebufferStart = "rebufferstart"
-    static let rebufferend = "rebufferend"
-    static let viewEnded = "viewended"
-    static let error = "error"
 }
 
 struct VisualizeInforConstant {

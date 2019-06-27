@@ -16,7 +16,9 @@ enum VisualizeInforEnum: Int {
     case currentQuality
     case host
     case osInformation
-    static let allValues: [VisualizeInforEnum] = [.entity, .sdk, .volume, .currentQuality, .host, .osInformation]
+    case latency
+    static let allValues: [VisualizeInforEnum] = [.entity, .sdk, .volume, .currentQuality,
+                                                  .host, .osInformation, .latency]
     
     func getTitle() -> String {
         switch self {
@@ -32,6 +34,8 @@ enum VisualizeInforEnum: Int {
             return VisualizeInforConstant.hostTitle
         case .currentQuality:
             return VisualizeInforConstant.videoQualityTitle
+        case .latency:
+            return VisualizeInforConstant.livestreamLatencyTitle
         }
     }
 }
@@ -64,6 +68,12 @@ struct VisualizeSavedInformation {
     }
     
     var currentVideo: UZVideoItem? {
+        didSet {
+            updateVisualizeInformation()
+        }
+    }
+    
+    var livestreamCurrentDate: Date? {
         didSet {
             updateVisualizeInformation()
         }

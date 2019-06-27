@@ -1678,6 +1678,7 @@ open class UZPlayerLayerView: UIView {
 	}
 	
 	fileprivate var timer: Timer?
+    fileprivate var getLatencytimer: Timer?
 	fileprivate var urlAsset: AVURLAsset?
 	fileprivate var subtitleURL: URL?
 	fileprivate var lastPlayerItem: AVPlayerItem?
@@ -1784,6 +1785,7 @@ open class UZPlayerLayerView: UIView {
 		self.playerItem = nil
 		
 		self.timer?.invalidate()
+        self.getLatencytimer?.invalidate()
 		
 		self.pause()
 		self.playerLayer?.removeFromSuperlayer()
@@ -2016,6 +2018,7 @@ open class UZPlayerLayerView: UIView {
 			self.isPlaying = false
 			self.playDidEnd = true
 			self.timer?.invalidate()
+            self.getLatencytimer?.invalidate()
 		}
 	}
     
@@ -2023,6 +2026,15 @@ open class UZPlayerLayerView: UIView {
         if let item = player?.currentItem {
             VisualizeSavedInformation.shared.quality = item.presentationSize.height
         }
+    }
+    
+    private func setupGetLatencyTimer() {
+        getLatencytimer?.invalidate()
+        getLatencytimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(getLatencyAction), userInfo: nil, repeats: true)
+    }
+    
+    @objc private func getLatencyAction() {
+        VisualizeSavedInformation.shared.livestreamCurrentDate = player?.currentItem?.currentDate()
     }
 	
 	override open func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -2032,6 +2044,12 @@ open class UZPlayerLayerView: UIView {
 				case "status":
                     updateVideoQuality()
 					if player?.status == AVPlayer.Status.readyToPlay {
+                        if let video = currentVideo, video.isLive {
+                            VisualizeSavedInformation.shared.livestreamCurrentDate = player?.currentItem?.currentDate()
+                            setupGetLatencyTimer()
+                        } else {
+                            getLatencytimer?.invalidate()
+                        }
 						self.state = .buffering
 						
 						if shouldSeekTo != 0 {

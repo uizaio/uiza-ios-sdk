@@ -1,0 +1,34 @@
+{
+    "data" : {
+        "urls" : [{
+            "support" : "hls" ,
+            "type" : "stream" ,
+            "region" : "VN",
+            "priority" : 0,
+            "codec" : "h264",
+            "type" : "stream",
+            "url" : "http://asia-southeast1-vod.uizacdn.net/f785bc511967473fbe6048ee5fb7ea59-stream/9940516b-c2d3-42d0-80e1-2340f9265277/package/playlist.m384",
+        }, {
+            "support" : "hls" ,
+            "type" : "stream" ,
+            "region" : "VN",
+            "priority" : 0,
+            "codec" : "h264",
+            "type" : "stream",
+            "url" : "http://asia-southeast1-vod.uizacdn.net/f785bc511967473fbe6048ee5fb7ea59-stream/9940516b-c2d3-42d0-80e1-2340f9265277/package/playlist.m3u8",
+        }]
+    },
+    "serviceName" : "api-v4",
+    "version" : 4,
+    "code" : 200,
+    "policy" : "public",
+    "message" : "OK",
+    "type" : "SUCCESS",
+    "requestId" : "ee7e93cc-895d-4b66-bb9b-fbe2292457aa",
+    "metadata" : {
+        "limit" : 20,
+        "result" : 6,
+        "total" : 6,
+        "page" : 0
+    }
+}

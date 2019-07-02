@@ -1,0 +1,19 @@
+{
+    "data" : {
+    "linkStream" : "[\"\"]",
+    "deletedEntity" : null,
+    "createdAt" : "2019-07-02T03:58:08.000Z",
+    "endTime" : null,
+    "pullInfo" : null,
+    "feedId" : "bb646dab-0516-4b6d-81a9-f5d929d6de69",
+    "startTime" : "2019-07-03T06:10:26.000Z",
+    "channelName" : "593fd077-313c-4d11-a5ec-fbd66dc43763",
+    "entityName" : "antest",
+    "updatedAt" : "0000-00-00 00:00:00",
+    "id" : "1c90990d-4c40-4775-af96-1a66c016c884",
+    "pushInfo" : "[{\"streamUrl\":\"rtmp:\/\/asia-southeast1-u-01-gw.uizadev.io:1935\/push-only\",\"streamKey\":\"593fd077-313c-4d11-a5ec-fbd66dc43763?token=daa522d8714a77c52dab86e67b9a8062&ulasId=57ee741f-3daf-11e9-89c5-02c1b5b83c1a\"}]",
+    "length" : null,
+    "entityId" : "7cb5b495-bf41-41ac-be67-5307cc1cb1a9",
+    "process" : "start"
+    }
+}

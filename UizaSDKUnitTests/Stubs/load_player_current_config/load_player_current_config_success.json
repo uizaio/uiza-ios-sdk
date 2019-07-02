@@ -1,0 +1,59 @@
+{
+    "requestId" : "c83f9cad-ed6d-46b1-92bf-e314196344a9",
+    "policy" : "public",
+    "data" : [ {
+        "endscreen" : {
+            "content" : "Thank you for watching!",
+            "display" : "custom"
+        },
+        "name" : "pl web",
+        "plugin" : {
+            "json" : {
+                
+            },
+            "css" : [
+                
+            ],
+            "js" : [
+                
+            ]
+        },
+        "newVersion" : "1.0.0",
+        "logo" : {
+            "position" : "",
+            "display" : "no",
+            "logo" : ""
+        },
+        "setting" : {
+            "showQuality" : "true",
+            "aspect" : "16:9",
+            "autoStart" : "true",
+            "sizing" : "responsive",
+            "updateMode" : "auto",
+            "preload" : "yes"
+        },
+        "styling" : {
+            "buffer" : "#ffffff",
+            "background" : "#ffffff",
+            "icons" : "#ffffff",
+            "progress" : "#ffffff",
+            "name" : "uiza"
+        },
+        "socialSharing" : {
+            "controller" : {
+                "pinterest" : "false",
+                "linkedin" : "false",
+                "twitter" : "false",
+                "tumblr" : "true",
+                "facebook" : "true"
+            },
+            "allow" : "true"
+        }
+    } ],
+    "serviceName" : "api-v4",
+    "code" : 200,
+    "version" : 4,
+    "datetime" : "2019-07-03T08:44:47.260Z",
+    "message" : "OK",
+    "type" : "SUCCESS"
+}

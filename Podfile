@@ -40,5 +40,12 @@ target 'UizaSDKTest' do
 	pod 'NVActivityIndicatorView/AppExtension'
   pod 'Sentry'
 	pod 'google-cast-sdk'
+  
+  target 'UizaSDKUnitTests' do
+    inherit! :search_paths
+    
+    pod 'Mockingjay', :git => 'https://github.com/kylef/Mockingjay.git', :tag => '3.0.0-alpha.1'
+    
+  end
 	
 end

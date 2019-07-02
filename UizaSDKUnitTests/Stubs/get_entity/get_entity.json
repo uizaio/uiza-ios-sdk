@@ -1,0 +1,29 @@
+{
+"code": 200,
+"data": {
+    "id": "16ab25d3-fd0f-4568-8aa0-0339bbfd674f",
+    "name": "The Evolution of Dance",
+    "description": "Judson Laipply did a fantastic job in performing various dance moves",
+    "shortDescription": "How good a dancer can you be?",
+    "view": 0,
+    "poster": "https://sample-videos.com/img/Sample-jpg-image-200kb.jpg",
+    "thumbnail": "https://sample-videos.com/img/Sample-jpg-image-200kb.jpg",
+    "type": "vod",
+    "status": 1,
+    "duration": "237.865215",
+    "publishToCdn":"success",
+    "metadataId": "16a9e425-efb0-4360-bd92-8d49da111e88",
+    "embedMetadata": {
+        "artist": "John Doe",
+        "album": "Album sample",
+        "genre": "Pop"
+    },
+    "extendMetadata": {
+        "movie_category":"action",
+        "imdb_score":8.8,
+        "published_year":"2018"
+    },
+    "createdAt": "2018-06-16T18:54:15.000Z",
+    "updatedAt": "2018-06-16T18:54:29.000Z"
+}
+}

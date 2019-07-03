@@ -478,7 +478,7 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 		#endif
 	}
 	
-	func layoutDurationLabel() {
+	open func layoutDurationLabel() {
 		let viewSize = self.view.bounds.size
 		var labelSize = liveDurationLabel.sizeThatFits(viewSize)
 		labelSize.width += 10

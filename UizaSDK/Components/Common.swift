@@ -41,4 +41,5 @@ struct VisualizeInforConstant {
     static let volumeTitle = "Volume:"
     static let hostTitle = "Host:"
     static let videoQualityTitle = "Video quality:"
+    static let livestreamLatencyTitle = "Livestream latency:"
 }

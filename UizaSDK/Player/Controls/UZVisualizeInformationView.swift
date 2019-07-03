@@ -16,6 +16,8 @@ class UZVisualizeInformationView: UIView {
     private var qualityLabel: UILabel?
     private var hostLabel: UILabel?
     private var osInforLabel: UILabel?
+    private var latencyLabel: UILabel?
+    private var latencyFrameLayout: StackFrameLayout?
     private var mainFrameLayout: StackFrameLayout?
     var closeVisualizeViewButton = UIButton()
     
@@ -27,6 +29,7 @@ class UZVisualizeInformationView: UIView {
     public init() {
         super.init(frame: .zero)
         setupUI()
+        NotificationCenter.default.addObserver(self, selector: #selector(updateVisualizeInfor), name: .UZEventVisualizeInformaionUpdate, object: nil)
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -45,7 +48,6 @@ class UZVisualizeInformationView: UIView {
             return
         }
         mainFrameLayout?.frame = CGRect(x: (viewSize.width - contentSize.width)/2, y: (viewSize.height - contentSize.height)/2, width: contentSize.width, height: contentSize.height)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateVisualizeInfor), name: .UZEventVisualizeInformaionUpdate, object: nil)
     }
     
     private func createLabel(text: String) -> UILabel {
@@ -65,6 +67,7 @@ class UZVisualizeInformationView: UIView {
         let qualityTitleLabel = createLabel(text: VisualizeInforEnum.currentQuality.getTitle())
         let hostTitleLabel = createLabel(text: VisualizeInforEnum.host.getTitle())
         let osInforTitleLabel = createLabel(text: VisualizeInforEnum.osInformation.getTitle())
+        let latencyTitleLabel = createLabel(text: VisualizeInforEnum.latency.getTitle())
         
         entityLabel = createLabel(text: "")
         sdkLabel = createLabel(text: "")
@@ -72,6 +75,7 @@ class UZVisualizeInformationView: UIView {
         qualityLabel = createLabel(text: "")
         hostLabel = createLabel(text: "")
         osInforLabel = createLabel(text: "")
+        latencyLabel = createLabel(text: "")
         closeVisualizeViewButton = UIButton()
         let image = UIImage(icon: .emoji(.close), size: CGSize(width: 24, height: 24), textColor: .white, backgroundColor: .clear)
         closeVisualizeViewButton.setImage(image, for: .normal)
@@ -112,6 +116,12 @@ class UZVisualizeInformationView: UIView {
         osFrameLayout.spacing = 5
         osFrameLayout.addSubview(osInforTitleLabel)
         osFrameLayout.addSubview(osInforLabel!)
+        
+        latencyFrameLayout = StackFrameLayout(direction: .horizontal, alignment: .left, views: [latencyTitleLabel, latencyLabel!])
+        latencyFrameLayout?.spacing = 5
+        latencyFrameLayout?.addSubview(latencyTitleLabel)
+        latencyFrameLayout?.addSubview(latencyLabel!)
+
         mainFrameLayout = StackFrameLayout(direction: .vertical,
                                            alignment: .top,
                                            views: [entityFrameLayout, sdkFrameLayout, volumeFrameLayout,
@@ -140,6 +150,23 @@ class UZVisualizeInformationView: UIView {
             osInforLabel?.text = "\(UIDevice.current.systemVersion), \(UIDevice.current.hardwareName())"
             hostLabel?.text = object.host
             qualityLabel?.text = "\(Int(object.quality))p"
+            if let latencyFrameLayout = latencyFrameLayout, let mainFrameLayout = mainFrameLayout {
+                if let date = object.livestreamCurrentDate {
+                    if mainFrameLayout.frameLayouts.firstIndex(of: latencyFrameLayout) == nil {
+                        mainFrameLayout.append(frameLayout: latencyFrameLayout)
+                        mainFrameLayout.addSubview(latencyFrameLayout)
+                    }
+                    let time = Int((Date().timeIntervalSince(date) * 1000.0))
+                    let numberFormatter = NumberFormatter()
+                    numberFormatter.numberStyle = .decimal
+                    if let timeString = numberFormatter.string(from: NSNumber(value: time)) {
+                        latencyLabel?.text = timeString + " ms"
+                    }
+                } else if let index = mainFrameLayout.frameLayouts.firstIndex(of: latencyFrameLayout) {
+                    self.mainFrameLayout?.removeFrameLayout(at: index)
+                    self.latencyFrameLayout?.removeFromSuperview()
+                }
+            }
             self.setNeedsLayout()
             self.layoutIfNeeded()
         }

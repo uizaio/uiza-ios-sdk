@@ -14,7 +14,6 @@ target 'UizaSDK' do
   pod 'LFLiveKit_'
 	pod 'NVActivityIndicatorView/AppExtension'
   pod 'Sentry'
-	pod 'google-cast-sdk'
 
 end
 

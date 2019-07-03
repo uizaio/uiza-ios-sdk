@@ -10,36 +10,26 @@ import UIKit
 
 
 /**
-Class chứa video của các trang nội dung, ví dụ như trang Home
-*/
-open class UZHomeData: NSObject {
-	/** Chứa các mục video trên banner */
-	public var banner	: UZCategory! = nil
-	/** Chứa các chuyên mục nội dung chính */
-	public var ribbons	: [UZCategory]! = []
-}
-
-/**
-Thể hiện kiểu hiển thị trong danh sách, portrait là kiểu poster đứng, landscape là kiểu nằm ngang. Khi hiển thị danh sách nên check kiểu để hiển thị cho phù hợp
+Cell display mode (portrait or landscape)
 */
 public enum UZCellDisplayMode {
-	/** Kiểu nằm dọc */
+	/// Portrait mode
 	case portrait
-	/** Kiểu nằm ngang */
+	/// Landscape mode
 	case landscape
 }
 
 /**
-Class chứa thông tin của từng chuyên mục
+Category info
 */
 open class UZCategory: UZModelObject {
-	/** id của chuyên mục */
+	/** id of category */
 	public var id				: String! = ""
-	/** Tên chuyên mục */
+	/** Category name */
 	public var name				: String! = ""
-	/** Kiểu hiển thị trên danh sách */
+	/** Display mode */
 	public var displayMode		: UZCellDisplayMode = .landscape
-	/** Danh sách video của chuyên mục này */
+	/** Video items in this category */
 	public var videos			: [UZVideoItem]! = []
 	
 	override func parse(_ data: NSDictionary?) {
@@ -64,7 +54,7 @@ open class UZCategory: UZModelObject {
 		}
 	}
 	
-	/** Mô tả object */
+	/** Object description */
 	override open var description : String {
 		return "\(super.description) [\(id ?? "")] [\(name ?? "")]"
 	}

@@ -615,6 +615,7 @@ public enum DateFormatType {
 }
 
 extension DateFormatType: Equatable {
+	
     public static func ==(lhs: DateFormatType, rhs: DateFormatType) -> Bool {
         switch (lhs, rhs) {
         case (.custom(let lhsString), .custom(let rhsString)):
@@ -623,6 +624,7 @@ extension DateFormatType: Equatable {
             return lhs == rhs
         }
     }
+	
 }
 
 /// The time zone to be used for date conversion

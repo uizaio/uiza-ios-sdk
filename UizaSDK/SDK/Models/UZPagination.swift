@@ -9,16 +9,16 @@
 import UIKit
 
 /**
-Thông tin số lượng item trong trang
+Pagination info
 */
 public class UZPagination: UZModelObject {
-	/// Trang hiện tại
+	/// Current page
 	public var page: Int = 0
-	/// Giới hạn kết quả mỗi trang
+	/// Limitation per page
 	public var limit: Int = 0
-	/// Số lượng kết quả hiện tại của trang
+	/// Current number of items
 	public var result: Int = 0
-	/// Tổng số lượng kết quả
+	/// Total results
 	public var totalItem: Int = 0
 	
 	override func parse(_ data: NSDictionary?) {

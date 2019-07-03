@@ -10,18 +10,18 @@ import UIKit
 import AVFoundation
 
 /**
-Cấu trúc linkplay của video
+Link Play info
 */
 public struct UZVideoLinkPlay {
-	/// Mô tả độ phân giải của linkplay này (Ví dụ 480, 720, 1080)
+	/// Definition (etc 480, 720, 1080)
 	public var definition: String
-	/// Linkplay
+	/// Linkplay URL
 	public var url: URL
 	
 	/// An instance of NSDictionary that contains keys for specifying options for the initialization of the AVURLAsset. See AVURLAssetPreferPreciseDurationAndTimingKey and AVURLAssetReferenceRestrictionsKey above.
 	public var options: [String : AnyHashable]?
 	
-	/// Trả về loại `AVURLAsset` cho linkplay này
+	/// `AVURLAsset` of this linkPlay
 	public var avURLAsset: AVURLAsset {
 		get {
 			return AVURLAsset(url: url, options: options)
@@ -52,11 +52,12 @@ public struct UZVideoLinkPlay {
 	}
 }
 
-extension UZVideoLinkPlay: Equatable {}
-
-public func ==(lhs: UZVideoLinkPlay, rhs: UZVideoLinkPlay) -> Bool {
-	let areEqual = lhs.url == rhs.url
-	return areEqual
+extension UZVideoLinkPlay: Equatable {
+	
+	public static func ==(lhs: UZVideoLinkPlay, rhs: UZVideoLinkPlay) -> Bool {
+		return lhs.url == rhs.url
+	}
+	
 }
 
 /**
@@ -130,7 +131,7 @@ open class UZVideoItem: UZModelObject {
 		}
 	}
 	
-	/** Mô tả object */
+	/** Object description */
 	override open var description : String {
 		return "\(super.description) [\(id ?? "")] [\(name ?? "")]"
 	}

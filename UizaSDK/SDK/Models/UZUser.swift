@@ -11,29 +11,29 @@ import UIKit
 let CURRENT_USER_KEY = "com.uiza.currentUser.3_0"
 
 /**
-Class chứa thông tin người dùng
+Info of user
 */
 open class UZUser: UZModelObject {
-	/** `id` của người dùng */
+	/** `id` of user */
 	public var id : String!
-	/** Tên người dùng */
+	/** Name of user */
 	public var name : String?
-	/** Giới tính */
+	/** Gender of user */
 	public var gender : String? // male / female
-	/** Số điện thoại */
+	/** Mobile phone */
 	public var mobile : String?
-	/** Địa chỉ email */
+	/** Email address */
 	public var email : String?
-	/** Ngày sinh */
+	/** Birthday of user */
 	public var birthday : Date? = nil
-	/** Facebook ID, nếu login từ Facebook */
+	/** Facebook ID, if logged in from Facebook */
 	public var facebookId : String?
-	/** Link hình ảnh đại diện */
+	/** Avatar URL */
 	public var avatarURL : URL? = nil
-	/** Mã token của user */
+	/** Token of user */
 	public var token : String?
 	
-	/** Trả về `true` nếu đây là user hiện tại */
+	/** `true` if this is you */
 	public var isMe: Bool {
 		get {
 			if let currentUser = UZUser.currentUser {
@@ -45,7 +45,7 @@ open class UZUser: UZModelObject {
 	}
 	
 	fileprivate static var _currentUser : UZUser? = nil
-	/** Trả về user đã đăng nhập. Nếu user chưa đăng nhập sẽ trả về nil */
+	/** Logged in user, returns `nil` if user is not logged in */
 	public class var currentUser: UZUser? {
 		get {
 			if (_currentUser == nil) {
@@ -101,7 +101,7 @@ open class UZUser: UZModelObject {
 //	}
 	
 	/**
-	Link hình ảnh đại diện từ Facebook nếu đây là user login bằng Facebook
+	URL of Facebook avatar if user has logged in from Facebook
 	- parameter size: Kích thước hình đại diện
 	*/
 	public func facebookAvatar(size: Int = 100) -> URL? {
@@ -205,7 +205,7 @@ open class UZUser: UZModelObject {
 		}
 	}
 	
-	/** Mô tả object */
+	/** Object description */
 	override open var description : String {
 		return "\(super.description) [\(name ?? "")] [token:\(token ?? "")]"
 	}

@@ -9,20 +9,20 @@
 import UIKit
 
 /**
-Class chứa nội dung thông tin quảng cáo
+Info of Ads cue point
 */
 public class UZAdsCuePoint: UZModelObject {
-	/// `id` của chiến dịch quảng cáo
+	/// `id` of ads campaign
 	public var campaignId: String? = nil
-	/// `id` của admin
+	/// `id` of admin user
 	public var adminUserId: String? = nil
-	/// `id` của entity chứa nội dung quảng cáo này
+	/// `id` of entity that contains this ads campaign
 	public var entityId: String? = nil
-	/// Thời gian vị trí hiển thị quản cáo
+	/// Time to display the ads
 	public var time: TimeInterval = 0
-	/// Tên điểm quảng cáo
+	/// Name of the ads
 	public var name: String? = nil
-	/// Link hiển thị quảng cáo
+	/// Link to the contents
 	public var link: URL? = nil
 	
 	override func parse(_ data: NSDictionary?) {

@@ -10,7 +10,6 @@ import UIKit
 import FrameLayoutKit
 
 class UZVisualizeInformationView: UIView {
-    
     private var entityLabel: UILabel?
     private var sdkLabel: UILabel?
     private var volumeLabel: UILabel?

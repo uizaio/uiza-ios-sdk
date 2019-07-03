@@ -9,16 +9,16 @@
 import UIKit
 
 /**
-Class chứa thông tin của menu item
+MenuItem info
 */
 open class UZMenuItem: UZModelObject {
-	/** `id` của menu */
+	/** `id` of menu item */
 	public var id: String! = ""
-	/** Tựa đề của menu */
+	/** Menu title */
 	public var title: String! = ""
-	/** Loại menu */
+	/** Type of menu */
 	public var type: String! = ""
-	/** Link hình ảnh icon */
+	/** Icon URL */
 	public var iconURL: URL? = nil
 	
 	override func parse(_ data: NSDictionary?) {

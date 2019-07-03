@@ -8,25 +8,25 @@
 
 import UIKit
 
-/// Kiểu phát livestream
-public enum UZLiveMode: String {
-	/// Phát livestream từ 1 nguồn link live có sẵn
+/// Livestream Source
+public enum UZLiveSource: String {
+	/// Pull from an existing livestream link
 	case pull
-	/// Tự phát livestream
+	/// Your own Livestream
 	case push
 }
 
 /**
-Thông tin một sự kiện đang phát trực tiếp
+Info of a live event
 */
 public class UZLiveEvent: UZVideoItem {
-	/// Hình ảnh poster của sự kiện
+	/// Poster image url
 	public var posterURL: URL? = nil
-	/// `true` nếu được encode
+	/// `true` if encoded
 	public var isEncoded: Bool = false
-	/// Kiểu nguồn phát livestream
-	public var mode: UZLiveMode = .push
-	/// Link phát livestream
+	/// Livestream mode
+	public var source: UZLiveSource = .push
+	/// Broadcast URL
 	public fileprivate(set) var broadcastURL: URL? = nil
 	
 	internal var isReadyToLive: Bool = false
@@ -46,7 +46,7 @@ public class UZLiveEvent: UZVideoItem {
 			}
 			
 			if let modeString = data.string(for: "mode", defaultString: "push"), modeString == "pull" || modeString == "push" {
-				mode = UZLiveMode(rawValue: modeString)!
+				source = UZLiveSource(rawValue: modeString)!
 			}
 			
 			if let pushInfoDataArray = data.value(for: "lastPushInfo", defaultValue: nil) as? [NSDictionary],

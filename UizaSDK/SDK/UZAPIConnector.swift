@@ -201,6 +201,7 @@ open class UZAPIConnector {
 		self.startLoadURL(nodeURL, withMethod: method, andParams: finalParams, responseType: responseType, encodingType: encodingType, completionBlock: { (result:Any) in
 			if responseType == .json {
 				let finalResult = JSON.init(result)
+                print("antest1:\(finalResult)")
 				
 				guard let dictionary = finalResult.dictionaryObject else {
 					completionBlock?(nil, UZAPIConnector.UizaUnknownError())
@@ -334,6 +335,7 @@ open class UZAPIConnector {
 			
 			if responseType == .json || responseType == .array {
 				dataRequest!.responseJSON { response in
+                    print(response.request)
 					UZAPIConnector.hideNetworkLoading()
 //					DLog("\(String(describing: response.result.value))")
 					

@@ -1,0 +1,63 @@
+{
+    "code" : 200,
+    "message" : "OK",
+    "version" : 4,
+    "datetime" : "2019-07-03T09:45:25.607Z",
+    "metadata" : {
+        "page" : 1,
+        "total" : 3,
+        "result" : 3,
+        "limit" : 20
+    },
+    "policy" : "public",
+    "requestId" : "b965cd12-f119-4571-8061-841a878753e3",
+    "type" : "SUCCESS",
+    "serviceName" : "api-v4",
+    "data" : [
+        {
+            "updatedAt" : "0000-00-00 00:00:00",
+            "appId" : "f785bc511967473fbe6048ee5fb7ea59",
+            "name" : "Preroll",
+            "entityId" : "33812ed9-4b02-408d-aab4-e77c12d16bb0",
+            "status" : 1,
+            "isDeleted" : 0,
+            "type" : "ads",
+            "time" : 0,
+            "link" : "https:\/\/static.uiza.io\/media\/Uiza-Preroll-20181004.xml",
+            "id" : "db84c840-8970-4fb9-a02f-50f203ed744e",
+            "createdAt" : "2019-06-17T04:05:45.000Z",
+            "campaignId" : "",
+            "adminUserId" : null
+        },
+        {
+            "updatedAt" : "0000-00-00 00:00:00",
+            "appId" : "f785bc511967473fbe6048ee5fb7ea59",
+            "name" : "10s",
+            "entityId" : "33812ed9-4b02-408d-aab4-e77c12d16bb0",
+            "status" : 1,
+            "isDeleted" : 0,
+            "type" : "ads",
+            "time" : 10,
+            "link" : "https:\/\/pubads.g.doubleclick.net\/gampad\/ads?sz=640x480&iu=\/124319096\/external\/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=",
+            "id" : "70b3c81d-4abb-4ce7-bcf5-a5ac709b8054",
+            "createdAt" : "2019-06-17T04:06:16.000Z",
+            "campaignId" : "",
+            "adminUserId" : null
+        },
+        {
+            "updatedAt" : "0000-00-00 00:00:00",
+            "appId" : "f785bc511967473fbe6048ee5fb7ea59",
+            "name" : "postroll",
+            "entityId" : "33812ed9-4b02-408d-aab4-e77c12d16bb0",
+            "status" : 1,
+            "isDeleted" : 0,
+            "type" : "ads",
+            "time" : 23,
+            "link" : "https:\/\/pubads.g.doubleclick.net\/gampad\/ads?sz=640x480&iu=\/124319096\/external\/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator=",
+            "id" : "fe5fef4b-d8c8-4783-a839-f18e1e8f961e",
+            "createdAt" : "2019-06-17T07:26:45.000Z",
+            "campaignId" : "",
+            "adminUserId" : null
+        }
+    ]
+}

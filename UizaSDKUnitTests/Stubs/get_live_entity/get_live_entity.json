@@ -1,0 +1,32 @@
+{
+    "code": 200,
+    "data": {
+        "id": "8b83886e-9cc3-4eab-9258-ebb16c0c73de",
+        "name": "checking 01",
+        "description": "checking",
+        "mode": "pull",
+        "resourceMode": "single",
+        "encode": 0,
+        "channelName": "checking-01",
+        "lastPresetId": null,
+        "lastFeedId": null,
+        "poster": "https://example.com/poster.jpeg",
+        "thumbnail": "https://example.com/thumbnail.jpeg",
+        "linkPublishSocial": null,
+        "linkStream": "[\"https://www.youtube.com/watch?v=pQzaHPoNX1I\"]",
+        "lastPullInfo": {
+            "primaryInputUri": "https://www.youtube.com/watch?v=pQzaHPoNX1I",
+            "secondaryInputUri": null
+        },
+        "lastPushInfo": [
+            {
+                "streamKey": "60b47ad4-1140-4c9c-8d88-565b9215a6fa?token=d626f76ebcf32485828f046d4ff291a3&ulasId=d16196ce-e451-403f-ba4b-866fbe290398",
+                "streamUrl": "rtmp://asia-southeast1-u-01-gw.uiza.io:1935/push-only"
+            }
+        ],
+        "lastProcess": null,
+        "eventType": null,
+        "createdAt": "2018-06-21T14:33:36.000Z",
+        "updatedAt": "2018-06-21T14:33:36.000Z"
+    }
+}

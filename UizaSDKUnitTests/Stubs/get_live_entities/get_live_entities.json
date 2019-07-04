@@ -1,0 +1,193 @@
+{
+    "datetime" : "2019-07-02T09:35:45.640Z",
+    "data" : [
+        {
+            "lastPresetId" : null,
+            "channelName" : "10f49bcf-513c-4860-aa34-8b355780e416",
+            "region" : "asia-southeast1",
+            "updatedAt" : "2019-06-25T04:23:38.000Z",
+            "thumbnail" : "",
+            "id" : "12381124-e8ae-4b2f-981d-c010be7ff5e2",
+            "name" : "livestream 01",
+            "eventType" : "broad",
+            "dvr" : 0,
+            "linkPublishSocial" : null,
+            "createdAt" : "2019-06-25T04:23:38.000Z",
+            "lastFeedId" : "b3b82449-c9a1-4502-a387-9c763489ff44",
+            "poster" : "",
+            "lastPullInfo" : null,
+            "resourceMode" : "single",
+            "lastPushInfo" : [
+                {
+                    "streamKey" : "10f49bcf-513c-4860-aa34-8b355780e416?token=c6db4ad0da44ef8a334a6b51940aaa9e&ulasId=d16196ce-e451-403f-ba4b-866fbe290398",
+                    "streamUrl" : "rtmp:\/\/asia-southeast1-u-01-gw.uiza.io:1935\/push2transcode"
+                }
+            ],
+            "encode" : 1,
+            "description" : "",
+            "linkStream" : "[\"\"]",
+            "drm" : 0,
+            "mode" : "push",
+            "lastProcess" : "stop"
+        },
+        {
+            "lastPresetId" : null,
+            "channelName" : "6e7720a3-dec8-45a1-9eda-226a07689b54",
+            "region" : "asia-southeast1",
+            "updatedAt" : "2019-06-18T04:52:15.000Z",
+            "thumbnail" : "",
+            "id" : "9783a0bc-5f3a-4eee-a741-e90786a0b35d",
+            "name" : "livestream 02",
+            "eventType" : "broad",
+            "dvr" : 0,
+            "linkPublishSocial" : null,
+            "createdAt" : "2019-06-18T04:52:15.000Z",
+            "lastFeedId" : "3f9977eb-32c6-4a27-85c3-85e573bd9ec1",
+            "poster" : "",
+            "lastPullInfo" : null,
+            "resourceMode" : "single",
+            "lastPushInfo" : [
+                {
+                    "streamKey" : "6e7720a3-dec8-45a1-9eda-226a07689b54?token=3b71b39b7b02474a057330e66351e150&ulasId=d16196ce-e451-403f-ba4b-866fbe290398",
+                    "streamUrl" : "rtmp:\/\/asia-southeast1-u-01-gw.uiza.io:1935\/push2transcode"
+                }
+            ],
+            "encode" : 1,
+            "description" : "",
+            "linkStream" : "[\"\"]",
+            "drm" : 0,
+            "mode" : "push",
+            "lastProcess" : "stop"
+        },
+        {
+            "lastPresetId" : null,
+            "channelName" : "73b56721-0332-4b31-b43c-d23ab2c57630",
+            "region" : "asia-southeast1",
+            "updatedAt" : "2019-06-18T04:51:44.000Z",
+            "thumbnail" : "",
+            "id" : "38d4a56e-762f-4185-9b5a-934cc47c989a",
+            "name" : "Push",
+            "eventType" : "broad",
+            "dvr" : 0,
+            "linkPublishSocial" : null,
+            "createdAt" : "2019-06-18T04:51:44.000Z",
+            "lastFeedId" : null,
+            "poster" : "",
+            "lastPullInfo" : null,
+            "resourceMode" : "single",
+            "lastPushInfo" : null,
+            "encode" : 1,
+            "description" : "",
+            "linkStream" : "[\"\"]",
+            "drm" : 0,
+            "mode" : "push",
+            "lastProcess" : null
+        },
+        {
+            "lastPresetId" : null,
+            "channelName" : "e3a3d39f-6bd7-4a82-9e90-70bfa9e1f92d",
+            "region" : "asia-southeast1",
+            "updatedAt" : "2019-05-20T11:02:06.000Z",
+            "thumbnail" : "http:\/\/ap-southeast-1-z-10.uizacdn.net\/f785bc511967473fbe6048ee5fb7ea59-static\/2019\/05\/30\/didonecomacchio-mg-8143-1559214361100.jpg",
+            "id" : "5537e814-ed13-4afb-96f7-f6b69f6b1f90",
+            "name" : "Demo livestream",
+            "eventType" : "broad",
+            "dvr" : 0,
+            "linkPublishSocial" : null,
+            "createdAt" : "2019-05-20T11:02:06.000Z",
+            "lastFeedId" : "3b843a2e-8453-43da-aed0-b43f568e121e",
+            "poster" : "",
+            "lastPullInfo" : {
+                "secondaryInputUri" : null,
+                "primaryInputUri" : "https:\/\/www.youtube.com\/watch?v=hHW1oY26kxQ"
+            },
+            "resourceMode" : "single",
+            "lastPushInfo" : [
+                {
+                    "streamKey" : "e3a3d39f-6bd7-4a82-9e90-70bfa9e1f92d?token=d35558b97ab6e0cbbd271ff823b0c739&ulasId=d16196ce-e451-403f-ba4b-866fbe290398",
+                    "streamUrl" : "rtmp:\/\/asia-southeast1-u-01-gw.uiza.io:1935\/pull2transcode"
+                }
+            ],
+            "encode" : 1,
+            "description" : "",
+            "linkStream" : "[\"https:\/\/www.youtube.com\/watch?v=hHW1oY26kxQ\"]",
+            "drm" : 0,
+            "mode" : "pull",
+            "lastProcess" : "stop"
+        },
+        {
+            "lastPresetId" : null,
+            "channelName" : "37743896-c0db-46ed-8ff2-b84845dd7fa8",
+            "region" : "asia-southeast1",
+            "updatedAt" : "2019-04-23T11:09:17.000Z",
+            "thumbnail" : "",
+            "id" : "b8fcb9b5-30c1-4411-bf32-a5db8b818b7d",
+            "name" : "Pull",
+            "eventType" : "broad",
+            "dvr" : 0,
+            "linkPublishSocial" : null,
+            "createdAt" : "2019-04-23T11:09:17.000Z",
+            "lastFeedId" : "55defd7e-e160-4e45-9171-660d7a24984e",
+            "poster" : "",
+            "lastPullInfo" : null,
+            "resourceMode" : "single",
+            "lastPushInfo" : [
+                {
+                    "streamKey" : "37743896-c0db-46ed-8ff2-b84845dd7fa8?token=09b87d637bb6cbdaade5f3d03a73b119&ulasId=d16196ce-e451-403f-ba4b-866fbe290398",
+                    "streamUrl" : "rtmp:\/\/asia-southeast1-u-01-gw.uiza.io:1935\/push2transcode"
+                }
+            ],
+            "encode" : 1,
+            "description" : "",
+            "linkStream" : "[\"\"]",
+            "drm" : 0,
+            "mode" : "push",
+            "lastProcess" : "stop"
+        },
+        {
+            "lastPresetId" : null,
+            "channelName" : "9d04bf3d-22a7-470a-b122-40e8c1e48d90",
+            "region" : "asia-southeast1",
+            "updatedAt" : "2019-03-29T09:11:37.000Z",
+            "thumbnail" : "",
+            "id" : "23ac54fa-84c2-4a77-975d-13b2054182d8",
+            "name" : "oI3GdbsbDxk",
+            "eventType" : "broad",
+            "dvr" : 0,
+            "linkPublishSocial" : null,
+            "createdAt" : "2019-03-29T09:11:37.000Z",
+            "lastFeedId" : "d947364a-1cf6-4b76-9978-bbc2bb9b67ab",
+            "poster" : "",
+            "lastPullInfo" : {
+                "secondaryInputUri" : null,
+                "primaryInputUri" : "https:\/\/www.youtube.com\/watch?v=hHW1oY26kxQ"
+            },
+            "resourceMode" : "single",
+            "lastPushInfo" : [
+                {
+                    "streamKey" : "9d04bf3d-22a7-470a-b122-40e8c1e48d90?token=a35252ed5556725481e8e033d0c436e7&ulasId=d16196ce-e451-403f-ba4b-866fbe290398",
+                    "streamUrl" : "rtmp:\/\/asia-southeast1-u-01-gw.uiza.io:1935\/pull-only"
+                }
+            ],
+            "encode" : 0,
+            "description" : "https:\/\/www.youtube.com\/watch?v=5rvk0hn8K6c",
+            "linkStream" : "[\"https:\/\/www.youtube.com\/watch?v=hHW1oY26kxQ\"]",
+            "drm" : 0,
+            "mode" : "pull",
+            "lastProcess" : "stop"
+        }
+    ],
+    "serviceName" : "api-v4",
+    "version" : 4,
+    "code" : 200,
+    "policy" : "public",
+    "message" : "OK",
+    "type" : "SUCCESS",
+    "requestId" : "ee7e93cc-895d-4b66-bb9b-fbe2292457aa",
+    "metadata" : {
+        "limit" : 20,
+        "result" : 6,
+        "total" : 6,
+        "page" : 0
+    }
+}

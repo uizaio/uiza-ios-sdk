@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import Mockingjay
 @testable import UizaSDKTest
 
 class UZPlayerUnitTests: XCTestCase {

@@ -7,6 +7,13 @@ PODS:
   - google-cast-sdk/Core (4.4.2):
     - Protobuf (~> 3.0)
   - LFLiveKit_ (2.6.2)
+  - Mockingjay (3.0.0-alpha.1):
+    - Mockingjay/Core (= 3.0.0-alpha.1)
+    - Mockingjay/XCTest (= 3.0.0-alpha.1)
+  - Mockingjay/Core (3.0.0-alpha.1):
+    - URITemplate (~> 3.0)
+  - Mockingjay/XCTest (3.0.0-alpha.1):
+    - Mockingjay/Core
   - NKButton (3.8.4):
     - FrameLayoutKit
     - NVActivityIndicatorView/AppExtension
@@ -20,12 +27,14 @@ PODS:
     - Sentry/Core (= 4.3.4)
   - Sentry/Core (4.3.4)
   - SwiftyJSON (5.0.0)
+  - URITemplate (3.0.0)
 
 DEPENDENCIES:
   - Alamofire
   - FrameLayoutKit
   - google-cast-sdk
   - LFLiveKit_
+  - Mockingjay (from `https://github.com/kylef/Mockingjay.git`, tag `3.0.0-alpha.1`)
   - NKButton
   - NKModalViewManager
   - NVActivityIndicatorView/AppExtension
@@ -46,12 +55,24 @@ SPEC REPOS:
     - SDWebImage
     - Sentry
     - SwiftyJSON
+    - URITemplate
+
+EXTERNAL SOURCES:
+  Mockingjay:
+    :git: https://github.com/kylef/Mockingjay.git
+    :tag: 3.0.0-alpha.1
+
+CHECKOUT OPTIONS:
+  Mockingjay:
+    :git: https://github.com/kylef/Mockingjay.git
+    :tag: 3.0.0-alpha.1
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
   FrameLayoutKit: 363450537f699f03d5eee85b4137a5eca0764019
   google-cast-sdk: ac9ea41d61026406869bf696b2e7f87971a4cf1f
   LFLiveKit_: 809917d93edae7acfcc6eef23b24933ba976a203
+  Mockingjay: a052f8c68868c14372df098a7a72bda00c9bf4d5
   NKButton: 6f79617684e3149921e050dd643c3bdb3f25280c
   NKModalViewManager: 8171cd4fb9315193fc2d05f011f9a29c9ca95a0f
   NVActivityIndicatorView: b19ddab2576f805cbe0fb2306cba3476e09a1dea
@@ -59,7 +80,8 @@ SPEC CHECKSUMS:
   SDWebImage: 920f1a2ff1ca8296ad34f6e0510a1ef1d70ac965
   Sentry: 26f0e6492b103e87434d1a5eea2d241a36f2c2a2
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
+  URITemplate: 58e0d47f967006c5d59888af5356c4a8ed3b197d
 
-PODFILE CHECKSUM: 539bc1fdb702e7c77b198336313cc9eef299d732
+PODFILE CHECKSUM: 51a8f9530beb46e11cacf1cdc5d4d0068a8da2db
 
-COCOAPODS: 1.7.2
+COCOAPODS: 1.7.3

@@ -267,6 +267,23 @@
 		63D3A672224E08BB00732A0C /* String+Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D3A621224E08BB00732A0C /* String+Value.swift */; };
 		63D3A673224E08BB00732A0C /* NotificationName+Uiza.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D3A622224E08BB00732A0C /* NotificationName+Uiza.swift */; };
 		63D3A674224E08BB00732A0C /* String+ToDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D3A623224E08BB00732A0C /* String+ToDictionary.swift */; };
+		691342A022CB072700BD6C56 /* XCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6913429F22CB072700BD6C56 /* XCTest.swift */; };
+		691342A322CB077700BD6C56 /* UZContentServicesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691342A222CB077700BD6C56 /* UZContentServicesTests.swift */; };
+		691342A522CB07E900BD6C56 /* get_entity.json in Resources */ = {isa = PBXBuildFile; fileRef = 691342A422CB07E900BD6C56 /* get_entity.json */; };
+		691342A722CB3D7600BD6C56 /* get_entities.json in Resources */ = {isa = PBXBuildFile; fileRef = 691342A622CB3D7600BD6C56 /* get_entities.json */; };
+		691342C722CB485600BD6C56 /* get_entities_by_category.json in Resources */ = {isa = PBXBuildFile; fileRef = 691342C622CB485600BD6C56 /* get_entities_by_category.json */; };
+		691342CB22CB555700BD6C56 /* get_live_entities.json in Resources */ = {isa = PBXBuildFile; fileRef = 691342CA22CB555700BD6C56 /* get_live_entities.json */; };
+		6948206622CC53E300371805 /* get_entities_fail.json in Resources */ = {isa = PBXBuildFile; fileRef = 6948206522CC53E300371805 /* get_entities_fail.json */; };
+		6948206822CC562C00371805 /* get_entities_fail_response_code.json in Resources */ = {isa = PBXBuildFile; fileRef = 6948206722CC562C00371805 /* get_entities_fail_response_code.json */; };
+		6948206C22CC57E900371805 /* get_entity_fail.json in Resources */ = {isa = PBXBuildFile; fileRef = 6948206B22CC57E900371805 /* get_entity_fail.json */; };
+		6948206E22CC581D00371805 /* get_entity_fail_response_code.json in Resources */ = {isa = PBXBuildFile; fileRef = 6948206D22CC581D00371805 /* get_entity_fail_response_code.json */; };
+		6948207522CC597D00371805 /* get_entities_by_category_fail_response_code.json in Resources */ = {isa = PBXBuildFile; fileRef = 6948207422CC597D00371805 /* get_entities_by_category_fail_response_code.json */; };
+		6948207922CC59C000371805 /* get_entities_by_category_fail.json in Resources */ = {isa = PBXBuildFile; fileRef = 6948207822CC59C000371805 /* get_entities_by_category_fail.json */; };
+		6948207E22CC5B4300371805 /* get_live_entities_fail.json in Resources */ = {isa = PBXBuildFile; fileRef = 6948207D22CC5B4300371805 /* get_live_entities_fail.json */; };
+		6948208222CC5B8900371805 /* get_live_entities_response_code_fail.json in Resources */ = {isa = PBXBuildFile; fileRef = 6948208122CC5B8900371805 /* get_live_entities_response_code_fail.json */; };
+		6948208722CC5EC000371805 /* get_live_entity_fail.json in Resources */ = {isa = PBXBuildFile; fileRef = 6948208422CC5EBF00371805 /* get_live_entity_fail.json */; };
+		6948208822CC5EC000371805 /* get_live_entity_response_code_fail.json in Resources */ = {isa = PBXBuildFile; fileRef = 6948208522CC5EBF00371805 /* get_live_entity_response_code_fail.json */; };
+		6948208922CC5EC000371805 /* get_live_entity.json in Resources */ = {isa = PBXBuildFile; fileRef = 6948208622CC5EBF00371805 /* get_live_entity.json */; };
 		6960DA6D22A1050C00C8454B /* UZVisualizeInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6960DA6C22A1050C00C8454B /* UZVisualizeInformationView.swift */; };
 		6960DA6E22A1052B00C8454B /* UZVisualizeInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6960DA6C22A1050C00C8454B /* UZVisualizeInformationView.swift */; };
 		69622F55228415E500CB3895 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69622F54228415E500CB3895 /* Common.swift */; };
@@ -279,12 +296,33 @@
 		697228F4228E947700DEE5F1 /* UZPlayerControlViewUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694AF57B228D0D2F00C6DE7F /* UZPlayerControlViewUnitTests.swift */; };
 		69784B6C2293A52A00B6F3A5 /* UZVisualizeInfor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69784B6B2293A52A00B6F3A5 /* UZVisualizeInfor.swift */; };
 		69784B6D2293A7D700B6F3A5 /* UZVisualizeInfor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69784B6B2293A52A00B6F3A5 /* UZVisualizeInfor.swift */; };
+		69BDB3E822CC815100FD7C93 /* UZLiveServicesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BDB3E722CC815100FD7C93 /* UZLiveServicesTests.swift */; };
+		69E4E1AF22CC8B710021CED6 /* start_live_feed.json in Resources */ = {isa = PBXBuildFile; fileRef = 69E4E1AE22CC8B710021CED6 /* start_live_feed.json */; };
+		69E4E1B222CC8C910021CED6 /* end_live_feed.json in Resources */ = {isa = PBXBuildFile; fileRef = 69E4E1B122CC8C910021CED6 /* end_live_feed.json */; };
+		69E4E1B522CC8D3C0021CED6 /* load_live_event_views_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 69E4E1B422CC8D3C0021CED6 /* load_live_event_views_success.json */; };
+		69E4E1BC22CC91D60021CED6 /* load_live_event_status_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 69E4E1BB22CC91D60021CED6 /* load_live_event_status_success.json */; };
+		69E4E1BE22CC94E60021CED6 /* start_live_feed_fail.json in Resources */ = {isa = PBXBuildFile; fileRef = 69E4E1BD22CC94E60021CED6 /* start_live_feed_fail.json */; };
+		69E4E1C222CC95330021CED6 /* start_live_feed_response_code_fail.json in Resources */ = {isa = PBXBuildFile; fileRef = 69E4E1C122CC95330021CED6 /* start_live_feed_response_code_fail.json */; };
+		69E4E1C522CC96FA0021CED6 /* end_live_feed_fail.json in Resources */ = {isa = PBXBuildFile; fileRef = 69E4E1C322CC96FA0021CED6 /* end_live_feed_fail.json */; };
+		69E4E1C622CC96FA0021CED6 /* end_live_feed_response_code_fail.json in Resources */ = {isa = PBXBuildFile; fileRef = 69E4E1C422CC96FA0021CED6 /* end_live_feed_response_code_fail.json */; };
+		69E4E1C922CC99D30021CED6 /* load_live_event_views_response_code_fail.json in Resources */ = {isa = PBXBuildFile; fileRef = 69E4E1C722CC99D30021CED6 /* load_live_event_views_response_code_fail.json */; };
+		69E4E1CA22CC99D30021CED6 /* load_live_event_views_fail.json in Resources */ = {isa = PBXBuildFile; fileRef = 69E4E1C822CC99D30021CED6 /* load_live_event_views_fail.json */; };
+		69E4E1CD22CC9AC80021CED6 /* load_live_event_status_response_code_fail.json in Resources */ = {isa = PBXBuildFile; fileRef = 69E4E1CB22CC9AC70021CED6 /* load_live_event_status_response_code_fail.json */; };
+		69E4E1CE22CC9AC80021CED6 /* load_live_event_status_fail.json in Resources */ = {isa = PBXBuildFile; fileRef = 69E4E1CC22CC9AC80021CED6 /* load_live_event_status_fail.json */; };
+		69E4E1D122CCA3020021CED6 /* load_player_config_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 69E4E1D022CCA3020021CED6 /* load_player_config_success.json */; };
+		69E4E1D322CCA38B0021CED6 /* UZPlayerServicesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E4E1D222CCA38B0021CED6 /* UZPlayerServicesTests.swift */; };
+		69E4E1D622CCA5250021CED6 /* load_player_current_config_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 69E4E1D522CCA5250021CED6 /* load_player_current_config_success.json */; };
 		69EEEC802285705E0076A956 /* UZPlayerControlView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EEEC7F2285705E0076A956 /* UZPlayerControlView+.swift */; };
 		69EEEC812285708D0076A956 /* UZPlayerControlView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EEEC7F2285705E0076A956 /* UZPlayerControlView+.swift */; };
 		69EEEC8322857DCB0076A956 /* UZRelatedViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EEEC8222857DCB0076A956 /* UZRelatedViewController+.swift */; };
 		69EEEC8422857EA30076A956 /* UZRelatedViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EEEC8222857DCB0076A956 /* UZRelatedViewController+.swift */; };
 		69EEEC8622857EDE0076A956 /* UZMediaOptionSelectionViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EEEC8522857EDE0076A956 /* UZMediaOptionSelectionViewController+.swift */; };
 		69EEEC8722857EF40076A956 /* UZMediaOptionSelectionViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EEEC8522857EDE0076A956 /* UZMediaOptionSelectionViewController+.swift */; };
+		9449BF4822CDAD3000B0AFB0 /* search_video_by_keyword.json in Resources */ = {isa = PBXBuildFile; fileRef = 9449BF4722CDAD3000B0AFB0 /* search_video_by_keyword.json */; };
+		9449BF4A22CDAD3500B0AFB0 /* get_meta_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 9449BF4922CDAD3500B0AFB0 /* get_meta_data.json */; };
+		9449BF4C22CDAD3A00B0AFB0 /* get_link_video.json in Resources */ = {isa = PBXBuildFile; fileRef = 9449BF4B22CDAD3900B0AFB0 /* get_link_video.json */; };
+		9449BF4D22CDAF2900B0AFB0 /* load_cue_points.json in Resources */ = {isa = PBXBuildFile; fileRef = 69E4E1D822CCB10C0021CED6 /* load_cue_points.json */; };
+		9FD40CC663E8C729636BF2A2 /* Pods_UizaSDKUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EC235516C25D5D22E2A7E1D /* Pods_UizaSDKUnitTests.framework */; };
 		B9D0CE07109F65922B96BD3B /* Pods_UizaSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A01B10B31103E52CE25F9D38 /* Pods_UizaSDK.framework */; };
 /* End PBXBuildFile section */
 
@@ -300,6 +338,7 @@
 
 /* Begin PBXFileReference section */
 		16A4CDC3C71D0CAE21F66816 /* Pods-UizaSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UizaSDK.debug.xcconfig"; path = "Target Support Files/Pods-UizaSDK/Pods-UizaSDK.debug.xcconfig"; sourceTree = "<group>"; };
+		1EC235516C25D5D22E2A7E1D /* Pods_UizaSDKUnitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UizaSDKUnitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		33FBEDE5A4759FA9A1B02BC5 /* Pods-UizaSDK-tvos.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UizaSDK-tvos.release.xcconfig"; path = "Target Support Files/Pods-UizaSDK-tvos/Pods-UizaSDK-tvos.release.xcconfig"; sourceTree = "<group>"; };
 		5F0DB6A0DADFF98D5467FDD3 /* Pods_UizaSDK_tvos.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UizaSDK_tvos.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		630C395022607F9400ACFDAE /* Math.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
@@ -422,6 +461,23 @@
 		63D3A621224E08BB00732A0C /* String+Value.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Value.swift"; sourceTree = "<group>"; };
 		63D3A622224E08BB00732A0C /* NotificationName+Uiza.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NotificationName+Uiza.swift"; sourceTree = "<group>"; };
 		63D3A623224E08BB00732A0C /* String+ToDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+ToDictionary.swift"; sourceTree = "<group>"; };
+		6913429F22CB072700BD6C56 /* XCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTest.swift; sourceTree = "<group>"; };
+		691342A222CB077700BD6C56 /* UZContentServicesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZContentServicesTests.swift; sourceTree = "<group>"; };
+		691342A422CB07E900BD6C56 /* get_entity.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = get_entity.json; sourceTree = "<group>"; };
+		691342A622CB3D7600BD6C56 /* get_entities.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = get_entities.json; sourceTree = "<group>"; };
+		691342C622CB485600BD6C56 /* get_entities_by_category.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = get_entities_by_category.json; sourceTree = "<group>"; };
+		691342CA22CB555700BD6C56 /* get_live_entities.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = get_live_entities.json; sourceTree = "<group>"; };
+		6948206522CC53E300371805 /* get_entities_fail.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = get_entities_fail.json; sourceTree = "<group>"; };
+		6948206722CC562C00371805 /* get_entities_fail_response_code.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = get_entities_fail_response_code.json; sourceTree = "<group>"; };
+		6948206B22CC57E900371805 /* get_entity_fail.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = get_entity_fail.json; sourceTree = "<group>"; };
+		6948206D22CC581D00371805 /* get_entity_fail_response_code.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = get_entity_fail_response_code.json; sourceTree = "<group>"; };
+		6948207422CC597D00371805 /* get_entities_by_category_fail_response_code.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = get_entities_by_category_fail_response_code.json; sourceTree = "<group>"; };
+		6948207822CC59C000371805 /* get_entities_by_category_fail.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = get_entities_by_category_fail.json; sourceTree = "<group>"; };
+		6948207D22CC5B4300371805 /* get_live_entities_fail.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = get_live_entities_fail.json; sourceTree = "<group>"; };
+		6948208122CC5B8900371805 /* get_live_entities_response_code_fail.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = get_live_entities_response_code_fail.json; sourceTree = "<group>"; };
+		6948208422CC5EBF00371805 /* get_live_entity_fail.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = get_live_entity_fail.json; sourceTree = "<group>"; };
+		6948208522CC5EBF00371805 /* get_live_entity_response_code_fail.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = get_live_entity_response_code_fail.json; sourceTree = "<group>"; };
+		6948208622CC5EBF00371805 /* get_live_entity.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = get_live_entity.json; sourceTree = "<group>"; };
 		694AF57B228D0D2F00C6DE7F /* UZPlayerControlViewUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZPlayerControlViewUnitTests.swift; sourceTree = "<group>"; };
 		69582BEE228C14DF00200E60 /* UZFloatingPlayerViewControllerUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZFloatingPlayerViewControllerUnitTests.swift; sourceTree = "<group>"; };
 		696072EC228A78F200911CD2 /* UizaSDKUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UizaSDKUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -431,15 +487,37 @@
 		69622F54228415E500CB3895 /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		697228E1228E92C000DEE5F1 /* UZPlayerMockTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZPlayerMockTests.swift; sourceTree = "<group>"; };
 		69784B6B2293A52A00B6F3A5 /* UZVisualizeInfor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZVisualizeInfor.swift; sourceTree = "<group>"; };
+		69BDB3E722CC815100FD7C93 /* UZLiveServicesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZLiveServicesTests.swift; sourceTree = "<group>"; };
+		69E4E1AE22CC8B710021CED6 /* start_live_feed.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = start_live_feed.json; sourceTree = "<group>"; };
+		69E4E1B122CC8C910021CED6 /* end_live_feed.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = end_live_feed.json; sourceTree = "<group>"; };
+		69E4E1B422CC8D3C0021CED6 /* load_live_event_views_success.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = load_live_event_views_success.json; sourceTree = "<group>"; };
+		69E4E1BB22CC91D60021CED6 /* load_live_event_status_success.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = load_live_event_status_success.json; sourceTree = "<group>"; };
+		69E4E1BD22CC94E60021CED6 /* start_live_feed_fail.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = start_live_feed_fail.json; sourceTree = "<group>"; };
+		69E4E1C122CC95330021CED6 /* start_live_feed_response_code_fail.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = start_live_feed_response_code_fail.json; sourceTree = "<group>"; };
+		69E4E1C322CC96FA0021CED6 /* end_live_feed_fail.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = end_live_feed_fail.json; sourceTree = "<group>"; };
+		69E4E1C422CC96FA0021CED6 /* end_live_feed_response_code_fail.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = end_live_feed_response_code_fail.json; sourceTree = "<group>"; };
+		69E4E1C722CC99D30021CED6 /* load_live_event_views_response_code_fail.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = load_live_event_views_response_code_fail.json; sourceTree = "<group>"; };
+		69E4E1C822CC99D30021CED6 /* load_live_event_views_fail.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = load_live_event_views_fail.json; sourceTree = "<group>"; };
+		69E4E1CB22CC9AC70021CED6 /* load_live_event_status_response_code_fail.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = load_live_event_status_response_code_fail.json; sourceTree = "<group>"; };
+		69E4E1CC22CC9AC80021CED6 /* load_live_event_status_fail.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = load_live_event_status_fail.json; sourceTree = "<group>"; };
+		69E4E1D022CCA3020021CED6 /* load_player_config_success.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = load_player_config_success.json; sourceTree = "<group>"; };
+		69E4E1D222CCA38B0021CED6 /* UZPlayerServicesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZPlayerServicesTests.swift; sourceTree = "<group>"; };
+		69E4E1D522CCA5250021CED6 /* load_player_current_config_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = load_player_current_config_success.json; sourceTree = "<group>"; };
+		69E4E1D822CCB10C0021CED6 /* load_cue_points.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = load_cue_points.json; sourceTree = "<group>"; };
 		69EEEC7F2285705E0076A956 /* UZPlayerControlView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UZPlayerControlView+.swift"; sourceTree = "<group>"; };
 		69EEEC8222857DCB0076A956 /* UZRelatedViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UZRelatedViewController+.swift"; sourceTree = "<group>"; };
 		69EEEC8522857EDE0076A956 /* UZMediaOptionSelectionViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UZMediaOptionSelectionViewController+.swift"; sourceTree = "<group>"; };
 		836B002CADF98834F35F6796 /* Pods-UizaSDK-tvos.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UizaSDK-tvos.debug.xcconfig"; path = "Target Support Files/Pods-UizaSDK-tvos/Pods-UizaSDK-tvos.debug.xcconfig"; sourceTree = "<group>"; };
 		8B68470BD52DB4A497F5376D /* Pods_UizaSDKTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UizaSDKTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C482AE59C3E9D535B9B3CFD /* Pods-UizaSDKUnitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UizaSDKUnitTests.debug.xcconfig"; path = "Target Support Files/Pods-UizaSDKUnitTests/Pods-UizaSDKUnitTests.debug.xcconfig"; sourceTree = "<group>"; };
+		9449BF4722CDAD3000B0AFB0 /* search_video_by_keyword.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = search_video_by_keyword.json; sourceTree = "<group>"; };
+		9449BF4922CDAD3500B0AFB0 /* get_meta_data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = get_meta_data.json; sourceTree = "<group>"; };
+		9449BF4B22CDAD3900B0AFB0 /* get_link_video.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = get_link_video.json; sourceTree = "<group>"; };
 		A01B10B31103E52CE25F9D38 /* Pods_UizaSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UizaSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2775F1DD4B413588C5E3A49 /* Pods-UizaSDKTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UizaSDKTest.debug.xcconfig"; path = "Target Support Files/Pods-UizaSDKTest/Pods-UizaSDKTest.debug.xcconfig"; sourceTree = "<group>"; };
 		C590FB8B9FEFD6D3DAC42CEB /* Pods-UizaSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UizaSDK.release.xcconfig"; path = "Target Support Files/Pods-UizaSDK/Pods-UizaSDK.release.xcconfig"; sourceTree = "<group>"; };
 		CA5B525B18ECA8F3C06FFC20 /* Pods-UizaSDKTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UizaSDKTest.release.xcconfig"; path = "Target Support Files/Pods-UizaSDKTest/Pods-UizaSDKTest.release.xcconfig"; sourceTree = "<group>"; };
+		D05B2E5E938D272768E48335 /* Pods-UizaSDKUnitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UizaSDKUnitTests.release.xcconfig"; path = "Target Support Files/Pods-UizaSDKUnitTests/Pods-UizaSDKUnitTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -471,6 +549,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FD40CC663E8C729636BF2A2 /* Pods_UizaSDKUnitTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -750,9 +829,102 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		6913429D22CB070100BD6C56 /* Stubs */ = {
+			isa = PBXGroup;
+			children = (
+				9449BF4622CDACD600B0AFB0 /* search_video */,
+				9449BF4522CDACB500B0AFB0 /* get_metadata */,
+				9449BF4422CDACA700B0AFB0 /* get_link_video */,
+				69E4E1D722CCB0DF0021CED6 /* load_cue_points */,
+				69E4E1D422CCA4E20021CED6 /* load_player_current_config */,
+				69E4E1CF22CCA2C50021CED6 /* load_player_config */,
+				69E4E1B622CC91940021CED6 /* load_live_event_status */,
+				69E4E1B322CC8D180021CED6 /* load_live_event_views */,
+				69E4E1B022CC8C7C0021CED6 /* end_live_feed */,
+				69E4E1AD22CC8B540021CED6 /* start_live_feed */,
+				6948208322CC5E8800371805 /* get_live_entity */,
+				6948207A22CC5AFC00371805 /* get_live_entities */,
+				6948206F22CC592C00371805 /* get_entities_by_category */,
+				6948206A22CC57CE00371805 /* get_entity */,
+				6948206922CC570900371805 /* get_entities */,
+			);
+			path = Stubs;
+			sourceTree = "<group>";
+		};
+		6913429E22CB070D00BD6C56 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				6913429F22CB072700BD6C56 /* XCTest.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		691342A122CB073C00BD6C56 /* Testcases */ = {
+			isa = PBXGroup;
+			children = (
+				691342A222CB077700BD6C56 /* UZContentServicesTests.swift */,
+				69BDB3E722CC815100FD7C93 /* UZLiveServicesTests.swift */,
+				69E4E1D222CCA38B0021CED6 /* UZPlayerServicesTests.swift */,
+			);
+			path = Testcases;
+			sourceTree = "<group>";
+		};
+		6948206922CC570900371805 /* get_entities */ = {
+			isa = PBXGroup;
+			children = (
+				691342A622CB3D7600BD6C56 /* get_entities.json */,
+				6948206522CC53E300371805 /* get_entities_fail.json */,
+				6948206722CC562C00371805 /* get_entities_fail_response_code.json */,
+			);
+			path = get_entities;
+			sourceTree = "<group>";
+		};
+		6948206A22CC57CE00371805 /* get_entity */ = {
+			isa = PBXGroup;
+			children = (
+				691342A422CB07E900BD6C56 /* get_entity.json */,
+				6948206B22CC57E900371805 /* get_entity_fail.json */,
+				6948206D22CC581D00371805 /* get_entity_fail_response_code.json */,
+			);
+			path = get_entity;
+			sourceTree = "<group>";
+		};
+		6948206F22CC592C00371805 /* get_entities_by_category */ = {
+			isa = PBXGroup;
+			children = (
+				691342C622CB485600BD6C56 /* get_entities_by_category.json */,
+				6948207422CC597D00371805 /* get_entities_by_category_fail_response_code.json */,
+				6948207822CC59C000371805 /* get_entities_by_category_fail.json */,
+			);
+			path = get_entities_by_category;
+			sourceTree = "<group>";
+		};
+		6948207A22CC5AFC00371805 /* get_live_entities */ = {
+			isa = PBXGroup;
+			children = (
+				691342CA22CB555700BD6C56 /* get_live_entities.json */,
+				6948207D22CC5B4300371805 /* get_live_entities_fail.json */,
+				6948208122CC5B8900371805 /* get_live_entities_response_code_fail.json */,
+			);
+			path = get_live_entities;
+			sourceTree = "<group>";
+		};
+		6948208322CC5E8800371805 /* get_live_entity */ = {
+			isa = PBXGroup;
+			children = (
+				6948208422CC5EBF00371805 /* get_live_entity_fail.json */,
+				6948208522CC5EBF00371805 /* get_live_entity_response_code_fail.json */,
+				6948208622CC5EBF00371805 /* get_live_entity.json */,
+			);
+			path = get_live_entity;
+			sourceTree = "<group>";
+		};
 		696072ED228A78F200911CD2 /* UizaSDKUnitTests */ = {
 			isa = PBXGroup;
 			children = (
+				691342A122CB073C00BD6C56 /* Testcases */,
+				6913429E22CB070D00BD6C56 /* Extension */,
+				6913429D22CB070100BD6C56 /* Stubs */,
 				696072EE228A78F200911CD2 /* UZPlayerUnitTests.swift */,
 				69582BEE228C14DF00200E60 /* UZFloatingPlayerViewControllerUnitTests.swift */,
 				694AF57B228D0D2F00C6DE7F /* UZPlayerControlViewUnitTests.swift */,
@@ -769,6 +941,70 @@
 			path = UizaSDKMockTests;
 			sourceTree = "<group>";
 		};
+		69E4E1AD22CC8B540021CED6 /* start_live_feed */ = {
+			isa = PBXGroup;
+			children = (
+				69E4E1AE22CC8B710021CED6 /* start_live_feed.json */,
+				69E4E1BD22CC94E60021CED6 /* start_live_feed_fail.json */,
+				69E4E1C122CC95330021CED6 /* start_live_feed_response_code_fail.json */,
+			);
+			path = start_live_feed;
+			sourceTree = "<group>";
+		};
+		69E4E1B022CC8C7C0021CED6 /* end_live_feed */ = {
+			isa = PBXGroup;
+			children = (
+				69E4E1C322CC96FA0021CED6 /* end_live_feed_fail.json */,
+				69E4E1C422CC96FA0021CED6 /* end_live_feed_response_code_fail.json */,
+				69E4E1B122CC8C910021CED6 /* end_live_feed.json */,
+			);
+			path = end_live_feed;
+			sourceTree = "<group>";
+		};
+		69E4E1B322CC8D180021CED6 /* load_live_event_views */ = {
+			isa = PBXGroup;
+			children = (
+				69E4E1C822CC99D30021CED6 /* load_live_event_views_fail.json */,
+				69E4E1C722CC99D30021CED6 /* load_live_event_views_response_code_fail.json */,
+				69E4E1B422CC8D3C0021CED6 /* load_live_event_views_success.json */,
+			);
+			path = load_live_event_views;
+			sourceTree = "<group>";
+		};
+		69E4E1B622CC91940021CED6 /* load_live_event_status */ = {
+			isa = PBXGroup;
+			children = (
+				69E4E1CC22CC9AC80021CED6 /* load_live_event_status_fail.json */,
+				69E4E1CB22CC9AC70021CED6 /* load_live_event_status_response_code_fail.json */,
+				69E4E1BB22CC91D60021CED6 /* load_live_event_status_success.json */,
+			);
+			path = load_live_event_status;
+			sourceTree = "<group>";
+		};
+		69E4E1CF22CCA2C50021CED6 /* load_player_config */ = {
+			isa = PBXGroup;
+			children = (
+				69E4E1D022CCA3020021CED6 /* load_player_config_success.json */,
+			);
+			path = load_player_config;
+			sourceTree = "<group>";
+		};
+		69E4E1D422CCA4E20021CED6 /* load_player_current_config */ = {
+			isa = PBXGroup;
+			children = (
+				69E4E1D522CCA5250021CED6 /* load_player_current_config_success.json */,
+			);
+			path = load_player_current_config;
+			sourceTree = "<group>";
+		};
+		69E4E1D722CCB0DF0021CED6 /* load_cue_points */ = {
+			isa = PBXGroup;
+			children = (
+				69E4E1D822CCB10C0021CED6 /* load_cue_points.json */,
+			);
+			path = load_cue_points;
+			sourceTree = "<group>";
+		};
 		6DDFEE63A1C2408BEFF0EA90 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -778,8 +1014,34 @@
 				CA5B525B18ECA8F3C06FFC20 /* Pods-UizaSDKTest.release.xcconfig */,
 				836B002CADF98834F35F6796 /* Pods-UizaSDK-tvos.debug.xcconfig */,
 				33FBEDE5A4759FA9A1B02BC5 /* Pods-UizaSDK-tvos.release.xcconfig */,
+				8C482AE59C3E9D535B9B3CFD /* Pods-UizaSDKUnitTests.debug.xcconfig */,
+				D05B2E5E938D272768E48335 /* Pods-UizaSDKUnitTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		9449BF4422CDACA700B0AFB0 /* get_link_video */ = {
+			isa = PBXGroup;
+			children = (
+				9449BF4B22CDAD3900B0AFB0 /* get_link_video.json */,
+			);
+			path = get_link_video;
+			sourceTree = "<group>";
+		};
+		9449BF4522CDACB500B0AFB0 /* get_metadata */ = {
+			isa = PBXGroup;
+			children = (
+				9449BF4922CDAD3500B0AFB0 /* get_meta_data.json */,
+			);
+			path = get_metadata;
+			sourceTree = "<group>";
+		};
+		9449BF4622CDACD600B0AFB0 /* search_video */ = {
+			isa = PBXGroup;
+			children = (
+				9449BF4722CDAD3000B0AFB0 /* search_video_by_keyword.json */,
+			);
+			path = search_video;
 			sourceTree = "<group>";
 		};
 		A3D932B6D3933855DE087CAA /* Frameworks */ = {
@@ -788,6 +1050,7 @@
 				A01B10B31103E52CE25F9D38 /* Pods_UizaSDK.framework */,
 				8B68470BD52DB4A497F5376D /* Pods_UizaSDKTest.framework */,
 				5F0DB6A0DADFF98D5467FDD3 /* Pods_UizaSDK_tvos.framework */,
+				1EC235516C25D5D22E2A7E1D /* Pods_UizaSDKUnitTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -876,9 +1139,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 696072F5228A78F200911CD2 /* Build configuration list for PBXNativeTarget "UizaSDKUnitTests" */;
 			buildPhases = (
+				A513C6DC1C537509D5DA734F /* [CP] Check Pods Manifest.lock */,
 				696072E8228A78F200911CD2 /* Sources */,
 				696072E9228A78F200911CD2 /* Frameworks */,
 				696072EA228A78F200911CD2 /* Resources */,
+				B90221E61626E3286424DF04 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -996,6 +1261,39 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6948207922CC59C000371805 /* get_entities_by_category_fail.json in Resources */,
+				69E4E1C522CC96FA0021CED6 /* end_live_feed_fail.json in Resources */,
+				69E4E1B522CC8D3C0021CED6 /* load_live_event_views_success.json in Resources */,
+				69E4E1CA22CC99D30021CED6 /* load_live_event_views_fail.json in Resources */,
+				6948206C22CC57E900371805 /* get_entity_fail.json in Resources */,
+				69E4E1C222CC95330021CED6 /* start_live_feed_response_code_fail.json in Resources */,
+				9449BF4822CDAD3000B0AFB0 /* search_video_by_keyword.json in Resources */,
+				691342C722CB485600BD6C56 /* get_entities_by_category.json in Resources */,
+				6948208922CC5EC000371805 /* get_live_entity.json in Resources */,
+				6948208822CC5EC000371805 /* get_live_entity_response_code_fail.json in Resources */,
+				69E4E1CE22CC9AC80021CED6 /* load_live_event_status_fail.json in Resources */,
+				691342CB22CB555700BD6C56 /* get_live_entities.json in Resources */,
+				6948208722CC5EC000371805 /* get_live_entity_fail.json in Resources */,
+				69E4E1D122CCA3020021CED6 /* load_player_config_success.json in Resources */,
+				691342A522CB07E900BD6C56 /* get_entity.json in Resources */,
+				69E4E1B222CC8C910021CED6 /* end_live_feed.json in Resources */,
+				9449BF4D22CDAF2900B0AFB0 /* load_cue_points.json in Resources */,
+				69E4E1C622CC96FA0021CED6 /* end_live_feed_response_code_fail.json in Resources */,
+				69E4E1CD22CC9AC80021CED6 /* load_live_event_status_response_code_fail.json in Resources */,
+				9449BF4A22CDAD3500B0AFB0 /* get_meta_data.json in Resources */,
+				69E4E1C922CC99D30021CED6 /* load_live_event_views_response_code_fail.json in Resources */,
+				6948207E22CC5B4300371805 /* get_live_entities_fail.json in Resources */,
+				6948206622CC53E300371805 /* get_entities_fail.json in Resources */,
+				6948207522CC597D00371805 /* get_entities_by_category_fail_response_code.json in Resources */,
+				6948206E22CC581D00371805 /* get_entity_fail_response_code.json in Resources */,
+				69E4E1AF22CC8B710021CED6 /* start_live_feed.json in Resources */,
+				691342A722CB3D7600BD6C56 /* get_entities.json in Resources */,
+				9449BF4C22CDAD3A00B0AFB0 /* get_link_video.json in Resources */,
+				69E4E1D622CCA5250021CED6 /* load_player_current_config_success.json in Resources */,
+				69E4E1BE22CC94E60021CED6 /* start_live_feed_fail.json in Resources */,
+				6948206822CC562C00371805 /* get_entities_fail_response_code.json in Resources */,
+				6948208222CC5B8900371805 /* get_live_entities_response_code_fail.json in Resources */,
+				69E4E1BC22CC91D60021CED6 /* load_live_event_status_success.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1078,6 +1376,45 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A513C6DC1C537509D5DA734F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-UizaSDKUnitTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B90221E61626E3286424DF04 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-UizaSDKUnitTests/Pods-UizaSDKUnitTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-UizaSDKUnitTests/Pods-UizaSDKUnitTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-UizaSDKUnitTests/Pods-UizaSDKUnitTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		DDC47BF4680C8EBB995303FE /* [CP] Check Pods Manifest.lock */ = {
@@ -1370,6 +1707,10 @@
 			files = (
 				697228F3228E947500DEE5F1 /* UZFloatingPlayerViewControllerUnitTests.swift in Sources */,
 				697228F2228E945800DEE5F1 /* UZPlayerUnitTests.swift in Sources */,
+				69E4E1D322CCA38B0021CED6 /* UZPlayerServicesTests.swift in Sources */,
+				691342A322CB077700BD6C56 /* UZContentServicesTests.swift in Sources */,
+				691342A022CB072700BD6C56 /* XCTest.swift in Sources */,
+				69BDB3E822CC815100FD7C93 /* UZLiveServicesTests.swift in Sources */,
 				697228F4228E947700DEE5F1 /* UZPlayerControlViewUnitTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1692,6 +2033,7 @@
 		};
 		696072F3228A78F200911CD2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8C482AE59C3E9D535B9B3CFD /* Pods-UizaSDKUnitTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -1713,6 +2055,7 @@
 		};
 		696072F4228A78F200911CD2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D05B2E5E938D272768E48335 /* Pods-UizaSDKUnitTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;

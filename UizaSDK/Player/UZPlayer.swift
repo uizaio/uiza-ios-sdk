@@ -14,6 +14,7 @@ import CoreGraphics
 import NKModalViewManager
 import Sentry
 import FrameLayoutKit
+import NHNetworkTime
 
 #if canImport(GoogleInteractiveMediaAds)
 import GoogleInteractiveMediaAds
@@ -982,7 +983,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		#else
 		NotificationCenter.default.addObserver(self, selector: #selector(onApplicationInactive), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
 		#endif
-		
+		NotificationCenter.default.addObserver(self, selector: #selector(completeSyncTime), name: NSNotification.Name(rawValue: kNHNetworkTimeSyncCompleteNotification), object: nil)
 		setupAudioCategory()
 	}
 	
@@ -1044,6 +1045,12 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		currentDefinition += 1
 		switchVideoDefinition(resource.definitions[currentDefinition])
 	}
+    
+    @objc func completeSyncTime() {
+        if let video = currentVideo, video.isLive {
+            VisualizeSavedInformation.shared.livestreamCurrentDate = playerLayer?.player?.currentItem?.currentDate()
+        }
+    }
 	
 	// MARK: -
 	
@@ -2034,7 +2041,7 @@ open class UZPlayerLayerView: UIView {
     }
     
     @objc private func getLatencyAction() {
-        VisualizeSavedInformation.shared.livestreamCurrentDate = player?.currentItem?.currentDate()
+        VisualizeSavedInformation.shared.isUpdateLivestreamLatency = true
     }
 	
 	override open func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -2045,7 +2052,7 @@ open class UZPlayerLayerView: UIView {
                     updateVideoQuality()
 					if player?.status == AVPlayer.Status.readyToPlay {
                         if let video = currentVideo, video.isLive {
-                            VisualizeSavedInformation.shared.livestreamCurrentDate = player?.currentItem?.currentDate()
+                            VisualizeSavedInformation.shared.isUpdateLivestreamLatency = true
                             setupGetLatencyTimer()
                         } else {
                             getLatencytimer?.invalidate()

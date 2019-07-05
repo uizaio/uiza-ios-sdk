@@ -8,6 +8,7 @@
 
 import UIKit
 import FrameLayoutKit
+import NHNetworkTime
 
 class UZVisualizeInformationView: UIView {
     private var entityLabel: UILabel?
@@ -30,6 +31,7 @@ class UZVisualizeInformationView: UIView {
         super.init(frame: .zero)
         setupUI()
         NotificationCenter.default.addObserver(self, selector: #selector(updateVisualizeInfor), name: .UZEventVisualizeInformaionUpdate, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(completeSync), name: NSNotification.Name(rawValue: kNHNetworkTimeSyncCompleteNotification), object: nil)
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -38,6 +40,33 @@ class UZVisualizeInformationView: UIView {
     
     deinit {
         NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc func completeSync() {
+        if let currentDate = NHNetworkClock.shared()?.networkTime {
+            if let latencyFrameLayout = latencyFrameLayout, let mainFrameLayout = mainFrameLayout {
+                if let date = VisualizeSavedInformation.shared.livestreamCurrentDate {
+                    if mainFrameLayout.frameLayouts.firstIndex(of: latencyFrameLayout) == nil {
+                        mainFrameLayout.append(frameLayout: latencyFrameLayout)
+                        mainFrameLayout.addSubview(latencyFrameLayout)
+                    }
+                    let latencyTime = currentDate.timeIntervalSince(date) * 1000.0
+                    let time = Int(latencyTime)
+                    UZMuizaLogger.shared.log(eventName: "latencychange", params: ["latency": latencyTime])
+                    let numberFormatter = NumberFormatter()
+                    numberFormatter.numberStyle = .decimal
+                    if let timeString = numberFormatter.string(from: NSNumber(value: time)) {
+                        latencyLabel?.text = timeString + " ms"
+                    }
+                    VisualizeSavedInformation.shared.isUpdateLivestreamLatency = false
+                } else if let index = mainFrameLayout.frameLayouts.firstIndex(of: latencyFrameLayout) {
+                    self.mainFrameLayout?.removeFrameLayout(at: index)
+                    self.latencyFrameLayout?.removeFromSuperview()
+                }
+            }
+            self.setNeedsLayout()
+            self.layoutIfNeeded()
+        }
     }
     
     override open func layoutSubviews() {
@@ -150,22 +179,8 @@ class UZVisualizeInformationView: UIView {
             osInforLabel?.text = "\(UIDevice.current.systemVersion), \(UIDevice.current.hardwareName())"
             hostLabel?.text = object.host
             qualityLabel?.text = "\(Int(object.quality))p"
-            if let latencyFrameLayout = latencyFrameLayout, let mainFrameLayout = mainFrameLayout {
-                if let date = object.livestreamCurrentDate {
-                    if mainFrameLayout.frameLayouts.firstIndex(of: latencyFrameLayout) == nil {
-                        mainFrameLayout.append(frameLayout: latencyFrameLayout)
-                        mainFrameLayout.addSubview(latencyFrameLayout)
-                    }
-                    let time = Int((Date().timeIntervalSince(date) * 1000.0))
-                    let numberFormatter = NumberFormatter()
-                    numberFormatter.numberStyle = .decimal
-                    if let timeString = numberFormatter.string(from: NSNumber(value: time)) {
-                        latencyLabel?.text = timeString + " ms"
-                    }
-                } else if let index = mainFrameLayout.frameLayouts.firstIndex(of: latencyFrameLayout) {
-                    self.mainFrameLayout?.removeFrameLayout(at: index)
-                    self.latencyFrameLayout?.removeFromSuperview()
-                }
+            if object.isUpdateLivestreamLatency {
+                NHNetworkClock.shared()?.synchronize()
             }
             self.setNeedsLayout()
             self.layoutIfNeeded()

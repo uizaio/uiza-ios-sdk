@@ -73,9 +73,13 @@ struct VisualizeSavedInformation {
         }
     }
     
-    var livestreamCurrentDate: Date? {
+    var livestreamCurrentDate: Date?
+    
+    var isUpdateLivestreamLatency: Bool = false {
         didSet {
-            updateVisualizeInformation()
+            if isUpdateLivestreamLatency {
+                updateVisualizeInformation()
+            }
         }
     }
     

@@ -28,43 +28,18 @@ class UZVisualizeInformationView: UIView {
 		numberFormatter.numberStyle = .decimal
 		setupUI()
 		
-		NotificationCenter.default.addObserver(self, selector: #selector(updateVisualizeInfor), name: .UZEventVisualizeInformaionUpdate, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(completeSync), name: NSNotification.Name(rawValue: kNHNetworkTimeSyncCompleteNotification), object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(onUpdateVisualizeInfo), name: .UZEventVisualizeInformaionUpdate, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(onDateSyncCompleted), name: NSNotification.Name(rawValue: kNHNetworkTimeSyncCompleteNotification), object: nil)
 	}
 	
 	required public init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
 	
-	@objc func completeSync() {
-		guard let currentDate = NHNetworkClock.shared()?.networkTime else {
-			return
-		}
-		
-		if let date = UZVisualizeSavedInformation.shared.livestreamCurrentDate {
-			latencyLabel.isHidden = false
-			let latencyTime = currentDate.timeIntervalSince(date) * 1000.0
-			let time = Int(latencyTime)
-			UZMuizaLogger.shared.log(eventName: "latencychange", params: ["latency": latencyTime])
-			
-			if let timeString = numberFormatter.string(from: NSNumber(value: time)) {
-				latencyLabel.text = timeString + " ms"
-			}
-			
-			UZVisualizeSavedInformation.shared.isUpdateLivestreamLatency = false
-		}
-		else {
-			latencyLabel.isHidden = true
-		}
-		
-		self.setNeedsLayout()
-		self.layoutIfNeeded()
-	}
-	
 	override open func layoutSubviews() {
 		super.layoutSubviews()
 		
-		let viewSize = self.bounds.size
+		let viewSize = bounds.size
 		let contentSize = mainFrameLayout.sizeThatFits(viewSize)
 		mainFrameLayout.frame = CGRect(x: (viewSize.width - contentSize.width)/2, y: (viewSize.height - contentSize.height)/2, width: contentSize.width, height: contentSize.height)
 	}
@@ -107,13 +82,34 @@ class UZVisualizeInformationView: UIView {
 		closeButton.removeFromSuperview()
 	}
 	
-	@objc func updateVisualizeInfor(notification: NSNotification) {
-		guard let object = notification.object as? UZVisualizeSavedInformation else {
-			return
+	@objc func onDateSyncCompleted() {
+		guard let currentDate = NHNetworkClock.shared()?.networkTime else { return }
+		
+		if let date = UZVisualizeSavedInformation.shared.livestreamCurrentDate {
+			latencyLabel.isHidden = false
+			let latencyTime = currentDate.timeIntervalSince(date) * 1000.0
+			let time = Int(latencyTime)
+			UZMuizaLogger.shared.log(eventName: "latencychange", params: ["latency": latencyTime])
+			
+			if let timeString = numberFormatter.string(from: NSNumber(value: time)) {
+				latencyLabel.text = timeString + " ms"
+			}
+			
+//			UZVisualizeSavedInformation.shared.isUpdateLivestreamLatency = false
+		}
+		else {
+			latencyLabel.isHidden = true
 		}
 		
+		self.setNeedsLayout()
+		self.layoutIfNeeded()
+	}
+	
+	@objc func onUpdateVisualizeInfo(notification: NSNotification) {
+		guard let object = notification.object as? UZVisualizeSavedInformation else { return }
+		
 		entityLabel.text = object.currentVideo?.id ?? ""
-		sdkLabel.text = "\(SDK_VERSION), \(PLAYER_VERSION), \(UizaSDK.version.rawValue)"
+		sdkLabel.text = "\(SDK_VERSION), API \(UizaSDK.version.rawValue)"
 		volumeLabel.text = "\(Int(object.volume * 100))%"
 		osInfoLabel.text = "iOS \(UIDevice.current.systemVersion), \(UIDevice.current.hardwareName())"
 		hostLabel.text = object.host

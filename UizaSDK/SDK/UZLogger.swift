@@ -35,8 +35,8 @@ open class UZLogger: UZAPIConnector {
 		var finalParams: Parameters? = [:]
 		
 		if let video = video {
-			finalParams = ["entity_id" : video.id,
-						   "entity_name" : video.name]
+			finalParams = ["entity_id" : video.id!,
+						   "entity_name" : video.name!]
 		}
 		
 		if let params = params {
@@ -80,7 +80,7 @@ open class UZLogger: UZAPIConnector {
 										  "player_name"		: "UizaSDK_\(platform)",
 			"player_version" 	: PLAYER_VERSION,
 			"sdk_version"		: SDK_VERSION,
-			"bundleId"           : bundleId]
+			"bundleId"          : bundleId]
 		
 		var finalParams: Parameters! = defaultParams
 		

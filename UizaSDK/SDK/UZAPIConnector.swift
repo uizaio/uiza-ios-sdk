@@ -334,7 +334,6 @@ open class UZAPIConnector {
 			
 			if responseType == .json || responseType == .array {
 				dataRequest!.responseJSON { response in
-                    print(response.request)
 					UZAPIConnector.hideNetworkLoading()
 //					DLog("\(String(describing: response.result.value))")
 					

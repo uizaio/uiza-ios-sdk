@@ -294,8 +294,8 @@
 		697228F2228E945800DEE5F1 /* UZPlayerUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696072EE228A78F200911CD2 /* UZPlayerUnitTests.swift */; };
 		697228F3228E947500DEE5F1 /* UZFloatingPlayerViewControllerUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69582BEE228C14DF00200E60 /* UZFloatingPlayerViewControllerUnitTests.swift */; };
 		697228F4228E947700DEE5F1 /* UZPlayerControlViewUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694AF57B228D0D2F00C6DE7F /* UZPlayerControlViewUnitTests.swift */; };
-		69784B6C2293A52A00B6F3A5 /* UZVisualizeInfor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69784B6B2293A52A00B6F3A5 /* UZVisualizeInfor.swift */; };
-		69784B6D2293A7D700B6F3A5 /* UZVisualizeInfor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69784B6B2293A52A00B6F3A5 /* UZVisualizeInfor.swift */; };
+		69784B6C2293A52A00B6F3A5 /* UZVisualizeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69784B6B2293A52A00B6F3A5 /* UZVisualizeInfo.swift */; };
+		69784B6D2293A7D700B6F3A5 /* UZVisualizeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69784B6B2293A52A00B6F3A5 /* UZVisualizeInfo.swift */; };
 		69BDB3E822CC815100FD7C93 /* UZLiveServicesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BDB3E722CC815100FD7C93 /* UZLiveServicesTests.swift */; };
 		69E4E1AF22CC8B710021CED6 /* start_live_feed.json in Resources */ = {isa = PBXBuildFile; fileRef = 69E4E1AE22CC8B710021CED6 /* start_live_feed.json */; };
 		69E4E1B222CC8C910021CED6 /* end_live_feed.json in Resources */ = {isa = PBXBuildFile; fileRef = 69E4E1B122CC8C910021CED6 /* end_live_feed.json */; };
@@ -375,6 +375,7 @@
 		63672780226888230072612F /* UizaSDK_tvos.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UizaSDK_tvos.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		63672782226888230072612F /* UizaSDK_tvos.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UizaSDK_tvos.h; sourceTree = "<group>"; };
 		63672783226888230072612F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6377B53D22D0730E00CF7F1A /* UizaSDKTest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = UizaSDKTest.entitlements; sourceTree = "<group>"; };
 		63A4C8C5228E71880039620E /* AVAsset+Selection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVAsset+Selection.swift"; sourceTree = "<group>"; };
 		63B14B332282E3B900EB56FE /* UZSentry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZSentry.swift; sourceTree = "<group>"; };
 		63D3A5BC224E07FA00732A0C /* UizaSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UizaSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -486,7 +487,7 @@
 		6960DA6C22A1050C00C8454B /* UZVisualizeInformationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZVisualizeInformationView.swift; sourceTree = "<group>"; };
 		69622F54228415E500CB3895 /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		697228E1228E92C000DEE5F1 /* UZPlayerMockTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZPlayerMockTests.swift; sourceTree = "<group>"; };
-		69784B6B2293A52A00B6F3A5 /* UZVisualizeInfor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZVisualizeInfor.swift; sourceTree = "<group>"; };
+		69784B6B2293A52A00B6F3A5 /* UZVisualizeInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZVisualizeInfo.swift; sourceTree = "<group>"; };
 		69BDB3E722CC815100FD7C93 /* UZLiveServicesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZLiveServicesTests.swift; sourceTree = "<group>"; };
 		69E4E1AE22CC8B710021CED6 /* start_live_feed.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = start_live_feed.json; sourceTree = "<group>"; };
 		69E4E1B122CC8C910021CED6 /* end_live_feed.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = end_live_feed.json; sourceTree = "<group>"; };
@@ -598,6 +599,7 @@
 		63672580226868290072612F /* UizaSDKTest */ = {
 			isa = PBXGroup;
 			children = (
+				6377B53D22D0730E00CF7F1A /* UizaSDKTest.entitlements */,
 				63672581226868290072612F /* AppDelegate.swift */,
 				63672583226868290072612F /* ViewController.swift */,
 				63672779226887730072612F /* MyLiveStreamViewController.swift */,
@@ -722,7 +724,7 @@
 			children = (
 				63D3A5E0224E08BB00732A0C /* UZMediaResource.swift */,
 				63D3A5E1224E08BB00732A0C /* UZSubtitles.swift */,
-				69784B6B2293A52A00B6F3A5 /* UZVisualizeInfor.swift */,
+				69784B6B2293A52A00B6F3A5 /* UZVisualizeInfo.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -730,12 +732,12 @@
 		63D3A5E4224E08BB00732A0C /* Controls */ = {
 			isa = PBXGroup;
 			children = (
-				6960DA6C22A1050C00C8454B /* UZVisualizeInformationView.swift */,
 				63D3A5E6224E08BB00732A0C /* NKProgressView.swift */,
 				63D3A5E7224E08BB00732A0C /* NKFloatingViewHandler.swift */,
 				63D3A5E8224E08BB00732A0C /* UZSlider.swift */,
 				63D3A5E9224E08BB00732A0C /* UZAirPlayButton.swift */,
 				63D3A5EA224E08BB00732A0C /* UZCastButton.swift */,
+				6960DA6C22A1050C00C8454B /* UZVisualizeInformationView.swift */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -1168,6 +1170,11 @@
 				TargetAttributes = {
 					6367257E226868280072612F = {
 						CreatedOnToolsVersion = 10.2;
+						SystemCapabilities = {
+							com.apple.AccessWiFi = {
+								enabled = 0;
+							};
+						};
 					};
 					6367277F226888230072612F = {
 						CreatedOnToolsVersion = 10.2;
@@ -1468,7 +1475,7 @@
 				6367259822686A3F0072612F /* UZMediaOptionSelectionViewController.swift in Sources */,
 				6367259522686A3F0072612F /* UZPlayerControlView.swift in Sources */,
 				636725D722686AD70072612F /* UZPagination.swift in Sources */,
-				69784B6D2293A7D700B6F3A5 /* UZVisualizeInfor.swift in Sources */,
+				69784B6D2293A7D700B6F3A5 /* UZVisualizeInfo.swift in Sources */,
 				69EEEC812285708D0076A956 /* UZPlayerControlView+.swift in Sources */,
 				63A4C8C8228E71880039620E /* AVAsset+Selection.swift in Sources */,
 				636725F222686AE00072612F /* NSDictionary+KeyValue.swift in Sources */,
@@ -1669,7 +1676,7 @@
 				63D3A624224E08BB00732A0C /* UZPlayerService.swift in Sources */,
 				63D3A632224E08BB00732A0C /* UZPlayerConfig.swift in Sources */,
 				63D3A673224E08BB00732A0C /* NotificationName+Uiza.swift in Sources */,
-				69784B6C2293A52A00B6F3A5 /* UZVisualizeInfor.swift in Sources */,
+				69784B6C2293A52A00B6F3A5 /* UZVisualizeInfo.swift in Sources */,
 				63193FFF2251032E00FFC560 /* UZTheme3.swift in Sources */,
 				63D3A62F224E08BB00732A0C /* UZBannerItem.swift in Sources */,
 				69EEEC802285705E0076A956 /* UZPlayerControlView+.swift in Sources */,

@@ -179,7 +179,7 @@ open class UZMuizaLogger : UZAPIConnector{
 	private func sendLogs() {
 		lastSentDate = Date()
 		self.requestHeaderFields = ["AccessToken" : accessToken]
-		self.callAPI(APIConstant.muizaLoggingApi, baseURLString: loggingURLString, method: .post, params: logArray.asParameters(), encodingType: ArrayEncoding()) { [weak self] (result, error) in
+		self.callAPI(UZAPIConstant.muizaLoggingApi, baseURLString: loggingURLString, method: .post, params: logArray.asParameters(), encodingType: ArrayEncoding()) { [weak self] (result, error) in
 			if error == nil {
 				self?.stopAutoSendLogs()
 				self?.logArray = []

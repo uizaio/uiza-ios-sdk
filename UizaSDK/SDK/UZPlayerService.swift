@@ -16,7 +16,7 @@ open class UZPlayerService: UZAPIConnector {
 	public func loadPlayerConfig(completionBlock: @escaping(([UZPlayerConfig]?, Error?) -> Void)) {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
 		
-		self.callAPI(APIConstant.playerConfigApi, baseURLString: basePrivateAPIURLPath(), method: .get, params: ["platform" : "ios"]) { (result:NSDictionary?, error:Error?) in
+		self.callAPI(UZAPIConstant.playerConfigApi, baseURLString: basePrivateAPIURLPath(), method: .get, params: ["platform" : "ios"]) { (result:NSDictionary?, error:Error?) in
 			DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
@@ -39,7 +39,7 @@ open class UZPlayerService: UZAPIConnector {
 	public func load(configId: String, completionBlock: @escaping((UZPlayerConfig?, Error?) -> Void)) {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
 		
-		self.callAPI(APIConstant.playerConfigApi, baseURLString: basePrivateAPIURLPath(), method: .get, params: ["id" : configId]) { (result:NSDictionary?, error:Error?) in
+		self.callAPI(UZAPIConstant.playerConfigApi, baseURLString: basePrivateAPIURLPath(), method: .get, params: ["id" : configId]) { (result:NSDictionary?, error:Error?) in
 			DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {

@@ -37,7 +37,7 @@ public class UZLiveEvent: UZVideoItem {
 			DLog("\(data)")
 			super.parse(data)
 			
-			if var posterString = data.string(for: "poster", defaultString: APIConstant.posterLink) {
+			if var posterString = data.string(for: "poster", defaultString: UZAPIConstant.posterLink) {
 				if posterString.hasPrefix("//") {
 					posterString = "https:" + posterString
 				}

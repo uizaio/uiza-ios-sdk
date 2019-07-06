@@ -72,17 +72,18 @@ extension XCTestCase {
     
     func stub_meta_data_list_success() {
         let data = loadStub(name: "get_meta_data", extension: ".json")
-        stub(http(.get, uri: "https://ap-southeast-1-api.uiza.co/api/public/v4/v1/media/metadata/list?limit=50&type%5B%5D=folder&type%5B%5D=playlist"), jsonData(data))
+        stub(http(.get, uri:
+            UZAPIConnector().basePublicAPIURLPath() + "/v1/media/metadata/list?limit=50&type%5B%5D=folder&type%5B%5D=playlist"), jsonData(data))
     }
     
     func stub_cue_point_success() {
         let data = loadStub(name: "load_cue_points", extension: ".json")
-        stub(http(.get, uri: "https://ap-southeast-1-api.uiza.co/api/public/v4/media/entity/cue-point?entityId="), jsonData(data))
+        stub(http(.get, uri: UZAPIConnector().basePrivateAPIURLPath() + "/media/entity/cue-point?entityId="), jsonData(data))
     }
     
     func stub_search_keywork_success() {
         let data = loadStub(name: "search_video_by_keyword", extension: ".json")
-        stub(http(.get, uri: "https://ap-southeast-1-api.uiza.co/api/public/v4/media/entity/search?keyword=datdat&limit=20&orderBy=createdAt&orderType=DESC&page=0"), jsonData(data))
+        stub(http(.get, uri: UZAPIConnector().basePublicAPIURLPath() + "/media/entity/search?keyword=datdat&limit=20&orderBy=createdAt&orderType=DESC&page=0"), jsonData(data))
     }
     
     func stub_load_entity_fail() {
@@ -108,11 +109,6 @@ extension XCTestCase {
     func stub_load_live_entity_fail_response_code() {
         let data = loadStub(name: "get_live_entity_response_code_fail", extension: ".json")
         stub(http(.get, uri: UZAPIConnector().basePublicAPIURLPath() + "/live/entity?id=8b83886e-9cc3-4eab-9258-ebb16c0c73de"), jsonData(data))
-    }
-    
-    func stub_load_cue_points_success() {
-        let data = loadStub(name: "load_cue_points", extension: ".json")
-        stub(http(.get, uri: UZAPIConnector().basePublicAPIURLPath() + "/media/entity/cue-point?entityId=33812ed9-4b02-408d-aab4-e77c12d16bb0"), jsonData(data))
     }
     
 }

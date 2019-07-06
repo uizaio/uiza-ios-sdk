@@ -14,6 +14,7 @@ import CoreGraphics
 import NKModalViewManager
 import Sentry
 import FrameLayoutKit
+import NHNetworkTime
 
 #if canImport(GoogleInteractiveMediaAds)
 import GoogleInteractiveMediaAds
@@ -275,7 +276,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		controlView.showControlView()
 		controlView.showLoader()
 		controlView.liveStartDate = nil
-        VisualizeSavedInformation.shared.currentVideo = video
+        UZVisualizeSavedInformation.shared.currentVideo = video
 		
 		UZContentServices().loadLinkPlay(video: video) { [unowned self] (results, error) in
 			self.controlView.hideLoader()
@@ -283,7 +284,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 			if let results = results {
 				self.currentVideo?.videoURL = results.first?.avURLAsset.url
                 if let host = results.first?.url.host {
-                    VisualizeSavedInformation.shared.host = host
+                    UZVisualizeSavedInformation.shared.host = host
                 }
 				UZLogger.shared.log(event: "plays_requested", video: video, completionBlock: nil)
 				
@@ -924,22 +925,22 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 				}
 				
                 addSubview(visualizeInformationView!)
-                addSubview(visualizeInformationView!.closeVisualizeViewButton)
+                addSubview(visualizeInformationView!.closeButton)
             } else {
                 visualizeInformationView?.removeFromSuperview()
-                visualizeInformationView?.closeVisualizeViewButton.removeFromSuperview()
+                visualizeInformationView?.closeButton.removeFromSuperview()
             }
         }
     }
     
-    func updateVisualizeInformationView(isShow: Bool) {
-        visualizeInformationView?.isHidden = !isShow
-        visualizeInformationView?.closeVisualizeViewButton.isHidden = !isShow
+    func updateVisualizeInformation(visible: Bool) {
+        visualizeInformationView?.isHidden = !visible
+        visualizeInformationView?.closeButton.isHidden = !visible
     }
     
     @objc func volumeDidChange(notification: NSNotification) {
         if let volume = notification.userInfo?["AVSystemController_AudioVolumeNotificationParameter"] as? Float{
-            VisualizeSavedInformation.shared.volume = volume
+            UZVisualizeSavedInformation.shared.volume = volume
         }
     }
 	
@@ -982,7 +983,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		#else
 		NotificationCenter.default.addObserver(self, selector: #selector(onApplicationInactive), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
 		#endif
-		
+		NotificationCenter.default.addObserver(self, selector: #selector(completeSyncTime), name: NSNotification.Name(rawValue: kNHNetworkTimeSyncCompleteNotification), object: nil)
 		setupAudioCategory()
 	}
 	
@@ -1044,6 +1045,12 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		currentDefinition += 1
 		switchVideoDefinition(resource.definitions[currentDefinition])
 	}
+    
+    @objc func completeSyncTime() {
+        if let video = currentVideo, video.isLive {
+            UZVisualizeSavedInformation.shared.livestreamCurrentDate = playerLayer?.player?.currentItem?.currentDate()
+        }
+    }
 	
 	// MARK: -
 	
@@ -1408,7 +1415,12 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 			case .logo:
 				if let url = controlView.playerConfig?.logoRedirectUrl {
 					if UIApplication.shared.canOpenURL(url) {
-						UIApplication.shared.openURL(url)
+						if #available(iOS 10, *) {
+							UIApplication.shared.open(url, options: [:], completionHandler: nil)
+						}
+						else {
+							UIApplication.shared.openURL(url)
+						}
 					}
 				}
 				
@@ -2024,7 +2036,7 @@ open class UZPlayerLayerView: UIView {
     
     private func updateVideoQuality() {
         if let item = player?.currentItem {
-            VisualizeSavedInformation.shared.quality = item.presentationSize.height
+            UZVisualizeSavedInformation.shared.quality = item.presentationSize.height
         }
     }
     
@@ -2034,7 +2046,7 @@ open class UZPlayerLayerView: UIView {
     }
     
     @objc private func getLatencyAction() {
-        VisualizeSavedInformation.shared.livestreamCurrentDate = player?.currentItem?.currentDate()
+        UZVisualizeSavedInformation.shared.isUpdateLivestreamLatency = true
     }
 	
 	override open func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -2045,7 +2057,7 @@ open class UZPlayerLayerView: UIView {
                     updateVideoQuality()
 					if player?.status == AVPlayer.Status.readyToPlay {
                         if let video = currentVideo, video.isLive {
-                            VisualizeSavedInformation.shared.livestreamCurrentDate = player?.currentItem?.currentDate()
+                            UZVisualizeSavedInformation.shared.isUpdateLivestreamLatency = true
                             setupGetLatencyTimer()
                         } else {
                             getLatencytimer?.invalidate()

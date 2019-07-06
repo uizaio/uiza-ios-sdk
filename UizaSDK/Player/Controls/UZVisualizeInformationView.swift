@@ -77,6 +77,22 @@ class UZVisualizeInformationView: UIView {
 		self.isUserInteractionEnabled = false
 	}
 	
+	func update(info: UZVisualizeSavedInformation) {
+		entityLabel.text = info.currentVideo?.id ?? "---"
+		sdkLabel.text = "\(SDK_VERSION), API \(UizaSDK.version.rawValue)"
+		volumeLabel.text = "\(Int(info.volume * 100))%"
+		osInfoLabel.text = "iOS \(UIDevice.current.systemVersion), \(UIDevice.current.hardwareName())"
+		hostLabel.text = info.host
+		qualityLabel.text = "\(Int(info.quality))p"
+		
+		if info.isUpdateLivestreamLatency {
+			NHNetworkClock.shared()?.synchronize()
+		}
+		
+		self.setNeedsLayout()
+		self.layoutIfNeeded()
+	}
+	
 	@objc func closeVisualizeView() {
 		self.removeFromSuperview()
 		closeButton.removeFromSuperview()
@@ -107,20 +123,7 @@ class UZVisualizeInformationView: UIView {
 	
 	@objc func onUpdateVisualizeInfo(notification: NSNotification) {
 		guard let object = notification.object as? UZVisualizeSavedInformation else { return }
-		
-		entityLabel.text = object.currentVideo?.id ?? ""
-		sdkLabel.text = "\(SDK_VERSION), API \(UizaSDK.version.rawValue)"
-		volumeLabel.text = "\(Int(object.volume * 100))%"
-		osInfoLabel.text = "iOS \(UIDevice.current.systemVersion), \(UIDevice.current.hardwareName())"
-		hostLabel.text = object.host
-		qualityLabel.text = "\(Int(object.quality))p"
-		
-		if object.isUpdateLivestreamLatency {
-			NHNetworkClock.shared()?.synchronize()
-		}
-		
-		self.setNeedsLayout()
-		self.layoutIfNeeded()
+		update(info: object)
 	}
 	
 	deinit {

@@ -65,7 +65,7 @@ open class UZLogger: UZAPIConnector {
 		let platform	: String = UIDevice.isTV() ? "tvos" : "ios"
 		#endif
 		
-		print("timestamp: \(timestamp)")
+//		print("timestamp: \(timestamp)")
 		let defaultParams: Parameters! = ["event_type" 		: event,
 										  "timestamp"		: timestamp,
 										  "platform"		: platform,

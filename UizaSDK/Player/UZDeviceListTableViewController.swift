@@ -18,20 +18,18 @@ class UZDeviceListTableViewController: UITableViewController {
 	override func viewDidLoad() {
         super.viewDidLoad()
 		
-		NotificationCenter.default.addObserver(self, selector: #selector(onDeviceListUpdated), name: NSNotification.Name.UZDeviceListDidUpdate, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(onSessionDidStart), name: NSNotification.Name.UZCastSessionDidStart, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(onSessionDidStop), name: NSNotification.Name.UZCastSessionDidStop, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(onDeviceListUpdated), name: .UZDeviceListDidUpdate, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(onSessionDidStart), name: .UZCastSessionDidStart, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(onSessionDidStop), name: .UZCastSessionDidStop, object: nil)
     }
 	
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
-		
 		castingManager.startDiscovering()
 	}
 	
 	override func viewDidDisappear(_ animated: Bool) {
 		super.viewDidDisappear(animated)
-		
 		castingManager.stopDiscovering()
 	}
 	

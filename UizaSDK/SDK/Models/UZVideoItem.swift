@@ -111,7 +111,7 @@ open class UZVideoItem: UZModelObject {
 			duration			= data.number(for: "duration", defaultNumber: 0)!.doubleValue
 			videoURL			= data.url(for: "url") // data.url(for: "url", defaultURL: URL(string: "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4")!)
 			
-			if var thumbnailString = data.string(for: "thumbnail", defaultString: APIConstant.posterLink) {
+			if var thumbnailString = data.string(for: "thumbnail", defaultString: UZAPIConstant.posterLink) {
 				if thumbnailString.hasPrefix("//") {
 					thumbnailString = "https:" + thumbnailString
 				}

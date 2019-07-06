@@ -128,7 +128,7 @@ open class UZLogger: UZAPIConnector {
 								   "ai"	: bundleId,
 								   "ua"	: "UizaSDK_\(platform)_v\(SDK_VERSION)"]
 		
-		self.callAPI(APIConstant.liveLoggingApi, baseURLString: loggingURLString, method: .post, params: params, completion: completionBlock)
+		self.callAPI(UZAPIConstant.liveLoggingApi, baseURLString: loggingURLString, method: .post, params: params, completion: completionBlock)
 	}
 	
 	open func trackingCategory(entityId: String, category: String, completionBlock: APIConnectorResultBlock? = nil) {
@@ -151,7 +151,7 @@ open class UZLogger: UZAPIConnector {
 								   "platform"	: platform,
 								   "sdk"		: "UizaSDK_\(platform)_v\(SDK_VERSION)"]
 		
-		self.callAPI(APIConstant.trackingCategoryLoggingApi, baseURLString: loggingURLString, method: .post, params: params, completion: completionBlock)
+		self.callAPI(UZAPIConstant.trackingCategoryLoggingApi, baseURLString: loggingURLString, method: .post, params: params, completion: completionBlock)
 	}
 	
 }

@@ -8,7 +8,7 @@
 import UIKit
 import Foundation
 
-struct APIConstant {
+struct UZAPIConstant {
     static let posterLink = "https://static.uiza.io/2017/11/27/uiza-logo-demo-mobile.png"
     static let publicLinkPlay = "https://%@/api/public/v1/"
     static let mediaEntityApi = "media/entity"
@@ -32,14 +32,4 @@ struct APIConstant {
     static let uizaDevDomain = "dev-ucc.uizadev.io"
     static let uizaStagDomain = "stag-ucc.uizadev.io"
     static let uizaUccDomain = "ucc.uiza.io"
-}
-
-struct VisualizeInforConstant {
-    static let entityIDTitle = "Entity ID:"
-    static let SDKInforTitle = "SDK:"
-    static let OSInforTitle = "OS:"
-    static let volumeTitle = "Volume:"
-    static let hostTitle = "Host:"
-    static let videoQualityTitle = "Video quality:"
-    static let livestreamLatencyTitle = "Livestream latency:"
 }

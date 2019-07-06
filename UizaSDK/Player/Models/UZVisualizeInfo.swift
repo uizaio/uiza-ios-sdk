@@ -1,5 +1,5 @@
 //
-//  UZVisualizeInfor.swift
+//  UZVisualizeInfo.swift
 //  UizaSDK
 //
 //  Created by phan.huynh.thien.an on 5/21/19.
@@ -9,39 +9,8 @@
 import Foundation
 import UIKit
 
-enum VisualizeInforEnum: Int {
-    case entity = 0
-    case sdk
-    case volume
-    case currentQuality
-    case host
-    case osInformation
-    case latency
-    static let allValues: [VisualizeInforEnum] = [.entity, .sdk, .volume, .currentQuality,
-                                                  .host, .osInformation, .latency]
-    
-    func getTitle() -> String {
-        switch self {
-        case .entity:
-            return VisualizeInforConstant.entityIDTitle
-        case .sdk:
-            return VisualizeInforConstant.SDKInforTitle
-        case .osInformation:
-            return VisualizeInforConstant.OSInforTitle
-        case .volume:
-            return VisualizeInforConstant.volumeTitle
-        case .host:
-            return VisualizeInforConstant.hostTitle
-        case .currentQuality:
-            return VisualizeInforConstant.videoQualityTitle
-        case .latency:
-            return VisualizeInforConstant.livestreamLatencyTitle
-        }
-    }
-}
-
-struct VisualizeSavedInformation {
-    static var shared = VisualizeSavedInformation()
+struct UZVisualizeSavedInformation {
+    static var shared = UZVisualizeSavedInformation()
     
     var osInformation = "\(UIDevice.current.systemVersion), \(UIDevice.current.hardwareName())" {
         didSet {

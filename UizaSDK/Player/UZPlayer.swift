@@ -702,7 +702,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		}
 		
 		DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-			guard let livePosition = avPlayer?.currentItem?.seekableTimeRanges.last as? CMTimeRange else {
+			guard let livePosition = self.avPlayer?.currentItem?.seekableTimeRanges.last as? CMTimeRange else {
 				return
 			}
 			

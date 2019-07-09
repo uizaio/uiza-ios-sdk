@@ -701,11 +701,13 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 			return
 		}
 		
-		guard let livePosition = avPlayer?.currentItem?.seekableTimeRanges.last as? CMTimeRange else {
-			return
+		DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+			guard let livePosition = avPlayer?.currentItem?.seekableTimeRanges.last as? CMTimeRange else {
+				return
+			}
+			
+			self.seek(to: CMTimeGetSeconds(CMTimeRangeGetEnd(livePosition)))
 		}
-		
-		seek(to: CMTimeGetSeconds(CMTimeRangeGetEnd(livePosition)))
 	}
 	
 	@objc func onAudioRouteChanged(_ notification: Notification) {

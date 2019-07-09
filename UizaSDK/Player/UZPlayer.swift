@@ -696,6 +696,18 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		}
 	}
 	
+	@objc func onApplicationActive(notification: Notification) {
+		guard let currentVideo = currentVideo, currentVideo.isLive else {
+			return
+		}
+		
+		guard let livePosition = avPlayer?.currentItem?.seekableTimeRanges.last as? CMTimeRange else {
+			return
+		}
+		
+		seek(to: CMTimeGetSeconds(CMTimeRangeGetEnd(livePosition)))
+	}
+	
 	@objc func onAudioRouteChanged(_ notification: Notification) {
 		DispatchQueue.main.async {
 			self.updateCastingUI()
@@ -979,8 +991,10 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		self.layoutIfNeeded()
 		
 		#if swift(>=4.2)
+		NotificationCenter.default.addObserver(self, selector: #selector(onApplicationActive), name: UIApplication.didBecomeActiveNotification, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(onApplicationInactive), name: UIApplication.didEnterBackgroundNotification, object: nil)
 		#else
+		NotificationCenter.default.addObserver(self, selector: #selector(onApplicationActive), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(onApplicationInactive), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
 		#endif
 		NotificationCenter.default.addObserver(self, selector: #selector(completeSyncTime), name: NSNotification.Name(rawValue: kNHNetworkTimeSyncCompleteNotification), object: nil)

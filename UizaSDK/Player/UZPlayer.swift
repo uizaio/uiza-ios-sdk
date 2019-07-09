@@ -14,7 +14,9 @@ import CoreGraphics
 import NKModalViewManager
 import Sentry
 import FrameLayoutKit
+#if canImport(NHNetworkTime)
 import NHNetworkTime
+#endif
 
 #if canImport(GoogleInteractiveMediaAds)
 import GoogleInteractiveMediaAds
@@ -1000,7 +1002,10 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		NotificationCenter.default.addObserver(self, selector: #selector(onApplicationActive), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(onApplicationInactive), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
 		#endif
+		
+		#if canImport(NHNetworkTime)
 		NotificationCenter.default.addObserver(self, selector: #selector(completeSyncTime), name: NSNotification.Name(rawValue: kNHNetworkTimeSyncCompleteNotification), object: nil)
+		#endif
 		setupAudioCategory()
 	}
 	

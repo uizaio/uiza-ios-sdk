@@ -8,7 +8,9 @@
 
 import UIKit
 import FrameLayoutKit
+#if canImport(NHNetworkTime)
 import NHNetworkTime
+#endif
 
 class UZVisualizeInformationView: UIView {
 	let entityLabel = TitleValueLabel(title: "Entity ID:")
@@ -29,7 +31,9 @@ class UZVisualizeInformationView: UIView {
 		setupUI()
 		
 		NotificationCenter.default.addObserver(self, selector: #selector(onUpdateVisualizeInfo), name: .UZEventVisualizeInformaionUpdate, object: nil)
+		#if canImport(NHNetworkTime)
 		NotificationCenter.default.addObserver(self, selector: #selector(onDateSyncCompleted), name: NSNotification.Name(rawValue: kNHNetworkTimeSyncCompleteNotification), object: nil)
+		#endif
 	}
 	
 	required public init?(coder aDecoder: NSCoder) {
@@ -85,9 +89,11 @@ class UZVisualizeInformationView: UIView {
 		hostLabel.text = info.host
 		qualityLabel.text = "\(Int(info.quality))p"
 		
+		#if canImport(NHNetworkTime)
 		if info.isUpdateLivestreamLatency {
 			NHNetworkClock.shared()?.synchronize()
 		}
+		#endif
 		
 		self.setNeedsLayout()
 		self.layoutIfNeeded()
@@ -98,6 +104,7 @@ class UZVisualizeInformationView: UIView {
 		closeButton.removeFromSuperview()
 	}
 	
+	#if canImport(NHNetworkTime)
 	@objc func onDateSyncCompleted() {
 		guard let currentDate = NHNetworkClock.shared()?.networkTime else { return }
 		
@@ -120,6 +127,7 @@ class UZVisualizeInformationView: UIView {
 		self.setNeedsLayout()
 		self.layoutIfNeeded()
 	}
+	#endif
 	
 	@objc func onUpdateVisualizeInfo(notification: NSNotification) {
 		guard let object = notification.object as? UZVisualizeSavedInformation else { return }

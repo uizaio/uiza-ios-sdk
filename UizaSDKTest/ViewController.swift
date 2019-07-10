@@ -44,7 +44,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+		
         themeButton.setImage(UIImage(icon: .googleMaterialDesign(.colorLens), size: CGSize(width: 32, height: 32), textColor: .black, backgroundColor: .clear), for: .normal)
         themeButton.addTarget(self, action: #selector(switchTheme), for: .touchUpInside)
         
@@ -138,7 +138,7 @@ class ViewController: UIViewController {
         }
         
         print("Theme index: \(themeIndex)")
-        //        playerViewController.player.controlView.theme = themeClasses[themeIndex]()
+//		playerViewController.player.controlView.theme = themeClasses[themeIndex]()
         
         themeIndex += 1
     }
@@ -146,20 +146,20 @@ class ViewController: UIViewController {
 
 extension ViewController: UZPlayerDelegate {
     
-    func UZPlayer(player: UZPlayer, playerStateDidChange state: UZPlayerState) {
-        //        print("State: \(state)")
+    func player(player: UZPlayer, playerStateDidChange state: UZPlayerState) {
+//        print("State: \(state)")
     }
     
-    func UZPlayer(player: UZPlayer, loadedTimeDidChange loadedDuration: TimeInterval, totalDuration: TimeInterval) {
-        //        print("loadedDuration: \(loadedDuration) - totalDuration: \(totalDuration)")
+    func player(player: UZPlayer, loadedTimeDidChange loadedDuration: TimeInterval, totalDuration: TimeInterval) {
+//        print("loadedDuration: \(loadedDuration) - totalDuration: \(totalDuration)")
     }
     
-    func UZPlayer(player: UZPlayer, playTimeDidChange currentTime : TimeInterval, totalTime: TimeInterval) {
-        //        print("currentTime: \(currentTime) - totalTime: \(totalTime)")
+    func player(player: UZPlayer, playTimeDidChange currentTime : TimeInterval, totalTime: TimeInterval) {
+//        print("currentTime: \(currentTime) - totalTime: \(totalTime)")
     }
     
-    func UZPlayer(player: UZPlayer, playerIsPlaying playing: Bool) {
-        //        print("Playing: \(playing)")
+    func player(player: UZPlayer, playerIsPlaying playing: Bool) {
+//        print("Playing: \(playing)")
     }
     
 }

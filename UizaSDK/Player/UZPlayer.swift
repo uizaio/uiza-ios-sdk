@@ -225,7 +225,99 @@ open class UZPlayer: UIView {
 	
 	public var autoResumeWhenBackFromBackground = false
 	
-	// MARK: - Public functions
+	// MARK: -
+	
+	public init() {
+		super.init(frame: .zero)
+		
+		setupUI()
+		preparePlayer()
+		
+		NotificationCenter.default.addObserver(self, selector: #selector(volumeDidChange(notification:)), name: NSNotification.Name(rawValue: "AVSystemController_SystemVolumeDidChangeNotification"), object: nil)
+		
+		setUpAdsLoader()
+		
+		#if DEBUG
+		print("[UizaPlayer \(PLAYER_VERSION)] initialized")
+		#endif
+		
+		UZMuizaLogger.shared.log(eventName: "ready", player: self)
+	}
+	
+	public required init?(coder aDecoder: NSCoder) {
+		super.init(coder: aDecoder)
+	}
+	
+	public convenience init (customControlView: UZPlayerControlView?) {
+		self.init()
+		
+		defer {
+			self.customControlView = customControlView
+		}
+	}
+	
+	fileprivate func setupUI() {
+		self.backgroundColor = UIColor.black
+		
+		controlView = customControlView ?? UZPlayerControlView()
+		controlView.updateUI(isFullScreen)
+		controlView.delegate = self
+		addSubview(controlView)
+		
+		#if swift(>=4.2)
+		NotificationCenter.default.addObserver(self, selector: #selector(onOrientationChanged), name: UIApplication.didChangeStatusBarOrientationNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(onAudioRouteChanged), name: AVAudioSession.routeChangeNotification, object: nil)
+		#else
+		NotificationCenter.default.addObserver(self, selector: #selector(onOrientationChanged), name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(onAudioRouteChanged), name: NSNotification.Name.AVAudioSessionRouteChange, object: nil)
+		#endif
+		
+		NotificationCenter.default.addObserver(self, selector: #selector(showAirPlayDevicesSelection), name: .UZShowAirPlayDeviceList, object: nil)
+		#if canImport(GoogleCast)
+		NotificationCenter.default.addObserver(self, selector: #selector(onCastSessionDidStart), name: NSNotification.Name.UZCastSessionDidStart, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(onCastSessionDidStop), name: NSNotification.Name.UZCastSessionDidStop, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(onCastClientDidStart), name: NSNotification.Name.UZCastClientDidStart, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(onCastClientDidUpdate), name: NSNotification.Name.UZCastClientDidUpdate, object: nil)
+		#endif
+	}
+	
+	fileprivate func preparePlayer() {
+		playerLayer = UZPlayerLayerView()
+		playerLayer!.preferredForwardBufferDuration = preferredForwardBufferDuration
+		playerLayer!.videoGravity = videoGravity
+		playerLayer!.delegate = self
+		
+		self.insertSubview(playerLayer!, at: 0)
+		self.layoutIfNeeded()
+		
+		#if swift(>=4.2)
+		NotificationCenter.default.addObserver(self, selector: #selector(onApplicationActive), name: UIApplication.didBecomeActiveNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(onApplicationInactive), name: UIApplication.didEnterBackgroundNotification, object: nil)
+		#else
+		NotificationCenter.default.addObserver(self, selector: #selector(onApplicationActive), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(onApplicationInactive), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+		#endif
+		
+		#if canImport(NHNetworkTime)
+		NotificationCenter.default.addObserver(self, selector: #selector(completeSyncTime), name: NSNotification.Name(rawValue: kNHNetworkTimeSyncCompleteNotification), object: nil)
+		#endif
+		setupAudioCategory()
+	}
+	
+	open func setupAudioCategory() {
+		if #available(iOS 10.0, *) {
+			#if swift(>=4.2)
+			try? AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback, mode: AVAudioSession.Mode.moviePlayback, options: [.allowAirPlay])
+			#else
+			try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, mode: AVAudioSessionModeMoviePlayback, options: [.allowAirPlay])
+			#endif
+		}
+		else {
+//			try? AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
+		}
+	}
+	
+	// MARK: -
 	
 	/**
 	Load and play a videoId
@@ -419,49 +511,6 @@ open class UZPlayer: UIView {
 	}
 	
 	/**
-	Select subtitle track
-	
-	- parameter index: index of subtitle track, `nil` for turning off, `-1` for default track
-	*/
-	open func selectSubtitle(index: Int?) {
-		self.selectMediaOption(option: .legible, index: index)
-	}
-	
-	/**
-	Select audio track
-	
-	- parameter index: index of audio track, `nil` for turning off, `-1` for default audio track
-	*/
-	open func selectAudio(index: Int?) {
-		self.selectMediaOption(option: .audible, index: index)
-	}
-	
-	/**
-	Select media selection option
-	
-	- parameter index: index of media selection, `nil` for turning off, `-1` for default option
-	*/
-	open func selectMediaOption(option: AVMediaCharacteristic, index: Int?) {
-		if let currentItem = self.avPlayer?.currentItem {
-			let asset = currentItem.asset
-			if let group = asset.mediaSelectionGroup(forMediaCharacteristic: option) {
-				currentItem.select(nil, in: group)
-				
-				let options = group.options
-				if let index = index {
-					if index > -1 && index < options.count {
-						currentItem.select(options[index], in: group)
-					}
-					else if index == -1 {
-						let defaultOption = group.defaultOption
-						currentItem.select(defaultOption, in: group)
-					}
-				}
-			}
-		}
-	}
-	
-	/**
 	Stop and unload the player
 	*/
 	open func stop() {
@@ -560,6 +609,49 @@ open class UZPlayer: UIView {
 	
 	open func previousVideo() {
 		self.currentVideoIndex -= 1
+	}
+	
+	/**
+	Select subtitle track
+	
+	- parameter index: index of subtitle track, `nil` for turning off, `-1` for default track
+	*/
+	open func selectSubtitle(index: Int?) {
+		self.selectMediaOption(option: .legible, index: index)
+	}
+	
+	/**
+	Select audio track
+	
+	- parameter index: index of audio track, `nil` for turning off, `-1` for default audio track
+	*/
+	open func selectAudio(index: Int?) {
+		self.selectMediaOption(option: .audible, index: index)
+	}
+	
+	/**
+	Select media selection option
+	
+	- parameter index: index of media selection, `nil` for turning off, `-1` for default option
+	*/
+	open func selectMediaOption(option: AVMediaCharacteristic, index: Int?) {
+		if let currentItem = self.avPlayer?.currentItem {
+			let asset = currentItem.asset
+			if let group = asset.mediaSelectionGroup(forMediaCharacteristic: option) {
+				currentItem.select(nil, in: group)
+				
+				let options = group.options
+				if let index = index {
+					if index > -1 && index < options.count {
+						currentItem.select(options[index], in: group)
+					}
+					else if index == -1 {
+						let defaultOption = group.defaultOption
+						currentItem.select(defaultOption, in: group)
+					}
+				}
+			}
+		}
 	}
 	
 	private let pipKeyPath = #keyPath(AVPictureInPictureController.isPictureInPicturePossible)
@@ -674,7 +766,7 @@ open class UZPlayer: UIView {
         #endif
 	}
     
-	// MARK: -
+	// MARK: - Events
 	
 	@objc fileprivate func onOrientationChanged() {
 		self.updateUI(isFullScreen)
@@ -900,37 +992,6 @@ open class UZPlayer: UIView {
 //		}
 	}
 	
-	// MARK: -
-	
-	public init() {
-		super.init(frame: .zero)
-		
-		setupUI()
-		preparePlayer()
-		
-        NotificationCenter.default.addObserver(self, selector: #selector(volumeDidChange(notification:)), name: NSNotification.Name(rawValue: "AVSystemController_SystemVolumeDidChangeNotification"), object: nil)
-		
-		setUpAdsLoader()
-		
-		#if DEBUG
-		print("[UizaPlayer \(PLAYER_VERSION)] initialized")
-		#endif
-		
-		UZMuizaLogger.shared.log(eventName: "ready", player: self)
-	}
-	
-	public required init?(coder aDecoder: NSCoder) {
-		super.init(coder: aDecoder)
-	}
-	
-	public convenience init (customControlView: UZPlayerControlView?) {
-		self.init()
-		
-		defer {
-			self.customControlView = customControlView
-		}
-	}
-    
     public var isVisualizeInfoEnabled: Bool = false {
         didSet {
             if isVisualizeInfoEnabled {
@@ -957,67 +1018,6 @@ open class UZPlayer: UIView {
             UZVisualizeSavedInformation.shared.volume = volume
         }
     }
-	
-	fileprivate func setupUI() {
-		self.backgroundColor = UIColor.black
-		
-		controlView = customControlView ?? UZPlayerControlView()
-		controlView.updateUI(isFullScreen)
-		controlView.delegate = self
-		addSubview(controlView)
-		
-		#if swift(>=4.2)
-		NotificationCenter.default.addObserver(self, selector: #selector(onOrientationChanged), name: UIApplication.didChangeStatusBarOrientationNotification, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(onAudioRouteChanged), name: AVAudioSession.routeChangeNotification, object: nil)
-		#else
-		NotificationCenter.default.addObserver(self, selector: #selector(onOrientationChanged), name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(onAudioRouteChanged), name: NSNotification.Name.AVAudioSessionRouteChange, object: nil)
-		#endif
-		
-		NotificationCenter.default.addObserver(self, selector: #selector(showAirPlayDevicesSelection), name: .UZShowAirPlayDeviceList, object: nil)
-		#if canImport(GoogleCast)
-		NotificationCenter.default.addObserver(self, selector: #selector(onCastSessionDidStart), name: NSNotification.Name.UZCastSessionDidStart, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(onCastSessionDidStop), name: NSNotification.Name.UZCastSessionDidStop, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(onCastClientDidStart), name: NSNotification.Name.UZCastClientDidStart, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(onCastClientDidUpdate), name: NSNotification.Name.UZCastClientDidUpdate, object: nil)
-		#endif
-	}
-	
-	fileprivate func preparePlayer() {
-		playerLayer = UZPlayerLayerView()
-		playerLayer!.preferredForwardBufferDuration = preferredForwardBufferDuration
-		playerLayer!.videoGravity = videoGravity
-		playerLayer!.delegate = self
-		
-		self.insertSubview(playerLayer!, at: 0)
-		self.layoutIfNeeded()
-		
-		#if swift(>=4.2)
-		NotificationCenter.default.addObserver(self, selector: #selector(onApplicationActive), name: UIApplication.didBecomeActiveNotification, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(onApplicationInactive), name: UIApplication.didEnterBackgroundNotification, object: nil)
-		#else
-		NotificationCenter.default.addObserver(self, selector: #selector(onApplicationActive), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(onApplicationInactive), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
-		#endif
-		
-		#if canImport(NHNetworkTime)
-		NotificationCenter.default.addObserver(self, selector: #selector(completeSyncTime), name: NSNotification.Name(rawValue: kNHNetworkTimeSyncCompleteNotification), object: nil)
-		#endif
-		setupAudioCategory()
-	}
-	
-	open func setupAudioCategory() {
-		if #available(iOS 10.0, *) {
-			#if swift(>=4.2)
-			try? AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback, mode: AVAudioSession.Mode.moviePlayback, options: [.allowAirPlay])
-			#else
-			try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, mode: AVAudioSessionModeMoviePlayback, options: [.allowAirPlay])
-			#endif
-	}
-	else {
-//			try? AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
-		}
-	}
 	
 	fileprivate var playthrough_eventlog: [Float : Bool] = [:]
 	fileprivate let logPercent: [Float] = [25, 50, 75, 100]
@@ -1274,6 +1274,8 @@ open class UZPlayer: UIView {
 	}
 }
 
+// MARK: - UZPlayerLayerViewDelegate
+
 extension UZPlayer: UZPlayerLayerViewDelegate {
 	
 	open func player(player: UZPlayerLayerView, playerIsPlaying playing: Bool) {
@@ -1364,6 +1366,8 @@ extension UZPlayer: UZPlayerLayerViewDelegate {
 	}
 	
 }
+
+// MARK: - UZPlayerControlViewDelegate
 
 extension UZPlayer: UZPlayerControlViewDelegate {
 	
@@ -1547,6 +1551,8 @@ extension UZPlayer: UZPlayerControlViewDelegate {
 	
 }
 
+// MARK: - AVPictureInPictureControllerDelegate
+
 extension UZPlayer: AVPictureInPictureControllerDelegate {
 	
 	@available(iOS 9.0, *)
@@ -1570,8 +1576,10 @@ extension UZPlayer: AVPictureInPictureControllerDelegate {
 	
 }
 
+// MARK: - IMAAdsLoaderDelegate
+
 #if canImport(GoogleInteractiveMediaAds)
-extension UZPlayer: IMAAdsLoaderDelegate, IMAAdsManagerDelegate {
+extension UZPlayer: IMAAdsLoaderDelegate {
 	
 	public func adsLoader(_ loader: IMAAdsLoader!, adsLoadedWith adsLoadedData: IMAAdsLoadedData!) {
 		adsManager = adsLoadedData.adsManager
@@ -1587,11 +1595,14 @@ extension UZPlayer: IMAAdsLoaderDelegate, IMAAdsManagerDelegate {
 //		print("Error loading ads: \(adErrorData.adError.message)")
 		avPlayer?.play()
 	}
-	
-	// MARK: - IMAAdsManagerDelegate
+}
+
+// MARK: - IMAAdsManagerDelegate
+
+extension UZPlayer: IMAAdsManagerDelegate {
 	
 	public func adsManager(_ adsManager: IMAAdsManager!, didReceive event: IMAAdEvent!) {
-//		DLog("- \(event.type.rawValue)")
+		//		DLog("- \(event.type.rawValue)")
 		
 		if event.type == IMAAdEventType.LOADED {
 			adsManager.start()
@@ -1603,7 +1614,7 @@ extension UZPlayer: IMAAdsLoaderDelegate, IMAAdsManagerDelegate {
 	
 	public func adsManager(_ adsManager: IMAAdsManager!, didReceive error: IMAAdError!) {
 		DLog("Ads error: \(String(describing: error.message))")
-//		print("AdsManager error: \(error.message)")
+		//		print("AdsManager error: \(error.message)")
 		avPlayer?.play()
 	}
 	

@@ -31,7 +31,11 @@ public class UZSubtitles {
 			scanner.scanString(":", into: nil)
 			scanner.scanDouble(&m)
 			scanner.scanString(":", into: nil)
-			scanner.scanDouble(&s)
+			let isHasSeconds = scanner.scanDouble(&s)
+            if !isHasSeconds {
+                s = m
+                m = h
+            }
 			scanner.scanString(",", into: nil)
 			scanner.scanDouble(&c)
 			return (h * 3600.0) + (m * 60.0) + s + (c / 1000.0)
@@ -52,7 +56,9 @@ public class UZSubtitles {
 					string = try String(contentsOf: url)
 				}
 				
-				self.groups = UZSubtitles.parseSubRip(string) ?? []
+                let groups = UZSubtitles.parseSubRip(string) ?? []
+				self.groups = groups
+                PostNotification(Notification.Name.UZShowSubtitles, object: self, userInfo: nil)
 			} catch {
                 UZSentry.sendError(error: error)
 				print("| UZPlayer | [Error] failed to load \(url.absoluteString) \(error.localizedDescription)")
@@ -87,6 +93,9 @@ public class UZSubtitles {
 		while !scanner.isAtEnd {
 			var indexString: NSString?
 			scanner.scanUpToCharacters(from: .newlines, into: &indexString)
+            if Int(indexString as String? ?? "") == nil {
+                scanner.scanUpToCharacters(from: .newlines, into: &indexString)
+            }
 			
 			var startString: NSString?
 			scanner.scanUpTo(" --> ", into: &startString)
@@ -114,5 +123,6 @@ public class UZSubtitles {
 		}
 		return groups
 	}
+    
 }
 

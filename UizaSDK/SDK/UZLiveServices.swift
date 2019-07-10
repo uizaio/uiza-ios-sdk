@@ -55,11 +55,15 @@ open class UZLiveServices: UZAPIConnector {
 //					self.loadLiveEvent(id: idString, completionBlock: completionBlock)
 //				}
 //				else {
-//					completionBlock?(nil , UZAPIConnector.UizaUnknownError())
+//					DispatchQueue.main.async {
+//						completionBlock?(nil , UZAPIConnector.UizaUnknownError())
+//					}
 //				}
 //			}
 //			else {
-//				completionBlock?(nil, error)
+//				DispatchQueue.main.async {
+//					completionBlock?(nil, error)
+//				}
 //			}
 //		}
 //	}
@@ -75,10 +79,14 @@ open class UZLiveServices: UZAPIConnector {
 //			DLog("\(result) - \(error)")
 			if let data = result?.value(for: "data", defaultValue: nil) as? NSDictionary {
 				let result = UZLiveEvent(data: data)
-				completionBlock?(result, nil)
+				DispatchQueue.main.async {
+					completionBlock?(result, nil)
+				}
 			}
 			else {
-				completionBlock?(nil, error)
+				DispatchQueue.main.async {
+					completionBlock?(nil, error)
+				}
 			}
 		}
 	}
@@ -93,7 +101,9 @@ open class UZLiveServices: UZAPIConnector {
 		
 		self.callAPI(UZAPIConstant.liveEntityFeedApi, method: .post, params: ["id" : id]) { (result, error) in
 //			DLog("\(result) - \(error)")
-			completionBlock?(error)
+			DispatchQueue.main.async {
+				completionBlock?(error)
+			}
 		}
 	}
 	
@@ -106,7 +116,9 @@ open class UZLiveServices: UZAPIConnector {
 		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
 		
 		self.callAPI(UZAPIConstant.liveEntityApi, method: .put, params: ["id" : id]) { (result, error) in
-			completionBlock?(error)
+			DispatchQueue.main.async {
+				completionBlock?(error)
+			}
 		}
 	}
 	
@@ -124,7 +136,9 @@ open class UZLiveServices: UZAPIConnector {
 //			DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
-				completionBlock?(-1, error)
+				DispatchQueue.main.async {
+					completionBlock?(-1, error)
+				}
 			}
 			else {
 				var views: Int = -1
@@ -132,7 +146,9 @@ open class UZLiveServices: UZAPIConnector {
 					views = data.int(for: "watchnow", defaultNumber: -1)
 				}
 				
-				completionBlock?(views, nil)
+				DispatchQueue.main.async {
+					completionBlock?(views, nil)
+				}
 			}
 		}
 	}
@@ -152,7 +168,9 @@ open class UZLiveServices: UZAPIConnector {
 //			DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
-				completionBlock?(nil, error)
+				DispatchQueue.main.async {
+					completionBlock?(nil, error)
+				}
 			}
 			else {
 				var status: UZLiveVideoStatus? = nil
@@ -160,7 +178,9 @@ open class UZLiveServices: UZAPIConnector {
 					status = UZLiveVideoStatus(data: data)
 				}
 				
-				completionBlock?(status, nil)
+				DispatchQueue.main.async {
+					completionBlock?(status, nil)
+				}
 			}
 		}
 	}

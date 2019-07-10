@@ -20,7 +20,9 @@ open class UZPlayerService: UZAPIConnector {
 			DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
-				completionBlock(nil, error)
+				DispatchQueue.main.async {
+					completionBlock(nil, error)
+				}
 			}
 			else {
 				var configs: [UZPlayerConfig]! = []
@@ -31,7 +33,9 @@ open class UZPlayerService: UZAPIConnector {
 					}
 				}
 				
-				completionBlock(configs, nil)
+				DispatchQueue.main.async {
+					completionBlock(configs, nil)
+				}
 			}
 		}
 	}
@@ -43,15 +47,22 @@ open class UZPlayerService: UZAPIConnector {
 			DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
-				completionBlock(nil, error)
+				DispatchQueue.main.async {
+					completionBlock(nil, error)
+				}
 			}
 			else {
 				if let data = result!.value(for: "data", defaultValue: nil) as? NSDictionary {
 					let config = UZPlayerConfig(data: data)
-					completionBlock(config, nil)
+					
+					DispatchQueue.main.async {
+						completionBlock(config, nil)
+					}
 				}
 				else {
-					completionBlock(nil, nil)
+					DispatchQueue.main.async {
+						completionBlock(nil, nil)
+					}
 				}
 			}
 		}

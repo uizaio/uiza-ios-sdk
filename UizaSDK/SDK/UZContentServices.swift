@@ -44,7 +44,9 @@ open class UZContentServices: UZAPIConnector {
 			DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
-				completionBlock?(nil, error)
+				DispatchQueue.main.async {
+					completionBlock?(nil, error)
+				}
 			}
 			else {
 				var videos: [UZVideoItem]! = []
@@ -55,7 +57,9 @@ open class UZContentServices: UZAPIConnector {
 					}
 				}
 				
-				completionBlock?(videos, nil)
+				DispatchQueue.main.async {
+					completionBlock?(videos, nil)
+				}
 			}
 		}
 	}
@@ -80,7 +84,9 @@ open class UZContentServices: UZAPIConnector {
 			//DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
-				completionBlock?(nil, nil, error)
+				DispatchQueue.main.async {
+					completionBlock?(nil, nil, error)
+				}
 			}
 			else {
 				var videos: [UZVideoItem]! = []
@@ -95,7 +101,9 @@ open class UZContentServices: UZAPIConnector {
 					pagination = UZPagination(data: paginationData)
 				}
 				
-				completionBlock?(videos, pagination, nil)
+				DispatchQueue.main.async {
+					completionBlock?(videos, pagination, nil)
+				}
 			}
 		}
 	}
@@ -118,7 +126,9 @@ open class UZContentServices: UZAPIConnector {
 			//DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
-				completionBlock?(nil, nil, error)
+				DispatchQueue.main.async {
+					completionBlock?(nil, nil, error)
+				}
 			}
 			else {
 				var videos: [UZVideoItem]! = []
@@ -135,7 +145,9 @@ open class UZContentServices: UZAPIConnector {
 					pagination = UZPagination(data: paginationData)
 				}
 				
-				completionBlock?(videos, pagination, nil)
+				DispatchQueue.main.async {
+					completionBlock?(videos, pagination, nil)
+				}
 			}
 		}
 	}
@@ -154,7 +166,9 @@ open class UZContentServices: UZAPIConnector {
 			DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
-				completionBlock?(nil, error)
+				DispatchQueue.main.async {
+					completionBlock?(nil, error)
+				}
 			}
 			else {
 				if let data = result?.value(for: "data", defaultValue: nil) as? NSDictionary {
@@ -164,14 +178,18 @@ open class UZContentServices: UZAPIConnector {
 					else {
 						let movieItem = UZVideoItem(data: data)
 						movieItem.isLive = isLive
-						completionBlock?(movieItem, nil)
+						DispatchQueue.main.async {
+							completionBlock?(movieItem, nil)
+						}
 					}
 				}
 				else if !isLive {
 					self.loadDetail(entityId: entityId, isLive: true, completionBlock: completionBlock)
 				}
 				else {
-					completionBlock?(nil, nil)
+					DispatchQueue.main.async {
+						completionBlock?(nil, nil)
+					}
 				}
 			}
 		}
@@ -189,24 +207,9 @@ open class UZContentServices: UZAPIConnector {
 		
 		self.callAPI(UZAPIConstant.mediaRelatedApi, method: .get , params: params) { (result, error) in
 			DLog("\(String(describing: result)) - \(String(describing: error))")
-			completionBlock?([], nil)
-			
-//			if error != nil {
-//				completionBlock?(nil, error)
-//			}
-//			else {
-//				if let dataArray = result?.array(for: "data", defaultValue: nil) as? [NSDictionary] {
-//					var results = [UZVideoItem]()
-//					for data in dataArray {
-//						let movieItem = UZVideoItem(data: data)
-//						results.append(movieItem)
-//					}
-//					completionBlock?(results, nil)
-//				}
-//				else {
-//					completionBlock?([], nil)
-//				}
-//			}
+			DispatchQueue.main.async {
+				completionBlock?([], nil)
+			}
 		}
 	}
 	
@@ -232,7 +235,9 @@ open class UZContentServices: UZAPIConnector {
 					self.loadLinkPlay(video: video, token: tokenString, completionBlock: completionBlock)
 				}
 				else {
-					completionBlock?(nil, error)
+					DispatchQueue.main.async {
+						completionBlock?(nil, error)
+					}
 				}
 			}
 			
@@ -254,13 +259,17 @@ open class UZContentServices: UZAPIConnector {
 			print("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
-				completionBlock?(nil, error)
+				DispatchQueue.main.async {
+					completionBlock?(nil, error)
+				}
 			}
 			else {
 				guard   let data = result?.value(for: "data", defaultValue: nil) as? NSDictionary,
 						let urlsDataArray = data.array(for: "urls", defaultValue: nil) as? [NSDictionary] else
 				{
-					completionBlock?(nil, UZAPIConnector.UizaUnknownError())
+					DispatchQueue.main.async {
+						completionBlock?(nil, UZAPIConnector.UizaUnknownError())
+					}
 					return
 				}
 				
@@ -272,7 +281,9 @@ open class UZContentServices: UZAPIConnector {
 					}
 				}
 				
-				completionBlock?(results, nil)
+				DispatchQueue.main.async {
+					completionBlock?(results, nil)
+				}
 			}
 		}
 	}
@@ -291,7 +302,9 @@ open class UZContentServices: UZAPIConnector {
 			DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
-				completionBlock?(nil, error)
+				DispatchQueue.main.async {
+					completionBlock?(nil, error)
+				}
 			}
 			else {
 				if let dataArray = result?.array(for: "data", defaultValue: nil) as? [NSDictionary] {
@@ -300,10 +313,15 @@ open class UZContentServices: UZAPIConnector {
 						let item = UZAdsCuePoint(data: data)
 						results.append(item)
 					}
-					completionBlock?(results, nil)
+					
+					DispatchQueue.main.async {
+						completionBlock?(results, nil)
+					}
 				}
 				else {
-					completionBlock?([], nil)
+					DispatchQueue.main.async {
+						completionBlock?([], nil)
+					}
 				}
 			}
 		}
@@ -325,7 +343,9 @@ open class UZContentServices: UZAPIConnector {
 			//DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
-				completionBlock?(nil, error)
+				DispatchQueue.main.async {
+					completionBlock?(nil, error)
+				}
 			}
 			else {
 				var results: [UZMenuItem] = [UZMenuItem(data: ["id" : "", "name" : "Home"])]
@@ -337,7 +357,9 @@ open class UZContentServices: UZAPIConnector {
 					}
 				}
 				
-				completionBlock?(results, nil)
+				DispatchQueue.main.async {
+					completionBlock?(results, nil)
+				}
 			}
 		}
 	}
@@ -362,7 +384,9 @@ open class UZContentServices: UZAPIConnector {
 			//DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
-				completionBlock?(nil, nil, error)
+				DispatchQueue.main.async {
+					completionBlock?(nil, nil, error)
+				}
 			}
 			else {
 				var videos: [UZVideoItem] = []
@@ -379,7 +403,9 @@ open class UZContentServices: UZAPIConnector {
 					pagination = UZPagination(data: paginationData)
 				}
 				
-				completionBlock?(videos, pagination, nil)
+				DispatchQueue.main.async {
+					completionBlock?(videos, pagination, nil)
+				}
 			}
 		}
 	}
@@ -412,7 +438,9 @@ open class UZContentServices: UZAPIConnector {
 		
 		self.callAPI(UZAPIConstant.cdnPingApi, baseURLString: baseURLString, method: .get, params: params) { (result, error) in
 			//DLog("\(String(describing: result)) - \(String(describing: error))")
-			completionBlock?(error)
+			DispatchQueue.main.async {
+				completionBlock?(error)
+			}
 		}
 	}
 	

@@ -363,6 +363,36 @@ open class UZContentServices: UZAPIConnector {
 			}
 		}
 	}
+    
+    // MARK: -
+    
+    /**
+     Get video subtitles
+     - parameter completionBlock: block called when completed, returns array of [`UZVideoSubtitle`], or `Error` if occurred
+     */
+    public func loadVideoSubtitle(entityId: String, completionBlock:((_ results: [UZVideoSubtitle]?, _ error: Error?) -> Void)? = nil) {
+        self.requestHeaderFields = ["Authorization" : UizaSDK.token]
+        
+        let params: Parameters = ["entityId": entityId]
+        
+        self.callAPI(UZAPIConstant.mediaSubtitleApi, method: .get, params: params) { (result, error) in
+            if error != nil {
+                completionBlock?(nil, error)
+            }
+            else {
+                var results: [UZVideoSubtitle] = []
+                
+                if let dataArray = result!.array(for: "data", defaultValue: nil) as? [NSDictionary] {
+                    for data in dataArray {
+                        let item = UZVideoSubtitle(data: data)
+                        results.append(item)
+                    }
+                }
+                
+                completionBlock?(results, nil)
+            }
+        }
+    }
 	
 	/**
 	Search for videos

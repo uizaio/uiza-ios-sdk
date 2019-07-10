@@ -278,9 +278,11 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 		controlView.showControlView()
 		controlView.showLoader()
 		controlView.liveStartDate = nil
-        UZVisualizeSavedInformation.shared.currentVideo = video
 		
-		UZContentServices().loadLinkPlay(video: video) { [unowned self] (results, error) in
+        UZVisualizeSavedInformation.shared.currentVideo = video
+		UZContentServices().loadLinkPlay(video: video) { [weak self] (results, error) in
+			guard let `self` = self else { return }
+			
 			self.controlView.hideLoader()
 			
 			if let results = results {
@@ -623,6 +625,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	// MARK: - Heartbeat
 	
 	var heartbeatTimer: Timer? = nil
+	let heartbeatService = UZContentServices()
 	
 	func startHeartbeat() {
 		sendHeartbeat()
@@ -649,7 +652,7 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 			UZLogger.shared.logLiveCCU(streamName: video.id, host: domainName)
 		}
 		else {
-			UZContentServices().sendCDNHeartbeat(cdnName: domainName)
+			heartbeatService.sendCDNHeartbeat(cdnName: domainName)
 		}
 	}
 	
@@ -1078,10 +1081,10 @@ open class UZPlayer: UIView, UZPlayerLayerViewDelegate, UZPlayerControlViewDeleg
 	
 	open func showShare(from view: UIView) {
 		if let window = UIApplication.shared.keyWindow,
-           let viewController = window.rootViewController
+           let viewController = window.rootViewController,
+		   let itemToShare: Any = currentVideo
 		{
 			let activeViewController: UIViewController = viewController.presentedViewController ?? viewController
-			let itemToShare: Any = currentVideo ?? URL(string: "http://uiza.io")!
 			let activityViewController = UIActivityViewController(activityItems: [itemToShare], applicationActivities: nil)
 			
 			if UIDevice.current.userInterfaceIdiom == .pad {

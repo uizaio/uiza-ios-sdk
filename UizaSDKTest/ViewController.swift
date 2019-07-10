@@ -93,9 +93,9 @@ class ViewController: UIViewController {
             }
         }
         
-        //                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-        //                    self.showLive()
-        //                }
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//                    self.showLive()
+//                }
     }
     
     func showLive() {

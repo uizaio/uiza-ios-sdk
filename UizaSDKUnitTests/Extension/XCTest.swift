@@ -111,6 +111,11 @@ extension XCTestCase {
         stub(http(.get, uri: UZAPIConnector().basePublicAPIURLPath() + "/live/entity?id=8b83886e-9cc3-4eab-9258-ebb16c0c73de"), jsonData(data))
     }
     
+    func stub_get_video_subtitle_success() {
+        let data = loadStub(name: "get_video_subtitles", extension: ".json")
+        stub(http(.get, uri: UZAPIConnector().basePublicAPIURLPath() + "/media/subtitle?entityId=653352ce-d867-435c-af64-b2daa04129c2"), jsonData(data))
+    }
+    
 }
 
 // MARK: UZLiveServices

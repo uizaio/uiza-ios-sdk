@@ -197,7 +197,7 @@ open class UZContentServices: UZAPIConnector {
 	
 	/**
 	Get list of related videos
-	- parameter entityId: `id` của video cần tải danh sách liên quan
+	- parameter entityId: `id` of video
 	- parameter completionBlock: block called when completed, returns array of [`UZVideoItem`], or `Error` if occurred
 	*/
 	public func loadRelates(entityId: String, completionBlock:((_ videos: [UZVideoItem]?, _ error: Error?) -> Void)? = nil) {
@@ -290,7 +290,7 @@ open class UZContentServices: UZAPIConnector {
 	
 	/**
 	Get advertising cue points
-	- parameter video: video that needs to display ads contents
+	- parameter video: video that displays ads contents
 	- parameter completionBlock: block called when completed, returns array of [`UZAdsCuePoint`], or `Error` if occurred
 	*/
 	public func loadCuePoints(video: UZVideoItem, completionBlock:((_ results: [UZAdsCuePoint]?, _ error: Error?) -> Void)? = nil) {
@@ -363,6 +363,37 @@ open class UZContentServices: UZAPIConnector {
 			}
 		}
 	}
+    
+    // MARK: -
+    
+	/**
+	Get video subtitles
+	- parameter entityId: `id` of video
+	- parameter completionBlock: block called when completed, returns array of [`UZVideoSubtitle`], or `Error` if occurred
+	*/
+    public func loadVideoSubtitle(entityId: String, completionBlock:((_ results: [UZVideoSubtitle]?, _ error: Error?) -> Void)? = nil) {
+        self.requestHeaderFields = ["Authorization" : UizaSDK.token]
+        
+        let params: Parameters = ["entityId": entityId]
+        
+        self.callAPI(UZAPIConstant.mediaSubtitleApi, method: .get, params: params) { (result, error) in
+            if error != nil {
+                completionBlock?(nil, error)
+            }
+            else {
+                var results: [UZVideoSubtitle] = []
+                
+                if let dataArray = result!.array(for: "data", defaultValue: nil) as? [NSDictionary] {
+                    for data in dataArray {
+                        let item = UZVideoSubtitle(data: data)
+                        results.append(item)
+                    }
+                }
+                
+                completionBlock?(results, nil)
+            }
+        }
+    }
 	
 	/**
 	Search for videos

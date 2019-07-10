@@ -20,6 +20,7 @@ struct UZAPIConstant {
     static let mediaCuePointApi = "media/entity/cue-point"
     static let mediaListApi = "v1/media/metadata/list"
     static let mediaSearchApi = "media/entity/search"
+    static let mediaSubtitleApi = "media/subtitle"
     static let cdnPingApi = "cdn/ccu/ping"
     static let cdnLinkPlayApi = "cdn/linkplay"
     static let cdnLiveLinkPlayApi = "cdn/live/linkplay"

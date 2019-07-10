@@ -1,3 +1,26 @@
+### Version 8.2 (Jul 10 2019)
+- [Fixed] Crash bug fixes
+- [Updated] UZPlayer updated, please note that we have renammed these protocol functions:
+From:
+``` swift
+	func UZPlayer(player: UZPlayer, playerStateDidChange state: UZPlayerState)
+	func UZPlayer(player: UZPlayer, loadedTimeDidChange loadedDuration: TimeInterval, totalDuration: TimeInterval)
+	func UZPlayer(player: UZPlayer, playTimeDidChange currentTime : TimeInterval, totalTime: TimeInterval)
+	func UZPlayer(player: UZPlayer, playerIsPlaying playing: Bool)
+}
+```
+To:
+``` swift
+	func player(player: UZPlayer, playerStateDidChange state: UZPlayerState)
+	func player(player: UZPlayer, loadedTimeDidChange loadedDuration: TimeInterval, totalDuration: TimeInterval)
+	func player(player: UZPlayer, playTimeDidChange currentTime : TimeInterval, totalTime: TimeInterval)
+	func player(player: UZPlayer, playerIsPlaying playing: Bool)
+}
+```
+
+### Version 8.1.2 (Jul 09 2019)
+- [Added] Measure network latency in visualize info
+
 ### Version 8.1 (Jun 26 2019)
 - [Updated] Supports mixed Swift versions
 

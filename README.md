@@ -16,7 +16,7 @@ UizaSDK requires Swift 4.0+ and iOS 8+
 ## Installation
 
 
-### CocoaPods (Recommended)
+### CocoaPods
 
 To integrate UizaSDK into your Xcode project using [CocoaPods](http://cocoapods.org), specify it in your `Podfile`:
 
@@ -29,10 +29,6 @@ Then run the following command:
 ```bash
 $ pod install
 ```
-
-### Manual Installation
-
-Download [`UizaSDK.framework`](https://github.com/uizaio/uiza-sdk-player-ios/tree/master/UizaSDK.framework) and drag it into your project, add it to Embbeded Binaries section
 
 ## Usage
 
@@ -160,8 +156,7 @@ UizaSDK yêu cầu Swift 4.0_ và iOS 8+
 
 ## Cài Đặt
 
-
-### CocoaPods (nên dùng)
+### CocoaPods
 
 Cài đặt thông qua [CocoaPods](http://cocoapods.org)
 
@@ -176,10 +171,6 @@ Sau đó chạy lệnh này:
 ```bash
 $ pod install
 ```
-
-### Tự Cài Đặt
-
-Tải [`UizaSDK.framework`](https://github.com/uizaio/uiza-sdk-player-ios/tree/master/UizaSDK.framework) và kéo vào project của bạn, thêm nó vào mục Embbeded Binaries
 
 ## Cách Sử Dụng
 

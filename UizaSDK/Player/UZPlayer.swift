@@ -1090,11 +1090,8 @@ open class UZPlayer: UIView {
         subtitleLabel!.backgroundColor = UIColor.black
         subtitleLabel!.numberOfLines = 0
         subtitleLabel!.lineBreakMode = .byWordWrapping
-<<<<<<< HEAD
-        self.insertSubview(subtitleLabel, belowSubview: controlView)
-=======
-        self.insertSubview(subtitleLabel!, belowSubview: controlView)
->>>>>>> pr/6
+		self.insertSubview(subtitleLabel!, belowSubview: controlView)
+		
         let horizontalContraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|-(20)-[l]-(20)-|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: ["l" : subtitleLabel!])
         let verticalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:[l]-(30)-|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: ["l" : subtitleLabel!])
         self.addConstraints(horizontalContraints)

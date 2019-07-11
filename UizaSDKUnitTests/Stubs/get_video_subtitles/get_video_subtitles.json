@@ -1,0 +1,55 @@
+
+{
+    "type" : "SUCCESS",
+    "version" : 4,
+    "data" : [
+        {
+            "type" : "subtitle",
+            "status" : 1,
+            "createdAt" : "2019-07-09T04:29:59.000Z",
+            "language" : "VN",
+            "updatedAt" : "0000-00-00 00:00:00",
+            "id" : "2d8c3ff8-f56b-4c06-8255-f034739c2d61",
+            "name" : "VN Style",
+            "url" : "http:\/\/stag-ap-southeast-1-z-01.uizadev.io\/b984eb7a457142c9a491fc3246ce6bb3-static\/2019\/07\/09\/sub-vn-1562646589066.vtt",
+            "mine" : "vtt",
+            "isDefault" : 0
+        },
+        {
+            "type" : "subtitle",
+            "status" : 1,
+            "createdAt" : "2019-07-05T11:52:34.000Z",
+            "language" : "EN",
+            "updatedAt" : "0000-00-00 00:00:00",
+            "id" : "bf00837a-3e24-4270-b294-e532d7334349",
+            "name" : "English",
+            "url" : "http:\/\/stag-ap-southeast-1-z-01.uizadev.io\/b984eb7a457142c9a491fc3246ce6bb3-static\/2019\/07\/05\/subtitles-demo-1562042065787-1562327544700.vtt",
+            "mine" : "vtt",
+            "isDefault" : 0
+        },
+        {
+            "type" : "subtitle",
+            "status" : 1,
+            "createdAt" : "2019-07-05T11:40:10.000Z",
+            "language" : "CN",
+            "updatedAt" : "0000-00-00 00:00:00",
+            "id" : "158427d0-28a0-4494-bfab-703e8bbc5383",
+            "name" : "China",
+            "url" : "http:\/\/stag-ap-southeast-1-z-01.uizadev.io\/b984eb7a457142c9a491fc3246ce6bb3-static\/2019\/07\/05\/subtitles-demo-vi-1562042088295-1562326799652.vtt",
+            "mine" : "vtt",
+            "isDefault" : 0
+        }
+    ],
+    "metadata" : {
+        "result" : 3,
+        "total" : 3,
+        "limit" : 20,
+        "page" : 1
+    },
+    "requestId" : "25160a2e-3472-4a41-91af-20ad461c3750",
+    "serviceName" : "api-v4",
+    "message" : "OK",
+    "code" : 200,
+    "policy" : "public",
+    "datetime" : "2019-07-11T03:44:56.695Z"
+}

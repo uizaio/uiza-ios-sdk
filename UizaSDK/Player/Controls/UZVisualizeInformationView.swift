@@ -62,6 +62,7 @@ class UZVisualizeInformationView: UIView {
 		addSubview(qualityLabel)
 		addSubview(hostLabel)
 		addSubview(osInfoLabel)
+        addSubview(latencyLabel)
 		
 		let entityFrameLayout = StackFrameLayout(direction: .horizontal, alignment: .left)
 		entityFrameLayout.append(view: entityLabel).isFlexible = true

@@ -221,4 +221,14 @@ class UZContentServicesTests: XCTestCase {
         }
         waitForExpectations(timeout: 5, handler: nil)
     }
+    
+    func testGetVideoSubtitles_Success() {
+        stub_get_video_subtitle_success()
+        let promise = expectation(description: "test")
+        contentServivesMocks.loadVideoSubtitle(entityId: "653352ce-d867-435c-af64-b2daa04129c2") { (subtitles, error) in
+            XCTAssertEqual(subtitles?.count, 3)
+            promise.fulfill()
+        }
+        waitForExpectations(timeout: 5, handler: nil)
+    }
 }

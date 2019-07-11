@@ -364,16 +364,16 @@ open class UZPlayer: UIView {
 		controlView.showLoader()
 		controlView.liveStartDate = nil
         UZVisualizeSavedInformation.shared.currentVideo = video
-        subtitleLabel.removeFromSuperview()
+        subtitleLabel?removeFromSuperview()
         
-        UZContentServices().loadVideoSubtitle(entityId: video.id) { (results, error) in
+        UZContentServices().loadVideoSubtitle(entityId: video.id) { [weak self] (results, error) in
             if let subtitle = results?.filter({ $0.isDefault }).first {
                 if let url = URL(string: subtitle.url) {
-                    _ = UZSubtitles(url: url)
+                    self?.savedSubtitles = UZSubtitles(url: url)
                 }
-            } else if let subtitle = results?.last {
+            } else if let subtitle = results?.first {
                 if let url = URL(string: subtitle.url) {
-                    _ = UZSubtitles(url: url)
+                    self?.savedSubtitles = UZSubtitles(url: url)
                 }
             }
         }
@@ -1037,16 +1037,16 @@ open class UZPlayer: UIView {
         }
     }
     
-    var subtitleLabel = UILabel()
-    private var savedSubtitles: UZSubtitles?
-
-    @objc func showSubtitles(notification: NSNotification) {
-        guard let subtitles = notification.object as? UZSubtitles else { return }
-        savedSubtitles = subtitles
-        DispatchQueue.main.async {
-            self.addSubtitleLabel()
+    var subtitleLabel: UILabel?
+    private var savedSubtitles: UZSubtitles? {
+        didSet {
+            if savedSubtitles != nil {
+                addSubtitleLabel()
+            }
+			else {
+				removeSubtitleLabel()
+			}
         }
-        addPeriodicTime()
     }
     
     fileprivate func addPeriodicTime() {
@@ -1075,29 +1075,33 @@ open class UZPlayer: UIView {
                             options: [NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.html],
                             documentAttributes: nil)
                         attrStr.addAttributes(textAttributes, range: NSRange(location: 0, length: attrStr.length))
-                        strongSelf.subtitleLabel.attributedText = attrStr
+                        strongSelf.subtitleLabel?.attributedText = attrStr
                     } catch let error {
                         print(error.localizedDescription)
                     }
                 } else {
-                    strongSelf.subtitleLabel.text = ""
+                    strongSelf.subtitleLabel?.text = ""
                 }
         })
     }
     
     fileprivate func addSubtitleLabel() {
         subtitleLabel = UILabel()
-        subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        subtitleLabel.backgroundColor = UIColor.black
-        subtitleLabel.numberOfLines = 0
-        subtitleLabel.lineBreakMode = .byWordWrapping
-        self.addSubview(subtitleLabel)
-        self.bringSubviewToFront(controlView)
-        let horizontalContraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|-(20)-[l]-(20)-|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: ["l" : subtitleLabel])
-        let verticalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:[l]-(30)-|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: ["l" : subtitleLabel])
+        subtitleLabel!.translatesAutoresizingMaskIntoConstraints = false
+        subtitleLabel!.backgroundColor = UIColor.black
+        subtitleLabel!.numberOfLines = 0
+        subtitleLabel!.lineBreakMode = .byWordWrapping
+        self.insertSubview(subtitleLabel, belowSubview: controlView)
+        let horizontalContraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|-(20)-[l]-(20)-|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: ["l" : subtitleLabel!])
+        let verticalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:[l]-(30)-|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: ["l" : subtitleLabel!])
         self.addConstraints(horizontalContraints)
         self.addConstraints(verticalConstraints)
     }
+
+	fileprivate func removeSubtitleLabel() {
+		subtitleLabel?.removeFromSuperview()
+		subtitleLabel = nil
+	}
 	
 	fileprivate var playthrough_eventlog: [Float : Bool] = [:]
 	fileprivate let logPercent: [Float] = [25, 50, 75, 100]

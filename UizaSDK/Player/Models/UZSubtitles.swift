@@ -55,10 +55,8 @@ public class UZSubtitles {
 				} else {
 					string = try String(contentsOf: url)
 				}
-				
-                let groups = UZSubtitles.parseSubRip(string) ?? []
-				self.groups = groups
-                PostNotification(Notification.Name.UZShowSubtitles, object: self, userInfo: nil)
+            
+				self.groups = UZSubtitles.parseSubRip(string) ?? []
 			} catch {
                 UZSentry.sendError(error: error)
 				print("| UZPlayer | [Error] failed to load \(url.absoluteString) \(error.localizedDescription)")

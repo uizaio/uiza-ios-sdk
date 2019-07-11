@@ -366,14 +366,14 @@ open class UZPlayer: UIView {
         UZVisualizeSavedInformation.shared.currentVideo = video
         subtitleLabel.removeFromSuperview()
         
-        UZContentServices().loadVideoSubtitle(entityId: video.id) { (results, error) in
+        UZContentServices().loadVideoSubtitle(entityId: video.id) { [weak self] (results, error) in
             if let subtitle = results?.filter({ $0.isDefault }).first {
                 if let url = URL(string: subtitle.url) {
-                    _ = UZSubtitles(url: url)
+                    self?.savedSubtitles = UZSubtitles(url: url)
                 }
             } else if let subtitle = results?.first {
                 if let url = URL(string: subtitle.url) {
-                    _ = UZSubtitles(url: url)
+                    self?.savedSubtitles = UZSubtitles(url: url)
                 }
             }
         }
@@ -1038,15 +1038,12 @@ open class UZPlayer: UIView {
     }
     
     var subtitleLabel = UILabel()
-    private var savedSubtitles: UZSubtitles?
-
-    @objc func showSubtitles(notification: NSNotification) {
-        guard let subtitles = notification.object as? UZSubtitles else { return }
-        savedSubtitles = subtitles
-        DispatchQueue.main.async {
-            self.addSubtitleLabel()
+    private var savedSubtitles: UZSubtitles? {
+        didSet {
+            if let _ = savedSubtitles {
+                addSubtitleLabel()
+            }
         }
-        addPeriodicTime()
     }
     
     fileprivate func addPeriodicTime() {
@@ -1091,8 +1088,7 @@ open class UZPlayer: UIView {
         subtitleLabel.backgroundColor = UIColor.black
         subtitleLabel.numberOfLines = 0
         subtitleLabel.lineBreakMode = .byWordWrapping
-        self.addSubview(subtitleLabel)
-        self.bringSubviewToFront(controlView)
+        self.insertSubview(subtitleLabel, belowSubview: controlView)
         let horizontalContraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|-(20)-[l]-(20)-|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: ["l" : subtitleLabel])
         let verticalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:[l]-(30)-|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: ["l" : subtitleLabel])
         self.addConstraints(horizontalContraints)

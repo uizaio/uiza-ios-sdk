@@ -25,18 +25,18 @@ open class UZVideoSubtitle: UZModelObject {
     /** language */
     public var language: String! = ""
     /** isDefault */
-    public var isDefault: Bool! = false
+    public var isDefault: Bool = false
     
     override func parse(_ data: NSDictionary?) {
-        if data != nil {
-            id = data!.string(for: "id", defaultString: "")
-            name = data!.string(for: "name", defaultString: "")
-            type = data!.string(for: "type", defaultString: "")
-            url = data!.string(for: "url", defaultString: "")
-            mine = data!.string(for: "mine", defaultString: "")
-            language = data!.string(for: "language", defaultString: "")
-            isDefault = data!.bool(for: "isDefault", defaultValue: false)
-        }
+		guard let data = data else { return }
+		
+		id = data.string(for: "id", defaultString: "")
+		name = data.string(for: "name", defaultString: "")
+		type = data.string(for: "type", defaultString: "")
+		url = data.string(for: "url", defaultString: "")
+		mine = data.string(for: "mine", defaultString: "")
+		language = data.string(for: "language", defaultString: "")
+		isDefault = data.bool(for: "isDefault", defaultValue: false)
     }
     
     /** Object description */

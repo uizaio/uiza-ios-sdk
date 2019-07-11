@@ -358,23 +358,22 @@ open class UZPlayer: UIView {
 		currentVideo = video
 		playthrough_eventlog = [:]
 		
+		removeSubtitleLabel()
 		controlView.hideMessage()
 		controlView.hideEndScreen()
 		controlView.showControlView()
 		controlView.showLoader()
 		controlView.liveStartDate = nil
         UZVisualizeSavedInformation.shared.currentVideo = video
-        subtitleLabel?removeFromSuperview()
         
         UZContentServices().loadVideoSubtitle(entityId: video.id) { [weak self] (results, error) in
-            if let subtitle = results?.filter({ $0.isDefault }).first {
-                if let url = URL(string: subtitle.url) {
-                    self?.savedSubtitles = UZSubtitles(url: url)
-                }
-            } else if let subtitle = results?.first {
-                if let url = URL(string: subtitle.url) {
-                    self?.savedSubtitles = UZSubtitles(url: url)
-                }
+			guard let `self` = self else { return }
+			
+            if let subtitle = results?.filter({ $0.isDefault }).first, let url = URL(string: subtitle.url) {
+                self.savedSubtitles = UZSubtitles(url: url)
+            }
+			else if let subtitle = results?.first, let url = URL(string: subtitle.url) {
+                self.savedSubtitles = UZSubtitles(url: url)
             }
         }
 		
@@ -1091,7 +1090,7 @@ open class UZPlayer: UIView {
         subtitleLabel!.backgroundColor = UIColor.black
         subtitleLabel!.numberOfLines = 0
         subtitleLabel!.lineBreakMode = .byWordWrapping
-        self.insertSubview(subtitleLabel, belowSubview: controlView)
+        self.insertSubview(subtitleLabel!, belowSubview: controlView)
         let horizontalContraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|-(20)-[l]-(20)-|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: ["l" : subtitleLabel!])
         let verticalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:[l]-(30)-|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: ["l" : subtitleLabel!])
         self.addConstraints(horizontalContraints)

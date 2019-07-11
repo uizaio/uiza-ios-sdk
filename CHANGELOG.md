@@ -1,4 +1,4 @@
-### Version 8.2.2 (Jul 10 2019)
+### Version 8.2.3 (Jul 10 2019)
 - [Updated] Auto check for live latency. You can set max latency interval by setting `maxLatencyTime` in UZPlayer
 
 ### Version 8.2.1 (Jul 10 2019)

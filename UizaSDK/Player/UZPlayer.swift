@@ -546,10 +546,7 @@ open class UZPlayer: UIView {
 			liveViewTimer = nil
 		}
 		
-		if checkLatencyTimer != nil {
-			checkLatencyTimer!.invalidate()
-			checkLatencyTimer = nil
-		}
+		stopCheckForLatency()
 		
 		controlView.liveStartDate = nil
 		controlView.hideEndScreen()
@@ -993,10 +990,11 @@ open class UZPlayer: UIView {
 			return
 		}
 		
-		checkLatencyTimer = Timer.scheduledTimer(withTimeInterval: self.maxLiveLatency, repeats: true, block: { [weak self] (timer) in
-			guard let `self` = self else { return }
-			self.avoidLiveLatency(ifLongerThan: self.maxLiveLatency)
-		})
+		self.checkLatencyTimer = Timer.scheduledTimer(timeInterval: self.maxLiveLatency, target: self, selector: #selector(onCheckLatencyTimer), userInfo: nil, repeats: true)
+	}
+	
+	@objc func onCheckLatencyTimer() {
+		avoidLiveLatency(ifLongerThan: self.maxLiveLatency)
 	}
 	
 	func stopCheckForLatency() {

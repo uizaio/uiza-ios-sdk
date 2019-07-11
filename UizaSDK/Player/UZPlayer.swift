@@ -223,7 +223,7 @@ open class UZPlayer: UIView {
 	}
     private var visualizeInformationView: UZVisualizeInformationView?
 	
-	public var autoResumeWhenBackFromBackground = false
+	public var autoPauseWhenInactive = true
 	
 	// MARK: -
 	
@@ -568,13 +568,10 @@ open class UZPlayer: UIView {
 	
 	/**
 	Pause
-	
-	- parameter allow: should allow to response `autoPlay` function
 	*/
-	open func pause(allowAutoPlay allow: Bool = false) {
+	open func pause() {
 		UZMuizaLogger.shared.log(eventName: "pause", params: nil, video: currentVideo, linkplay: currentLinkPlay, player: self)
 		playerLayer?.pause()
-		isPauseByUser = !allow
 	}
 	
 	/**
@@ -794,26 +791,39 @@ open class UZPlayer: UIView {
 			if AVAudioSession.sharedInstance().isAirPlaying || (pictureInPictureController?.isPictureInPictureActive ?? false) {
 				// user close app or turn off the phone, don't pause video while casting
 			}
-			else {
-				self.pause(allowAutoPlay: autoResumeWhenBackFromBackground)
+			else if autoPauseWhenInactive {
+				playerLayer?.pause()
 			}
 		} else {
-			// Fallback on earlier versions
+			if AVAudioSession.sharedInstance().isAirPlaying {
+				// user close app or turn off the phone, don't pause video while casting
+			}
+			else if autoPauseWhenInactive {
+				playerLayer?.pause()
+			}
 		}
 	}
 	
 	@objc func onApplicationActive(notification: Notification) {
-		guard let currentVideo = currentVideo, currentVideo.isLive else {
+		guard let currentVideo = currentVideo else {
 			return
 		}
 		
-		DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-			guard let seekableRange = self.avPlayer?.currentItem?.seekableTimeRanges.last as? CMTimeRange else {
-				return
+		if currentVideo.isLive {
+			DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+				guard let seekableRange = self.avPlayer?.currentItem?.seekableTimeRanges.last as? CMTimeRange else {
+					return
+				}
+				
+				let livePosition = CMTimeGetSeconds(seekableRange.start) + CMTimeGetSeconds(seekableRange.duration)
+				
+				self.seek(to: livePosition, completion: {
+					self.playerLayer?.play()
+				})
 			}
-			
-			let livePosition = CMTimeGetSeconds(seekableRange.start) + CMTimeGetSeconds(seekableRange.duration)
-			self.seek(to: livePosition)
+		}
+		else if autoPauseWhenInactive && !isPauseByUser {
+			playerLayer?.play()
 		}
 	}
 	
@@ -1470,6 +1480,7 @@ extension UZPlayer: UZPlayerControlViewDelegate {
 			case .play:
 				if button.isSelected {
 					pause()
+					isPauseByUser = true
 				}
 				else {
 					button.isSelected = true
@@ -1484,6 +1495,7 @@ extension UZPlayer: UZPlayerControlViewDelegate {
 				
 			case .pause:
 				pause()
+				isPauseByUser = true
 				
 			case .replay:
 				replay()

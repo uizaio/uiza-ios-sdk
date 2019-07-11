@@ -57,7 +57,7 @@ class ViewController: UIViewController {
                     viewController.present(with: video).player.controlView.theme = UZTheme1()
                     viewController.player?.isVisualizeInfoEnabled = true
                     viewController.floatingHandler?.allowsCornerDocking = true
-                    //                    viewController.player.delegate = self
+//                    viewController.player.delegate = self
                 }
             }
         }

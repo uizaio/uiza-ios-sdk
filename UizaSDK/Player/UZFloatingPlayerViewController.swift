@@ -329,7 +329,7 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 		delegate?.floatingPlayer(self, onFloatingProgress: progress)
 		
 		let alpha = 1.0 - progress
-        player?.subtitleLabel.isHidden = progress > 0
+        player?.subtitleLabel?.isHidden = progress > 0
 		
 		detailsContainerView.alpha = alpha
 		player?.controlView.containerView.alpha = alpha

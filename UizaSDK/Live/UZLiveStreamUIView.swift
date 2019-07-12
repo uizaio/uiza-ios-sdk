@@ -100,13 +100,13 @@ open class UZLiveStreamUIView: UIView, UITextFieldDelegate {
 			button.addTarget(self, action: #selector(onButtonSelected(_:)), for: .touchUpInside)
 		}
 		
-		topFrameLayout = DoubleFrameLayout(direction: .horizontal, alignment: .center, views: [liveBadge, viewsBadge])
+		topFrameLayout = DoubleFrameLayout(axis: .horizontal, distribution: .center, views: [liveBadge, viewsBadge])
 		topFrameLayout.spacing = 5
 		topFrameLayout.addSubview(liveBadge)
 		topFrameLayout.addSubview(viewsBadge)
 		topFrameLayout.isHidden = true
 		
-		buttonFrameLayout = StackFrameLayout(direction: .horizontal, alignment: .left, views: [beautyButton, cameraButton])
+		buttonFrameLayout = StackFrameLayout(axis: .horizontal, distribution: .left, views: [beautyButton, cameraButton])
 		buttonFrameLayout.spacing = 10
 		buttonFrameLayout.isIntrinsicSizeEnabled = true
 		

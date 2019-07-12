@@ -324,7 +324,7 @@ open class UZLiveBadgeView: UIView {
         self.addSubview(liveBadge)
         self.addSubview(viewBadge)
         
-        frameLayout = DoubleFrameLayout(direction: .horizontal, views: [liveBadge, viewBadge])
+        frameLayout = DoubleFrameLayout(axis: .horizontal, views: [liveBadge, viewBadge])
         frameLayout.spacing = 5
         frameLayout.isIntrinsicSizeEnabled = true
         self.addSubview(frameLayout)

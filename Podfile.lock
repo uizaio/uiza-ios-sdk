@@ -3,7 +3,7 @@ PODS:
   - CocoaAsyncSocket (7.5.1):
     - CocoaAsyncSocket/GCD (= 7.5.1)
   - CocoaAsyncSocket/GCD (7.5.1)
-  - FrameLayoutKit (3.5)
+  - FrameLayoutKit (3.6)
   - google-cast-sdk (4.4.2):
     - google-cast-sdk/Core (= 4.4.2)
     - Protobuf (~> 3.0)
@@ -19,18 +19,18 @@ PODS:
     - Mockingjay/Core
   - NHNetworkTime (1.7):
     - CocoaAsyncSocket (~> 7.5.0)
-  - NKButton (3.8.4):
+  - NKButton (3.8.7):
     - FrameLayoutKit
     - NVActivityIndicatorView/AppExtension
   - NKModalViewManager (3.5.2)
   - NVActivityIndicatorView/AppExtension (4.7.0)
-  - Protobuf (3.8.0)
+  - Protobuf (3.9.0)
   - SDWebImage (5.0.6):
     - SDWebImage/Core (= 5.0.6)
   - SDWebImage/Core (5.0.6)
-  - Sentry (4.3.4):
-    - Sentry/Core (= 4.3.4)
-  - Sentry/Core (4.3.4)
+  - Sentry (4.4.0):
+    - Sentry/Core (= 4.4.0)
+  - Sentry/Core (4.4.0)
   - SwiftyJSON (5.0.0)
   - URITemplate (3.0.0)
 
@@ -78,20 +78,20 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
   CocoaAsyncSocket: e0a7e93b2ffa411592ff87e58524fbbc9b95b4fa
-  FrameLayoutKit: 363450537f699f03d5eee85b4137a5eca0764019
+  FrameLayoutKit: 1d1e3b54bcbf0eb0d2b52e2f1be8460051666865
   google-cast-sdk: ac9ea41d61026406869bf696b2e7f87971a4cf1f
   LFLiveKit_: 809917d93edae7acfcc6eef23b24933ba976a203
   Mockingjay: 97656c6f59879923976a0a52ef09da45756cca82
   NHNetworkTime: b140ee21770aed41e7b8fd43647bce6349ad10f2
-  NKButton: 6f79617684e3149921e050dd643c3bdb3f25280c
+  NKButton: 399eb4a3a51a31c40203fdfa5470a63becd110b6
   NKModalViewManager: 8171cd4fb9315193fc2d05f011f9a29c9ca95a0f
   NVActivityIndicatorView: b19ddab2576f805cbe0fb2306cba3476e09a1dea
-  Protobuf: 3f617b9a6e73605565086864c9bc26b2bf2dd5a3
+  Protobuf: 1097ca58584c8d9be81bfbf2c5ff5975648dd87a
   SDWebImage: 920f1a2ff1ca8296ad34f6e0510a1ef1d70ac965
-  Sentry: 26f0e6492b103e87434d1a5eea2d241a36f2c2a2
+  Sentry: 26650184fe71eb7476dfd2737acb5ea6cc64b4b1
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
   URITemplate: 58e0d47f967006c5d59888af5356c4a8ed3b197d
 
 PODFILE CHECKSUM: e560433a65fee96c5016cdc90943b8ef934a710a
 
-COCOAPODS: 1.7.2
+COCOAPODS: 1.7.4

@@ -76,12 +76,12 @@ open class UZEndscreenView: UIView {
 		self.addSubview(replayButton)
 		self.addSubview(shareButton)
 		
-		frameLayout = StackFrameLayout(direction: .horizontal)
+		frameLayout = StackFrameLayout(axis: .horizontal)
 //		frameLayout!.append(view: titleLabel)
 		frameLayout!.append(view: replayButton).contentAlignment = (.center, .center)
 		frameLayout!.append(view: shareButton).contentAlignment = (.center, .center)
 		frameLayout!.spacing = 30
-		frameLayout!.layoutAlignment = .center
+		frameLayout!.distribution = .center
 		frameLayout!.edgeInsets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
 		self.addSubview(frameLayout!)
 	}

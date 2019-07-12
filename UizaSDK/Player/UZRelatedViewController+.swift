@@ -179,15 +179,15 @@ class UZMovieItemCollectionViewCell : UICollectionViewCell {
         self.contentView.addSubview(detailLabel)
         self.contentView.addSubview(playingLabel)
         
-        textFrameLayout = DoubleFrameLayout(direction: .vertical, views: [detailLabel])
+        textFrameLayout = DoubleFrameLayout(axis: .vertical, views: [detailLabel])
         textFrameLayout.spacing = 5
         textFrameLayout.edgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         textFrameLayout.isHidden = true
         self.contentView.addSubview(textFrameLayout)
         
-        frameLayout = DoubleFrameLayout(direction: .vertical, views: [imageView, textFrameLayout])
+        frameLayout = DoubleFrameLayout(axis: .vertical, views: [imageView, textFrameLayout])
         frameLayout.bottomFrameLayout.fixSize = CGSize(width: 0, height: 40)
-        frameLayout.layoutAlignment = .bottom
+        frameLayout.distribution = .bottom
         frameLayout.spacing = 0
         self.contentView.addSubview(frameLayout)
         
@@ -240,7 +240,7 @@ class UZMovieItemCollectionViewCell : UICollectionViewCell {
                 
                 titleLabel.numberOfLines = description.count > 0 ? 2 : 3
                 
-                frameLayout.layoutAlignment = .left
+                frameLayout.distribution = .left
                 frameLayout.layoutDirection = .horizontal
                 frameLayout.leftFrameLayout.fixSize = CGSize(width: 160, height: 0)
             }
@@ -250,7 +250,7 @@ class UZMovieItemCollectionViewCell : UICollectionViewCell {
                 
                 detailLabel.text = ""
                 
-                frameLayout.layoutAlignment = .bottom
+                frameLayout.distribution = .bottom
                 frameLayout.layoutDirection = .vertical
                 frameLayout.leftFrameLayout.minSize = CGSize.zero
             }

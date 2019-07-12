@@ -107,9 +107,9 @@ class UZMediaOptionItemCollectionViewCell : UICollectionViewCell {
         self.contentView.addSubview(highlightView)
         self.contentView.addSubview(titleLabel)
         
-        frameLayout = DoubleFrameLayout(direction: .horizontal, views: [titleLabel])
+        frameLayout = DoubleFrameLayout(axis: .horizontal, views: [titleLabel])
         frameLayout.bottomFrameLayout.fixSize = CGSize(width: 0, height: 40)
-        frameLayout.layoutAlignment = .center
+        frameLayout.distribution = .center
         frameLayout.spacing = 0
         self.contentView.addSubview(frameLayout)
         

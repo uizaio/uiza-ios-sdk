@@ -43,7 +43,7 @@ internal class UZVideoQualitySettingsViewController: UIViewController {
 		titleLabel.textColor = .white
 		titleLabel.textAlignment = .center
 		
-		frameLayout = DoubleFrameLayout(direction: .vertical, views: [titleLabel, collectionViewController.view])
+		frameLayout = DoubleFrameLayout(axis: .vertical, views: [titleLabel, collectionViewController.view])
 		frameLayout.bottomFrameLayout.minSize = CGSize(width: 0, height: 100)
 		frameLayout.edgeInsets = UIEdgeInsets(top: 20, left: 10, bottom: 10, right: 10)
 		frameLayout.spacing = 20
@@ -437,9 +437,9 @@ class UZQualityItemCollectionViewCell : UICollectionViewCell {
 		self.contentView.addSubview(highlightView)
 		self.contentView.addSubview(titleLabel)
 		
-		frameLayout = DoubleFrameLayout(direction: .horizontal, views: [titleLabel])
+		frameLayout = DoubleFrameLayout(axis: .horizontal, views: [titleLabel])
 		frameLayout.bottomFrameLayout.fixSize = CGSize(width: 0, height: 40)
-		frameLayout.layoutAlignment = .center
+		frameLayout.distribution = .center
 		frameLayout.spacing = 0
 		self.contentView.addSubview(frameLayout)
 		

@@ -21,7 +21,7 @@ class UZVisualizeInformationView: UIView {
 	let osInfoLabel = TitleValueLabel(title: "OS:")
 	let latencyLabel = TitleValueLabel(title: "Livestream latency:")
 	let closeButton = UIButton()
-	let mainFrameLayout = StackFrameLayout(direction: .vertical, alignment: .top)
+	let mainFrameLayout = StackFrameLayout(axis: .vertical, distribution: .top)
 	let numberFormatter = NumberFormatter()
 	
 	init() {
@@ -64,7 +64,7 @@ class UZVisualizeInformationView: UIView {
 		addSubview(osInfoLabel)
         addSubview(latencyLabel)
 		
-		let entityFrameLayout = StackFrameLayout(direction: .horizontal, alignment: .left)
+		let entityFrameLayout = StackFrameLayout(axis: .horizontal, distribution: .left)
 		entityFrameLayout.append(view: entityLabel).isFlexible = true
 		entityFrameLayout.append(view: closeButton).edgeInsets = UIEdgeInsets(top: -10, left: 10, bottom: 0, right: -10)
 		entityFrameLayout.spacing = 5
@@ -144,7 +144,7 @@ class UZVisualizeInformationView: UIView {
 class TitleValueLabel: UIView {
 	let titleLabel = UILabel()
 	let valueLabel = UILabel()
-	let frameLayout = DoubleFrameLayout(direction: .horizontal)
+	let frameLayout = DoubleFrameLayout(axis: .horizontal)
 	
 	var title: String? {
 		get {

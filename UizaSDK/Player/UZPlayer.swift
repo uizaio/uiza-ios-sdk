@@ -152,7 +152,6 @@ open class UZPlayer: UIView {
 	public var autoTryNextDefinitionIfError = true
 	public var controlView: UZPlayerControlView!
 	public var liveEndedMessage = "This live video has ended"
-	public var maxLiveLatency: TimeInterval = 10
 	
 	open var customControlView: UZPlayerControlView? {
 		didSet {
@@ -187,7 +186,6 @@ open class UZPlayer: UIView {
 	public fileprivate(set) var currentDefinition = 0
 	public fileprivate(set) var playerLayer: UZPlayerLayerView?
 	
-	fileprivate var checkLatencyTimer: Timer? = nil
 	fileprivate var liveViewTimer: Timer? = nil
 	fileprivate var isFullScreen: Bool {
 		get {
@@ -526,8 +524,6 @@ open class UZPlayer: UIView {
 		}
 		
 		UZMuizaLogger.shared.log(eventName: "playing", params: nil, video: currentVideo, linkplay: currentLinkPlay, player: self)
-		
-		startCheckForLatency()
 	}
 	
 	/**
@@ -541,8 +537,6 @@ open class UZPlayer: UIView {
 			liveViewTimer!.invalidate()
 			liveViewTimer = nil
 		}
-		
-		stopCheckForLatency()
 		
 		controlView.liveStartDate = nil
 		controlView.hideEndScreen()
@@ -578,11 +572,6 @@ open class UZPlayer: UIView {
 	open func pause() {
 		UZMuizaLogger.shared.log(eventName: "pause", params: nil, video: currentVideo, linkplay: currentLinkPlay, player: self)
 		playerLayer?.pause()
-		
-		if checkLatencyTimer != nil {
-			checkLatencyTimer!.invalidate()
-			checkLatencyTimer = nil
-		}
 	}
 	
 	/**
@@ -625,6 +614,20 @@ open class UZPlayer: UIView {
 			let toTime = min(maxTime, totalDuration)
 			self.seek(to: toTime, completion: completion)
 		}
+	}
+	
+	/**
+	Seek to current time of live video
+	*/
+	open func seekToLive() {
+		guard let currentVideo = currentVideo, currentVideo.isLive else { return }
+		guard let currentItem = self.avPlayer?.currentItem else { return }
+		guard let seekableRange = currentItem.seekableTimeRanges.last as? CMTimeRange else { return }
+		
+		let livePosition = CMTimeGetSeconds(seekableRange.start) + CMTimeGetSeconds(seekableRange.duration)
+		self.seek(to: livePosition, completion: { [weak self] in
+			self?.playerLayer?.play()
+		})
 	}
 	
 	open func nextVideo() {
@@ -831,15 +834,7 @@ open class UZPlayer: UIView {
 		
 		if currentVideo.isLive && !isCasting {
 			DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-				guard let seekableRange = self.avPlayer?.currentItem?.seekableTimeRanges.last as? CMTimeRange else {
-					return
-				}
-				
-				let livePosition = CMTimeGetSeconds(seekableRange.start) + CMTimeGetSeconds(seekableRange.duration)
-				
-				self.seek(to: livePosition, completion: { [weak self] in
-					self?.playerLayer?.play()
-				})
+				self.seekToLive()
 			}
 		}
 		else if autoPauseWhenInactive && !isPauseByUser {
@@ -851,26 +846,6 @@ open class UZPlayer: UIView {
 		DispatchQueue.main.async {
 			self.updateCastingUI()
 			self.controlView.setNeedsLayout()
-		}
-		
-		if AVAudioSession.sharedInstance().isAirPlaying {
-			stopCheckForLatency()
-		}
-	}
-	
-	@objc func avoidLiveLatency(ifLongerThan latencyTime: TimeInterval) {
-		guard latencyTime > 0 else { return }
-		guard let currentVideo = currentVideo, currentVideo.isLive else { return }
-		guard let currentItem = self.avPlayer?.currentItem, let player = self.playerLayer else { return }
-		guard let seekableRange = currentItem.seekableTimeRanges.last as? CMTimeRange else { return }
-		
-		let livePosition = CMTimeGetSeconds(seekableRange.start) + CMTimeGetSeconds(seekableRange.duration)
-		let currentPosition = CMTimeGetSeconds(currentItem.currentTime())
-		
-		if player.isPlaying && (livePosition - currentPosition) >= latencyTime {
-			self.seek(to: livePosition, completion: { [weak self] in
-				self?.playerLayer?.play()
-			})
 		}
 	}
 	
@@ -910,7 +885,6 @@ open class UZPlayer: UIView {
 		playerLayer?.pause(alsoPauseCasting: false)
 		controlView.showLoader()
 		updateCastingUI()
-		stopCheckForLatency()
 	}
 	
 	@objc func onCastClientDidStart(_ notification: Notification) {
@@ -974,29 +948,6 @@ open class UZPlayer: UIView {
 				
 				self.liveViewTimer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(self.loadLiveViews), userInfo: nil, repeats: false)
 			}
-		}
-	}
-	
-	func startCheckForLatency() {
-		if checkLatencyTimer != nil {
-			checkLatencyTimer!.invalidate()
-			checkLatencyTimer = nil
-		}
-		
-		guard let currentVide = currentVideo, currentVideo?.isLive else { return }
-		if maxLiveLatency <= 0 { return }
-		
-		self.checkLatencyTimer = Timer.scheduledTimer(timeInterval: self.maxLiveLatency, target: self, selector: #selector(onCheckLatencyTimer), userInfo: nil, repeats: true)
-	}
-	
-	@objc func onCheckLatencyTimer() {
-		avoidLiveLatency(ifLongerThan: self.maxLiveLatency)
-	}
-	
-	func stopCheckForLatency() {
-		if checkLatencyTimer != nil {
-			checkLatencyTimer!.invalidate()
-			checkLatencyTimer = nil
 		}
 	}
 	
@@ -1675,7 +1626,6 @@ extension UZPlayer: UZPlayerControlViewDelegate {
 		case .touchDown:
 			playerLayer?.onTimeSliderBegan()
 			isSliderSliding = true
-			stopCheckForLatency()
 			
 		case .touchUpInside :
 			isSliderSliding = false
@@ -1689,7 +1639,6 @@ extension UZPlayer: UZPlayerControlViewDelegate {
 				let seekableDuration = CMTimeGetSeconds(seekableRange.duration)
 				let livePosition = seekableStart + seekableDuration
 				targetTime = livePosition * Double(slider.value)
-				startCheckForLatency()
 			}
 			
 			if isPlayToTheEnd {

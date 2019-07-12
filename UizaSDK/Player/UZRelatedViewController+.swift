@@ -241,7 +241,7 @@ class UZMovieItemCollectionViewCell : UICollectionViewCell {
                 titleLabel.numberOfLines = description.count > 0 ? 2 : 3
                 
                 frameLayout.distribution = .left
-                frameLayout.layoutDirection = .horizontal
+                frameLayout.axis = .horizontal
                 frameLayout.leftFrameLayout.fixSize = CGSize(width: 160, height: 0)
             }
             else {
@@ -251,7 +251,7 @@ class UZMovieItemCollectionViewCell : UICollectionViewCell {
                 detailLabel.text = ""
                 
                 frameLayout.distribution = .bottom
-                frameLayout.layoutDirection = .vertical
+                frameLayout.axis = .vertical
                 frameLayout.leftFrameLayout.minSize = CGSize.zero
             }
         }

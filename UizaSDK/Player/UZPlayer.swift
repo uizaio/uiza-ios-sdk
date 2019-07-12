@@ -527,10 +527,6 @@ open class UZPlayer: UIView {
 		
 		UZMuizaLogger.shared.log(eventName: "playing", params: nil, video: currentVideo, linkplay: currentLinkPlay, player: self)
 		
-		if let currentVideo = currentVideo, currentVideo.isLive {
-			startCheckForLatency()
-		}
-		
 		startCheckForLatency()
 	}
 	
@@ -864,6 +860,7 @@ open class UZPlayer: UIView {
 	
 	@objc func avoidLiveLatency(ifLongerThan latencyTime: TimeInterval) {
 		guard latencyTime > 0 else { return }
+		guard let currentVideo = currentVideo, currentVideo.isLive else { return }
 		guard let currentItem = self.avPlayer?.currentItem, let player = self.playerLayer else { return }
 		guard let seekableRange = currentItem.seekableTimeRanges.last as? CMTimeRange else { return }
 		
@@ -986,9 +983,8 @@ open class UZPlayer: UIView {
 			checkLatencyTimer = nil
 		}
 		
-		if maxLiveLatency <= 0 {
-			return
-		}
+		guard let currentVide = currentVideo, currentVideo?.isLive else { return }
+		if maxLiveLatency <= 0 { return }
 		
 		self.checkLatencyTimer = Timer.scheduledTimer(timeInterval: self.maxLiveLatency, target: self, selector: #selector(onCheckLatencyTimer), userInfo: nil, repeats: true)
 	}

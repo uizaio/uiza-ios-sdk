@@ -49,6 +49,7 @@ class ViewController: UIViewController {
         themeButton.addTarget(self, action: #selector(switchTheme), for: .touchUpInside)
         self.view.addSubview(themeButton)
         
+/*
         UZContentServices().loadEntity(metadataId: nil, publishStatus: .success, page: 0, limit: 15) { (results, error) in
             if let videos = results, let video = videos.first {
                 
@@ -61,10 +62,11 @@ class ViewController: UIViewController {
                 }
             }
         }
-        
-        //                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-        //                    self.showLive()
-        //                }
+*/
+		
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            self.showLive()
+                        }
     }
     
     func showLive() {

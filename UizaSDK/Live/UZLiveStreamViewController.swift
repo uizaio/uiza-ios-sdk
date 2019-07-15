@@ -10,17 +10,6 @@ import UIKit
 import LFLiveKit_
 import NKButton
 
-/*
-configuration.sessionPreset = LFCaptureSessionPreset720x1280
-configuration.videoFrameRate = 24
-configuration.videoMaxFrameRate = 24
-configuration.videoMinFrameRate = 12
-configuration.videoBitRate = 1200 * 1000
-configuration.videoMaxBitRate = 1440 * 1000
-configuration.videoMinBitRate = 800 * 1000
-configuration.videoSize = CGSizeMake(720, 1280)
-*/
-
 open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 	public var livestreamUIView = UZLiveStreamUIView() {
 		didSet {
@@ -70,7 +59,7 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 		}
 	}
 	
-	fileprivate var startTime: Date? = nil
+	public fileprivate(set) var startTime: Date? = nil
 	fileprivate var timer: Timer? = nil
 	fileprivate var inactiveTimer: Timer? = nil
 	fileprivate var getViewTimer: Timer? = nil
@@ -85,26 +74,23 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 	}()
 	
 	open func videoConfiguration() -> LFLiveVideoConfiguration {
+		return LFLiveVideoConfiguration.defaultConfiguration(for: ._FHD, outputImageOrientation: UIApplication.shared.statusBarOrientation)
+		/*
 		let configuration = LFLiveVideoConfiguration()
-		configuration.sessionPreset 	= .captureSessionPreset720x1280
-		configuration.videoFrameRate 	= 24
-		configuration.videoMaxFrameRate = 24
-		configuration.videoMinFrameRate = 12
-		configuration.videoBitRate 		= 600 * 1000;
-		configuration.videoMaxBitRate 	= 600 * 1000;
-		configuration.videoMinBitRate 	= 500 * 1000;
-		configuration.videoSize 		= CGSize(width: 720, height: 1280)
-		configuration.videoMaxKeyframeInterval = 12
+		configuration.sessionPreset 	= .captureSessionPreset1920x1080
+		configuration.videoFrameRate 	= 30
+		configuration.videoMaxFrameRate = 30
+		configuration.videoMinFrameRate = 15
+		configuration.videoBitRate 		= 5000 * 1000
+		configuration.videoMaxBitRate 	= 5000 * 1000
+		configuration.videoMinBitRate 	= 2500 * 1000
+		configuration.videoSize 		= CGSize(width: 1080, height: 1920)
+		configuration.videoMaxKeyframeInterval = 2
 		configuration.outputImageOrientation = UIApplication.shared.statusBarOrientation
-		configuration.autorotate = true //IS_IPAD
-		
-		//		DLog("videoMaxKeyframeInterval: \(configuration.videoMaxKeyframeInterval)")
-		if configuration.landscape {
-			let size = configuration.videoSize
-			configuration.videoSize = CGSize(width: size.height, height: size.width)
-		}
+		configuration.autorotate = true
 		
 		return configuration
+		*/
 	}
 	
 	open func audioConfiguration() -> LFLiveAudioConfiguration {
@@ -289,10 +275,6 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 			endSession()
 		}
 		
-		livestreamUIView.isLive = false
-		liveDurationLabel.isHidden = true
-		isLive = false
-		
 		if timer != nil {
 			timer!.invalidate()
 			timer = nil
@@ -307,6 +289,10 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 			getViewTimer!.invalidate()
 			getViewTimer = nil
 		}
+		
+		livestreamUIView.isLive = false
+		liveDurationLabel.isHidden = true
+		isLive = false
 		
 		startTime = nil
 		UIApplication.shared.isIdleTimerDisabled = false
@@ -501,7 +487,7 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 	open func liveSession(_ session: LFLiveSession?, liveStateDidChange state: LFLiveState) {
 		DLog("LFLiveState: \(String(describing: state.rawValue))")
 		
-		liveDurationLabel.isHidden = state != .start
+		liveDurationLabel.isHidden = state != .start || isLive == false
 		
 		if state == .start {
 			if startTime == nil {

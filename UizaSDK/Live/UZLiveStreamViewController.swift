@@ -232,9 +232,9 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 			alertControler.dismiss(animated: true, completion: nil)
 		}))
 		
-		alertControler.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
+		alertControler.addAction(UIAlertAction(title: "Yes", style: .default, handler: { [weak self] (action) in
 			alertControler.dismiss(animated: true, completion: nil)
-			self.stopLive()
+			self?.stopLive()
 		}))
 		
 		self.present(alertControler, animated: true, completion: nil)
@@ -278,14 +278,16 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 	
 	public func stopLive() -> Void {
 		DLog("STOPPING")
-		guard (currentLiveEvent != nil) else { return }
 		
 		streamService.cancel()
 //		livestreamUIView.disconnectSocket()
 		session.stopLive()
+		session.running = false
 		session.delegate = nil
 		
-		endSession()
+		if currentLiveEvent != nil {
+			endSession()
+		}
 		
 		livestreamUIView.isLive = false
 		liveDurationLabel.isHidden = true

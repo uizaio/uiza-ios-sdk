@@ -1074,39 +1074,41 @@ open class UZPlayer: UIView {
     }
     
     fileprivate func addPeriodicTime() {
-        guard let savedSubtitles = savedSubtitles else {
-            return
-        }
-        avPlayer?.addPeriodicTimeObserver(
-            forInterval: CMTimeMake(value: 1, timescale: 60),
-            queue: DispatchQueue.main,
-            using: { [weak self] (time) -> Void in
-                
-                guard let strongSelf = self else { return }
-                let group = savedSubtitles.search(for: TimeInterval(CMTimeGetSeconds(time)))
-                
-                if let text = group?.text {
-                    do {
-                        let paragraphStyle = NSMutableParagraphStyle()
-                        paragraphStyle.alignment = .center
-                        paragraphStyle.lineBreakMode = .byWordWrapping
-                        let textAttributes: [NSAttributedString.Key: Any] = [
-                            .foregroundColor : UIColor.white,
-                            .paragraphStyle: paragraphStyle
-                        ]
-                        let attrStr = try NSMutableAttributedString(
-                            data: text.data(using: String.Encoding.unicode, allowLossyConversion: true)!,
-                            options: [NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.html],
-                            documentAttributes: nil)
-                        attrStr.addAttributes(textAttributes, range: NSRange(location: 0, length: attrStr.length))
-                        strongSelf.subtitleLabel?.attributedText = attrStr
-                    } catch let error {
-                        print(error.localizedDescription)
-                    }
-                } else {
-                    strongSelf.subtitleLabel?.text = ""
-                }
-        })
+        guard let savedSubtitles = savedSubtitles else { return }
+		
+		#if swift(>=4.2)
+		let interval = CMTimeMake(value: 1, timescale: 60)
+		#else
+		let interval = CMTimeMake(1, 60)
+		#endif
+		
+		avPlayer?.addPeriodicTimeObserver(
+			forInterval: interval,
+			queue: DispatchQueue.main,
+			using: { [weak self] (time) -> Void in
+				guard let `self` = self else { return }
+				
+				guard let text = savedSubtitles.search(for: TimeInterval(CMTimeGetSeconds(time)))?.text else {
+					self.subtitleLabel?.text = ""
+					return
+				}
+				
+				do {
+					let paragraphStyle = NSMutableParagraphStyle()
+					paragraphStyle.alignment = .center
+					paragraphStyle.lineBreakMode = .byWordWrapping
+					
+					let textAttributes: [NSAttributedString.Key: Any] = [.foregroundColor : UIColor.white, .paragraphStyle: paragraphStyle]
+					let attrStr = try NSMutableAttributedString(
+						data: text.data(using: String.Encoding.unicode, allowLossyConversion: true)!,
+						options: [NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.html],
+						documentAttributes: nil)
+					attrStr.addAttributes(textAttributes, range: NSRange(location: 0, length: attrStr.length))
+					self.subtitleLabel?.attributedText = attrStr
+				} catch let error {
+					print(error.localizedDescription)
+				}
+		})
     }
     
     fileprivate func addSubtitleLabel() {

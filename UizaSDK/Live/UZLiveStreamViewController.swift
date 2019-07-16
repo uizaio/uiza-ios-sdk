@@ -74,7 +74,7 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 	}()
 	
 	open func videoConfiguration() -> LFLiveVideoConfiguration {
-		return LFLiveVideoConfiguration.defaultConfiguration(for: ._FHD, outputImageOrientation: UIApplication.shared.statusBarOrientation)
+		return LFLiveVideoConfiguration.defaultConfiguration(for: .fullHD_1080, outputImageOrientation: UIApplication.shared.statusBarOrientation)
 		/*
 		let configuration = LFLiveVideoConfiguration()
 		configuration.sessionPreset 	= .captureSessionPreset1920x1080

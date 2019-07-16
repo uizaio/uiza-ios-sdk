@@ -735,6 +735,16 @@ open class UZPlayer: UIView {
 		controlView.hideMessage()
 	}
 	
+	public func getCurrentLatency() -> TimeInterval {
+		guard let currentVideo = currentVideo, currentVideo.isLive else { return 0 }
+		guard let currentItem = self.avPlayer?.currentItem else { return 0 }
+		guard let seekableRange = currentItem.seekableTimeRanges.last as? CMTimeRange else { return 0 }
+		
+		let livePosition = CMTimeGetSeconds(seekableRange.start) + CMTimeGetSeconds(seekableRange.duration)
+		let currentPosition = CMTimeGetSeconds(currentItem.currentTime())
+		return livePosition - currentPosition
+	}
+	
 	// MARK: - Heartbeat
 	
 	var heartbeatTimer: Timer? = nil

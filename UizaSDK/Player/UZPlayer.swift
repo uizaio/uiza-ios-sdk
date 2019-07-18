@@ -387,7 +387,8 @@ open class UZPlayer: UIView {
         }
 		
         UZVisualizeSavedInformation.shared.currentVideo = video
-		UZContentServices().loadLinkPlay(video: video) { [weak self] (results, error) in
+        let contentService = UZContentServices()
+		contentService.loadLinkPlay(video: video) { [weak self] (results, error) in
 			guard let `self` = self else { return }
 			
 			self.controlView.hideLoader()
@@ -401,6 +402,7 @@ open class UZPlayer: UIView {
 				
 				let resource = UZPlayerResource(name: video.name, definitions: results, subtitles: video.subtitleURLs, cover: video.thumbnailURL)
 				self.setResource(resource: resource)
+                self.playerLayer?.certificate = contentService.certificate
 				
 				if video.isLive {
 					self.controlView.liveStartDate = nil

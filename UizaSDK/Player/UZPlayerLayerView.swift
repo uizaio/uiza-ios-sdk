@@ -47,6 +47,7 @@ protocol UZPlayerLayerViewDelegate: class {
 
 open class UZPlayerLayerView: UIView {
 	weak var delegate: UZPlayerLayerViewDelegate? = nil
+    var certificate: UZCertificate?
 	
 	open var playerItem: AVPlayerItem? {
 		didSet {
@@ -353,6 +354,8 @@ open class UZPlayerLayerView: UIView {
 		player?.removeObserver(self, forKeyPath: "rate")
 		playerLayer?.removeFromSuperlayer()
 		
+        let queue = DispatchQueue(label: "drm queue")
+        urlAsset?.resourceLoader.setDelegate(self, queue: queue)
 		playerItem = configPlayerItem()
 		player = AVPlayer(playerItem: playerItem!)
 		player!.addObserver(self, forKeyPath: "rate", options: .new, context: nil)
@@ -622,10 +625,94 @@ open class UZPlayerLayerView: UIView {
 			}
 		}
 	}
+    
+    private func myGetAppCertificateData() -> Data? {
+        guard let certificate = certificate else {
+            return nil
+        }
+        let header1 = "Cache-Control: no-cache"
+        let header2 = "max-age=0"
+        
+        var request: NSMutableURLRequest? = nil
+        if let url = URL(string: certificate.certificateUrl) {
+            request = NSMutableURLRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 10)
+        }
+        
+        request?.httpMethod = "GET"
+        request?.setValue(header1, forHTTPHeaderField: "Pragma")
+        request?.setValue(header2, forHTTPHeaderField: "Cache-Control")
+        
+        var certificateData: Data? = nil
+        
+        let sema = DispatchSemaphore(value: 0)
+        var session: URLSessionDataTask? = nil
+        if let request = request {
+            session = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) in
+                certificateData = data
+                sema.signal()
+            })
+        }
+        session?.resume()
+        
+        _ = sema.wait(timeout: .distantFuture)
+        
+        return certificateData
+    }
 	
 	// MARK: -
 	
 	deinit {
 		NotificationCenter.default.removeObserver(self)
 	}
+}
+
+extension UZPlayerLayerView: AVAssetResourceLoaderDelegate {
+    public func resourceLoader(_ resourceLoader: AVAssetResourceLoader, shouldWaitForLoadingOfRequestedResource loadingRequest: AVAssetResourceLoadingRequest) -> Bool {
+        guard loadingRequest.request.url != nil else {
+            print("🔑", #function, "Unable to read the url/host data.")
+            loadingRequest.finishLoading(with: NSError(domain: "com.icapps.error", code: -1, userInfo: nil))
+            return false
+        }
+        
+        // Get certificate data
+        
+        guard let certificate = certificate, let certificateData = myGetAppCertificateData() else {
+            return false
+        }
+        
+        // Request the Server Playback Context.
+        let contentId = "com.apple.fps.1_0"
+        guard
+            let contentIdData = contentId.data(using: String.Encoding.utf8),
+            let spcData = try? loadingRequest.streamingContentKeyRequestData(forApp: certificateData, contentIdentifier: contentIdData, options: nil),
+            let dataRequest = loadingRequest.dataRequest else {
+                loadingRequest.finishLoading(with: NSError(domain: "com.icapps.error", code: -3, userInfo: nil))
+                print("🔑", #function, "Unable to read the SPC data.")
+                return false
+        }
+        
+        // Request the Content Key Context from the Key Server Module.
+        guard let ckcURL = URL(string: certificate.licenseAcquisitionUrl) else {
+            return false
+        }
+        var request = URLRequest(url: ckcURL)
+        request.httpMethod = "POST"
+        request.setValue("application/octet-stream", forHTTPHeaderField: "Content-Type")
+        request.httpBody = spcData
+        let session = URLSession(configuration: URLSessionConfiguration.default)
+        let task = session.dataTask(with: request) { data, response, error in
+            if let data = data {
+                // The CKC is correctly returned and is now send to the `AVPlayer` instance so we
+                // can continue to play the stream.
+                dataRequest.respond(with: data)
+                loadingRequest.finishLoading()
+            } else {
+                print("🔑", #function, "Unable to fetch the CKC.")
+                loadingRequest.finishLoading(with: NSError(domain: "com.icapps.error", code: -4, userInfo: nil))
+            }
+        }
+        task.resume()
+        
+        return true
+    }
 }

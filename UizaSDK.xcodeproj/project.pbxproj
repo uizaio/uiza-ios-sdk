@@ -301,7 +301,11 @@
 		697228F4228E947700DEE5F1 /* UZPlayerControlViewUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694AF57B228D0D2F00C6DE7F /* UZPlayerControlViewUnitTests.swift */; };
 		69784B6C2293A52A00B6F3A5 /* UZVisualizeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69784B6B2293A52A00B6F3A5 /* UZVisualizeInfo.swift */; };
 		69784B6D2293A7D700B6F3A5 /* UZVisualizeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69784B6B2293A52A00B6F3A5 /* UZVisualizeInfo.swift */; };
+		698F260322E0194D00BB19BB /* UZCertificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698F260222E0194D00BB19BB /* UZCertificate.swift */; };
+		698F260422E0198A00BB19BB /* UZCertificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698F260222E0194D00BB19BB /* UZCertificate.swift */; };
 		69BDB3E822CC815100FD7C93 /* UZLiveServicesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BDB3E722CC815100FD7C93 /* UZLiveServicesTests.swift */; };
+		69CDB98522DDD8CB00CE574F /* UZFairplayToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CDB98422DDD8CB00CE574F /* UZFairplayToken.swift */; };
+		69CDB98722DDD97A00CE574F /* UZFairplayToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CDB98422DDD8CB00CE574F /* UZFairplayToken.swift */; };
 		69E4E1AF22CC8B710021CED6 /* start_live_feed.json in Resources */ = {isa = PBXBuildFile; fileRef = 69E4E1AE22CC8B710021CED6 /* start_live_feed.json */; };
 		69E4E1B222CC8C910021CED6 /* end_live_feed.json in Resources */ = {isa = PBXBuildFile; fileRef = 69E4E1B122CC8C910021CED6 /* end_live_feed.json */; };
 		69E4E1B522CC8D3C0021CED6 /* load_live_event_views_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 69E4E1B422CC8D3C0021CED6 /* load_live_event_views_success.json */; };
@@ -496,7 +500,9 @@
 		69622F54228415E500CB3895 /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		697228E1228E92C000DEE5F1 /* UZPlayerMockTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZPlayerMockTests.swift; sourceTree = "<group>"; };
 		69784B6B2293A52A00B6F3A5 /* UZVisualizeInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZVisualizeInfo.swift; sourceTree = "<group>"; };
+		698F260222E0194D00BB19BB /* UZCertificate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZCertificate.swift; sourceTree = "<group>"; };
 		69BDB3E722CC815100FD7C93 /* UZLiveServicesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZLiveServicesTests.swift; sourceTree = "<group>"; };
+		69CDB98422DDD8CB00CE574F /* UZFairplayToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZFairplayToken.swift; sourceTree = "<group>"; };
 		69E4E1AE22CC8B710021CED6 /* start_live_feed.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = start_live_feed.json; sourceTree = "<group>"; };
 		69E4E1B122CC8C910021CED6 /* end_live_feed.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = end_live_feed.json; sourceTree = "<group>"; };
 		69E4E1B422CC8D3C0021CED6 /* load_live_event_views_success.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = load_live_event_views_success.json; sourceTree = "<group>"; };
@@ -698,6 +704,8 @@
 				63D3A5D7224E08BB00732A0C /* UZPlayerConfig.swift */,
 				63D3A5D8224E08BB00732A0C /* UZVideoItem.swift */,
 				690A91CD22D329B300DBBCBF /* UZVideoSubtitle.swift */,
+				69CDB98422DDD8CB00CE574F /* UZFairplayToken.swift */,
+				698F260222E0194D00BB19BB /* UZCertificate.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1477,6 +1485,7 @@
 				636725D522686AD70072612F /* UZCategory.swift in Sources */,
 				63672584226868290072612F /* ViewController.swift in Sources */,
 				636725AD22686AAB0072612F /* BezierAction.swift in Sources */,
+				69CDB98722DDD97A00CE574F /* UZFairplayToken.swift in Sources */,
 				6367259622686A3F0072612F /* UZEndscreenView.swift in Sources */,
 				6367259322686A3F0072612F /* UZFloatingPlayerViewController.swift in Sources */,
 				636725BA22686AB30072612F /* RepeatForeverAction.swift in Sources */,
@@ -1567,6 +1576,7 @@
 				636725F822686AE00072612F /* NotificationName+Uiza.swift in Sources */,
 				63672582226868290072612F /* AppDelegate.swift in Sources */,
 				636725A822686A7F0072612F /* UZTheme6.swift in Sources */,
+				698F260422E0198A00BB19BB /* UZCertificate.swift in Sources */,
 				6367259422686A3F0072612F /* UZPlaylistViewController.swift in Sources */,
 				636725A222686A7C0072612F /* UZCastButton.swift in Sources */,
 				636725E322686AD70072612F /* UZLiveServices.swift in Sources */,
@@ -1633,6 +1643,7 @@
 				630C397B22607F9400ACFDAE /* ActionScheduler.swift in Sources */,
 				63193FFE2251032E00FFC560 /* UZTheme1.swift in Sources */,
 				631940072251036F00FFC560 /* SwiftIcons.swift in Sources */,
+				69CDB98522DDD8CB00CE574F /* UZFairplayToken.swift in Sources */,
 				63193FED225102DD00FFC560 /* UZCastingView.swift in Sources */,
 				631940032251032E00FFC560 /* UZTheme4.swift in Sources */,
 				63193FFD2251031C00FFC560 /* UZLiveStreamViewController.swift in Sources */,
@@ -1714,6 +1725,7 @@
 				63D3A66B224E08BB00732A0C /* Dictionary+Append.swift in Sources */,
 				63D3A62E224E08BB00732A0C /* UZAdsCuePoint.swift in Sources */,
 				631940042251032E00FFC560 /* UZTheme6.swift in Sources */,
+				698F260322E0194D00BB19BB /* UZCertificate.swift in Sources */,
 				63D3A66A224E08BB00732A0C /* NSTimeInterval+ToString.swift in Sources */,
 				630C397222607F9400ACFDAE /* RunBlockAction.swift in Sources */,
 				63193FFA225102E500FFC560 /* UZMediaResource.swift in Sources */,

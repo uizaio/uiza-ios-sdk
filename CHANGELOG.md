@@ -1,3 +1,8 @@
+### Version 8.3 (Jul 10 2019)
+- [Updated] Supports FullHD 1080 & UltraHD 4K for livestreamming
+- [Updated] Supports external subtitle
+- [Updated] Auto retry when livestream stalled
+
 ### Version 8.2.3 (Jul 10 2019)
 - [Updated] Auto check for live latency. You can set max latency interval by setting `maxLatencyTime` in UZPlayer
 

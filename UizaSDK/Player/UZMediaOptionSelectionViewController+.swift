@@ -63,6 +63,15 @@ class UZMediaOptionItemCollectionViewCell : UICollectionViewCell {
         }
     }
     
+    var subtitle: UZVideoSubtitle? {
+        didSet {
+            if let name = subtitle?.name {
+                titleLabel.text = name
+                self.setNeedsLayout()
+            }
+        }
+    }
+    
     func updateColor() {
         if self.isHighlighted {
             highlightView.alpha = 1.0

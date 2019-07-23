@@ -27,6 +27,18 @@ class UZMediaOptionSelectionViewController: UIViewController {
 			self.collectionViewController.selectedAudioOption = selectedAudioOption
 		}
 	}
+    
+    var subtitiles: [UZVideoSubtitle] = [] {
+        didSet {
+            collectionViewController.subtitles = subtitiles
+        }
+    }
+    
+    var selectedSubtitle: UZVideoSubtitle? {
+        didSet {
+            collectionViewController.selectedSubtitle = selectedSubtitle
+        }
+    }
 	
 	var asset: AVAsset? = nil {
 		didSet {
@@ -150,6 +162,16 @@ internal class UZMediaOptionSelectionCollectionViewController: UICollectionViewC
 	var selectedAudioOption: AVMediaSelectionOption?
 	var subtitleOptions	: [AVMediaSelectionOption]! = []
 	var audioOptions	: [AVMediaSelectionOption]! = []
+    var selectedSubtitle: UZVideoSubtitle? {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
+    var subtitles: [UZVideoSubtitle] = [] {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
 	
 	init() {
 		super.init(collectionViewLayout: flowLayout)
@@ -250,6 +272,13 @@ internal class UZMediaOptionSelectionCollectionViewController: UICollectionViewC
 		cell.option = option
 		cell.isSelected = selectedSubtitleOption == option || selectedAudioOption == option
 	}
+    
+    func config(cell: UZMediaOptionItemCollectionViewCell, with subtitle: UZVideoSubtitle, and indexPath: IndexPath) {
+        cell.subtitle = subtitle
+        if let index = subtitles.firstIndex(where: { $0.id == selectedSubtitle?.id }) {
+            cell.isSelected = (index == indexPath.row)
+        }
+    }
 	
 //	func showMessage(message: String) {
 //		if messageLabel == nil {
@@ -279,7 +308,15 @@ internal class UZMediaOptionSelectionCollectionViewController: UICollectionViewC
 	}
 	
 	override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		return section == 0 ? audioOptions.count : subtitleOptions.count
+        if section == 0 {
+            return audioOptions.count
+        } else {
+            if subtitles.count == 0 {
+                return subtitleOptions.count
+            } else {
+                return subtitles.count
+            }
+        }
 	}
 	
 	override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -312,7 +349,11 @@ internal class UZMediaOptionSelectionCollectionViewController: UICollectionViewC
 			cell = UZMediaOptionItemCollectionViewCell()
 		}
 		
-		config(cell: cell!, with: resourceItemAtIndexPath(indexPath), and: indexPath)
+        if subtitles.count > 0 && indexPath.section == 1 {
+            config(cell: cell!, with: subtitles[indexPath.row], and: indexPath)
+        } else {
+            config(cell: cell!, with: resourceItemAtIndexPath(indexPath), and: indexPath)
+        }
 		
 		return cell!
 	}
@@ -324,8 +365,12 @@ internal class UZMediaOptionSelectionCollectionViewController: UICollectionViewC
 	override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 //		collectionView.deselectItem(at: indexPath, animated: true)
 		
-		let item = resourceItemAtIndexPath(indexPath)
-		selectedBlock?(item, indexPath)
+        if indexPath.section == 1 && subtitles.count > 0 {
+            selectedBlock?(nil, indexPath)
+        } else {
+            let item = resourceItemAtIndexPath(indexPath)
+            selectedBlock?(item, indexPath)
+        }
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

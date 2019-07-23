@@ -368,13 +368,7 @@ open class UZPlayer: UIView {
 		
         UZContentServices().loadVideoSubtitle(entityId: video.id) { [weak self] (results, error) in
 			guard let `self` = self else { return }
-			
-            if let subtitle = results?.filter({ $0.isDefault }).first, let url = URL(string: subtitle.url) {
-                self.savedSubtitles = UZSubtitles(url: url)
-            }
-			else if let subtitle = results?.first, let url = URL(string: subtitle.url) {
-                self.savedSubtitles = UZSubtitles(url: url)
-            }
+			self.subtitles = results ?? []
         }
 		
         UZVisualizeSavedInformation.shared.currentVideo = video
@@ -518,7 +512,16 @@ open class UZPlayer: UIView {
 				playthrough_eventlog[0] = true
 				UZLogger.shared.log(event: "video_starts", video: currentVideo, completionBlock: nil)
 				
-				selectSubtitle(index: 0) // select default subtitle
+                // select default subtitle
+                if subtitles.count == 0 {
+                    selectSubtitle(index: 0)
+                } else {
+                    if let subtitle = subtitles.filter({ $0.isDefault }).first {
+                        selectExtenalSubtitle(subtitle: subtitle)
+                    } else if let subtitle = subtitles.first {
+                        selectExtenalSubtitle(subtitle: subtitle)
+                    }
+                }
 //				selectAudio(index: -1) // select default audio track
 			}
 		}
@@ -680,6 +683,17 @@ open class UZPlayer: UIView {
 			}
 		}
 	}
+    
+    func selectExtenalSubtitle(subtitle: UZVideoSubtitle) {
+        if selectedSubtitle?.id != subtitle.id {
+            selectedSubtitle = subtitle
+            guard let url = URL(string: subtitle.url) else { return }
+            savedSubtitles = UZSubtitles(url: url)
+        } else {
+            selectedSubtitle = nil
+            savedSubtitles = nil
+        }
+    }
 	
 	private let pipKeyPath = #keyPath(AVPictureInPictureController.isPictureInPicturePossible)
 	private var playerViewControllerKVOContext = 0
@@ -1072,14 +1086,16 @@ open class UZPlayer: UIView {
     }
     
     var subtitleLabel: UILabel?
+    var subtitles: [UZVideoSubtitle] = []
+    var selectedSubtitle: UZVideoSubtitle?
+    var timeObserver: Any?
     private var savedSubtitles: UZSubtitles? {
         didSet {
+            removeSubtitleLabel()
             if savedSubtitles != nil {
                 addSubtitleLabel()
+                addPeriodicTime()
             }
-			else {
-				removeSubtitleLabel()
-			}
         }
     }
     
@@ -1092,33 +1108,58 @@ open class UZPlayer: UIView {
 		let interval = CMTimeMake(1, 60)
 		#endif
 		
-		avPlayer?.addPeriodicTimeObserver(
-			forInterval: interval,
-			queue: DispatchQueue.main,
-			using: { [weak self] (time) -> Void in
-				guard let `self` = self else { return }
-				
-				guard let text = savedSubtitles.search(for: TimeInterval(CMTimeGetSeconds(time)))?.text else {
-					self.subtitleLabel?.text = ""
-					return
-				}
-				
-				do {
-					let paragraphStyle = NSMutableParagraphStyle()
-					paragraphStyle.alignment = .center
-					paragraphStyle.lineBreakMode = .byWordWrapping
-					
-					let textAttributes: [NSAttributedString.Key: Any] = [.foregroundColor : UIColor.white, .paragraphStyle: paragraphStyle]
-					let attrStr = try NSMutableAttributedString(
-						data: text.data(using: String.Encoding.unicode, allowLossyConversion: true)!,
-						options: [NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.html],
-						documentAttributes: nil)
-					attrStr.addAttributes(textAttributes, range: NSRange(location: 0, length: attrStr.length))
-					self.subtitleLabel?.attributedText = attrStr
-				} catch let error {
-					print(error.localizedDescription)
-				}
-		})
+        if let timeObserver = timeObserver {
+            avPlayer?.removeTimeObserver(timeObserver)
+        }
+        timeObserver = avPlayer?.addPeriodicTimeObserver(
+            forInterval: interval,
+            queue: DispatchQueue.main,
+            using: { [weak self] (time) -> Void in
+                guard let `self` = self else { return }
+                
+                guard let text = savedSubtitles.search(for: TimeInterval(CMTimeGetSeconds(time)))?.text else {
+                    self.subtitleLabel?.text = ""
+                    return
+                }
+                
+                do {
+                    let paragraphStyle = NSMutableParagraphStyle()
+                    paragraphStyle.alignment = .center
+                    paragraphStyle.lineBreakMode = .byWordWrapping
+                    
+                    let textAttributes: [NSAttributedString.Key: Any] = [.foregroundColor : UIColor.white, .paragraphStyle: paragraphStyle]
+                    let attrStr = try NSMutableAttributedString(
+                        data: text.data(using: String.Encoding.unicode, allowLossyConversion: true)!,
+                        options: [NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.html],
+                        documentAttributes: nil)
+                    attrStr.addAttributes(textAttributes, range: NSRange(location: 0, length: attrStr.length))
+                    attrStr.enumerateAttribute(
+                        NSAttributedString.Key.font,
+                        in:NSMakeRange(0, attrStr.length),
+                        options:.longestEffectiveRangeNotRequired) { value, range, stop in
+                            let f1 = value as? UIFont
+                            let f2 = UIFont.systemFont(ofSize: 12)
+                            if let f3 = self.applyTraitsFromFont(from: f1, to:f2) {
+                                attrStr.addAttribute(
+                                    NSAttributedString.Key.font, value:f3, range:range)
+                            }
+                    }
+                    self.subtitleLabel?.attributedText = attrStr
+                } catch let error {
+                    print(error.localizedDescription)
+                }
+        })
+    }
+    
+    private func applyTraitsFromFont(from f1: UIFont?, to f2: UIFont) -> UIFont? {
+        guard let f1 = f1 else {
+            return nil
+        }
+        let t = f1.fontDescriptor.symbolicTraits
+        if let fontDescription = f2.fontDescriptor.withSymbolicTraits(t) {
+            return UIFont.init(descriptor: fontDescription, size: 0)
+        }
+        return nil
     }
     
     fileprivate func addSubtitleLabel() {
@@ -1272,29 +1313,35 @@ open class UZPlayer: UIView {
 		NKModalViewManager.sharedInstance().presentModalViewController(viewController)
 	}
 	
-	open func showMediaOptionSelector() {
-		if let currentItem = self.avPlayer?.currentItem {
-			let asset = currentItem.asset
-			
-			let viewController = UZMediaOptionSelectionViewController()
-			viewController.asset = asset
-//			viewController.selectedSubtitleOption = nil
-			viewController.collectionViewController.selectedBlock = { [weak self] (option, indexPath) in
-				guard let `self` = self else { return }
-				
-				if indexPath.section == 0 { // audio
-					self.selectAudio(index: indexPath.item)
-				}
-				else if indexPath.section == 1 { // subtitile
-					self.selectSubtitle(index: indexPath.item)
-				}
-				
-				NKModalViewManager.sharedInstance().modalViewControllerThatContains(viewController)?.dismissWith(animated: true, completion: nil)
-				
-			}
-			NKModalViewManager.sharedInstance().presentModalViewController(viewController)
-		}
-	}
+    open func showMediaOptionSelector() {
+        if let currentItem = self.avPlayer?.currentItem {
+            let asset = currentItem.asset
+            
+            let viewController = UZMediaOptionSelectionViewController()
+            viewController.asset = asset
+            viewController.selectedSubtitle = selectedSubtitle
+            viewController.subtitiles = subtitles
+            //			viewController.selectedSubtitleOption = nil
+            viewController.collectionViewController.selectedBlock = { [weak self] (option, indexPath) in
+                guard let `self` = self else { return }
+                
+                if indexPath.section == 0 { // audio
+                    self.selectAudio(index: indexPath.item)
+                }
+                else if indexPath.section == 1 { // subtitile
+                    if self.subtitles.count == 0 {
+                        self.selectSubtitle(index: indexPath.item)
+                    } else {
+                        self.selectExtenalSubtitle(subtitle: self.subtitles[indexPath.row])
+                    }
+                }
+                
+                NKModalViewManager.sharedInstance().modalViewControllerThatContains(viewController)?.dismissWith(animated: true, completion: nil)
+                
+            }
+            NKModalViewManager.sharedInstance().presentModalViewController(viewController)
+        }
+    }
 	
 	@objc open func showAirPlayDevicesSelection() {
 		let volumeView = UZAirPlayButton()

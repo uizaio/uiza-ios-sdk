@@ -19,7 +19,7 @@ public enum NKFloatingPosition: Int {
 public protocol NKFloatingViewHandlerProtocol: class {
 	var containerView	: UIView! { get }
 	var gestureView		: UIView! { get }
-	var panGesture		: UIPanGestureRecognizer! { get }
+//	var panGesture		: UIPanGestureRecognizer! { get }
 	var fullRect		: CGRect { get }
 //	var floatingRect	: CGRect { get }
 	

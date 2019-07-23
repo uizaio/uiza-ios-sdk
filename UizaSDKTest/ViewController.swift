@@ -48,32 +48,45 @@ class ViewController: UIViewController {
         themeButton.setImage(UIImage(icon: .googleMaterialDesign(.colorLens), size: CGSize(width: 32, height: 32), textColor: .black, backgroundColor: .clear), for: .normal)
         themeButton.addTarget(self, action: #selector(switchTheme), for: .touchUpInside)
         self.view.addSubview(themeButton)
-        
+		
 /*
+		UZContentServices().loadMetadata(metadataId: "8b2eaabb-dfe3-4d17-a95b-5a9cc3b24e38", page: 0, limit: 1) { (results, pagination, error) in
+			if let videos = results, let video = videos.first {
+				
+				DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+					let viewController = UZFloatingPlayerViewController()
+					viewController.present(with: video).player.controlView.theme = UZTheme1()
+//                    viewController.player?.isVisualizeInfoEnabled = true
+					viewController.floatingHandler?.allowsCornerDocking = true
+//                    viewController.player.delegate = self
+				}
+			}
+		}
+*/
+        
         UZContentServices().loadEntity(metadataId: nil, publishStatus: .success, page: 0, limit: 15) { (results, error) in
             if let videos = results, let video = videos.first {
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                     let viewController = UZFloatingPlayerViewController()
                     viewController.present(with: video).player.controlView.theme = UZTheme1()
-                    viewController.player?.isVisualizeInfoEnabled = true
+//                    viewController.player?.isVisualizeInfoEnabled = true
                     viewController.floatingHandler?.allowsCornerDocking = true
 //                    viewController.player.delegate = self
                 }
             }
         }
-*/
 		
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            self.showLive()
-                        }
+//		DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//			self.showLive()
+//		}
     }
     
     func showLive() {
         let viewController = MyLiveStreamViewController()
         viewController.liveEventId = "afa02815-a89c-4e5c-be8b-b378e646cf9d"
-        //        viewController.livestreamUIView.closeButton.removeFromSuperview()
-        //        viewController.session.captureDevicePosition = .back
+//        viewController.livestreamUIView.closeButton.removeFromSuperview()
+//        viewController.session.captureDevicePosition = .back
         self.present(viewController, animated: true, completion: nil)
     }
     

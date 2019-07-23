@@ -58,6 +58,7 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 	public private(set) var player: UZPlayer?
 	public let detailsContainerView = UIView()
 	public var playerRatio: CGFloat = 9/16
+	public var autoDetectPortraitVideo = false
 	
 	public weak var delegate: UZFloatingPlayerViewProtocol? = nil
 	
@@ -141,7 +142,7 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 	// MARK: -
 	
 	@discardableResult
-	open func present(with videoItem:UZVideoItem? = nil, playlist: [UZVideoItem]? = nil) -> UZPlayerViewController {
+	open func present(with videoItem: UZVideoItem? = nil, playlist: [UZVideoItem]? = nil) -> UZPlayerViewController {
 		if playerViewController == nil {
 			self.playerViewController = UZPlayerViewController()
 		}
@@ -244,9 +245,14 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 	
 	override open func viewWillLayoutSubviews() {
 		super.viewWillLayoutSubviews()
-		let viewSize = self.view.bounds
+		let viewSize = view.bounds.size
 		
-		let playerSize = CGSize(width: viewSize.width, height: viewSize.width * playerRatio) // 4:3
+		var isPortrait = false
+		if let currentVideoSize = player?.playerLayer?.playerLayer?.videoRect, autoDetectPortraitVideo {
+			isPortrait = currentVideoSize.width < currentVideoSize.height
+		}
+		
+		let playerSize = isPortrait ? viewSize : CGSize(width: viewSize.width, height: viewSize.width * playerRatio) // 4:3
 		playerViewController.view.frame = CGRect(x: 0, y: 0, width: playerSize.width, height: playerSize.height)
 		detailsContainerView.frame = CGRect(x: 0, y: playerSize.height, width: viewSize.width, height: viewSize.height - playerSize.height)
 	}
@@ -299,8 +305,13 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 	
 	open func floatingRect(for position: NKFloatingPosition) -> CGRect {
 		let screenSize = UIScreen.main.bounds.size
+		var isPortrait = false
+		if let currentVideoSize = player?.playerLayer?.playerLayer?.videoRect, autoDetectPortraitVideo {
+			isPortrait = currentVideoSize.width < currentVideoSize.height
+		}
+		
 		let floatingWidth: CGFloat = UIDevice.current.userInterfaceIdiom == .phone ? 180 : 220
-		let floatingSize = CGSize(width: floatingWidth, height: floatingWidth * playerRatio)
+		let floatingSize = isPortrait ? CGSize(width: floatingWidth * playerRatio, height: floatingWidth) : CGSize(width: floatingWidth, height: floatingWidth * playerRatio)
 		var point: CGPoint = .zero
 		
 		if position == .bottomRight {
@@ -319,12 +330,12 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 		return CGRect(origin: point, size: floatingSize)
 	}
 	
-	open var panGesture: UIPanGestureRecognizer! {
-		get {
-			return UIPanGestureRecognizer()
-		}
-	}
-	
+//	open var panGesture: UIPanGestureRecognizer! {
+//		get {
+//			return UIPanGestureRecognizer()
+//		}
+//	}
+//	
 	open func floatingHandlerDidDragging(with progress: CGFloat) {
 		delegate?.floatingPlayer(self, onFloatingProgress: progress)
 		

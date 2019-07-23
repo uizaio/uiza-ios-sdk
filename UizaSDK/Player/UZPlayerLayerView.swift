@@ -167,6 +167,27 @@ open class UZPlayerLayerView: UIView {
 		#endif
 	}
 	
+	var retryTimer: Timer? = nil
+	open func retryPlaying(after interval: TimeInterval = 0) {
+		if retryTimer != nil {
+			retryTimer!.invalidate()
+			retryTimer = nil
+		}
+		
+		if interval > 0 {
+			retryTimer = Timer.scheduledTimer(timeInterval: interval, target: self, selector: #selector(retry), userInfo: nil, repeats: false)
+		}
+		else {
+			retry()
+		}
+	}
+	
+	@objc func retry() {
+		playerItem = configPlayerItem()
+		player?.replaceCurrentItem(with: playerItem)
+		checkForPlayable()
+	}
+	
 	override open func layoutSubviews() {
 		CATransaction.begin()
 		CATransaction.setValue(kCFBooleanTrue, forKey: kCATransactionDisableActions)
@@ -255,8 +276,13 @@ open class UZPlayerLayerView: UIView {
 			return
 		}
 		
+		let notificationCenter = NotificationCenter.default
+		
 		if let item = lastPlayerItem {
-			NotificationCenter.default.removeObserver(self, name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: item)
+			notificationCenter.removeObserver(self, name: .AVPlayerItemDidPlayToEndTime, object: item)
+			notificationCenter.removeObserver(self, name: .AVPlayerItemFailedToPlayToEndTime, object: item)
+			notificationCenter.removeObserver(self, name: .AVPlayerItemPlaybackStalled, object: item)
+			
 			item.removeObserver(self, forKeyPath: "status")
 			item.removeObserver(self, forKeyPath: "loadedTimeRanges")
 			item.removeObserver(self, forKeyPath: "playbackBufferEmpty")
@@ -264,18 +290,19 @@ open class UZPlayerLayerView: UIView {
 		}
 		
 		lastPlayerItem = playerItem
-		
 		if let item = playerItem {
-			NotificationCenter.default.addObserver(self, selector: #selector(moviePlayerDidEnd), name: .AVPlayerItemDidPlayToEndTime, object: playerItem)
+			notificationCenter.addObserver(self, selector: #selector(moviePlayerDidEnd), name: .AVPlayerItemDidPlayToEndTime, object: playerItem)
+			notificationCenter.addObserver(self, selector: #selector(moviePlayerDidFailToPlayToEndTime), name: .AVPlayerItemFailedToPlayToEndTime, object: playerItem)
+			notificationCenter.addObserver(self, selector: #selector(moviePlayerDidStall), name: .AVPlayerItemPlaybackStalled, object: playerItem)
 			
-			item.addObserver(self, forKeyPath: "status", options: NSKeyValueObservingOptions.new, context: nil)
-			item.addObserver(self, forKeyPath: "loadedTimeRanges", options: NSKeyValueObservingOptions.new, context: nil)
-			item.addObserver(self, forKeyPath: "playbackBufferEmpty", options: NSKeyValueObservingOptions.new, context: nil)
-			item.addObserver(self, forKeyPath: "playbackLikelyToKeepUp", options: NSKeyValueObservingOptions.new, context: nil)
+			item.addObserver(self, forKeyPath: "status", options: .new, context: nil)
+			item.addObserver(self, forKeyPath: "loadedTimeRanges", options: .new, context: nil)
+			item.addObserver(self, forKeyPath: "playbackBufferEmpty", options: .new, context: nil)
+			item.addObserver(self, forKeyPath: "playbackLikelyToKeepUp", options: .new, context: nil)
 			if #available(iOS 10.0, *) {
 				item.preferredForwardBufferDuration = preferredForwardBufferDuration
 			} else {
-				// Fallback on earlier versions
+		// Fallback on earlier versions
 			}
 		}
 	}
@@ -284,7 +311,7 @@ open class UZPlayerLayerView: UIView {
 		if let videoAsset = urlAsset,
 			let subtitleURL = subtitleURL
 		{
-			// Embed external subtitle link to player item, This does not work
+	// Embed external subtitle link to player item, This does not work
 			#if swift(>=4.2)
 			let zeroTime = CMTime.zero
 			let timeRange = CMTimeRangeMake(start: zeroTime, duration: videoAsset.duration)
@@ -312,32 +339,32 @@ open class UZPlayerLayerView: UIView {
 		
 		playerItem = configPlayerItem()
 		player = AVPlayer(playerItem: playerItem!)
-		player!.addObserver(self, forKeyPath: "rate", options: NSKeyValueObservingOptions.new, context: nil)
+		player!.addObserver(self, forKeyPath: "rate", options: .new, context: nil)
 		
 		playerLayer = AVPlayerLayer(player: player)
 		playerLayer!.videoGravity = videoGravity
 		
-		//		#if ALLOW_MUX
-		//		if UizaSDK.appId == "a9383d04d7d0420bae10dbf96bb27d9b" {
-		//			let key = "ei4d2skl1bkrh6u2it9n3idjg"
-		//			let playerData = MUXSDKCustomerPlayerData(environmentKey: key)!
-		////			playerData.viewerUserId = "1234"
-		//			playerData.experimentName = "uiza_player_test"
-		//			playerData.playerName = "UizaPlayer"
-		//			playerData.playerVersion = SDK_VERSION
-		//
-		//			let videoData = MUXSDKCustomerVideoData()
-		//			if let videoItem = currentVideo {
-		//				videoData.videoId = videoItem.id
-		//				videoData.videoTitle = videoItem.name
-		//				videoData.videoDuration = NSNumber(value: videoItem.duration * 1000)
-		//				videoData.videoIsLive = NSNumber(value: videoItem.isLive)
-		////				DLog("\(videoData) - \(playerData)")
-		//			}
-		//
-		//			MUXSDKStats.monitorAVPlayerLayer(playerLayer!, withPlayerName: "UizaPlayer", playerData: playerData, videoData: videoData)
-		//		}
-		//		#endif
+//		#if ALLOW_MUX
+//		if UizaSDK.appId == "a9383d04d7d0420bae10dbf96bb27d9b" {
+//			let key = "ei4d2skl1bkrh6u2it9n3idjg"
+//			let playerData = MUXSDKCustomerPlayerData(environmentKey: key)!
+////			playerData.viewerUserId = "1234"
+//			playerData.experimentName = "uiza_player_test"
+//			playerData.playerName = "UizaPlayer"
+//			playerData.playerVersion = SDK_VERSION
+//
+//			let videoData = MUXSDKCustomerVideoData()
+//			if let videoItem = currentVideo {
+//				videoData.videoId = videoItem.id
+//				videoData.videoTitle = videoItem.name
+//				videoData.videoDuration = NSNumber(value: videoItem.duration * 1000)
+//				videoData.videoIsLive = NSNumber(value: videoItem.isLive)
+////				DLog("\(videoData) - \(playerData)")
+//			}
+//
+//			MUXSDKStats.monitorAVPlayerLayer(playerLayer!, withPlayerName: "UizaPlayer", playerData: playerData, videoData: videoData)
+//		}
+//		#endif
 		
 		layer.addSublayer(playerLayer!)
 		
@@ -414,9 +441,9 @@ open class UZPlayerLayerView: UIView {
 						return
 					}
 					
-					//					if currentItem.isPlaybackLikelyToKeepUp || currentItem.isPlaybackBufferFull {
-					//
-					//					}
+			//					if currentItem.isPlaybackLikelyToKeepUp || currentItem.isPlaybackBufferFull {
+			//
+			//					}
 				}
 			}
 		}
@@ -433,6 +460,16 @@ open class UZPlayerLayerView: UIView {
 			self.timer?.invalidate()
 			self.getLatencytimer?.invalidate()
 		}
+	}
+	
+	@objc open func moviePlayerDidFailToPlayToEndTime(_ notification: Notification) {
+//		let error = notification.userInfo?[AVPlayerItemFailedToPlayToEndTimeErrorKey] as? Error
+//		DLog("FAILED with error: \(error)")
+	}
+	
+	@objc open func moviePlayerDidStall() {
+		DLog("STALLED")
+		retryPlaying(after: 1.0)
 	}
 	
 	private func updateVideoQuality() {

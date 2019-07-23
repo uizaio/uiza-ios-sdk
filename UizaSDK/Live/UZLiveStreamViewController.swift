@@ -94,10 +94,10 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 	}
 	
 	open func audioConfiguration() -> LFLiveAudioConfiguration {
-		let configuration = LFLiveAudioConfiguration.defaultConfiguration(for: .medium)
-		configuration!.numberOfChannels = 2
-		configuration!.audioBitrate = ._96Kbps
-		configuration!.audioSampleRate = ._44100Hz
+		let configuration = LFLiveAudioConfiguration.defaultConfiguration(for: .default)
+//		configuration!.numberOfChannels = 2
+//		configuration!.audioBitrate = ._96Kbps
+//		configuration!.audioSampleRate = ._44100Hz
 		return configuration!
 	}
 	

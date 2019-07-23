@@ -141,16 +141,17 @@ open class UZPlayerViewController: UIViewController {
 	}
 	
 	override open var shouldAutorotate : Bool {
-		return true
+		return false
 	}
 	
 	override open var supportedInterfaceOrientations : UIInterfaceOrientationMask {
-		return .all
+		return .portrait// .all
 	}
 	
 	override open var preferredInterfaceOrientationForPresentation : UIInterfaceOrientation {
-		let currentOrientation = UIApplication.shared.statusBarOrientation
-		return currentOrientation.isLandscape ? currentOrientation : .landscapeRight
+		return playerController.preferredInterfaceOrientationForPresentation
+//		let currentOrientation = UIApplication.shared.statusBarOrientation
+//		return currentOrientation.isLandscape ? currentOrientation : .landscapeRight
 	}
 	
 }
@@ -158,6 +159,7 @@ open class UZPlayerViewController: UIViewController {
 // MARK: - UZPlayerController
 
 internal class UZPlayerController: UIViewController {
+	
 	open var player: UZPlayer! = UZPlayer() {
 		didSet {
 			self.view = player
@@ -172,6 +174,14 @@ internal class UZPlayerController: UIViewController {
 		self.view = player
 	}
 	
+	fileprivate func currentVideoSize() -> CGSize {
+		if let player = player.playerLayer, let videoRect = player.playerLayer?.videoRect {
+			return videoRect.size
+		}
+		
+		return .zero
+	}
+	
 	// MARK: -
 	
 	override var prefersStatusBarHidden: Bool {
@@ -179,14 +189,21 @@ internal class UZPlayerController: UIViewController {
 	}
 	
 	override var shouldAutorotate : Bool {
-		return true
+		let videoSize = currentVideoSize()
+		return videoSize.width >= videoSize.height ? true : false
 	}
 	
 	override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
-		return .landscape
+		let videoSize = currentVideoSize()
+		return videoSize.width >= videoSize.height ? .landscape : .portrait
 	}
 	
 	override var preferredInterfaceOrientationForPresentation : UIInterfaceOrientation {
+		let videoSize = currentVideoSize()
+		if videoSize.width < videoSize.height {
+			return .portrait
+		}
+		
 		let deviceOrientation = UIDevice.current.orientation
 		if deviceOrientation.isLandscape {
 			return deviceOrientation == .landscapeRight ? .landscapeLeft : .landscapeRight

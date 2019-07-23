@@ -38,12 +38,30 @@ public protocol UZPlayerDelegate : class {
 	func player(player: UZPlayer, loadedTimeDidChange loadedDuration: TimeInterval, totalDuration: TimeInterval)
 	func player(player: UZPlayer, playTimeDidChange currentTime : TimeInterval, totalTime: TimeInterval)
 	func player(player: UZPlayer, playerIsPlaying playing: Bool)
+	func player(player: UZPlayer, playerDidFailToPlayToEndTime error: Error?)
+	func player(playerDidStall: UZPlayer)
 }
 
 public protocol UZPlayerControlViewDelegate: class {
 	func controlView(controlView: UZPlayerControlView, didChooseDefinition index: Int)
 	func controlView(controlView: UZPlayerControlView, didSelectButton button: UIButton)
 	func controlView(controlView: UZPlayerControlView, slider: UISlider, onSliderEvent event: UIControl.Event)
+}
+
+// to make them optional
+extension UZPlayerDelegate {
+	func player(player: UZPlayer, playerStateDidChange state: UZPlayerState) {}
+	func player(player: UZPlayer, loadedTimeDidChange loadedDuration: TimeInterval, totalDuration: TimeInterval) {}
+	func player(player: UZPlayer, playTimeDidChange currentTime : TimeInterval, totalTime: TimeInterval) {}
+	func player(player: UZPlayer, playerIsPlaying playing: Bool) {}
+	func player(player: UZPlayer, playerDidFailToPlayToEndTime error: Error?) {}
+	func player(playerDidStall: UZPlayer) {}
+}
+
+extension UZPlayerControlViewDelegate {
+	func controlView(controlView: UZPlayerControlView, didChooseDefinition index: Int) {}
+	func controlView(controlView: UZPlayerControlView, didSelectButton button: UIButton) {}
+	func controlView(controlView: UZPlayerControlView, slider: UISlider, onSliderEvent event: UIControl.Event) {}
 }
 
 open class UZPlayer: UIView {
@@ -1484,6 +1502,14 @@ extension UZPlayer: UZPlayerLayerViewDelegate {
 			
 			playTimeDidChange?(currentTime, totalTime)
 		}
+	}
+	
+	open func player(player: UZPlayerLayerView, playerDidFailToPlayToEndTime error: Error?) {
+		delegate?.player(player: self, playerDidFailToPlayToEndTime: error)
+	}
+	
+	open func player(playerDidStall: UZPlayerLayerView) {
+		delegate?.player(playerDidStall: self)
 	}
 	
 }

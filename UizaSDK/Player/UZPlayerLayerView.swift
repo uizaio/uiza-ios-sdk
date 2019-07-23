@@ -27,20 +27,22 @@ public enum UZPlayerState: Int {
 }
 
 /// Video aspect ratio types
-public enum UZPlayerAspectRatio : Int {
+public enum UZPlayerAspectRatio {
 	/// Default aspect
-	case `default`    = 0
+	case `default`
 	/// 16:9
 	case sixteen2Nine
 	/// 4:3
 	case four2Three
 }
 
-protocol UZPlayerLayerViewDelegate : class {
+protocol UZPlayerLayerViewDelegate: class {
 	func player(player: UZPlayerLayerView, playerStateDidChange state: UZPlayerState)
 	func player(player: UZPlayerLayerView, loadedTimeDidChange  loadedDuration: TimeInterval , totalDuration: TimeInterval)
 	func player(player: UZPlayerLayerView, playTimeDidChange    currentTime   : TimeInterval , totalTime: TimeInterval)
 	func player(player: UZPlayerLayerView, playerIsPlaying      playing: Bool)
+	func player(player: UZPlayerLayerView, playerDidFailToPlayToEndTime error: Error?)
+	func player(playerDidStall: UZPlayerLayerView)
 }
 
 open class UZPlayerLayerView: UIView {
@@ -463,13 +465,15 @@ open class UZPlayerLayerView: UIView {
 	}
 	
 	@objc open func moviePlayerDidFailToPlayToEndTime(_ notification: Notification) {
-//		let error = notification.userInfo?[AVPlayerItemFailedToPlayToEndTimeErrorKey] as? Error
-//		DLog("FAILED with error: \(error)")
+		let error = notification.userInfo?[AVPlayerItemFailedToPlayToEndTimeErrorKey] as? Error
+		DLog("Player failed with error: \(String(describing: error))")
+		delegate?.player(player: self, playerDidFailToPlayToEndTime: error)
 	}
 	
 	@objc open func moviePlayerDidStall() {
-		DLog("STALLED")
+		DLog("Player stalled")
 		retryPlaying(after: 1.0)
+		delegate?.player(playerDidStall: self)
 	}
 	
 	private func updateVideoQuality() {

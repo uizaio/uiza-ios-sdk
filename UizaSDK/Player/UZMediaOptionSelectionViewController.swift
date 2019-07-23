@@ -14,7 +14,7 @@ import NKModalViewManager
 class UZMediaOptionSelectionViewController: UIViewController {
 	let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
 	let collectionViewController = UZMediaOptionSelectionCollectionViewController()
-	var frameLayout: FrameLayout!
+	let frameLayout = FrameLayout()
 	
 	var selectedSubtitleOption: AVMediaSelectionOption? {
 		didSet {
@@ -64,7 +64,7 @@ class UZMediaOptionSelectionViewController: UIViewController {
 	init() {
 		super.init(nibName: nil, bundle: nil)
 		
-		frameLayout = FrameLayout(targetView: collectionViewController.view)
+		frameLayout.targetView = collectionViewController.view
 		frameLayout.minSize = CGSize(width: 0, height: 100)
 		frameLayout.edgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
 	}
@@ -76,17 +76,17 @@ class UZMediaOptionSelectionViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		self.view.backgroundColor = UIColor(white: 0.0, alpha: 0.4)
-		self.view.addSubview(blurView)
-		self.view.addSubview(collectionViewController.view)
-		self.view.addSubview(frameLayout)
+		view.backgroundColor = UIColor(white: 0.0, alpha: 0.4)
+		view.addSubview(blurView)
+		view.addSubview(collectionViewController.view)
+		view.addSubview(frameLayout)
 	}
 	
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 		
-		blurView.frame = self.view.bounds
-		frameLayout.frame = self.view.bounds
+		blurView.frame = view.bounds
+		frameLayout.frame = view.bounds
 	}
 	
 	override var preferredContentSize: CGSize {
@@ -250,7 +250,7 @@ internal class UZMediaOptionSelectionCollectionViewController: UICollectionViewC
 		super.viewDidLayoutSubviews()
 		
 		if let messageLabel = messageLabel {
-			var viewSize = self.view.bounds.size
+			var viewSize = view.bounds.size
 			viewSize.width -= 20
 			let labelSize = messageLabel.sizeThatFits(viewSize)
 			messageLabel.frame = CGRect(x: 10, y: (viewSize.height - labelSize.height)/2, width: viewSize.width, height: labelSize.height)
@@ -290,7 +290,7 @@ internal class UZMediaOptionSelectionCollectionViewController: UICollectionViewC
 //			}
 //			messageLabel?.textColor = .white
 //			messageLabel?.textAlignment = .center
-//			self.view.addSubview(messageLabel!)
+//			view.addSubview(messageLabel!)
 //		}
 //		
 //		messageLabel?.text = message
@@ -310,10 +310,12 @@ internal class UZMediaOptionSelectionCollectionViewController: UICollectionViewC
 	override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if section == 0 {
             return audioOptions.count
-        } else {
-            if subtitles.count == 0 {
+        }
+		else {
+            if subtitles.isEmpty {
                 return subtitleOptions.count
-            } else {
+            }
+			else {
                 return subtitles.count
             }
         }
@@ -349,7 +351,7 @@ internal class UZMediaOptionSelectionCollectionViewController: UICollectionViewC
 			cell = UZMediaOptionItemCollectionViewCell()
 		}
 		
-        if subtitles.count > 0 && indexPath.section == 1 {
+        if !subtitles.isEmpty && indexPath.section == 1 {
             config(cell: cell!, with: subtitles[indexPath.row], and: indexPath)
         } else {
             config(cell: cell!, with: resourceItemAtIndexPath(indexPath), and: indexPath)
@@ -365,7 +367,7 @@ internal class UZMediaOptionSelectionCollectionViewController: UICollectionViewC
 	override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 //		collectionView.deselectItem(at: indexPath, animated: true)
 		
-        if indexPath.section == 1 && subtitles.count > 0 {
+        if indexPath.section == 1 && !subtitles.isEmpty {
             selectedBlock?(nil, indexPath)
         } else {
             let item = resourceItemAtIndexPath(indexPath)

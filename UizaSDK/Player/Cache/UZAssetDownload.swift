@@ -75,8 +75,9 @@ class UZAssetDownload: NSObject, IBAssetDownload {
                     [AVAssetDownloadTaskMinimumRequiredMediaBitrateKey: bandwidth])
         } else {
             // iOS 9.0 NOTE: destinationURL
+            let destinationPath = ""
             downloadTask = assetDownloadURLSession.makeAssetDownloadTask(asset: uzLinkPlay.avURLAsset,
-                                                                           destinationURL: URL(string: "")!,
+                                                                           destinationURL: URL(string: destinationPath)!,
                                                                            options: [AVAssetDownloadTaskMinimumRequiredMediaBitrateKey: bandwidth])
         }
         guard let task = downloadTask else { return }

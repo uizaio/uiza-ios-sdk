@@ -20,8 +20,6 @@ class MyDownloadViewController: UIViewController {
     private var videoTableView: UITableView!
     private var frameLayout : StackFrameLayout!
     private var downloadView : UZDownloadView!
-    private let entityIds = ["9940516b-c2d3-42d0-80e1-2340f9265277", "3a870a48-c377-4dde-91a9-6c46429c2846", "93909b25-7e0f-4b58-b5eb-d5bf981ee065"]
-    private let entityNames = ["04/17/2019 09:39  - FAPtv Cơm Nguội: Tập 192 - Anh Trai Nuôi","04/17/2019 09:33  - WC_bang_A_Russia_Saudi Arabia.mp4","04/16/2019 12:03  - Big Buck Bunny 60fps 4K"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -192,18 +190,15 @@ extension MyDownloadViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCell(withIdentifier: videoTableIdentifier)
-        if(cell == nil){
-            cell = UITableViewCell(style: UITableViewCell.CellStyle.default, reuseIdentifier: videoTableIdentifier)
-        }
+        let cell = UITableViewCell(style: UITableViewCell.CellStyle.default, reuseIdentifier: videoTableIdentifier)
         let videoItem = self.videoItems[indexPath.row]
-        cell?.textLabel?.text = videoItem.name
+        cell.textLabel?.text = videoItem.name
         if self.selectedEntityId == videoItem.id {
-            cell?.accessoryType = UITableViewCell.AccessoryType.checkmark
+            cell.accessoryType = UITableViewCell.AccessoryType.checkmark
         } else {
-            cell?.accessoryType = UITableViewCell.AccessoryType.none
+            cell.accessoryType = UITableViewCell.AccessoryType.none
         }
-        return cell!
+        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -80,15 +80,15 @@ open class UZLiveStreamUIView: UIView, UITextFieldDelegate {
 		}
 		viewsBadge.setTitleColor(.white, for: .normal)
 		viewsBadge.setBackgroundColor(UIColor(red:0.15, green:0.84, blue:0.87, alpha:0.4), for: .normal)
-		viewsBadge.setImage(UIImage(icon: .googleMaterialDesign(.removeRedEye), size: CGSize(width: 20, height: 20), textColor: .white, backgroundColor: .clear), for: .normal)
+		viewsBadge.setImage(UIImage(icon: FontType.googleMaterialDesign(.removeRedEye), size: CGSize(width: 20, height: 20), textColor: .white, backgroundColor: .clear), for: .normal)
 		viewsBadge.isRoundedButton = true
 		viewsBadge.spacing = 5
 		
 		let selectedColor = UIColor(red:0.28, green:0.49, blue:0.93, alpha:1.00)
-		beautyButton.setImage(UIImage(icon: .fontAwesomeSolid(.magic), size: CGSize(width: 32, height: 32), textColor: .white, backgroundColor: .clear), for: .normal)
-		beautyButton.setImage(UIImage(icon: .fontAwesomeSolid(.magic), size: CGSize(width: 32, height: 32), textColor: selectedColor, backgroundColor: .clear), for: .selected)
-		cameraButton.setImage(UIImage(icon: .googleMaterialDesign(.repeatIcon), size: CGSize(width: 32, height: 32), textColor: .white, backgroundColor: .clear), for: .normal)
-		cameraButton.setImage(UIImage(icon: .googleMaterialDesign(.repeatIcon), size: CGSize(width: 32, height: 32), textColor: .white, backgroundColor: .clear), for: .selected)
+		beautyButton.setImage(UIImage(icon: FontType.fontAwesomeSolid(.magic), size: CGSize(width: 32, height: 32), textColor: .white, backgroundColor: .clear), for: .normal)
+		beautyButton.setImage(UIImage(icon: FontType.fontAwesomeSolid(.magic), size: CGSize(width: 32, height: 32), textColor: selectedColor, backgroundColor: .clear), for: .selected)
+		cameraButton.setImage(UIImage(icon: FontType.googleMaterialDesign(.repeatIcon), size: CGSize(width: 32, height: 32), textColor: .white, backgroundColor: .clear), for: .normal)
+		cameraButton.setImage(UIImage(icon: FontType.googleMaterialDesign(.repeatIcon), size: CGSize(width: 32, height: 32), textColor: .white, backgroundColor: .clear), for: .selected)
 		
 		beautyButton.showsTouchWhenHighlighted = true
 		cameraButton.showsTouchWhenHighlighted = true

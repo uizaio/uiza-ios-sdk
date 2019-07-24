@@ -58,6 +58,7 @@ public extension Date {
     
     /// Converts the date to string using the short date and time style.
     func toString(style:DateStyleType = .short) -> String {
+        let components = Date.components(self)
         switch style {
         case .short:
             return self.toString(dateStyle: .short, timeStyle: .short, isRelative: false)
@@ -76,26 +77,26 @@ public extension Date {
 					// Fallback on earlier versions
 				}
             }
-            return formatter.string(from: component(.day)! as NSNumber)!
+            return formatter.string(from: components.day! as NSNumber)!
         case .weekday:
             let weekdaySymbols = Date.cachedFormatter().weekdaySymbols!
-            let string = weekdaySymbols[component(.weekday)!-1] as String
+            let string = weekdaySymbols[components.weekday!-1] as String
             return string
         case .shortWeekday:
             let shortWeekdaySymbols = Date.cachedFormatter().shortWeekdaySymbols!
-            return shortWeekdaySymbols[component(.weekday)!-1] as String
+            return shortWeekdaySymbols[components.weekday!-1] as String
         case .veryShortWeekday:
             let veryShortWeekdaySymbols = Date.cachedFormatter().veryShortWeekdaySymbols!
-            return veryShortWeekdaySymbols[component(.weekday)!-1] as String
+            return veryShortWeekdaySymbols[components.weekday!-1] as String
         case .month:
             let monthSymbols = Date.cachedFormatter().monthSymbols!
-            return monthSymbols[component(.month)!-1] as String
+            return monthSymbols[components.month!-1] as String
         case .shortMonth:
             let shortMonthSymbols = Date.cachedFormatter().shortMonthSymbols!
-            return shortMonthSymbols[component(.month)!-1] as String
+            return shortMonthSymbols[components.month!-1] as String
         case .veryShortMonth:
             let veryShortMonthSymbols = Date.cachedFormatter().veryShortMonthSymbols!
-            return veryShortMonthSymbols[component(.month)!-1] as String
+            return veryShortMonthSymbols[components.month!-1] as String
         }
     }
     
@@ -265,9 +266,9 @@ public extension Date {
                 let comparison = Date().adjust(.day, offset: -1)
                 return compare(.isSameDay(as: comparison))
             case .isSameDay(let date):
-                return component(.year) == date.component(.year)
-                    && component(.month) == date.component(.month)
-                    && component(.day) == date.component(.day)
+                return self.component(.year) == date.component(.year)
+                    && self.component(.month) == date.component(.month)
+                    && self.component(.day) == date.component(.day)
             case .isThisWeek:
                 return self.compare(.isSameWeek(as: Date()))
             case .isNextWeek:
@@ -277,7 +278,7 @@ public extension Date {
                 let comparison = Date().adjust(.week, offset:-1)
                 return compare(.isSameWeek(as: comparison))
             case .isSameWeek(let date):
-                if component(.week) != date.component(.week) {
+                if self.component(.week) != date.component(.week) {
                     return false
                 }
                 // Ensure time interval is under 1 week
@@ -291,7 +292,7 @@ public extension Date {
                 let comparison = Date().adjust(.month, offset:-1)
                 return compare(.isSameMonth(as: comparison))
             case .isSameMonth(let date):
-                return component(.year) == date.component(.year) && component(.month) == date.component(.month)
+                return self.component(.year) == date.component(.year) && component(.month) == date.component(.month)
             case .isThisYear:
                 return self.compare(.isSameYear(as: Date()))
             case .isNextYear:
@@ -301,7 +302,7 @@ public extension Date {
                 let comparison = Date().adjust(.year, offset:-1)
                 return compare(.isSameYear(as: comparison))
             case .isSameYear(let date):
-                return component(.year) == date.component(.year)
+                return self.component(.year) == date.component(.year)
             case .isInTheFuture:
                 return self.compare(.isLater(than: Date()))
             case .isInThePast:
@@ -314,7 +315,7 @@ public extension Date {
             return !compare(.isWeekend)
         case .isWeekend:
             let range = Calendar.current.maximumRange(of: Calendar.Component.weekday)!
-            return (component(.weekday) == range.lowerBound || component(.weekday) == range.upperBound - range.lowerBound)
+            return (self.component(.weekday) == range.lowerBound || self.component(.weekday) == range.upperBound - range.lowerBound)
         }
         
     }

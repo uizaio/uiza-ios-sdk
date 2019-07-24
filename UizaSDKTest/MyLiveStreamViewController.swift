@@ -8,6 +8,7 @@
 
 import UIKit
 import LFLiveKit_
+import UizaSDK
 
 class MyLiveStreamViewController: UZLiveStreamViewController {
 	

@@ -13,6 +13,9 @@ import AVFoundation
 Link Play info
 */
 public struct UZVideoLinkPlay {
+    
+    public var entityId: String
+    
 	/// Definition (etc 480, 720, 1080)
 	public var definition: String
 	/// Linkplay URL
@@ -45,7 +48,8 @@ public struct UZVideoLinkPlay {
 	let definiton.options = ["AVURLAssetHTTPHeaderFieldsKey":header]
 	```
 	*/
-	public init(definition: String, url: URL, options: [String : AnyHashable]? = nil) {
+    public init(entityId: String = "", definition: String = "", url: URL, options: [String : AnyHashable]? = nil) {
+        self.entityId = entityId
 		self.url        = url
 		self.definition = definition
 		self.options    = options
@@ -53,11 +57,51 @@ public struct UZVideoLinkPlay {
 }
 
 extension UZVideoLinkPlay: Equatable {
-	
 	public static func ==(lhs: UZVideoLinkPlay, rhs: UZVideoLinkPlay) -> Bool {
-		return lhs.url == rhs.url
+		return (lhs.entityId == rhs.entityId) && (lhs.url == rhs.url)
 	}
-	
+}
+
+extension UZVideoLinkPlay {
+    public enum DownloadState: String {
+        /// The asset is not downloaded at all.
+        case notDownloaded
+        /// The asset has a download in progress.
+        case downloading
+        /// The asset is downloaded and saved on diek.
+        case downloaded
+    }
+}
+
+/**
+ Extends `UZAsset` to define a number of values to use as keys in dictionary lookups.
+ */
+extension UZVideoLinkPlay {
+    public struct Keys {
+        /**
+         Key for the UZAsset entityId, used for `AssetDownloadProgressNotification` and
+         `AssetDownloadStateChangedNotification` Notifications as well as
+         AssetListManager.
+         */
+        public static let entityId = "AssetEntityIdKey"
+        /**
+         Key for the UZAsset download percentage, used for
+         `AssetDownloadProgressNotification` Notification.
+         */
+        public static let percentDownloaded = "AssetPercentDownloadedKey"
+        
+        /**
+         Key for the UZAsset download state, used for
+         `AssetDownloadStateChangedNotification` Notification.
+         */
+        public static let downloadState = "AssetDownloadStateKey"
+        
+        /**
+         Key for the UZAsset download AVMediaSelection display Name, used for
+         `AssetDownloadStateChangedNotification` Notification.
+         */
+        public static let downloadSelectionDisplayName = "AssetDownloadSelectionDisplayNameKey"
+    }
 }
 
 /**
@@ -129,8 +173,7 @@ open class UZVideoItem: UZModelObject {
 				}
 			}
 		}
-	}
-	
+	}    
 	/** Object description */
 	override open var description : String {
 		return "\(super.description) [\(id ?? "")] [\(name ?? "")]"

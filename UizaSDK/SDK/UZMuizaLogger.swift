@@ -163,7 +163,7 @@ open class UZMuizaLogger : UZAPIConnector{
 			finalLogData.addEntries(from: fixedData)
 		}
 		
-		finalLogData["timestamp"] = Date().toString(format: .isoDateTimeMilliSec)
+		finalLogData["timestamp"] = Date().toString(format: DateFormatType.isoDateTimeMilliSec)
 		logArray.append(finalLogData)
 		sendLogsIfApplicable()
 		

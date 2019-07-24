@@ -19,7 +19,7 @@ open class UZSlider: UISlider {
 		progressView.progressColor = UIColor(red:0.18, green:0.44, blue:0.81, alpha:1.00)
 		self.insertSubview(progressView, at: 0)
 		
-		let thumbImage = UIImage(icon: .googleMaterialDesign(.fiberManualRecord), size: CGSize(width: 32, height: 32), textColor: .black, backgroundColor: .clear)
+		let thumbImage = UIImage(icon: FontType.googleMaterialDesign(.fiberManualRecord), size: CGSize(width: 32, height: 32), textColor: .black, backgroundColor: .clear)
 		self.setThumbImage(thumbImage, for: .normal)
 		
 		let panGesture = UIPanGestureRecognizer(target: self, action:  #selector(panGesture(gesture:)))

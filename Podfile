@@ -15,7 +15,7 @@ target 'UizaSDK' do
 	pod 'NVActivityIndicatorView/AppExtension'
   pod 'Sentry'
   pod 'NHNetworkTime'
-
+  pod 'M3U8Kit'
 end
 
 target 'UizaSDK-tvos' do
@@ -31,18 +31,18 @@ target 'UizaSDKTest' do
 	platform :ios, '9.0'
 	use_frameworks!
 	
-	pod 'Alamofire'
-	pod 'NKModalViewManager'
-	pod 'NKButton'
-	pod 'FrameLayoutKit'
-	pod 'SDWebImage'
-	pod 'SwiftyJSON'
-	pod 'LFLiveKit_'
-	pod 'NVActivityIndicatorView/AppExtension'
-  pod 'Sentry'
+#  pod 'Alamofire'
+#  pod 'NKModalViewManager'
+#  pod 'NKButton'
+#  pod 'FrameLayoutKit'
+#  pod 'SDWebImage'
+#  pod 'SwiftyJSON'
+#  pod 'LFLiveKit_'
+#  pod 'NVActivityIndicatorView/AppExtension'
+#  pod 'Sentry'
 	pod 'google-cast-sdk'
-  pod 'NHNetworkTime'
-  
+#  pod 'NHNetworkTime'
+
   target 'UizaSDKUnitTests' do
     inherit! :search_paths
     

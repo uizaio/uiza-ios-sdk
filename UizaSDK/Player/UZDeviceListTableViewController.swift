@@ -114,13 +114,13 @@ class UZDeviceListTableViewController: UITableViewController {
 		if indexPath.section == 0 {
 			if UIDevice.isPhone() {
 				cell.textLabel?.text = "This iPhone"
-				cell.imageView?.image = UIImage(icon: .googleMaterialDesign(.phoneIphone), size: CGSize(width: 32, height: 32), textColor: normalColor, backgroundColor: .clear)
-				cell.imageView?.highlightedImage = UIImage(icon: .googleMaterialDesign(.phoneIphone), size: CGSize(width: 32, height: 32), textColor: selectedColor, backgroundColor: .clear)
+				cell.imageView?.image = UIImage(icon: FontType.googleMaterialDesign(.phoneIphone), size: CGSize(width: 32, height: 32), textColor: normalColor, backgroundColor: .clear)
+				cell.imageView?.highlightedImage = UIImage(icon: FontType.googleMaterialDesign(.phoneIphone), size: CGSize(width: 32, height: 32), textColor: selectedColor, backgroundColor: .clear)
 			}
 			else {
 				cell.textLabel?.text = "This iPad"
-				cell.imageView?.image = UIImage(icon: .googleMaterialDesign(.tabletMac), size: CGSize(width: 32, height: 32), textColor: normalColor, backgroundColor: .clear)
-				cell.imageView?.highlightedImage = UIImage(icon: .googleMaterialDesign(.tabletMac), size: CGSize(width: 32, height: 32), textColor: selectedColor, backgroundColor: .clear)
+				cell.imageView?.image = UIImage(icon: FontType.googleMaterialDesign(.tabletMac), size: CGSize(width: 32, height: 32), textColor: normalColor, backgroundColor: .clear)
+				cell.imageView?.highlightedImage = UIImage(icon: FontType.googleMaterialDesign(.tabletMac), size: CGSize(width: 32, height: 32), textColor: selectedColor, backgroundColor: .clear)
 			}
 			
 			cell.detailTextLabel?.text = "Playing here"
@@ -130,8 +130,8 @@ class UZDeviceListTableViewController: UITableViewController {
 			let device = castingManager.device(at: UInt(indexPath.row))
 			cell.textLabel?.text = device.modelName
 			cell.detailTextLabel?.text = "Connect"
-			cell.imageView?.image = UIImage(icon: .googleMaterialDesign(.cast), size: CGSize(width: 32, height: 32), textColor: normalColor, backgroundColor: .clear)
-			cell.imageView?.highlightedImage = UIImage(icon: .googleMaterialDesign(.cast), size: CGSize(width: 32, height: 32), textColor: selectedColor, backgroundColor: .clear)
+			cell.imageView?.image = UIImage(icon: FontType.googleMaterialDesign(.cast), size: CGSize(width: 32, height: 32), textColor: normalColor, backgroundColor: .clear)
+			cell.imageView?.highlightedImage = UIImage(icon: FontType.googleMaterialDesign(.cast), size: CGSize(width: 32, height: 32), textColor: selectedColor, backgroundColor: .clear)
 			
 			if let currentCastSession = castingManager.currentCastSession {
 				cell.accessoryType = currentCastSession.device == device ? .checkmark : .none
@@ -143,8 +143,8 @@ class UZDeviceListTableViewController: UITableViewController {
 		else if indexPath.section == 2 {
 			cell.textLabel?.text = "AirPlay and Bluetooth"
 			cell.detailTextLabel?.text = "Show more devices..."
-			cell.imageView?.image = UIImage(icon: .googleMaterialDesign(.airplay), size: CGSize(width: 32, height: 32), textColor: normalColor, backgroundColor: .clear)
-			cell.imageView?.highlightedImage = UIImage(icon: .googleMaterialDesign(.airplay), size: CGSize(width: 32, height: 32), textColor: selectedColor, backgroundColor: .clear)
+			cell.imageView?.image = UIImage(icon: FontType.googleMaterialDesign(.airplay), size: CGSize(width: 32, height: 32), textColor: normalColor, backgroundColor: .clear)
+			cell.imageView?.highlightedImage = UIImage(icon: FontType.googleMaterialDesign(.airplay), size: CGSize(width: 32, height: 32), textColor: selectedColor, backgroundColor: .clear)
 			cell.accessoryType = .none
 		}
 	}

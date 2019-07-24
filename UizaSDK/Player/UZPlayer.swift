@@ -46,9 +46,16 @@ public protocol UZPlayerControlViewDelegate: class {
 	func controlView(controlView: UZPlayerControlView, slider: UISlider, onSliderEvent event: UIControl.Event)
 }
 
+public protocol UZPlayerDownloadDelegate: class {
+    func playerDownloadState(entityId: String, state: UZVideoLinkPlay.DownloadState, selectionTitle: String)
+    func playerDownloadProgress( entityId: String, progress: Double)
+}
+
 open class UZPlayer: UIView {
 	
 	open weak var delegate: UZPlayerDelegate?
+    
+    open weak var downloadDelegate: UZPlayerDownloadDelegate?
 	
 	public var backBlock:((Bool) -> Void)? = nil
 	public var videoChangedBlock:((UZVideoItem) -> Void)? = nil
@@ -242,6 +249,13 @@ open class UZPlayer: UIView {
 		#endif
 		
 		UZMuizaLogger.shared.log(eventName: "ready", player: self)
+        
+        // for download listener
+        NotificationCenter.default.addObserver(self,
+                                       selector: #selector(handleAssetDownloadStateChanged(_:)),
+                                       name: .AssetDownloadStateChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleAssetDownloadProgress(_:)),
+                                       name: .AssetDownloadProgress, object: nil)
 	}
 	
 	public required init?(coder aDecoder: NSCoder) {
@@ -326,22 +340,29 @@ open class UZPlayer: UIView {
 	- parameter completionBlock: callback block with `[UZVideoLinkPlay]` or Error
 	*/
 	open func loadVideo(entityId: String, completionBlock:((_ linkPlays: [UZVideoLinkPlay]?, _ error: Error?) -> Void)? = nil) {
-		UZContentServices().loadDetail(entityId: entityId) { [weak self] (videoItem, error) in
-			guard let `self` = self else { return }
-			
-			if videoItem != nil {
-				self.loadVideo(videoItem!, completionBlock: completionBlock)
-			}
-			else if error != nil {
-				self.showMessage(error!.localizedDescription)
-				completionBlock?(nil, error)
-			}
-			else {
-				let error = UZAPIConnector.UizaError(code: 1001, message: "Unable to load video")
-				self.showMessage(error.localizedDescription)
-				completionBlock?(nil, error)
-			}
-		}
+        // check cache
+        if let videoItem = UZCache.shared.getUZVideoItem(entityId) {
+            self.loadVideo(videoItem, completionBlock: completionBlock)
+        } else {
+            UZContentServices().loadDetail(entityId: entityId) { [weak self] (videoItem, error) in
+                guard let `self` = self else { return }
+                
+                if videoItem != nil {
+                    self.loadVideo(videoItem!, completionBlock: completionBlock)
+                }
+                else if error != nil {
+                    self.currentLinkPlay = nil
+                    self.showMessage(error!.localizedDescription)
+                    completionBlock?(nil, error)
+                }
+                else {
+                    self.currentLinkPlay = nil
+                    let error = UZAPIConnector.UizaError(code: 1001, message: "Unable to load video")
+                    self.showMessage(error.localizedDescription)
+                    completionBlock?(nil, error)
+                }
+            }
+        }
 	}
 	
 	/**
@@ -378,35 +399,42 @@ open class UZPlayer: UIView {
         }
 		
         UZVisualizeSavedInformation.shared.currentVideo = video
-		UZContentServices().loadLinkPlay(video: video) { [weak self] (results, error) in
-			guard let `self` = self else { return }
-			
-			self.controlView.hideLoader()
-			
-			if let results = results {
-				self.currentVideo?.videoURL = results.first?.avURLAsset.url
-                if let host = results.first?.url.host {
-                    UZVisualizeSavedInformation.shared.host = host
+        
+        if !video.isLive, let uzVideoLinkPlay = UZAssetDownloadHelper.shared.localAssetForStream(with: video.id) {
+            // play from cache
+            let resource = UZPlayerResource(name: video.name, definitions: [uzVideoLinkPlay], subtitles: video.subtitleURLs, cover: video.thumbnailURL)
+            self.setResource(resource: resource)
+            completionBlock?([uzVideoLinkPlay], nil)
+        } else {
+            // normal proccess
+            UZContentServices().loadLinkPlay(video: video) { [weak self] (results, error) in
+                guard let `self` = self else { return }
+                self.controlView.hideLoader()
+                if let results = results {
+                    self.currentVideo?.videoURL = results.first?.avURLAsset.url
+                    if let host = results.first?.url.host {
+                        UZVisualizeSavedInformation.shared.host = host
+                    }
+                    UZLogger.shared.log(event: "plays_requested", video: video, completionBlock: nil)
+                    
+                    let resource = UZPlayerResource(name: video.name, definitions: results, subtitles: video.subtitleURLs, cover: video.thumbnailURL)
+                    self.setResource(resource: resource)
+                    
+                    if video.isLive {
+                        self.controlView.liveStartDate = nil
+                        self.loadLiveViews()
+                        self.loadLiveStatus()
+                    }
                 }
-				UZLogger.shared.log(event: "plays_requested", video: video, completionBlock: nil)
-				
-				let resource = UZPlayerResource(name: video.name, definitions: results, subtitles: video.subtitleURLs, cover: video.thumbnailURL)
-				self.setResource(resource: resource)
-				
-				if video.isLive {
-					self.controlView.liveStartDate = nil
-					self.loadLiveViews()
-					self.loadLiveStatus()
-				}
-			}
-			else if let error = error {
-				self.showMessage(error.localizedDescription)
-			}
-			
-			completionBlock?(results, error)
-		}
+                else if let error = error {
+                    self.showMessage(error.localizedDescription)
+                }
+                
+                completionBlock?(results, error)
+            }
+        }
 	}
-	
+    
 	/**
 	Load and play a playlist
 	
@@ -1751,3 +1779,63 @@ extension UZPlayer: IMAAdsManagerDelegate {
 	
 }
 #endif
+// for download
+extension UZPlayer {
+    
+    open func downloadVideo(completionBlock:((_ message: String) -> Void)? = nil) {
+        if let uzLinkPlay = self.currentLinkPlay {
+            UZAssetDownloadHelper.shared.downloadStream(for: uzLinkPlay) { msg in
+                if let videoItem = self.currentVideo {
+                    UZCache.shared.saveUZVideoItem(videoItem.id, item: videoItem)
+                }
+                completionBlock?(msg)
+            }
+        }
+    }
+    
+    open func downloadState() -> UZVideoLinkPlay.DownloadState {
+        if let uzLinkPlay = self.currentLinkPlay {
+            return UZAssetDownloadHelper.shared.downloadState(for: uzLinkPlay)
+        }
+        return .notDownloaded
+    }
+    
+    open func cancelDownload(){
+        if let uzLinkPlay = self.currentLinkPlay {
+            return UZAssetDownloadHelper.shared.cancelDownload(for: uzLinkPlay)
+        }
+    }
+    
+    open func deleteDownload(){
+        if let uzLinkPlay = self.currentLinkPlay {
+            return UZAssetDownloadHelper.shared.deleteAsset(for: uzLinkPlay) { deleted in
+                if deleted {
+                    UZCache.shared.removeUZVideoItem(uzLinkPlay.entityId)
+                }
+            }
+        }
+    }
+    
+    @objc
+    func handleAssetDownloadStateChanged(_ notification: Notification) {
+        guard let streamEntityId = notification.userInfo![UZVideoLinkPlay.Keys.entityId] as? String,
+            let downloadStateRawValue = notification.userInfo![UZVideoLinkPlay.Keys.downloadState] as? String,
+            let downloadState = UZVideoLinkPlay.DownloadState(rawValue: downloadStateRawValue),
+            let uzVideoLinkPlay = self.currentLinkPlay, uzVideoLinkPlay.entityId == streamEntityId else { return }
+        //
+        let downloadSelection = notification.userInfo?[UZVideoLinkPlay.Keys.downloadSelectionDisplayName] as? String
+        // if cancel task then remove cache uzvideoitem
+        if downloadState == .notDownloaded {
+             UZCache.shared.removeUZVideoItem(streamEntityId)
+        }
+        self.downloadDelegate?.playerDownloadState(entityId: streamEntityId, state: downloadState, selectionTitle: downloadSelection ?? "")
+    }
+    
+    @objc
+    func handleAssetDownloadProgress(_ notification: NSNotification) {
+        guard let streamEntityId = notification.userInfo![UZVideoLinkPlay.Keys.entityId] as? String,
+            let uzVideoLinkPlay = self.currentLinkPlay, uzVideoLinkPlay.entityId == streamEntityId else { return }
+        guard let progress = notification.userInfo![UZVideoLinkPlay.Keys.percentDownloaded] as? Double else { return }
+        self.downloadDelegate?.playerDownloadProgress(entityId: streamEntityId, progress: progress)
+    }
+}

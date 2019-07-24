@@ -306,7 +306,7 @@ open class UZLiveBadgeView: UIView {
         liveBadge.cornerRadius = 4
         liveBadge.extendSize = CGSize(width: 10, height: 0)
         
-        let icon = UIImage.init(icon: .googleMaterialDesign(.removeRedEye), size: CGSize(width: 20, height: 20), textColor: .white, backgroundColor: .clear)
+        let icon = UIImage.init(icon: FontType.googleMaterialDesign(.removeRedEye), size: CGSize(width: 20, height: 20), textColor: .white, backgroundColor: .clear)
         if #available(iOS 8.2, *) {
             viewBadge.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .medium)
         } else {

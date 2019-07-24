@@ -58,7 +58,7 @@ open class UZLogger: UZAPIConnector {
 		let userId		: String = UZUser.currentUser?.id ?? ""
 		let bundleId	: String = Bundle.main.bundleIdentifier ?? ""
 		let iosVersion	: String = UIDevice.current.systemVersion
-		let timestamp	: String = Date().toString(format: .isoDateTimeMilliSec) // Date().toString(format: .custom("yyyy-MM-dd'T'HH:mm:ss.SSSZ")) // 2018-03-15T14:19:04.637Z
+		let timestamp	: String = Date().toString(format: DateFormatType.isoDateTimeMilliSec) // Date().toString(format: .custom("yyyy-MM-dd'T'HH:mm:ss.SSSZ")) // 2018-03-15T14:19:04.637Z
 		#if os(macOS)
 		let platform	: String = "macOS"
 		#else
@@ -113,7 +113,7 @@ open class UZLogger: UZAPIConnector {
 		
 		let macAddress	: String = UIDevice.current.identifierForVendor?.uuidString ?? ""
 		let bundleId	: String = Bundle.main.bundleIdentifier ?? ""
-		let timestamp	: String = Date().toString(format: .isoDateTimeMilliSec) // Date().toString(format: .custom("yyyy-MM-dd'T'HH:mm:ss.SSSZ")) // 2018-03-15T14:19:04.637Z
+		let timestamp	: String = Date().toString(format: DateFormatType.isoDateTimeMilliSec) // Date().toString(format: .custom("yyyy-MM-dd'T'HH:mm:ss.SSSZ")) // 2018-03-15T14:19:04.637Z
 		#if os(macOS)
 		let platform	: String = "macOS"
 		#else
@@ -140,7 +140,7 @@ open class UZLogger: UZAPIConnector {
 		
 //		let macAddress	: String = UIDevice.current.identifierForVendor?.uuidString ?? ""
 		let bundleId	: String = Bundle.main.bundleIdentifier ?? ""
-		let timestamp	: String = Date().toString(format: .isoDateTimeMilliSec) // Date().toString(format: .custom("yyyy-MM-dd'T'HH:mm:ss.SSSZ")) // 2018-03-15T14:19:04.637Z
+		let timestamp	: String = Date().toString(format: DateFormatType.isoDateTimeMilliSec) // Date().toString(format: .custom("yyyy-MM-dd'T'HH:mm:ss.SSSZ")) // 2018-03-15T14:19:04.637Z
 		#if os(macOS)
 		let platform	: String = "macOS"
 		#else

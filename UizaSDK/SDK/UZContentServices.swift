@@ -163,7 +163,7 @@ open class UZContentServices: UZAPIConnector {
 		let params: Parameters = ["id" : entityId]
 		
 		self.callAPI(isLive ? UZAPIConstant.liveEntityApi : UZAPIConstant.mediaEntityApi, method: .get, params: params) { (result, error) in
-			DLog("\(String(describing: result)) - \(String(describing: error))")
+            DLog("loadDetail:: \(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
 				DispatchQueue.main.async {
@@ -212,27 +212,36 @@ open class UZContentServices: UZAPIConnector {
 			}
 		}
 	}
-	
+    /**
+     Get video link play
+     - parameter entityId: `id` of video
+     - parameter completionBlock: block called when completed, returns `URL`, or `Error` if occurred
+     */
+	public func loadLinkPlay(video: UZVideoItem, token: String? = nil, completionBlock:((_ results: [UZVideoLinkPlay]?, _ error: Error?) -> Void)? = nil) {
+        self.loadLinkPlay(video.id,channelName: video.channelName, isLive: video.isLive, token: token, completionBlock: completionBlock)
+    }
+    
 	/**
 	Get video link play
 	- parameter entityId: `id` of video
+    - parameter channelName: if it is livestreaming
+    - parameter isLive: `true` if it is livestreaming
 	- parameter completionBlock: block called when completed, returns `URL`, or `Error` if occurred
 	*/
-	public func loadLinkPlay(video: UZVideoItem, token: String? = nil, completionBlock:((_ results: [UZVideoLinkPlay]?, _ error: Error?) -> Void)? = nil) {
-		let entityId: String = video.id ?? ""
-		
+    public func loadLinkPlay(_ entityId: String, channelName: String? = nil, isLive: Bool, token: String? = nil, completionBlock:((_ results: [UZVideoLinkPlay]?, _ error: Error?) -> Void)? = nil) {
+
 		if token == nil {
 			self.requestHeaderFields = ["Authorization" : token ?? ""]
 			
 			let params: Parameters = ["entity_id" 		: entityId,
 									  "app_id"	 		: UizaSDK.appId,
-									  "content_type" 	: video.isLive ? "live" : "stream"]
+									  "content_type" 	: isLive ? "live" : "stream"]
 			
 			self.callAPI(UZAPIConstant.mediaTokenApi, method: .post, params: params) { (result, error) in
 				if let data = result?.value(for: "data", defaultValue: nil) as? NSDictionary,
 					let tokenString = data.string(for: "token", defaultString: nil)
 				{
-					self.loadLinkPlay(video: video, token: tokenString, completionBlock: completionBlock)
+					self.loadLinkPlay(entityId, isLive: isLive, token: tokenString, completionBlock: completionBlock)
 				}
 				else {
 					DispatchQueue.main.async {
@@ -246,9 +255,9 @@ open class UZContentServices: UZAPIConnector {
 		
 		self.requestHeaderFields = ["Authorization" : token ?? ""]
 		
-		let apiNode = video.isLive ? UZAPIConstant.cdnLiveLinkPlayApi : UZAPIConstant.cdnLinkPlayApi
-		let apiField = video.isLive ? "stream_name" : "entity_id"
-		let apiValue = video.isLive ? video.channelName ?? "" : entityId
+		let apiNode = isLive ? UZAPIConstant.cdnLiveLinkPlayApi : UZAPIConstant.cdnLinkPlayApi
+		let apiField = isLive ? "stream_name" : "entity_id"
+		let apiValue = isLive ? (channelName ?? "") : entityId
 		let params: Parameters = [apiField 	: apiValue,
 								  "app_id"	: UizaSDK.appId]
 		
@@ -276,7 +285,7 @@ open class UZContentServices: UZAPIConnector {
 				var results = [UZVideoLinkPlay]()
 				for urlData in urlsDataArray {
 					if let definition = urlData.string(for: "definition", defaultString: ""), let url = urlData.url(for: "url", defaultURL: nil) {
-						let item = UZVideoLinkPlay(definition: definition, url: url, options: nil)
+                        let item = UZVideoLinkPlay(entityId: entityId, definition: definition, url: url, options: nil)
 						results.append(item)
 					}
 				}

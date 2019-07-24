@@ -145,7 +145,7 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 		startButton.alpha = 0.0
 		startButton.addTarget(self, action: #selector(start), for: .touchUpInside)
 		
-		stopButton.setImage(UIImage(icon: .googleMaterialDesign(.close), size: CGSize(width: 32, height: 32), textColor: .black, backgroundColor: .clear), for: .normal)
+		stopButton.setImage(UIImage(icon: FontType.googleMaterialDesign(.close), size: CGSize(width: 32, height: 32), textColor: .black, backgroundColor: .clear), for: .normal)
 		stopButton.addTarget(self, action: #selector(askToStop), for: .touchUpInside)
 		
 		#if swift(>=4.2)

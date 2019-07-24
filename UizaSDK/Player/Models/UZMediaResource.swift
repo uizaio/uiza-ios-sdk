@@ -25,7 +25,7 @@ public struct UZPlayerResource {
 	- parameter isLive:     set `true` if live video
 	*/
 	public init(name: String = "", url: URL, subtitles: [URL]? = nil, cover: URL? = nil, isLive: Bool = false) {
-		let definition = UZVideoLinkPlay(definition: "", url: url)
+        let definition = UZVideoLinkPlay(definition: "", url: url)
 		self.init(name: name, definitions: [definition], subtitles: subtitles, cover: cover, isLive: isLive)
 	}
 	

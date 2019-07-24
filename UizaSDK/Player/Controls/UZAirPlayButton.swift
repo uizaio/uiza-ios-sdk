@@ -37,8 +37,8 @@ open class UZAirPlayButton: MPVolumeView {
 	}
 	
 	open func setupDefaultIcon(iconSize: CGSize, offColor: UIColor = .white, onColor: UIColor = UIColor(red:0.21, green:0.49, blue:0.96, alpha:1.00)) {
-		let airplayOffIcon = UIImage(icon: .googleMaterialDesign(.airplay), size: iconSize, textColor: offColor, backgroundColor: .clear)
-		let airplayOnIcon = UIImage(icon: .googleMaterialDesign(.airplay), size: iconSize, textColor: onColor, backgroundColor: .clear)
+		let airplayOffIcon = UIImage(icon: FontType.googleMaterialDesign(.airplay), size: iconSize, textColor: offColor, backgroundColor: .clear)
+		let airplayOnIcon = UIImage(icon: FontType.googleMaterialDesign(.airplay), size: iconSize, textColor: onColor, backgroundColor: .clear)
 		
 		self.setImage(image: airplayOffIcon, for: .normal)
 		self.setImage(image: airplayOnIcon, for: .selected)

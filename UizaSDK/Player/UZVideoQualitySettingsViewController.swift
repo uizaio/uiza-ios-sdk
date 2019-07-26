@@ -108,23 +108,19 @@ internal class UZVideoQualitySettingsViewController: UIViewController {
 	override var preferredInterfaceOrientationForPresentation : UIInterfaceOrientation {
 		return UIApplication.shared.statusBarOrientation
 	}
+	
+	override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+		if let modalViewController = NKModalViewManager.sharedInstance()?.modalViewControllerThatContains(self) {
+			modalViewController.dismissWith(animated: flag, completion: completion)
+		}
+		else {
+			super.dismiss(animated: flag, completion: completion)
+		}
+	}
 
 }
 
 extension UZVideoQualitySettingsViewController: NKModalViewControllerProtocol {
-	
-	func viewController(forPresenting modalViewController: NKModalViewController!) -> UIViewController! {
-		if let window = UIApplication.shared.keyWindow, let viewController = window.rootViewController {
-			var result: UIViewController? = viewController
-			while result?.presentedViewController != nil {
-				result = result?.presentedViewController
-			}
-			
-			return result
-		}
-		
-		return nil
-	}
 	
 	func shouldTapOutside(toDismiss modalViewController: NKModalViewController!) -> Bool {
 		return true

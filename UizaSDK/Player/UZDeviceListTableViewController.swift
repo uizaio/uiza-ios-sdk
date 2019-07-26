@@ -218,19 +218,6 @@ class UZDeviceListTableViewController: UITableViewController {
 
 extension UZDeviceListTableViewController: NKModalViewControllerProtocol {
 	
-	func viewController(forPresenting modalViewController: NKModalViewController!) -> UIViewController! {
-		if let window = UIApplication.shared.keyWindow, let viewController = window.rootViewController {
-			var result: UIViewController? = viewController
-			while result?.presentedViewController != nil {
-				result = result?.presentedViewController
-			}
-			
-			return result
-		}
-		
-		return nil
-	}
-	
 	func shouldTapOutside(toDismiss modalViewController: NKModalViewController!) -> Bool {
 		return true
 	}

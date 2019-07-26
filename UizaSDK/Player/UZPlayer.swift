@@ -1281,9 +1281,9 @@ open class UZPlayer: UIView {
 				
 				self.loadVideo(videoItem)
 				self.videoChangedBlock?(videoItem)
-				NKModalViewManager.sharedInstance().modalViewControllerThatContains(viewController)?.dismissWith(animated: true, completion: nil)
-				
+				viewController.dismiss(animated: true, completion: nil)
 			}
+			
 			NKModalViewManager.sharedInstance().presentModalViewController(viewController)
 		}
 		else {
@@ -1304,7 +1304,7 @@ open class UZPlayer: UIView {
 				
 				self.loadVideo(videoItem)
 				self.videoChangedBlock?(videoItem)
-				NKModalViewManager.sharedInstance().modalViewControllerThatContains(viewController)?.dismissWith(animated: true, completion: nil)
+				viewController.dismiss(animated: true, completion: nil)
 				
 			}
 			NKModalViewManager.sharedInstance().presentModalViewController(viewController)
@@ -1325,9 +1325,9 @@ open class UZPlayer: UIView {
 			
 			self.currentDefinition = index
 			self.switchVideoDefinition(linkPlay)
-			NKModalViewManager.sharedInstance().modalViewControllerThatContains(viewController)?.dismissWith(animated: true, completion: nil)
-			
+			viewController.dismiss(animated: true, completion: nil)
 		}
+		
 		NKModalViewManager.sharedInstance().presentModalViewController(viewController)
 	}
 	
@@ -1339,7 +1339,7 @@ open class UZPlayer: UIView {
             viewController.asset = asset
             viewController.selectedSubtitle = selectedSubtitle
             viewController.subtitiles = subtitles
-            //			viewController.selectedSubtitleOption = nil
+//			viewController.selectedSubtitleOption = nil
             viewController.collectionViewController.selectedBlock = { [weak self] (option, indexPath) in
                 guard let `self` = self else { return }
                 
@@ -1353,10 +1353,10 @@ open class UZPlayer: UIView {
                         self.selectExtenalSubtitle(subtitle: self.subtitles[indexPath.row])
                     }
                 }
-                
-                NKModalViewManager.sharedInstance().modalViewControllerThatContains(viewController)?.dismissWith(animated: true, completion: nil)
-                
+				
+				viewController.dismiss(animated: true, completion: nil)
             }
+			
             NKModalViewManager.sharedInstance().presentModalViewController(viewController)
         }
     }

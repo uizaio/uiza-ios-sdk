@@ -100,6 +100,15 @@ internal class UZPlaylistViewController: UIViewController {
 		return UIApplication.shared.statusBarOrientation
 	}
 	
+	override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+		if let modalViewController = NKModalViewManager.sharedInstance()?.modalViewControllerThatContains(self) {
+			modalViewController.dismissWith(animated: flag, completion: completion)
+		}
+		else {
+			super.dismiss(animated: flag, completion: completion)
+		}
+	}
+	
 }
 
 extension UZPlaylistViewController: NKModalViewControllerProtocol {
@@ -108,19 +117,6 @@ extension UZPlaylistViewController: NKModalViewControllerProtocol {
 		let screenRect = UIScreen.main.bounds
 		let contentSize = CGSize(width: screenRect.size.width, height: 200)
 		return CGRect(x: 10, y: screenRect.height - contentSize.height - 10, width: screenRect.width - 20, height: contentSize.height)
-	}
-	
-	func viewController(forPresenting modalViewController: NKModalViewController!) -> UIViewController! {
-		if let window = UIApplication.shared.keyWindow, let viewController = window.rootViewController {
-			var result: UIViewController? = viewController
-			while result?.presentedViewController != nil {
-				result = result?.presentedViewController
-			}
-			
-			return result
-		}
-		
-		return nil
 	}
 	
 	func shouldTapOutside(toDismiss modalViewController: NKModalViewController!) -> Bool {

@@ -100,6 +100,15 @@ internal class UZRelatedViewController: UIViewController {
 		return UIApplication.shared.statusBarOrientation
 	}
 	
+	override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+		if let modalViewController = NKModalViewManager.sharedInstance()?.modalViewControllerThatContains(self) {
+			modalViewController.dismissWith(animated: flag, completion: completion)
+		}
+		else {
+			super.dismiss(animated: flag, completion: completion)
+		}
+	}
+	
 }
 
 // MARK: - UZVideoCollectionViewController

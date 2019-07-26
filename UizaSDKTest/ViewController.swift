@@ -65,7 +65,7 @@ class ViewController: UIViewController {
 */
         
         UZContentServices().loadEntity(metadataId: nil, publishStatus: .success, page: 0, limit: 15) { (results, error) in
-            if let videos = results, let video = videos.first {
+            if let videos = results, let video = videos.randomElement() {
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                     let viewController = UZFloatingPlayerViewController()

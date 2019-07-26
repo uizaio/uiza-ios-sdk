@@ -221,8 +221,15 @@ open class UZPlayerLayerView: UIView {
 	open func resetPlayer() {
 		self.playerItem = nil
 		
-		self.timer?.invalidate()
-		self.getLatencytimer?.invalidate()
+		if timer != nil {
+			timer!.invalidate()
+			timer = nil
+		}
+		
+		if getLatencytimer != nil {
+			getLatencytimer!.invalidate()
+			getLatencytimer = nil
+		}
 		
 		self.pause()
 		self.playerLayer?.removeFromSuperlayer()
@@ -501,7 +508,8 @@ open class UZPlayerLayerView: UIView {
 						if let video = currentVideo, video.isLive {
 							UZVisualizeSavedInformation.shared.isUpdateLivestreamLatency = true
 							setupGetLatencyTimer()
-						} else {
+						}
+						else {
 							getLatencytimer?.invalidate()
 						}
 						self.state = .buffering

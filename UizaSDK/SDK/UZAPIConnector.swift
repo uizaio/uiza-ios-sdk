@@ -11,7 +11,7 @@ import Alamofire
 import SwiftyJSON
 
 /// API enviroment
-public enum UZEnviroment : String {
+public enum UZEnviroment: String {
 	/** Production enviroment (Use when releasing to the AppStore) */
 	case production = "prod"
 	/** Development enviroment */
@@ -21,7 +21,7 @@ public enum UZEnviroment : String {
 }
 
 /// API response type
-public enum UZResponseType : Int {
+public enum UZResponseType: Int {
 	case json
 	case string
 	case array
@@ -34,7 +34,7 @@ public typealias APIConnectorFailureBlock		= (_ error: Error?) -> Void
 /** Block called on uploading progress */
 public typealias APIConnectorProgressBlock		= (_ progress: Float) -> Void
 /** Kiểu block được gọi khi trả về kết quả */
-public typealias APIConnectorResultBlock		= (_ data:NSDictionary?, _ error:Error?) -> Void
+public typealias APIConnectorResultBlock		= (_ data: NSDictionary?, _ error: Error?) -> Void
 
 /// Parameter type
 public typealias Parameters = [String: Any]
@@ -43,23 +43,23 @@ public typealias Parameters = [String: Any]
 Class manages API connection
 */
 open class UZAPIConnector {
-	internal static var ipAddress		: String = ""
-	static internal let headerPlatform	: String = UIDevice.isTV() ? "appletv" : UIDevice.isPad() ? "tablet" : "mobile"
+	internal static var ipAddress: String = ""
+	static internal let headerPlatform: String = UIDevice.isTV() ? "appletv" : UIDevice.isPad() ? "tablet" : "mobile"
 	
 	/** Timeout interval */
-	public var timeoutInterval			: TimeInterval = 30.0
+	public var timeoutInterval: TimeInterval = 30.0
 	/** Cache Policy */
-	public var cachePolicy				: NSURLRequest.CachePolicy = .useProtocolCachePolicy
+	public var cachePolicy: NSURLRequest.CachePolicy = .useProtocolCachePolicy
 	/** Header parameters */
-	public var requestHeaderFields		: [String: String]! = [:]
+	public var requestHeaderFields: [String: String]! = [:]
 	/** Block called when completed */
-	public var completionBlock			: APIConnectorCompletionBlock? = nil
+	public var completionBlock: APIConnectorCompletionBlock?
 	/** Block called when error occurred */
-	public var failureBlock				: APIConnectorFailureBlock? = nil
+	public var failureBlock: APIConnectorFailureBlock?
 	/** Block called on uploading progress */
-	public var progressBlock			: APIConnectorProgressBlock? = nil
+	public var progressBlock: APIConnectorProgressBlock?
 	/** current data request */
-	public var dataRequest				: DataRequest? = nil
+	public var dataRequest: DataRequest?
 	
 	#if os(iOS)
 	internal static var networkLoadingCount: Int = 0
@@ -86,13 +86,14 @@ open class UZAPIConnector {
 	}
 	
 	internal class func updateIPAddress() {
-		let host = CFHostCreateWithName(nil,"www.google.com" as CFString).takeRetainedValue()
+		let host = CFHostCreateWithName(nil, "www.google.com" as CFString).takeRetainedValue()
 		CFHostStartInfoResolution(host, .addresses, nil)
 		var success: DarwinBoolean = false
 		if let addresses = CFHostGetAddressing(host, &success)?.takeUnretainedValue() as NSArray?,
 			let theAddress = addresses.firstObject as? NSData {
 			var hostname = [CChar](repeating: 0, count: Int(NI_MAXHOST))
-			if getnameinfo(theAddress.bytes.assumingMemoryBound(to: sockaddr.self), socklen_t(theAddress.length), &hostname, socklen_t(hostname.count), nil, 0, NI_NUMERICHOST) == 0 {
+			if getnameinfo(theAddress.bytes.assumingMemoryBound(to: sockaddr.self),
+                           socklen_t(theAddress.length), &hostname, socklen_t(hostname.count), nil, 0, NI_NUMERICHOST) == 0 {
 				let numAddress = String(cString: hostname)
 				ipAddress = numAddress
 			}
@@ -112,7 +113,7 @@ open class UZAPIConnector {
 	Cancel API calling, server may received the request but will not return any results
 	*/
 	public func cancel() {
-		if (dataRequest != nil) {
+		if dataRequest != nil {
 			UZAPIConnector.hideNetworkLoading()
 			
 			if UizaSDK.showRestfulInfo {
@@ -142,7 +143,6 @@ open class UZAPIConnector {
 		}
 	}
 	
-	
 	/**
 	Call the API
 	- parameter node: API node
@@ -150,12 +150,14 @@ open class UZAPIConnector {
 	- parameter paramValue: parameter value
 	- parameter completionBlock: block called when complete, returns data or error if occurred
 	*/
-	public func callAPI(_ node: String!, baseURLString: String? = nil, method: HTTPMethod! = .get, params paramValue :Parameters? = nil, responseType: UZResponseType = .json, encodingType: ParameterEncoding = URLEncoding.default, completion completionBlock: APIConnectorResultBlock? = nil) {
-		guard UizaSDK.domain.count > 0, UizaSDK.token.count > 0 else {
+	public func callAPI(_ node: String!, baseURLString: String? = nil, method: HTTPMethod! = .get,
+                        params paramValue: Parameters? = nil, responseType: UZResponseType = .json,
+                        encodingType: ParameterEncoding = URLEncoding.default, completion completionBlock: APIConnectorResultBlock? = nil) {
+		guard !UizaSDK.domain.isEmpty, !UizaSDK.token.isEmpty else {
 			fatalError("[UizSDK] SDK is not initialized. Please call \"UizaSDK.initWith(appId,token,api,version)\" first")
 		}
 		
-		let baseAPIPath : String = baseURLString ?? basePublicAPIURLPath()
+		let baseAPIPath: String = baseURLString ?? basePublicAPIURLPath()
 		
 //		let modelId		: String = UIDevice.current.hardwareModel()
 //		let modelName	: String = UIDevice.current.hardwareName()
@@ -186,8 +188,8 @@ open class UZAPIConnector {
 //		                                       "env"		: enviroment]
 		
 		let nodeURL  = URL(string: baseAPIPath)?.appendingPathComponent(node)
-		let defaultParams 	: Parameters! = [:]
-		var finalParams		: Parameters! = defaultParams
+		let defaultParams: Parameters! = [:]
+		var finalParams: Parameters! = defaultParams
 		
 		if let params = paramValue {
 			finalParams.appendFrom(params)
@@ -195,10 +197,11 @@ open class UZAPIConnector {
 		
 		if UizaSDK.showRestfulInfo {
 			let headerString = self.requestHeaderFields != nil ? "Header: \(self.requestHeaderFields as NSDictionary)" : ""
-			print("[UizaSDK] [\(method.rawValue)] \(nodeURL!) \(finalParams as NSDictionary)\n\(headerString)");
+			print("[UizaSDK] [\(method.rawValue)] \(nodeURL!) \(finalParams as NSDictionary)\n\(headerString)")
 		}
 		
-		self.startLoadURL(nodeURL, withMethod: method, andParams: finalParams, responseType: responseType, encodingType: encodingType, completionBlock: { (result:Any) in
+		self.startLoadURL(nodeURL, withMethod: method, andParams: finalParams, responseType: responseType,
+                          encodingType: encodingType, completionBlock: { (result: Any) in
 			if responseType == .json {
 				let finalResult = JSON.init(result)
 				
@@ -210,8 +213,7 @@ open class UZAPIConnector {
 				if completionBlock != nil {
 					self.parseDictionaryResult(dictionary: dictionary, completion: completionBlock)
 				}
-			}
-			else if responseType == .array {
+			} else if responseType == .array {
 				let finalResult = JSON.init(result)
 				
 				guard let dataArray = finalResult.arrayObject else {
@@ -220,14 +222,12 @@ open class UZAPIConnector {
 				}
 				
 				if completionBlock != nil {
-					self.parseDictionaryResult(dictionary: ["array" : dataArray], completion: completionBlock)
+					self.parseDictionaryResult(dictionary: ["array": dataArray], completion: completionBlock)
 				}
-			}
-			else if responseType == .string {
+			} else if responseType == .string {
 				if let finalResult = result as? String {
-					completionBlock?(["string" : finalResult], nil)
-				}
-				else {
+					completionBlock?(["string": finalResult], nil)
+				} else {
 					completionBlock?(nil, UZAPIConnector.UizaUnknownError())
 				}
 			}
@@ -237,15 +237,18 @@ open class UZAPIConnector {
 		}, progressBlock: nil)
 	}
 	
-	internal func startLoadURL(_ url: URL!, withMethod method: HTTPMethod! = .get, andParams params: [String: Any]? = nil, responseType : UZResponseType = .json, encodingType: ParameterEncoding = URLEncoding.default, completionBlock: APIConnectorCompletionBlock? = nil, failureBlock: APIConnectorFailureBlock? = nil, progressBlock: APIConnectorProgressBlock? = nil) {
+	internal func startLoadURL(_ url: URL!, withMethod method: HTTPMethod! = .get,
+                               andParams params: [String: Any]? = nil, responseType: UZResponseType = .json,
+                               encodingType: ParameterEncoding = URLEncoding.default, completionBlock: APIConnectorCompletionBlock? = nil,
+                               failureBlock: APIConnectorFailureBlock? = nil, progressBlock: APIConnectorProgressBlock? = nil) {
 		UZAPIConnector.showNetworkLoading()
 		
 		#if os(tvOS)
-		let headers = ["User-Agent" : "UizaSDK_tvOS_\(SDK_VERSION)"]
+		let headers = ["User-Agent": "UizaSDK_tvOS_\(SDK_VERSION)"]
 		#elseif os(macOS)
-		let headers = ["User-Agent" : "UizaSDK_macOS_\(SDK_VERSION)"]
+		let headers = ["User-Agent": "UizaSDK_macOS_\(SDK_VERSION)"]
 		#else
-		let headers = ["User-Agent" : "UizaSDK_iOS_\(SDK_VERSION)"]
+		let headers = ["User-Agent": "UizaSDK_iOS_\(SDK_VERSION)"]
 		#endif
 		
 		var containsData = false
@@ -273,16 +276,14 @@ open class UZAPIConnector {
 							if let imageData = jpegData {
 								multipartFormData.append(imageData, withName: key, fileName: "image.jpg", mimeType: "image/jpeg")
 							}
-						}
-						else if let data = value as? Data {
+						} else if let data = value as? Data {
 							multipartFormData.append(data, withName: key, fileName: "data", mimeType: "multipart/form-data")
-						}
-						else if let data = "\(value)".data(using: .utf8) {
+						} else if let data = "\(value)".data(using: .utf8) {
 							multipartFormData.append(data, withName: key)
 						}
 					}
 				}
-			}, to: url, method: method, headers: self.requestHeaderFields) { [weak self] (result) in
+            }, to: url, method: method, headers: self.requestHeaderFields) { [weak self] (result) in
 				switch result {
 				case .success(let upload, _, _):
 					
@@ -321,8 +322,7 @@ open class UZAPIConnector {
 					failureBlock?(UZAPIConnector.UizaUnknownError())
 				}
 			}
-		}
-		else {
+		} else {
 			dataRequest = Alamofire.request(url, method: method, parameters: params, encoding: encodingType, headers: self.requestHeaderFields)
 			dataRequest!.session.configuration.timeoutIntervalForRequest = timeoutInterval
 			dataRequest!.session.configuration.requestCachePolicy = cachePolicy
@@ -361,7 +361,7 @@ open class UZAPIConnector {
 		}
 	}
 	
-	internal func parseDictionaryResult(dictionary:[String : Any]!, completion completionBlock:APIConnectorResultBlock? = nil) {
+	internal func parseDictionaryResult(dictionary: [String: Any]!, completion completionBlock: APIConnectorResultBlock? = nil) {
 		if completionBlock != nil {
 			let errorCode: Int? = dictionary!["code"] != nil ? dictionary!["code"] as? Int : nil
 			/*
@@ -381,14 +381,15 @@ open class UZAPIConnector {
 		}
 	}
 	
+    // swiftlint:disable identifier_name
 	internal class func UizaUnknownError() -> NSError {
-        let error = NSError(domain: "Uiza", code: 100, userInfo: [NSLocalizedDescriptionKey : "Có lỗi xảy ra"])
+        let error = NSError(domain: "Uiza", code: 100, userInfo: [NSLocalizedDescriptionKey: "Có lỗi xảy ra"])
         UZSentry.sendNSError(error: error)
 		return error
 	}
 	
-	internal class func UizaError(code:Int, message:String) -> NSError {
-        let error = NSError(domain: "Uiza", code: 100, userInfo: [NSLocalizedDescriptionKey : message])
+	internal class func UizaError(code: Int, message: String) -> NSError {
+        let error = NSError(domain: "Uiza", code: 100, userInfo: [NSLocalizedDescriptionKey: message])
         UZSentry.sendNSError(error: error)
 		return error
 	}

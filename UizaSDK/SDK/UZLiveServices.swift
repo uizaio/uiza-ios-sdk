@@ -79,17 +79,16 @@ open class UZLiveServices: UZAPIConnector {
 	- parameter id: `id` of live event
 	*/
 	public func loadLiveEvent(id: String, completionBlock: ((UZLiveEvent?, Error?) -> Void)? = nil) {
-		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
+		self.requestHeaderFields = ["Authorization": UizaSDK.token]
 		
-		self.callAPI(UZAPIConstant.liveEntityApi, method: .get, params: ["id" : id]) { (result, error) in
+		self.callAPI(UZAPIConstant.liveEntityApi, method: .get, params: ["id": id]) { (result, error) in
 //			DLog("\(result) - \(error)")
 			if let data = result?.value(for: "data", defaultValue: nil) as? NSDictionary {
 				let result = UZLiveEvent(data: data)
 				DispatchQueue.main.async {
 					completionBlock?(result, nil)
 				}
-			}
-			else {
+			} else {
 				DispatchQueue.main.async {
 					completionBlock?(nil, error)
 				}
@@ -103,9 +102,9 @@ open class UZLiveServices: UZAPIConnector {
 	- parameter completionBlock: Block called when finished, return `Error` if occured
 	*/
 	public func startLiveEvent(id: String, completionBlock: ((Error?) -> Void)? = nil) {
-		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
+		self.requestHeaderFields = ["Authorization": UizaSDK.token]
 		
-		self.callAPI(UZAPIConstant.liveEntityFeedApi, method: .post, params: ["id" : id]) { (result, error) in
+		self.callAPI(UZAPIConstant.liveEntityFeedApi, method: .post, params: ["id": id]) { (_, error) in
 //			DLog("\(result) - \(error)")
 			DispatchQueue.main.async {
 				completionBlock?(error)
@@ -119,9 +118,9 @@ open class UZLiveServices: UZAPIConnector {
 	- parameter completionBlock: Block called when finished, return `Error` if occured
 	*/
 	public func endLiveEvent(id: String, completionBlock: ((Error?) -> Void)? = nil) {
-		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
+		self.requestHeaderFields = ["Authorization": UizaSDK.token]
 		
-		self.callAPI(UZAPIConstant.liveEntityApi, method: .put, params: ["id" : id]) { (result, error) in
+		self.callAPI(UZAPIConstant.liveEntityApi, method: .put, params: ["id": id]) { (_, error) in
 			DispatchQueue.main.async {
 				completionBlock?(error)
 			}
@@ -134,9 +133,9 @@ open class UZLiveServices: UZAPIConnector {
 	- parameter completionBlock: Block được trả về với giá trị số lượng người xem hoặc Error nếu có lỗi
 	*/
 	public func loadViews(liveId: String, completionBlock: ((_ views: Int, _ error: Error?) -> Void)? = nil) {
-		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
+		self.requestHeaderFields = ["Authorization": UizaSDK.token]
 		
-		let params: Parameters = ["id" : liveId]
+		let params: Parameters = ["id": liveId]
 		
 		self.callAPI(UZAPIConstant.liveCurrentViewApi, baseURLString: basePrivateAPIURLPath(), method: .get, params: params) { (result, error) in
 //			DLog("\(String(describing: result)) - \(String(describing: error))")
@@ -145,8 +144,7 @@ open class UZLiveServices: UZAPIConnector {
 				DispatchQueue.main.async {
 					completionBlock?(-1, error)
 				}
-			}
-			else {
+			} else {
 				var views: Int = -1
 				if let data = result!.value(for: "data", defaultValue: nil) as? NSDictionary {
 					views = data.int(for: "watchnow", defaultNumber: -1)
@@ -165,10 +163,10 @@ open class UZLiveServices: UZAPIConnector {
 	- parameter completionBlock: block called when completed, returns `UZLiveVideoStatus` or `Error` if occurred
 	*/
 	public func loadLiveStatus(video: UZVideoItem, completionBlock: ((_ result: UZLiveVideoStatus?, _ error: Error?) -> Void)? = nil) {
-		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
+		self.requestHeaderFields = ["Authorization": UizaSDK.token]
 		
-		let params: Parameters = ["entityId" 	: video.id ?? "",
-								  "feedId" 		: video.feedId ?? ""]
+		let params: Parameters = ["entityId": video.id ?? "",
+								  "feedId": video.feedId ?? ""]
 		
 		self.callAPI(UZAPIConstant.liveTrackingApi, baseURLString: basePrivateAPIURLPath(), method: .get, params: params) { (result, error) in
 //			DLog("\(String(describing: result)) - \(String(describing: error))")
@@ -177,9 +175,8 @@ open class UZLiveServices: UZAPIConnector {
 				DispatchQueue.main.async {
 					completionBlock?(nil, error)
 				}
-			}
-			else {
-				var status: UZLiveVideoStatus? = nil
+			} else {
+				var status: UZLiveVideoStatus?
 				if let data = result!.value(for: "data", defaultValue: nil) as? NSDictionary {
 					status = UZLiveVideoStatus(data: data)
 				}

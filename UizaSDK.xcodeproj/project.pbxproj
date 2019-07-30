@@ -277,6 +277,7 @@
 		691342A722CB3D7600BD6C56 /* get_entities.json in Resources */ = {isa = PBXBuildFile; fileRef = 691342A622CB3D7600BD6C56 /* get_entities.json */; };
 		691342C722CB485600BD6C56 /* get_entities_by_category.json in Resources */ = {isa = PBXBuildFile; fileRef = 691342C622CB485600BD6C56 /* get_entities_by_category.json */; };
 		691342CB22CB555700BD6C56 /* get_live_entities.json in Resources */ = {isa = PBXBuildFile; fileRef = 691342CA22CB555700BD6C56 /* get_live_entities.json */; };
+		69193EAB22F04D3D00F35ABF /* UZPlayer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69193EAA22F04D3D00F35ABF /* UZPlayer+.swift */; };
 		6948206622CC53E300371805 /* get_entities_fail.json in Resources */ = {isa = PBXBuildFile; fileRef = 6948206522CC53E300371805 /* get_entities_fail.json */; };
 		6948206822CC562C00371805 /* get_entities_fail_response_code.json in Resources */ = {isa = PBXBuildFile; fileRef = 6948206722CC562C00371805 /* get_entities_fail_response_code.json */; };
 		6948206C22CC57E900371805 /* get_entity_fail.json in Resources */ = {isa = PBXBuildFile; fileRef = 6948206B22CC57E900371805 /* get_entity_fail.json */; };
@@ -294,6 +295,8 @@
 		69622F55228415E500CB3895 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69622F54228415E500CB3895 /* Common.swift */; };
 		69622F56228417E900CB3895 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69622F54228415E500CB3895 /* Common.swift */; };
 		69622F57228417E900CB3895 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69622F54228415E500CB3895 /* Common.swift */; };
+		696855BF22F12FF10027EEAE /* UZPlayer++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696855BE22F12FF10027EEAE /* UZPlayer++.swift */; };
+		696855C022F133100027EEAE /* UZPlayer++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696855BE22F12FF10027EEAE /* UZPlayer++.swift */; };
 		697228E4228E931F00DEE5F1 /* UZPlayerMockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697228E1228E92C000DEE5F1 /* UZPlayerMockTests.swift */; };
 		697228EC228E936C00DEE5F1 /* UZPlayerMockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697228E1228E92C000DEE5F1 /* UZPlayerMockTests.swift */; };
 		697228F2228E945800DEE5F1 /* UZPlayerUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696072EE228A78F200911CD2 /* UZPlayerUnitTests.swift */; };
@@ -302,6 +305,7 @@
 		69784B6C2293A52A00B6F3A5 /* UZVisualizeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69784B6B2293A52A00B6F3A5 /* UZVisualizeInfo.swift */; };
 		69784B6D2293A7D700B6F3A5 /* UZVisualizeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69784B6B2293A52A00B6F3A5 /* UZVisualizeInfo.swift */; };
 		69BDB3E822CC815100FD7C93 /* UZLiveServicesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BDB3E722CC815100FD7C93 /* UZLiveServicesTests.swift */; };
+		69DB238022F05A2C000D1359 /* UZPlayer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69193EAA22F04D3D00F35ABF /* UZPlayer+.swift */; };
 		69E4E1AF22CC8B710021CED6 /* start_live_feed.json in Resources */ = {isa = PBXBuildFile; fileRef = 69E4E1AE22CC8B710021CED6 /* start_live_feed.json */; };
 		69E4E1B222CC8C910021CED6 /* end_live_feed.json in Resources */ = {isa = PBXBuildFile; fileRef = 69E4E1B122CC8C910021CED6 /* end_live_feed.json */; };
 		69E4E1B522CC8D3C0021CED6 /* load_live_event_views_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 69E4E1B422CC8D3C0021CED6 /* load_live_event_views_success.json */; };
@@ -475,6 +479,7 @@
 		691342A622CB3D7600BD6C56 /* get_entities.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = get_entities.json; sourceTree = "<group>"; };
 		691342C622CB485600BD6C56 /* get_entities_by_category.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = get_entities_by_category.json; sourceTree = "<group>"; };
 		691342CA22CB555700BD6C56 /* get_live_entities.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = get_live_entities.json; sourceTree = "<group>"; };
+		69193EAA22F04D3D00F35ABF /* UZPlayer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UZPlayer+.swift"; sourceTree = "<group>"; };
 		6948206522CC53E300371805 /* get_entities_fail.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = get_entities_fail.json; sourceTree = "<group>"; };
 		6948206722CC562C00371805 /* get_entities_fail_response_code.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = get_entities_fail_response_code.json; sourceTree = "<group>"; };
 		6948206B22CC57E900371805 /* get_entity_fail.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = get_entity_fail.json; sourceTree = "<group>"; };
@@ -494,6 +499,7 @@
 		696072F0228A78F200911CD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6960DA6C22A1050C00C8454B /* UZVisualizeInformationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZVisualizeInformationView.swift; sourceTree = "<group>"; };
 		69622F54228415E500CB3895 /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
+		696855BE22F12FF10027EEAE /* UZPlayer++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UZPlayer++.swift"; sourceTree = "<group>"; };
 		697228E1228E92C000DEE5F1 /* UZPlayerMockTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZPlayerMockTests.swift; sourceTree = "<group>"; };
 		69784B6B2293A52A00B6F3A5 /* UZVisualizeInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZVisualizeInfo.swift; sourceTree = "<group>"; };
 		69BDB3E722CC815100FD7C93 /* UZLiveServicesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZLiveServicesTests.swift; sourceTree = "<group>"; };
@@ -710,6 +716,8 @@
 				63D3A5E4224E08BB00732A0C /* Controls */,
 				63D3A5EE224E08BB00732A0C /* Themes */,
 				63D3A5EB224E08BB00732A0C /* UZPlayer.swift */,
+				69193EAA22F04D3D00F35ABF /* UZPlayer+.swift */,
+				696855BE22F12FF10027EEAE /* UZPlayer++.swift */,
 				6320191C22D5B04E00711EB8 /* UZPlayerLayerView.swift */,
 				63D3A5DE224E08BB00732A0C /* UZPlayerViewController.swift */,
 				63D3A5F8224E08BB00732A0C /* UZFloatingPlayerViewController.swift */,
@@ -1108,6 +1116,7 @@
 				6367257D226868280072612F /* Resources */,
 				3197971DC447E294E4F98B66 /* [CP] Embed Pods Frameworks */,
 				66135103E49068E03D6D9158 /* [CP] Copy Pods Resources */,
+				69A98E7522FBCE6B006DA511 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1146,6 +1155,7 @@
 				63D3A5B8224E07FA00732A0C /* Sources */,
 				63D3A5B9224E07FA00732A0C /* Frameworks */,
 				63D3A5BA224E07FA00732A0C /* Resources */,
+				69A98E7322FBC4D0006DA511 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1383,6 +1393,40 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-UizaSDKTest/Pods-UizaSDKTest-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		69A98E7322FBC4D0006DA511 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
+		69A98E7522FBCE6B006DA511 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
 		7D01088C0CB992A9CC93325E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1498,6 +1542,7 @@
 				636725D722686AD70072612F /* UZPagination.swift in Sources */,
 				69784B6D2293A7D700B6F3A5 /* UZVisualizeInfo.swift in Sources */,
 				69EEEC812285708D0076A956 /* UZPlayerControlView+.swift in Sources */,
+				696855C022F133100027EEAE /* UZPlayer++.swift in Sources */,
 				63A4C8C8228E71880039620E /* AVAsset+Selection.swift in Sources */,
 				636725F222686AE00072612F /* NSDictionary+KeyValue.swift in Sources */,
 				636725F422686AE00072612F /* String+Components.swift in Sources */,
@@ -1530,6 +1575,7 @@
 				636725AB22686AA70072612F /* Math.swift in Sources */,
 				636725A122686A7C0072612F /* UZAirPlayButton.swift in Sources */,
 				69622F57228417E900CB3895 /* Common.swift in Sources */,
+				69DB238022F05A2C000D1359 /* UZPlayer+.swift in Sources */,
 				636725A522686A7F0072612F /* UZTheme3.swift in Sources */,
 				636725DD22686AD70072612F /* UZPlayerConfig.swift in Sources */,
 				690A91CF22D32BD700DBBCBF /* UZVideoSubtitle.swift in Sources */,
@@ -1690,6 +1736,7 @@
 				63D3A62D224E08BB00732A0C /* UZUser.swift in Sources */,
 				63D3A630224E08BB00732A0C /* UZLiveEvent.swift in Sources */,
 				630C397722607F9400ACFDAE /* Easing.swift in Sources */,
+				696855BF22F12FF10027EEAE /* UZPlayer++.swift in Sources */,
 				63193FFB225102E500FFC560 /* UZSubtitles.swift in Sources */,
 				69EEEC8322857DCB0076A956 /* UZRelatedViewController+.swift in Sources */,
 				63193FEE225102DD00FFC560 /* UZPlayerControlView.swift in Sources */,
@@ -1729,6 +1776,7 @@
 				630C396F22607F9400ACFDAE /* DelayAction.swift in Sources */,
 				63D3A631224E08BB00732A0C /* UZModelObject.swift in Sources */,
 				63D3A66E224E08BB00732A0C /* Date+Comparators.swift in Sources */,
+				69193EAB22F04D3D00F35ABF /* UZPlayer+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1782,7 +1830,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 385YL4KG69;
+				DEVELOPMENT_TEAM = N553UPX8WV;
 				INFOPLIST_FILE = UizaSDKTest/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1802,7 +1850,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 385YL4KG69;
+				DEVELOPMENT_TEAM = N553UPX8WV;
 				INFOPLIST_FILE = UizaSDKTest/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (

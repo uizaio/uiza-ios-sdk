@@ -12,13 +12,13 @@ import FrameLayoutKit
 import NVActivityIndicatorView
 
 open class UZTheme3: UZPlayerTheme {
-	public weak var controlView: UZPlayerControlView? = nil
+	public weak var controlView: UZPlayerControlView?
 	
 	let topGradientLayer = CAGradientLayer()
 	
-	internal var topFrameLayout 	: DoubleFrameLayout?
-	internal var bottomFrameLayout 	: StackFrameLayout?
-	internal var mainFrameLayout 	: StackFrameLayout?
+	internal var topFrameLayout: DoubleFrameLayout?
+	internal var bottomFrameLayout: StackFrameLayout?
+	internal var mainFrameLayout: StackFrameLayout?
 	
 	internal var iconColor = UIColor.white
 	internal var iconSize = CGSize(width: 24, height: 24)
@@ -133,7 +133,9 @@ open class UZTheme3: UZPlayerTheme {
 	func setupLayout() {
 		guard let controlView = controlView else { return }
 		
-		let controlFrameLayout = StackFrameLayout(axis: .horizontal, views: [controlView.pipButton, controlView.castingButton, controlView.playlistButton, controlView.ccButton, controlView.settingsButton, controlView.volumeButton])
+		let controlFrameLayout = StackFrameLayout(axis: .horizontal, views: [controlView.pipButton, controlView.castingButton,
+                                                                             controlView.playlistButton, controlView.ccButton,
+                                                                             controlView.settingsButton, controlView.volumeButton])
         controlFrameLayout.addSubview(controlView.castingButton)
 		controlFrameLayout.addSubview(controlView.pipButton)
 		controlFrameLayout.addSubview(controlView.playlistButton)
@@ -181,7 +183,8 @@ open class UZTheme3: UZPlayerTheme {
 			frameLayout.minSize = buttonMinSize
 		}
 		
-		bottomFrameLayout = StackFrameLayout(axis: .horizontal, distribution: .left, views: [bottomLeftFrameLayout, controlView.timeSlider, bottomRightFrameLayout])
+		bottomFrameLayout = StackFrameLayout(axis: .horizontal, distribution: .left,
+                                             views: [bottomLeftFrameLayout, controlView.timeSlider, bottomRightFrameLayout])
 		bottomFrameLayout?.frameLayout(at: 1)?.isFlexible = true
 		bottomFrameLayout!.addSubview(controlView.currentTimeLabel)
 		bottomFrameLayout!.addSubview(controlView.remainTimeLabel)
@@ -195,7 +198,8 @@ open class UZTheme3: UZPlayerTheme {
 		bottomFrameLayout!.layer.cornerRadius = 10
 		bottomFrameLayout!.layer.masksToBounds = true
 		
-		let centerFrameLayout = StackFrameLayout(axis: .horizontal, distribution: .center, views: [controlView.previousButton, controlView.playpauseCenterButton, controlView.nextButton])
+		let centerFrameLayout = StackFrameLayout(axis: .horizontal, distribution: .center,
+                                                 views: [controlView.previousButton, controlView.playpauseCenterButton, controlView.nextButton])
 		centerFrameLayout.spacing = 30
 		centerFrameLayout.isUserInteractionEnabled = true
 		centerFrameLayout.addSubview(controlView.previousButton)
@@ -240,7 +244,9 @@ open class UZTheme3: UZPlayerTheme {
 			if controlView.enlapseTimeLabel.isHidden == false {
 				let labelSize = controlView.enlapseTimeLabel.sizeThatFits(viewSize)
 				let edgeInsets = mainFrameLayout?.lastFrameLayout?.edgeInsets ?? .zero
-				controlView.enlapseTimeLabel.frame = CGRect(x: edgeInsets.left + 5, y: viewSize.height - labelSize.height - edgeInsets.bottom - 8, width: labelSize.width, height: labelSize.height)
+				controlView.enlapseTimeLabel.frame = CGRect(x: edgeInsets.left + 5,
+                                                            y: viewSize.height - labelSize.height - edgeInsets.bottom - 8,
+                                                            width: labelSize.width, height: labelSize.height)
 			}
 		}
 		
@@ -258,7 +264,9 @@ open class UZTheme3: UZPlayerTheme {
 	open func showLoader() {
 		if let controlView = controlView {
 			if controlView.loadingIndicatorView == nil {
-				controlView.loadingIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 30, height: 30), type: NVActivityIndicatorType.ballSpinFadeLoader, color: .white, padding: 0)
+				controlView.loadingIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 30, height: 30),
+                                                                           type: NVActivityIndicatorType.ballSpinFadeLoader,
+                                                                           color: .white, padding: 0)
 				controlView.addSubview(controlView.loadingIndicatorView!)
 			}
 			

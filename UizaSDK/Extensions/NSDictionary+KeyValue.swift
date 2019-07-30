@@ -11,8 +11,8 @@ import UIKit
 
 extension NSDictionary {
 	
-	func value(for key:String, defaultValue:Any? = nil) -> Any? {
-		let result : Any? = self[key]
+	func value(for key: String, defaultValue: Any? = nil) -> Any? {
+		let result: Any? = self[key]
 		
 		if result == nil || (result is NSNull) {
 			return defaultValue
@@ -21,8 +21,8 @@ extension NSDictionary {
 		return result
 	}
 	
-	func array(for key:String, defaultValue:[Any]? = nil) -> [Any]? {
-		let result : Any? = self[key]
+	func array(for key: String, defaultValue: [Any]? = nil) -> [Any]? {
+		let result: Any? = self[key]
 		
 		if result == nil || (result is NSNull) {
 			return defaultValue
@@ -31,83 +31,74 @@ extension NSDictionary {
 		return result is [Any] ? result as? [Any] : defaultValue
 	}
 	
-	func string(for key:String, defaultString:String? = nil) -> String? {
-		let result : Any? = self[key]
+	func string(for key: String, defaultString: String? = nil) -> String? {
+		let result: Any? = self[key]
 		
 		if result == nil || (result is NSNull) {
 			return defaultString
-		}
-		else if result is NSNumber {
-			return String(format:"%i", result as! Int64)
+		} else if result is NSNumber {
+            return String(format: "%i", result as? Int64 ?? 0)
 		}
 		
 		return result as? String
 	}
 	
-	func number(for key:String, defaultNumber:NSNumber? = nil) -> NSNumber? {
-		let result : Any? = self[key]
+	func number(for key: String, defaultNumber: NSNumber? = nil) -> NSNumber? {
+		let result: Any? = self[key]
 		if result == nil || (result is NSNull) {
 			return defaultNumber
-		}
-		else if (result is String) {
-			return NSNumber(value: (result as! String).floatValue)
-		}
-		else if (result is NSNumber) {
-			return (result as! NSNumber)
+		} else if result is String {
+			return NSNumber(value: (result as? String ?? "").floatValue)
+		} else if result is NSNumber {
+			return (result as? NSNumber)
 		}
 		
 		return defaultNumber
 	}
 	
-	func float(for key:String, defaultNumber:Float = 0) -> Float {
-		let result : Any? = self[key]
+	func float(for key: String, defaultNumber: Float = 0) -> Float {
+		let result: Any? = self[key]
 		
 		if result == nil || (result is NSNull) {
 			return defaultNumber
-		}
-		else if (result is String) {
-			return (result as! String).floatValue
-		}
-		else if (result is NSNumber) {
-			return (result as! NSNumber).floatValue
+		} else if result is String {
+			return (result as? String ?? "").floatValue
+		} else if result is NSNumber {
+            return (result as? NSNumber ?? 0).floatValue
 		}
 		
 		return defaultNumber
 	}
 	
-	func int(for key:String, defaultNumber:Int = 0) -> Int {
-		let result : Any? = self[key]
+	func int(for key: String, defaultNumber: Int = 0) -> Int {
+		let result: Any? = self[key]
 		
 		if result == nil || (result is NSNull) {
 			return defaultNumber
-		}
-		else if (result is String) {
-			return (result as! String).intValue
-		}
-		else if (result is NSNumber) {
-			return (result as! NSNumber).intValue
+		} else if result is String {
+			return (result as? String ?? "").intValue
+		} else if result is NSNumber {
+			return (result as? NSNumber ?? 0).intValue
 		}
 		
 		return defaultNumber
 	}
 	
-	func double(for key:String, defaultNumber:Double = 0) -> Double {
-		let result : Any? = self[key]
+	func double(for key: String, defaultNumber: Double = 0) -> Double {
+		let result: Any? = self[key]
 		
 		if result == nil || (result is NSNull) {
 			return defaultNumber
-		}
-		else if (result is String) {
-			return (result as! String).doubleValue
-		}
-		else if (result is NSNumber) {
-			return (result as! NSNumber).doubleValue
+		} else if result is String {
+			return (result as? String ?? "").doubleValue
+		} else if result is NSNumber {
+			return (result as? NSNumber ?? 0).doubleValue
 		}
 		
 		return defaultNumber
 	}
 	
-	func url(for key:String, defaultURL:URL? = nil) -> URL? {
+	func url(for key: String, defaultURL: URL? = nil) -> URL? {
 		if var result = self.string(for: key, defaultString: nil) {
 			if result.hasPrefix("//") {
 				result = "http" + result
@@ -119,29 +110,27 @@ extension NSDictionary {
 		return defaultURL
 	}
 	
-	func bool(for key:String, defaultValue:Bool = false) -> Bool {
-		let result : Any? = self[key]
+	func bool(for key: String, defaultValue: Bool = false) -> Bool {
+		let result: Any? = self[key]
 		
 		if result == nil || (result is NSNull) {
 			return defaultValue
-		}
-		else if result is String {
-			return (result as! String).toBool()
-		}
-		else if result is NSNumber {
-			return (result as! NSNumber).boolValue
+		} else if result is String {
+			return (result as? String ?? "").toBool()
+		} else if result is NSNumber {
+			return (result as? NSNumber ?? 0).boolValue
 		}
 		
-		return result as! Bool
+		return result as? Bool ?? false
 	}
 	
-	func color(for key:String, defaultColor:UIColor? = nil) -> UIColor? {
-		let result : String? = self.string(for: key, defaultString: nil)
+	func color(for key: String, defaultColor: UIColor? = nil) -> UIColor? {
+		let result: String? = self.string(for: key, defaultString: nil)
 		return result != nil ? UIColor(hex: result!) : defaultColor
 	}
 	
-	func date(for key:String, defaultDate:Date? = nil) -> Date? {
-		let result : String? = self.string(for: key, defaultString: nil)
+	func date(for key: String, defaultDate: Date? = nil) -> Date? {
+		let result: String? = self.string(for: key, defaultString: nil)
 		return result != nil ? Date(fromString: result!, format: .isoDateTimeMilliSec, timeZone: .local, locale: Locale(identifier: "vi_VN")) : defaultDate
 	}
 	

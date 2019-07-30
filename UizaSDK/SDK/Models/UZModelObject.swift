@@ -13,7 +13,7 @@ Class model nền tảng được dùng bởi tất cả các model khác trong 
 */
 open class UZModelObject: NSObject, NSCoding {
 	/** Dữ liệu thô của model sẽ được chứa tại đây */
-	public var data: NSMutableDictionary? = nil
+	public var data: NSMutableDictionary?
 	
 	/** Giúp truy cập dữ liệu theo kiểu subscript object[key] */
 	open subscript(key: String) -> Any? {
@@ -57,7 +57,7 @@ open class UZModelObject: NSObject, NSCoding {
 	Khởi tạo class
 	*/
 	open func encode(with aCoder: NSCoder) {
-		if (self.data != nil) {
+		if self.data != nil {
 			aCoder.encode(self.data, forKey: "data")
 		}
 	}

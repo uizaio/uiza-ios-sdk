@@ -17,9 +17,9 @@ open class UZBannerItem: UZModelObject {
 	/** Tiêu đề của banner */
 	public var caption: String! = ""
 	/** Link hình ảnh */
-	public var imageURL: URL? = nil
+	public var imageURL: URL?
 	/** Link được trỏ tới khi nhấn vào */
-	public var url: URL? = nil
+	public var url: URL?
 	/** Video item cần phát khi nhấn vào */
 	public var videoItem: UZVideoItem?
 	

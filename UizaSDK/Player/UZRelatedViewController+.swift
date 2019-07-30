@@ -32,16 +32,16 @@ extension UZRelatedViewController: NKModalViewControllerProtocol {
 import SDWebImage
 import FrameLayoutKit
 
-class UZMovieItemCollectionViewCell : UICollectionViewCell {
+class UZMovieItemCollectionViewCell: UICollectionViewCell {
     let imageView		= UIImageView()
     let highlightView	= UIView()
     let titleLabel		= UILabel()
     let detailLabel		= UILabel()
-    let playingLabel		= UILabel()
-    var placeholderImage	: UIImage! = nil
-    var displayMode			: UZCellDisplayMode! = .portrait
-    var textFrameLayout		: DoubleFrameLayout!
-    var frameLayout			: DoubleFrameLayout!
+    let playingLabel	= UILabel()
+    var placeholderImage: UIImage! = nil
+    var displayMode: UZCellDisplayMode! = .portrait
+    var textFrameLayout: DoubleFrameLayout!
+    var frameLayout: DoubleFrameLayout!
 	
     var highlightMode        = false {
         didSet {
@@ -85,8 +85,7 @@ class UZMovieItemCollectionViewCell : UICollectionViewCell {
                 UIView.animate(withDuration: 0.3) {
                     self.contentView.alpha = newValue ? 1.0 : 0.25
                 }
-            }
-            else {
+            } else {
                 self.contentView.alpha = 1.0
                 self.updateColor()
             }
@@ -100,7 +99,7 @@ class UZMovieItemCollectionViewCell : UICollectionViewCell {
         }
     }
     
-    var videoItem : UZVideoItem! {
+    var videoItem: UZVideoItem! {
         didSet {
             if videoItem != oldValue {
                 updateView()
@@ -114,8 +113,7 @@ class UZMovieItemCollectionViewCell : UICollectionViewCell {
             
             titleLabel.textColor = UIColor(white: 0.0, alpha: 1.0)
             detailLabel.textColor = UIColor(white: 0.0, alpha: 0.6)
-        }
-        else {
+        } else {
             titleLabel.textColor = UIColor(white: 1.0, alpha: 1.0)
             detailLabel.textColor = UIColor(white: 1.0, alpha: 0.6)
             
@@ -157,7 +155,7 @@ class UZMovieItemCollectionViewCell : UICollectionViewCell {
         }
         playingLabel.textColor = .white
         playingLabel.textAlignment = .center
-        playingLabel.backgroundColor = UIColor(red:0.91, green:0.31, blue:0.28, alpha:1.00)
+        playingLabel.backgroundColor = UIColor(red: 0.91, green: 0.31, blue: 0.28, alpha: 1.00)
         playingLabel.isHidden = true
         
         self.contentView.addSubview(highlightView)
@@ -199,15 +197,15 @@ class UZMovieItemCollectionViewCell : UICollectionViewCell {
             let imageURL = displayMode == .portrait ? videoItem.thumbnailURL : videoItem.thumbnailURL
             
             if imageURL != nil {
-                imageView.sd_setImage(with: imageURL, placeholderImage: placeholderImage, options: .avoidAutoSetImage, completed: { [weak self] (image, error, cache, url) -> Void in
+                imageView.sd_setImage(with: imageURL, placeholderImage: placeholderImage,
+                                      options: .avoidAutoSetImage, completed: { [weak self] (image, _, cache, _) -> Void in
 					guard let self = self else { return }
 					
                     if cache == .none {
 						UIView.transition(with: self.imageView, duration: 0.35, options: [.transitionCrossDissolve, .curveEaseOut], animations: { () -> Void in
 							self.imageView.image = image
 						}, completion: nil)
-                    }
-                    else {
+                    } else {
                         self.imageView.image = image
                     }
                 })
@@ -222,16 +220,15 @@ class UZMovieItemCollectionViewCell : UICollectionViewCell {
             if detailMode {
                 titleLabel.text = videoItem.name
                 
-                let descriptionText = videoItem.shortDescription.count>0 ? videoItem.shortDescription : videoItem.details
+                let descriptionText = !videoItem.shortDescription.isEmpty ? videoItem.shortDescription : videoItem.details
                 detailLabel.text = descriptionText
                 
-                titleLabel.numberOfLines = description.count > 0 ? 2 : 3
+                titleLabel.numberOfLines = !description.isEmpty ? 2 : 3
                 
                 frameLayout.distribution = .left
                 frameLayout.axis = .horizontal
                 frameLayout.leftFrameLayout.fixSize = CGSize(width: 160, height: 0)
-            }
-            else {
+            } else {
                 titleLabel.text = videoItem.name
                 titleLabel.numberOfLines = 1
                 
@@ -241,14 +238,12 @@ class UZMovieItemCollectionViewCell : UICollectionViewCell {
                 frameLayout.axis = .vertical
                 frameLayout.leftFrameLayout.minSize = CGSize.zero
             }
-        }
-        else {
+        } else {
 //            self.clipsToBounds = true
         }
         
         self.setNeedsLayout()
     }
-    
     
     // MARK: -
     

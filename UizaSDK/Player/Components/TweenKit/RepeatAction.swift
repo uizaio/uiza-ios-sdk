@@ -13,8 +13,8 @@ public class RepeatAction: FiniteTimeAction {
     
     // MARK: - Public
     
-    public var onBecomeActive: () -> () = {}
-    public var onBecomeInactive: () -> () = {}
+    public var onBecomeActive: () -> Void = {}
+    public var onBecomeInactive: () -> Void = {}
     
     /**
      Create with an action to repeat
@@ -29,7 +29,7 @@ public class RepeatAction: FiniteTimeAction {
     
     // MARK: - Private Properties
     public var reverse: Bool = false {
-        didSet{
+        didSet {
             action.reverse = reverse
         }
     }
@@ -60,7 +60,7 @@ public class RepeatAction: FiniteTimeAction {
     public func didFinish() {
         
         // We might have skipped over the action, so we still need to run the full cycle
-        (lastRepeatNumber..<repeats-1).forEach{ _ in
+        (lastRepeatNumber..<repeats-1).forEach { _ in
             self.action.didFinish()
             self.action.willBegin()
         }
@@ -72,7 +72,7 @@ public class RepeatAction: FiniteTimeAction {
         
         let repeatNumber = Int( t * Double(repeats) ).constrained(max: repeats-1)
         
-        (lastRepeatNumber..<repeatNumber).forEach{ _ in
+        (lastRepeatNumber..<repeatNumber).forEach { _ in
             self.action.didFinish()
             self.action.willBegin()
         }
@@ -80,10 +80,9 @@ public class RepeatAction: FiniteTimeAction {
         let actionT = ( t * Double(repeats) ).fract
 
         // Avoid situation where fract is 0.0 because t is 1.0
-        if t > 0 && actionT == 0  {
+        if t > 0 && actionT == 0 {
             action.update(t: 1.0)
-        }
-        else{
+        } else {
             action.update(t: actionT)
         }
         

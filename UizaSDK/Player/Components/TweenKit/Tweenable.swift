@@ -53,7 +53,7 @@ extension Double: Tweenable {
 // MARK: - Tweenable2D
 
 /** Protocal for values that can be animated with a separate x and y value */
-public protocol Tweenable2DCoordinate{
+public protocol Tweenable2DCoordinate {
     
     /** Get the current x value */
     var tweenableX: Double {get}

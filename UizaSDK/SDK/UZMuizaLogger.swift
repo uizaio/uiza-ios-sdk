@@ -13,7 +13,7 @@ import Alamofire
 /**
 Class for Muiza logging
 */
-open class UZMuizaLogger : UZAPIConnector{
+open class UZMuizaLogger: UZAPIConnector {
 	/// Singleton instance
 	static public let shared = UZMuizaLogger()
 	
@@ -21,6 +21,7 @@ open class UZMuizaLogger : UZAPIConnector{
 	fileprivate var fixedData: NSDictionary?
 	fileprivate var lastSentDate: Date! = Date()
 	
+    // swiftlint:disable identifier_name
 	private static let URL_TRACKING_DEV  = "https://dev-tracking.uizadev.io/analytic-tracking/"
 	private static let URL_TRACKING_STAG = "https://stag-tracking.uiza.io/analytic-tracking/"
 	private static let URL_TRACKING_PROD = "https://tracking.uiza.io/analytic-tracking/"
@@ -51,55 +52,55 @@ open class UZMuizaLogger : UZAPIConnector{
 		}
 	}()
 	
-	var timer: Timer? = nil
+	var timer: Timer?
 	
 	private override init() {
 		super.init()
 		
 		self.logArray = []
 		
-		let macAddress	: String = UIDevice.current.identifierForVendor?.uuidString ?? ""
-//		let bundleId	: String = Bundle.main.bundleIdentifier ?? ""
-		let iosVersion	: String = UIDevice.current.systemVersion
+		let macAddress: String = UIDevice.current.identifierForVendor?.uuidString ?? ""
+//		let bundleId: String = Bundle.main.bundleIdentifier ?? ""
+		let iosVersion: String = UIDevice.current.systemVersion
 		
 		#if os(macOS)
-		let platform	: String = "macOS"
+		let platform: String = "macOS"
 		#else
-		let platform	: String = UIDevice.isTV() ? "tvos" : "ios"
+		let platform: String = UIDevice.isTV() ? "tvos" : "ios"
 		#endif
 		
-		fixedData = ["app_id" : UizaSDK.appId,
-					 "beacon_domain" : URL(string: loggingURLString)!.host ?? "",
+		fixedData = ["app_id": UizaSDK.appId,
+					 "beacon_domain": URL(string: loggingURLString)!.host ?? "",
 					 "view_id": macAddress,
-					 "viewer_os_architecture" : platform,
+					 "viewer_os_architecture": platform,
 					 "viewer_os_family": UIDevice.current.model,
 					 "viewer_os_version": iosVersion,
-					 "page_type" : "app",
-					 "player_version" : PLAYER_VERSION]
+					 "page_type": "app",
+					 "player_version": PLAYER_VERSION]
 	}
 	
 	// MARK: -
 	
 	#if TVOS_VERSION
 	open func log(eventName: String, params: [String: AnyHashable]? = nil, video: UZVideoItem? = nil, linkplay: UZVideoLinkPlay? = nil) {
-		let logData: NSMutableDictionary = ["event" : eventName]
+		let logData: NSMutableDictionary = ["event": eventName]
 		
 		if let video = video {
-			let videoData: [String : AnyHashable] = ["entity_id" 		: video.id,
-												  "entity_name" 		: video.name,
-												  "entity_poster_url" 	: video.thumbnailURL?.absoluteString ?? "",
-												  "entity_duration" 	: video.duration,
-												  "entity_is_live" 		: video.isLive,
-												  "entity_content_type" : "video"]
+			let videoData: [String: AnyHashable] = ["entity_id": video.id,
+												  "entity_name": video.name,
+												  "entity_poster_url": video.thumbnailURL?.absoluteString ?? "",
+												  "entity_duration": video.duration,
+												  "entity_is_live": video.isLive,
+												  "entity_content_type": "video"]
 			logData.addEntries(from: videoData)
 		}
 		
 		if let linkplay = linkplay {
-			let linkplayData: [String: AnyHashable] = ["entity_source_url" 		: linkplay.url.absoluteString,
-													 "entity_source_domain" 	: linkplay.url.host ?? "",
-													 "entity_source_hostname" 	: linkplay.url.host ?? "",
-													 "entity_source_cdn" 		: linkplay.url.host ?? "",
-													 "entity_source_mime_type" 	: "application/x-mpegURL"]
+			let linkplayData: [String: AnyHashable] = ["entity_source_url": linkplay.url.absoluteString,
+													 "entity_source_domain": linkplay.url.host ?? "",
+													 "entity_source_hostname": linkplay.url.host ?? "",
+													 "entity_source_cdn": linkplay.url.host ?? "",
+													 "entity_source_mime_type": "application/x-mpegURL"]
 			logData.addEntries(from: linkplayData)
 		}
 		
@@ -111,40 +112,40 @@ open class UZMuizaLogger : UZAPIConnector{
 	}
 	#else
 	open func log(eventName: String, params: [String: AnyHashable]? = nil, video: UZVideoItem? = nil, linkplay: UZVideoLinkPlay? = nil, player: UZPlayer? = nil) {
-		let logData: NSMutableDictionary = ["event" : eventName]
+		let logData: NSMutableDictionary = ["event": eventName]
 		
 		if let video = video {
-			let videoData: [String : AnyHashable] = ["entity_id" 		: video.id,
-													 "entity_name" 		: video.name,
-													 "entity_poster_url" 	: video.thumbnailURL?.absoluteString ?? "",
-													 "entity_duration" 	: video.duration,
-													 "entity_is_live" 		: video.isLive,
-													 "entity_content_type" : "video"]
+			let videoData: [String: AnyHashable] = ["entity_id": video.id,
+													 "entity_name": video.name,
+													 "entity_poster_url": video.thumbnailURL?.absoluteString ?? "",
+													 "entity_duration": video.duration,
+													 "entity_is_live": video.isLive,
+													 "entity_content_type": "video"]
 			logData.addEntries(from: videoData)
 		}
 		
 		if let linkplay = linkplay {
-			let linkplayData: [String: AnyHashable] = ["entity_source_url" 		: linkplay.url.absoluteString,
-													   "entity_source_domain" 	: linkplay.url.host ?? "",
-													   "entity_source_hostname" 	: linkplay.url.host ?? "",
-													   "entity_source_cdn" 		: linkplay.url.host ?? "",
-													   "entity_source_mime_type" 	: "application/x-mpegURL"]
+			let linkplayData: [String: AnyHashable] = ["entity_source_url": linkplay.url.absoluteString,
+													   "entity_source_domain": linkplay.url.host ?? "",
+													   "entity_source_hostname": linkplay.url.host ?? "",
+													   "entity_source_cdn": linkplay.url.host ?? "",
+													   "entity_source_mime_type": "application/x-mpegURL"]
 			logData.addEntries(from: linkplayData)
 		}
 		
 		if let player = player {
 			let playerSize = player.frame.size
-			let playerData: [String: AnyHashable] = ["player_width" 		: playerSize.width,
-													 "player_height" 		: playerSize.height,
-													 "player_autoplay_on" 	: player.shouldAutoPlay,
-													 "player_is_paused" 	: player.isPauseByUser]
+			let playerData: [String: AnyHashable] = ["player_width": playerSize.width,
+													 "player_height": playerSize.height,
+													 "player_autoplay_on": player.shouldAutoPlay,
+													 "player_is_paused": player.isPauseByUser]
 			logData.addEntries(from: playerData)
 			
 			if let avItem = player.avPlayer?.currentItem {
 				let duration = CMTimeGetSeconds(avItem.duration)
-				let itemData: [String: AnyHashable] = ["entity_source_duration" : duration.isNaN ? 0 : duration,
-													   "entity_source_width" 	: avItem.presentationSize.width,
-													   "entity_source_height" 	: avItem.presentationSize.height]
+				let itemData: [String: AnyHashable] = ["entity_source_duration": duration.isNaN ? 0 : duration,
+													   "entity_source_width": avItem.presentationSize.width,
+													   "entity_source_height": avItem.presentationSize.height]
 				logData.addEntries(from: itemData)
 			}
 		}
@@ -159,7 +160,7 @@ open class UZMuizaLogger : UZAPIConnector{
 	
 	private func appendLog(logData: NSDictionary) {
 		let finalLogData = NSMutableDictionary(dictionary: logData)
-		if let fixedData = fixedData as? [String : AnyHashable] {
+		if let fixedData = fixedData as? [String: AnyHashable] {
 			finalLogData.addEntries(from: fixedData)
 		}
 		
@@ -171,15 +172,17 @@ open class UZMuizaLogger : UZAPIConnector{
 	}
 	
 	@objc open func sendLogsIfApplicable() {
-		if logArray.count > 0 && Date().timeIntervalSince(lastSentDate) >= 10 {
+		if !logArray.isEmpty && Date().timeIntervalSince(lastSentDate) >= 10 {
 			sendLogs()
 		}
 	}
 	
 	private func sendLogs() {
 		lastSentDate = Date()
-		self.requestHeaderFields = ["AccessToken" : accessToken]
-		self.callAPI(UZAPIConstant.muizaLoggingApi, baseURLString: loggingURLString, method: .post, params: logArray.asParameters(), encodingType: ArrayEncoding()) { [weak self] (result, error) in
+		self.requestHeaderFields = ["AccessToken": accessToken]
+		self.callAPI(UZAPIConstant.muizaLoggingApi, baseURLString: loggingURLString,
+                     method: .post, params: logArray.asParameters(),
+                     encodingType: ArrayEncoding()) { [weak self] (_, error) in
 			if error == nil {
 				self?.stopAutoSendLogs()
 				self?.logArray = []
@@ -236,8 +239,7 @@ public struct ArrayEncoding: ParameterEncoding {
 			}
 			
 			urlRequest.httpBody = data
-		}
-		catch {
+		} catch {
             UZSentry.sendError(error: AFError.parameterEncodingFailed(reason: .jsonEncodingFailed(error: error)))
 			throw AFError.parameterEncodingFailed(reason: .jsonEncodingFailed(error: error))
 		}

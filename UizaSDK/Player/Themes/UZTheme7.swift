@@ -12,13 +12,13 @@ import FrameLayoutKit
 import NVActivityIndicatorView
 
 open class UZTheme7: UZPlayerTheme {
-	public weak var controlView: UZPlayerControlView? = nil
+	public weak var controlView: UZPlayerControlView?
 	
 	let topGradientLayer = CAGradientLayer()
 	
-	internal var topFrameLayout 	: DoubleFrameLayout?
-	internal var bottomFrameLayout 	: StackFrameLayout?
-	internal var mainFrameLayout 	: StackFrameLayout?
+	internal var topFrameLayout: DoubleFrameLayout?
+	internal var bottomFrameLayout: StackFrameLayout?
+	internal var mainFrameLayout: StackFrameLayout?
 	internal let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
 	
 	internal var iconColor = UIColor.white
@@ -61,8 +61,10 @@ open class UZTheme7: UZPlayerTheme {
 		let pauseIcon = UIImage(icon: .openIconic(.mediaPause), size: centerIconSize, textColor: iconColor, backgroundColor: .clear)
 		let fullscreenIcon = UIImage(icon: .googleMaterialDesign(.fullscreen), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let collapseIcon = UIImage(icon: .googleMaterialDesign(.fullscreenExit), size: iconSize, textColor: iconColor, backgroundColor: .clear)
-		let forwardIcon = UIImage(icon: .googleMaterialDesign(.fastForward), size: CGSize(width: 32, height: 32), textColor: iconColor, backgroundColor: .clear)
-		let backwardIcon = UIImage(icon: .googleMaterialDesign(.fastRewind), size: CGSize(width: 32, height: 32), textColor: iconColor, backgroundColor: .clear)
+		let forwardIcon = UIImage(icon: .googleMaterialDesign(.fastForward), size: CGSize(width: 32, height: 32),
+                                  textColor: iconColor, backgroundColor: .clear)
+		let backwardIcon = UIImage(icon: .googleMaterialDesign(.fastRewind), size: CGSize(width: 32, height: 32),
+                                   textColor: iconColor, backgroundColor: .clear)
 		let nextIcon = UIImage(icon: .googleMaterialDesign(.skipNext), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let previousIcon = UIImage(icon: .googleMaterialDesign(.skipPrevious), size: iconSize, textColor: iconColor, backgroundColor: .clear)
 		let thumbIcon = UIImage(icon: .fontAwesomeSolid(.circle), size: seekThumbSize, textColor: .white, backgroundColor: .clear)
@@ -145,9 +147,11 @@ open class UZTheme7: UZPlayerTheme {
 		topFrameLayout!.edgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 0, right: 5)
 //		topFrameLayout!.showFrameDebug = true
 		
-		let bottomLeftFrameLayout = StackFrameLayout(axis: .horizontal, views: [controlView.volumeButton, controlView.settingsButton, controlView.pipButton])
+		let bottomLeftFrameLayout = StackFrameLayout(axis: .horizontal,
+                                                     views: [controlView.volumeButton, controlView.settingsButton, controlView.pipButton])
 		bottomLeftFrameLayout.minSize = CGSize(width: (iconSize.width * 3) + 20, height: 0)
-		let bottomRightFrameLayout = StackFrameLayout(axis: .horizontal, views: [controlView.castingButton, controlView.playlistButton, controlView.fullscreenButton])
+		let bottomRightFrameLayout = StackFrameLayout(axis: .horizontal,
+                                                      views: [controlView.castingButton, controlView.playlistButton, controlView.fullscreenButton])
 		let bottomCenterFrameLayout = StackFrameLayout(axis: .horizontal)
 		bottomCenterFrameLayout.append(view: controlView.backwardButton).contentAlignment = (.center, .center)
 		bottomCenterFrameLayout.append(view: controlView.previousButton).contentAlignment = (.center, .center)
@@ -242,7 +246,8 @@ open class UZTheme7: UZPlayerTheme {
 			controlView.liveBadgeView.frame = CGRect(x: (viewSize.width - badgeSize.width)/2, y: 10, width: badgeSize.width, height: badgeSize.height)
 			
 			let labelSize = controlView.enlapseTimeLabel.sizeThatFits(viewSize)
-			controlView.enlapseTimeLabel.frame = CGRect(x: (viewSize.width - labelSize.width)/2, y: viewSize.height - labelSize.height - 18, width: labelSize.width, height: labelSize.height)
+			controlView.enlapseTimeLabel.frame = CGRect(x: (viewSize.width - labelSize.width)/2,
+                                                        y: viewSize.height - labelSize.height - 18, width: labelSize.width, height: labelSize.height)
 		}
 		
 		controlView?.loadingIndicatorView?.center = controlView?.center ?? .zero
@@ -259,7 +264,8 @@ open class UZTheme7: UZPlayerTheme {
 	open func showLoader() {
 		if let controlView = controlView {
 			if controlView.loadingIndicatorView == nil {
-				controlView.loadingIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 30, height: 30), type: NVActivityIndicatorType.lineScale, color: .white, padding: 0)
+				controlView.loadingIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 30, height: 30),
+                                                                           type: NVActivityIndicatorType.lineScale, color: .white, padding: 0)
 				controlView.addSubview(controlView.loadingIndicatorView!)
 			}
 			

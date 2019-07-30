@@ -5,7 +5,7 @@
 //  Created by Steve Barnegren on 17/03/2017.
 //  Copyright © 2017 Steve Barnegren. All rights reserved.
 //
-
+// swiftlint:disable all
 import Foundation
 
 let kPERIOD: Double = 0.3
@@ -201,5 +201,5 @@ public enum Easing: Int {
     }
     
     
-    
+
 }

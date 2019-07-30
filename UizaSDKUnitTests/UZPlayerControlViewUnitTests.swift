@@ -28,7 +28,7 @@ class UZPlayerControlViewUnitTests: XCTestCase {
         theme = UZThemeMock()
         // get videos in first page
         let promise = expectation(description: expectationDescription)
-        UZContentServices().loadEntity(metadataId: nil, publishStatus: .success, page: 0, limit: 15) { (results, error) in
+        UZContentServices().loadEntity(metadataId: nil, publishStatus: .success, page: 0, limit: 15) { (results, _) in
             promise.fulfill()
             if let videos = results, let video = videos.first {
                 self.video = video

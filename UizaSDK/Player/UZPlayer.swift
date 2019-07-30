@@ -40,6 +40,7 @@ public protocol UZPlayerDelegate : class {
 	func player(player: UZPlayer, playerIsPlaying playing: Bool)
 	func player(player: UZPlayer, playerDidFailToPlayToEndTime error: Error?)
 	func player(playerDidStall: UZPlayer)
+	func player(playerDidEndLivestream: UZPlayer)
 }
 
 public protocol UZPlayerControlViewDelegate: class {
@@ -56,6 +57,7 @@ extension UZPlayerDelegate {
 	func player(player: UZPlayer, playerIsPlaying playing: Bool) {}
 	func player(player: UZPlayer, playerDidFailToPlayToEndTime error: Error?) {}
 	func player(playerDidStall: UZPlayer) {}
+	func player(playerDidEndLivestream: UZPlayer) {}
 }
 
 extension UZPlayerControlViewDelegate {
@@ -1016,6 +1018,7 @@ open class UZPlayer: UIView {
 						self.stop()
 						self.controlView.hideLoader()
 						self.showLiveEndedMessage()
+						self.delegate?.player(playerDidEndLivestream: self)
 					}
 					else {
 						self.controlView.liveStartDate = status.startDate

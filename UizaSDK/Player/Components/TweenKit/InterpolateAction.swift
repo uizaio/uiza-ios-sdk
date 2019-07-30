@@ -27,8 +27,8 @@ public class InterpolationAction<T: Tweenable>: FiniteTimeAction, SchedulableAct
 
     // MARK: - Public
 
-    public var onBecomeActive: () -> () = {}
-    public var onBecomeInactive: () -> () = {}
+    public var onBecomeActive: () -> Void = {}
+    public var onBecomeInactive: () -> Void = {}
     public var easing: Easing
     
     /**
@@ -43,7 +43,7 @@ public class InterpolationAction<T: Tweenable>: FiniteTimeAction, SchedulableAct
                 to endValue: T,
                 duration: Double,
                 easing: Easing,
-                update: @escaping (_: T) -> ()) {
+                update: @escaping (_: T) -> Void) {
         
         self.duration = duration
         self.updateHandler = update
@@ -65,7 +65,7 @@ public class InterpolationAction<T: Tweenable>: FiniteTimeAction, SchedulableAct
                 to endValue: T,
                 duration: Double,
                 easing: Easing,
-                update: @escaping (_: T) -> ()) {
+                update: @escaping (_: T) -> Void) {
         
         self.duration = duration
         self.updateHandler = update
@@ -87,7 +87,7 @@ public class InterpolationAction<T: Tweenable>: FiniteTimeAction, SchedulableAct
                 to endValue: T,
                 speed: Double,
                 easing: Easing,
-                update: @escaping (_: T) -> ()) {
+                update: @escaping (_: T) -> Void) {
 
         var distance = startValue.distanceTo(other: endValue)
         if distance < 0 {
@@ -102,7 +102,6 @@ public class InterpolationAction<T: Tweenable>: FiniteTimeAction, SchedulableAct
         self.endTweenableValue = .constant(endValue)
     }
     
-    
     // MARK: - Properties
     
     public var reverse = false
@@ -114,7 +113,7 @@ public class InterpolationAction<T: Tweenable>: FiniteTimeAction, SchedulableAct
     private var startValue: T!
     private var endValue: T!
     
-    var updateHandler: (_: T) -> () = {_ in}
+    var updateHandler: (_: T) -> Void = {_ in}
 
     // MARK: - Methods
     
@@ -156,5 +155,3 @@ public class InterpolationAction<T: Tweenable>: FiniteTimeAction, SchedulableAct
     }
     
 }
- 
-

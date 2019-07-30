@@ -40,7 +40,7 @@ extension Int {
 	func withCommas() -> String {
 		let numberFormatter = NumberFormatter()
 		numberFormatter.numberStyle = NumberFormatter.Style.decimal
-		return numberFormatter.string(from: NSNumber(value:self))!
+		return numberFormatter.string(from: NSNumber(value: self))!
 	}
 	
 	/**
@@ -49,8 +49,7 @@ extension Int {
 	func abbreviatedFromLimit(limit: Int) -> String {
 		if self >= limit {
 			return self.abbreviated
-		}
-		else {
+		} else {
 			return self.withCommas()
 		}
 	}

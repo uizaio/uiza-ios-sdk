@@ -16,6 +16,7 @@ open class UZLogger: UZAPIConnector {
 	static public let shared = UZLogger()
 	private override init() {}
 	
+    // swiftlint:disable identifier_name
 	private static let URL_TRACKING_DEV  = "https://dev-tracking.uizadev.io/analytic-tracking/"
 	private static let URL_TRACKING_STAG = "https://stag-tracking.uiza.io/analytic-tracking/"
 	private static let URL_TRACKING_PROD = "https://tracking.uiza.io/analytic-tracking/"
@@ -35,8 +36,8 @@ open class UZLogger: UZAPIConnector {
 		var finalParams: Parameters? = [:]
 		
 		if let video = video {
-			finalParams = ["entity_id" : video.id!,
-						   "entity_name" : video.name!]
+			finalParams = ["entity_id": video.id!,
+						   "entity_name": video.name!]
 		}
 		
 		if let params = params {
@@ -47,40 +48,41 @@ open class UZLogger: UZAPIConnector {
 	}
 	
 	open func log(event: String, params: Parameters? = nil, completionBlock: APIConnectorResultBlock? = nil) {
-		let modelId		: String = UIDevice.current.hardwareModel()
-		let modelName	: String = UIDevice.current.hardwareName()
-		let macAddress	: String = UIDevice.current.identifierForVendor?.uuidString ?? ""
+		let modelId: String = UIDevice.current.hardwareModel()
+		let modelName: String = UIDevice.current.hardwareName()
+		let macAddress: String = UIDevice.current.identifierForVendor?.uuidString ?? ""
 		#if TVOS_VERSION
-		let appVersion	: String = ""
+		let appVersion: String = ""
 		#else
-		let appVersion	: String = UIApplication.shared.applicationVersion()
+		let appVersion: String = UIApplication.shared.applicationVersion()
 		#endif
-		let userId		: String = UZUser.currentUser?.id ?? ""
-		let bundleId	: String = Bundle.main.bundleIdentifier ?? ""
-		let iosVersion	: String = UIDevice.current.systemVersion
-		let timestamp	: String = Date().toString(format: .isoDateTimeMilliSec) // Date().toString(format: .custom("yyyy-MM-dd'T'HH:mm:ss.SSSZ")) // 2018-03-15T14:19:04.637Z
+		let userId: String = UZUser.currentUser?.id ?? ""
+		let bundleId: String = Bundle.main.bundleIdentifier ?? ""
+		let iosVersion: String = UIDevice.current.systemVersion
+		let timestamp: String = Date().toString(format: .isoDateTimeMilliSec)
+        // Date().toString(format: .custom("yyyy-MM-dd'T'HH:mm:ss.SSSZ")) // 2018-03-15T14:19:04.637Z
 		#if os(macOS)
-		let platform	: String = "macOS"
+		let platform: String = "macOS"
 		#else
-		let platform	: String = UIDevice.isTV() ? "tvos" : "ios"
+		let platform: String = UIDevice.isTV() ? "tvos" : "ios"
 		#endif
 		
 //		print("timestamp: \(timestamp)")
-		let defaultParams: Parameters! = ["event_type" 		: event,
-										  "timestamp"		: timestamp,
-										  "platform"		: platform,
-										  "modelId"			: modelId,
-										  "modelName"		: modelName,
-										  "macAddress"		: macAddress,
-										  "version"			: appVersion,
-										  "iosVersion"		: iosVersion,
-										  "uuid"			: macAddress,
-										  "viewer_user_id"	: userId,
-										  "ip"				: UZAPIConnector.ipAddress,
-										  "player_name"		: "UizaSDK_\(platform)",
-			"player_version" 	: PLAYER_VERSION,
-			"sdk_version"		: SDK_VERSION,
-			"bundleId"          : bundleId]
+		let defaultParams: Parameters! = ["event_type": event,
+										  "timestamp": timestamp,
+										  "platform": platform,
+										  "modelId": modelId,
+										  "modelName": modelName,
+										  "macAddress": macAddress,
+										  "version": appVersion,
+										  "iosVersion": iosVersion,
+										  "uuid": macAddress,
+										  "viewer_user_id": userId,
+										  "ip": UZAPIConnector.ipAddress,
+										  "player_name": "UizaSDK_\(platform)",
+			"player_version": PLAYER_VERSION,
+			"sdk_version": SDK_VERSION,
+			"bundleId": bundleId]
 		
 		var finalParams: Parameters! = defaultParams
 		
@@ -109,24 +111,25 @@ open class UZLogger: UZAPIConnector {
 	}()
 	
 	open func logLiveCCU(streamName: String, host: String, completionBlock: APIConnectorResultBlock? = nil) {
-		self.requestHeaderFields = ["AccessToken" : accessToken]
+		self.requestHeaderFields = ["AccessToken": accessToken]
 		
-		let macAddress	: String = UIDevice.current.identifierForVendor?.uuidString ?? ""
-		let bundleId	: String = Bundle.main.bundleIdentifier ?? ""
-		let timestamp	: String = Date().toString(format: .isoDateTimeMilliSec) // Date().toString(format: .custom("yyyy-MM-dd'T'HH:mm:ss.SSSZ")) // 2018-03-15T14:19:04.637Z
+		let macAddress: String = UIDevice.current.identifierForVendor?.uuidString ?? ""
+		let bundleId: String = Bundle.main.bundleIdentifier ?? ""
+		let timestamp: String = Date().toString(format: .isoDateTimeMilliSec)
+        // Date().toString(format: .custom("yyyy-MM-dd'T'HH:mm:ss.SSSZ")) // 2018-03-15T14:19:04.637Z
 		#if os(macOS)
-		let platform	: String = "macOS"
+		let platform: String = "macOS"
 		#else
-		let platform	: String = UIDevice.isTV() ? "tvos" : "ios"
+		let platform: String = UIDevice.isTV() ? "tvos" : "ios"
 		#endif
 		
 		print("timestamp: \(timestamp)")
-		let params: Parameters! = ["dt"	: timestamp,
-								   "ho"	: host,
-								   "sn"	: streamName,
-								   "di"	: macAddress,
-								   "ai"	: bundleId,
-								   "ua"	: "UizaSDK_\(platform)_v\(SDK_VERSION)"]
+		let params: Parameters! = ["dt": timestamp,
+								   "ho": host,
+								   "sn": streamName,
+								   "di": macAddress,
+								   "ai": bundleId,
+								   "ua": "UizaSDK_\(platform)_v\(SDK_VERSION)"]
 		
 		self.callAPI(UZAPIConstant.liveLoggingApi, baseURLString: loggingURLString, method: .post, params: params, completion: { (result, error) in
 			DispatchQueue.main.async {
@@ -136,26 +139,28 @@ open class UZLogger: UZAPIConnector {
 	}
 	
 	open func trackingCategory(entityId: String, category: String, completionBlock: APIConnectorResultBlock? = nil) {
-		self.requestHeaderFields = ["AccessToken" : accessToken]
+		self.requestHeaderFields = ["AccessToken": accessToken]
 		
-//		let macAddress	: String = UIDevice.current.identifierForVendor?.uuidString ?? ""
-		let bundleId	: String = Bundle.main.bundleIdentifier ?? ""
-		let timestamp	: String = Date().toString(format: .isoDateTimeMilliSec) // Date().toString(format: .custom("yyyy-MM-dd'T'HH:mm:ss.SSSZ")) // 2018-03-15T14:19:04.637Z
+//		let macAddress: String = UIDevice.current.identifierForVendor?.uuidString ?? ""
+		let bundleId: String = Bundle.main.bundleIdentifier ?? ""
+		let timestamp: String = Date().toString(format: .isoDateTimeMilliSec)
+        // Date().toString(format: .custom("yyyy-MM-dd'T'HH:mm:ss.SSSZ")) // 2018-03-15T14:19:04.637Z
 		#if os(macOS)
-		let platform	: String = "macOS"
+		let platform: String = "macOS"
 		#else
-		let platform	: String = UIDevice.isTV() ? "tvos" : "ios"
+		let platform: String = UIDevice.isTV() ? "tvos" : "ios"
 		#endif
 		
 		print("timestamp: \(timestamp)")
-		let params: Parameters! = ["timestamp"	: timestamp,
-								   "entity_id"	: entityId,
-								   "category" 	: category,
-								   "app_id"		: bundleId,
-								   "platform"	: platform,
-								   "sdk"		: "UizaSDK_\(platform)_v\(SDK_VERSION)"]
+		let params: Parameters! = ["timestamp": timestamp,
+								   "entity_id": entityId,
+								   "category": category,
+								   "app_id": bundleId,
+								   "platform": platform,
+								   "sdk": "UizaSDK_\(platform)_v\(SDK_VERSION)"]
 		
-		self.callAPI(UZAPIConstant.trackingCategoryLoggingApi, baseURLString: loggingURLString, method: .post, params: params, completion: { (result, error) in
+		self.callAPI(UZAPIConstant.trackingCategoryLoggingApi, baseURLString: loggingURLString,
+                     method: .post, params: params, completion: { (result, error) in
 			DispatchQueue.main.async {
 				completionBlock?(result, error)
 			}

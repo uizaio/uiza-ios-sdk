@@ -40,7 +40,7 @@ internal class UZPlaylistViewController: UIViewController {
 	}
 	
 	func loadPlaylist(metadataId: String, page: Int = 0, limit: Int = 20) {
-		UZContentServices().loadMetadata(metadataId: metadataId, page: page, limit: limit) { [weak self] (results, pagination, error) in
+		UZContentServices().loadMetadata(metadataId: metadataId, page: page, limit: limit) { [weak self] (results, _, _) in
 			guard let `self` = self else { return }
 			
 			if let results = results {
@@ -49,8 +49,7 @@ internal class UZPlaylistViewController: UIViewController {
 				
 				if results.isEmpty {
 					self.collectionViewController.showMessage(message: "(No videos)")
-				}
-				else {
+				} else {
 					self.collectionViewController.hideMessage()
 				}
 			}
@@ -88,23 +87,22 @@ internal class UZPlaylistViewController: UIViewController {
 		return UIApplication.shared.isStatusBarHidden
 	}
 	
-	override var shouldAutorotate : Bool {
+	override var shouldAutorotate: Bool {
 		return true
 	}
 	
-	override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+	override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
 		return .all
 	}
 	
-	override var preferredInterfaceOrientationForPresentation : UIInterfaceOrientation {
+	override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
 		return UIApplication.shared.statusBarOrientation
 	}
 	
 	override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
 		if let modalViewController = NKModalViewManager.sharedInstance()?.modalViewControllerThatContains(self) {
 			modalViewController.dismissWith(animated: flag, completion: completion)
-		}
-		else {
+		} else {
 			super.dismiss(animated: flag, completion: completion)
 		}
 	}

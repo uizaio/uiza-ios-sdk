@@ -13,17 +13,17 @@ Info of Ads cue point
 */
 public class UZAdsCuePoint: UZModelObject {
 	/// `id` of ads campaign
-	public var campaignId: String? = nil
+	public var campaignId: String?
 	/// `id` of admin user
-	public var adminUserId: String? = nil
+	public var adminUserId: String?
 	/// `id` of entity that contains this ads campaign
-	public var entityId: String? = nil
+	public var entityId: String?
 	/// Time to display the ads
 	public var time: TimeInterval = 0
 	/// Name of the ads
-	public var name: String? = nil
+	public var name: String?
 	/// Link to the contents
-	public var link: URL? = nil
+	public var link: URL?
 	
 	override func parse(_ data: NSDictionary?) {
 		if let data = data {

@@ -8,7 +8,7 @@
 
 import UIKit
 
-public protocol UZFloatingPlayerViewProtocol : class {
+public protocol UZFloatingPlayerViewProtocol: class {
 	
 	func floatingPlayer(_ player: UZFloatingPlayerViewController, didBecomeFloating: Bool)
 	func floatingPlayer(_ player: UZFloatingPlayerViewController, onFloatingProgress: CGFloat)
@@ -42,8 +42,7 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 						self.floatingHandler?.delegate = nil
 						self.dismiss(animated: true, completion: self.onDismiss)
 					})
-				}
-				else {
+				} else {
 					self.player?.stop()
 					self.floatingHandler?.delegate = nil
 					self.dismiss(animated: true, completion: self.onDismiss)
@@ -60,7 +59,7 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 	public var playerRatio: CGFloat = 9/16
 	public var autoDetectPortraitVideo = false
 	
-	public weak var delegate: UZFloatingPlayerViewProtocol? = nil
+	public weak var delegate: UZFloatingPlayerViewProtocol?
 	
 	public var videoItem: UZVideoItem? = nil {
 		didSet {
@@ -114,10 +113,10 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 		}
 	}
 	
-	public var onDismiss : (() -> Void)? = nil
-	public var onFloatingProgress : ((UZFloatingPlayerViewController, CGFloat) -> Void)? = nil
-	public var onFloating : ((UZFloatingPlayerViewController) -> Void)? = nil
-	public var onUnfloating : ((UZFloatingPlayerViewController) -> Void)? = nil
+	public var onDismiss: (() -> Void)?
+	public var onFloatingProgress: ((UZFloatingPlayerViewController, CGFloat) -> Void)?
+	public var onFloating: ((UZFloatingPlayerViewController) -> Void)?
+	public var onUnfloating: ((UZFloatingPlayerViewController) -> Void)?
 	
 	public private(set) var floatingHandler: NKFloatingViewHandler?
 	
@@ -197,8 +196,7 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 			playerWindow!.makeKeyAndVisible()
 			
 			containerViewController.present(self, animated: true, completion: nil)
-		}
-		else {
+		} else {
 			playerWindow?.makeKeyAndVisible()
 		}
 		
@@ -236,7 +234,7 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 		super.viewDidLoad()
 		
 		self.view.clipsToBounds = true
-		self.view.backgroundColor = UIColor(red:0.04, green:0.06, blue:0.12, alpha:1.00)
+		self.view.backgroundColor = UIColor(red: 0.04, green: 0.06, blue: 0.12, alpha: 1.00)
 		self.view.addSubview(detailsContainerView)
 		self.view.addSubview(playerViewController.view)
 		
@@ -286,21 +284,15 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 	// MARK: - NKFloatingViewHandlerProtocol
 	
 	open var containerView: UIView! {
-		get {
-			return self.view.window!
-		}
+        return self.view.window!
 	}
 	
 	open var gestureView: UIView! {
-		get {
-			return self.view!
-		}
+        return self.view!
 	}
 	
 	open var fullRect: CGRect {
-		get {
-			return UIScreen.main.bounds
-		}
+        return UIScreen.main.bounds
 	}
 	
 	open func floatingRect(for position: NKFloatingPosition) -> CGRect {
@@ -311,19 +303,17 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 		}
 		
 		let floatingWidth: CGFloat = UIDevice.current.userInterfaceIdiom == .phone ? 180 : 220
-		let floatingSize = isPortrait ? CGSize(width: floatingWidth * playerRatio, height: floatingWidth) : CGSize(width: floatingWidth, height: floatingWidth * playerRatio)
+		let floatingSize = isPortrait ? CGSize(width: floatingWidth * playerRatio, height: floatingWidth) :
+            CGSize(width: floatingWidth, height: floatingWidth * playerRatio)
 		var point: CGPoint = .zero
 		
 		if position == .bottomRight {
 			point = CGPoint(x: screenSize.width - floatingSize.width - 10, y: screenSize.height - floatingSize.height - 10)
-		}
-		else if position == .bottomLeft {
+		} else if position == .bottomLeft {
 			point = CGPoint(x: 10, y: screenSize.height - floatingSize.height - 10)
-		}
-		else if position == .topLeft {
+		} else if position == .topLeft {
 			point = CGPoint(x: 10, y: 10)
-		}
-		else if position == .topRight {
+		} else if position == .topRight {
 			point = CGPoint(x: screenSize.width - floatingSize.width - 10, y: 10)
 		}
 		
@@ -356,8 +346,7 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 			
 			self.onUnfloating?(self)
 			self.view.setNeedsLayout()
-		}
-		else if progress == 1.0 {
+		} else if progress == 1.0 {
 			player?.controlView.containerView.isHidden = true
 			player?.controlView.tapGesture?.isEnabled = false
 			player?.shouldShowsControlViewAfterStoppingPiP = false
@@ -385,7 +374,6 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 		}
 	}
 
-	
 //	func forceDeviceRotate(to orientation: UIInterfaceOrientation, animated: Bool) {
 //		let currentDevice = UIDevice.current
 //		UIView.setAnimationsEnabled(false)

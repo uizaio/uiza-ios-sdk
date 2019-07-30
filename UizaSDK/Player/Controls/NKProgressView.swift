@@ -14,7 +14,7 @@ open class NKProgressView: UIView {
 	
 	public private(set) var progress: Float = 0.0 // readonly
 	
-	open var progressColor: UIColor = UIColor(red:0.22, green:0.52, blue:0.82, alpha:1.00) {
+	open var progressColor: UIColor = UIColor(red: 0.22, green: 0.52, blue: 0.82, alpha: 1.00) {
 		didSet {
 			progressLayer.backgroundColor = progressColor.cgColor
 		}
@@ -56,8 +56,7 @@ open class NKProgressView: UIView {
 		
 		if isRounded {
 			self.layer.cornerRadius = self.bounds.size.height/2
-		}
-		else {
+		} else {
 			self.layer.cornerRadius = self.cornerRadius
 		}
 		

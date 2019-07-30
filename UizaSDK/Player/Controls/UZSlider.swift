@@ -16,16 +16,17 @@ open class UZSlider: UISlider {
 		super.init(frame: .zero)
 		
 		progressView.isRounded = true
-		progressView.progressColor = UIColor(red:0.18, green:0.44, blue:0.81, alpha:1.00)
+		progressView.progressColor = UIColor(red: 0.18, green: 0.44, blue: 0.81, alpha: 1.00)
 		self.insertSubview(progressView, at: 0)
 		
-		let thumbImage = UIImage(icon: .googleMaterialDesign(.fiberManualRecord), size: CGSize(width: 32, height: 32), textColor: .black, backgroundColor: .clear)
+		let thumbImage = UIImage(icon: .googleMaterialDesign(.fiberManualRecord), size: CGSize(width: 32, height: 32),
+                                 textColor: .black, backgroundColor: .clear)
 		self.setThumbImage(thumbImage, for: .normal)
 		
-		let panGesture = UIPanGestureRecognizer(target: self, action:  #selector(panGesture(gesture:)))
+		let panGesture = UIPanGestureRecognizer(target: self, action: #selector(panGesture(gesture:)))
 		self.addGestureRecognizer(panGesture)
 		
-		let tapGesture = UITapGestureRecognizer(target: self, action:  #selector(tapGesture(gesture:)))
+		let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapGesture(gesture:)))
 		self.addGestureRecognizer(tapGesture)
 	}
 	
@@ -45,7 +46,7 @@ open class UZSlider: UISlider {
 	
 	open func handleTouchGesture(gesture: UITapGestureRecognizer) {
 		let currentPoint = gesture.location(in: self)
-		let percentage = currentPoint.x/self.bounds.size.width;
+		let percentage = currentPoint.x / self.bounds.size.width
 		let delta = Float(percentage) *  (self.maximumValue - self.minimumValue)
 		let value = self.minimumValue + delta
 		self.setValue(value, animated: true)
@@ -53,8 +54,7 @@ open class UZSlider: UISlider {
 		
 		if gesture.state == .began || gesture.state == .changed {
 			self.sendActions(for: .touchDown)
-		}
-		else {
+		} else {
 			self.sendActions(for: .touchUpInside)
 		}
 	}
@@ -69,7 +69,7 @@ open class UZSlider: UISlider {
 	
 	override open func trackRect(forBounds bounds: CGRect) -> CGRect {
 		let trackHeight = CGFloat(2)
-		let position = CGPoint(x: 0 , y: bounds.origin.y + (bounds.size.height - trackHeight)/2)
+		let position = CGPoint(x: 0, y: bounds.origin.y + (bounds.size.height - trackHeight) / 2)
 		let customBounds = CGRect(origin: position, size: CGSize(width: bounds.size.width, height: trackHeight))
 		super.trackRect(forBounds: customBounds)
 		return customBounds

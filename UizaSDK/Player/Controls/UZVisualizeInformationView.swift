@@ -32,7 +32,8 @@ class UZVisualizeInformationView: UIView {
 		
 		NotificationCenter.default.addObserver(self, selector: #selector(onUpdateVisualizeInfo), name: .UZEventVisualizeInformaionUpdate, object: nil)
 		#if canImport(NHNetworkTime)
-		NotificationCenter.default.addObserver(self, selector: #selector(onDateSyncCompleted), name: NSNotification.Name(rawValue: kNHNetworkTimeSyncCompleteNotification), object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(onDateSyncCompleted),
+                                               name: NSNotification.Name(rawValue: kNHNetworkTimeSyncCompleteNotification), object: nil)
 		#endif
 	}
 	
@@ -45,7 +46,8 @@ class UZVisualizeInformationView: UIView {
 		
 		let viewSize = bounds.size
 		let contentSize = mainFrameLayout.sizeThatFits(viewSize)
-		mainFrameLayout.frame = CGRect(x: (viewSize.width - contentSize.width)/2, y: (viewSize.height - contentSize.height)/2, width: contentSize.width, height: contentSize.height)
+		mainFrameLayout.frame = CGRect(x: (viewSize.width - contentSize.width)/2, y: (viewSize.height - contentSize.height)/2,
+                                       width: contentSize.width, height: contentSize.height)
 	}
 	
 	private func setupUI() {
@@ -118,10 +120,8 @@ class UZVisualizeInformationView: UIView {
 			if let timeString = numberFormatter.string(from: NSNumber(value: time)) {
 				latencyLabel.text = timeString + " ms"
 			}
-			
 //			UZVisualizeSavedInformation.shared.isUpdateLivestreamLatency = false
-		}
-		else {
+		} else {
 			latencyLabel.isHidden = true
 		}
 		

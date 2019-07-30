@@ -14,8 +14,8 @@ public class UZSubtitles {
 	public struct UZSubtitleGroup: CustomStringConvertible {
 		var index: Int
 		var start: TimeInterval
-		var end  : TimeInterval
-		var text : String
+		var end: TimeInterval
+		var text: String
 		
 		init(_ index: Int, _ start: NSString, _ end: NSString, _ text: NSString) {
 			self.index = index
@@ -24,7 +24,7 @@ public class UZSubtitles {
 			self.text  = text as String
 		}
 		
-		static func parseDuration(_ fromStr:String) -> TimeInterval {
+		static func parseDuration(_ fromStr: String) -> TimeInterval {
 			var h: TimeInterval = 0.0, m: TimeInterval = 0.0, s: TimeInterval = 0.0, c: TimeInterval = 0.0
 			let scanner = Scanner(string: fromStr)
 			scanner.scanDouble(&h)
@@ -123,4 +123,3 @@ public class UZSubtitles {
 	}
     
 }
-

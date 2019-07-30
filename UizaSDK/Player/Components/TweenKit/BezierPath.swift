@@ -5,7 +5,7 @@
 //  Created by Steven Barnegren on 28/03/2017.
 //  Copyright © 2017 Steve Barnegren. All rights reserved.
 //
-
+// swiftlint:disable all
 import Foundation
 
 // MARK: - ****** CURVE ******

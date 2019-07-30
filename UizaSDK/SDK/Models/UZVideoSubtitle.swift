@@ -40,7 +40,7 @@ open class UZVideoSubtitle: UZModelObject {
     }
     
     /** Object description */
-    override open var description : String {
+    override open var description: String {
         return "\(super.description) [\(id ?? "")] [\(name ?? "")]"
     }
     

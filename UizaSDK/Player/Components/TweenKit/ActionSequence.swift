@@ -34,7 +34,7 @@ public class ActionSequence: FiniteTimeAction {
      - Parameter actions: Array of actions the sequence should contain
      */
     public init(actions: [FiniteTimeAction]) {
-        actions.forEach{
+        actions.forEach {
             add(action: $0)
         }
     }
@@ -44,17 +44,17 @@ public class ActionSequence: FiniteTimeAction {
      - Parameter actions: Actions the sequence should contain
      */
     public init(actions: FiniteTimeAction...) {
-        actions.forEach{
+        actions.forEach {
             add(action: $0)
         }
     }
     
-    public var onBecomeActive: () -> () = {}
-    public var onBecomeInactive: () -> () = {}
+    public var onBecomeActive: () -> Void = {}
+    public var onBecomeInactive: () -> Void = {}
     
     public var reverse = false {
         didSet {
-            wrappedActions.forEach{ $0.action.reverse = reverse }
+            wrappedActions.forEach { $0.action.reverse = reverse }
         }
     }
 
@@ -82,7 +82,7 @@ public class ActionSequence: FiniteTimeAction {
         offsets = [Double]()
         var offsetPos = 0.0
         offsets.append(offsetPos)
-        wrappedActions.dropLast().forEach{
+        wrappedActions.dropLast().forEach {
             offsetPos += $0.action.duration
             offsets.append(offsetPos)
         }
@@ -101,7 +101,7 @@ public class ActionSequence: FiniteTimeAction {
         // Reset
         lastRunAction = nil
         
-        wrappedActions.forEach{
+        wrappedActions.forEach {
             $0.state = .notStarted
         }
     }
@@ -138,10 +138,8 @@ public class ActionSequence: FiniteTimeAction {
         // Get the last run action index
         var lastRunIndex = -1
         if let last = lastRunAction {
-            for (index, action) in enumeratedActions {
-                if action === last {
-                    lastRunIndex = index
-                }
+            for (index, action) in enumeratedActions where action === last {
+                lastRunIndex = index
             }
         }
         
@@ -174,8 +172,7 @@ public class ActionSequence: FiniteTimeAction {
             
             if reverse {
                 continueToNext = elapsedTime < offset && index != wrappedActions.count - 1
-            }
-            else{
+            } else {
                 continueToNext = elapsedTime > offset + wrapper.action.duration && index != wrappedActions.count - 1
             }
             
@@ -189,8 +186,7 @@ public class ActionSequence: FiniteTimeAction {
                 wrapper.action.didFinish()
                 wrapper.action.didBecomeInactive()
                 wrapper.state = .finished
-            }
-            else{
+            } else {
                 break
             }
             

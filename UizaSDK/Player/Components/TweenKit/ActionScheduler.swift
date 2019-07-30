@@ -9,7 +9,7 @@
 import Foundation
 import QuartzCore
 
-@objc public class ActionScheduler : NSObject {
+@objc public class ActionScheduler: NSObject {
     
     // MARK: - Public
     
@@ -59,7 +59,7 @@ import QuartzCore
     public func removeAll() {
         
         let allAnimations = animations
-        allAnimations.forEach{
+        allAnimations.forEach {
             self.remove(animation: $0)
         }
     }
@@ -109,7 +109,7 @@ import QuartzCore
     @objc private func displayLinkCallback(displaylink: CADisplayLink) {
         
         // We need a previous time stamp to check against. Save if we don't already have one
-        guard let last = lastTimeStamp else{
+        guard let last = lastTimeStamp else {
             lastTimeStamp = displaylink.timestamp
             return
         }
@@ -140,11 +140,8 @@ import QuartzCore
                 if remove {
                     animationsToRemove.append(animation)
                 }
-            }
-                
+            } else {
                 // Animations containing infinite time actions
-            else{
-                
                 let newTime = animation.elapsedTime + dt
                 animation.update(elapsedTime: newTime)
             }
@@ -152,7 +149,7 @@ import QuartzCore
         }
         
         // Remove finished animations
-        animationsToRemove.forEach{
+        animationsToRemove.forEach {
             remove(animation: $0)
         }
         animationsToRemove.removeAll()
@@ -160,12 +157,12 @@ import QuartzCore
     }
 }
 
-@objc class DisplayLink : NSObject {
+@objc class DisplayLink: NSObject {
     
-    var caDisplayLink: CADisplayLink? = nil
-    let handler: (CADisplayLink) -> ()
+    var caDisplayLink: CADisplayLink?
+    let handler: (CADisplayLink) -> Void
     
-    init(handler: @escaping (CADisplayLink) -> ()) {
+    init(handler: @escaping (CADisplayLink) -> Void) {
         
         self.handler = handler
         

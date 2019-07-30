@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 /**
 Cell display mode (portrait or landscape)
 */
@@ -24,13 +23,13 @@ Category info
 */
 open class UZCategory: UZModelObject {
 	/** id of category */
-	public var id				: String! = ""
+	public var id: String! = ""
 	/** Category name */
-	public var name				: String! = ""
+	public var name: String! = ""
 	/** Display mode */
-	public var displayMode		: UZCellDisplayMode = .landscape
+	public var displayMode: UZCellDisplayMode = .landscape
 	/** Video items in this category */
-	public var videos			: [UZVideoItem]! = []
+	public var videos: [UZVideoItem]! = []
 	
 	override func parse(_ data: NSDictionary?) {
 		if data != nil {
@@ -40,14 +39,13 @@ open class UZCategory: UZModelObject {
 			let displayModeValue = data!.string(for: "display", defaultString: "")
 			if displayModeValue == "landscape" || displayModeValue == "small-landscape" {
 				displayMode = .landscape
-			}
-			else {
+			} else {
 				displayMode = .portrait
 			}
 			
 			if let itemsData = data!.value(for: "items", defaultValue: nil) as? [NSDictionary] {
 				videos = []
-				for data:NSDictionary in itemsData {
+				for data: NSDictionary in itemsData {
 					videos.append(UZVideoItem(data: data))
 				}
 			}
@@ -55,7 +53,7 @@ open class UZCategory: UZModelObject {
 	}
 	
 	/** Object description */
-	override open var description : String {
+	override open var description: String {
 		return "\(super.description) [\(id ?? "")] [\(name ?? "")]"
 	}
 	

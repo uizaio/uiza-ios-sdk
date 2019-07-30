@@ -54,7 +54,7 @@ internal class UZVideoQualitySettingsViewController: UIViewController {
 	}
 	
 	func loadResourceDefinitions(from video: UZVideoItem) {
-		UZContentServices().loadLinkPlay(video: video) { [weak self] (results, error) in
+		UZContentServices().loadLinkPlay(video: video) { [weak self] (results, _) in
 			guard let `self` = self else { return }
 			
 			if let results = results {
@@ -97,23 +97,22 @@ internal class UZVideoQualitySettingsViewController: UIViewController {
 		return UIApplication.shared.isStatusBarHidden
 	}
 	
-	override var shouldAutorotate : Bool {
+	override var shouldAutorotate: Bool {
 		return true
 	}
 	
-	override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+	override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
 		return .all
 	}
 	
-	override var preferredInterfaceOrientationForPresentation : UIInterfaceOrientation {
+	override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
 		return UIApplication.shared.statusBarOrientation
 	}
 	
 	override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
 		if let modalViewController = NKModalViewManager.sharedInstance()?.modalViewControllerThatContains(self) {
 			modalViewController.dismissWith(animated: flag, completion: completion)
-		}
-		else {
+		} else {
 			super.dismiss(animated: flag, completion: completion)
 		}
 	}
@@ -139,12 +138,12 @@ extension UZVideoQualitySettingsViewController: NKModalViewControllerProtocol {
 // MARK: - UZVideoQualityCollectionViewController
 
 internal class UZVideoQualityCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-	let CellIdentifier	= "VideoQualityItemCell"
+	let cellIdentifier	= "VideoQualityItemCell"
 	let flowLayout		= UICollectionViewFlowLayout()
 	var selectedResource: UZVideoLinkPlay?
-	var resources		: [UZVideoLinkPlay]! = []
-	var selectedBlock	: ((_ item: UZVideoLinkPlay, _ index: Int) -> Void)? = nil
-	var messageLabel	: UILabel?
+	var resources: [UZVideoLinkPlay]! = []
+	var selectedBlock: ((_ item: UZVideoLinkPlay, _ index: Int) -> Void)?
+	var messageLabel: UILabel?
 	
 	init() {
 		super.init(collectionViewLayout: flowLayout)
@@ -160,9 +159,9 @@ internal class UZVideoQualityCollectionViewController: UICollectionViewControlle
 	
 	// MARK: -
 	
-	func appendItems(items:[UZVideoLinkPlay]!) -> [UZVideoLinkPlay]! {
+	func appendItems(items: [UZVideoLinkPlay]!) -> [UZVideoLinkPlay]! {
 		var finalItems = [UZVideoLinkPlay]() // remove duplicated items
-		items.forEach { (item:UZVideoLinkPlay) in
+		items.forEach { (item: UZVideoLinkPlay) in
 			let indexPath = self.indexPath(ofItem: item)
 			if indexPath == nil {
 				finalItems.append(item)
@@ -172,14 +171,14 @@ internal class UZVideoQualityCollectionViewController: UICollectionViewControlle
 		self.resources.append(contentsOf: finalItems)
 		
 		var indexes = [IndexPath]()
-		finalItems.forEach { (item:UZVideoLinkPlay) in
+		finalItems.forEach { (item: UZVideoLinkPlay) in
 			let indexPath = self.indexPath(ofItem: item)
 			if indexPath != nil {
 				indexes.append(indexPath!)
 			}
 		}
 		
-		if indexes.count>0 {
+		if !indexes.isEmpty {
 			var currentNumberOfSections = self.collectionView!.numberOfSections - 1
 			self.collectionView?.performBatchUpdates({
 				self.collectionView?.insertItems(at: indexes)
@@ -196,7 +195,7 @@ internal class UZVideoQualityCollectionViewController: UICollectionViewControlle
 		return finalItems
 	}
 	
-	func indexPath(ofItem item:UZVideoLinkPlay!) -> IndexPath? {
+	func indexPath(ofItem item: UZVideoLinkPlay!) -> IndexPath? {
 		var index = 0
 		var found = false
 		
@@ -211,8 +210,7 @@ internal class UZVideoQualityCollectionViewController: UICollectionViewControlle
 		
 		if found {
 			return IndexPath(item: index, section: 0)
-		}
-		else {
+		} else {
 			return nil
 		}
 	}
@@ -221,7 +219,7 @@ internal class UZVideoQualityCollectionViewController: UICollectionViewControlle
 		super.viewDidLoad()
 		
 		let collectionView = self.collectionView!
-		collectionView.register(UZQualityItemCollectionViewCell.self, forCellWithReuseIdentifier: CellIdentifier)
+		collectionView.register(UZQualityItemCollectionViewCell.self, forCellWithReuseIdentifier: cellIdentifier)
 		
 		#if swift(>=4.2)
 		let headerKind = UICollectionView.elementKindSectionHeader
@@ -255,7 +253,7 @@ internal class UZVideoQualityCollectionViewController: UICollectionViewControlle
 		}
 	}
 	
-	func resourceItemAtIndexPath(_ indexPath:IndexPath) -> UZVideoLinkPlay {
+	func resourceItemAtIndexPath(_ indexPath: IndexPath) -> UZVideoLinkPlay {
 		return resources[(indexPath as NSIndexPath).item]
 	}
 	
@@ -308,7 +306,7 @@ internal class UZVideoQualityCollectionViewController: UICollectionViewControlle
 	}
 	
 	override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-		var cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellIdentifier, for: indexPath) as? UZQualityItemCollectionViewCell
+		var cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as? UZQualityItemCollectionViewCell
 		if cell == nil {
 			cell = UZQualityItemCollectionViewCell()
 		}
@@ -340,10 +338,10 @@ internal class UZVideoQualityCollectionViewController: UICollectionViewControlle
 
 import FrameLayoutKit
 
-class UZQualityItemCollectionViewCell : UICollectionViewCell {
-	var highlightView		: UIView!
-	var titleLabel			: UILabel!
-	var frameLayout			: DoubleFrameLayout!
+class UZQualityItemCollectionViewCell: UICollectionViewCell {
+	var highlightView: UIView!
+	var titleLabel: UILabel!
+	var frameLayout: DoubleFrameLayout!
 	var highlightMode		= false {
 		didSet {
 			self.isSelected = super.isSelected
@@ -375,15 +373,14 @@ class UZQualityItemCollectionViewCell : UICollectionViewCell {
 				UIView.animate(withDuration: 0.3) {
 					self.contentView.alpha = value ? 1.0 : 0.25
 				}
-			}
-			else {
+			} else {
 				self.contentView.alpha = 1.0
 				self.updateColor()
 			}
 		}
 	}
 	
-	var resource : UZVideoLinkPlay? = nil {
+	var resource: UZVideoLinkPlay? {
 		didSet {
 			updateView()
 		}
@@ -394,13 +391,11 @@ class UZQualityItemCollectionViewCell : UICollectionViewCell {
 			highlightView.alpha = 1.0
 			highlightView.backgroundColor = UIColor(white: 1.0, alpha: 0.5)
 			titleLabel.textColor = .black
-		}
-		else if self.isSelected {
+		} else if self.isSelected {
 			highlightView.alpha = 1.0
-			highlightView.backgroundColor = UIColor(red:0.21, green:0.49, blue:0.96, alpha:1.00)
+			highlightView.backgroundColor = UIColor(red: 0.21, green: 0.49, blue: 0.96, alpha: 1.00)
 			titleLabel.textColor = .white
-		}
-		else {
+		} else {
 			titleLabel.textColor = .white
 			
 			UIView.animate(withDuration: 0.3, animations: {() -> Void in
@@ -452,7 +447,6 @@ class UZQualityItemCollectionViewCell : UICollectionViewCell {
 		titleLabel.text = resource?.definition ?? ""
 		self.setNeedsLayout()
 	}
-	
 	
 	// MARK: -
 	

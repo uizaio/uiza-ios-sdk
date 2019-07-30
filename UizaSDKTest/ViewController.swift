@@ -45,7 +45,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        themeButton.setImage(UIImage(icon: .googleMaterialDesign(.colorLens), size: CGSize(width: 32, height: 32), textColor: .black, backgroundColor: .clear), for: .normal)
+        themeButton.setImage(UIImage(icon: .googleMaterialDesign(.colorLens), size: CGSize(width: 32, height: 32),
+                                     textColor: .black, backgroundColor: .clear), for: .normal)
         themeButton.addTarget(self, action: #selector(switchTheme), for: .touchUpInside)
         self.view.addSubview(themeButton)
 		
@@ -62,6 +63,7 @@ class ViewController: UIViewController {
 			}
 		}
         
+
 /*
         UZContentServices().loadEntity(metadataId: nil, publishStatus: .success, page: 0, limit: 15) { (results, error) in
             if let videos = results, let video = videos.randomElement() {
@@ -99,7 +101,8 @@ class ViewController: UIViewController {
         
         var buttonSize = themeButton.sizeThatFits(viewSize)
         buttonSize.width += 20
-        themeButton.frame = CGRect(x: (viewSize.width - buttonSize.width/2)/2, y: viewSize.height - buttonSize.height - 50, width: buttonSize.width, height: buttonSize.height)
+        themeButton.frame = CGRect(x: (viewSize.width - buttonSize.width/2)/2, y: viewSize.height - buttonSize.height - 50,
+                                   width: buttonSize.width, height: buttonSize.height)
     }
     
     override public var shouldAutorotate: Bool {
@@ -138,7 +141,7 @@ extension ViewController: UZPlayerDelegate {
 //        print("loadedDuration: \(loadedDuration) - totalDuration: \(totalDuration)")
     }
     
-    func player(player: UZPlayer, playTimeDidChange currentTime : TimeInterval, totalTime: TimeInterval) {
+    func player(player: UZPlayer, playTimeDidChange currentTime: TimeInterval, totalTime: TimeInterval) {
 //        print("currentTime: \(currentTime) - totalTime: \(totalTime)")
     }
     

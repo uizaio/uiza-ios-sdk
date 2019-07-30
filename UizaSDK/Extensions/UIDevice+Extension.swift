@@ -35,7 +35,7 @@ extension UIDevice {
 	func hardwareModel() -> String {
 		var size = 0
 		sysctlbyname("hw.machine", nil, &size, nil, 0)
-		var machine = [CChar](repeating: 0,  count: Int(size))
+		var machine = [CChar](repeating: 0, count: Int(size))
 		sysctlbyname("hw.machine", &machine, &size, nil, 0)
 		return String(cString: machine)
 	}
@@ -183,11 +183,13 @@ extension UIDevice {
 	
 	#if os(iOS)
 	public static func isPortrait() -> Bool {
-		return UIApplication.shared.statusBarOrientation == UIInterfaceOrientation.portrait || UIApplication.shared.statusBarOrientation == UIInterfaceOrientation.portraitUpsideDown
+		return UIApplication.shared.statusBarOrientation == UIInterfaceOrientation.portrait ||
+            UIApplication.shared.statusBarOrientation == UIInterfaceOrientation.portraitUpsideDown
 	}
 	
 	public static func isLandscape() -> Bool {
-		return UIApplication.shared.statusBarOrientation == UIInterfaceOrientation.landscapeLeft || UIApplication.shared.statusBarOrientation == UIInterfaceOrientation.landscapeRight
+		return UIApplication.shared.statusBarOrientation == UIInterfaceOrientation.landscapeLeft ||
+            UIApplication.shared.statusBarOrientation == UIInterfaceOrientation.landscapeRight
 	}
 	
 	public static func isCarPlay() -> Bool {
@@ -204,4 +206,3 @@ extension UIDevice {
 //	}
 	
 }
-

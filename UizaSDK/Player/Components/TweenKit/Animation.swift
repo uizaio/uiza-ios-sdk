@@ -12,7 +12,7 @@ import Foundation
  Actions added to the ActionScheduler are wrapped in an Animation Instance.
  You may wish to keep an Animation instance (it's returned when actions are run), so that you can stop the animation later.
  */
-public class Animation : Equatable {
+public class Animation: Equatable {
     
     // MARK: - Public
     
@@ -27,7 +27,7 @@ public class Animation : Equatable {
     /**
      Closure to be called after each update
      */
-    public var onDidUpdate: () -> () = {}
+    public var onDidUpdate: () -> Void = {}
     
     // MARK: - Properties
 
@@ -66,8 +66,7 @@ public class Animation : Equatable {
         
         if let action = action as? FiniteTimeAction {
             action.update(t: elapsedTime / duration)
-        }
-        else if let action = action as? InfiniteTimeAction {
+        } else if let action = action as? InfiniteTimeAction {
             action.update(elapsedTime: elapsedTime)
         }
         
@@ -77,6 +76,6 @@ public class Animation : Equatable {
 }
 
 // MARK: - Equatable
-public func ==(rhs: Animation, lhs: Animation) -> Bool {
+public func == (rhs: Animation, lhs: Animation) -> Bool {
     return rhs === lhs
 }

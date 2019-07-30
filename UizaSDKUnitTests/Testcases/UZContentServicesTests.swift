@@ -24,7 +24,7 @@ class UZContentServicesTests: XCTestCase {
     func testLoadEntities_Success() {
         stub_load_entities_success()
         let promise = expectation(description: "test")
-        contentServivesMocks.loadEntity(metadataId: nil, publishStatus: .success, page: 0, limit: 15) { (videoItems, error) in
+        contentServivesMocks.loadEntity(metadataId: nil, publishStatus: .success, page: 0, limit: 15) { (videoItems, _) in
             XCTAssertEqual(videoItems?.first?.name, "Sample Video 1")
             promise.fulfill()
         }
@@ -34,7 +34,7 @@ class UZContentServicesTests: XCTestCase {
     func testLoadEntities_Fail() {
         stub_load_entities_fail()
         let promise = expectation(description: "test")
-        contentServivesMocks.loadEntity(metadataId: nil, publishStatus: .success, page: 0, limit: 15) { (videoItems, error) in
+        contentServivesMocks.loadEntity(metadataId: nil, publishStatus: .success, page: 0, limit: 15) { (_, error) in
             XCTAssertNotNil(error)
             XCTAssertEqual(error?.code, 400)
             XCTAssertEqual(error?.localizedDescription, "Khong tim thay thong tin")
@@ -46,7 +46,7 @@ class UZContentServicesTests: XCTestCase {
     func testLoadEntities_ResponseCode_Fail() {
         stub_load_entities_fail_response_code()
         let promise = expectation(description: "test")
-        contentServivesMocks.loadEntity(metadataId: nil, publishStatus: .success, page: 0, limit: 15) { (videoItems, error) in
+        contentServivesMocks.loadEntity(metadataId: nil, publishStatus: .success, page: 0, limit: 15) { (_, error) in
             XCTAssertNotNil(error)
             XCTAssertEqual(error?.code, 500)
             XCTAssertEqual(error?.localizedDescription, "")
@@ -58,7 +58,7 @@ class UZContentServicesTests: XCTestCase {
     func testLoadEntitiesByCategory_Success() {
         stub_load_entities_by_category_success()
         let promise = expectation(description: "test")
-        contentServivesMocks.loadMetadata(metadataId: "f932aa79-852a-41f7-9adc-19935034f944", page: 0, limit: 20) { (videoItems, paging, error) in
+        contentServivesMocks.loadMetadata(metadataId: "f932aa79-852a-41f7-9adc-19935034f944", page: 0, limit: 20) { (videoItems, _, _) in
             XCTAssertEqual(videoItems?.first?.name, "Sample Video 1")
             promise.fulfill()
         }
@@ -68,7 +68,7 @@ class UZContentServicesTests: XCTestCase {
     func testLoadEntitiesByCategory_Fail() {
         stub_load_entities_by_category_fail()
         let promise = expectation(description: "test")
-        contentServivesMocks.loadMetadata(metadataId: "f932aa79-852a-41f7-9adc-19935034f944", page: 0, limit: 20) { (videoItems, paging, error) in
+        contentServivesMocks.loadMetadata(metadataId: "f932aa79-852a-41f7-9adc-19935034f944", page: 0, limit: 20) { (_, _, error) in
             XCTAssertNotNil(error)
             XCTAssertEqual(error?.code, 404)
             XCTAssertEqual(error?.localizedDescription, "Not Found")
@@ -80,7 +80,7 @@ class UZContentServicesTests: XCTestCase {
     func testLoadEntitiesByCategory_ResponseCode_Fail() {
         stub_load_entities_by_category_fail_response_code()
         let promise = expectation(description: "test")
-        contentServivesMocks.loadMetadata(metadataId: "f932aa79-852a-41f7-9adc-19935034f944", page: 0, limit: 20) { (videoItems, paging, error) in
+        contentServivesMocks.loadMetadata(metadataId: "f932aa79-852a-41f7-9adc-19935034f944", page: 0, limit: 20) { (_, _, error) in
             XCTAssertNotNil(error)
             XCTAssertEqual(error?.code, 502)
             XCTAssertEqual(error?.localizedDescription, "")
@@ -92,7 +92,7 @@ class UZContentServicesTests: XCTestCase {
     func testLoadDetail_Success() {
         stub_load_entity_success()
         let promise = expectation(description: "test")
-        contentServivesMocks.loadDetail(entityId: "16ab25d3-fd0f-4568-8aa0-0339bbfd674f", isLive: false) { (video, error) in
+        contentServivesMocks.loadDetail(entityId: "16ab25d3-fd0f-4568-8aa0-0339bbfd674f", isLive: false) { (video, _) in
             XCTAssertEqual(video?.name, "The Evolution of Dance")
             promise.fulfill()
         }
@@ -102,7 +102,7 @@ class UZContentServicesTests: XCTestCase {
     func testLoadDetail_Fail() {
         stub_load_entity_fail()
         let promise = expectation(description: "test")
-        contentServivesMocks.loadDetail(entityId: "16ab25d3-fd0f-4568-8aa0-0339bbfd674f", isLive: false) { (video, error) in
+        contentServivesMocks.loadDetail(entityId: "16ab25d3-fd0f-4568-8aa0-0339bbfd674f", isLive: false) { (_, error) in
             XCTAssertNotNil(error)
             XCTAssertEqual(error?.code, 403)
             XCTAssertEqual(error?.localizedDescription, "Fail")
@@ -114,7 +114,7 @@ class UZContentServicesTests: XCTestCase {
     func testLoadEntity_ResponseCode_Fail() {
         stub_load_entity_fail_response_code()
         let promise = expectation(description: "test")
-        contentServivesMocks.loadDetail(entityId: "16ab25d3-fd0f-4568-8aa0-0339bbfd674f", isLive: false) { (video, error) in
+        contentServivesMocks.loadDetail(entityId: "16ab25d3-fd0f-4568-8aa0-0339bbfd674f", isLive: false) { (_, error) in
             XCTAssertNotNil(error)
             XCTAssertEqual(error?.code, 501)
             XCTAssertEqual(error?.localizedDescription, "")
@@ -126,7 +126,7 @@ class UZContentServicesTests: XCTestCase {
     func testLoadLiveEntities_Success() {
         stub_load_live_entities_success()
         let promise = expectation(description: "test")
-        contentServivesMocks.loadLiveVideo() { (videos, paging, error) in
+        contentServivesMocks.loadLiveVideo { (videos, _, _) in
             XCTAssertEqual(videos?.first?.name, "livestream 01")
             promise.fulfill()
         }
@@ -136,7 +136,7 @@ class UZContentServicesTests: XCTestCase {
     func testLoadLiveEntities_Fail() {
         stub_load_live_entities_fail()
         let promise = expectation(description: "test")
-        contentServivesMocks.loadLiveVideo() { (videos, paging, error) in
+        contentServivesMocks.loadLiveVideo { (_, _, error) in
             XCTAssertNotNil(error)
             XCTAssertEqual(error?.code, 404)
             XCTAssertEqual(error?.localizedDescription, "Not Found")
@@ -158,7 +158,7 @@ class UZContentServicesTests: XCTestCase {
     func testLoadLiveEntities_ResponseCode_Fail() {
         stub_load_live_entities_fail_response_code()
         let promise = expectation(description: "test")
-        contentServivesMocks.loadLiveVideo() { (videos, paging, error) in
+        contentServivesMocks.loadLiveVideo { (_, _, error) in
             XCTAssertNotNil(error)
             XCTAssertEqual(error?.code, 504)
             XCTAssertEqual(error?.localizedDescription, "")
@@ -170,7 +170,7 @@ class UZContentServicesTests: XCTestCase {
     func testLoadLiveEntity_Success() {
         stub_load_live_entity_success()
         let promise = expectation(description: "test")
-        contentServivesMocks.loadDetail(entityId: "8b83886e-9cc3-4eab-9258-ebb16c0c73de", isLive: true) { (video, error) in
+        contentServivesMocks.loadDetail(entityId: "8b83886e-9cc3-4eab-9258-ebb16c0c73de", isLive: true) { (video, _) in
             XCTAssertEqual(video?.name, "checking 01")
             promise.fulfill()
         }
@@ -180,7 +180,7 @@ class UZContentServicesTests: XCTestCase {
     func testLoadLiveEntity_Fail() {
         stub_load_live_entity_fail()
         let promise = expectation(description: "test")
-        contentServivesMocks.loadDetail(entityId: "8b83886e-9cc3-4eab-9258-ebb16c0c73de", isLive: true) { (video, error) in
+        contentServivesMocks.loadDetail(entityId: "8b83886e-9cc3-4eab-9258-ebb16c0c73de", isLive: true) { (_, error) in
             XCTAssertNotNil(error)
             XCTAssertEqual(error?.code, 404)
             XCTAssertEqual(error?.localizedDescription, "Not Found")
@@ -192,7 +192,7 @@ class UZContentServicesTests: XCTestCase {
     func testLoadLiveEntity_ResponseCode_Fail() {
         stub_load_live_entity_fail_response_code()
         let promise = expectation(description: "test")
-        contentServivesMocks.loadDetail(entityId: "8b83886e-9cc3-4eab-9258-ebb16c0c73de", isLive: true) { (video, error) in
+        contentServivesMocks.loadDetail(entityId: "8b83886e-9cc3-4eab-9258-ebb16c0c73de", isLive: true) { (_, error) in
             XCTAssertNotNil(error)
             XCTAssertEqual(error?.code, 504)
             XCTAssertEqual(error?.localizedDescription, "")
@@ -225,7 +225,7 @@ class UZContentServicesTests: XCTestCase {
     func testGetVideoSubtitles_Success() {
         stub_get_video_subtitle_success()
         let promise = expectation(description: "test")
-        contentServivesMocks.loadVideoSubtitle(entityId: "653352ce-d867-435c-af64-b2daa04129c2") { (subtitles, error) in
+        contentServivesMocks.loadVideoSubtitle(entityId: "653352ce-d867-435c-af64-b2daa04129c2") { (subtitles, _) in
             XCTAssertEqual(subtitles?.count, 3)
             promise.fulfill()
         }

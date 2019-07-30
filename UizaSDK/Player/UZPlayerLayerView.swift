@@ -185,9 +185,17 @@ open class UZPlayerLayerView: UIView {
 	}
 	
 	@objc func retry() {
+		resetPlayer()
+		
 		playerItem = configPlayerItem()
-		player?.replaceCurrentItem(with: playerItem)
-		checkForPlayable()
+		configPlayer()
+		
+		if !checkForPlayable() {
+			retryPlaying(after: 1.0)
+		}
+		else {
+			play()
+		}
 	}
 	
 	override open func layoutSubviews() {
@@ -383,14 +391,19 @@ open class UZPlayerLayerView: UIView {
 		checkForPlayable()
 	}
 	
-	fileprivate func checkForPlayable() {
+	@discardableResult
+	fileprivate func checkForPlayable() -> Bool {
 		if let playerItem = playerItem {
 			if playerItem.asset.isPlayable == false {
 				DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
 					self.delegate?.player(player: self, playerStateDidChange: .error)
 				}
 			}
+			
+			return playerItem.asset.isPlayable
 		}
+		
+		return false
 	}
 	
 	func setupTimer() {

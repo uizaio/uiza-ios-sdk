@@ -26,8 +26,8 @@ public class DelayAction: FiniteTimeAction {
     public let duration: Double
     public var reverse = false
     
-    public var onBecomeActive: () -> () = {}
-    public var onBecomeInactive: () -> () = {}
+    public var onBecomeActive: () -> Void = {}
+    public var onBecomeInactive: () -> Void = {}
     
     // MARK: - Methods
     

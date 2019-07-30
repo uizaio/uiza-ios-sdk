@@ -19,16 +19,14 @@ public struct UZVideoLinkPlay {
 	public var url: URL
 	
 	/// An instance of NSDictionary that contains keys for specifying options for the initialization of the AVURLAsset. See AVURLAssetPreferPreciseDurationAndTimingKey and AVURLAssetReferenceRestrictionsKey above.
-	public var options: [String : AnyHashable]?
+	public var options: [String: AnyHashable]?
 	
 	/// `AVURLAsset` of this linkPlay
-	public var avURLAsset: AVURLAsset {
-		get {
-			return AVURLAsset(url: url, options: options)
-//			return AVURLAsset(url: URL(string: "http://sample.vodobox.com/planete_interdite/planete_interdite_alternate.m3u8")!)
-//			return AVURLAsset(url: URL(string: "https://cdn-vn-cache-3.uiza.io/a204e9cdeca44948a33e0d012ef74e90/jPnMHRVr/package/playlist.m3u8")!)
-		}
-	}
+    public var avURLAsset: AVURLAsset {
+        return AVURLAsset(url: url, options: options)
+        //			return AVURLAsset(url: URL(string: "http://sample.vodobox.com/planete_interdite/planete_interdite_alternate.m3u8")!)
+        //			return AVURLAsset(url: URL(string: "https://cdn-vn-cache-3.uiza.io/a204e9cdeca44948a33e0d012ef74e90/jPnMHRVr/package/playlist.m3u8")!)
+    }
 	
 	/**
 	Video recource item with defination name and specifying options
@@ -45,7 +43,7 @@ public struct UZVideoLinkPlay {
 	let definiton.options = ["AVURLAssetHTTPHeaderFieldsKey":header]
 	```
 	*/
-	public init(definition: String, url: URL, options: [String : AnyHashable]? = nil) {
+	public init(definition: String, url: URL, options: [String: AnyHashable]? = nil) {
 		self.url        = url
 		self.definition = definition
 		self.options    = options
@@ -54,7 +52,7 @@ public struct UZVideoLinkPlay {
 
 extension UZVideoLinkPlay: Equatable {
 	
-	public static func ==(lhs: UZVideoLinkPlay, rhs: UZVideoLinkPlay) -> Bool {
+	public static func == (lhs: UZVideoLinkPlay, rhs: UZVideoLinkPlay) -> Bool {
 		return lhs.url == rhs.url
 	}
 	
@@ -65,35 +63,35 @@ Class chứa các thông tin về video item
 */
 open class UZVideoItem: UZModelObject {
 	/** id của video */
-	public var id					: String! = ""
+	public var id: String! = ""
 	/** id chuyên mục của video này */
-	public var categoryId			: String! = ""
+	public var categoryId: String! = ""
 	/** feedId của video này */
-	public var feedId				: String! = ""
+	public var feedId: String! = ""
 	/** Tên chuyên mục của video này */
-	public var categoryName			: String! = ""
+	public var categoryName: String! = ""
 	/** Tên của kênh */
-	public var channelName			: String! = ""
+	public var channelName: String! = ""
 	/** Thể loại của video này */
-	public var type					: String! = ""
+	public var type: String! = ""
 	/** Tựa đề chính */
-	public var name					: String! = ""
+	public var name: String! = ""
 	/** Tựa đề phụ */
-	public var subTitle				: String! = ""
+	public var subTitle: String! = ""
 	/** Mô tả nội dung chi tiết */
-	public var details				: String! = ""
+	public var details: String! = ""
 	/** Mô tả ngắn */
-	public var shortDescription		: String! = ""
+	public var shortDescription: String! = ""
 	/** Link ảnh thumbnail */
-	public var thumbnailURL			: URL? = nil
+	public var thumbnailURL: URL?
 	/** Link play của video, có thể rỗng. Nếu rỗng, gọi hàm `getLinkPlay` để lấy giá trị */
-	public var videoURL				: URL? = nil
+	public var videoURL: URL?
 	/** Thời lượng của video này */
-	public var duration				: TimeInterval! = 0
+	public var duration: TimeInterval! = 0
 	/** `true` nếu là video đang trực tiếp */
 	public var isLive: Bool = false
 	
-	public var subtitleURLs: [URL]? = nil
+	public var subtitleURLs: [URL]?
 	
 	override func parse(_ data: NSDictionary?) {
 		if let data = data {
@@ -132,7 +130,7 @@ open class UZVideoItem: UZModelObject {
 	}
 	
 	/** Object description */
-	override open var description : String {
+	override open var description: String {
 		return "\(super.description) [\(id ?? "")] [\(name ?? "")]"
 	}
 	
@@ -148,7 +146,6 @@ extension UZVideoItem: UIActivityItemSource {
 		
 		return URL(string: "http://")!
 	}
-	
 	
 	open func activityViewControllerPlaceholderItem(_ activityViewController: UIActivityViewController) -> Any {
 		if let videoURL = videoURL {
@@ -170,8 +167,8 @@ open class UZLiveVideoStatus: UZModelObject {
 	public var entityId: String! = ""
 	public var entityName: String! = ""
 	public var state: String! = ""
-	public var startDate: Date? = nil
-	public var endDate: Date? = nil
+	public var startDate: Date?
+	public var endDate: Date?
 	
 	override func parse(_ data: NSDictionary?) {
 		if let data = data {

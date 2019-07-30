@@ -25,7 +25,6 @@ import Foundation
  The result of the value is cached, so calling calling .value multiple times will only perform the calculation once
  */
 
-
 /**
  Wrapper for long running calulations. Calculation will not be performed until .value is called.
  Caches result for sunsequent calls
@@ -43,16 +42,14 @@ public class Lazy<T> {
         self.state = .closure(calculate)
     }
     
-    public var value : T {
-        get {
-            switch state {
-            case .value(let value):
-                return value
-            case .closure(let closure):
-                let result = closure()
-                self.state = .value(result)
-                return result
-            }
+    public var value: T {
+        switch state {
+        case .value(let value):
+            return value
+        case .closure(let closure):
+            let result = closure()
+            self.state = .value(result)
+            return result
         }
     }
 }

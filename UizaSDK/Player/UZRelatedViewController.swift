@@ -40,7 +40,7 @@ internal class UZRelatedViewController: UIViewController {
 	}
 	
 	func loadRelateVideos(to video: UZVideoItem) {
-		UZContentServices().loadRelates(entityId: video.id) { [weak self] (results, error) in
+		UZContentServices().loadRelates(entityId: video.id) { [weak self] (results, _) in
 			guard let `self` = self else { return }
 			
 			if let results = results {
@@ -49,8 +49,7 @@ internal class UZRelatedViewController: UIViewController {
 				
 				if results.isEmpty {
 					self.collectionViewController.showMessage(message: "(No related videos)")
-				}
-				else {
+				} else {
 					self.collectionViewController.hideMessage()
 				}
 			}
@@ -88,23 +87,22 @@ internal class UZRelatedViewController: UIViewController {
 		return UIApplication.shared.isStatusBarHidden
 	}
 	
-	override var shouldAutorotate : Bool {
+	override var shouldAutorotate: Bool {
 		return true
 	}
 	
-	override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+	override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
 		return .all
 	}
 	
-	override var preferredInterfaceOrientationForPresentation : UIInterfaceOrientation {
+	override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
 		return UIApplication.shared.statusBarOrientation
 	}
 	
 	override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
 		if let modalViewController = NKModalViewManager.sharedInstance()?.modalViewControllerThatContains(self) {
 			modalViewController.dismissWith(animated: flag, completion: completion)
-		}
-		else {
+		} else {
 			super.dismiss(animated: flag, completion: completion)
 		}
 	}
@@ -114,13 +112,13 @@ internal class UZRelatedViewController: UIViewController {
 // MARK: - UZVideoCollectionViewController
 
 internal class UZVideoCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-	let CellIdentifier	= "VideoItemCell"
+	let cellIdentifier	= "VideoItemCell"
 	let flowLayout		= UICollectionViewFlowLayout()
-	var videos			: [UZVideoItem]! = []
-	var displayMode		: UZCellDisplayMode = .landscape
-	var selectedBlock	: ((_ item:UZVideoItem) -> Void)? = nil
-	var messageLabel	: UILabel?
-	var currentVideo	: UZVideoItem? = nil
+	var videos: [UZVideoItem]! = []
+	var displayMode: UZCellDisplayMode = .landscape
+	var selectedBlock: ((_ item: UZVideoItem) -> Void)?
+	var messageLabel: UILabel?
+	var currentVideo: UZVideoItem?
 	
 	init() {
 		super.init(collectionViewLayout: flowLayout)
@@ -136,9 +134,9 @@ internal class UZVideoCollectionViewController: UICollectionViewController, UICo
 	
 	// MARK: -
 	
-	func appendItems(items:[UZVideoItem]!) -> [UZVideoItem]! {
+	func appendItems(items: [UZVideoItem]!) -> [UZVideoItem]! {
 		var finalItems = [UZVideoItem]() // remove duplicated items
-		items.forEach { (item:UZVideoItem) in
+		items.forEach { (item: UZVideoItem) in
 			let indexPath = self.indexPath(ofItem: item, compareId: true)
 			if indexPath == nil {
 				finalItems.append(item)
@@ -148,14 +146,14 @@ internal class UZVideoCollectionViewController: UICollectionViewController, UICo
 		self.videos.append(contentsOf: finalItems)
 		
 		var indexes = [IndexPath]()
-		finalItems.forEach { (item:UZVideoItem) in
+		finalItems.forEach { (item: UZVideoItem) in
 			let indexPath = self.indexPath(ofItem: item)
 			if indexPath != nil {
 				indexes.append(indexPath!)
 			}
 		}
 		
-		if indexes.count>0 {
+		if !indexes.isEmpty {
 			var currentNumberOfSections = self.collectionView!.numberOfSections - 1
 			self.collectionView?.performBatchUpdates({
 				self.collectionView?.insertItems(at: indexes)
@@ -172,7 +170,7 @@ internal class UZVideoCollectionViewController: UICollectionViewController, UICo
 		return finalItems
 	}
 	
-	func indexPath(ofItem item:UZVideoItem!, compareId:Bool = false) -> IndexPath? {
+	func indexPath(ofItem item: UZVideoItem!, compareId: Bool = false) -> IndexPath? {
 		var index = 0
 		var found = false
 		
@@ -187,8 +185,7 @@ internal class UZVideoCollectionViewController: UICollectionViewController, UICo
 		
 		if found {
 			return IndexPath(item: index, section: 0)
-		}
-		else {
+		} else {
 			return nil
 		}
 	}
@@ -197,11 +194,13 @@ internal class UZVideoCollectionViewController: UICollectionViewController, UICo
 		super.viewDidLoad()
 		
 		let collectionView = self.collectionView!
-		collectionView.register(UZMovieItemCollectionViewCell.self, forCellWithReuseIdentifier: CellIdentifier)
+		collectionView.register(UZMovieItemCollectionViewCell.self, forCellWithReuseIdentifier: cellIdentifier)
 		#if swift(>=4.2)
-		collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "Header")
+		collectionView.register(UICollectionReusableView.self,
+                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "Header")
 		#else
-		collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "Header")
+		collectionView.register(UICollectionReusableView.self,
+                                forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "Header")
 		#endif
 		
 //		collectionView.backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
@@ -231,7 +230,7 @@ internal class UZVideoCollectionViewController: UICollectionViewController, UICo
 		}
 	}
 	
-	func videoItemAtIndexPath(_ indexPath:IndexPath) -> UZVideoItem {
+	func videoItemAtIndexPath(_ indexPath: IndexPath) -> UZVideoItem {
 		return videos[(indexPath as NSIndexPath).item]
 	}
 	
@@ -285,7 +284,7 @@ internal class UZVideoCollectionViewController: UICollectionViewController, UICo
 	}
 	
 	override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-		var cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellIdentifier, for: indexPath) as? UZMovieItemCollectionViewCell
+		var cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as? UZMovieItemCollectionViewCell
 		if cell == nil {
 			cell = UZMovieItemCollectionViewCell()
 		}
@@ -309,7 +308,8 @@ internal class UZVideoCollectionViewController: UICollectionViewController, UICo
 	
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 		let itemHeight	= collectionView.bounds.size.height - (collectionView.contentInset.top + collectionView.contentInset.bottom + flowLayout.minimumLineSpacing)
-		let itemWidth	= displayMode == .portrait ? itemHeight * 0.66 : itemHeight * 1.77 //(displayMode == .landscape ? itemHeight * 1.77 : itemHeight * 1.5)
+		let itemWidth	= displayMode == .portrait ? itemHeight * 0.66 : itemHeight * 1.77
+        //(displayMode == .landscape ? itemHeight * 1.77 : itemHeight * 1.5)
 		
 		return CGSize(width: itemWidth - flowLayout.minimumInteritemSpacing, height: itemHeight)
 	}

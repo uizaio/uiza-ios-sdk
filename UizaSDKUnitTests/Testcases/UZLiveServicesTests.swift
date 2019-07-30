@@ -24,7 +24,7 @@ class UZLiveServicesTests: XCTestCase {
     func testLoadLivestreamEntity_Success() {
         stub_load_live_entity_success()
         let promise = expectation(description: "test")
-        liveServicesMocks.loadLiveEvent(id: "8b83886e-9cc3-4eab-9258-ebb16c0c73de") { (liveEvent, error) in
+        liveServicesMocks.loadLiveEvent(id: "8b83886e-9cc3-4eab-9258-ebb16c0c73de") { (liveEvent, _) in
             XCTAssertNotNil(liveEvent)
             XCTAssertEqual(liveEvent?.posterURL?.absoluteString, "https://example.com/poster.jpeg")
             promise.fulfill()
@@ -35,7 +35,7 @@ class UZLiveServicesTests: XCTestCase {
     func testLoadLivestreamEntity_Fail() {
         stub_load_live_entity_fail()
         let promise = expectation(description: "test")
-        liveServicesMocks.loadLiveEvent(id: "8b83886e-9cc3-4eab-9258-ebb16c0c73de") { (liveEvent, error) in
+        liveServicesMocks.loadLiveEvent(id: "8b83886e-9cc3-4eab-9258-ebb16c0c73de") { (_, error) in
             XCTAssertNotNil(error)
             XCTAssertEqual(error?.code, 404)
             XCTAssertEqual(error?.localizedDescription, "Not Found")
@@ -47,7 +47,7 @@ class UZLiveServicesTests: XCTestCase {
     func testLoadLivestreamEntity_ResponseCode_Fail() {
         stub_load_live_entity_fail_response_code()
         let promise = expectation(description: "test")
-        liveServicesMocks.loadLiveEvent(id: "8b83886e-9cc3-4eab-9258-ebb16c0c73de") { (liveEvent, error) in
+        liveServicesMocks.loadLiveEvent(id: "8b83886e-9cc3-4eab-9258-ebb16c0c73de") { (_, error) in
             XCTAssertNotNil(error)
             XCTAssertEqual(error?.code, 504)
             XCTAssertEqual(error?.localizedDescription, "")
@@ -136,7 +136,7 @@ class UZLiveServicesTests: XCTestCase {
     func testLoadLiveEventViews_Fail() {
         stub_load_live_event_views_fail()
         let promise = expectation(description: "test")
-        liveServicesMocks.loadViews(liveId: "8b83886e-9cc3-4eab-9258-ebb16c0c73de") { (views, error) in
+        liveServicesMocks.loadViews(liveId: "8b83886e-9cc3-4eab-9258-ebb16c0c73de") { (_, error) in
             XCTAssertNotNil(error)
             XCTAssertEqual(error?.code, 404)
             XCTAssertEqual(error?.localizedDescription, "Live entity not existed")
@@ -148,7 +148,7 @@ class UZLiveServicesTests: XCTestCase {
     func testLoadLiveEventViews_Fail_Response_Code() {
         stub_load_live_event_views_fail_response_code()
         let promise = expectation(description: "test")
-        liveServicesMocks.loadViews(liveId: "8b83886e-9cc3-4eab-9258-ebb16c0c73de") { (views, error) in
+        liveServicesMocks.loadViews(liveId: "8b83886e-9cc3-4eab-9258-ebb16c0c73de") { (_, error) in
             XCTAssertNotNil(error)
             XCTAssertEqual(error?.code, 500)
             promise.fulfill()
@@ -176,7 +176,7 @@ class UZLiveServicesTests: XCTestCase {
         let videoItem = UZVideoItem()
         videoItem.id = "8b83886e-9cc3-4eab-9258-ebb16c0c73de"
         videoItem.feedId = "bb646dab-0516-4b6d-81a9-f5d929d6de69"
-        liveServicesMocks.loadLiveStatus(video: videoItem) { (status, error) in
+        liveServicesMocks.loadLiveStatus(video: videoItem) { (_, error) in
             XCTAssertNotNil(error)
             XCTAssertEqual(error?.code, 404)
             XCTAssertEqual(error?.localizedDescription, "Live entity not existed")
@@ -191,7 +191,7 @@ class UZLiveServicesTests: XCTestCase {
         let videoItem = UZVideoItem()
         videoItem.id = "8b83886e-9cc3-4eab-9258-ebb16c0c73de"
         videoItem.feedId = "bb646dab-0516-4b6d-81a9-f5d929d6de69"
-        liveServicesMocks.loadLiveStatus(video: videoItem) { (status, error) in
+        liveServicesMocks.loadLiveStatus(video: videoItem) { (_, error) in
             XCTAssertNotNil(error)
             XCTAssertEqual(error?.code, 500)
             promise.fulfill()

@@ -27,7 +27,7 @@ open class UZPlayerControlView: UIView {
 				
 				logoButton.isHidden = !config.showLogo || config.logoImageUrl == nil
 				if let logoImageURL = config.logoImageUrl {
-					logoButton.sd_setImage(with: logoImageURL, for: .normal) { [weak self] (image, error, cacheType, URL) in
+					logoButton.sd_setImage(with: logoImageURL, for: .normal) { [weak self] (_, _, _, _) in
 						self?.setNeedsLayout()
 					}
 				}
@@ -38,9 +38,9 @@ open class UZPlayerControlView: UIView {
 	open var logoEdgeInsetsWhenControlsInvisible: UIEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
 	open var logoEdgeInsetsWhenControlsVisible: UIEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
 	
-	open var totalDuration:TimeInterval = 0
+	open var totalDuration: TimeInterval = 0
 	
-	internal var seekedTime : TimeInterval = 0
+	internal var seekedTime: TimeInterval = 0
 	internal var delayItem: DispatchWorkItem?
 	
 	internal var resource: UZPlayerResource? {
@@ -108,7 +108,9 @@ open class UZPlayerControlView: UIView {
 	}
 	
 	open lazy var allButtons: [UIButton]! = {
-		return [backButton, helpButton, ccButton, relateButton, playlistButton, settingsButton, fullscreenButton, playpauseCenterButton, playpauseButton, forwardButton, backwardButton, nextButton, previousButton, volumeButton, pipButton, castingButton]
+		return [backButton, helpButton, ccButton, relateButton, playlistButton, settingsButton, fullscreenButton,
+                playpauseCenterButton, playpauseButton, forwardButton, backwardButton, nextButton,
+                previousButton, volumeButton, pipButton, castingButton]
 	}()
 	
 	internal var playerLastState: UZPlayerState = .notSetURL
@@ -140,7 +142,7 @@ open class UZPlayerControlView: UIView {
 	public let airplayButton = UZAirPlayButton()
 	public let coverImageView = UIImageView()
 	public let liveBadgeView = UZLiveBadgeView()
-	public var loadingIndicatorView: NVActivityIndicatorView? = nil
+	public var loadingIndicatorView: NVActivityIndicatorView?
 	public var endscreenView = UZEndscreenView()
 	public var timeSlider: UZSlider! {
 		didSet {
@@ -149,7 +151,7 @@ open class UZPlayerControlView: UIView {
 			timeSlider.maximumTrackTintColor = UIColor.clear
 		}
 	}
-	internal var castingView: UZCastingView? = nil
+	internal var castingView: UZCastingView?
 	
 	internal var liveStartDate: Date? = nil {
 		didSet {
@@ -157,7 +159,7 @@ open class UZPlayerControlView: UIView {
 		}
 	}
 	
-	fileprivate var timer: Timer? = nil
+	fileprivate var timer: Timer?
 	
 	// MARK: -
 	
@@ -277,17 +279,6 @@ open class UZPlayerControlView: UIView {
 	
 	// MARK: -
 	
-	internal func setupGestures() {
-		tapGesture = UITapGestureRecognizer(target: self, action: #selector(onTap))
-		doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(onDoubleTap))
-		doubleTapGesture?.numberOfTapsRequired = 2
-		doubleTapGesture?.delegate = self
-		tapGesture!.require(toFail: doubleTapGesture!)
-		
-		self.addGestureRecognizer(tapGesture!)
-		self.addGestureRecognizer(doubleTapGesture!)
-	}
-	
 	override open func layoutSubviews() {
 		super.layoutSubviews()
 		
@@ -306,7 +297,8 @@ open class UZPlayerControlView: UIView {
 			
 			let viewSize = messageBounds.size
 			let labelSize = messageLabel.sizeThatFits(messageBounds.size)
-			messageLabel.frame = CGRect(x: messageBounds.origin.x, y: messageBounds.origin.y + (viewSize.height - labelSize.height)/2, width: viewSize.width, height: labelSize.height)
+			messageLabel.frame = CGRect(x: messageBounds.origin.x, y: messageBounds.origin.y + (viewSize.height - labelSize.height)/2,
+                                        width: viewSize.width, height: labelSize.height)
 		}
 		
 		alignLogo()
@@ -326,16 +318,14 @@ open class UZPlayerControlView: UIView {
 				
 				remainingTime = max(totalTime - currentTime, 0)
 				remainTimeLabel.text = remainingTime.toString
-			}
-			else {
+			} else {
 				timeSlider.value = totalTime>0 ? Float(seekedTime) / Float(totalTime) : 0
 				currentTimeLabel.text = seekedTime.toString
 				
 				remainingTime = max(seekedTime - currentTime, 0)
 				remainTimeLabel.text = remainingTime.toString
 			}
-		}
-		else {
+		} else {
 			timeSlider.value = totalTime>0 ? Float(currentTime) / Float(totalTime) : 0
 			currentTimeLabel.text = currentTime.toString
 			
@@ -346,7 +336,7 @@ open class UZPlayerControlView: UIView {
 		self.setNeedsLayout()
 	}
 	
-	open func loadedTimeDidChange(loadedDuration: TimeInterval , totalDuration: TimeInterval) {
+	open func loadedTimeDidChange(loadedDuration: TimeInterval, totalDuration: TimeInterval) {
 		let progress = totalDuration>0 ? Float(loadedDuration)/Float(totalDuration) : 0
 		timeSlider.progressView.setProgress(progress, animated: true)
 	}
@@ -392,7 +382,8 @@ open class UZPlayerControlView: UIView {
 		liveBadgeView.views = -1
 		
 		let controlsForTimeshift: [UIView] = [totalTimeLabel, remainTimeLabel, currentTimeLabel, timeSlider]
-		var hiddenViewsWhenLive: [UIView] = [titleLabel, playpauseButton, playpauseCenterButton, forwardButton, backwardButton, settingsButton, playlistButton, relateButton]
+		var hiddenViewsWhenLive: [UIView] = [titleLabel, playpauseButton, playpauseCenterButton, forwardButton,
+                                             backwardButton, settingsButton, playlistButton, relateButton]
 		if !enableTimeshiftForLiveVideo {
 			hiddenViewsWhenLive.append(contentsOf: controlsForTimeshift)
 		}
@@ -436,15 +427,12 @@ open class UZPlayerControlView: UIView {
 			switch position.horizontal.lowercased() {
 			case "left", "l":
 				x = 0.0
-				break
 				
 			case "center", "c":
 				x = (bounds.size.width - logoSize.width)/2
-				break
 				
 			case "right", "r":
 				x = bounds.size.width - logoSize.width
-				break
 				
 			default:
 				x = 0.0
@@ -453,15 +441,12 @@ open class UZPlayerControlView: UIView {
 			switch position.vertical.lowercased() {
 			case "top", "t":
 				y = 0.0
-				break
 				
 			case "center", "c":
 				y = (bounds.size.height - logoSize.height)/2
-				break
 				
 			case "bottom", "b":
 				y = bounds.size.height - logoSize.height
-				break
 				
 			default:
 				y = 0.0
@@ -484,17 +469,29 @@ open class UZPlayerControlView: UIView {
 	open func updateUI(_ isForFullScreen: Bool) {
 		fullscreenButton.isSelected = isForFullScreen
 	}
-	
-	private func updateLiveDate() {
-		timer?.invalidate()
-		timer = nil
-		
-		if liveStartDate != nil {
-			timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(onTimer), userInfo: nil, repeats: true)
-		}
-		else {
-			enlapseTimeLabel.setTitle(nil, for: .normal)
-			enlapseTimeLabel.isHidden = true
-		}
-	}
+}
+
+extension UZPlayerControlView {
+    internal func setupGestures() {
+        tapGesture = UITapGestureRecognizer(target: self, action: #selector(onTap))
+        doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(onDoubleTap))
+        doubleTapGesture?.numberOfTapsRequired = 2
+        doubleTapGesture?.delegate = self
+        tapGesture!.require(toFail: doubleTapGesture!)
+        
+        self.addGestureRecognizer(tapGesture!)
+        self.addGestureRecognizer(doubleTapGesture!)
+    }
+    
+    fileprivate func updateLiveDate() {
+        timer?.invalidate()
+        timer = nil
+        
+        if liveStartDate != nil {
+            timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(onTimer), userInfo: nil, repeats: true)
+        } else {
+            enlapseTimeLabel.setTitle(nil, for: .normal)
+            enlapseTimeLabel.isHidden = true
+        }
+    }
 }

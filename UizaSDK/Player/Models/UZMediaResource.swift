@@ -9,9 +9,9 @@
 import Foundation
 
 public struct UZPlayerResource {
-	public let name  : String
-	public let cover : URL?
-	public let subtitles : [URL]?
+	public let name: String
+	public let cover: URL?
+	public let subtitles: [URL]?
 	public let definitions: [UZVideoLinkPlay]
 	public var isLive: Bool = false
 	

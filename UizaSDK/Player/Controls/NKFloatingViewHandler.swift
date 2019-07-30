@@ -17,14 +17,14 @@ public enum NKFloatingPosition: Int {
 }
 
 public protocol NKFloatingViewHandlerProtocol: class {
-	var containerView	: UIView! { get }
-	var gestureView		: UIView! { get }
-//	var panGesture		: UIPanGestureRecognizer! { get }
-	var fullRect		: CGRect { get }
-//	var floatingRect	: CGRect { get }
+	var containerView: UIView! { get }
+	var gestureView: UIView! { get }
+//	var panGesture: UIPanGestureRecognizer! { get }
+	var fullRect: CGRect { get }
+//	var floatingRect: CGRect { get }
 	
 	func floatingRect(for position: NKFloatingPosition) -> CGRect
-	func floatingHandlerDidDragging(with progress:CGFloat)
+	func floatingHandlerDidDragging(with progress: CGFloat)
 	func floatingHandlerDidDismiss()
 }
 
@@ -33,7 +33,7 @@ public enum DragDirection {
 }
 
 open class NKFloatingViewHandler: NSObject {
-	open weak var delegate : NKFloatingViewHandlerProtocol?
+	open weak var delegate: NKFloatingViewHandlerProtocol?
 	open var swipeLeftToDismiss = true
 	open var swipeRightToDismiss = true
 	open var allowsCornerDocking = false
@@ -44,43 +44,44 @@ open class NKFloatingViewHandler: NSObject {
 		}
 	}
 	
-	public fileprivate(set) var floatingProgress : CGFloat = 0
+	public fileprivate(set) var floatingProgress: CGFloat = 0
 	public fileprivate(set) var isHorizontalDragging = false
 	public fileprivate(set) var isVerticalDragging = false
-	public fileprivate(set) var currentFloatingPosition: NKFloatingPosition? = nil
+	public fileprivate(set) var currentFloatingPosition: NKFloatingPosition?
 	public var initPosition: NKFloatingPosition = .bottomRight
 	
 	fileprivate var floatingMode = false
-	fileprivate var dragDirection : DragDirection = .none
-	fileprivate var tweenAction : ActionScrubber!
+	fileprivate var dragDirection: DragDirection = .none
+	fileprivate var tweenAction: ActionScrubber!
 	fileprivate var scaleAction = ActionScheduler()
-	fileprivate var panGesture : UIPanGestureRecognizer!
-	fileprivate var tapGesture : UITapGestureRecognizer!
+	fileprivate var panGesture: UIPanGestureRecognizer!
+	fileprivate var tapGesture: UITapGestureRecognizer!
 	
-	open var isFloatingMode : Bool {
+	open var isFloatingMode: Bool {
 		get {
 			return floatingMode
 		}
 		set {
 			if newValue {
 				becomeFloating()
-			}
-			else {
+			} else {
 				backToNormalState()
 			}
 		}
 	}
 	
-	convenience init(target : NKFloatingViewHandlerProtocol!) {
+	convenience init(target: NKFloatingViewHandlerProtocol!) {
 		self.init()
 		
 		self.delegate = target
 		setup()
 		
 		#if swift(>=4.2)
-		NotificationCenter.default.addObserver(self, selector: #selector(updatePosition), name: UIApplication.didChangeStatusBarOrientationNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(updatePosition),
+                                               name: UIApplication.didChangeStatusBarOrientationNotification, object: nil)
 		#else
-		NotificationCenter.default.addObserver(self, selector: #selector(updatePosition), name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(updatePosition),
+                                               name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation, object: nil)
 		#endif
 	}
 	
@@ -97,7 +98,8 @@ open class NKFloatingViewHandler: NSObject {
 		
 		guard let delegate = self.delegate else { return }
 		
-		let action = InterpolationAction(from: delegate.containerView.frame, to: delegate.floatingRect(for: position), duration: 0.35, easing: .exponentialOut) { [weak self] in
+		let action = InterpolationAction(from: delegate.containerView.frame, to: delegate.floatingRect(for: position),
+                                         duration: 0.35, easing: .exponentialOut) { [weak self] in
 			self?.delegate?.containerView.frame = $0
 		}
 		self.scaleAction.run(action: action)
@@ -116,7 +118,8 @@ open class NKFloatingViewHandler: NSObject {
 		
 		guard let delegate = self.delegate else { return }
 		
-		let action = InterpolationAction(from: delegate.containerView.frame, to: delegate.fullRect, duration: 0.35, easing: .exponentialOut) { [weak self] in
+		let action = InterpolationAction(from: delegate.containerView.frame, to: delegate.fullRect,
+                                         duration: 0.35, easing: .exponentialOut) { [weak self] in
 			self?.delegate?.containerView.frame = $0
 		}
 		
@@ -160,7 +163,8 @@ open class NKFloatingViewHandler: NSObject {
 	fileprivate func setupTween() {
 		guard let delegate = self.delegate else { return }
 		
-		let move = InterpolationAction(from: delegate.fullRect, to: delegate.floatingRect(for: initPosition), duration: 2.0, easing: .linear) { [weak self] in
+		let move = InterpolationAction(from: delegate.fullRect, to: delegate.floatingRect(for: initPosition),
+                                       duration: 2.0, easing: .linear) { [weak self] in
 			self?.delegate?.containerView.frame = $0
 		}
 		
@@ -182,12 +186,10 @@ open class NKFloatingViewHandler: NSObject {
 				
 				if pan.state == .began {
 					lastPoint = view.center
-				}
-				else {
+				} else {
 					view.center = CGPoint(x: lastPoint.x + translatedPoint.x, y: lastPoint.y + translatedPoint.y)
 				}
-			}
-			else {
+			} else {
 				updateFrame(with: translatedPoint)
 				
 				if allowsCornerDocking {
@@ -198,14 +200,12 @@ open class NKFloatingViewHandler: NSObject {
 						
 						let viewSize = view.frame.size
 						lastOffset = CGPoint(x: lastPoint.x/viewSize.width, y: lastPoint.y/viewSize.height)
-					}
-					else {
+					} else {
 						view.center = CGPoint(x: lastPoint.x + translatedPoint.x, y: view.center.y)
 					}
 				}
 			}
-		}
-		else if pan.state == .ended {
+		} else if pan.state == .ended {
 			let translatedPoint = pan.translation(in: window)
 			updateDraggingState(with: translatedPoint)
 			
@@ -218,18 +218,15 @@ open class NKFloatingViewHandler: NSObject {
 							if translatedPoint.y < -50 && (currentPosition == .topLeft || currentPosition == .topRight) {
 								hideAndDismiss()
 								return
-							}
-							else if translatedPoint.y > 50 && (currentPosition == .bottomLeft || currentPosition == .bottomRight) {
+							} else if translatedPoint.y > 50 && (currentPosition == .bottomLeft || currentPosition == .bottomRight) {
 								hideAndDismiss()
 								return
 							}
-						}
-						else if isHorizontalDragging {
+						} else if isHorizontalDragging {
 							if translatedPoint.x < -50 && (currentPosition == .topLeft || currentPosition == .bottomLeft) {
 								hideAndDismiss()
 								return
-							}
-							else if translatedPoint.x > 50 && (currentPosition == .topRight || currentPosition == .bottomRight) {
+							} else if translatedPoint.x > 50 && (currentPosition == .topRight || currentPosition == .bottomRight) {
 								hideAndDismiss()
 								return
 							}
@@ -245,42 +242,34 @@ open class NKFloatingViewHandler: NSObject {
 					if center.x > halfW {
 						if center.y > halfH {
 							position = .bottomRight
-						}
-						else {
+						} else {
 							position = .topRight
 						}
-					}
-					else {
+					} else {
 						if center.y > halfH {
 							position = .bottomLeft
-						}
-						else {
+						} else {
 							position = .topLeft
 						}
 					}
 					
 					becomeFloating(position: position)
-				}
-				else {
+				} else {
 					if isVerticalDragging {
 						if translatedPoint.y < -100 {
 							backToNormalState()
-						}
-						else {
+						} else {
 							becomeFloating()
 						}
-					}
-					else if isHorizontalDragging {
+					} else if isHorizontalDragging {
 						if (translatedPoint.x < -50 && swipeLeftToDismiss) || (translatedPoint.x > 20 && swipeRightToDismiss) {
 							hideAndDismiss()
-						}
-						else {
+						} else {
 							becomeFloating()
 						}
 					}
 				}
-			}
-			else {
+			} else {
 				if translatedPoint.y > 150 {
 					var position: NKFloatingPosition = initPosition
 					
@@ -291,27 +280,23 @@ open class NKFloatingViewHandler: NSObject {
 						
 						if center.x < halfW {
 							position = .bottomLeft
-						}
-						else {
+						} else {
 							position = .bottomRight
 						}
 					}
 					
 					becomeFloating(position: position)
-				}
-				else {
+				} else {
 					backToNormalState()
 				}
 			}
 			
 			isVerticalDragging = false
 			isHorizontalDragging = false
-		}
-		else if pan.state == .cancelled {
+		} else if pan.state == .cancelled {
 			if floatingMode {
 				becomeFloating()
-			}
-			else {
+			} else {
 				backToNormalState()
 			}
 			
@@ -320,42 +305,35 @@ open class NKFloatingViewHandler: NSObject {
 		}
 	}
 	
-	fileprivate func updateDraggingState(with translatedPoint:CGPoint) {
-		if (floatingMode) {
+	fileprivate func updateDraggingState(with translatedPoint: CGPoint) {
+		if floatingMode {
 			if translatedPoint.y < -5 && !isHorizontalDragging {
 				isVerticalDragging = true
 				dragDirection = .up
-			}
-			else if translatedPoint.x > 5 && !isVerticalDragging {
+			} else if translatedPoint.x > 5 && !isVerticalDragging {
 				isHorizontalDragging = true
 				dragDirection = .right
-			}
-			else if translatedPoint.x < -5 && !isVerticalDragging {
+			} else if translatedPoint.x < -5 && !isVerticalDragging {
 				isHorizontalDragging = true
 				dragDirection = .left
-			}
-			else {
+			} else {
 				dragDirection = .none
 			}
-		}
-		else if !isHorizontalDragging && translatedPoint.y > 0 {
-			isVerticalDragging = true;
-			dragDirection = .down;
-		}
-		else {
+		} else if !isHorizontalDragging && translatedPoint.y > 0 {
+			isVerticalDragging = true
+			dragDirection = .down
+		} else {
 			dragDirection = .none
 		}
 	}
 	
-	fileprivate func updateFrame(with translatedPoint:CGPoint) {
+	fileprivate func updateFrame(with translatedPoint: CGPoint) {
 		switch dragDirection {
 		case .up, .down:
 			movingVertical(with: translatedPoint)
-			break
 			
 		case .left, .right:
 			movingHorizontal(with: translatedPoint)
-			break
 			
 		default:
 			break
@@ -397,10 +375,10 @@ open class NKFloatingViewHandler: NSObject {
 		let viewSize = UIScreen.main.bounds.size
 		let currentFrame = delegate.containerView.frame
 		let currentSize = currentFrame.size
-		let toRect = CGRect(x: viewSize.width - currentSize.width + translatedPoint.x, y: currentFrame.origin.y, width: currentSize.width, height: currentSize.height)
+		let toRect = CGRect(x: viewSize.width - currentSize.width + translatedPoint.x, y: currentFrame.origin.y,
+                            width: currentSize.width, height: currentSize.height)
 		delegate.containerView.frame = toRect
 	}
-	
 	
 	// MARK: -
 	

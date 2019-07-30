@@ -5,7 +5,7 @@
 //  Created by Steve Barnegren on 19/03/2017.
 //  Copyright © 2017 Steve Barnegren. All rights reserved.
 //
-
+// swiftlint:disable all
 import Foundation
 
 /** Runs a block. Can be used to add callbacks in sequences */

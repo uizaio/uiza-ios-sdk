@@ -12,13 +12,13 @@ import FrameLayoutKit
 import NVActivityIndicatorView
 
 open class UZTheme4: UZPlayerTheme {
-	public weak var controlView: UZPlayerControlView? = nil
+	public weak var controlView: UZPlayerControlView?
 	
 	let topGradientLayer = CAGradientLayer()
 	
-	internal var topFrameLayout 	: DoubleFrameLayout?
-	internal var bottomFrameLayout 	: StackFrameLayout?
-	internal var mainFrameLayout 	: StackFrameLayout?
+	internal var topFrameLayout: DoubleFrameLayout?
+	internal var bottomFrameLayout: StackFrameLayout?
+	internal var mainFrameLayout: StackFrameLayout?
 	
 	internal var iconColor = UIColor.white
 	internal var iconSize = CGSize(width: 24, height: 24)
@@ -161,7 +161,9 @@ open class UZTheme4: UZPlayerTheme {
 		let bottomLeftFrameLayout = StackFrameLayout(axis: .horizontal, views: [controlView.currentTimeLabel, controlView.totalTimeLabel])
 		bottomLeftFrameLayout.appendEmptySpace(size: iconSize.width)
 		
-		let bottomRightFrameLayout = StackFrameLayout(axis: .horizontal, views: [controlView.pipButton, controlView.castingButton, controlView.playlistButton, controlView.fullscreenButton])
+		let bottomRightFrameLayout = StackFrameLayout(axis: .horizontal, views: [controlView.pipButton,
+                                                                                 controlView.castingButton, controlView.playlistButton,
+                                                                                 controlView.fullscreenButton])
 		let bottomCenterFrameLayout = StackFrameLayout(axis: .horizontal)
 		bottomCenterFrameLayout.append(view: controlView.backwardButton).contentAlignment = (.center, .center)
 		bottomCenterFrameLayout.append(view: controlView.previousButton).contentAlignment = (.center, .center)
@@ -271,7 +273,9 @@ open class UZTheme4: UZPlayerTheme {
 	open func showLoader() {
 		if let controlView = controlView, let bottomFrameLayout = bottomFrameLayout {
 			if controlView.loadingIndicatorView == nil {
-				controlView.loadingIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 30, height: 30), type: NVActivityIndicatorType.ballScaleRippleMultiple, color: .white, padding: 0)
+				controlView.loadingIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 30, height: 30),
+                                                                           type: NVActivityIndicatorType.ballScaleRippleMultiple,
+                                                                           color: .white, padding: 0)
 				bottomFrameLayout.addSubview(controlView.loadingIndicatorView!)
 				controlView.setNeedsLayout()
 			}

@@ -13,15 +13,15 @@ public class RepeatForeverAction: InfiniteTimeAction {
 
     // MARK: - Public
 
-    public var onBecomeActive: () -> () = {}
-    public var onBecomeInactive: () -> () = {}
+    public var onBecomeActive: () -> Void = {}
+    public var onBecomeInactive: () -> Void = {}
     
     /**
      Create with an action to repeat forever
      - Parameter action: The action to repeat
      */
     public init(action: FiniteTimeAction) {
-        self.action = action;
+        self.action = action
     }
     
     // MARK: - Private Properties
@@ -52,7 +52,7 @@ public class RepeatForeverAction: InfiniteTimeAction {
         
         let repeatNumber = Int(elapsedTime / action.duration)
         
-        (lastRepeatNumber..<repeatNumber).forEach{ _ in
+        (lastRepeatNumber..<repeatNumber).forEach { _ in
             self.action.didFinish()
             self.action.willBegin()
         }

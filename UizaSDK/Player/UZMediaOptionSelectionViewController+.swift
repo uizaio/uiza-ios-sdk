@@ -14,10 +14,10 @@ import NKModalViewManager
 
 import FrameLayoutKit
 
-class UZMediaOptionItemCollectionViewCell : UICollectionViewCell {
-    var highlightView        : UIView!
-    var titleLabel            : UILabel!
-    var frameLayout            : DoubleFrameLayout!
+class UZMediaOptionItemCollectionViewCell: UICollectionViewCell {
+    var highlightView: UIView!
+    var titleLabel: UILabel!
+    var frameLayout: DoubleFrameLayout!
     var highlightMode        = false {
         didSet {
             self.isSelected = super.isSelected
@@ -49,15 +49,14 @@ class UZMediaOptionItemCollectionViewCell : UICollectionViewCell {
                 UIView.animate(withDuration: 0.3) {
                     self.contentView.alpha = value ? 1.0 : 0.25
                 }
-            }
-            else {
+            } else {
                 self.contentView.alpha = 1.0
                 self.updateColor()
             }
         }
     }
     
-    var option : AVMediaSelectionOption? = nil {
+    var option: AVMediaSelectionOption? = nil {
         didSet {
             updateView()
         }
@@ -77,13 +76,11 @@ class UZMediaOptionItemCollectionViewCell : UICollectionViewCell {
             highlightView.alpha = 1.0
             highlightView.backgroundColor = UIColor(white: 1.0, alpha: 0.5)
             titleLabel.textColor = .black
-        }
-        else if self.isSelected {
+        } else if self.isSelected {
             highlightView.alpha = 1.0
-            highlightView.backgroundColor = UIColor(red:0.21, green:0.49, blue:0.96, alpha:1.00)
+            highlightView.backgroundColor = UIColor(red: 0.21, green: 0.49, blue: 0.96, alpha: 1.00)
             titleLabel.textColor = .white
-        }
-        else {
+        } else {
             titleLabel.textColor = .white
             
             UIView.animate(withDuration: 0.3, animations: {() -> Void in
@@ -136,7 +133,6 @@ class UZMediaOptionItemCollectionViewCell : UICollectionViewCell {
         self.setNeedsLayout()
     }
     
-    
     // MARK: -
     
     override func layoutSubviews() {
@@ -164,7 +160,7 @@ class UZMediaOptionItemCollectionViewCell : UICollectionViewCell {
 class UZTitleCollectionViewHeader: UICollectionReusableView {
     
     let label = UILabel()
-    var frameLayout : FrameLayout!
+    var frameLayout: FrameLayout!
     
     var title: String? {
         get {

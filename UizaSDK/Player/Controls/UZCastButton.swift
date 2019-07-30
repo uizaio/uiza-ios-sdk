@@ -33,7 +33,7 @@ open class UZCastButton: NKButton {
 		fatalError("init(coder:) has not been implemented")
 	}
 	
-	open func setupDefaultIcon(iconSize: CGSize, offColor: UIColor = .white, onColor: UIColor = UIColor(red:0.21, green:0.49, blue:0.96, alpha:1.00)) {
+	open func setupDefaultIcon(iconSize: CGSize, offColor: UIColor = .white, onColor: UIColor = UIColor(red: 0.21, green: 0.49, blue: 0.96, alpha: 1.00)) {
 		let castIcon = UIImage(icon: .googleMaterialDesign(.cast), size: iconSize, textColor: offColor, backgroundColor: .clear)
 		let castConnectedIcon = UIImage(icon: .googleMaterialDesign(.castConnected), size: iconSize, textColor: onColor, backgroundColor: .clear)
 		

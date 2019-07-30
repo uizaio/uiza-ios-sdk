@@ -26,7 +26,7 @@ public class ActionGroup: FiniteTimeAction, SchedulableAction {
      - Parameter actions: Array of actions the group should contain
      */
     public init(actions: [FiniteTimeAction]) {
-        actions.forEach{
+        actions.forEach {
             add(action: $0)
         }
     }
@@ -42,8 +42,7 @@ public class ActionGroup: FiniteTimeAction, SchedulableAction {
             
             if index == 0 {
                 add(action: action)
-            }
-            else{
+            } else {
                 let delay = DelayAction(duration: offset * Double(index))
                 let sequence = ActionSequence(actions: delay, action)
                 add(action: sequence)
@@ -52,12 +51,12 @@ public class ActionGroup: FiniteTimeAction, SchedulableAction {
         }
     }
     
-    public var onBecomeActive: () -> () = {}
-    public var onBecomeInactive: () -> () = {}
+    public var onBecomeActive: () -> Void = {}
+    public var onBecomeInactive: () -> Void = {}
     
     public var reverse = false {
         didSet {
-            wrappedActions = wrappedActions.map{ wrapped in
+            wrappedActions = wrappedActions.map { wrapped in
                 wrapped.action.reverse = reverse
                 return wrapped
             }
@@ -75,26 +74,22 @@ public class ActionGroup: FiniteTimeAction, SchedulableAction {
     
     private func add(action: FiniteTimeAction) {
         
-        let allActions = wrappedActions.map{ $0.action } + (triggerActions as [FiniteTimeAction])
-        for existingAction in allActions {
-            if existingAction === action {
-                fatalError("You cannot the same action to a group multiple times!")
-            }
+        let allActions = wrappedActions.map { $0.action } + (triggerActions as [FiniteTimeAction])
+        for existingAction in allActions where existingAction === action {
+            fatalError("You cannot the same action to a group multiple times!")
         }
         
         if let trigger = action as? TriggerAction {
             triggerActions.append(trigger)
-        }
-        else{
+        } else {
             let wrappedAction = GroupActionWrapper(action: action)
             wrappedActions.append(wrappedAction)
             calculateDuration()
         }
     }
 
-    
     private func calculateDuration() {
-        duration = wrappedActions.reduce(0){ max($0, $1.action.duration) }
+        duration = wrappedActions.reduce(0) { max($0, $1.action.duration) }
     }
     
     public func willBecomeActive() {
@@ -112,14 +107,14 @@ public class ActionGroup: FiniteTimeAction, SchedulableAction {
         
         // Invoke trigger actions
         if reverse == false {
-            triggerActions.forEach{
+            triggerActions.forEach {
                 $0.trigger()
             }
         }
         
         // Set actions in progress
         if !self.reverse {
-            wrappedActions.forEach{
+            wrappedActions.forEach {
                 $0.state = .inProgress
             }
         }
@@ -141,7 +136,7 @@ public class ActionGroup: FiniteTimeAction, SchedulableAction {
         
         // If we're being called in reverse, now we should call the trigger actions
         if reverse == true {
-            triggerActions.forEach{
+            triggerActions.forEach {
                 $0.trigger()
             }
         }
@@ -187,7 +182,7 @@ class GroupActionWrapper {
     var action: FiniteTimeAction
     
     var state = State.notStarted {
-        didSet{
+        didSet {
             
             if state == oldValue {
                 return

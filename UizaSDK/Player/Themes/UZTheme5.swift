@@ -12,14 +12,14 @@ import FrameLayoutKit
 import NVActivityIndicatorView
 
 open class UZTheme5: UZPlayerTheme {
-	public weak var controlView: UZPlayerControlView? = nil
+	public weak var controlView: UZPlayerControlView?
 	
 	let topGradientLayer = CAGradientLayer()
 	let bottomGradientLayer = CAGradientLayer()
 	
-	internal var topFrameLayout 	: DoubleFrameLayout?
-	internal var bottomFrameLayout 	: StackFrameLayout?
-	internal var mainFrameLayout 	: StackFrameLayout?
+	internal var topFrameLayout: DoubleFrameLayout?
+	internal var bottomFrameLayout: StackFrameLayout?
+	internal var mainFrameLayout: StackFrameLayout?
 	
 	internal var iconColor = UIColor.white
 	internal var iconSize = CGSize(width: 24, height: 24)
@@ -125,7 +125,8 @@ open class UZTheme5: UZPlayerTheme {
 	
 	func setupLayout() {
 		guard let controlView = controlView else { return }
-		let controlFrameLayout = StackFrameLayout(axis: .horizontal, views: [controlView.pipButton, controlView.castingButton, controlView.playlistButton, controlView.volumeButton])
+		let controlFrameLayout = StackFrameLayout(axis: .horizontal, views: [controlView.pipButton, controlView.castingButton,
+                                                                             controlView.playlistButton, controlView.volumeButton])
 		controlFrameLayout.addSubview(controlView.castingButton)
 		controlFrameLayout.addSubview(controlView.pipButton)
 		controlFrameLayout.addSubview(controlView.playlistButton)
@@ -159,7 +160,8 @@ open class UZTheme5: UZPlayerTheme {
 //		topFrameLayout!.showFrameDebug = true
 		
 		let bottomLeftFrameLayout = StackFrameLayout(axis: .horizontal, views: [controlView.playpauseButton])
-		let bottomRightFrameLayout = StackFrameLayout(axis: .horizontal, views: [controlView.currentTimeLabel, controlView.totalTimeLabel, controlView.settingsButton, controlView.fullscreenButton])
+		let bottomRightFrameLayout = StackFrameLayout(axis: .horizontal, views: [controlView.currentTimeLabel, controlView.totalTimeLabel,
+                                                                                 controlView.settingsButton, controlView.fullscreenButton])
 		bottomRightFrameLayout.spacing = 10
 		bottomLeftFrameLayout.spacing = 10
 		
@@ -188,7 +190,8 @@ open class UZTheme5: UZPlayerTheme {
 		
 //		bottomFrameLayout!.backgroundColor = UIColor(white: 0.0, alpha: 0.8)
 		
-		let centerFrameLayout = StackFrameLayout(axis: .horizontal, distribution: .center, views: [controlView.previousButton, controlView.playpauseCenterButton, controlView.nextButton])
+		let centerFrameLayout = StackFrameLayout(axis: .horizontal, distribution: .center,
+                                                 views: [controlView.previousButton, controlView.playpauseCenterButton, controlView.nextButton])
 		centerFrameLayout.spacing = 40
 		centerFrameLayout.isUserInteractionEnabled = true
 		centerFrameLayout.addSubview(controlView.previousButton)
@@ -261,7 +264,9 @@ open class UZTheme5: UZPlayerTheme {
 	open func showLoader() {
 		if let controlView = controlView {
 			if controlView.loadingIndicatorView == nil {
-				controlView.loadingIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 30, height: 30), type: NVActivityIndicatorType.lineSpinFadeLoader, color: .white, padding: 0)
+				controlView.loadingIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 30, height: 30),
+                                                                           type: NVActivityIndicatorType.lineSpinFadeLoader,
+                                                                           color: .white, padding: 0)
 				controlView.addSubview(controlView.loadingIndicatorView!)
 			}
 			

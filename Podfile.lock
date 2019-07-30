@@ -31,6 +31,7 @@ PODS:
   - Sentry (4.4.0):
     - Sentry/Core (= 4.4.0)
   - Sentry/Core (4.4.0)
+  - SwiftLint (0.32.0)
   - SwiftyJSON (5.0.0)
   - URITemplate (3.0.0)
 
@@ -46,6 +47,7 @@ DEPENDENCIES:
   - NVActivityIndicatorView/AppExtension
   - SDWebImage
   - Sentry
+  - SwiftLint (= 0.32.0)
   - SwiftyJSON
 
 SPEC REPOS:
@@ -62,6 +64,7 @@ SPEC REPOS:
     - Protobuf
     - SDWebImage
     - Sentry
+    - SwiftLint
     - SwiftyJSON
     - URITemplate
 
@@ -81,7 +84,7 @@ SPEC CHECKSUMS:
   FrameLayoutKit: 84a29a25e736134f25680ccae6f932934c5ba420
   google-cast-sdk: fad0b26723a820bad54f550b2240810dc0fe53b9
   LFLiveKit_: 96c12c02e7c1d1177be4b0d6b246832854307ed0
-  Mockingjay: 97656c6f59879923976a0a52ef09da45756cca82
+  Mockingjay: 0f7c5aa49c7f1b95621cee3c79b557141f5a225c
   NHNetworkTime: b140ee21770aed41e7b8fd43647bce6349ad10f2
   NKButton: 0f928184980d1e8776f8d2770c38329d21f95f10
   NKModalViewManager: 8171cd4fb9315193fc2d05f011f9a29c9ca95a0f
@@ -89,9 +92,10 @@ SPEC CHECKSUMS:
   Protobuf: 1097ca58584c8d9be81bfbf2c5ff5975648dd87a
   SDWebImage: fb387001955223213dde14bc08c8b73f371f8d8f
   Sentry: 26650184fe71eb7476dfd2737acb5ea6cc64b4b1
+  SwiftLint: 009a898ef2a1c851f45e1b59349bf6ff2ddc990d
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
   URITemplate: 58e0d47f967006c5d59888af5356c4a8ed3b197d
 
-PODFILE CHECKSUM: e560433a65fee96c5016cdc90943b8ef934a710a
+PODFILE CHECKSUM: ae95533a3ab5b3688cd65c98cf1580c99c95bb0d
 
 COCOAPODS: 1.7.4

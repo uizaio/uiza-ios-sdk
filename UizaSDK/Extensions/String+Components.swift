@@ -11,15 +11,11 @@ import Foundation
 extension String {
 	
 	var stringByDeletingLastPathComponent: String {
-		get {
-			return (self as NSString).deletingLastPathComponent
-		}
+        return (self as NSString).deletingLastPathComponent
 	}
 	
 	var stringByDeletingPathExtension: String {
-		get {
-			return (self as NSString).deletingPathExtension
-		}
+        return (self as NSString).deletingPathExtension
 	}
 	
 	func stringByAppendingPathComponent(_ path: String) -> String {

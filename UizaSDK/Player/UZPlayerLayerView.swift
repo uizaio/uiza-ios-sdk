@@ -184,9 +184,9 @@ open class UZPlayerLayerView: UIView {
 	}
 	
 	@objc func retry() {
+		player?.removeObserver(self, forKeyPath: "rate")
 		self.playerLayer?.removeFromSuperlayer()
 		self.player?.replaceCurrentItem(with: nil)
-		player?.removeObserver(self, forKeyPath: "rate")
 		self.player = nil
 		
 		if configPlayerAndCheckForPlayable() {
@@ -237,10 +237,10 @@ open class UZPlayerLayerView: UIView {
 			getLatencytimer = nil
 		}
 		
+		player?.removeObserver(self, forKeyPath: "rate")
 		self.pause()
 		self.playerLayer?.removeFromSuperlayer()
 		self.player?.replaceCurrentItem(with: nil)
-		player?.removeObserver(self, forKeyPath: "rate")
 		self.player = nil
 	}
 	

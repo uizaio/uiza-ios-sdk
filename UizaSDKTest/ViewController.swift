@@ -39,7 +39,7 @@ class MySlider: UZSlider {
 }
 
 class ViewController: UIViewController {
-    //    let playerViewController = UZPlayerViewController()
+//    let playerViewController = UZPlayerViewController()
     let themeButton = UIButton()
     
     override func viewDidLoad() {
@@ -49,7 +49,6 @@ class ViewController: UIViewController {
         themeButton.addTarget(self, action: #selector(switchTheme), for: .touchUpInside)
         self.view.addSubview(themeButton)
 		
-/*
 		UZContentServices().loadMetadata(metadataId: "8b2eaabb-dfe3-4d17-a95b-5a9cc3b24e38", page: 0, limit: 1) { (results, pagination, error) in
 			if let videos = results, let video = videos.first {
 				
@@ -62,8 +61,8 @@ class ViewController: UIViewController {
 				}
 			}
 		}
-*/
         
+/*
         UZContentServices().loadEntity(metadataId: nil, publishStatus: .success, page: 0, limit: 15) { (results, error) in
             if let videos = results, let video = videos.randomElement() {
                 
@@ -76,6 +75,7 @@ class ViewController: UIViewController {
                 }
             }
         }
+*/
 		
 //		DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
 //			self.showLive()

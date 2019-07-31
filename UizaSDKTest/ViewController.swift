@@ -66,7 +66,6 @@ class ViewController: UIViewController {
         
         UZContentServices().loadEntity(metadataId: nil, publishStatus: .success, page: 0, limit: 15) { (results, error) in
             if let videos = results, let video = videos.randomElement() {
-                
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                     let viewController = UZFloatingPlayerViewController()
                     viewController.present(with: video).player.controlView.theme = UZTheme1()
@@ -80,6 +79,7 @@ class ViewController: UIViewController {
 //		DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
 //			self.showLive()
 //		}
+
     }
     
     func showLive() {

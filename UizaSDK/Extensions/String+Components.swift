@@ -31,4 +31,12 @@ extension String {
 		let nsSt = self as NSString
 		return nsSt.appendingPathExtension(ext)
 	}
+    
+    var hexaBytes: [UInt8] {
+        var position = startIndex
+        return (0..<count/2).compactMap { _ in
+            defer { position = index(position, offsetBy: 2) }
+            return UInt8(self[position...index(after: position)], radix: 16)
+        }
+    }
 }

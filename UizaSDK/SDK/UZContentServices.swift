@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import CryptoSwift
 
 public enum UZPublishStatus: String {
 	case queue
@@ -213,36 +214,56 @@ open class UZContentServices: UZAPIConnector {
 		}
 	}
 	
+    var certificate: UZCertificate?
 	/**
 	Get video link play
 	- parameter entityId: `id` of video
 	- parameter completionBlock: block called when completed, returns `URL`, or `Error` if occurred
 	*/
-	public func loadLinkPlay(video: UZVideoItem, token: String? = nil, completionBlock:((_ results: [UZVideoLinkPlay]?, _ error: Error?) -> Void)? = nil) {
-		let entityId: String = video.id ?? ""
-		
-		if token == nil {
-			self.requestHeaderFields = ["Authorization" : token ?? ""]
-			
-			let params: Parameters = ["entity_id" 		: entityId,
-									  "app_id"	 		: UizaSDK.appId,
-									  "content_type" 	: video.isLive ? "live" : "stream"]
-			
-			self.callAPI(UZAPIConstant.mediaTokenApi, method: .post, params: params) { (result, error) in
-				if let data = result?.value(for: "data", defaultValue: nil) as? NSDictionary,
-					let tokenString = data.string(for: "token", defaultString: nil)
-				{
-					self.loadLinkPlay(video: video, token: tokenString, completionBlock: completionBlock)
-				}
-				else {
-					DispatchQueue.main.async {
-						completionBlock?(nil, error)
-					}
-				}
-			}
-			
-			return
-		}
+    public func loadLinkPlay(video: UZVideoItem, token: String? = nil, completionBlock:((_ results: [UZVideoLinkPlay]?, _ error: Error?) -> Void)? = nil) {
+        let entityId: String = video.id ?? ""
+        
+        if token == nil {
+            self.requestHeaderFields = ["Authorization" : token ?? ""]
+            
+            let params: Parameters = ["entity_id" 		: entityId,
+                                      "app_id"	 		: UizaSDK.appId,
+                                      "content_type" 	: video.isLive ? "live" : "stream",
+                                      "drm_token"       : ["fairplay"]]
+            
+            self.callAPI(UZAPIConstant.mediaTokenApi, method: .post, params: params) { (result, error) in
+                if let data = result?.value(for: "data", defaultValue: nil) as? NSDictionary,
+                    let tokenString = data.string(for: "token", defaultString: nil) {
+                    if let fairplayToken = data.string(for: "fairplay_token", defaultString: nil) {
+                        do {
+                            let iv = String(fairplayToken.prefix(16))
+                            let token = String(fairplayToken.dropFirst(16))
+                            let aes = try AES(key: "W7gHszMhK9HKry29Qky5SaKP7qxBQ2bJ".bytes, blockMode: CTR(iv: iv.bytes), padding: .noPadding)
+                            let array: [UInt8] = token.hexaBytes
+                            let decryt = try aes.decrypt(array)
+                            let data = Data(decryt)
+                            do {
+                                self.certificate = try JSONDecoder().decode(UZCertificate.self, from: data)
+                                self.loadLinkPlay(video: video, token: tokenString, completionBlock: completionBlock)
+                            } catch {
+                                print(error)
+                            }
+                        } catch {
+                            print(error)
+                        }
+                    } else {
+                        self.loadLinkPlay(video: video, token: tokenString, completionBlock: completionBlock)
+                    }
+                }
+                else {
+                    DispatchQueue.main.async {
+                        completionBlock?(nil, error)
+                    }
+                }
+            }
+            
+            return
+        }
 		
 		self.requestHeaderFields = ["Authorization" : token ?? ""]
 		

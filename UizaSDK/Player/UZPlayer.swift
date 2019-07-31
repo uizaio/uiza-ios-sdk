@@ -27,12 +27,6 @@ import GoogleInteractiveMediaAds
 import GoogleCast
 #endif
 
-extension Notification.Name {
-	
-	static let UZShowAirPlayDeviceList = Notification.Name(rawValue: "UZShowAirPlayDeviceList")
-	
-}
-
 public protocol UZPlayerDelegate : class {
 	func player(player: UZPlayer, playerStateDidChange state: UZPlayerState)
 	func player(player: UZPlayer, loadedTimeDidChange loadedDuration: TimeInterval, totalDuration: TimeInterval)
@@ -67,6 +61,7 @@ extension UZPlayerControlViewDelegate {
 }
 
 open class UZPlayer: UIView {
+	static public let ShowAirPlayDeviceListNotification = Notification.Name(rawValue: "ShowAirPlayDeviceListNotification")
 	
 	open weak var delegate: UZPlayerDelegate?
 	
@@ -292,7 +287,7 @@ open class UZPlayer: UIView {
 		NotificationCenter.default.addObserver(self, selector: #selector(onAudioRouteChanged), name: NSNotification.Name.AVAudioSessionRouteChange, object: nil)
 		#endif
 		
-		NotificationCenter.default.addObserver(self, selector: #selector(showAirPlayDevicesSelection), name: .UZShowAirPlayDeviceList, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(showAirPlayDevicesSelection), name: UZPlayer.ShowAirPlayDeviceListNotification, object: nil)
 		#if canImport(GoogleCast)
 		NotificationCenter.default.addObserver(self, selector: #selector(onCastSessionDidStart), name: NSNotification.Name.UZCastSessionDidStart, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(onCastSessionDidStop), name: NSNotification.Name.UZCastSessionDidStop, object: nil)

@@ -127,8 +127,8 @@ open class UZPlayerLayerView: UIView {
 		self.urlAsset = asset
 		self.subtitleURL = subtitleURL
 		
-		configPlayer()
-		self.play()
+		configPlayerAndCheckForPlayable()
+		play()
 	}
 	
 	open func replaceAsset(asset: AVURLAsset, subtitleURL: URL? = nil) {
@@ -178,23 +178,21 @@ open class UZPlayerLayerView: UIView {
 		
 		if interval > 0 {
 			retryTimer = Timer.scheduledTimer(timeInterval: interval, target: self, selector: #selector(retry), userInfo: nil, repeats: false)
-		}
-		else {
+		} else {
 			retry()
 		}
 	}
 	
 	@objc func retry() {
-		resetPlayer()
+		self.playerLayer?.removeFromSuperlayer()
+		self.player?.replaceCurrentItem(with: nil)
+		player?.removeObserver(self, forKeyPath: "rate")
+		self.player = nil
 		
-		playerItem = configPlayerItem()
-		configPlayer()
-		
-		if !checkForPlayable() {
-			retryPlaying(after: 1.0)
-		}
-		else {
+		if configPlayerAndCheckForPlayable() {
 			play()
+		} else {
+			retryPlaying(after: 1.0)
 		}
 	}
 	
@@ -328,7 +326,7 @@ open class UZPlayerLayerView: UIView {
 		if let videoAsset = urlAsset,
 			let subtitleURL = subtitleURL
 		{
-	// Embed external subtitle link to player item, This does not work
+			// Embed external subtitle link to player item, This does not work
 			#if swift(>=4.2)
 			let zeroTime = CMTime.zero
 			let timeRange = CMTimeRangeMake(start: zeroTime, duration: videoAsset.duration)
@@ -350,7 +348,8 @@ open class UZPlayerLayerView: UIView {
 		return AVPlayerItem(asset: urlAsset!)
 	}
 	
-	fileprivate func configPlayer(){
+	@discardableResult
+	fileprivate func configPlayerAndCheckForPlayable() -> Bool {
 		player?.removeObserver(self, forKeyPath: "rate")
 		playerLayer?.removeFromSuperlayer()
 		
@@ -388,7 +387,7 @@ open class UZPlayerLayerView: UIView {
 		setNeedsLayout()
 		layoutIfNeeded()
 		
-		checkForPlayable()
+		return checkForPlayable()
 	}
 	
 	@discardableResult
@@ -463,9 +462,9 @@ open class UZPlayerLayerView: UIView {
 						return
 					}
 					
-			//					if currentItem.isPlaybackLikelyToKeepUp || currentItem.isPlaybackBufferFull {
-			//
-			//					}
+//					if currentItem.isPlaybackLikelyToKeepUp || currentItem.isPlaybackBufferFull {
+//
+//					}
 				}
 			}
 		}

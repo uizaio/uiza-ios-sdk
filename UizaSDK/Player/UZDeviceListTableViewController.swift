@@ -175,7 +175,7 @@ class UZDeviceListTableViewController: UITableViewController {
 		}
 		else {
 			self.dismiss(animated: true) {
-				PostNotification(.UZShowAirPlayDeviceList)
+				PostNotification(UZPlayer.ShowAirPlayDeviceListNotification)
 			}
 		}
 	}

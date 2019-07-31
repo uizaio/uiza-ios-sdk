@@ -94,8 +94,8 @@ class ViewController: UIViewController {
         super.viewDidLayoutSubviews()
         
         let viewSize = self.view.bounds.size
-        //        let playerSize = CGSize(width: viewSize.width, height: viewSize.width * (9/16))
-        //        playerViewController.view.frame = CGRect(x: 0, y: (viewSize.height - playerSize.height)/2, width: playerSize.width, height: playerSize.height)
+//        let playerSize = CGSize(width: viewSize.width, height: viewSize.width * (9/16))
+//        playerViewController.view.frame = CGRect(x: 0, y: (viewSize.height - playerSize.height)/2, width: playerSize.width, height: playerSize.height)
         
         var buttonSize = themeButton.sizeThatFits(viewSize)
         buttonSize.width += 20
@@ -122,7 +122,7 @@ class ViewController: UIViewController {
         }
         
         print("Theme index: \(themeIndex)")
-        //        playerViewController.player.controlView.theme = themeClasses[themeIndex]()
+//        playerViewController.player.controlView.theme = themeClasses[themeIndex]()
         
         themeIndex += 1
     }
@@ -131,19 +131,19 @@ class ViewController: UIViewController {
 extension ViewController: UZPlayerDelegate {
     
     func player(player: UZPlayer, playerStateDidChange state: UZPlayerState) {
-        //        print("State: \(state)")
+//        print("State: \(state)")
     }
     
     func player(player: UZPlayer, loadedTimeDidChange loadedDuration: TimeInterval, totalDuration: TimeInterval) {
-        //        print("loadedDuration: \(loadedDuration) - totalDuration: \(totalDuration)")
+//        print("loadedDuration: \(loadedDuration) - totalDuration: \(totalDuration)")
     }
     
     func player(player: UZPlayer, playTimeDidChange currentTime : TimeInterval, totalTime: TimeInterval) {
-        //        print("currentTime: \(currentTime) - totalTime: \(totalTime)")
+//        print("currentTime: \(currentTime) - totalTime: \(totalTime)")
     }
     
     func player(player: UZPlayer, playerIsPlaying playing: Bool) {
-        //        print("Playing: \(playing)")
+//        print("Playing: \(playing)")
     }
     
 }

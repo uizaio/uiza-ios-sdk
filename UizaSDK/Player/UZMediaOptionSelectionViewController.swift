@@ -160,12 +160,12 @@ internal class UZMediaOptionSelectionCollectionViewController: UICollectionViewC
 	var audioOptions	: [AVMediaSelectionOption]! = []
     var selectedSubtitle: UZVideoSubtitle? {
         didSet {
-            collectionView.reloadData()
+            collectionView?.reloadData()
         }
     }
     var subtitles: [UZVideoSubtitle] = [] {
         didSet {
-            collectionView.reloadData()
+            collectionView?.reloadData()
         }
     }
 	

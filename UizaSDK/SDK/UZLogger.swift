@@ -64,6 +64,7 @@ open class UZLogger: UZAPIConnector {
 		#else
 		let platform	: String = UIDevice.isTV() ? "tvos" : "ios"
 		#endif
+		let playerName = "UizaSDK_\(platform)"
 		
 //		print("timestamp: \(timestamp)")
 		let defaultParams: Parameters! = ["event_type" 		: event,
@@ -77,10 +78,10 @@ open class UZLogger: UZAPIConnector {
 										  "uuid"			: macAddress,
 										  "viewer_user_id"	: userId,
 										  "ip"				: UZAPIConnector.ipAddress,
-										  "player_name"		: "UizaSDK_\(platform)",
-			"player_version" 	: PLAYER_VERSION,
-			"sdk_version"		: SDK_VERSION,
-			"bundleId"          : bundleId]
+										  "player_name"		: playerName,
+										  "player_version" 	: PLAYER_VERSION,
+										  "sdk_version"		: SDK_VERSION,
+										  "bundleId"        : bundleId]
 		
 		var finalParams: Parameters! = defaultParams
 		
@@ -88,7 +89,7 @@ open class UZLogger: UZAPIConnector {
 			finalParams.appendFrom(params!)
 		}
 		
-		self.callAPI("/", baseURLString: loggingURLString, method: .post, params: finalParams, completion: completionBlock)
+		self.callAPI("", baseURLString: loggingURLString, method: .post, params: finalParams, completion: completionBlock)
 	}
 	
 	// MARK: CCU Live

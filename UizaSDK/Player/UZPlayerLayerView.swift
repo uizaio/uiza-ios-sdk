@@ -189,8 +189,7 @@ open class UZPlayerLayerView: UIView {
 		
 		if #available(iOS 10.0, *) {
 			player?.playImmediately(atRate: 1.0)
-		}
-		else {
+		} else {
 			player?.play()
 		}
 		
@@ -205,8 +204,7 @@ open class UZPlayerLayerView: UIView {
 			if configPlayerAndCheckForPlayable() {
 				delegate?.player(playerRequiresSeekingToLive: self)
 			}
-		}
-		else {
+		} else {
 			retryPlaying(after: 2.0)
 		}
 	}

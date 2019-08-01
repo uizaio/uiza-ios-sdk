@@ -187,7 +187,13 @@ open class UZPlayerLayerView: UIView {
 	@objc func retry() {
 		DLog("Retrying...")
 		
-		player?.playImmediately(atRate: 1.0)
+		if #available(iOS 10.0, *) {
+			player?.playImmediately(atRate: 1.0)
+		}
+		else {
+			player?.play()
+		}
+		
 		guard let playerItem = playerItem else { return }
 		
 		if playerItem.isPlaybackLikelyToKeepUp {

@@ -192,7 +192,7 @@ open class UZPlayerLayerView: UIView {
 		} else {
 			player?.play()
 		}
-		
+
 		guard let playerItem = playerItem else { return }
 		
 		if playerItem.isPlaybackLikelyToKeepUp {

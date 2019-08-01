@@ -1502,20 +1502,21 @@ extension UZPlayer: UZPlayerLayerViewDelegate {
 			UZMuizaLogger.shared.log(eventName: "viewended", params: nil, video: currentVideo, linkplay: currentLinkPlay, player: self)
 			isPlayToTheEnd = true
 			
-			if !isReplaying {
-				if themeConfig?.showEndscreen ?? true {
-					controlView.showEndScreen()
-				}
-			}
-			
-			if currentVideo?.isLive ?? false {
-				loadLiveStatus(after: 1)
-			}
-			
 			#if canImport(GoogleInteractiveMediaAds)
 			adsLoader?.contentComplete()
 			#endif
-			nextVideo()
+			
+			if currentVideo?.isLive ?? false {
+				loadLiveStatus(after: 1)
+			} else {
+				if !isReplaying {
+					if themeConfig?.showEndscreen ?? true {
+						controlView.showEndScreen()
+					}
+				}
+				
+				nextVideo()
+			}
 			
 		case .error:
 			UZMuizaLogger.shared.log(eventName: "error", params: nil, video: currentVideo, linkplay: currentLinkPlay, player: self)
@@ -1555,6 +1556,10 @@ extension UZPlayer: UZPlayerLayerViewDelegate {
 	
 	open func player(playerDidStall: UZPlayerLayerView) {
 		delegate?.player(playerDidStall: self)
+	}
+	
+	open func player(playerRequiresSeekingToLive: UZPlayerLayerView) {
+		seekToLive()
 	}
 	
 }

@@ -220,7 +220,9 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 		
 		alertControler.addAction(UIAlertAction(title: "Yes", style: .default, handler: { [weak self] (action) in
 			alertControler.dismiss(animated: true, completion: nil)
-			self?.stopLive()
+			self?.stopLive(completionBlock: { (error) in
+				self?.dismiss(animated: true, completion: nil)
+			})
 		}))
 		
 		self.present(alertControler, animated: true, completion: nil)
@@ -262,7 +264,7 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 		}
 	}
 	
-	public func stopLive() -> Void {
+	public func stopLive(completionBlock: ((Error?) -> Void)? = nil) -> Void {
 		DLog("STOPPING")
 		
 		streamService.cancel()
@@ -270,10 +272,6 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 		session.stopLive()
 		session.running = false
 		session.delegate = nil
-		
-		if currentLiveEvent != nil {
-			endSession()
-		}
 		
 		if timer != nil {
 			timer!.invalidate()
@@ -295,6 +293,11 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 		isLive = false
 		
 		startTime = nil
+		
+		if currentLiveEvent != nil {
+			endSession(completionBlock: completionBlock)
+		}
+		
 		UIApplication.shared.isIdleTimerDisabled = false
 		DLog("STOPPED")
 	}
@@ -364,8 +367,9 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 	
 	open func onButtonSelected(_ button: UIControl?) {
 		if button == livestreamUIView.closeButton {
-			stopLive()
-			self.dismiss(animated: true, completion: nil)
+//			stopLive { (error) in
+//				self.dismiss(animated: true, completion: nil)
+//			}
 		}
 		else if button == livestreamUIView.cameraButton {
 			session.captureDevicePosition = session.captureDevicePosition == .back ? .front : .back

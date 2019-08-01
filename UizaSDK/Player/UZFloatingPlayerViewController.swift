@@ -38,14 +38,10 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 				
 				if self.playerViewController.isFullscreen {
 					self.playerViewController.setFullscreen(fullscreen: false, completion: {
-						self.player?.stop()
-						self.floatingHandler?.delegate = nil
 						self.dismiss(animated: true, completion: self.onDismiss)
 					})
 				}
 				else {
-					self.player?.stop()
-					self.floatingHandler?.delegate = nil
 					self.dismiss(animated: true, completion: self.onDismiss)
 				}
 			}
@@ -206,6 +202,21 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 		self.player?.playlist = playlist
 		
 		return self.playerViewController
+	}
+	
+	override open func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+		self.player?.stop()
+		self.player = nil
+		
+		self.floatingHandler?.delegate = nil
+		self.floatingHandler = nil
+		
+		self.playerWindow?.rootViewController = nil
+		self.playerWindow = nil
+		self.lastKeyWindow?.makeKeyAndVisible()
+		
+		self.delegate?.floatingPlayerDidDismiss(self)
+		super.dismiss(animated: flag, completion: completion)
 	}
 	
 	// MARK: -
@@ -373,16 +384,7 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 	}
 	
 	open func floatingHandlerDidDismiss() {
-		self.dismiss(animated: true) { [weak self] in
-			guard let `self` = self else { return }
-			
-			self.playerWindow?.rootViewController = nil
-			self.playerWindow = nil
-			self.lastKeyWindow?.makeKeyAndVisible()
-			self.delegate?.floatingPlayerDidDismiss(self)
-			
-			self.onDismiss?()
-		}
+		self.dismiss(animated: true, completion: nil)
 	}
 
 	

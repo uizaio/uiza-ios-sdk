@@ -23,6 +23,7 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 //	public let stopButton = NKButton()
 	
 	public var liveEventId: String? = nil
+	public var isEncoded: Bool = true
 	public var getViewsInterval: TimeInterval = 5.0
 	public var inactiveTime: TimeInterval = 10.0
 	public fileprivate (set) var liveDurationLabel = UILabel()
@@ -76,7 +77,7 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 	}()
 	
 	open func videoConfiguration() -> LFLiveVideoConfiguration {
-		return customVideoConfiguration ?? LFLiveVideoConfiguration.defaultConfiguration(for: .fullHD_1080, outputImageOrientation: UIApplication.shared.statusBarOrientation)
+		return customVideoConfiguration ?? LFLiveVideoConfiguration.defaultConfiguration(for: .fullHD_1080, outputImageOrientation: UIApplication.shared.statusBarOrientation, encode: isEncoded)
 	}
 	
 	open func audioConfiguration() -> LFLiveAudioConfiguration {

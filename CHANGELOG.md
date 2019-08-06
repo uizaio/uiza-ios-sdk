@@ -1,3 +1,8 @@
+### Version 8.3.7 (Aug 6 2019)
+- [Added] Set adaptiveBitrate (UZLiveStreamViewController) to auto change bitrate base on network performance
+- [Updated] Updated video configuration & audio configuration for livestream
+- [Updated] Fullscreen in portrait if video is portrait
+
 ### Version 8.3 (Jul 10 2019)
 - [Updated] Supports FullHD 1080 & UltraHD 4K for livestreamming
 - [Updated] Supports external subtitle

@@ -77,7 +77,7 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 	}()
 	
 	open func videoConfiguration() -> LFLiveVideoConfiguration {
-		return customVideoConfiguration ?? LFLiveVideoConfiguration.defaultConfiguration(for: .fullHD_1080, outputImageOrientation: UIApplication.shared.statusBarOrientation, encode: isEncoded)
+		return customVideoConfiguration ?? LFLiveVideoConfiguration.defaultConfiguration(for: isEncoded ? .fullHD_1080 : .HD_720, outputImageOrientation: UIApplication.shared.statusBarOrientation, encode: isEncoded)
 	}
 	
 	open func audioConfiguration() -> LFLiveAudioConfiguration {

@@ -60,8 +60,8 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 		}
 	}
 	
-	var customVideoConfiguration: LFLiveVideoConfiguration?
-	var customAudioConfiguration: LFLiveAudioConfiguration?
+	public var customVideoConfiguration: LFLiveVideoConfiguration?
+	public var customAudioConfiguration: LFLiveAudioConfiguration?
 	
 	public fileprivate(set) var startTime: Date? = nil
 	fileprivate var timer: Timer? = nil
@@ -81,7 +81,7 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 	}
 	
 	open func audioConfiguration() -> LFLiveAudioConfiguration {
-		return customAudioConfiguration ?? LFLiveAudioConfiguration.defaultConfiguration(for: .veryHigh)
+		return customAudioConfiguration ?? LFLiveAudioConfiguration.defaultConfiguration(for: .default)
 	}
 	
 	public convenience init(liveEventId: String) {

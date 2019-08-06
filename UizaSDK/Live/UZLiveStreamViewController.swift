@@ -20,7 +20,7 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 		}
 	}
 	public let startButton = NKButton()
-	public let stopButton = NKButton()
+//	public let stopButton = NKButton()
 	
 	public var liveEventId: String? = nil
 	public var getViewsInterval: TimeInterval = 5.0
@@ -127,8 +127,8 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 		startButton.alpha = 0.0
 		startButton.addTarget(self, action: #selector(start), for: .touchUpInside)
 		
-		stopButton.setImage(UIImage(icon: .googleMaterialDesign(.close), size: CGSize(width: 32, height: 32), textColor: .black, backgroundColor: .clear), for: .normal)
-		stopButton.addTarget(self, action: #selector(askToStop), for: .touchUpInside)
+//		stopButton.setImage(UIImage(icon: .googleMaterialDesign(.close), size: CGSize(width: 32, height: 32), textColor: .black, backgroundColor: .clear), for: .normal)
+//		stopButton.addTarget(self, action: #selector(askToStop), for: .touchUpInside)
 		
 		#if swift(>=4.2)
 		NotificationCenter.default.addObserver(self, selector: #selector(onOrientationChanged(_:)), name: UIApplication.didChangeStatusBarOrientationNotification, object: nil)
@@ -229,7 +229,7 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 			
 			startButton.isLoading = false
 			startButton.isHidden = true
-			stopButton.isHidden = false
+//			stopButton.isHidden = false
 			
 			let stream = LFLiveStreamInfo()
 			stream.url = broadcastURL.absoluteString
@@ -349,9 +349,7 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 	
 	open func onButtonSelected(_ button: UIControl?) {
 		if button == livestreamUIView.closeButton {
-//			stopLive { (error) in
-//				self.dismiss(animated: true, completion: nil)
-//			}
+			askToStop()
 		}
 		else if button == livestreamUIView.cameraButton {
 			session.captureDevicePosition = session.captureDevicePosition == .back ? .front : .back
@@ -396,9 +394,9 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 		self.view.addSubview(livestreamUIView)
 		self.view.addSubview(liveDurationLabel)
 		self.view.addSubview(startButton)
-		self.view.addSubview(stopButton)
+//		self.view.addSubview(stopButton)
 		
-		stopButton.isHidden = true
+//		stopButton.isHidden = true
 		
 		session.delegate = self
 		session.beautyFace = false
@@ -440,7 +438,7 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 		let viewSize = self.view.frame.size
 		let buttonSize = startButton.sizeThatFits(viewSize)
 		startButton.frame = CGRect(x: (viewSize.width - buttonSize.width)/2, y: viewSize.height - buttonSize.height - 40, width: buttonSize.width, height: buttonSize.height)
-		stopButton.frame = CGRect(x: viewSize.width - 42, y: 10, width: 32, height: 32)
+//		stopButton.frame = CGRect(x: viewSize.width - 42, y: 10, width: 32, height: 32)
 		layoutDurationLabel()
 		
 		#if swift(>=4.2)

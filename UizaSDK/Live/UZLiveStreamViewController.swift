@@ -59,46 +59,28 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 		}
 	}
 	
+	var customVideoConfiguration: LFLiveVideoConfiguration?
+	var customAudioConfiguration: LFLiveAudioConfiguration?
+	
 	public fileprivate(set) var startTime: Date? = nil
 	fileprivate var timer: Timer? = nil
 	fileprivate var inactiveTimer: Timer? = nil
 	fileprivate var getViewTimer: Timer? = nil
 	
 	lazy open var session: LFLiveSession = {
-		let audioConfiguration = self.audioConfiguration() // LFLiveAudioConfiguration.defaultConfiguration(for: .default)
-		let videoConfiguration = self.videoConfiguration() // LFLiveVideoConfiguration.defaultConfiguration(for: .high2, outputImageOrientation: UIApplication.shared.statusBarOrientation)
-//		videoConfiguration?.autorotate = true
+		let audioConfiguration = self.audioConfiguration()
+		let videoConfiguration = self.videoConfiguration()
 		let result = LFLiveSession(audioConfiguration: audioConfiguration, videoConfiguration: videoConfiguration)!
 		result.adaptiveBitrate = false
 		return result
 	}()
 	
 	open func videoConfiguration() -> LFLiveVideoConfiguration {
-		return LFLiveVideoConfiguration.defaultConfiguration(for: .fullHD_1080, outputImageOrientation: UIApplication.shared.statusBarOrientation)
-		/*
-		let configuration = LFLiveVideoConfiguration()
-		configuration.sessionPreset 	= .captureSessionPreset1920x1080
-		configuration.videoFrameRate 	= 30
-		configuration.videoMaxFrameRate = 30
-		configuration.videoMinFrameRate = 15
-		configuration.videoBitRate 		= 5000 * 1000
-		configuration.videoMaxBitRate 	= 5000 * 1000
-		configuration.videoMinBitRate 	= 2500 * 1000
-		configuration.videoSize 		= CGSize(width: 1080, height: 1920)
-		configuration.videoMaxKeyframeInterval = 2
-		configuration.outputImageOrientation = UIApplication.shared.statusBarOrientation
-		configuration.autorotate = true
-		
-		return configuration
-		*/
+		return customVideoConfiguration ?? LFLiveVideoConfiguration.defaultConfiguration(for: .fullHD_1080, outputImageOrientation: UIApplication.shared.statusBarOrientation)
 	}
 	
 	open func audioConfiguration() -> LFLiveAudioConfiguration {
-		let configuration = LFLiveAudioConfiguration.defaultConfiguration(for: .default)
-//		configuration!.numberOfChannels = 2
-//		configuration!.audioBitrate = ._96Kbps
-//		configuration!.audioSampleRate = ._44100Hz
-		return configuration!
+		return customAudioConfiguration ?? LFLiveAudioConfiguration.defaultConfiguration(for: .veryHigh)
 	}
 	
 	public convenience init(liveEventId: String) {

@@ -42,6 +42,7 @@ protocol UZPlayerLayerViewDelegate: class {
 	func player(player: UZPlayerLayerView, playTimeDidChange    currentTime   : TimeInterval , totalTime: TimeInterval)
 	func player(player: UZPlayerLayerView, playerIsPlaying      playing: Bool)
 	func player(player: UZPlayerLayerView, playerDidFailToPlayToEndTime error: Error?)
+	func player(playerRequiresSeekingToLive: UZPlayerLayerView)
 	func player(playerDidStall: UZPlayerLayerView)
 }
 
@@ -184,15 +185,27 @@ open class UZPlayerLayerView: UIView {
 	}
 	
 	@objc func retry() {
-		player?.removeObserver(self, forKeyPath: "rate")
-		self.playerLayer?.removeFromSuperlayer()
-		self.player?.replaceCurrentItem(with: nil)
-		self.player = nil
+		DLog("Retrying...")
 		
-		if configPlayerAndCheckForPlayable() {
-			play()
+		if #available(iOS 10.0, *) {
+			player?.playImmediately(atRate: 1.0)
 		} else {
-			retryPlaying(after: 1.0)
+			player?.play()
+		}
+		
+		guard let playerItem = playerItem else { return }
+		
+		if playerItem.isPlaybackLikelyToKeepUp {
+			self.player?.removeObserver(self, forKeyPath: "rate")
+			self.playerLayer?.removeFromSuperlayer()
+			self.player?.replaceCurrentItem(with: nil)
+			self.player = nil
+			
+			if configPlayerAndCheckForPlayable() {
+				delegate?.player(playerRequiresSeekingToLive: self)
+			}
+		} else {
+			retryPlaying(after: 2.0)
 		}
 	}
 	
@@ -235,6 +248,11 @@ open class UZPlayerLayerView: UIView {
 		if getLatencytimer != nil {
 			getLatencytimer!.invalidate()
 			getLatencytimer = nil
+		}
+		
+		if retryTimer != nil {
+			retryTimer!.invalidate()
+			retryTimer = nil
 		}
 		
 		player?.removeObserver(self, forKeyPath: "rate")
@@ -491,7 +509,7 @@ open class UZPlayerLayerView: UIView {
 	
 	@objc open func moviePlayerDidStall() {
 		DLog("Player stalled")
-		retryPlaying(after: 1.0)
+		retryPlaying(after: 2.0)
 		delegate?.player(playerDidStall: self)
 	}
 	
@@ -581,7 +599,7 @@ open class UZPlayerLayerView: UIView {
 		}
 	}
 	
-	fileprivate func availableDuration() -> TimeInterval? {
+	public func availableDuration() -> TimeInterval? {
 		if let loadedTimeRanges = player?.currentItem?.loadedTimeRanges,
 			let first = loadedTimeRanges.first {
 			let timeRange = first.timeRangeValue

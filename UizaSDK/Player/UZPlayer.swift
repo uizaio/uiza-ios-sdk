@@ -556,6 +556,11 @@ open class UZPlayer: UIView {
 			liveViewTimer = nil
 		}
 		
+		if loadLiveStatusTimer != nil {
+			loadLiveStatusTimer!.invalidate()
+			loadLiveStatusTimer = nil
+		}
+		
 		controlView.liveStartDate = nil
 		controlView.hideEndScreen()
 		controlView.hideMessage()
@@ -1462,20 +1467,20 @@ open class UZPlayer: UIView {
 
 extension UZPlayer: UZPlayerLayerViewDelegate {
 	
-	open func player(player: UZPlayerLayerView, playerIsPlaying playing: Bool) {
+	func player(player: UZPlayerLayerView, playerIsPlaying playing: Bool) {
 		controlView.playStateDidChange(isPlaying: playing)
 		delegate?.player(player: self, playerIsPlaying: playing)
 		playStateDidChange?(player.isPlaying)
 	}
 	
-	open func player(player: UZPlayerLayerView, loadedTimeDidChange loadedDuration: TimeInterval , totalDuration: TimeInterval) {
+	func player(player: UZPlayerLayerView, loadedTimeDidChange loadedDuration: TimeInterval , totalDuration: TimeInterval) {
 		controlView.loadedTimeDidChange(loadedDuration: loadedDuration , totalDuration: totalDuration)
 		delegate?.player(player: self, loadedTimeDidChange: loadedDuration, totalDuration: totalDuration)
 		controlView.totalDuration = totalDuration
 		self.totalDuration = totalDuration
 	}
 	
-	open func player(player: UZPlayerLayerView, playerStateDidChange state: UZPlayerState) {
+	func player(player: UZPlayerLayerView, playerStateDidChange state: UZPlayerState) {
 		controlView.playerStateDidChange(state: state)
 		
 		switch state {
@@ -1502,20 +1507,21 @@ extension UZPlayer: UZPlayerLayerViewDelegate {
 			UZMuizaLogger.shared.log(eventName: "viewended", params: nil, video: currentVideo, linkplay: currentLinkPlay, player: self)
 			isPlayToTheEnd = true
 			
-			if !isReplaying {
-				if themeConfig?.showEndscreen ?? true {
-					controlView.showEndScreen()
-				}
-			}
-			
-			if currentVideo?.isLive ?? false {
-				loadLiveStatus(after: 1)
-			}
-			
 			#if canImport(GoogleInteractiveMediaAds)
 			adsLoader?.contentComplete()
 			#endif
-			nextVideo()
+			
+			if currentVideo?.isLive ?? false {
+				loadLiveStatus(after: 1)
+			} else {
+				if !isReplaying {
+					if themeConfig?.showEndscreen ?? true {
+						controlView.showEndScreen()
+					}
+				}
+				
+				nextVideo()
+			}
 			
 		case .error:
 			UZMuizaLogger.shared.log(eventName: "error", params: nil, video: currentVideo, linkplay: currentLinkPlay, player: self)
@@ -1534,7 +1540,7 @@ extension UZPlayer: UZPlayerLayerViewDelegate {
 		delegate?.player(player: self, playerStateDidChange: state)
 	}
 	
-	open func player(player: UZPlayerLayerView, playTimeDidChange currentTime: TimeInterval, totalTime: TimeInterval) {
+	func player(player: UZPlayerLayerView, playTimeDidChange currentTime: TimeInterval, totalTime: TimeInterval) {
 		currentPosition = currentTime
 		totalDuration = totalTime
 		
@@ -1549,12 +1555,18 @@ extension UZPlayer: UZPlayerLayerViewDelegate {
 		}
 	}
 	
-	open func player(player: UZPlayerLayerView, playerDidFailToPlayToEndTime error: Error?) {
+	func player(player: UZPlayerLayerView, playerDidFailToPlayToEndTime error: Error?) {
+		loadLiveStatus()
 		delegate?.player(player: self, playerDidFailToPlayToEndTime: error)
 	}
 	
-	open func player(playerDidStall: UZPlayerLayerView) {
+	func player(playerDidStall: UZPlayerLayerView) {
+		loadLiveStatus()
 		delegate?.player(playerDidStall: self)
+	}
+	
+	func player(playerRequiresSeekingToLive: UZPlayerLayerView) {
+		seekToLive()
 	}
 	
 }

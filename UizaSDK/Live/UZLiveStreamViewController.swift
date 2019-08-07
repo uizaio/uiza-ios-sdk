@@ -20,9 +20,10 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 		}
 	}
 	public let startButton = NKButton()
-	public let stopButton = NKButton()
+//	public let stopButton = NKButton()
 	
 	public var liveEventId: String? = nil
+	public var isEncoded: Bool = true
 	public var getViewsInterval: TimeInterval = 5.0
 	public var inactiveTime: TimeInterval = 10.0
 	public fileprivate (set) var liveDurationLabel = UILabel()
@@ -59,46 +60,28 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 		}
 	}
 	
+	public var customVideoConfiguration: LFLiveVideoConfiguration?
+	public var customAudioConfiguration: LFLiveAudioConfiguration?
+	
 	public fileprivate(set) var startTime: Date? = nil
 	fileprivate var timer: Timer? = nil
 	fileprivate var inactiveTimer: Timer? = nil
 	fileprivate var getViewTimer: Timer? = nil
 	
 	lazy open var session: LFLiveSession = {
-		let audioConfiguration = self.audioConfiguration() // LFLiveAudioConfiguration.defaultConfiguration(for: .default)
-		let videoConfiguration = self.videoConfiguration() // LFLiveVideoConfiguration.defaultConfiguration(for: .high2, outputImageOrientation: UIApplication.shared.statusBarOrientation)
-//		videoConfiguration?.autorotate = true
+		let audioConfiguration = self.audioConfiguration()
+		let videoConfiguration = self.videoConfiguration()
 		let result = LFLiveSession(audioConfiguration: audioConfiguration, videoConfiguration: videoConfiguration)!
 		result.adaptiveBitrate = false
 		return result
 	}()
 	
 	open func videoConfiguration() -> LFLiveVideoConfiguration {
-		return LFLiveVideoConfiguration.defaultConfiguration(for: .fullHD_1080, outputImageOrientation: UIApplication.shared.statusBarOrientation)
-		/*
-		let configuration = LFLiveVideoConfiguration()
-		configuration.sessionPreset 	= .captureSessionPreset1920x1080
-		configuration.videoFrameRate 	= 30
-		configuration.videoMaxFrameRate = 30
-		configuration.videoMinFrameRate = 15
-		configuration.videoBitRate 		= 5000 * 1000
-		configuration.videoMaxBitRate 	= 5000 * 1000
-		configuration.videoMinBitRate 	= 2500 * 1000
-		configuration.videoSize 		= CGSize(width: 1080, height: 1920)
-		configuration.videoMaxKeyframeInterval = 2
-		configuration.outputImageOrientation = UIApplication.shared.statusBarOrientation
-		configuration.autorotate = true
-		
-		return configuration
-		*/
+		return customVideoConfiguration ?? LFLiveVideoConfiguration.defaultConfiguration(for: isEncoded ? .fullHD_1080 : .HD_720, outputImageOrientation: UIApplication.shared.statusBarOrientation, encode: isEncoded)
 	}
 	
 	open func audioConfiguration() -> LFLiveAudioConfiguration {
-		let configuration = LFLiveAudioConfiguration.defaultConfiguration(for: .default)
-//		configuration!.numberOfChannels = 2
-//		configuration!.audioBitrate = ._96Kbps
-//		configuration!.audioSampleRate = ._44100Hz
-		return configuration!
+		return customAudioConfiguration ?? LFLiveAudioConfiguration.defaultConfiguration(for: .default)
 	}
 	
 	public convenience init(liveEventId: String) {
@@ -145,8 +128,8 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 		startButton.alpha = 0.0
 		startButton.addTarget(self, action: #selector(start), for: .touchUpInside)
 		
-		stopButton.setImage(UIImage(icon: .googleMaterialDesign(.close), size: CGSize(width: 32, height: 32), textColor: .black, backgroundColor: .clear), for: .normal)
-		stopButton.addTarget(self, action: #selector(askToStop), for: .touchUpInside)
+//		stopButton.setImage(UIImage(icon: .googleMaterialDesign(.close), size: CGSize(width: 32, height: 32), textColor: .black, backgroundColor: .clear), for: .normal)
+//		stopButton.addTarget(self, action: #selector(askToStop), for: .touchUpInside)
 		
 		#if swift(>=4.2)
 		NotificationCenter.default.addObserver(self, selector: #selector(onOrientationChanged(_:)), name: UIApplication.didChangeStatusBarOrientationNotification, object: nil)
@@ -220,7 +203,9 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 		
 		alertControler.addAction(UIAlertAction(title: "Yes", style: .default, handler: { [weak self] (action) in
 			alertControler.dismiss(animated: true, completion: nil)
-			self?.stopLive()
+			self?.stopLive(completionBlock: { (error) in
+				self?.dismiss(animated: true, completion: nil)
+			})
 		}))
 		
 		self.present(alertControler, animated: true, completion: nil)
@@ -245,7 +230,7 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 			
 			startButton.isLoading = false
 			startButton.isHidden = true
-			stopButton.isHidden = false
+//			stopButton.isHidden = false
 			
 			let stream = LFLiveStreamInfo()
 			stream.url = broadcastURL.absoluteString
@@ -262,7 +247,7 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 		}
 	}
 	
-	public func stopLive() -> Void {
+	public func stopLive(completionBlock: ((Error?) -> Void)? = nil) -> Void {
 		DLog("STOPPING")
 		
 		streamService.cancel()
@@ -270,10 +255,6 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 		session.stopLive()
 		session.running = false
 		session.delegate = nil
-		
-		if currentLiveEvent != nil {
-			endSession()
-		}
 		
 		if timer != nil {
 			timer!.invalidate()
@@ -295,6 +276,11 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 		isLive = false
 		
 		startTime = nil
+		
+		if currentLiveEvent != nil {
+			endSession(completionBlock: completionBlock)
+		}
+		
 		UIApplication.shared.isIdleTimerDisabled = false
 		DLog("STOPPED")
 	}
@@ -364,8 +350,7 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 	
 	open func onButtonSelected(_ button: UIControl?) {
 		if button == livestreamUIView.closeButton {
-			stopLive()
-			self.dismiss(animated: true, completion: nil)
+			askToStop()
 		}
 		else if button == livestreamUIView.cameraButton {
 			session.captureDevicePosition = session.captureDevicePosition == .back ? .front : .back
@@ -410,9 +395,9 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 		self.view.addSubview(livestreamUIView)
 		self.view.addSubview(liveDurationLabel)
 		self.view.addSubview(startButton)
-		self.view.addSubview(stopButton)
+//		self.view.addSubview(stopButton)
 		
-		stopButton.isHidden = true
+//		stopButton.isHidden = true
 		
 		session.delegate = self
 		session.beautyFace = false
@@ -454,7 +439,7 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 		let viewSize = self.view.frame.size
 		let buttonSize = startButton.sizeThatFits(viewSize)
 		startButton.frame = CGRect(x: (viewSize.width - buttonSize.width)/2, y: viewSize.height - buttonSize.height - 40, width: buttonSize.width, height: buttonSize.height)
-		stopButton.frame = CGRect(x: viewSize.width - 42, y: 10, width: 32, height: 32)
+//		stopButton.frame = CGRect(x: viewSize.width - 42, y: 10, width: 32, height: 32)
 		layoutDurationLabel()
 		
 		#if swift(>=4.2)

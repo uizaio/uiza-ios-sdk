@@ -81,7 +81,7 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 	}
 	
 	open func audioConfiguration() -> LFLiveAudioConfiguration {
-		return customAudioConfiguration ?? LFLiveAudioConfiguration.defaultConfiguration(for: .default)
+		return customAudioConfiguration ?? LFLiveAudioConfiguration.defaultConfiguration(for: .veryHigh)
 	}
 	
 	public convenience init(liveEventId: String) {
@@ -277,12 +277,15 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 		
 		startTime = nil
 		
+		UIApplication.shared.isIdleTimerDisabled = false
+		DLog("STOPPED")
+		
 		if currentLiveEvent != nil {
 			endSession(completionBlock: completionBlock)
 		}
-		
-		UIApplication.shared.isIdleTimerDisabled = false
-		DLog("STOPPED")
+		else {
+			completionBlock?(nil)
+		}
 	}
 	
 	fileprivate func startTimer() {

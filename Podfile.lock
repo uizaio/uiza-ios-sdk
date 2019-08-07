@@ -9,7 +9,7 @@ PODS:
     - Protobuf (~> 3.0)
   - google-cast-sdk/Core (4.4.3):
     - Protobuf (~> 3.0)
-  - LFLiveKit_ (2.7.5)
+  - LFLiveKit_ (2.7.7)
   - Mockingjay (3.0.0-alpha.1):
     - Mockingjay/Core (= 3.0.0-alpha.1)
     - Mockingjay/XCTest (= 3.0.0-alpha.1)
@@ -80,8 +80,8 @@ SPEC CHECKSUMS:
   CocoaAsyncSocket: e0a7e93b2ffa411592ff87e58524fbbc9b95b4fa
   FrameLayoutKit: 84a29a25e736134f25680ccae6f932934c5ba420
   google-cast-sdk: fad0b26723a820bad54f550b2240810dc0fe53b9
-  LFLiveKit_: 96c12c02e7c1d1177be4b0d6b246832854307ed0
-  Mockingjay: 97656c6f59879923976a0a52ef09da45756cca82
+  LFLiveKit_: ffe9e4c4da708637aa20a0dd6c040142d7a738a9
+  Mockingjay: 0f7c5aa49c7f1b95621cee3c79b557141f5a225c
   NHNetworkTime: b140ee21770aed41e7b8fd43647bce6349ad10f2
   NKButton: 0f928184980d1e8776f8d2770c38329d21f95f10
   NKModalViewManager: 8171cd4fb9315193fc2d05f011f9a29c9ca95a0f

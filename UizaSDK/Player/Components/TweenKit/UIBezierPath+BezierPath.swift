@@ -17,9 +17,10 @@ public extension CGPath {
      */
     func asBezierPath() -> BezierPath<CGPoint> {
         
+        // swiftlint:disable nesting
         // Define Path Element
         struct PathElement {
-            var startPoint : CGPoint?
+            var startPoint: CGPoint?
             var curve: Curve<CGPoint>?
             
             init(startPoint: CGPoint) {
@@ -79,7 +80,8 @@ public extension CGPath {
                         fatalError("Cannot close a path that has not started")
                     }
                     newPathElement = PathElement(curve: .lineToPoint(start))
-				default:
+				
+                default:
 					fatalError()
 				}
 
@@ -95,8 +97,7 @@ public extension CGPath {
             
             if let curve = pathElement.curve {
                 curves.append(curve)
-            }
-            else if let start = pathElement.startPoint {
+            } else if let start = pathElement.startPoint {
                 startPoint = start
             }
         }
@@ -108,7 +109,6 @@ public extension CGPath {
         return BezierPath(start: start, curves: curves)
     }
 }
-
 
 public extension UIBezierPath {
     

@@ -12,7 +12,7 @@ import NKModalViewManager
 import NKButton
 
 open class UZLiveStreamUIView: UIView, UITextFieldDelegate {
-	public var onButtonSelected: ((_ button: UIControl?) -> Void)? = nil
+	public var onButtonSelected: ((_ button: UIControl?) -> Void)?
 	
 	public let closeButton = NKButton()
 	public let beautyButton = NKButton()
@@ -67,7 +67,7 @@ open class UZLiveStreamUIView: UIView, UITextFieldDelegate {
 		}
 		liveBadge.setTitle("LIVE", for: .normal)
 		liveBadge.setTitleColor(.white, for: .normal)
-		liveBadge.setBackgroundColor(UIColor(red:0.91, green:0.31, blue:0.28, alpha:1.00), for: .normal)
+		liveBadge.setBackgroundColor(UIColor(red: 0.91, green: 0.31, blue: 0.28, alpha: 1.00), for: .normal)
 		liveBadge.isUserInteractionEnabled = false
 		liveBadge.cornerRadius = 4
 		liveBadge.extendSize = CGSize(width: 10, height: 0)
@@ -79,16 +79,21 @@ open class UZLiveStreamUIView: UIView, UITextFieldDelegate {
 			viewsBadge.titleLabel?.font = UIFont.systemFont(ofSize: 14)
 		}
 		viewsBadge.setTitleColor(.white, for: .normal)
-		viewsBadge.setBackgroundColor(UIColor(red:0.15, green:0.84, blue:0.87, alpha:0.4), for: .normal)
-		viewsBadge.setImage(UIImage(icon: .googleMaterialDesign(.removeRedEye), size: CGSize(width: 20, height: 20), textColor: .white, backgroundColor: .clear), for: .normal)
+		viewsBadge.setBackgroundColor(UIColor(red: 0.15, green: 0.84, blue: 0.87, alpha: 0.4), for: .normal)
+		viewsBadge.setImage(UIImage(icon: .googleMaterialDesign(.removeRedEye), size: CGSize(width: 20, height: 20),
+                                    textColor: .white, backgroundColor: .clear), for: .normal)
 		viewsBadge.isRoundedButton = true
 		viewsBadge.spacing = 5
 		
-		let selectedColor = UIColor(red:0.28, green:0.49, blue:0.93, alpha:1.00)
-		beautyButton.setImage(UIImage(icon: .fontAwesomeSolid(.magic), size: CGSize(width: 32, height: 32), textColor: .white, backgroundColor: .clear), for: .normal)
-		beautyButton.setImage(UIImage(icon: .fontAwesomeSolid(.magic), size: CGSize(width: 32, height: 32), textColor: selectedColor, backgroundColor: .clear), for: .selected)
-		cameraButton.setImage(UIImage(icon: .googleMaterialDesign(.repeatIcon), size: CGSize(width: 32, height: 32), textColor: .white, backgroundColor: .clear), for: .normal)
-		cameraButton.setImage(UIImage(icon: .googleMaterialDesign(.repeatIcon), size: CGSize(width: 32, height: 32), textColor: .white, backgroundColor: .clear), for: .selected)
+		let selectedColor = UIColor(red: 0.28, green: 0.49, blue: 0.93, alpha: 1.00)
+		beautyButton.setImage(UIImage(icon: .fontAwesomeSolid(.magic), size: CGSize(width: 32, height: 32),
+                                      textColor: .white, backgroundColor: .clear), for: .normal)
+		beautyButton.setImage(UIImage(icon: .fontAwesomeSolid(.magic), size: CGSize(width: 32, height: 32),
+                                      textColor: selectedColor, backgroundColor: .clear), for: .selected)
+		cameraButton.setImage(UIImage(icon: .googleMaterialDesign(.repeatIcon), size: CGSize(width: 32, height: 32),
+                                      textColor: .white, backgroundColor: .clear), for: .normal)
+		cameraButton.setImage(UIImage(icon: .googleMaterialDesign(.repeatIcon), size: CGSize(width: 32, height: 32),
+                                      textColor: .white, backgroundColor: .clear), for: .selected)
 		
 		beautyButton.showsTouchWhenHighlighted = true
 		cameraButton.showsTouchWhenHighlighted = true
@@ -136,8 +141,7 @@ open class UZLiveStreamUIView: UIView, UITextFieldDelegate {
 			UIView.animate(withDuration: 0.3, animations: {
 				self.containerView.alpha = 1.0
 			})
-		}
-		else {
+		} else {
 			UIView.animate(withDuration: 0.3, animations: {
 				self.containerView.alpha = 0.0
 			}, completion: { (finished) in
@@ -166,7 +170,9 @@ open class UZLiveStreamUIView: UIView, UITextFieldDelegate {
 		topFrameLayout.frame = CGRect(x: 0, y: 30, width: viewSize.width, height: topSize.height)
 		
 		let buttonSize = buttonFrameLayout.sizeThatFits(viewSize)
-		buttonFrameLayout.frame = CGRect(x: viewSize.width - buttonSize.width - 10, y: viewSize.height - buttonSize.height - 10, width: buttonSize.width, height: buttonSize.height)
+		buttonFrameLayout.frame = CGRect(x: viewSize.width - buttonSize.width - 10,
+                                         y: viewSize.height - buttonSize.height - 10,
+                                         width: buttonSize.width, height: buttonSize.height)
 		
 		closeButton.frame = CGRect(x: viewSize.width - 42, y: 30, width: 32, height: 32)
 	}

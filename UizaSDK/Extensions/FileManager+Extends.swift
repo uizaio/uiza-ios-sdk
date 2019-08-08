@@ -10,10 +10,10 @@ import Foundation
 
 extension FileManager {
 	
-	func save(object:Any, to path:String, completion:(() -> Void)? = nil) {
+	func save(object: Any, to path: String, completion: (() -> Void)? = nil) {
 		DispatchQueue.global(qos: .background).async {
 			let data = NSMutableData()
-			let archiver : NSKeyedArchiver = NSKeyedArchiver(forWritingWith: data)
+			let archiver: NSKeyedArchiver = NSKeyedArchiver(forWritingWith: data)
 			archiver.encode(object, forKey: path.lastPathComponent)
 			archiver.finishEncoding()
 			try? data.write(to: URL(fileURLWithPath: path), options: .atomic)

@@ -18,17 +18,17 @@ open class UZPlayerService: UZAPIConnector {
 	- parameter completionBlock: Block called when completed, return array of [`UZPlayerConfig`], or Error if occured
 	*/
 	public func loadPlayerConfig(completionBlock: @escaping (([UZPlayerConfig]?, Error?) -> Void)) {
-		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
+		self.requestHeaderFields = ["Authorization": UizaSDK.token]
 		
-		self.callAPI(UZAPIConstant.playerConfigApi, baseURLString: basePrivateAPIURLPath(), method: .get, params: ["platform" : "ios"]) { (result:NSDictionary?, error:Error?) in
+		self.callAPI(UZAPIConstant.playerConfigApi, baseURLString: basePrivateAPIURLPath(),
+                     method: .get, params: ["platform": "ios"]) { (result: NSDictionary?, error: Error?) in
 			DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
 				DispatchQueue.main.async {
 					completionBlock(nil, error)
 				}
-			}
-			else {
+			} else {
 				var configs: [UZPlayerConfig]! = []
 				
 				if let array = result!.array(for: "data", defaultValue: nil) as? [NSDictionary] {
@@ -49,9 +49,10 @@ open class UZPlayerService: UZAPIConnector {
 	- parameter completionBlock: Block called when completed, return `UZPlayerConfig`, or Error if occured
 	*/
 	public func load(configId: String, completionBlock: @escaping((UZPlayerConfig?, Error?) -> Void)) {
-		self.requestHeaderFields = ["Authorization" : UizaSDK.token]
+		self.requestHeaderFields = ["Authorization": UizaSDK.token]
 		
-		self.callAPI(UZAPIConstant.playerConfigApi, baseURLString: basePrivateAPIURLPath(), method: .get, params: ["id" : configId]) { (result:NSDictionary?, error:Error?) in
+		self.callAPI(UZAPIConstant.playerConfigApi, baseURLString: basePrivateAPIURLPath(),
+                     method: .get, params: ["id": configId]) { (result: NSDictionary?, error: Error?) in
 			DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			guard error == nil else {

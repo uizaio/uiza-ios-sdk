@@ -28,7 +28,7 @@ class UZPlayerUnitTests: XCTestCase {
         playerViewController.player = player
         // get videos in first page
         let promise = expectation(description: expectationDescription)
-        UZContentServices().loadEntity(metadataId: nil, publishStatus: .success, page: 0, limit: 15) { (results, error) in
+        UZContentServices().loadEntity(metadataId: nil, publishStatus: .success, page: 0, limit: 15) { (results, _) in
             promise.fulfill()
             if let videos = results, let video = videos.first {
                 self.video = video
@@ -115,7 +115,7 @@ class UZPlayerUnitTests: XCTestCase {
     func testLoadVideoWithEntityFail() {
         let promise = expectation(description: expectationDescription)
         var videoItem: UZVideoItem?
-        UZContentServices().loadDetail(entityId: "") { (tempVideoItem, tempError) in
+        UZContentServices().loadDetail(entityId: "") { (tempVideoItem, _) in
             videoItem = tempVideoItem
             promise.fulfill()
         }

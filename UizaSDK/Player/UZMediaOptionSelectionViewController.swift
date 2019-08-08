@@ -93,7 +93,9 @@ class UZMediaOptionSelectionViewController: UIViewController {
 		get {
 			var screenSize = UIScreen.main.bounds.size
 			screenSize.width = min(320, screenSize.width * 0.8)
-			screenSize.height = min(min(400, screenSize.height * 0.8), CGFloat(self.collectionViewController.audioOptions.count * 50) + CGFloat(self.collectionViewController.subtitleOptions.count * 50) + 130)
+			screenSize.height = min(min(400, screenSize.height * 0.8),
+                                    CGFloat(self.collectionViewController.audioOptions.count * 50) +
+                                        CGFloat(self.collectionViewController.subtitleOptions.count * 50) + 130)
 			return frameLayout.sizeThatFits(screenSize)
 		}
 		set {
@@ -105,23 +107,22 @@ class UZMediaOptionSelectionViewController: UIViewController {
 		return UIApplication.shared.isStatusBarHidden
 	}
 	
-	override var shouldAutorotate : Bool {
+	override var shouldAutorotate: Bool {
 		return true
 	}
 	
-	override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+	override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
 		return .all
 	}
 	
-	override var preferredInterfaceOrientationForPresentation : UIInterfaceOrientation {
+	override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
 		return UIApplication.shared.statusBarOrientation
 	}
 	
 	override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
 		if let modalViewController = NKModalViewManager.sharedInstance()?.modalViewControllerThatContains(self) {
 			modalViewController.dismissWith(animated: flag, completion: completion)
-		}
-		else {
+		} else {
 			super.dismiss(animated: flag, completion: completion)
 		}
 	}
@@ -147,17 +148,17 @@ extension UZMediaOptionSelectionViewController: NKModalViewControllerProtocol {
 // MARK: - UZMediaOptionSelectionCollectionViewController
 
 internal class UZMediaOptionSelectionCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-	private let CellIdentifier	= "OptionItemCell"
+	private let cellIdentifier	= "OptionItemCell"
 	private let reuseHeaderIdentifier = "GroupHeader"
 	
 	let flowLayout		= UICollectionViewFlowLayout()
-	var selectedBlock	: ((_ item: AVMediaSelectionOption?, _ indexPath: IndexPath) -> Void)? = nil
-	var messageLabel	: UILabel?
+	var selectedBlock: ((_ item: AVMediaSelectionOption?, _ indexPath: IndexPath) -> Void)?
+	var messageLabel: UILabel?
 	
 	var selectedSubtitleOption: AVMediaSelectionOption?
 	var selectedAudioOption: AVMediaSelectionOption?
-	var subtitleOptions	: [AVMediaSelectionOption]! = []
-	var audioOptions	: [AVMediaSelectionOption]! = []
+	var subtitleOptions: [AVMediaSelectionOption]! = []
+	var audioOptions: [AVMediaSelectionOption]! = []
     var selectedSubtitle: UZVideoSubtitle? {
         didSet {
             collectionView?.reloadData()
@@ -183,7 +184,7 @@ internal class UZMediaOptionSelectionCollectionViewController: UICollectionViewC
 	
 	// MARK: -
 	
-	func indexPath(ofItem item:AVMediaSelectionOption!) -> IndexPath? {
+	func indexPath(ofItem item: AVMediaSelectionOption!) -> IndexPath? {
 		var index = 0
 		var found = false
 		
@@ -221,11 +222,13 @@ internal class UZMediaOptionSelectionCollectionViewController: UICollectionViewC
 		super.viewDidLoad()
 		
 		let collectionView = self.collectionView!
-		collectionView.register(UZMediaOptionItemCollectionViewCell.self, forCellWithReuseIdentifier: CellIdentifier)
+		collectionView.register(UZMediaOptionItemCollectionViewCell.self, forCellWithReuseIdentifier: cellIdentifier)
 		#if swift(>=4.2)
-		collectionView.register(UZTitleCollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: reuseHeaderIdentifier)
+		collectionView.register(UZTitleCollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                withReuseIdentifier: reuseHeaderIdentifier)
 		#else
-		collectionView.register(UZTitleCollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: reuseHeaderIdentifier)
+		collectionView.register(UZTitleCollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader,
+                                withReuseIdentifier: reuseHeaderIdentifier)
 		#endif
 		
 //		collectionView.backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
@@ -253,11 +256,10 @@ internal class UZMediaOptionSelectionCollectionViewController: UICollectionViewC
 		}
 	}
 	
-	func resourceItemAtIndexPath(_ indexPath:IndexPath) -> AVMediaSelectionOption? {
+	func resourceItemAtIndexPath(_ indexPath: IndexPath) -> AVMediaSelectionOption? {
 		if indexPath.section == 0 {
 			return self.audioOptions[indexPath.item]
-		}
-		else if indexPath.section == 1 {
+		} else if indexPath.section == 1 {
 			return self.subtitleOptions[indexPath.item]
 		}
 		
@@ -306,12 +308,10 @@ internal class UZMediaOptionSelectionCollectionViewController: UICollectionViewC
 	override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if section == 0 {
             return audioOptions.count
-        }
-		else {
+        } else {
             if subtitles.isEmpty {
                 return subtitleOptions.count
-            }
-			else {
+            } else {
                 return subtitles.count
             }
         }
@@ -324,11 +324,12 @@ internal class UZMediaOptionSelectionCollectionViewController: UICollectionViewC
 		let headerKind = UICollectionElementKindSectionHeader
 		#endif
 		if kind == headerKind {
-			let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: headerKind, withReuseIdentifier: reuseHeaderIdentifier, for: indexPath) as! UZTitleCollectionViewHeader
-			headerView.title = indexPath.section == 0 ? (audioOptions.isEmpty ? "Audio: (none)" : "Audio:") : (subtitleOptions.isEmpty ? "Subtitle: (none)" : "Subtitle:")
-			return headerView
-		}
-		else {
+			let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: headerKind, withReuseIdentifier: reuseHeaderIdentifier,
+                                                                             for: indexPath) as? UZTitleCollectionViewHeader
+			headerView?.title = indexPath.section == 0 ? (audioOptions.isEmpty ? "Audio: (none)" : "Audio:") :
+                (subtitleOptions.isEmpty ? "Subtitle: (none)" : "Subtitle:")
+			return headerView ?? UICollectionReusableView()
+		} else {
 			return UICollectionReusableView()
 		}
 	}
@@ -342,7 +343,7 @@ internal class UZMediaOptionSelectionCollectionViewController: UICollectionViewC
 	}
 	
 	override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-		var cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellIdentifier, for: indexPath) as? UZMediaOptionItemCollectionViewCell
+		var cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as? UZMediaOptionItemCollectionViewCell
 		if cell == nil {
 			cell = UZMediaOptionItemCollectionViewCell()
 		}

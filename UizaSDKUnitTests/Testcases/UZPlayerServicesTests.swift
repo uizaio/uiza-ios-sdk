@@ -25,7 +25,7 @@ class UZPlayerServicesTests: XCTestCase {
     func testLoadPlayerCurrentConfig_Success() {
         stub_load_player_current_config_success()
         let promise = expectation(description: "test")
-        playerServicesMocks.loadPlayerConfig { (configs, error) in
+        playerServicesMocks.loadPlayerConfig { (configs, _) in
             XCTAssertNotNil(configs)
             XCTAssertEqual(configs?.first?.endscreenMessage, "Thank you for watching!")
             promise.fulfill()
@@ -36,7 +36,7 @@ class UZPlayerServicesTests: XCTestCase {
     func testLoadPlayerConfig_Success() {
         stub_load_player_config_success()
         let promise = expectation(description: "test")
-        playerServicesMocks.load(configId: "8c5cc768-91a8-448a-bced-141124849a46") { (config, error) in
+        playerServicesMocks.load(configId: "8c5cc768-91a8-448a-bced-141124849a46") { (config, _) in
             XCTAssertNotNil(config)
             XCTAssertEqual(config?.endscreenMessage, "Thank you for watching!")
             promise.fulfill()

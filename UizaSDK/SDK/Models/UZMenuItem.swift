@@ -19,7 +19,7 @@ open class UZMenuItem: UZModelObject {
 	/** Type of menu */
 	public var type: String! = ""
 	/** Icon URL */
-	public var iconURL: URL? = nil
+	public var iconURL: URL?
 	
 	override func parse(_ data: NSDictionary?) {
 		if let data = data {

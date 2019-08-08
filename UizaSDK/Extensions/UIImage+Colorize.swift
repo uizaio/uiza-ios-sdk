@@ -69,7 +69,7 @@ extension UIImage {
         }
     }
     
-    private func modifiedImage( draw: (CGContext, CGRect) -> ()) -> UIImage {
+    private func modifiedImage( draw: (CGContext, CGRect) -> Void) -> UIImage {
         
         // using scale correctly preserves retina images
         UIGraphicsBeginImageContextWithOptions(size, false, scale)

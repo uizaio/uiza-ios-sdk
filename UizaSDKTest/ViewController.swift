@@ -39,13 +39,14 @@ class MySlider: UZSlider {
 }
 
 class ViewController: UIViewController {
-    //    let playerViewController = UZPlayerViewController()
+//    let playerViewController = UZPlayerViewController()
     let themeButton = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        themeButton.setImage(UIImage(icon: .googleMaterialDesign(.colorLens), size: CGSize(width: 32, height: 32), textColor: .black, backgroundColor: .clear), for: .normal)
+        themeButton.setImage(UIImage(icon: .googleMaterialDesign(.colorLens), size: CGSize(width: 32, height: 32),
+                                     textColor: .black, backgroundColor: .clear), for: .normal)
         themeButton.addTarget(self, action: #selector(switchTheme), for: .touchUpInside)
         self.view.addSubview(themeButton)
 //
@@ -77,7 +78,6 @@ class ViewController: UIViewController {
         }
 */
 		
-		
 		/*
 		DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
 			self.showLive()
@@ -97,7 +97,7 @@ class ViewController: UIViewController {
     }
 	
 	func loadLive() {
-		UZContentServices().loadDetail(entityId: liveID, isLive: true) { (video, error) in
+		UZContentServices().loadDetail(entityId: liveID, isLive: true) { (video, _) in
 			if let video = video {
 				DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
 					let viewController = UZFloatingPlayerViewController()
@@ -117,7 +117,8 @@ class ViewController: UIViewController {
         
         var buttonSize = themeButton.sizeThatFits(viewSize)
         buttonSize.width += 20
-        themeButton.frame = CGRect(x: (viewSize.width - buttonSize.width/2)/2, y: viewSize.height - buttonSize.height - 50, width: buttonSize.width, height: buttonSize.height)
+        themeButton.frame = CGRect(x: (viewSize.width - buttonSize.width/2)/2, y: viewSize.height - buttonSize.height - 50,
+                                   width: buttonSize.width, height: buttonSize.height)
     }
     
     override public var shouldAutorotate: Bool {
@@ -159,7 +160,7 @@ extension ViewController: UZPlayerDelegate {
 //        print("loadedDuration: \(loadedDuration) - totalDuration: \(totalDuration)")
     }
     
-    func player(player: UZPlayer, playTimeDidChange currentTime : TimeInterval, totalTime: TimeInterval) {
+    func player(player: UZPlayer, playTimeDidChange currentTime: TimeInterval, totalTime: TimeInterval) {
 //        print("currentTime: \(currentTime) - totalTime: \(totalTime)")
     }
     

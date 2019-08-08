@@ -8,6 +8,7 @@
 
 import UIKit
 
+// swiftlint:disable identifier_name
 let CURRENT_USER_KEY = "com.uiza.currentUser.3_0"
 
 /**
@@ -15,48 +16,44 @@ Info of user
 */
 open class UZUser: UZModelObject {
 	/** `id` of user */
-	public var id : String!
+	public var id: String!
 	/** Name of user */
-	public var name : String?
+	public var name: String?
 	/** Gender of user */
-	public var gender : String? // male / female
+	public var gender: String? // male / female
 	/** Mobile phone */
-	public var mobile : String?
+	public var mobile: String?
 	/** Email address */
-	public var email : String?
+	public var email: String?
 	/** Birthday of user */
-	public var birthday : Date? = nil
+	public var birthday: Date?
 	/** Facebook ID, if logged in from Facebook */
-	public var facebookId : String?
+	public var facebookId: String?
 	/** Avatar URL */
-	public var avatarURL : URL? = nil
+	public var avatarURL: URL?
 	/** Token of user */
-	public var token : String?
+	public var token: String?
 	
 	/** `true` if this is you */
-	public var isMe: Bool {
-		get {
-			if let currentUser = UZUser.currentUser {
-				return self.id == currentUser.id
-			}
-			
-			return false
-		}
-	}
+    public var isMe: Bool {
+        if let currentUser = UZUser.currentUser {
+            return self.id == currentUser.id
+        }
+        
+        return false
+    }
 	
-	fileprivate static var _currentUser : UZUser? = nil
+	fileprivate static var _currentUser: UZUser?
 	/** Logged in user, returns `nil` if user is not logged in */
 	public class var currentUser: UZUser? {
-		get {
-			if (_currentUser == nil) {
-				let userData : Data? = UserDefaults.standard.object(forKey: CURRENT_USER_KEY) as? Data
-				if (userData != nil) {
-					_currentUser = NSKeyedUnarchiver.unarchiveObject(with: userData!) as? UZUser
-				}
-			}
-			
-			return _currentUser
-		}
+        if _currentUser == nil {
+            let userData: Data? = UserDefaults.standard.object(forKey: CURRENT_USER_KEY) as? Data
+            if userData != nil {
+                _currentUser = NSKeyedUnarchiver.unarchiveObject(with: userData!) as? UZUser
+            }
+        }
+        
+        return _currentUser
 		/*
 		set (newValue) {
 			if (_currentUser != newValue) {
@@ -105,7 +102,7 @@ open class UZUser: UZModelObject {
 	- parameter size: Kích thước hình đại diện
 	*/
 	public func facebookAvatar(size: Int = 100) -> URL? {
-		if facebookId != nil && facebookId!.count > 0 {
+		if facebookId != nil && !facebookId!.isEmpty {
 			let finalSize = size * Int(UIScreen.main.scale)
 			let result = "https://graph.facebook.com/\(facebookId!)/picture?width=\(finalSize)"
 			return URL(string: result)
@@ -114,11 +111,10 @@ open class UZUser: UZModelObject {
 		return nil
 	}
 	
-	
 	// MARK: -
 	
 	internal func saveAsCurrentUser() {
-		UZUser._currentUser = self;
+		UZUser._currentUser = self
 //		self.facebookToken = FBSDKAccessToken.current()
 		
 		let userData: Data = NSKeyedArchiver.archivedData(withRootObject: self)
@@ -127,7 +123,7 @@ open class UZUser: UZModelObject {
 	}
 	
 	internal class func clearCurrentUser() {
-		UZUser._currentUser = nil;
+		UZUser._currentUser = nil
 //		FBSDKAccessToken.setCurrent(nil)
 //		FBSDKProfile.setCurrent(nil)
 		
@@ -135,13 +131,13 @@ open class UZUser: UZModelObject {
 		UserDefaults.standard.synchronize()
 	}
 	
-	func merge(with user:UZUser!) {
+	func merge(with user: UZUser!) {
 		if self.data == nil {
 			self.data = NSMutableDictionary()
 		}
 		
 		let lastToken: String = String(describing: self.token ?? "") // copy to new instance
-		self.data!.addEntries(from: user.data! as! [String: AnyHashable])
+        self.data!.addEntries(from: user.data! as? [String: AnyHashable] ?? [:])
 		self.data!.setObject(lastToken, forKey: "token" as NSCopying)
 		parse(user.data)
 		
@@ -169,7 +165,7 @@ open class UZUser: UZModelObject {
 	}
 	
 	override open func encode(with aCoder: NSCoder) {
-		if (self.data != nil) {
+		if self.data != nil {
 			aCoder.encode(self.data, forKey: "data")
 		}
 	}
@@ -206,13 +202,13 @@ open class UZUser: UZModelObject {
 	}
 	
 	/** Object description */
-	override open var description : String {
+	override open var description: String {
 		return "\(super.description) [\(name ?? "")] [token:\(token ?? "")]"
 	}
 	
 	open override func isEqual(_ object: Any?) -> Bool {
 		if object is UZUser {
-			return (object as! UZUser).id == self.id
+            return (object as? UZUser)?.id == self.id
 		}
 		
 		return false
@@ -223,4 +219,3 @@ open class UZUser: UZModelObject {
 	}
 	
 }
-

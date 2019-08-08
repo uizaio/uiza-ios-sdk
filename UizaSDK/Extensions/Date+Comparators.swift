@@ -84,7 +84,7 @@ public extension Date {
      *
      *  - returns: True if both paramter dates fall on the same day, false otherwise
      */
-    func isSameDay(date : Date ) -> Bool {
+    func isSameDay(date: Date) -> Bool {
         return Date.isSameDay(date: self, as: date)
     }
     
@@ -107,5 +107,4 @@ public extension Date {
         return (dateOne?.equals(dateTwo!))!
     }
 	
-    
 }

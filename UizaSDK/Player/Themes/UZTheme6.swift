@@ -12,13 +12,13 @@ import FrameLayoutKit
 import NVActivityIndicatorView
 
 open class UZTheme6: UZPlayerTheme {
-	public weak var controlView: UZPlayerControlView? = nil
+	public weak var controlView: UZPlayerControlView?
 	
 	let topGradientLayer = CAGradientLayer()
 	
-	internal var topFrameLayout 	: DoubleFrameLayout?
-	internal var bottomFrameLayout 	: StackFrameLayout?
-	internal var mainFrameLayout 	: StackFrameLayout?
+	internal var topFrameLayout: DoubleFrameLayout?
+	internal var bottomFrameLayout: StackFrameLayout?
+	internal var mainFrameLayout: StackFrameLayout?
 	internal let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
 	
 	internal var iconColor = UIColor.black
@@ -146,7 +146,8 @@ open class UZTheme6: UZPlayerTheme {
 		topFrameLayout!.edgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 0, right: 5)
 //		topFrameLayout!.showFrameDebug = true
 		
-		let bottomLeftFrameLayout = StackFrameLayout(axis: .horizontal, views: [controlView.settingsButton, controlView.castingButton, controlView.pipButton])
+		let bottomLeftFrameLayout = StackFrameLayout(axis: .horizontal, views: [controlView.settingsButton,
+                                                                                controlView.castingButton, controlView.pipButton])
 		bottomLeftFrameLayout.minSize = CGSize(width: (iconSize.width * 3) + 20, height: 0)
 		let bottomRightFrameLayout = StackFrameLayout(axis: .horizontal, views: [controlView.playlistButton, controlView.fullscreenButton])
 		let bottomCenterFrameLayout = StackFrameLayout(axis: .horizontal)
@@ -259,7 +260,8 @@ open class UZTheme6: UZPlayerTheme {
 	open func showLoader() {
 		if let controlView = controlView {
 			if controlView.loadingIndicatorView == nil {
-				controlView.loadingIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 30, height: 30), type: NVActivityIndicatorType.ballBeat, color: .white, padding: 0)
+				controlView.loadingIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 30, height: 30),
+                                                                           type: NVActivityIndicatorType.ballBeat, color: .white, padding: 0)
 				controlView.addSubview(controlView.loadingIndicatorView!)
 			}
 			

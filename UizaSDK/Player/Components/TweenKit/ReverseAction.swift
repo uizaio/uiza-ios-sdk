@@ -13,8 +13,8 @@ public class ReverseAction: FiniteTimeAction {
     
     // MARK: - Public
     
-    public var onBecomeActive: () -> () = {}
-    public var onBecomeInactive: () -> () = {}
+    public var onBecomeActive: () -> Void = {}
+    public var onBecomeInactive: () -> Void = {}
     
     /**
      Create with the action to reverse

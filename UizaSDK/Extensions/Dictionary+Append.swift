@@ -9,8 +9,8 @@
 extension Dictionary {
 	
 	mutating func appendFrom(_ other: Dictionary) {
-		for (key,value) in other {
-			self.updateValue(value, forKey:key)
+		for (key, value) in other {
+			self.updateValue(value, forKey: key)
 		}
 	}
 	

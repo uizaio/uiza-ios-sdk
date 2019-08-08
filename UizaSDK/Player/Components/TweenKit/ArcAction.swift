@@ -26,7 +26,7 @@ public class ArcAction<T: Tweenable2DCoordinate>: FiniteTimeAction {
                 startRadians: Double,
                 endRadians: Double,
                 duration: Double,
-                update: @escaping (T) -> ()) {
+                update: @escaping (T) -> Void) {
         
         self.center = center
         self.radius = radius
@@ -49,7 +49,7 @@ public class ArcAction<T: Tweenable2DCoordinate>: FiniteTimeAction {
                 startDegrees: Double,
                 endDegrees: Double,
                 duration: Double,
-                update: @escaping (T) -> ()) {
+                update: @escaping (T) -> Void) {
         
         self.center = center
         self.radius = radius
@@ -59,9 +59,8 @@ public class ArcAction<T: Tweenable2DCoordinate>: FiniteTimeAction {
         self.handler = update
     }
 
-    
-    public var onBecomeActive: () -> () = {}
-    public var onBecomeInactive: () -> () = {}
+    public var onBecomeActive: () -> Void = {}
+    public var onBecomeInactive: () -> Void = {}
     public var easing = Easing.linear
 
     // MARK: - Properties
@@ -72,7 +71,7 @@ public class ArcAction<T: Tweenable2DCoordinate>: FiniteTimeAction {
     let endAngle: Double
     public let duration: Double
     public var reverse = false
-    let handler: (T) -> ()
+    let handler: (T) -> Void
     
     // MARK: - Methods
     
@@ -110,4 +109,3 @@ public class ArcAction<T: Tweenable2DCoordinate>: FiniteTimeAction {
     }
 
 }
-

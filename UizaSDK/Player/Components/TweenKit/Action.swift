@@ -11,13 +11,13 @@ import Foundation
 // MARK: - Shedulable Action
 
 /** Protcol for any action that can be added to an ActionScheduler instance */
-public protocol SchedulableAction : class {
+public protocol SchedulableAction: class {
     
     /** Called when the action bhecomes active */
-    var onBecomeActive: () -> () {get set}
+    var onBecomeActive: () -> Void {get set}
     
     /** Called when the action becomes inactive */
-    var onBecomeInactive: () -> () {get set}
+    var onBecomeInactive: () -> Void {get set}
     
     func willBecomeActive()
     func didBecomeInactive()
@@ -29,7 +29,7 @@ public protocol SchedulableAction : class {
 // MARK: - Finite Time Action
 
 /** Protocol for Actions that have a finite duration */
-public protocol FiniteTimeAction : SchedulableAction {
+public protocol FiniteTimeAction: SchedulableAction {
     
     var duration: Double {get}
     var reverse: Bool {get set}
@@ -52,6 +52,6 @@ extension TriggerAction {
 // MARK: - Infinite Time Action
 
 /** Protocol for actions that run indefinitely */
-public protocol InfiniteTimeAction : SchedulableAction {
+public protocol InfiniteTimeAction: SchedulableAction {
     func update(elapsedTime: CFTimeInterval)
 }

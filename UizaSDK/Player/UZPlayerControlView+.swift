@@ -146,7 +146,7 @@ extension UZPlayerControlView {
         theme?.hideLoader()
     }
     
-    open func showCoverWithLink(_ cover:String) {
+    open func showCoverWithLink(_ cover: String) {
         self.showCover(url: URL(string: cover))
     }
     
@@ -161,7 +161,7 @@ extension UZPlayerControlView {
                         self.coverImageView.image = nil
                     }
                     self.hideLoader()
-                });
+                })
             }
         }
     }
@@ -181,7 +181,6 @@ extension UZPlayerControlView {
             self.setNeedsLayout()
         }
     }
-    
     
     open func hideCastingScreen() {
         DispatchQueue.main.async {
@@ -212,8 +211,7 @@ extension UZPlayerControlView {
     @objc open func onTap(_ gesture: UITapGestureRecognizer) {
         if containerView.isHidden || containerView.alpha == 0 {
             showControlView()
-        }
-        else {
+        } else {
             hideControlView()
         }
     }
@@ -233,19 +231,18 @@ extension UZPlayerControlView {
             enlapseTimeLabel.setTitle(Date().timeIntervalSince(date).toString, for: .normal)
             enlapseTimeLabel.isHidden = false
             enlapseTimeLabel.superview?.setNeedsLayout()
-        }
-        else {
+        } else {
             enlapseTimeLabel.setTitle(nil, for: .normal)
             enlapseTimeLabel.isHidden = true
         }
     }
     
     // MARK: - Handle slider actions
-    @objc open func progressSliderTouchBegan(_ sender: UISlider)  {
+    @objc open func progressSliderTouchBegan(_ sender: UISlider) {
         delegate?.controlView(controlView: self, slider: sender, onSliderEvent: .touchDown)
     }
     
-    @objc open func progressSliderValueChanged(_ sender: UISlider)  {
+    @objc open func progressSliderValueChanged(_ sender: UISlider) {
         hideEndScreen()
         cancelAutoFadeOutAnimation()
         
@@ -260,7 +257,7 @@ extension UZPlayerControlView {
         self.setNeedsLayout()
     }
     
-    @objc open func progressSliderTouchEnded(_ sender: UISlider)  {
+    @objc open func progressSliderTouchEnded(_ sender: UISlider) {
         autoFadeOutControlView(after: autoHideControlsInterval)
         delegate?.controlView(controlView: self, slider: sender, onSliderEvent: .touchUpInside)
         self.setNeedsLayout()
@@ -268,7 +265,6 @@ extension UZPlayerControlView {
 }
 
 // MARK: - UZLiveBadgeView
-import FrameLayoutKit
 import NKButton
 
 open class UZLiveBadgeView: UIView {
@@ -277,8 +273,7 @@ open class UZLiveBadgeView: UIView {
         didSet {
             if views < 0 {
                 viewBadge.setTitle("0", for: .normal)
-            }
-            else {
+            } else {
                 viewBadge.setTitle("\(views.abbreviated)", for: .normal)
             }
             
@@ -301,12 +296,13 @@ open class UZLiveBadgeView: UIView {
         }
         liveBadge.setTitle("LIVE", for: .normal)
         liveBadge.setTitleColor(.white, for: .normal)
-        liveBadge.setBackgroundColor(UIColor(red:0.91, green:0.31, blue:0.28, alpha:1.00), for: .normal)
+        liveBadge.setBackgroundColor(UIColor(red: 0.91, green: 0.31, blue: 0.28, alpha: 1.00), for: .normal)
         liveBadge.isUserInteractionEnabled = false
         liveBadge.cornerRadius = 4
         liveBadge.extendSize = CGSize(width: 10, height: 0)
         
-        let icon = UIImage.init(icon: .googleMaterialDesign(.removeRedEye), size: CGSize(width: 20, height: 20), textColor: .white, backgroundColor: .clear)
+        let icon = UIImage.init(icon: .googleMaterialDesign(.removeRedEye), size: CGSize(width: 20, height: 20),
+                                textColor: .white, backgroundColor: .clear)
         if #available(iOS 8.2, *) {
             viewBadge.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .medium)
         } else {

@@ -10,8 +10,8 @@ import Foundation
 
 extension NSError {
 	
-	static func error(code:Int, message:String!) -> NSError! {
-		return NSError(domain: "uiza", code: code, userInfo: [NSLocalizedDescriptionKey : message ?? ""])
+	static func error(code: Int, message: String!) -> NSError! {
+		return NSError(domain: "uiza", code: code, userInfo: [NSLocalizedDescriptionKey: message ?? ""])
 	}
 	
 	static func unknownError() -> NSError! {

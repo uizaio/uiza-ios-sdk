@@ -11,33 +11,29 @@ import AVFoundation
 
 extension AVAudioSession {
 	
-	var isAirPlaying : Bool {
-		get {
-			var result = false
-			
-			let currentRoute = AVAudioSession.sharedInstance().currentRoute
-			for port in currentRoute.outputs {
-				#if swift(>=4.2)
-				let isAirPlay = port.portType == AVAudioSession.Port.airPlay
-				#else
-				let isAirPlay = port.portType == AVAudioSessionPortAirPlay
-				#endif
-				
-				if isAirPlay {
-					result = true
-					break
-				}
-			}
-			
-			return result
-		}
-	}
+    var isAirPlaying: Bool {
+        var result = false
+        
+        let currentRoute = AVAudioSession.sharedInstance().currentRoute
+        for port in currentRoute.outputs {
+            #if swift(>=4.2)
+            let isAirPlay = port.portType == AVAudioSession.Port.airPlay
+            #else
+            let isAirPlay = port.portType == AVAudioSessionPortAirPlay
+            #endif
+            
+            if isAirPlay {
+                result = true
+                break
+            }
+        }
+        
+        return result
+    }
 	
-	var sourceName: String? {
-		get {
-			let currentRoute = AVAudioSession.sharedInstance().currentRoute
-			return currentRoute.outputs.first?.portName
-		}
-	}
+    var sourceName: String? {
+        let currentRoute = AVAudioSession.sharedInstance().currentRoute
+        return currentRoute.outputs.first?.portName
+    }
 	
 }

@@ -7,8 +7,8 @@
 //  Copyright (c) 2014. All rights reserved.
 //
 
+// swiftlint:disable all
 import Foundation
-
 
 public extension Date {
     
@@ -19,7 +19,7 @@ public extension Date {
      
         - Returns: A Date() object if successfully converted from string or nil.
     */
-    init?(fromString string: String, format:DateFormatType, timeZone: TimeZoneType = .local, locale: Locale = Foundation.Locale.current) {
+    init?(fromString string: String, format: DateFormatType, timeZone: TimeZoneType = .local, locale: Locale = Foundation.Locale.current) {
         guard !string.isEmpty else {
             return nil
         }

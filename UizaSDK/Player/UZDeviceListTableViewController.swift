@@ -37,15 +37,15 @@ class UZDeviceListTableViewController: UITableViewController {
 		return UIApplication.shared.isStatusBarHidden
 	}
 	
-	override var shouldAutorotate : Bool {
+	override var shouldAutorotate: Bool {
 		return true
 	}
 	
-	override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+	override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
 		return .all
 	}
 	
-	override var preferredInterfaceOrientationForPresentation : UIInterfaceOrientation {
+	override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
 		return UIApplication.shared.statusBarOrientation
 	}
 	
@@ -64,19 +64,19 @@ class UZDeviceListTableViewController: UITableViewController {
 	override func dismiss(animated flag: Bool, completion: (() -> Void)?) {
 		if let viewController = NKModalViewManager.sharedInstance().modalViewControllerThatContains(self) {
 			viewController.dismissWith(animated: flag, completion: completion)
-		}
-		else {
+		} else {
 			super.dismiss(animated: flag, completion: completion)
 		}
 	}
 	
 	func reloadCell(with device: GCKDevice) {
+        // swiftlint:disable empty_count
 		let count = castingManager.deviceCount
 		if count > 0 {
-			var index: Int? = nil
-			for i in 0..<count {
-				if device == castingManager.device(at: UInt(i)) {
-					index = i
+			var index: Int?
+			for temp in 0..<count {
+				if device == castingManager.device(at: UInt(temp)) {
+					index = temp
 					break
 				}
 			}
@@ -109,42 +109,46 @@ class UZDeviceListTableViewController: UITableViewController {
 	
 	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
 		let normalColor = UIColor(white: 0.2, alpha: 1.0)
-		let selectedColor = UIColor(red:0.28, green:0.49, blue:0.93, alpha:1.00)
+		let selectedColor = UIColor(red: 0.28, green: 0.49, blue: 0.93, alpha: 1.00)
 		
 		if indexPath.section == 0 {
 			if UIDevice.isPhone() {
 				cell.textLabel?.text = "This iPhone"
-				cell.imageView?.image = UIImage(icon: .googleMaterialDesign(.phoneIphone), size: CGSize(width: 32, height: 32), textColor: normalColor, backgroundColor: .clear)
-				cell.imageView?.highlightedImage = UIImage(icon: .googleMaterialDesign(.phoneIphone), size: CGSize(width: 32, height: 32), textColor: selectedColor, backgroundColor: .clear)
-			}
-			else {
+				cell.imageView?.image = UIImage(icon: .googleMaterialDesign(.phoneIphone), size: CGSize(width: 32, height: 32),
+                                                textColor: normalColor, backgroundColor: .clear)
+				cell.imageView?.highlightedImage = UIImage(icon: .googleMaterialDesign(.phoneIphone), size: CGSize(width: 32, height: 32),
+                                                           textColor: selectedColor, backgroundColor: .clear)
+			} else {
 				cell.textLabel?.text = "This iPad"
-				cell.imageView?.image = UIImage(icon: .googleMaterialDesign(.tabletMac), size: CGSize(width: 32, height: 32), textColor: normalColor, backgroundColor: .clear)
-				cell.imageView?.highlightedImage = UIImage(icon: .googleMaterialDesign(.tabletMac), size: CGSize(width: 32, height: 32), textColor: selectedColor, backgroundColor: .clear)
+				cell.imageView?.image = UIImage(icon: .googleMaterialDesign(.tabletMac), size: CGSize(width: 32, height: 32),
+                                                textColor: normalColor, backgroundColor: .clear)
+				cell.imageView?.highlightedImage = UIImage(icon: .googleMaterialDesign(.tabletMac), size: CGSize(width: 32, height: 32),
+                                                           textColor: selectedColor, backgroundColor: .clear)
 			}
 			
 			cell.detailTextLabel?.text = "Playing here"
 			cell.accessoryType = castingManager.currentCastSession == nil ? .checkmark : .none
-		}
-		else if indexPath.section == 1 {
+		} else if indexPath.section == 1 {
 			let device = castingManager.device(at: UInt(indexPath.row))
 			cell.textLabel?.text = device.modelName
 			cell.detailTextLabel?.text = "Connect"
-			cell.imageView?.image = UIImage(icon: .googleMaterialDesign(.cast), size: CGSize(width: 32, height: 32), textColor: normalColor, backgroundColor: .clear)
-			cell.imageView?.highlightedImage = UIImage(icon: .googleMaterialDesign(.cast), size: CGSize(width: 32, height: 32), textColor: selectedColor, backgroundColor: .clear)
+			cell.imageView?.image = UIImage(icon: .googleMaterialDesign(.cast), size: CGSize(width: 32, height: 32),
+                                            textColor: normalColor, backgroundColor: .clear)
+			cell.imageView?.highlightedImage = UIImage(icon: .googleMaterialDesign(.cast), size: CGSize(width: 32, height: 32),
+                                                       textColor: selectedColor, backgroundColor: .clear)
 			
 			if let currentCastSession = castingManager.currentCastSession {
 				cell.accessoryType = currentCastSession.device == device ? .checkmark : .none
-			}
-			else {
+			} else {
 				cell.accessoryType = .none
 			}
-		}
-		else if indexPath.section == 2 {
+		} else if indexPath.section == 2 {
 			cell.textLabel?.text = "AirPlay and Bluetooth"
 			cell.detailTextLabel?.text = "Show more devices..."
-			cell.imageView?.image = UIImage(icon: .googleMaterialDesign(.airplay), size: CGSize(width: 32, height: 32), textColor: normalColor, backgroundColor: .clear)
-			cell.imageView?.highlightedImage = UIImage(icon: .googleMaterialDesign(.airplay), size: CGSize(width: 32, height: 32), textColor: selectedColor, backgroundColor: .clear)
+			cell.imageView?.image = UIImage(icon: .googleMaterialDesign(.airplay), size: CGSize(width: 32, height: 32),
+                                            textColor: normalColor, backgroundColor: .clear)
+			cell.imageView?.highlightedImage = UIImage(icon: .googleMaterialDesign(.airplay), size: CGSize(width: 32, height: 32),
+                                                       textColor: selectedColor, backgroundColor: .clear)
 			cell.accessoryType = .none
 		}
 	}
@@ -157,8 +161,7 @@ class UZDeviceListTableViewController: UITableViewController {
 		if indexPath.section == 0 {
 			castingManager.disconnect()
 			self.dismiss(animated: true, completion: nil)
-		}
-		else if indexPath.section == 1 {
+		} else if indexPath.section == 1 {
 			let device = castingManager.device(at: UInt(indexPath.row))
 			castingManager.connect(to: device)
 			
@@ -172,8 +175,7 @@ class UZDeviceListTableViewController: UITableViewController {
 				loadingView.startAnimating()
 				cell.accessoryView = loadingView
 			}
-		}
-		else {
+		} else {
 			self.dismiss(animated: true) {
 				PostNotification(UZPlayer.ShowAirPlayDeviceListNotification)
 			}
@@ -190,8 +192,7 @@ class UZDeviceListTableViewController: UITableViewController {
 	@objc func onSessionDidStart(_ notification: Notification) {
 		if let device = castingManager.currentCastSession?.device {
 			reloadCell(with: device)
-		}
-		else {
+		} else {
 			tableView.reloadData()
 		}
 		
@@ -205,14 +206,12 @@ class UZDeviceListTableViewController: UITableViewController {
 	@objc func onSessionDidStop(_ notification: Notification) {
 		if let device = castingManager.currentCastSession?.device {
 			reloadCell(with: device)
-		}
-		else {
+		} else {
 			tableView.reloadData()
 		}
 	}
 
 }
-
 
 // MARK: -
 

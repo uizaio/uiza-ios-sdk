@@ -59,34 +59,28 @@ open class UZCastingManager: NSObject {
 	
 	open var lastPosition: TimeInterval = 0
 	open var currentPosition: TimeInterval {
-		get {
-			if let remoteClient = remoteClient {
-				return remoteClient.approximateStreamPosition()
-			}
-			else {
-				return initPosition
-			}
-		}
+        if let remoteClient = remoteClient {
+            return remoteClient.approximateStreamPosition()
+        } else {
+            return initPosition
+        }
 	}
 	private var initPosition: TimeInterval = 0
 	
 	open var currentPlayerState: GCKMediaPlayerState {
-		get {
-			if let remoteClient = remoteClient,	let mediaStatus = remoteClient.mediaStatus {
-				return mediaStatus.playerState
-			}
-			else {
-				return .unknown
-			}
-		}
+        if let remoteClient = remoteClient,	let mediaStatus = remoteClient.mediaStatus {
+            return mediaStatus.playerState
+        } else {
+            return .unknown
+        }
 	}
 	
-	open private(set) var discoverManager : GCKDiscoveryManager!
-	open private(set) var sessionManager : GCKSessionManager!
+	open private(set) var discoverManager: GCKDiscoveryManager!
+	open private(set) var sessionManager: GCKSessionManager!
 	open private(set) var remoteClient: GCKRemoteMediaClient?
 	
-	open private(set) var currentCastSession: GCKCastSession? = nil
-	open private(set) var currentCastItem: UZCastItem? = nil
+	open private(set) var currentCastSession: GCKCastSession?
+	open private(set) var currentCastItem: UZCastItem?
 	
 	// MARK: -
 	
@@ -154,8 +148,7 @@ open class UZCastingManager: NSObject {
 				
 				remoteClient?.queueLoad([queueItemBuilder.build()], with: queueLoadOptions)
 			}
-		}
-		else {
+		} else {
 			let mediaInformation = buildMediaInformation(from: item)
 			
 			let loadOptions = GCKMediaLoadOptions()
@@ -292,7 +285,6 @@ extension UZCastingManager: GCKRemoteMediaClientListener {
 	}
 	
 }
-
 
 extension UZCastingManager: GCKRequestDelegate {
 	

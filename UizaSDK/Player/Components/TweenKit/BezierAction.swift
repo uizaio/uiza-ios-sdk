@@ -19,7 +19,7 @@ public class BezierAction<T: Tweenable2DCoordinate>: FiniteTimeAction {
      - Parameter duration: Duration of the animation
      - Parameter update: Callback with position and rotation
      */
-    public init(path: BezierPath<T>, duration: Double, update: @escaping (T, Lazy<Double>) -> ()) {
+    public init(path: BezierPath<T>, duration: Double, update: @escaping (T, Lazy<Double>) -> Void) {
         self.duration = duration
         self.path = path
         self.updateHandler = update
@@ -29,13 +29,13 @@ public class BezierAction<T: Tweenable2DCoordinate>: FiniteTimeAction {
     public var duration: Double
     public var reverse = false
 
-    public var onBecomeActive: () -> () = {}
-    public var onBecomeInactive: () -> () = {}
+    public var onBecomeActive: () -> Void = {}
+    public var onBecomeInactive: () -> Void = {}
     
     // MARK: - Properties
     
     let path: BezierPath<T>
-    let updateHandler: (T, Lazy<Double>) -> ()
+    let updateHandler: (T, Lazy<Double>) -> Void
     
     // MARK: - Methods
     

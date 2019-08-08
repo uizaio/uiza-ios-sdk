@@ -21,13 +21,13 @@ Info of a live event
 */
 public class UZLiveEvent: UZVideoItem {
 	/// Poster image url
-	public var posterURL: URL? = nil
+	public var posterURL: URL?
 	/// `true` if encoded
 	public var isEncoded: Bool = false
 	/// Livestream mode
 	public var source: UZLiveSource = .push
 	/// Broadcast URL
-	public fileprivate(set) var broadcastURL: URL? = nil
+	public fileprivate(set) var broadcastURL: URL?
 	
 	internal var isReadyToLive: Bool = false
     internal var isInitStatus: Bool = false
@@ -50,10 +50,10 @@ public class UZLiveEvent: UZVideoItem {
 			}
 			
 			if let pushInfoDataArray = data.value(for: "lastPushInfo", defaultValue: nil) as? [NSDictionary],
-				pushInfoDataArray.count > 0,
-				let pushInfoData = pushInfoDataArray.first
-			{
-				if let streamUrl = pushInfoData.url(for: "streamUrl", defaultURL: nil), let streamKey = pushInfoData.string(for: "streamKey", defaultString: nil) {
+				!pushInfoDataArray.isEmpty,
+				let pushInfoData = pushInfoDataArray.first {
+				if let streamUrl = pushInfoData.url(for: "streamUrl", defaultURL: nil),
+                    let streamKey = pushInfoData.string(for: "streamKey", defaultString: nil) {
 					broadcastURL = streamUrl.appendingPathComponent(streamKey)
 				}
 			}

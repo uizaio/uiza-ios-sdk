@@ -10,10 +10,8 @@ import Foundation
 
 extension Error {
 	
-	var code : Int {
-		get {
-			return (self as NSError).code
-		}
+	var code: Int {
+        return (self as NSError).code
 	}
 	
 }

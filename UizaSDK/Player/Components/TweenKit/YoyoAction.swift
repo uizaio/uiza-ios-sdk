@@ -21,11 +21,11 @@ public class YoyoAction: FiniteTimeAction {
     
     // MARK: - Public
     
-    public var onBecomeActive: () -> () = {}
-    public var onBecomeInactive: () -> () = {}
+    public var onBecomeActive: () -> Void = {}
+    public var onBecomeInactive: () -> Void = {}
     
     public var reverse = false {
-        didSet{
+        didSet {
             if reverse != oldValue, state != .idle {
                 action.reverse = !action.reverse
             }
@@ -103,8 +103,7 @@ public class YoyoAction: FiniteTimeAction {
             action.update(t: actionT)
             
             state = .forwards
-        }
-        else{
+        } else {
             
             if state == .idle {
                 action.reverse = !reverse
@@ -117,7 +116,7 @@ public class YoyoAction: FiniteTimeAction {
                 action.willBegin()
             }
 
-            let actionT = 1-((t - 0.5) * 2);
+            let actionT = 1-((t - 0.5) * 2)
             action.update(t: actionT)
             
             state = .backwards

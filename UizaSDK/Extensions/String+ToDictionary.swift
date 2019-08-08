@@ -43,7 +43,7 @@ extension NSString {
 
 extension String {
 	
-	static func timeString(fromDuration duration: Double, shortenIfZero:Bool = true) -> String {
+	static func timeString(fromDuration duration: Double, shortenIfZero: Bool = true) -> String {
 		let seconds = abs(Int(duration))
 		let minutes = seconds / 60
 		let hours	= minutes / 60

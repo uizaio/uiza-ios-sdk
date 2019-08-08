@@ -15,6 +15,7 @@ target 'UizaSDK' do
 	pod 'NVActivityIndicatorView/AppExtension'
   pod 'Sentry'
   pod 'NHNetworkTime'
+  pod 'SwiftLint', '0.32.0'
 
 end
 
@@ -42,6 +43,7 @@ target 'UizaSDKTest' do
   pod 'Sentry'
 	pod 'google-cast-sdk'
   pod 'NHNetworkTime'
+  pod 'SwiftLint', '0.32.0'
   
   target 'UizaSDKUnitTests' do
     inherit! :search_paths

@@ -22,8 +22,9 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 	public let startButton = NKButton()
 //	public let stopButton = NKButton()
 	
-	public var liveEventId: String? = nil
+	public var liveEventId: String?
 	public var isEncoded: Bool = true
+
 	public var getViewsInterval: TimeInterval = 5.0
 	public var inactiveTime: TimeInterval = 10.0
 	public fileprivate (set) var liveDurationLabel = UILabel()
@@ -50,7 +51,7 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 	fileprivate let streamService = UZLiveServices()
 //	var resultScreen : LiveStreamResultView? = nil
 	
-	public fileprivate(set) var currentLiveEvent : UZLiveEvent? = nil {
+	public fileprivate(set) var currentLiveEvent: UZLiveEvent? {
 		didSet {
 //			livestreamUIView.textField.isEnabled = currentLiveEvent != nil
 			
@@ -63,10 +64,10 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 	public var customVideoConfiguration: LFLiveVideoConfiguration?
 	public var customAudioConfiguration: LFLiveAudioConfiguration?
 	
-	public fileprivate(set) var startTime: Date? = nil
-	fileprivate var timer: Timer? = nil
-	fileprivate var inactiveTimer: Timer? = nil
-	fileprivate var getViewTimer: Timer? = nil
+	public fileprivate(set) var startTime: Date?
+	fileprivate var timer: Timer?
+	fileprivate var inactiveTimer: Timer?
+	fileprivate var getViewTimer: Timer?
 	
 	lazy open var session: LFLiveSession = {
 		let audioConfiguration = self.audioConfiguration()
@@ -77,7 +78,9 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 	}()
 	
 	open func videoConfiguration() -> LFLiveVideoConfiguration {
-		return customVideoConfiguration ?? LFLiveVideoConfiguration.defaultConfiguration(for: isEncoded ? .fullHD_1080 : .HD_720, outputImageOrientation: UIApplication.shared.statusBarOrientation, encode: isEncoded)
+		return customVideoConfiguration ??
+            LFLiveVideoConfiguration.defaultConfiguration(for: isEncoded ? .fullHD_1080 : .HD_720,
+                                                          outputImageOrientation: UIApplication.shared.statusBarOrientation, encode: isEncoded)
 	}
 	
 	open func audioConfiguration() -> LFLiveAudioConfiguration {
@@ -112,9 +115,9 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 		liveDurationLabel.layer.masksToBounds = true
 		liveDurationLabel.isHidden = true
 		
-		startButton.setBackgroundColor(UIColor(red:0.13, green:0.77, blue:0.38, alpha:0.8), for: .normal)
-		startButton.setBackgroundColor(UIColor(red:0.36, green:0.86, blue:0.58, alpha:1.00), for: .highlighted)
-		startButton.setBackgroundColor(UIColor(red:0.13, green:0.77, blue:0.38, alpha:0.5), for: .disabled)
+		startButton.setBackgroundColor(UIColor(red: 0.13, green: 0.77, blue: 0.38, alpha: 0.8), for: .normal)
+		startButton.setBackgroundColor(UIColor(red: 0.36, green: 0.86, blue: 0.58, alpha: 1.00), for: .highlighted)
+		startButton.setBackgroundColor(UIColor(red: 0.13, green: 0.77, blue: 0.38, alpha: 0.5), for: .disabled)
 		startButton.setTitleColor(.white, for: .normal)
 		if #available(iOS 8.2, *) {
 			startButton.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
@@ -132,13 +135,19 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 //		stopButton.addTarget(self, action: #selector(askToStop), for: .touchUpInside)
 		
 		#if swift(>=4.2)
-		NotificationCenter.default.addObserver(self, selector: #selector(onOrientationChanged(_:)), name: UIApplication.didChangeStatusBarOrientationNotification, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(onApplicationDidActive(_:)), name: UIApplication.didBecomeActiveNotification, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(onApplicationDidInactive(_:)), name: UIApplication.didEnterBackgroundNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(onOrientationChanged(_:)),
+                                               name: UIApplication.didChangeStatusBarOrientationNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(onApplicationDidActive(_:)),
+                                               name: UIApplication.didBecomeActiveNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(onApplicationDidInactive(_:)),
+                                               name: UIApplication.didEnterBackgroundNotification, object: nil)
 		#else
-		NotificationCenter.default.addObserver(self, selector: #selector(onOrientationChanged(_:)), name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(onApplicationDidActive(_:)), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(onApplicationDidInactive(_:)), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(onOrientationChanged(_:)),
+                                               name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(onApplicationDidActive(_:)),
+                                               name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(onApplicationDidInactive(_:)),
+                                               name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
 		#endif
 	}
 	
@@ -162,8 +171,7 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 				if error != nil || liveEvent == nil {
 					let errorMessage = error != nil ? error!.localizedDescription : "No live event was set"
 					self.showAlert(title: "Error", message: errorMessage)
-				}
-				else {
+				} else {
                     if let liveEvent = liveEvent {
                         if liveEvent.isInitStatus {
                             self.streamService.loadLiveEvent(id: liveEventId) { [weak self] (liveEvent, error) in
@@ -172,8 +180,7 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
                                 if error != nil || liveEvent == nil {
                                     let errorMessage = error != nil ? error!.localizedDescription : "No live event was set"
                                     self.showAlert(title: "Error", message: errorMessage)
-                                }
-                                else {
+                                } else {
                                     if let event = liveEvent, event.isInitStatus {
                                         self.showAlert(title: "Error", message: "Event is still waiting for resource, please try again later")
                                     } else {
@@ -188,8 +195,7 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
                     }
 				}
 			}
-		}
-		else {
+		} else {
 			self.showAlert(title: "Error", message: "No live event id was set")
 		}
 	}
@@ -197,13 +203,13 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 	@objc open func askToStop() {
 		let alertControler = UIAlertController(title: "Confirm", message: "Do you really want to stop livestream?", preferredStyle: .alert)
 		
-		alertControler.addAction(UIAlertAction(title: "No", style: .cancel, handler: { (action) in
+		alertControler.addAction(UIAlertAction(title: "No", style: .cancel, handler: { (_) in
 			alertControler.dismiss(animated: true, completion: nil)
 		}))
 		
-		alertControler.addAction(UIAlertAction(title: "Yes", style: .default, handler: { [weak self] (action) in
+		alertControler.addAction(UIAlertAction(title: "Yes", style: .default, handler: { [weak self] (_) in
 			alertControler.dismiss(animated: true, completion: nil)
-			self?.stopLive(completionBlock: { (error) in
+			self?.stopLive(completionBlock: { (_) in
 				self?.dismiss(animated: true, completion: nil)
 			})
 		}))
@@ -211,13 +217,12 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 		self.present(alertControler, animated: true, completion: nil)
 	}
 	
-	public func startLive(event: UZLiveEvent!) -> Void {
+	public func startLive(event: UZLiveEvent!) {
 		if !event.isReadyToLive {
 			UZLiveServices().startLiveEvent(id: event.id) { (error) in
 				if error != nil {
 					self.showAlert(title: "Error", message: error!.localizedDescription)
-				}
-				else {
+				} else {
 					event.isReadyToLive = true
 					self.startLive(event: event)
 				}
@@ -241,13 +246,12 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 			getViews(after: getViewsInterval)
 			
 			UIApplication.shared.isIdleTimerDisabled = true
-		}
-		else {
+		} else {
 			showAlert(title: "Error", message: "No broadcast url")
 		}
 	}
 	
-	public func stopLive(completionBlock: ((Error?) -> Void)? = nil) -> Void {
+	public func stopLive(completionBlock: ((Error?) -> Void)? = nil) {
 		DLog("STOPPING")
 		
 		streamService.cancel()
@@ -309,12 +313,13 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 		}
 		
 		if interval > 0 {
-			self.getViewTimer = Timer.scheduledTimer(timeInterval: interval, target: self, selector: #selector(self.onGetViewTimer), userInfo: false, repeats: false)
+			self.getViewTimer = Timer.scheduledTimer(timeInterval: interval, target: self,
+                                                     selector: #selector(self.onGetViewTimer), userInfo: false, repeats: false)
 			return
 		}
 		
 		if let liveEvent = currentLiveEvent {
-			UZLiveServices().loadViews(liveId: liveEvent.id) { [weak self] (views, error) in
+			UZLiveServices().loadViews(liveId: liveEvent.id) { [weak self] (views, _) in
 				guard let `self` = self else { return }
 				
 				self.livestreamUIView.views = views
@@ -327,7 +332,7 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 		getViews(after: 0)
 	}
 	
-	@objc fileprivate func endSession(completionBlock:((_ error : Error?) -> Void)? = nil) {
+	@objc fileprivate func endSession(completionBlock:((_ error: Error?) -> Void)? = nil) {
 		isLive = false
 		
 		if let liveEvent = currentLiveEvent {
@@ -339,7 +344,7 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 	
 	fileprivate func showAlert(title: String, message: String) {
 		let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
-		alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { (action) in
+		alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { (_) in
 			alert.dismiss(animated: true, completion: nil)
 		}))
 		
@@ -351,12 +356,10 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 	open func onButtonSelected(_ button: UIControl?) {
 		if button == livestreamUIView.closeButton {
 			askToStop()
-		}
-		else if button == livestreamUIView.cameraButton {
+		} else if button == livestreamUIView.cameraButton {
 			session.captureDevicePosition = session.captureDevicePosition == .back ? .front : .back
 			livestreamUIView.cameraButton.isSelected = session.captureDevicePosition == .back
-		}
-		else if button == livestreamUIView.beautyButton {
+		} else if button == livestreamUIView.beautyButton {
 			livestreamUIView.beautyButton.isSelected = !livestreamUIView.beautyButton.isSelected
 			session.beautyFace = livestreamUIView.beautyButton.isSelected
 		}
@@ -438,7 +441,8 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 		
 		let viewSize = self.view.frame.size
 		let buttonSize = startButton.sizeThatFits(viewSize)
-		startButton.frame = CGRect(x: (viewSize.width - buttonSize.width)/2, y: viewSize.height - buttonSize.height - 40, width: buttonSize.width, height: buttonSize.height)
+		startButton.frame = CGRect(x: (viewSize.width - buttonSize.width)/2, y: viewSize.height - buttonSize.height - 40,
+                                   width: buttonSize.width, height: buttonSize.height)
 //		stopButton.frame = CGRect(x: viewSize.width - 42, y: 10, width: 32, height: 32)
 		layoutDurationLabel()
 		
@@ -487,35 +491,32 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 extension UZLiveStreamViewController {
 	// MARK: -
 	
-	public func requestAccessForVideo() -> Void {
+	public func requestAccessForVideo() {
 		let status = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
-		switch status  {
+		switch status {
 		case AVAuthorizationStatus.notDetermined:
 			AVCaptureDevice.requestAccess(for: AVMediaType.video, completionHandler: { (granted) in
-				if(granted){
+				if granted {
 					DispatchQueue.main.async {
 						self.session.running = true
 					}
 				}
 			})
-			break
 		case AVAuthorizationStatus.authorized:
 			session.running = true
-			break
 		case AVAuthorizationStatus.denied: break
 		case AVAuthorizationStatus.restricted:break
 		@unknown default:break
 		}
 	}
 	
-	public func requestAccessForAudio() -> Void {
+	public func requestAccessForAudio() {
 		let status = AVCaptureDevice.authorizationStatus(for: AVMediaType.audio)
-		switch status  {
+		switch status {
 		case AVAuthorizationStatus.notDetermined:
-			AVCaptureDevice.requestAccess(for: AVMediaType.audio, completionHandler: { (granted) in
+			AVCaptureDevice.requestAccess(for: AVMediaType.audio, completionHandler: { (_) in
 				
 			})
-			break
 			
 		case AVAuthorizationStatus.authorized: break
 		case AVAuthorizationStatus.denied: break
@@ -528,15 +529,15 @@ extension UZLiveStreamViewController {
 		return .lightContent
 	}
 	
-	open override var shouldAutorotate : Bool {
+	open override var shouldAutorotate: Bool {
 		return UIDevice.isPad()
 	}
 	
-	open override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+	open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
 		return UIDevice.isPhone() ? .portrait : .all
 	}
 	
-	open override var preferredInterfaceOrientationForPresentation : UIInterfaceOrientation {
+	open override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
 		return UIDevice.isPad() ? UIApplication.shared.statusBarOrientation : .portrait
 	}
 }

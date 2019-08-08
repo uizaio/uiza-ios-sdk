@@ -10,7 +10,7 @@ import Foundation
 
 extension TimeInterval {
 	
-	var toString:String {
+	var toString: String {
 		if self.isNaN {
 			return "--:--"
 		}

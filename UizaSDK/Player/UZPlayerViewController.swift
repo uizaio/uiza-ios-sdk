@@ -28,11 +28,12 @@ open class UZPlayerViewController: UIViewController {
 	open var fullscreenPresentationMode: UZFullscreenPresentationMode = .modal
 	open var autoFullscreenWhenRotateDevice = true
 	open var autoFullscreenDelay: TimeInterval = 0.3
-	internal var onOrientationUpdateRequestBlock: ((Bool) -> Void)? = nil
+	internal var onOrientationUpdateRequestBlock: ((Bool) -> Void)?
 	
 	open var isFullscreen: Bool {
 		get {
-			return NKFullscreenManager.sharedInstance().fullscreenViewControllerThatContains(playerController) != nil || NKModalViewManager.sharedInstance().modalViewControllerThatContains(playerController) != nil
+			return NKFullscreenManager.sharedInstance().fullscreenViewControllerThatContains(playerController) != nil ||
+                NKModalViewManager.sharedInstance().modalViewControllerThatContains(playerController) != nil
 		}
 		set {
 			self.setFullscreen(fullscreen: newValue)
@@ -43,15 +44,14 @@ open class UZPlayerViewController: UIViewController {
 		if fullscreen {
 			if !isFullscreen {
 				if fullscreenPresentationMode == .modal {
-					NKModalViewManager.sharedInstance().presentModalViewController(self.playerController, animatedFrom: nil, enter: { [weak self] (sender) in
+					NKModalViewManager.sharedInstance().presentModalViewController(self.playerController, animatedFrom: nil, enter: { [weak self] (_) in
 						DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
 							self?.viewDidLayoutSubviews()
 						}
 						completion?()
 					}, exitBlock: nil)
-				}
-				else {
-					NKFullscreenManager.sharedInstance().presentFullscreenViewController(self.playerController, animatedFrom: nil, enter: { [weak self] (sender) in
+				} else {
+					NKFullscreenManager.sharedInstance().presentFullscreenViewController(self.playerController, animatedFrom: nil, enter: { [weak self] (_) in
 						DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
 							self?.viewDidLayoutSubviews()
 						}
@@ -60,14 +60,12 @@ open class UZPlayerViewController: UIViewController {
 				}
 				
 				self.playerController.player.controlView.updateUI(true)
-			}
-			else {
+			} else {
 				UIViewController.attemptRotationToDeviceOrientation()
 				onOrientationUpdateRequestBlock?(true)
 				completion?()
 			}
-		}
-		else {
+		} else {
 			onOrientationUpdateRequestBlock?(false)
 			self.playerController.player.controlView.updateUI(false)
 			
@@ -76,14 +74,12 @@ open class UZPlayerViewController: UIViewController {
 					self?.viewDidLayoutSubviews()
 					completion?()
 				}
-			}
-			else if let fullscreenController = NKFullscreenManager.sharedInstance().fullscreenViewControllerThatContains(playerController) {
+			} else if let fullscreenController = NKFullscreenManager.sharedInstance().fullscreenViewControllerThatContains(playerController) {
 				fullscreenController.dismissView(animated: true) { [weak self] () in
 					self?.viewDidLayoutSubviews()
 					completion?()
 				}
-			}
-			else {
+			} else {
 				completion?()
 			}
 		}
@@ -102,7 +98,8 @@ open class UZPlayerViewController: UIViewController {
 		#if swift(>=4.2)
 		NotificationCenter.default.addObserver(self, selector: #selector(onDeviceRotated), name: UIDevice.orientationDidChangeNotification, object: nil)
 		#else
-		NotificationCenter.default.addObserver(self, selector: #selector(onDeviceRotated), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(onDeviceRotated),
+                                               name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
 		#endif
 	}
 	
@@ -119,15 +116,13 @@ open class UZPlayerViewController: UIViewController {
 	
 	// MARK: -
 	
-	
 	@objc func onDeviceRotated() {
 		if autoFullscreenWhenRotateDevice {
 			DispatchQueue.main.asyncAfter(deadline: .now() + autoFullscreenDelay) {
 				let orientation = UIDevice.current.orientation
 				if orientation.isLandscape {
 					self.setFullscreen(fullscreen: true)
-				}
-				else if orientation.isPortrait {
+				} else if orientation.isPortrait {
 					self.setFullscreen(fullscreen: false)
 				}
 			}
@@ -140,15 +135,15 @@ open class UZPlayerViewController: UIViewController {
 		return true
 	}
 	
-	override open var shouldAutorotate : Bool {
+	override open var shouldAutorotate: Bool {
 		return false
 	}
 	
-	override open var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+	override open var supportedInterfaceOrientations: UIInterfaceOrientationMask {
 		return .portrait// .all
 	}
 	
-	override open var preferredInterfaceOrientationForPresentation : UIInterfaceOrientation {
+	override open var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
 		return playerController.preferredInterfaceOrientationForPresentation
 //		let currentOrientation = UIApplication.shared.statusBarOrientation
 //		return currentOrientation.isLandscape ? currentOrientation : .landscapeRight
@@ -188,17 +183,17 @@ internal class UZPlayerController: UIViewController {
 		return true
 	}
 	
-	override var shouldAutorotate : Bool {
+	override var shouldAutorotate: Bool {
 		let videoSize = currentVideoSize()
 		return videoSize.width >= videoSize.height ? true : false
 	}
 	
-	override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+	override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
 		let videoSize = currentVideoSize()
 		return videoSize.width >= videoSize.height ? .landscape : .portrait
 	}
 	
-	override var preferredInterfaceOrientationForPresentation : UIInterfaceOrientation {
+	override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
 		let videoSize = currentVideoSize()
 		if videoSize.width < videoSize.height {
 			return .portrait
@@ -207,8 +202,7 @@ internal class UZPlayerController: UIViewController {
 		let deviceOrientation = UIDevice.current.orientation
 		if deviceOrientation.isLandscape {
 			return deviceOrientation == .landscapeRight ? .landscapeLeft : .landscapeRight
-		}
-		else {
+		} else {
 			let currentOrientation = UIApplication.shared.statusBarOrientation
 			return currentOrientation.isLandscape ? currentOrientation : .landscapeRight
 		}
@@ -246,7 +240,6 @@ internal class UZPlayerContainerController: UIViewController {
 	
 }
 */
-
 
 extension UZPlayerController: NKModalViewControllerProtocol {
 	

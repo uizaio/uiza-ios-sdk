@@ -15,9 +15,12 @@ extension XCTestCase {
     
     func loadStub(name: String, extension: String) -> Data {
         let bundle = Bundle(for: classForCoder)
-        let url = bundle.url(forResource: name, withExtension: `extension`)
-        
-        return try! Data(contentsOf: url!)
+        if let url = bundle.url(forResource: name, withExtension: `extension`) {
+            let data = try? Data(contentsOf: url)
+            return data ?? Data()
+        } else {
+            return Data()
+        }
     }
     
     func stub_load_entities_success() {
@@ -37,32 +40,41 @@ extension XCTestCase {
 
     func stub_load_entities_by_category_success() {
         let data = loadStub(name: "get_entities_by_category", extension: ".json")
-        stub(http(.get, uri: UZAPIConnector().basePublicAPIURLPath() + "/media/metadata?limit=20&metadataId=f932aa79-852a-41f7-9adc-19935034f944&orderBy=createdAt&orderType=DESC&page=0"), jsonData(data))
+        stub(http(.get, uri: UZAPIConnector().basePublicAPIURLPath() +
+            "/media/metadata?limit=20&metadataId=f932aa79-852a-41f7-9adc-19935034f944&orderBy=createdAt&orderType=DESC&page=0"),
+             jsonData(data))
     }
     
     func stub_load_entities_by_category_fail() {
         let data = loadStub(name: "get_entities_by_category_fail", extension: ".json")
-        stub(http(.get, uri: UZAPIConnector().basePublicAPIURLPath() + "/media/metadata?limit=20&metadataId=f932aa79-852a-41f7-9adc-19935034f944&orderBy=createdAt&orderType=DESC&page=0"), jsonData(data))
+        stub(http(.get, uri: UZAPIConnector().basePublicAPIURLPath() +
+            "/media/metadata?limit=20&metadataId=f932aa79-852a-41f7-9adc-19935034f944&orderBy=createdAt&orderType=DESC&page=0"),
+             jsonData(data))
     }
     
     func stub_load_entities_by_category_fail_response_code() {
         let data = loadStub(name: "get_entities_by_category_fail_response_code", extension: ".json")
-        stub(http(.get, uri: UZAPIConnector().basePublicAPIURLPath() + "/media/metadata?limit=20&metadataId=f932aa79-852a-41f7-9adc-19935034f944&orderBy=createdAt&orderType=DESC&page=0"), jsonData(data))
+        stub(http(.get, uri: UZAPIConnector().basePublicAPIURLPath() +
+            "/media/metadata?limit=20&metadataId=f932aa79-852a-41f7-9adc-19935034f944&orderBy=createdAt&orderType=DESC&page=0"),
+             jsonData(data))
     }
     
     func stub_load_live_entities_success() {
         let data = loadStub(name: "get_live_entities", extension: ".json")
-        stub(http(.get, uri: UZAPIConnector().basePublicAPIURLPath() + "/live/entity?limit=20&orderBy=createdAt&orderType=DESC&page=0"),jsonData(data))
+        stub(http(.get, uri: UZAPIConnector().basePublicAPIURLPath() +
+            "/live/entity?limit=20&orderBy=createdAt&orderType=DESC&page=0"), jsonData(data))
     }
     
     func stub_load_live_entities_fail() {
         let data = loadStub(name: "get_live_entities_fail", extension: ".json")
-        stub(http(.get, uri: UZAPIConnector().basePublicAPIURLPath() + "/live/entity?limit=20&orderBy=createdAt&orderType=DESC&page=0"),jsonData(data))
+        stub(http(.get, uri: UZAPIConnector().basePublicAPIURLPath() +
+            "/live/entity?limit=20&orderBy=createdAt&orderType=DESC&page=0"), jsonData(data))
     }
     
     func stub_load_live_entities_fail_response_code() {
         let data = loadStub(name: "get_live_entities_response_code_fail", extension: ".json")
-        stub(http(.get, uri: UZAPIConnector().basePublicAPIURLPath() + "/live/entity?limit=20&orderBy=createdAt&orderType=DESC&page=0"),jsonData(data))
+        stub(http(.get, uri: UZAPIConnector().basePublicAPIURLPath() +
+            "/live/entity?limit=20&orderBy=createdAt&orderType=DESC&page=0"), jsonData(data))
     }
     
     func stub_load_entity_success() {
@@ -83,7 +95,8 @@ extension XCTestCase {
     
     func stub_search_keywork_success() {
         let data = loadStub(name: "search_video_by_keyword", extension: ".json")
-        stub(http(.get, uri: UZAPIConnector().basePublicAPIURLPath() + "/media/entity/search?keyword=datdat&limit=20&orderBy=createdAt&orderType=DESC&page=0"), jsonData(data))
+        stub(http(.get, uri: UZAPIConnector().basePublicAPIURLPath() +
+            "/media/entity/search?keyword=datdat&limit=20&orderBy=createdAt&orderType=DESC&page=0"), jsonData(data))
     }
     
     func stub_load_entity_fail() {
@@ -113,7 +126,8 @@ extension XCTestCase {
     
     func stub_get_video_subtitle_success() {
         let data = loadStub(name: "get_video_subtitles", extension: ".json")
-        stub(http(.get, uri: UZAPIConnector().basePublicAPIURLPath() + "/media/subtitle?entityId=653352ce-d867-435c-af64-b2daa04129c2"), jsonData(data))
+        stub(http(.get, uri: UZAPIConnector().basePublicAPIURLPath() +
+            "/media/subtitle?entityId=653352ce-d867-435c-af64-b2daa04129c2"), jsonData(data))
     }
     
 }
@@ -153,32 +167,38 @@ extension XCTestCase {
     
     func stub_load_live_event_views_success() {
         let data = loadStub(name: "load_live_event_views_success", extension: ".json")
-        stub(http(.get, uri: UZAPIConnector().basePublicAPIURLPath() + "/live/entity/tracking/current-view?id=8b83886e-9cc3-4eab-9258-ebb16c0c73de"), jsonData(data))
+        stub(http(.get, uri: UZAPIConnector().basePublicAPIURLPath() +
+            "/live/entity/tracking/current-view?id=8b83886e-9cc3-4eab-9258-ebb16c0c73de"), jsonData(data))
     }
     
     func stub_load_live_event_views_fail() {
         let data = loadStub(name: "load_live_event_views_fail", extension: ".json")
-        stub(http(.get, uri: UZAPIConnector().basePublicAPIURLPath() + "/live/entity/tracking/current-view?id=8b83886e-9cc3-4eab-9258-ebb16c0c73de"), jsonData(data))
+        stub(http(.get, uri: UZAPIConnector().basePublicAPIURLPath() +
+            "/live/entity/tracking/current-view?id=8b83886e-9cc3-4eab-9258-ebb16c0c73de"), jsonData(data))
     }
     
     func stub_load_live_event_views_fail_response_code() {
         let data = loadStub(name: "load_live_event_views_response_code_fail", extension: ".json")
-        stub(http(.get, uri: UZAPIConnector().basePublicAPIURLPath() + "/live/entity/tracking/current-view?id=8b83886e-9cc3-4eab-9258-ebb16c0c73de"), jsonData(data))
+        stub(http(.get, uri: UZAPIConnector().basePublicAPIURLPath() +
+            "/live/entity/tracking/current-view?id=8b83886e-9cc3-4eab-9258-ebb16c0c73de"), jsonData(data))
     }
     
     func stub_load_live_event_status_success() {
         let data = loadStub(name: "load_live_event_status_success", extension: ".json")
-        stub(http(.get, uri: UZAPIConnector().basePrivateAPIURLPath() + "/live/entity/tracking?entityId=8b83886e-9cc3-4eab-9258-ebb16c0c73de&feedId=bb646dab-0516-4b6d-81a9-f5d929d6de69"), jsonData(data))
+        stub(http(.get, uri: UZAPIConnector().basePrivateAPIURLPath() +
+            "/live/entity/tracking?entityId=8b83886e-9cc3-4eab-9258-ebb16c0c73de&feedId=bb646dab-0516-4b6d-81a9-f5d929d6de69"), jsonData(data))
     }
     
     func stub_load_live_event_status_fail() {
         let data = loadStub(name: "load_live_event_status_fail", extension: ".json")
-        stub(http(.get, uri: UZAPIConnector().basePrivateAPIURLPath() + "/live/entity/tracking?entityId=8b83886e-9cc3-4eab-9258-ebb16c0c73de&feedId=bb646dab-0516-4b6d-81a9-f5d929d6de69"), jsonData(data))
+        stub(http(.get, uri: UZAPIConnector().basePrivateAPIURLPath() +
+            "/live/entity/tracking?entityId=8b83886e-9cc3-4eab-9258-ebb16c0c73de&feedId=bb646dab-0516-4b6d-81a9-f5d929d6de69"), jsonData(data))
     }
     
     func stub_load_live_event_status_fail_response_code() {
         let data = loadStub(name: "load_live_event_status_response_code_fail", extension: ".json")
-        stub(http(.get, uri: UZAPIConnector().basePrivateAPIURLPath() + "/live/entity/tracking?entityId=8b83886e-9cc3-4eab-9258-ebb16c0c73de&feedId=bb646dab-0516-4b6d-81a9-f5d929d6de69"), jsonData(data))
+        stub(http(.get, uri: UZAPIConnector().basePrivateAPIURLPath() +
+            "/live/entity/tracking?entityId=8b83886e-9cc3-4eab-9258-ebb16c0c73de&feedId=bb646dab-0516-4b6d-81a9-f5d929d6de69"), jsonData(data))
     }
 }
 
@@ -187,7 +207,8 @@ extension XCTestCase {
 extension XCTestCase {
     func stub_load_player_config_success() {
         let data = loadStub(name: "load_player_config_success", extension: ".json")
-        stub(http(.get, uri: UZAPIConnector().basePrivateAPIURLPath() + "/player/info/config?id=8c5cc768-91a8-448a-bced-141124849a46"), jsonData(data))
+        stub(http(.get, uri: UZAPIConnector().basePrivateAPIURLPath() +
+            "/player/info/config?id=8c5cc768-91a8-448a-bced-141124849a46"), jsonData(data))
     }
     
     func stub_load_player_current_config_success() {

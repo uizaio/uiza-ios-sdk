@@ -17,7 +17,7 @@ class UZSentry: NSObject {
 			try Client.shared?.startCrashHandler()
 			Client.shared?.environment = "GA"
 		} catch let error {
-			print(" \(error)")
+			DLog("\(error)")
 		}
 	}
 	

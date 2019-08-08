@@ -267,7 +267,6 @@ open class UZPlayer: UIView {
 		self.init()
 
 		defer { self.customControlView = customControlView }
-        print("customControlView")
 	}
 	
 	// MARK: -

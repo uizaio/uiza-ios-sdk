@@ -128,7 +128,6 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 		defer {
 			self.playerViewController = customPlayerViewController
 		}
-        print("customPlayerViewController")
 	}
 	
 	required public init?(coder aDecoder: NSCoder) {

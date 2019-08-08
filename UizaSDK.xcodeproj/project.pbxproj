@@ -120,20 +120,10 @@
 		636725C022686AB70072612F /* Lazy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630C396622607F9400ACFDAE /* Lazy.swift */; };
 		636725C122686AB70072612F /* Tweenable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630C396822607F9400ACFDAE /* Tweenable.swift */; };
 		636725C522686ACD0072612F /* Icofont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63D3A5FF224E08BB00732A0C /* Icofont.ttf */; };
-		636725C622686ACD0072612F /* MapIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63D3A600224E08BB00732A0C /* MapIcons.ttf */; };
-		636725C722686ACD0072612F /* Dripicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63D3A601224E08BB00732A0C /* Dripicons.ttf */; };
-		636725C822686ACD0072612F /* OpenIconic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63D3A602224E08BB00732A0C /* OpenIconic.ttf */; };
 		636725C922686ACD0072612F /* FontAwesomeSolid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63D3A603224E08BB00732A0C /* FontAwesomeSolid.ttf */; };
-		636725CA22686ACD0072612F /* WeatherIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63D3A604224E08BB00732A0C /* WeatherIcons.ttf */; };
 		636725CB22686ACD0072612F /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63D3A605224E08BB00732A0C /* Ionicons.ttf */; };
-		636725CC22686ACD0072612F /* TypIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63D3A606224E08BB00732A0C /* TypIcons.ttf */; };
 		636725CD22686ACD0072612F /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63D3A607224E08BB00732A0C /* FontAwesome.ttf */; };
 		636725CE22686ACD0072612F /* FontAwesomeRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63D3A608224E08BB00732A0C /* FontAwesomeRegular.ttf */; };
-		636725CF22686ACD0072612F /* Stateface.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63D3A609224E08BB00732A0C /* Stateface.ttf */; };
-		636725D022686ACD0072612F /* Linearicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63D3A60A224E08BB00732A0C /* Linearicons.ttf */; };
-		636725D122686ACD0072612F /* Emoji.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63D3A60B224E08BB00732A0C /* Emoji.ttf */; };
-		636725D222686ACD0072612F /* FontAwesomeBrands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63D3A60C224E08BB00732A0C /* FontAwesomeBrands.ttf */; };
-		636725D322686ACD0072612F /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63D3A60D224E08BB00732A0C /* MaterialIcons.ttf */; };
 		636725D422686ACD0072612F /* SwiftIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D3A60E224E08BB00732A0C /* SwiftIcons.swift */; };
 		636725D522686AD70072612F /* UZCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D3A5CF224E08BB00732A0C /* UZCategory.swift */; };
 		636725D622686AD70072612F /* UZMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D3A5D0224E08BB00732A0C /* UZMenuItem.swift */; };
@@ -235,20 +225,10 @@
 		63D3A633224E08BB00732A0C /* UZVideoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D3A5D8224E08BB00732A0C /* UZVideoItem.swift */; };
 		63D3A634224E08BB00732A0C /* UZContentServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D3A5D9224E08BB00732A0C /* UZContentServices.swift */; };
 		63D3A651224E08BB00732A0C /* Icofont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63D3A5FF224E08BB00732A0C /* Icofont.ttf */; };
-		63D3A652224E08BB00732A0C /* MapIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63D3A600224E08BB00732A0C /* MapIcons.ttf */; };
-		63D3A653224E08BB00732A0C /* Dripicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63D3A601224E08BB00732A0C /* Dripicons.ttf */; };
-		63D3A654224E08BB00732A0C /* OpenIconic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63D3A602224E08BB00732A0C /* OpenIconic.ttf */; };
 		63D3A655224E08BB00732A0C /* FontAwesomeSolid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63D3A603224E08BB00732A0C /* FontAwesomeSolid.ttf */; };
-		63D3A656224E08BB00732A0C /* WeatherIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63D3A604224E08BB00732A0C /* WeatherIcons.ttf */; };
 		63D3A657224E08BB00732A0C /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63D3A605224E08BB00732A0C /* Ionicons.ttf */; };
-		63D3A658224E08BB00732A0C /* TypIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63D3A606224E08BB00732A0C /* TypIcons.ttf */; };
 		63D3A659224E08BB00732A0C /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63D3A607224E08BB00732A0C /* FontAwesome.ttf */; };
 		63D3A65A224E08BB00732A0C /* FontAwesomeRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63D3A608224E08BB00732A0C /* FontAwesomeRegular.ttf */; };
-		63D3A65B224E08BB00732A0C /* Stateface.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63D3A609224E08BB00732A0C /* Stateface.ttf */; };
-		63D3A65C224E08BB00732A0C /* Linearicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63D3A60A224E08BB00732A0C /* Linearicons.ttf */; };
-		63D3A65D224E08BB00732A0C /* Emoji.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63D3A60B224E08BB00732A0C /* Emoji.ttf */; };
-		63D3A65E224E08BB00732A0C /* FontAwesomeBrands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63D3A60C224E08BB00732A0C /* FontAwesomeBrands.ttf */; };
-		63D3A65F224E08BB00732A0C /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63D3A60D224E08BB00732A0C /* MaterialIcons.ttf */; };
 		63D3A661224E08BB00732A0C /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D3A60F224E08BB00732A0C /* DateHelper.swift */; };
 		63D3A662224E08BB00732A0C /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D3A611224E08BB00732A0C /* UIDevice+Extension.swift */; };
 		63D3A663224E08BB00732A0C /* UIApplication+Version.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D3A612224E08BB00732A0C /* UIApplication+Version.swift */; };
@@ -634,6 +614,23 @@
 			path = "UizaSDK-tvos";
 			sourceTree = "<group>";
 		};
+		6395F9B822FBDEF2001BA2BA /* Unused (Not included in SDK) */ = {
+			isa = PBXGroup;
+			children = (
+				63D3A600224E08BB00732A0C /* MapIcons.ttf */,
+				63D3A601224E08BB00732A0C /* Dripicons.ttf */,
+				63D3A602224E08BB00732A0C /* OpenIconic.ttf */,
+				63D3A604224E08BB00732A0C /* WeatherIcons.ttf */,
+				63D3A606224E08BB00732A0C /* TypIcons.ttf */,
+				63D3A609224E08BB00732A0C /* Stateface.ttf */,
+				63D3A60A224E08BB00732A0C /* Linearicons.ttf */,
+				63D3A60B224E08BB00732A0C /* Emoji.ttf */,
+				63D3A60C224E08BB00732A0C /* FontAwesomeBrands.ttf */,
+				63D3A60D224E08BB00732A0C /* MaterialIcons.ttf */,
+			);
+			path = "Unused (Not included in SDK)";
+			sourceTree = "<group>";
+		};
 		63D3A5B2224E07FA00732A0C = {
 			isa = PBXGroup;
 			children = (
@@ -803,21 +800,12 @@
 		63D3A5FE224E08BB00732A0C /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				6395F9B822FBDEF2001BA2BA /* Unused (Not included in SDK) */,
 				63D3A5FF224E08BB00732A0C /* Icofont.ttf */,
-				63D3A600224E08BB00732A0C /* MapIcons.ttf */,
-				63D3A601224E08BB00732A0C /* Dripicons.ttf */,
-				63D3A602224E08BB00732A0C /* OpenIconic.ttf */,
 				63D3A603224E08BB00732A0C /* FontAwesomeSolid.ttf */,
-				63D3A604224E08BB00732A0C /* WeatherIcons.ttf */,
 				63D3A605224E08BB00732A0C /* Ionicons.ttf */,
-				63D3A606224E08BB00732A0C /* TypIcons.ttf */,
 				63D3A607224E08BB00732A0C /* FontAwesome.ttf */,
 				63D3A608224E08BB00732A0C /* FontAwesomeRegular.ttf */,
-				63D3A609224E08BB00732A0C /* Stateface.ttf */,
-				63D3A60A224E08BB00732A0C /* Linearicons.ttf */,
-				63D3A60B224E08BB00732A0C /* Emoji.ttf */,
-				63D3A60C224E08BB00732A0C /* FontAwesomeBrands.ttf */,
-				63D3A60D224E08BB00732A0C /* MaterialIcons.ttf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -1243,22 +1231,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				636725D022686ACD0072612F /* Linearicons.ttf in Resources */,
 				636725CB22686ACD0072612F /* Ionicons.ttf in Resources */,
 				6367258C2268682A0072612F /* LaunchScreen.storyboard in Resources */,
-				636725CA22686ACD0072612F /* WeatherIcons.ttf in Resources */,
-				636725CF22686ACD0072612F /* Stateface.ttf in Resources */,
 				636725C522686ACD0072612F /* Icofont.ttf in Resources */,
-				636725C622686ACD0072612F /* MapIcons.ttf in Resources */,
 				636725C922686ACD0072612F /* FontAwesomeSolid.ttf in Resources */,
 				636725892268682A0072612F /* Assets.xcassets in Resources */,
-				636725D122686ACD0072612F /* Emoji.ttf in Resources */,
-				636725D222686ACD0072612F /* FontAwesomeBrands.ttf in Resources */,
-				636725C722686ACD0072612F /* Dripicons.ttf in Resources */,
-				636725C822686ACD0072612F /* OpenIconic.ttf in Resources */,
 				636725CE22686ACD0072612F /* FontAwesomeRegular.ttf in Resources */,
-				636725D322686ACD0072612F /* MaterialIcons.ttf in Resources */,
-				636725CC22686ACD0072612F /* TypIcons.ttf in Resources */,
 				63672587226868290072612F /* Main.storyboard in Resources */,
 				636725CD22686ACD0072612F /* FontAwesome.ttf in Resources */,
 			);
@@ -1275,21 +1253,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				63D3A65B224E08BB00732A0C /* Stateface.ttf in Resources */,
-				63D3A65E224E08BB00732A0C /* FontAwesomeBrands.ttf in Resources */,
-				63D3A65F224E08BB00732A0C /* MaterialIcons.ttf in Resources */,
-				63D3A652224E08BB00732A0C /* MapIcons.ttf in Resources */,
-				63D3A658224E08BB00732A0C /* TypIcons.ttf in Resources */,
-				63D3A654224E08BB00732A0C /* OpenIconic.ttf in Resources */,
-				63D3A653224E08BB00732A0C /* Dripicons.ttf in Resources */,
 				63D3A65A224E08BB00732A0C /* FontAwesomeRegular.ttf in Resources */,
-				63D3A65C224E08BB00732A0C /* Linearicons.ttf in Resources */,
 				63D3A657224E08BB00732A0C /* Ionicons.ttf in Resources */,
 				63D3A659224E08BB00732A0C /* FontAwesome.ttf in Resources */,
 				63D3A655224E08BB00732A0C /* FontAwesomeSolid.ttf in Resources */,
-				63D3A656224E08BB00732A0C /* WeatherIcons.ttf in Resources */,
 				63D3A651224E08BB00732A0C /* Icofont.ttf in Resources */,
-				63D3A65D224E08BB00732A0C /* Emoji.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

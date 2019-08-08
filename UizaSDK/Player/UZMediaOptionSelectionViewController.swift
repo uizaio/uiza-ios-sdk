@@ -48,12 +48,12 @@ class UZMediaOptionSelectionViewController: UIViewController {
 			if let asset = asset {
 				if let group = asset.mediaSelectionGroup(forMediaCharacteristic: .legible) {
 					self.collectionViewController.subtitleOptions = group.options
-					print("Audios:\(group.options)")
+					DLog("Audios:\(group.options)")
 				}
 				
 				if let group = asset.mediaSelectionGroup(forMediaCharacteristic: .audible) {
 					self.collectionViewController.audioOptions = group.options
-					print("Subtitles:\(group.options)")
+					DLog("Subtitles:\(group.options)")
 				}
 			}
 			

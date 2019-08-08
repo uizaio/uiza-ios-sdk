@@ -172,7 +172,6 @@ class TitleValueLabel: UIView {
 		defer {
 			self.title = title
 		}
-        print("title")
 	}
 	
 	init() {

@@ -59,7 +59,7 @@ public class UZSubtitles {
 				self.groups = UZSubtitles.parseSubRip(string) ?? []
 			} catch {
                 UZSentry.sendError(error: error)
-				print("| UZPlayer | [Error] failed to load \(url.absoluteString) \(error.localizedDescription)")
+				DLog("[UZPlayer] [Error] failed to load \(url.absoluteString) \(error.localizedDescription)")
 			}
 		}
 	}

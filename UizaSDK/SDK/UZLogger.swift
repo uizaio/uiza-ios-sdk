@@ -125,7 +125,7 @@ open class UZLogger: UZAPIConnector {
 		let platform: String = UIDevice.isTV() ? "tvos" : "ios"
 		#endif
 		
-		print("timestamp: \(timestamp)")
+//		print("timestamp: \(timestamp)")
 		let params: Parameters! = ["dt": timestamp,
 								   "ho": host,
 								   "sn": streamName,

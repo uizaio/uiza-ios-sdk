@@ -27,6 +27,16 @@ class UZSentry: NSObject {
 		event.extra = ["ios": true]
 		Client.shared?.send(event: event)
 	}
+    
+    class func sendMessage(message: String?) {
+        guard let message = message else {
+            return
+        }
+        let event = Event(level: .info)
+        event.message = message
+        event.extra = ["ios": true]
+        Client.shared?.send(event: event)
+    }
 	
 	class func sendNSError(error: NSError) {
 		let event = Event(level: .error)

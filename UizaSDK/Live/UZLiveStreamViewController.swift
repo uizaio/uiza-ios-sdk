@@ -286,8 +286,7 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 		
 		if currentLiveEvent != nil {
 			endSession(completionBlock: completionBlock)
-		}
-		else {
+		} else {
 			completionBlock?(nil)
 		}
 	}
@@ -482,6 +481,7 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 		liveDurationLabel.isHidden = state != .start || isLive == false
 		
 		if state == .start {
+            sendBroadcastInformation()
 			if startTime == nil {
 				startTime = Date()
 				startTimer()
@@ -489,6 +489,22 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 		}
 	}
 	
+}
+
+extension UZLiveStreamViewController {
+    fileprivate func sendBroadcastInformation() {
+        var dictionary: [String: String] = [:]
+        dictionary["app_id"] = UizaSDK.appId
+        dictionary["entity_id"] = liveEventId ?? ""
+        dictionary["os"] = "\(UIDevice.current.systemVersion)"
+        dictionary["device"] = "\(UIDevice.current.hardwareName())"
+        dictionary["time"] = Date().toString(format: .isoDateTimeSec)
+        if let jsonData = try? JSONSerialization.data(withJSONObject: dictionary, options: []) {
+            let theJSONText = String(data: jsonData,
+                                     encoding: .utf8)
+            UZSentry.sendMessage(message: theJSONText)
+        }
+    }
 }
 
 extension UZLiveStreamViewController {

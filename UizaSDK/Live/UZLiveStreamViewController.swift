@@ -74,6 +74,10 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 		let videoConfiguration = self.videoConfiguration()
 		let result = LFLiveSession(audioConfiguration: audioConfiguration, videoConfiguration: videoConfiguration)!
 		result.adaptiveBitrate = false
+		result.delegate = self
+		result.beautyFace = false
+		result.preView = self.view
+		
 		return result
 	}()
 	
@@ -95,7 +99,32 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 	
 	public init() {
 		super.init(nibName: nil, bundle: nil)
+		setupUI()
 		
+		#if swift(>=4.2)
+		NotificationCenter.default.addObserver(self, selector: #selector(onOrientationChanged(_:)),
+                                               name: UIApplication.didChangeStatusBarOrientationNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(onApplicationDidActive(_:)),
+                                               name: UIApplication.didBecomeActiveNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(onApplicationDidInactive(_:)),
+                                               name: UIApplication.didEnterBackgroundNotification, object: nil)
+		#else
+		NotificationCenter.default.addObserver(self, selector: #selector(onOrientationChanged(_:)),
+                                               name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(onApplicationDidActive(_:)),
+                                               name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(onApplicationDidInactive(_:)),
+                                               name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+		#endif
+	}
+	
+	required public init?(coder aDecoder: NSCoder) {
+		super.init(coder: aDecoder)
+	}
+	
+	// MARK: -
+	
+	open func setupUI() {
 //		livestreamUIView.facebookButton.isEnabled = false
 //		livestreamUIView.textField.isEnabled = false
 		livestreamUIView.onButtonSelected = { [weak self] (button: UIControl?) in
@@ -133,70 +162,48 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 		
 //		stopButton.setImage(UIImage(icon: .googleMaterialDesign(.close), size: CGSize(width: 32, height: 32), textColor: .black, backgroundColor: .clear), for: .normal)
 //		stopButton.addTarget(self, action: #selector(askToStop), for: .touchUpInside)
+	}
+	
+	@objc open func start() {
+		guard let liveEventId = liveEventId else {
+			showAlert(title: "Error", message: "No live event id was set")
+			return
+		}
 		
-		#if swift(>=4.2)
-		NotificationCenter.default.addObserver(self, selector: #selector(onOrientationChanged(_:)),
-                                               name: UIApplication.didChangeStatusBarOrientationNotification, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(onApplicationDidActive(_:)),
-                                               name: UIApplication.didBecomeActiveNotification, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(onApplicationDidInactive(_:)),
-                                               name: UIApplication.didEnterBackgroundNotification, object: nil)
-		#else
-		NotificationCenter.default.addObserver(self, selector: #selector(onOrientationChanged(_:)),
-                                               name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(onApplicationDidActive(_:)),
-                                               name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(onApplicationDidInactive(_:)),
-                                               name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
-		#endif
-	}
-	
-	required public init?(coder aDecoder: NSCoder) {
-		super.init(coder: aDecoder)
-	}
-	
-	// MARK: -
-	
-	@objc public func start() {
-		if let liveEventId = liveEventId {
-//			livestreamUIView.closeButton.isEnabled = false
-			startButton.isLoading = true
-			isLive = true
-			self.view.setNeedsLayout()
+//		livestreamUIView.closeButton.isEnabled = false
+		startButton.isLoading = true
+		isLive = true
+		view.setNeedsLayout()
+		
+		streamService.loadLiveEvent(id: liveEventId) { [weak self] (liveEvent, error) in
+			guard let `self` = self else { return }
+			self.startButton.isLoading = false
 			
-			self.streamService.loadLiveEvent(id: liveEventId) { [weak self] (liveEvent, error) in
-				guard let `self` = self else { return }
-				self.startButton.isLoading = false
+			if error != nil || liveEvent == nil {
+				let errorMessage = error != nil ? error!.localizedDescription : "No live event was set"
+				self.showAlert(title: "Error", message: errorMessage)
+			} else {
+				guard let liveEvent = liveEvent else { return }
+				guard !liveEvent.isInitStatus else {
+					self.startLive(event: liveEvent)
+					return
+				}
 				
-				if error != nil || liveEvent == nil {
-					let errorMessage = error != nil ? error!.localizedDescription : "No live event was set"
-					self.showAlert(title: "Error", message: errorMessage)
-				} else {
-                    if let liveEvent = liveEvent {
-                        if liveEvent.isInitStatus {
-                            self.streamService.loadLiveEvent(id: liveEventId) { [weak self] (liveEvent, error) in
-                                guard let `self` = self else { return }
-                                
-                                if error != nil || liveEvent == nil {
-                                    let errorMessage = error != nil ? error!.localizedDescription : "No live event was set"
-                                    self.showAlert(title: "Error", message: errorMessage)
-                                } else {
-                                    if let event = liveEvent, event.isInitStatus {
-                                        self.showAlert(title: "Error", message: "Event is still waiting for resource, please try again later")
-                                    } else {
-                                        self.startLive(event: liveEvent)
-                                    }
-                                }
-                            }
-                            return
-                        }
-						
-						self.startLive(event: liveEvent)
-                    }
+				self.streamService.loadLiveEvent(id: liveEventId) { [weak self] (liveEvent, error) in
+					guard let `self` = self else { return }
+					
+					if error != nil || liveEvent == nil {
+						let errorMessage = error != nil ? error!.localizedDescription : "No live event was set"
+						self.showAlert(title: "Error", message: errorMessage)
+					} else {
+						if let event = liveEvent, event.isInitStatus {
+							self.showAlert(title: "Error", message: "Event is still waiting for resource, please try again later")
+						} else {
+							self.startLive(event: liveEvent)
+						}
+					}
 				}
 			}
-		} else {
-			self.showAlert(title: "Error", message: "No live event id was set")
 		}
 	}
 	
@@ -260,6 +267,11 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 		session.running = false
 		session.delegate = nil
 		
+		/**
+		This is the right way to invalidate a timer.
+		Don't use:
+		timer?.invalidate()
+		*/
 		if timer != nil {
 			timer!.invalidate()
 			timer = nil
@@ -396,29 +408,24 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 	open override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		self.view.backgroundColor = .black
-		self.view.addSubview(livestreamUIView)
-		self.view.addSubview(liveDurationLabel)
-		self.view.addSubview(startButton)
-//		self.view.addSubview(stopButton)
-		
+		view.backgroundColor = .black
+		view.addSubview(livestreamUIView)
+		view.addSubview(liveDurationLabel)
+		view.addSubview(startButton)
+//		view.addSubview(stopButton)
 //		stopButton.isHidden = true
 		
-		session.delegate = self
-		session.beautyFace = false
-		session.preView = self.view
 //		session.captureDevicePosition = .front
-		
 		livestreamUIView.beautyButton.isSelected = session.beautyFace
 	}
 	
 	open override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		
-		self.requestAccessForVideo()
-		self.requestAccessForAudio()
+		requestAccessForVideo()
+		requestAccessForAudio()
 		
-		self.view.setNeedsLayout()
+		view.setNeedsLayout()
 		UIView.animate(withDuration: 0.3) {
 			self.startButton.alpha = 1.0
 		}
@@ -482,6 +489,7 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 		
 		if state == .start {
             sendBroadcastInformation()
+			
 			if startTime == nil {
 				startTime = Date()
 				startTimer()
@@ -494,12 +502,12 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 extension UZLiveStreamViewController {
 	
     fileprivate func sendBroadcastInformation() {
-        var dictionary: [String: String] = [:]
-        dictionary["app_id"] = UizaSDK.appId
-        dictionary["entity_id"] = liveEventId ?? ""
-        dictionary["os"] = "\(UIDevice.current.systemVersion)"
-        dictionary["device"] = "\(UIDevice.current.hardwareName())"
-        dictionary["time"] = Date().toString(format: .isoDateTimeSec)
+		let dictionary: [String: String] = ["app_id": UizaSDK.appId,
+											"entity_id": liveEventId ?? "",
+											"os": "\(UIDevice.current.systemVersion)",
+											"device": UIDevice.current.hardwareName(),
+											"time": Date().toString(format: .isoDateTimeSec)]
+		
 		UZSentry.sendData(data: dictionary)
     }
 	

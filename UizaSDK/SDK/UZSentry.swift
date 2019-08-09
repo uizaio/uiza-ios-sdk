@@ -9,7 +9,7 @@
 import UIKit
 import Sentry
 
-class UZSentry: NSObject {
+class UZSentry {
 	
 	class func activate() {
 		do {
@@ -27,11 +27,17 @@ class UZSentry: NSObject {
 		event.extra = ["ios": true]
 		Client.shared?.send(event: event)
 	}
+	
+	class func sendData(data: [String: String]?) {
+		guard let data = data else { return }
+		guard let jsonData = try? JSONSerialization.data(withJSONObject: data, options: []) else { return }
+		
+		sendMessage(message: String(data: jsonData, encoding: .utf8))
+	}
     
     class func sendMessage(message: String?) {
-        guard let message = message else {
-            return
-        }
+        guard let message = message else { return }
+		
         let event = Event(level: .info)
         event.message = message
         event.extra = ["ios": true]

@@ -492,6 +492,7 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 }
 
 extension UZLiveStreamViewController {
+	
     fileprivate func sendBroadcastInformation() {
         var dictionary: [String: String] = [:]
         dictionary["app_id"] = UizaSDK.appId
@@ -499,16 +500,12 @@ extension UZLiveStreamViewController {
         dictionary["os"] = "\(UIDevice.current.systemVersion)"
         dictionary["device"] = "\(UIDevice.current.hardwareName())"
         dictionary["time"] = Date().toString(format: .isoDateTimeSec)
-        if let jsonData = try? JSONSerialization.data(withJSONObject: dictionary, options: []) {
-            let theJSONText = String(data: jsonData,
-                                     encoding: .utf8)
-            UZSentry.sendMessage(message: theJSONText)
-        }
+		UZSentry.sendData(data: dictionary)
     }
+	
 }
 
 extension UZLiveStreamViewController {
-	// MARK: -
 	
 	public func requestAccessForVideo() {
 		let status = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
@@ -533,9 +530,7 @@ extension UZLiveStreamViewController {
 		let status = AVCaptureDevice.authorizationStatus(for: AVMediaType.audio)
 		switch status {
 		case AVAuthorizationStatus.notDetermined:
-			AVCaptureDevice.requestAccess(for: AVMediaType.audio, completionHandler: { (_) in
-				
-			})
+			AVCaptureDevice.requestAccess(for: AVMediaType.audio, completionHandler: { (_) in })
 			
 		case AVAuthorizationStatus.authorized: break
 		case AVAuthorizationStatus.denied: break
@@ -549,14 +544,15 @@ extension UZLiveStreamViewController {
 	}
 	
 	open override var shouldAutorotate: Bool {
-		return UIDevice.isPad()
+		return UIDevice.current.userInterfaceIdiom == .pad
 	}
 	
 	open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-		return UIDevice.isPhone() ? .portrait : .all
+		return UIDevice.current.userInterfaceIdiom == .phone ? .portrait : .all
 	}
 	
 	open override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
-		return UIDevice.isPad() ? UIApplication.shared.statusBarOrientation : .portrait
+		return UIDevice.current.userInterfaceIdiom == .pad ? UIApplication.shared.statusBarOrientation : .portrait
 	}
+	
 }

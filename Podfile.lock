@@ -4,10 +4,10 @@ PODS:
     - CocoaAsyncSocket/GCD (= 7.5.1)
   - CocoaAsyncSocket/GCD (7.5.1)
   - FrameLayoutKit (3.7.1)
-  - google-cast-sdk (4.4.3):
-    - google-cast-sdk/Core (= 4.4.3)
+  - google-cast-sdk (4.4.4):
+    - google-cast-sdk/Core (= 4.4.4)
     - Protobuf (~> 3.0)
-  - google-cast-sdk/Core (4.4.3):
+  - google-cast-sdk/Core (4.4.4):
     - Protobuf (~> 3.0)
   - LFLiveKit_ (2.7.7)
   - Mockingjay (3.0.0-alpha.1):
@@ -82,7 +82,7 @@ SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
   CocoaAsyncSocket: e0a7e93b2ffa411592ff87e58524fbbc9b95b4fa
   FrameLayoutKit: 84a29a25e736134f25680ccae6f932934c5ba420
-  google-cast-sdk: fad0b26723a820bad54f550b2240810dc0fe53b9
+  google-cast-sdk: 776a7ecf2d630cf665d37fac7421b2bdb21fa414
   LFLiveKit_: ffe9e4c4da708637aa20a0dd6c040142d7a738a9
   Mockingjay: 0f7c5aa49c7f1b95621cee3c79b557141f5a225c
   NHNetworkTime: b140ee21770aed41e7b8fd43647bce6349ad10f2

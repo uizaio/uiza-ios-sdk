@@ -44,7 +44,6 @@ class MyLiveStreamViewController: UZLiveStreamViewController {
 		startButton.setBackgroundColor(UIColor(red: 0.91, green: 0.31, blue: 0.28, alpha: 0.8), for: .normal)
 		startButton.setBackgroundColor(UIColor(red: 0.91, green: 0.31, blue: 0.28, alpha: 1.00), for: .highlighted)
 		startButton.setBackgroundColor(UIColor(red: 0.91, green: 0.31, blue: 0.28, alpha: 0.60), for: .disabled)
-		startButton.loadingIndicatorStyle = .ballBeat
 		startButton.title = "Go Live!"
 		
 		self.livestreamUIView = MyLiveStreamUIView()

@@ -20,9 +20,7 @@ Pod::Spec.new do |s|
     s.ios.dependency "SwiftyJSON"
     s.ios.dependency "LFLiveKit_"
     s.ios.dependency "NKModalViewManager"
-    s.ios.dependency "NKButton"
     s.ios.dependency "FrameLayoutKit"
-    s.ios.dependency "NVActivityIndicatorView/AppExtension"
     s.ios.dependency "SDWebImage"
     s.ios.dependency "Sentry"
     

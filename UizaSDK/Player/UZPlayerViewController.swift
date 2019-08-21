@@ -28,7 +28,7 @@ open class UZPlayerViewController: UIViewController {
 	open var fullscreenPresentationMode: UZFullscreenPresentationMode = .modal
 	open var autoFullscreenWhenRotateDevice = true
 	open var autoFullscreenDelay: TimeInterval = 0.3
-	internal var onOrientationUpdateRequestBlock: ((Bool) -> Void)?
+	var onOrientationUpdateRequestBlock: ((Bool) -> Void)?
 	
 	open var isFullscreen: Bool {
 		get {

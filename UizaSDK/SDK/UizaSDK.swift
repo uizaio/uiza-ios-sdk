@@ -18,7 +18,7 @@ import UIKit
 //
 
 // swiftlint:disable identifier_name
-internal let SDK_VERSION = "8.3.5"
+internal let SDK_VERSION = "8.4.0"
 internal let PLAYER_VERSION = "4.8"
 
 public enum UizaSDKVersion: String {

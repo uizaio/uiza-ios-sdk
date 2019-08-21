@@ -20,7 +20,7 @@ class UZVisualizeInformationView: UIView {
 	let hostLabel = TitleValueLabel(title: "Host:")
 	let osInfoLabel = TitleValueLabel(title: "OS:")
 	let latencyLabel = TitleValueLabel(title: "Livestream latency:")
-	let closeButton = UIButton()
+	let closeButton = NKButton()
 	let mainFrameLayout = StackFrameLayout(axis: .vertical, distribution: .top)
 	let numberFormatter = NumberFormatter()
 	

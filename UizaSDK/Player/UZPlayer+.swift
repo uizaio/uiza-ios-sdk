@@ -373,7 +373,7 @@ extension UZPlayer: UZPlayerControlViewDelegate {
     }
     
     open func controlView(controlView: UZPlayerControlView, didSelectButton button: UIButton) {
-        if let action = NKButtonTag(rawValue: button.tag) {
+        if let action = UZButtonTag(rawValue: button.tag) {
             switch action {
             case .back:
                 self.stop()

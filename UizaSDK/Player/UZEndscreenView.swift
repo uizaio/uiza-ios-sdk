@@ -8,7 +8,6 @@
 
 import UIKit
 import FrameLayoutKit
-import NKButton
 
 open class UZEndscreenView: UIView {
 	public let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
@@ -68,8 +67,8 @@ open class UZEndscreenView: UIView {
 		replayButton.extendSize = CGSize(width: 24, height: 24)
 		shareButton.extendSize = CGSize(width: 24, height: 24)
 		
-		replayButton.tag = NKButtonTag.replay.rawValue
-		shareButton.tag = NKButtonTag.share.rawValue
+		replayButton.tag = UZButtonTag.replay.rawValue
+		shareButton.tag = UZButtonTag.share.rawValue
 		
 //		self.addSubview(blurView)
 //		self.addSubview(titleLabel)

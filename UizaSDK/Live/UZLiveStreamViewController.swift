@@ -8,7 +8,6 @@
 
 import UIKit
 import LFLiveKit_
-import NKButton
 
 open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 	public var livestreamUIView = UZLiveStreamUIView() {
@@ -154,7 +153,6 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 			startButton.titleLabel?.font = UIFont.systemFont(ofSize: 14)
 		}
 		startButton.title = "START"
-		startButton.loadingIndicatorStyle = .ballScaleRippleMultiple
 		startButton.isRoundedButton = true
 		startButton.extendSize = CGSize(width: 60, height: 20)
 		startButton.alpha = 0.0

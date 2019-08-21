@@ -19,11 +19,7 @@ PODS:
     - Mockingjay/Core
   - NHNetworkTime (1.7):
     - CocoaAsyncSocket (~> 7.5.0)
-  - NKButton (3.8.8):
-    - FrameLayoutKit
-    - NVActivityIndicatorView/AppExtension
   - NKModalViewManager (3.5.2)
-  - NVActivityIndicatorView/AppExtension (4.7.0)
   - Protobuf (3.9.0)
   - SDWebImage (5.1.0):
     - SDWebImage/Core (= 5.1.0)
@@ -42,9 +38,7 @@ DEPENDENCIES:
   - LFLiveKit_
   - Mockingjay (from `https://github.com/kylef/Mockingjay.git`, tag `3.0.0-alpha.1`)
   - NHNetworkTime
-  - NKButton
   - NKModalViewManager
-  - NVActivityIndicatorView/AppExtension
   - SDWebImage
   - Sentry
   - SwiftLint (= 0.32.0)
@@ -58,9 +52,7 @@ SPEC REPOS:
     - google-cast-sdk
     - LFLiveKit_
     - NHNetworkTime
-    - NKButton
     - NKModalViewManager
-    - NVActivityIndicatorView
     - Protobuf
     - SDWebImage
     - Sentry
@@ -84,11 +76,9 @@ SPEC CHECKSUMS:
   FrameLayoutKit: 84a29a25e736134f25680ccae6f932934c5ba420
   google-cast-sdk: 776a7ecf2d630cf665d37fac7421b2bdb21fa414
   LFLiveKit_: ffe9e4c4da708637aa20a0dd6c040142d7a738a9
-  Mockingjay: 0f7c5aa49c7f1b95621cee3c79b557141f5a225c
+  Mockingjay: 97656c6f59879923976a0a52ef09da45756cca82
   NHNetworkTime: b140ee21770aed41e7b8fd43647bce6349ad10f2
-  NKButton: 0f928184980d1e8776f8d2770c38329d21f95f10
   NKModalViewManager: 8171cd4fb9315193fc2d05f011f9a29c9ca95a0f
-  NVActivityIndicatorView: b19ddab2576f805cbe0fb2306cba3476e09a1dea
   Protobuf: 1097ca58584c8d9be81bfbf2c5ff5975648dd87a
   SDWebImage: fb387001955223213dde14bc08c8b73f371f8d8f
   Sentry: 26650184fe71eb7476dfd2737acb5ea6cc64b4b1
@@ -96,6 +86,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
   URITemplate: 58e0d47f967006c5d59888af5356c4a8ed3b197d
 
-PODFILE CHECKSUM: ae95533a3ab5b3688cd65c98cf1580c99c95bb0d
+PODFILE CHECKSUM: e6efc36c37094cdd224840afb237a1fca2f652ae
 
 COCOAPODS: 1.7.4

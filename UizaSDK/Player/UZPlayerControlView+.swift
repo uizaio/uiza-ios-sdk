@@ -8,9 +8,8 @@
 
 import UIKit
 import FrameLayoutKit
-import NVActivityIndicatorView
 
-public enum NKButtonTag: Int {
+public enum UZButtonTag: Int {
     case play       = 101
     case pause      = 102
     case back       = 103
@@ -194,7 +193,7 @@ extension UZPlayerControlView {
     @objc open func onButtonPressed(_ button: UIButton) {
         autoFadeOutControlView(after: autoHideControlsInterval)
         
-        if let type = NKButtonTag(rawValue: button.tag) {
+        if let type = UZButtonTag(rawValue: button.tag) {
             switch type {
             case .play, .replay:
                 hideEndScreen()
@@ -265,7 +264,6 @@ extension UZPlayerControlView {
 }
 
 // MARK: - UZLiveBadgeView
-import NKButton
 
 open class UZLiveBadgeView: UIView {
     

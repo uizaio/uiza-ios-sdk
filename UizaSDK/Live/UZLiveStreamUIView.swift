@@ -9,7 +9,6 @@
 import UIKit
 import FrameLayoutKit
 import NKModalViewManager
-import NKButton
 
 open class UZLiveStreamUIView: UIView, UITextFieldDelegate {
 	public var onButtonSelected: ((_ button: UIControl?) -> Void)?
@@ -21,8 +20,8 @@ open class UZLiveStreamUIView: UIView, UITextFieldDelegate {
 	public let liveBadge = NKButton()
 	
 	public let containerView = UIView()
-	internal var topFrameLayout: DoubleFrameLayout!
-	internal var buttonFrameLayout: StackFrameLayout!
+	var topFrameLayout: DoubleFrameLayout!
+	var buttonFrameLayout: StackFrameLayout!
 	
 	open var views: Int = 0 {
 		didSet {
@@ -36,7 +35,7 @@ open class UZLiveStreamUIView: UIView, UITextFieldDelegate {
 		}
 	}
 	
-	internal var isLive: Bool = false {
+	var isLive: Bool = false {
 		didSet {
 			topFrameLayout.isHidden = !isLive
 		}

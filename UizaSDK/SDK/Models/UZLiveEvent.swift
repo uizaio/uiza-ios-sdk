@@ -29,8 +29,8 @@ public class UZLiveEvent: UZVideoItem {
 	/// Broadcast URL
 	public fileprivate(set) var broadcastURL: URL?
 	
-	internal var isReadyToLive: Bool = false
-    internal var isInitStatus: Bool = false
+	var isReadyToLive: Bool = false
+    var isInitStatus: Bool = false
 	
 	override func parse(_ data: NSDictionary?) {
 		if let data = data {

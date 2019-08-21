@@ -40,7 +40,7 @@ class MySlider: UZSlider {
 
 class ViewController: UIViewController {
 //    let playerViewController = UZPlayerViewController()
-    let themeButton = UIButton()
+    let themeButton = NKButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()

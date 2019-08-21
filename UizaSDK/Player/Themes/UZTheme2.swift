@@ -9,7 +9,6 @@
 import UIKit
 import AVKit
 import FrameLayoutKit
-import NVActivityIndicatorView
 
 open class UZTheme2: UZPlayerTheme {
 	public weak var controlView: UZPlayerControlView?
@@ -17,16 +16,16 @@ open class UZTheme2: UZPlayerTheme {
 	let topGradientLayer = CAGradientLayer()
 	let bottomGradientLayer = CAGradientLayer()
 	
-	internal var topFrameLayout: DoubleFrameLayout?
-	internal var bottomFrameLayout: StackFrameLayout?
-	internal var mainFrameLayout: StackFrameLayout?
+	var topFrameLayout: DoubleFrameLayout?
+	var bottomFrameLayout: StackFrameLayout?
+	var mainFrameLayout: StackFrameLayout?
 	
-	internal var iconColor = UIColor.white
-	internal var iconSize = CGSize(width: 24, height: 24)
-	internal var skipIconSize = CGSize(width: 32, height: 32)
-	internal var centerIconSize = CGSize(width: 92, height: 92)
-	internal var seekThumbSize = CGSize(width: 24, height: 24)
-	internal var buttonMinSize = CGSize(width: 32, height: 32)
+	var iconColor = UIColor.white
+	var iconSize = CGSize(width: 24, height: 24)
+	var skipIconSize = CGSize(width: 32, height: 32)
+	var centerIconSize = CGSize(width: 92, height: 92)
+	var seekThumbSize = CGSize(width: 24, height: 24)
+	var buttonMinSize = CGSize(width: 32, height: 32)
 	
 	public convenience init(iconSize: CGSize = CGSize(width: 24, height: 24), centerIconSize: CGSize = CGSize(width: 92, height: 92), seekThumbSize: CGSize = CGSize(width: 24, height: 24), iconColor: UIColor = .white) {
 		self.init()
@@ -259,8 +258,7 @@ open class UZTheme2: UZPlayerTheme {
 	open func showLoader() {
 		if let controlView = controlView {
 			if controlView.loadingIndicatorView == nil {
-				controlView.loadingIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 30, height: 30),
-                                                                           type: NVActivityIndicatorType.ballScaleMultiple, color: .white, padding: 0)
+				controlView.loadingIndicatorView = UIActivityIndicatorView(style: .white)
 				controlView.addSubview(controlView.loadingIndicatorView!)
 			}
 			

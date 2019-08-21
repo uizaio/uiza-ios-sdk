@@ -8,8 +8,6 @@
 
 import UIKit
 import FrameLayoutKit
-import NVActivityIndicatorView
-import NKButton
 
 open class UZPlayerControlView: UIView {
 	open weak var delegate: UZPlayerControlViewDelegate?
@@ -40,22 +38,22 @@ open class UZPlayerControlView: UIView {
 	
 	open var totalDuration: TimeInterval = 0
 	
-	internal var seekedTime: TimeInterval = 0
-	internal var delayItem: DispatchWorkItem?
+	var seekedTime: TimeInterval = 0
+	var delayItem: DispatchWorkItem?
 	
-	internal var resource: UZPlayerResource? {
+	var resource: UZPlayerResource? {
 		didSet {
 			theme?.update(withResource: self.resource, video: self.currentVideo, playlist: self.currentPlaylist)
 		}
 	}
 	
-	internal var currentVideo: UZVideoItem? {
+	var currentVideo: UZVideoItem? {
 		didSet {
 			theme?.update(withResource: self.resource, video: self.currentVideo, playlist: self.currentPlaylist)
 		}
 	}
 	
-	internal var currentPlaylist: [UZVideoItem]? {
+	var currentPlaylist: [UZVideoItem]? {
 		didSet {
 			theme?.update(withResource: self.resource, video: self.currentVideo, playlist: self.currentPlaylist)
 		}
@@ -113,8 +111,8 @@ open class UZPlayerControlView: UIView {
                 previousButton, volumeButton, pipButton, castingButton]
 	}()
 	
-	internal var playerLastState: UZPlayerState = .notSetURL
-	internal var messageLabel: UILabel?
+	var playerLastState: UZPlayerState = .notSetURL
+	var messageLabel: UILabel?
 	
 	public let containerView = UIView()
 	public let titleLabel = UILabel()
@@ -142,7 +140,7 @@ open class UZPlayerControlView: UIView {
 	public let airplayButton = UZAirPlayButton()
 	public let coverImageView = UIImageView()
 	public let liveBadgeView = UZLiveBadgeView()
-	public var loadingIndicatorView: NVActivityIndicatorView?
+	public var loadingIndicatorView: UIActivityIndicatorView?
 	public var endscreenView = UZEndscreenView()
 	public var timeSlider: UZSlider! {
 		didSet {
@@ -151,9 +149,9 @@ open class UZPlayerControlView: UIView {
 			timeSlider.maximumTrackTintColor = UIColor.clear
 		}
 	}
-	internal var castingView: UZCastingView?
+	var castingView: UZCastingView?
 	
-	internal var liveStartDate: Date? = nil {
+	var liveStartDate: Date? = nil {
 		didSet {
 			updateLiveDate()
 		}
@@ -208,24 +206,24 @@ open class UZPlayerControlView: UIView {
 		
 		loadingIndicatorView?.isUserInteractionEnabled = false
 		
-		playpauseCenterButton.tag = NKButtonTag.play.rawValue
-		playpauseButton.tag = NKButtonTag.play.rawValue
-		backButton.tag = NKButtonTag.back.rawValue
-		fullscreenButton.tag = NKButtonTag.fullscreen.rawValue
-		settingsButton.tag = NKButtonTag.settings.rawValue
-		forwardButton.tag = NKButtonTag.forward.rawValue
-		backwardButton.tag = NKButtonTag.backward.rawValue
-		nextButton.tag = NKButtonTag.next.rawValue
-		previousButton.tag = NKButtonTag.previous.rawValue
-		volumeButton.tag = NKButtonTag.volume.rawValue
-		playlistButton.tag = NKButtonTag.playlist.rawValue
-		relateButton.tag = NKButtonTag.relates.rawValue
-		ccButton.tag = NKButtonTag.caption.rawValue
-		helpButton.tag = NKButtonTag.help.rawValue
-		pipButton.tag = NKButtonTag.pip.rawValue
-		airplayButton.tag = NKButtonTag.airplay.rawValue
-		castingButton.tag = NKButtonTag.casting.rawValue
-		logoButton.tag = NKButtonTag.logo.rawValue
+		playpauseCenterButton.tag = UZButtonTag.play.rawValue
+		playpauseButton.tag = UZButtonTag.play.rawValue
+		backButton.tag = UZButtonTag.back.rawValue
+		fullscreenButton.tag = UZButtonTag.fullscreen.rawValue
+		settingsButton.tag = UZButtonTag.settings.rawValue
+		forwardButton.tag = UZButtonTag.forward.rawValue
+		backwardButton.tag = UZButtonTag.backward.rawValue
+		nextButton.tag = UZButtonTag.next.rawValue
+		previousButton.tag = UZButtonTag.previous.rawValue
+		volumeButton.tag = UZButtonTag.volume.rawValue
+		playlistButton.tag = UZButtonTag.playlist.rawValue
+		relateButton.tag = UZButtonTag.relates.rawValue
+		ccButton.tag = UZButtonTag.caption.rawValue
+		helpButton.tag = UZButtonTag.help.rawValue
+		pipButton.tag = UZButtonTag.pip.rawValue
+		airplayButton.tag = UZButtonTag.airplay.rawValue
+		castingButton.tag = UZButtonTag.casting.rawValue
+		logoButton.tag = UZButtonTag.logo.rawValue
 		
 		self.allButtons.forEach { (button) in
 			button.showsTouchWhenHighlighted = true

@@ -115,7 +115,7 @@ open class UZPlayerLayerView: UIView {
 	
 	fileprivate var isBuffering		= false
 	fileprivate var isReadyToPlay	= false
-	internal var shouldSeekTo: TimeInterval = 0
+	var shouldSeekTo: TimeInterval = 0
 	
 	// MARK: - Actions
 	

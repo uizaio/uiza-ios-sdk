@@ -9,23 +9,22 @@
 import UIKit
 import AVKit
 import FrameLayoutKit
-import NVActivityIndicatorView
 
 open class UZTheme7: UZPlayerTheme {
 	public weak var controlView: UZPlayerControlView?
 	
 	let topGradientLayer = CAGradientLayer()
 	
-	internal var topFrameLayout: DoubleFrameLayout?
-	internal var bottomFrameLayout: StackFrameLayout?
-	internal var mainFrameLayout: StackFrameLayout?
+	var topFrameLayout: DoubleFrameLayout?
+	var bottomFrameLayout: StackFrameLayout?
+	var mainFrameLayout: StackFrameLayout?
 	internal let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
 	
-	internal var iconColor = UIColor.white
-	internal var iconSize = CGSize(width: 24, height: 24)
-	internal var centerIconSize = CGSize(width: 50, height: 50)
-	internal var seekThumbSize = CGSize(width: 24, height: 24)
-	internal var buttonMinSize = CGSize(width: 32, height: 32)
+	var iconColor = UIColor.white
+	var iconSize = CGSize(width: 24, height: 24)
+	var centerIconSize = CGSize(width: 50, height: 50)
+	var seekThumbSize = CGSize(width: 24, height: 24)
+	var buttonMinSize = CGSize(width: 32, height: 32)
 	
 	public convenience init(iconSize: CGSize = CGSize(width: 24, height: 24), centerIconSize: CGSize = CGSize(width: 60, height: 60), seekThumbSize: CGSize = CGSize(width: 24, height: 24), iconColor: UIColor = .white) {
 		self.init()
@@ -264,8 +263,7 @@ open class UZTheme7: UZPlayerTheme {
 	open func showLoader() {
 		if let controlView = controlView {
 			if controlView.loadingIndicatorView == nil {
-				controlView.loadingIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 30, height: 30),
-                                                                           type: NVActivityIndicatorType.lineScale, color: .white, padding: 0)
+				controlView.loadingIndicatorView = UIActivityIndicatorView(style: .white)
 				controlView.addSubview(controlView.loadingIndicatorView!)
 			}
 			

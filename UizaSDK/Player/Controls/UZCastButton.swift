@@ -9,11 +9,11 @@
 import UIKit
 import MediaPlayer
 
-open class UZCastButton: NKButton {
-
-	override init() {
-		super.init()
-		
+open class UZCastButton: UIButton {
+	
+	override public init(frame: CGRect) {
+		super.init(frame: .zero)
+	
         #if canImport(GoogleCast)
 		NotificationCenter.default.addObserver(self, selector: #selector(updateState), name: NSNotification.Name.UZCastSessionDidStart, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(updateState), name: NSNotification.Name.UZCastSessionDidStop, object: nil)

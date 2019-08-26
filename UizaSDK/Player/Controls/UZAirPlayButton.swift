@@ -8,7 +8,6 @@
 
 import UIKit
 import MediaPlayer
-import SwiftIcons
 
 open class UZAirPlayButton: MPVolumeView {
 	

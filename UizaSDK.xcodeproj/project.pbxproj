@@ -63,6 +63,8 @@
 		631940042251032E00FFC560 /* UZTheme6.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D3A5F5224E08BB00732A0C /* UZTheme6.swift */; };
 		631940052251034400FFC560 /* UZLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D3A5C9224E08BB00732A0C /* UZLogger.swift */; };
 		631940062251034400FFC560 /* UZMuizaLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D3A5CA224E08BB00732A0C /* UZMuizaLogger.swift */; };
+		631EFF1C2313AD2200166FDB /* SwiftIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631EFF1B2313AD2200166FDB /* SwiftIcons.swift */; };
+		631EFF1D2313AD2200166FDB /* SwiftIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631EFF1B2313AD2200166FDB /* SwiftIcons.swift */; };
 		6320191D22D5B04E00711EB8 /* UZPlayerLayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6320191C22D5B04E00711EB8 /* UZPlayerLayerView.swift */; };
 		6320191E22D5B04E00711EB8 /* UZPlayerLayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6320191C22D5B04E00711EB8 /* UZPlayerLayerView.swift */; };
 		63672582226868290072612F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63672581226868290072612F /* AppDelegate.swift */; };
@@ -343,6 +345,22 @@
 		630C396522607F9400ACFDAE /* Action.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
 		630C396622607F9400ACFDAE /* Lazy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lazy.swift; sourceTree = "<group>"; };
 		630C396822607F9400ACFDAE /* Tweenable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tweenable.swift; sourceTree = "<group>"; };
+		631EFF0C2313ACEB00166FDB /* Icofont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Icofont.ttf; sourceTree = "<group>"; };
+		631EFF0D2313ACEB00166FDB /* MapIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MapIcons.ttf; sourceTree = "<group>"; };
+		631EFF0E2313ACEB00166FDB /* Dripicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Dripicons.ttf; sourceTree = "<group>"; };
+		631EFF0F2313ACEB00166FDB /* OpenIconic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = OpenIconic.ttf; sourceTree = "<group>"; };
+		631EFF102313ACEB00166FDB /* FontAwesomeSolid.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesomeSolid.ttf; sourceTree = "<group>"; };
+		631EFF112313ACEB00166FDB /* WeatherIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = WeatherIcons.ttf; sourceTree = "<group>"; };
+		631EFF122313ACEB00166FDB /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ionicons.ttf; sourceTree = "<group>"; };
+		631EFF132313ACEB00166FDB /* TypIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = TypIcons.ttf; sourceTree = "<group>"; };
+		631EFF142313ACEB00166FDB /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.ttf; sourceTree = "<group>"; };
+		631EFF152313ACEB00166FDB /* FontAwesomeRegular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesomeRegular.ttf; sourceTree = "<group>"; };
+		631EFF162313ACEB00166FDB /* Stateface.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Stateface.ttf; sourceTree = "<group>"; };
+		631EFF172313ACEB00166FDB /* Linearicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Linearicons.ttf; sourceTree = "<group>"; };
+		631EFF182313ACEB00166FDB /* Emoji.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Emoji.ttf; sourceTree = "<group>"; };
+		631EFF192313ACEB00166FDB /* FontAwesomeBrands.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesomeBrands.ttf; sourceTree = "<group>"; };
+		631EFF1A2313ACEB00166FDB /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialIcons.ttf; sourceTree = "<group>"; };
+		631EFF1B2313AD2200166FDB /* SwiftIcons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftIcons.swift; sourceTree = "<group>"; };
 		6320191C22D5B04E00711EB8 /* UZPlayerLayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZPlayerLayerView.swift; sourceTree = "<group>"; };
 		6367257F226868280072612F /* UizaSDKTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UizaSDKTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63672581226868290072612F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -560,8 +578,31 @@
 			isa = PBXGroup;
 			children = (
 				630C394F22607F9400ACFDAE /* TweenKit */,
+				631EFF1B2313AD2200166FDB /* SwiftIcons.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		631EFF0B2313ACEB00166FDB /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				631EFF0C2313ACEB00166FDB /* Icofont.ttf */,
+				631EFF0D2313ACEB00166FDB /* MapIcons.ttf */,
+				631EFF0E2313ACEB00166FDB /* Dripicons.ttf */,
+				631EFF0F2313ACEB00166FDB /* OpenIconic.ttf */,
+				631EFF102313ACEB00166FDB /* FontAwesomeSolid.ttf */,
+				631EFF112313ACEB00166FDB /* WeatherIcons.ttf */,
+				631EFF122313ACEB00166FDB /* Ionicons.ttf */,
+				631EFF132313ACEB00166FDB /* TypIcons.ttf */,
+				631EFF142313ACEB00166FDB /* FontAwesome.ttf */,
+				631EFF152313ACEB00166FDB /* FontAwesomeRegular.ttf */,
+				631EFF162313ACEB00166FDB /* Stateface.ttf */,
+				631EFF172313ACEB00166FDB /* Linearicons.ttf */,
+				631EFF182313ACEB00166FDB /* Emoji.ttf */,
+				631EFF192313ACEB00166FDB /* FontAwesomeBrands.ttf */,
+				631EFF1A2313ACEB00166FDB /* MaterialIcons.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		63672580226868290072612F /* UizaSDKTest */ = {
@@ -616,6 +657,7 @@
 		63D3A5BE224E07FA00732A0C /* UizaSDK */ = {
 			isa = PBXGroup;
 			children = (
+				631EFF0B2313ACEB00166FDB /* Fonts */,
 				63D3A610224E08BB00732A0C /* Extensions */,
 				63D3A5FC224E08BB00732A0C /* Components */,
 				63D3A5C7224E08BB00732A0C /* SDK */,
@@ -1437,6 +1479,7 @@
 				69784B6D2293A7D700B6F3A5 /* UZVisualizeInfo.swift in Sources */,
 				69EEEC812285708D0076A956 /* UZPlayerControlView+.swift in Sources */,
 				696855C022F133100027EEAE /* UZPlayer++.swift in Sources */,
+				631EFF1D2313AD2200166FDB /* SwiftIcons.swift in Sources */,
 				63A4C8C8228E71880039620E /* AVAsset+Selection.swift in Sources */,
 				636725F222686AE00072612F /* NSDictionary+KeyValue.swift in Sources */,
 				636725F422686AE00072612F /* String+Components.swift in Sources */,
@@ -1576,6 +1619,7 @@
 				631940032251032E00FFC560 /* UZTheme4.swift in Sources */,
 				63193FFD2251031C00FFC560 /* UZLiveStreamViewController.swift in Sources */,
 				63D3A668224E08BB00732A0C /* UIViewController+TopPresented.swift in Sources */,
+				631EFF1C2313AD2200166FDB /* SwiftIcons.swift in Sources */,
 				630C397122607F9400ACFDAE /* CoreGraphics+Tweenable.swift in Sources */,
 				630C397622607F9400ACFDAE /* UIBezierPath+BezierPath.swift in Sources */,
 				6960DA6D22A1050C00C8454B /* UZVisualizeInformationView.swift in Sources */,

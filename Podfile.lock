@@ -27,7 +27,6 @@ PODS:
   - Sentry (4.4.0):
     - Sentry/Core (= 4.4.0)
   - Sentry/Core (4.4.0)
-  - SwiftIcons (2.2.0)
   - SwiftLint (0.32.0)
   - SwiftyJSON (5.0.0)
   - URITemplate (3.0.0)
@@ -42,7 +41,6 @@ DEPENDENCIES:
   - NKModalViewManager
   - SDWebImage
   - Sentry
-  - SwiftIcons
   - SwiftLint (= 0.32.0)
   - SwiftyJSON
 
@@ -58,7 +56,6 @@ SPEC REPOS:
     - Protobuf
     - SDWebImage
     - Sentry
-    - SwiftIcons
     - SwiftLint
     - SwiftyJSON
     - URITemplate
@@ -85,11 +82,10 @@ SPEC CHECKSUMS:
   Protobuf: 1097ca58584c8d9be81bfbf2c5ff5975648dd87a
   SDWebImage: fb387001955223213dde14bc08c8b73f371f8d8f
   Sentry: 26650184fe71eb7476dfd2737acb5ea6cc64b4b1
-  SwiftIcons: e7eb9bf2b475d6bdd8b37c5bdedc6d120aab0829
   SwiftLint: 009a898ef2a1c851f45e1b59349bf6ff2ddc990d
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
   URITemplate: 58e0d47f967006c5d59888af5356c4a8ed3b197d
 
-PODFILE CHECKSUM: f059112a110ce848632014b32691d73c618abba3
+PODFILE CHECKSUM: e6efc36c37094cdd224840afb237a1fca2f652ae
 
 COCOAPODS: 1.7.4

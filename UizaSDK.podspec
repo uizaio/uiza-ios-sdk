@@ -21,7 +21,6 @@ Pod::Spec.new do |s|
     s.ios.dependency "LFLiveKit_"
     s.ios.dependency "NKModalViewManager"
     s.ios.dependency "FrameLayoutKit"
-    s.ios.dependency "SwiftIcons"
     s.ios.dependency "SDWebImage"
     s.ios.dependency "Sentry"
     

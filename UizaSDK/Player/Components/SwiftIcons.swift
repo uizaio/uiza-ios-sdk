@@ -519,7 +519,7 @@ public extension UIBarButtonItem {
         setTitleTextAttributes([NSAttributedString.Key.font: font!], for: UIControl.State.normal)
         setTitleTextAttributes([NSAttributedString.Key.font: font!], for: UIControl.State.highlighted)
         setTitleTextAttributes([NSAttributedString.Key.font: font!], for: UIControl.State.disabled)
-        setTitleTextAttributes([NSAttributedString.Key.font: font!], for: UIControl.State.focused)
+//        setTitleTextAttributes([NSAttributedString.Key.font: font!], for: UIControl.State.focused)
         title = icon.text
         tintColor = color
     }

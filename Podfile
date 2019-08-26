@@ -9,6 +9,7 @@ target 'UizaSDK' do
   pod 'NKModalViewManager'
 	pod 'FrameLayoutKit'
   pod 'SDWebImage'
+	pod 'SwiftIcons'
   pod 'SwiftyJSON'
   pod 'LFLiveKit_'
   pod 'Sentry'
@@ -35,6 +36,7 @@ target 'UizaSDKTest' do
 	pod 'FrameLayoutKit'
 	pod 'SDWebImage'
 	pod 'SwiftyJSON'
+	pod 'SwiftIcons'
 	pod 'LFLiveKit_'
   pod 'Sentry'
 	pod 'google-cast-sdk'
@@ -48,4 +50,14 @@ target 'UizaSDKTest' do
     
   end
 	
+end
+
+post_install do |installer|
+	installer.pods_project.targets.each do |target|
+		if target.name == 'SwiftIcons'
+			target.build_configurations.each do |config|
+				config.build_settings['SWIFT_VERSION'] = '4.1'
+			end
+		end
+	end
 end

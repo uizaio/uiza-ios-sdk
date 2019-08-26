@@ -280,8 +280,8 @@ open class UZLiveBadgeView: UIView {
         }
     }
     
-    fileprivate let liveBadge = NKButton()
-    fileprivate let viewBadge = NKButton()
+    fileprivate let liveBadge = UZButton()
+    fileprivate let viewBadge = UZButton()
     fileprivate var frameLayout: DoubleFrameLayout!
     
     init() {

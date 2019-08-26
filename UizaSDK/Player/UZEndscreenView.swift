@@ -12,8 +12,8 @@ import FrameLayoutKit
 open class UZEndscreenView: UIView {
 	public let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
 	public let titleLabel = UILabel()
-	public let replayButton = NKButton()
-	public let shareButton = NKButton()
+	public let replayButton = UZButton()
+	public let shareButton = UZButton()
 	internal fileprivate(set)var frameLayout: StackFrameLayout?
 	
 	open var allButtons: [UIButton]! {

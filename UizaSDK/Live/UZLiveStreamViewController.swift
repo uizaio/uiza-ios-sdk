@@ -18,8 +18,8 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 			}
 		}
 	}
-	public let startButton = NKButton()
-//	public let stopButton = NKButton()
+	public let startButton = UZButton()
+//	public let stopButton = UZButton()
 	
 	public var liveEventId: String?
 	public var isEncoded: Bool = true

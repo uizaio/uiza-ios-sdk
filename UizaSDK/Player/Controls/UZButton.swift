@@ -1,6 +1,6 @@
 //
-//  NKButton.swift
-//  NKButton
+//  UZButton.swift
+//  UZButton
 //
 //  Created by Nam Kennic on 8/18/17.
 //  Copyright © 2017 Nam Kennic. All rights reserved.
@@ -9,16 +9,16 @@
 import UIKit
 import FrameLayoutKit
 
-public typealias NKButtonAnimationCompletionBlock = ((_ sender: NKButton) -> Void)
+public typealias UZButtonAnimationCompletionBlock = ((_ sender: UZButton) -> Void)
 
-public enum NKButtonLoadingIndicatorAlignment: String {
+public enum UZButtonLoadingIndicatorAlignment: String {
 	case left
 	case center
 	case right
 	case atImage
 }
 
-public enum NKButtonImageAlignment {
+public enum UZButtonImageAlignment {
 	case left
 	case right
 	case top
@@ -30,7 +30,7 @@ public enum NKButtonImageAlignment {
 }
 
 // swiftlint:disable all
-open class NKButton: UIButton {
+open class UZButton: UIButton {
 	
 	/** Set/Get title of the button */
 	open var title: String? {
@@ -159,7 +159,7 @@ open class NKButton: UIButton {
 	}
 	
 	/** Image alignment */
-	open var imageAlignment: NKButtonImageAlignment = .left {
+	open var imageAlignment: UZButtonImageAlignment = .left {
 		didSet {
 			updateLayoutAlignment()
 		}
@@ -275,7 +275,7 @@ open class NKButton: UIButton {
 	/** Color of loading indicator, if `nil`, it will use titleColor of normal state */
 	open var loadingIndicatorColor: UIColor? = nil
 	/** Alignment for loading indicator */
-	open var loadingIndicatorAlignment: NKButtonLoadingIndicatorAlignment = .center
+	open var loadingIndicatorAlignment: UZButtonLoadingIndicatorAlignment = .center
 	/** `FrameLayout` that layout imageView */
 	open var imageFrameLayout: FrameLayout! {
 		get {
@@ -309,7 +309,7 @@ open class NKButton: UIButton {
 		}
 	}
 	
-	open var animationationDidEnd: NKButtonAnimationCompletionBlock? = nil
+	open var animationationDidEnd: UZButtonAnimationCompletionBlock? = nil
 	
 	fileprivate var loadingView 	: UIActivityIndicatorView? = nil
 	fileprivate let shadowLayer 	= CAShapeLayer()
@@ -811,7 +811,7 @@ open class NKButton: UIButton {
 		flashLayer.add(animation, forKey: animation.keyPath)
 	}
 	
-	open func expandFullscreen(duration:Double = 0.3, completionBlock:NKButtonAnimationCompletionBlock? = nil) {
+	open func expandFullscreen(duration:Double = 0.3, completionBlock:UZButtonAnimationCompletionBlock? = nil) {
 		animationationDidEnd = completionBlock
 		hideLoadingView()
 		
@@ -860,7 +860,7 @@ open class NKButton: UIButton {
 	
 }
 
-extension NKButton: CAAnimationDelegate {
+extension UZButton: CAAnimationDelegate {
 	
 	open func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
 		if flag {
@@ -900,7 +900,7 @@ fileprivate extension UIColor {
 
 /**
 Supports:
-let button = NKButton()
+let button = UZButton()
 button.titles[[.normal, .highlighted]] = ""
 */
 class UIControlStateValue<T> {
@@ -926,7 +926,7 @@ class UIControlStateValue<T> {
 	}
 }
 
-extension NKButton {
+extension UZButton {
 	
 	var titles: UIControlStateValue<String> {
 		return UIControlStateValue<String>.init(getter: self.title(for:), setter: self.setTitle(_:for:))

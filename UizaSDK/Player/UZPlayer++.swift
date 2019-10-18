@@ -559,7 +559,9 @@ extension UZPlayer {
         
         if shouldAutoPlay {
             isURLSet = true
-            currentLinkPlay = resource.definitions[definitionIndex]
+			let count = resource.definitions.count
+			currentLinkPlay = definitionIndex > -1 && definitionIndex < count ? resource.definitions[definitionIndex] : resource.definitions.first
+			guard currentLinkPlay != nil else { return }
             UZMuizaLogger.shared.log(eventName: "play", params: nil, video: currentVideo, linkplay: currentLinkPlay, player: self)
             playerLayer?.playAsset(asset: currentLinkPlay!.avURLAsset)
             

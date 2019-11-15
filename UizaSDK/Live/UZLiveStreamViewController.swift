@@ -90,6 +90,22 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 		return customAudioConfiguration ?? LFLiveAudioConfiguration.defaultConfiguration(for: .veryHigh)
 	}
 	
+	open override var preferredStatusBarStyle: UIStatusBarStyle {
+		return .lightContent
+	}
+	
+	open override var shouldAutorotate: Bool {
+		return UIDevice.current.userInterfaceIdiom == .pad
+	}
+	
+	open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+		return UIDevice.current.userInterfaceIdiom == .phone ? .portrait : .all
+	}
+	
+	open override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+		return UIDevice.current.userInterfaceIdiom == .pad ? UIApplication.shared.statusBarOrientation : .portrait
+	}
+	
 	public convenience init(liveEventId: String) {
 		self.init()
 		
@@ -160,6 +176,38 @@ open class UZLiveStreamViewController: UIViewController, LFLiveSessionDelegate {
 		
 //		stopButton.setImage(UIImage(icon: .googleMaterialDesign(.close), size: CGSize(width: 32, height: 32), textColor: .black, backgroundColor: .clear), for: .normal)
 //		stopButton.addTarget(self, action: #selector(askToStop), for: .touchUpInside)
+	}
+	
+	open func requestAccessForVideo() {
+		let status = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
+		switch status {
+		case AVAuthorizationStatus.notDetermined:
+			AVCaptureDevice.requestAccess(for: AVMediaType.video, completionHandler: { (granted) in
+				if granted {
+					DispatchQueue.main.async {
+						self.session.running = true
+					}
+				}
+			})
+		case AVAuthorizationStatus.authorized:
+			session.running = true
+		case AVAuthorizationStatus.denied: break
+		case AVAuthorizationStatus.restricted:break
+		@unknown default:break
+		}
+	}
+	
+	open func requestAccessForAudio() {
+		let status = AVCaptureDevice.authorizationStatus(for: AVMediaType.audio)
+		switch status {
+		case AVAuthorizationStatus.notDetermined:
+			AVCaptureDevice.requestAccess(for: AVMediaType.audio, completionHandler: { (_) in })
+			
+		case AVAuthorizationStatus.authorized: break
+		case AVAuthorizationStatus.denied: break
+		case AVAuthorizationStatus.restricted:break
+		@unknown default:break
+		}
 	}
 	
 	@objc open func start() {
@@ -508,57 +556,5 @@ extension UZLiveStreamViewController {
 		
 		UZSentry.sendData(data: dictionary)
     }
-	
-}
-
-extension UZLiveStreamViewController {
-	
-	public func requestAccessForVideo() {
-		let status = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
-		switch status {
-		case AVAuthorizationStatus.notDetermined:
-			AVCaptureDevice.requestAccess(for: AVMediaType.video, completionHandler: { (granted) in
-				if granted {
-					DispatchQueue.main.async {
-						self.session.running = true
-					}
-				}
-			})
-		case AVAuthorizationStatus.authorized:
-			session.running = true
-		case AVAuthorizationStatus.denied: break
-		case AVAuthorizationStatus.restricted:break
-		@unknown default:break
-		}
-	}
-	
-	public func requestAccessForAudio() {
-		let status = AVCaptureDevice.authorizationStatus(for: AVMediaType.audio)
-		switch status {
-		case AVAuthorizationStatus.notDetermined:
-			AVCaptureDevice.requestAccess(for: AVMediaType.audio, completionHandler: { (_) in })
-			
-		case AVAuthorizationStatus.authorized: break
-		case AVAuthorizationStatus.denied: break
-		case AVAuthorizationStatus.restricted:break
-		@unknown default:break
-		}
-	}
-	
-	open override var preferredStatusBarStyle: UIStatusBarStyle {
-		return .lightContent
-	}
-	
-	open override var shouldAutorotate: Bool {
-		return UIDevice.current.userInterfaceIdiom == .pad
-	}
-	
-	open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-		return UIDevice.current.userInterfaceIdiom == .phone ? .portrait : .all
-	}
-	
-	open override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
-		return UIDevice.current.userInterfaceIdiom == .pad ? UIApplication.shared.statusBarOrientation : .portrait
-	}
 	
 }

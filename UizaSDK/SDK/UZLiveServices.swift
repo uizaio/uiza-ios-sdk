@@ -206,7 +206,7 @@ open class UZLiveServices: UZAPIConnector {
 		self.callAPI(UZAPIConstant.liveFeedStatusApi, baseURLString: basePublicAPIURLPath(), method: .get, params: params) { (result, error) in
 //			DLog("\(String(describing: result)) - \(String(describing: error))")
 			
-			var status: UZSignalStatus? = nil
+			var status: UZSignalStatus?
 			if let data = result {
 				status = data.string(for: "signalStatus") == "available" ? .available : .offline
 			}

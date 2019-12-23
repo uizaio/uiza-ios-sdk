@@ -1,13 +1,13 @@
 PODS:
-  - Alamofire (4.9.0)
+  - Alamofire (4.9.1)
   - CocoaAsyncSocket (7.5.1):
     - CocoaAsyncSocket/GCD (= 7.5.1)
   - CocoaAsyncSocket/GCD (7.5.1)
-  - FrameLayoutKit (3.7.1)
-  - google-cast-sdk (4.4.5):
-    - google-cast-sdk/Core (= 4.4.5)
+  - FrameLayoutKit (3.7.2)
+  - google-cast-sdk (4.4.6):
+    - google-cast-sdk/Core (= 4.4.6)
     - Protobuf (~> 3.0)
-  - google-cast-sdk/Core (4.4.5):
+  - google-cast-sdk/Core (4.4.6):
     - Protobuf (~> 3.0)
   - LFLiveKit_ (2.7.8)
   - Mockingjay (3.0.0-alpha.1):
@@ -20,13 +20,13 @@ PODS:
   - NHNetworkTime (1.7):
     - CocoaAsyncSocket (~> 7.5.0)
   - NKModalViewManager (3.5.3)
-  - Protobuf (3.10.0)
-  - SDWebImage (5.2.3):
-    - SDWebImage/Core (= 5.2.3)
-  - SDWebImage/Core (5.2.3)
-  - Sentry (4.4.0):
-    - Sentry/Core (= 4.4.0)
-  - Sentry/Core (4.4.0)
+  - Protobuf (3.11.2)
+  - SDWebImage (5.4.0):
+    - SDWebImage/Core (= 5.4.0)
+  - SDWebImage/Core (5.4.0)
+  - Sentry (4.4.3):
+    - Sentry/Core (= 4.4.3)
+  - Sentry/Core (4.4.3)
   - SwiftLint (0.32.0)
   - SwiftyJSON (5.0.0)
   - URITemplate (3.0.0)
@@ -71,21 +71,21 @@ CHECKOUT OPTIONS:
     :tag: 3.0.0-alpha.1
 
 SPEC CHECKSUMS:
-  Alamofire: afc3e7c6db61476cb45cdd23fed06bad03bbc321
+  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   CocoaAsyncSocket: e0a7e93b2ffa411592ff87e58524fbbc9b95b4fa
-  FrameLayoutKit: 84a29a25e736134f25680ccae6f932934c5ba420
-  google-cast-sdk: 26aba79950b712035efb6801dee2d7db2b7f58e5
+  FrameLayoutKit: d184e034ba28e20dc4d7dd1832dbf47e7a5b339e
+  google-cast-sdk: df8b7421e35c6f9f54fc89e437d847b56d4a7885
   LFLiveKit_: c128ab5e3da93d797af8015ff0f05f11b855b5c6
   Mockingjay: 97656c6f59879923976a0a52ef09da45756cca82
   NHNetworkTime: b140ee21770aed41e7b8fd43647bce6349ad10f2
   NKModalViewManager: aa52c0abdc2633b1ed3464baeb65dabfa9785dc3
-  Protobuf: a4dc852ad69c027ca2166ed287b856697814375b
-  SDWebImage: 46a7f73228f84ce80990c786e4372cf4db5875ce
-  Sentry: 26650184fe71eb7476dfd2737acb5ea6cc64b4b1
+  Protobuf: dd1aaea7140debfe4dd0683fb8ef208e527ae153
+  SDWebImage: 5bf6aec6481ae2a062bdc59f9d6c1d1e552090e0
+  Sentry: 14bdd673870e8cf64932b149fad5bbbf39a9b390
   SwiftLint: 009a898ef2a1c851f45e1b59349bf6ff2ddc990d
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
   URITemplate: 58e0d47f967006c5d59888af5356c4a8ed3b197d
 
 PODFILE CHECKSUM: e6efc36c37094cdd224840afb237a1fca2f652ae
 
-COCOAPODS: 1.8.3
+COCOAPODS: 1.8.4

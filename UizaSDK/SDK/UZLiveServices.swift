@@ -8,6 +8,11 @@
 
 import UIKit
 
+public enum UZSignalStatus: Bool {
+	case offline = false
+	case available = true
+}
+
 /**
 Class manages livestream functions
 */
@@ -184,6 +189,30 @@ open class UZLiveServices: UZAPIConnector {
 				DispatchQueue.main.async {
 					completionBlock?(status, nil)
 				}
+			}
+		}
+	}
+	
+	/**
+	Check status of a live feed
+	- parameter entityId: target entityId
+	- parameter completionBlock: block called when completed, returns `UZSignalStatus` or `Error` if occurred
+	*/
+	public func checkSignalStatus(entityId: String, completionBlock: ((UZSignalStatus?, Error?) -> Void)? = nil) {
+		self.requestHeaderFields = ["Authorization": UizaSDK.token]
+		
+		let params: Parameters = ["id": entityId]
+		
+		self.callAPI(UZAPIConstant.liveFeedStatusApi, baseURLString: basePublicAPIURLPath(), method: .get, params: params) { (result, error) in
+//			DLog("\(String(describing: result)) - \(String(describing: error))")
+			
+			var status: UZSignalStatus? = nil
+			if let data = result {
+				status = data.string(for: "signalStatus") == "available" ? .available : .offline
+			}
+			
+			DispatchQueue.main.async {
+				completionBlock?(status, error)
 			}
 		}
 	}

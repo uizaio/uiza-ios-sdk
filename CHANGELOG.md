@@ -1,3 +1,9 @@
+### Version 8.4.7 (Dec 23 2019)
+- [Added] Able to check status of a live feed:
+``` swift
+UZLiveService().checkSignalStatus(entityId: "")
+```
+
 ### Version 8.3.7 (Aug 6 2019)
 - [Added] Set adaptiveBitrate (UZLiveStreamViewController) to auto change bitrate base on network performance
 - [Updated] Updated video configuration & audio configuration for livestream

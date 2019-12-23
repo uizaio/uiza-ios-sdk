@@ -26,6 +26,7 @@ struct UZAPIConstant {
     static let cdnLiveLinkPlayApi = "cdn/live/linkplay"
     static let liveCurrentViewApi = "live/entity/tracking/current-view"
     static let liveTrackingApi = "live/entity/tracking"
+	static let liveFeedStatusApi = "live/entity/feed/status"
     static let muizaLoggingApi = "v2/muiza/eventbulk/mobile"
     static let liveLoggingApi = "v1/ccu/mobile"
     static let trackingCategoryLoggingApi = "v1/rse/mobile"

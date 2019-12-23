@@ -8,9 +8,9 @@
 
 import UIKit
 
-public enum UZSignalStatus: Bool {
-	case offline = false
-	case available = true
+public enum UZSignalStatus {
+	case offline
+	case available
 }
 
 /**

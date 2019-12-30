@@ -183,7 +183,7 @@ internal class UZVideoQualityCollectionViewController: UICollectionViewControlle
 			self.collectionView?.performBatchUpdates({
 				self.collectionView?.insertItems(at: indexes)
 				
-				indexes.forEach({ (indexPath:IndexPath) in
+				indexes.forEach({ (indexPath: IndexPath) in
 					if indexPath.section>currentNumberOfSections {
 						self.collectionView?.insertSections([indexPath.section])
 						currentNumberOfSections += 1

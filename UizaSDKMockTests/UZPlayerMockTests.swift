@@ -84,6 +84,7 @@ class UZPlayerControlViewMock: UZPlayerControlView {
 }
 
 class UZThemeMock: UZPlayerTheme {
+	var id = "UZThemeMock"
     var controlView: UZPlayerControlView?
     
     var isUpdateWithResource = false

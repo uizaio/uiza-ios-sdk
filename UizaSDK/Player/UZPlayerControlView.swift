@@ -64,6 +64,7 @@ open class UZPlayerControlView: UIView {
 	
 	open var theme: UZPlayerTheme? = nil {
 		willSet {
+			guard newValue?.id != theme?.id else { return }
 			cancelAutoFadeOutAnimation()
 			showControlView()
 			
@@ -79,6 +80,7 @@ open class UZPlayerControlView: UIView {
 		}
 		
 		didSet {
+			guard theme?.id != oldValue?.id else { return }
 			theme?.controlView = self
 			theme?.updateUI()
 			theme?.update(withResource: self.resource, video: self.currentVideo, playlist: self.currentPlaylist)

@@ -727,7 +727,7 @@ private class FontLoader {
             if (identifier?.hasPrefix("org.cocoapods"))! {
                 fontURL = bundle.url(forResource: fileName, withExtension: "ttf", subdirectory: "Fonts.bundle")
             } else {
-                fontURL = bundle.url(forResource: fileName, withExtension: "ttf")!
+                fontURL = bundle.url(forResource: fileName, withExtension: "ttf")
             }
 
 			guard fontURL != nil else { return }

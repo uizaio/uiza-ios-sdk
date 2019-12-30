@@ -21,9 +21,9 @@ PODS:
     - CocoaAsyncSocket (~> 7.5.0)
   - NKModalViewManager (3.5.3)
   - Protobuf (3.11.2)
-  - SDWebImage (5.4.0):
-    - SDWebImage/Core (= 5.4.0)
-  - SDWebImage/Core (5.4.0)
+  - SDWebImage (5.4.1):
+    - SDWebImage/Core (= 5.4.1)
+  - SDWebImage/Core (5.4.1)
   - Sentry (4.4.3):
     - Sentry/Core (= 4.4.3)
   - Sentry/Core (4.4.3)
@@ -80,7 +80,7 @@ SPEC CHECKSUMS:
   NHNetworkTime: b140ee21770aed41e7b8fd43647bce6349ad10f2
   NKModalViewManager: aa52c0abdc2633b1ed3464baeb65dabfa9785dc3
   Protobuf: dd1aaea7140debfe4dd0683fb8ef208e527ae153
-  SDWebImage: 5bf6aec6481ae2a062bdc59f9d6c1d1e552090e0
+  SDWebImage: 29c340dbdcef342bb13125553f4e19ce056b07a7
   Sentry: 14bdd673870e8cf64932b149fad5bbbf39a9b390
   SwiftLint: 009a898ef2a1c851f45e1b59349bf6ff2ddc990d
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7

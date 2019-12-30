@@ -35,3 +35,8 @@ struct UZAPIConstant {
     static let uizaStagDomain = "stag-ucc.uizadev.io"
     static let uizaUccDomain = "ucc.uiza.io"
 }
+
+func addressOf<T: AnyObject>(_ o: T) -> String {
+	let addr = unsafeBitCast(o, to: Int.self)
+	return String(format: "%p", addr)
+}

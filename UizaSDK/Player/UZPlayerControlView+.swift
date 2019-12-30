@@ -34,7 +34,8 @@ public enum UZButtonTag: Int {
 }
 
 public protocol UZPlayerTheme: class {
-    var controlView: UZPlayerControlView? {get set}
+	var id: String { get set }
+    var controlView: UZPlayerControlView? { get set }
     
     func updateUI()
     func update(withResource: UZPlayerResource?, video: UZVideoItem?, playlist: [UZVideoItem]?)
@@ -113,15 +114,15 @@ extension UZPlayerControlView {
         
         playpauseCenterButton.isHidden = true
         messageLabel?.text = message
-        self.addSubview(messageLabel!)
-        self.setNeedsLayout()
+        addSubview(messageLabel!)
+        setNeedsLayout()
     }
     
     open func hideMessage() {
         playpauseCenterButton.isHidden = false
         messageLabel?.removeFromSuperview()
         messageLabel = nil
-        self.setNeedsLayout()
+        setNeedsLayout()
     }
     
     open func showEndScreen() {
@@ -146,27 +147,27 @@ extension UZPlayerControlView {
     }
     
     open func showCoverWithLink(_ cover: String) {
-        self.showCover(url: URL(string: cover))
+        showCover(url: URL(string: cover))
     }
     
     open func showCover(url: URL?) {
-        if let url = url {
-            DispatchQueue.global(qos: .default).async {
-                let data = try? Data(contentsOf: url)
-                DispatchQueue.main.async(execute: {
-                    if let data = data {
-                        self.coverImageView.image = UIImage(data: data)
-                    } else {
-                        self.coverImageView.image = nil
-                    }
-                    self.hideLoader()
-                })
-            }
-        }
+		guard let url = url else { return }
+		
+		DispatchQueue.global(qos: .default).async {
+			let data = try? Data(contentsOf: url)
+			DispatchQueue.main.async(execute: {
+				if let data = data {
+					self.coverImageView.image = UIImage(data: data)
+				} else {
+					self.coverImageView.image = nil
+				}
+				self.hideLoader()
+			})
+		}
     }
     
     open func hideCoverImageView() {
-        self.coverImageView.isHidden = true
+        coverImageView.isHidden = true
     }
     
     open func showCastingScreen() {
@@ -204,7 +205,7 @@ extension UZPlayerControlView {
         }
         
         delegate?.controlView(controlView: self, didSelectButton: button)
-        self.setNeedsLayout()
+        setNeedsLayout()
     }
     
     @objc open func onTap(_ gesture: UITapGestureRecognizer) {
@@ -253,13 +254,13 @@ extension UZPlayerControlView {
         remainTimeLabel.text = remainingTime.toString
         
         delegate?.controlView(controlView: self, slider: sender, onSliderEvent: .valueChanged)
-        self.setNeedsLayout()
+        setNeedsLayout()
     }
     
     @objc open func progressSliderTouchEnded(_ sender: UISlider) {
         autoFadeOutControlView(after: autoHideControlsInterval)
         delegate?.controlView(controlView: self, slider: sender, onSliderEvent: .touchUpInside)
-        self.setNeedsLayout()
+        setNeedsLayout()
     }
 }
 
@@ -276,7 +277,7 @@ open class UZLiveBadgeView: UIView {
             }
             
             viewBadge.isHidden = views < 0
-            self.setNeedsLayout()
+            setNeedsLayout()
         }
     }
     
@@ -315,13 +316,13 @@ open class UZLiveBadgeView: UIView {
         viewBadge.spacing = 2
         viewBadge.isUserInteractionEnabled = false
         
-        self.addSubview(liveBadge)
-        self.addSubview(viewBadge)
+        addSubview(liveBadge)
+        addSubview(viewBadge)
         
         frameLayout = DoubleFrameLayout(axis: .horizontal, views: [liveBadge, viewBadge])
         frameLayout.spacing = 5
         frameLayout.isIntrinsicSizeEnabled = true
-        self.addSubview(frameLayout)
+        addSubview(frameLayout)
     }
     
     public required init?(coder aDecoder: NSCoder) {
@@ -335,7 +336,7 @@ open class UZLiveBadgeView: UIView {
     open override func layoutSubviews() {
         super.layoutSubviews()
         
-        frameLayout.frame = self.bounds
+        frameLayout.frame = bounds
     }
     
 }

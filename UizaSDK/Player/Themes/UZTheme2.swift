@@ -11,6 +11,7 @@ import AVKit
 import FrameLayoutKit
 
 open class UZTheme2: UZPlayerTheme {
+	public var id = "UZTheme2"
 	public weak var controlView: UZPlayerControlView?
 	
 	let topGradientLayer = CAGradientLayer()

@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name = 'UizaSDK'
-    s.version = '8.4.8'
+    s.version = '8.4.9'
     s.summary = 'UizaSDK'
     s.homepage = 'https://uiza.io/'
     s.documentation_url = 'https://docs.uiza.io/v4'
@@ -11,10 +11,10 @@ Pod::Spec.new do |s|
     s.resource_bundles = {
         'Fonts' => ['UizaSDK/Fonts/*.{ttf}']
     }
-    s.pod_target_xcconfig = { 'SWIFT_VERSION' => '5.0' }
+    s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.2' }
     s.ios.deployment_target = '8.0'
     s.requires_arc  = true
-    s.swift_version = '5.0'
+    s.swift_version = '4.2'
     
     s.ios.dependency "Alamofire"
     s.ios.dependency "SwiftyJSON"

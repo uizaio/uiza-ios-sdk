@@ -77,7 +77,7 @@ func DLog(_ message: String, _ file: String = #file, _ line: Int = #line) {
 	print("\((file as NSString).lastPathComponent) [Line \(line)]: \((message))")
 	#endif
 	
-	PostNotification(Notification.Name.UZEventLogMessage, object: message, userInfo: nil)
+	PostNotification(.UZEventLogMessage, object: message, userInfo: nil)
 }
 
 func PostNotification(_ notification: Notification.Name!, object: Any? = nil, userInfo: [String: AnyHashable]? = nil) {

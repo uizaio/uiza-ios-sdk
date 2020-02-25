@@ -121,11 +121,12 @@ extension UZPlayer: IMAAdsManagerDelegate {
 // MARK: - Google cast
 
 extension UZPlayer {
+	
     @objc open func showAirPlayDevicesSelection() {
         let volumeView = UZAirPlayButton()
         volumeView.alpha = 0
         volumeView.isUserInteractionEnabled = false
-        self.addSubview(volumeView)
+        addSubview(volumeView)
         
         for subview in volumeView.subviews where subview is UIButton {
             let button = subview as? UIButton
@@ -188,7 +189,7 @@ extension UZPlayer {
             let item = UZCastItem(id: currentVideo.id, title: currentVideo.name, customData: nil,
                                   streamType: currentVideo.isLive ? .live : .buffered, contentType: "application/dash+xml",
                                   url: linkPlay.url, thumbnailUrl: currentVideo.thumbnailURL, duration: currentVideo.duration,
-                                  playPosition: self.currentPosition, mediaTracks: nil)
+                                  playPosition: currentPosition, mediaTracks: nil)
             UZCastingManager.shared.castItem(item: item)
         }
         
@@ -276,46 +277,44 @@ extension UZPlayer {
     }
     
     open func showRelates() {
-        if let currentVideo = currentVideo {
-            let viewController = UZRelatedViewController()
-            viewController.collectionViewController.currentVideo = self.currentVideo
-            viewController.loadRelateVideos(to: currentVideo)
-            viewController.collectionViewController.selectedBlock = { [weak self] (videoItem) in
-                guard let `self` = self else { return }
-                
-                self.loadVideo(videoItem)
-                self.videoChangedBlock?(videoItem)
-                viewController.dismiss(animated: true, completion: nil)
-            }
-            
-            NKModalViewManager.sharedInstance().presentModalViewController(viewController)
-        } else {
-            #if DEBUG
-            print("[UZPlayer] currentVideo not set")
-            #endif
+        guard let currentVideo = currentVideo else {
+            DLog("[UZPlayer] currentVideo not set")
+			return
         }
+		
+		let viewController = UZRelatedViewController()
+		viewController.collectionViewController.currentVideo = currentVideo
+		viewController.loadRelateVideos(to: currentVideo)
+		viewController.collectionViewController.selectedBlock = { [weak self] (videoItem) in
+			guard let `self` = self else { return }
+			
+			self.loadVideo(videoItem)
+			self.videoChangedBlock?(videoItem)
+			viewController.dismiss(animated: true, completion: nil)
+		}
+		
+		NKModalViewManager.sharedInstance().presentModalViewController(viewController)
     }
     
     open func showPlaylist() {
-        if let playlist = self.playlist {
-            let viewController = UZPlaylistViewController()
-            viewController.collectionViewController.currentVideo = self.currentVideo
-            viewController.collectionViewController.videos = playlist
-            //            viewController.loadPlaylist(metadataId: currentMetadata)
-            viewController.collectionViewController.selectedBlock = { [weak self] (videoItem) in
-                guard let `self` = self else { return }
-                
-                self.loadVideo(videoItem)
-                self.videoChangedBlock?(videoItem)
-                viewController.dismiss(animated: true, completion: nil)
-                
-            }
-            NKModalViewManager.sharedInstance().presentModalViewController(viewController)
-        } else {
-            #if DEBUG
-            print("[UZPlayer] playlist not set")
-            #endif
+		guard let playlist = playlist else {
+            DLog("[UZPlayer] playlist not set")
+			return
         }
+		
+		let viewController = UZPlaylistViewController()
+		viewController.collectionViewController.currentVideo = currentVideo
+		viewController.collectionViewController.videos = playlist
+//		viewController.loadPlaylist(metadataId: currentMetadata)
+		viewController.collectionViewController.selectedBlock = { [weak self] (videoItem) in
+			guard let `self` = self else { return }
+			
+			self.loadVideo(videoItem)
+			self.videoChangedBlock?(videoItem)
+			viewController.dismiss(animated: true, completion: nil)
+			
+		}
+		NKModalViewManager.sharedInstance().presentModalViewController(viewController)
     }
     
     open func showQualitySelector() {
@@ -334,32 +333,32 @@ extension UZPlayer {
     }
     
     open func showMediaOptionSelector() {
-        if let currentItem = self.avPlayer?.currentItem {
-            let asset = currentItem.asset
-            
-            let viewController = UZMediaOptionSelectionViewController()
-            viewController.asset = asset
-            viewController.selectedSubtitle = selectedSubtitle
-            viewController.subtitiles = subtitles
-            //            viewController.selectedSubtitleOption = nil
-            viewController.collectionViewController.selectedBlock = { [weak self] (option, indexPath) in
-                guard let `self` = self else { return }
-                
-                if indexPath.section == 0 { // audio
-                    self.selectAudio(index: indexPath.item)
-                } else if indexPath.section == 1 { // subtitile
-                    if self.subtitles.isEmpty {
-                        self.selectSubtitle(index: indexPath.item)
-                    } else {
-                        self.selectExtenalSubtitle(subtitle: self.subtitles[indexPath.row])
-                    }
-                }
-                
-                viewController.dismiss(animated: true, completion: nil)
-            }
-            
-            NKModalViewManager.sharedInstance().presentModalViewController(viewController)
-        }
+		guard let currentItem = avPlayer?.currentItem else { return }
+		
+		let asset = currentItem.asset
+		
+		let viewController = UZMediaOptionSelectionViewController()
+		viewController.asset = asset
+		viewController.selectedSubtitle = selectedSubtitle
+		viewController.subtitiles = subtitles
+		//            viewController.selectedSubtitleOption = nil
+		viewController.collectionViewController.selectedBlock = { [weak self] (option, indexPath) in
+			guard let `self` = self else { return }
+			
+			if indexPath.section == 0 { // audio
+				self.selectAudio(index: indexPath.item)
+			} else if indexPath.section == 1 { // subtitile
+				if self.subtitles.isEmpty {
+					self.selectSubtitle(index: indexPath.item)
+				} else {
+					self.selectExtenalSubtitle(subtitle: self.subtitles[indexPath.row])
+				}
+			}
+			
+			viewController.dismiss(animated: true, completion: nil)
+		}
+		
+		NKModalViewManager.sharedInstance().presentModalViewController(viewController)
     }
 }
 
@@ -376,8 +375,8 @@ extension UZPlayer: UZPlayerControlViewDelegate {
         if let action = UZButtonTag(rawValue: button.tag) {
             switch action {
             case .back:
-                self.stop()
-                self.backBlock?(isFullScreen)
+                stop()
+                backBlock?(isFullScreen)
                 
             case .play:
                 if button.isSelected {
@@ -481,7 +480,7 @@ extension UZPlayer: UZPlayerControlViewDelegate {
                 
             case .touchUpInside :
                 isSliderSliding = false
-                let targetTime = self.totalDuration * Double(slider.value)
+                let targetTime = totalDuration * Double(slider.value)
                 
                 if isPlayToTheEnd {
                     isPlayToTheEnd = false
@@ -512,9 +511,9 @@ extension UZPlayer: UZPlayerControlViewDelegate {
         case .touchUpInside :
             isSliderSliding = false
             
-            var targetTime = self.totalDuration * Double(slider.value)
+            var targetTime = totalDuration * Double(slider.value)
             if targetTime.isNaN {
-                guard let currentItem = self.playerLayer?.playerItem,
+                guard let currentItem = playerLayer?.playerItem,
                     let seekableRange = currentItem.seekableTimeRanges.last?.timeRangeValue else { return }
                 
                 let seekableStart = CMTimeGetSeconds(seekableRange.start)

@@ -210,7 +210,8 @@ open class UZContentServices: UZAPIConnector {
 	
 	/**
 	Get video link play
-	- parameter entityId: `id` of video
+	- parameter video: video item
+	- parameter token: Token
 	- parameter completionBlock: block called when completed, returns `URL`, or `Error` if occurred
 	*/
 	public func loadLinkPlay(video: UZVideoItem, token: String? = nil, completionBlock:((_ results: [UZVideoLinkPlay]?, _ error: Error?) -> Void)? = nil) {

@@ -55,31 +55,27 @@ open class UZPlayerLayerView: UIView {
 		}
 	}
 	
-	public var currentVideo: UZVideoItem?
+	public internal(set) var currentVideo: UZVideoItem?
 	
 	public var preferredForwardBufferDuration: TimeInterval = 0 {
 		didSet {
 			if let playerItem = playerItem {
 				if #available(iOS 10.0, *) {
 					playerItem.preferredForwardBufferDuration = preferredForwardBufferDuration
-				} else {
-					// Fallback on earlier versions
 				}
 			}
 		}
 	}
 	
 	open lazy var player: AVPlayer? = {
-		if let item = self.playerItem {
-			let player = AVPlayer(playerItem: item)
-			return player
-		}
-		return nil
+		guard let item = playerItem else { return nil }
+		let player = AVPlayer(playerItem: item)
+		return player
 	}()
 	
 	open var videoGravity = AVLayerVideoGravity.resizeAspect {
 		didSet {
-			self.playerLayer?.videoGravity = videoGravity
+			playerLayer?.videoGravity = videoGravity
 		}
 	}
 	
@@ -93,11 +89,11 @@ open class UZPlayerLayerView: UIView {
 	
 	public var aspectRatio: UZPlayerAspectRatio = .default {
 		didSet {
-			self.setNeedsLayout()
+			setNeedsLayout()
 		}
 	}
 	
-	public var playerLayer: AVPlayerLayer?
+	public internal(set) var playerLayer: AVPlayerLayer?
 	
 	fileprivate var timer: Timer?
 	fileprivate var getLatencytimer: Timer?
@@ -113,9 +109,9 @@ open class UZPlayerLayerView: UIView {
 		}
 	}
 	
-	fileprivate var isBuffering		= false
-	fileprivate var isReadyToPlay	= false
-	var shouldSeekTo: TimeInterval = 0
+	fileprivate var isBuffering = false
+	fileprivate var isReadyToPlay = false
+	internal var shouldSeekTo: TimeInterval = 0
 	
 	// MARK: - Actions
 	
@@ -196,10 +192,10 @@ open class UZPlayerLayerView: UIView {
 		guard let playerItem = playerItem else { return }
 		
 		if playerItem.isPlaybackLikelyToKeepUp {
-			self.player?.removeObserver(self, forKeyPath: "rate")
-			self.playerLayer?.removeFromSuperlayer()
-			self.player?.replaceCurrentItem(with: nil)
-			self.player = nil
+			playerLayer?.removeFromSuperlayer()
+			player?.removeObserver(self, forKeyPath: "rate")
+			player?.replaceCurrentItem(with: nil)
+			player = nil
 			
 			if configPlayerAndCheckForPlayable() {
 				delegate?.player(playerRequiresSeekingToLive: self)
@@ -215,31 +211,31 @@ open class UZPlayerLayerView: UIView {
 		
 		super.layoutSubviews()
 		
-		switch self.aspectRatio {
+		switch aspectRatio {
 		case .default:
-			self.playerLayer?.videoGravity = .resizeAspect
-			self.playerLayer?.frame  = self.bounds
+			playerLayer?.videoGravity = .resizeAspect
+			playerLayer?.frame  = bounds
 			
 		case .sixteen2Nine:
-			let height = self.bounds.width/(16/9)
-			self.playerLayer?.videoGravity = .resize
-			self.playerLayer?.frame = CGRect(x: 0, y: (self.bounds.height - height)/2, width: self.bounds.width, height: height)
+			let height = bounds.width/(16/9)
+			playerLayer?.videoGravity = .resize
+			playerLayer?.frame = CGRect(x: 0, y: (bounds.height - height)/2, width: bounds.width, height: height)
 			
 		case .four2Three:
-			self.playerLayer?.videoGravity = .resize
-			let width = self.bounds.height * 4 / 3
-			self.playerLayer?.frame = CGRect(x: (self.bounds.width - width)/2, y: 0, width: width, height: self.bounds.height)
+			playerLayer?.videoGravity = .resize
+			let width = bounds.height * 4 / 3
+			playerLayer?.frame = CGRect(x: (bounds.width - width)/2, y: 0, width: width, height: bounds.height)
 		}
 		
 		CATransaction.commit()
 	}
 	
-	open func seek(to seconds: TimeInterval, completion:(() -> Void)?) {
+	open func seek(to seconds: TimeInterval, completion: (() -> Void)?) {
 		if seconds.isNaN {
 			return
 		}
 		
-		if self.player?.currentItem?.status == .readyToPlay {
+		if player?.currentItem?.status == .readyToPlay {
 			#if swift(>=4.2)
 			let draggedTime = CMTimeMake(value: Int64(seconds), timescale: 1)
 			let zeroTime = CMTime.zero
@@ -248,19 +244,17 @@ open class UZPlayerLayerView: UIView {
 			let zeroTime = kCMTimeZero
 			#endif
 			
-			self.player!.seek(to: draggedTime, toleranceBefore: zeroTime, toleranceAfter: zeroTime, completionHandler: { [weak self] (_) in
+			player!.seek(to: draggedTime, toleranceBefore: zeroTime, toleranceAfter: zeroTime, completionHandler: { [weak self] (_) in
 				self?.setupTimer()
 				completion?()
 			})
 		} else {
-			self.shouldSeekTo = seconds
+			shouldSeekTo = seconds
 		}
 	}
 	
 	fileprivate func onPlayerItemChange() {
-		if lastPlayerItem == playerItem {
-			return
-		}
+		guard lastPlayerItem != playerItem else { return }
 		
 		let notificationCenter = NotificationCenter.default
 		
@@ -278,8 +272,7 @@ open class UZPlayerLayerView: UIView {
 		lastPlayerItem = playerItem
 		if let item = playerItem {
 			notificationCenter.addObserver(self, selector: #selector(moviePlayerDidEnd), name: .AVPlayerItemDidPlayToEndTime, object: playerItem)
-			notificationCenter.addObserver(self, selector: #selector(moviePlayerDidFailToPlayToEndTime),
-                                           name: .AVPlayerItemFailedToPlayToEndTime, object: playerItem)
+			notificationCenter.addObserver(self, selector: #selector(moviePlayerDidFailToPlayToEndTime), name: .AVPlayerItemFailedToPlayToEndTime, object: playerItem)
 			notificationCenter.addObserver(self, selector: #selector(moviePlayerDidStall), name: .AVPlayerItemPlaybackStalled, object: playerItem)
 			
 			item.addObserver(self, forKeyPath: "status", options: .new, context: nil)
@@ -288,34 +281,32 @@ open class UZPlayerLayerView: UIView {
 			item.addObserver(self, forKeyPath: "playbackLikelyToKeepUp", options: .new, context: nil)
 			if #available(iOS 10.0, *) {
 				item.preferredForwardBufferDuration = preferredForwardBufferDuration
-			} else {
-		// Fallback on earlier versions
 			}
 		}
 	}
 	
 	fileprivate func configPlayerItem() -> AVPlayerItem? {
-		if let videoAsset = urlAsset,
-			let subtitleURL = subtitleURL { // Embed external subtitle link to player item, This does not work
-			#if swift(>=4.2)
-			let zeroTime = CMTime.zero
-			let timeRange = CMTimeRangeMake(start: zeroTime, duration: videoAsset.duration)
-			#else
-			let zeroTime = kCMTimeZero
-			let timeRange = CMTimeRangeMake(zeroTime, videoAsset.duration)
-			#endif
-			let mixComposition = AVMutableComposition()
-			let videoTrack = mixComposition.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid)
-			try? videoTrack?.insertTimeRange(timeRange, of: videoAsset.tracks(withMediaType: .video).first!, at: zeroTime)
-			
-			let subtitleAsset = AVURLAsset(url: subtitleURL)
-			let subtitleTrack = mixComposition.addMutableTrack(withMediaType: .text, preferredTrackID: kCMPersistentTrackID_Invalid)
-			try? subtitleTrack?.insertTimeRange(timeRange, of: subtitleAsset.tracks(withMediaType: .text).first!, at: zeroTime)
-			
-			return AVPlayerItem(asset: mixComposition)
+		guard let videoAsset = urlAsset, let subtitleURL = subtitleURL else { // Embed external subtitle link to player item, This does not work
+			return urlAsset != nil ? AVPlayerItem(asset: urlAsset!) : nil
 		}
 		
-		return AVPlayerItem(asset: urlAsset!)
+		#if swift(>=4.2)
+		let zeroTime = CMTime.zero
+		let timeRange = CMTimeRangeMake(start: zeroTime, duration: videoAsset.duration)
+		#else
+		let zeroTime = kCMTimeZero
+		let timeRange = CMTimeRangeMake(zeroTime, videoAsset.duration)
+		#endif
+		
+		let mixComposition = AVMutableComposition()
+		let videoTrack = mixComposition.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid)
+		try? videoTrack?.insertTimeRange(timeRange, of: videoAsset.tracks(withMediaType: .video).first!, at: zeroTime)
+		
+		let subtitleAsset = AVURLAsset(url: subtitleURL)
+		let subtitleTrack = mixComposition.addMutableTrack(withMediaType: .text, preferredTrackID: kCMPersistentTrackID_Invalid)
+		try? subtitleTrack?.insertTimeRange(timeRange, of: subtitleAsset.tracks(withMediaType: .text).first!, at: zeroTime)
+		
+		return AVPlayerItem(asset: mixComposition)
 	}
 	
 	@discardableResult
@@ -329,6 +320,7 @@ open class UZPlayerLayerView: UIView {
 		
 		playerLayer = AVPlayerLayer(player: player)
 		playerLayer!.videoGravity = videoGravity
+		
 //		#if ALLOW_MUX
 //		if UizaSDK.appId == "a9383d04d7d0420bae10dbf96bb27d9b" {
 //			let key = "ei4d2skl1bkrh6u2it9n3idjg"
@@ -361,61 +353,59 @@ open class UZPlayerLayerView: UIView {
 	
 	@discardableResult
 	fileprivate func checkForPlayable() -> Bool {
-		if let playerItem = playerItem {
-			if playerItem.asset.isPlayable == false {
-				DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-					self.delegate?.player(player: self, playerStateDidChange: .error)
-				}
+		guard let playerItem = playerItem else { return false }
+		
+		if playerItem.asset.isPlayable == false {
+			DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+				self.delegate?.player(player: self, playerStateDidChange: .error)
 			}
-			
-			return playerItem.asset.isPlayable
 		}
 		
-		return false
+		return playerItem.asset.isPlayable
 	}
 	
 	fileprivate func updateStatus(includeLoading: Bool = false) {
-		if let player = player {
-			if let playerItem = playerItem {
-				if includeLoading {
-					if playerItem.isPlaybackLikelyToKeepUp || playerItem.isPlaybackBufferFull {
-						self.state = .bufferFinished
-					} else {
-						self.state = .buffering
-					}
+		guard let player = player else { return }
+		
+		if let playerItem = playerItem {
+			if includeLoading {
+				if playerItem.isPlaybackLikelyToKeepUp || playerItem.isPlaybackBufferFull {
+					state = .bufferFinished
+				} else {
+					state = .buffering
 				}
 			}
+		}
+		
+		if player.rate == 0.0 {
+			if player.error != nil {
+				state = .error
+				return
+			}
 			
-			if player.rate == 0.0 {
-				if player.error != nil {
-					self.state = .error
+			if let currentItem = player.currentItem {
+				if player.currentTime() >= currentItem.duration {
+					moviePlayerDidEnd()
 					return
 				}
-				
-				if let currentItem = player.currentItem {
-					if player.currentTime() >= currentItem.duration {
-						moviePlayerDidEnd()
-						return
-					}
-			//					if currentItem.isPlaybackLikelyToKeepUp || currentItem.isPlaybackBufferFull {
-			//
-			//					}
-				}
+//				if currentItem.isPlaybackLikelyToKeepUp || currentItem.isPlaybackBufferFull {
+//
+//				}
 			}
 		}
 	}
 	
 	@objc open func moviePlayerDidEnd() {
-		if state != .playedToTheEnd {
-			if let playerItem = playerItem {
-				delegate?.player(player: self, playTimeDidChange: CMTimeGetSeconds(playerItem.duration), totalTime: CMTimeGetSeconds(playerItem.duration))
-			}
-
-			self.state = .playedToTheEnd
-			self.isPlaying = false
-			self.timer?.invalidate()
-			self.getLatencytimer?.invalidate()
+		guard state != .playedToTheEnd else { return }
+		
+		if let playerItem = playerItem {
+			delegate?.player(player: self, playTimeDidChange: CMTimeGetSeconds(playerItem.duration), totalTime: CMTimeGetSeconds(playerItem.duration))
 		}
+		
+		state = .playedToTheEnd
+		isPlaying = false
+		timer?.invalidate()
+		getLatencytimer?.invalidate()
 	}
 	
 	@objc open func moviePlayerDidFailToPlayToEndTime(_ notification: Notification) {
@@ -447,70 +437,69 @@ open class UZPlayerLayerView: UIView {
     
     // swiftlint:disable block_based_kvo
 	override open func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
-		if let item = object as? AVPlayerItem, let keyPath = keyPath {
-			if item == self.playerItem {
-				switch keyPath {
-				case "status":
-					updateVideoQuality()
-					if player?.status == AVPlayer.Status.readyToPlay {
-						if let video = currentVideo, video.isLive {
-							UZVisualizeSavedInformation.shared.isUpdateLivestreamLatency = true
-							setupGetLatencyTimer()
-						} else {
-							getLatencytimer?.invalidate()
-						}
-						self.state = .buffering
-						
-						if shouldSeekTo != 0 {
-							seek(to: shouldSeekTo, completion: {
-								self.shouldSeekTo = 0
-								self.isReadyToPlay = true
-								self.state = .readyToPlay
-							})
-						} else {
-							self.isReadyToPlay = true
-							self.state = .readyToPlay
-						}
-					} else if player?.status == AVPlayer.Status.failed {
-						self.state = .error
-					}
+		guard let item = object as? AVPlayerItem, let keyPath = keyPath else { return }
+		guard item == playerItem else { return }
+		
+		switch keyPath {
+		case "status":
+			updateVideoQuality()
+			if player?.status == .readyToPlay {
+				if let video = currentVideo, video.isLive {
+					UZVisualizeSavedInformation.shared.isUpdateLivestreamLatency = true
+					setupGetLatencyTimer()
+				} else {
+					getLatencytimer?.invalidate()
+				}
+				state = .buffering
+				
+				if shouldSeekTo != 0 {
+					seek(to: shouldSeekTo, completion: {
+						self.shouldSeekTo = 0
+						self.isReadyToPlay = true
+						self.state = .readyToPlay
+					})
+				} else {
+					isReadyToPlay = true
+					state = .readyToPlay
+				}
+			} else if player?.status == AVPlayer.Status.failed {
+				state = .error
+			}
+			
+		case "loadedTimeRanges":
+			if let timeInterVarl = availableDuration() {
+				let duration = item.duration
+				var totalDuration = CMTimeGetSeconds(duration)
+				
+				if totalDuration.isNaN {
+					guard let seekableRange = item.seekableTimeRanges.last?.timeRangeValue else { return }
 					
-				case "loadedTimeRanges":
-					if let timeInterVarl = self.availableDuration() {
-						let duration = item.duration
-						var totalDuration = CMTimeGetSeconds(duration)
-						
-						if totalDuration.isNaN {
-							guard let seekableRange = item.seekableTimeRanges.last?.timeRangeValue else { return }
-							
-							let seekableStart = CMTimeGetSeconds(seekableRange.start)
-							let seekableDuration = CMTimeGetSeconds(seekableRange.duration)
-							totalDuration = seekableStart + seekableDuration
-						}
-						
-						delegate?.player(player: self, loadedTimeDidChange: timeInterVarl, totalDuration: totalDuration)
-					}
-					
-				case "playbackBufferEmpty":
-					if self.playerItem!.isPlaybackBufferEmpty {
-						self.state = .buffering
-						self.bufferingSomeSecond()
-					}
-					
-				case "playbackLikelyToKeepUp":
-					if item.isPlaybackBufferEmpty {
-						if state != .bufferFinished && isReadyToPlay {
-							self.state = .bufferFinished
-						}
-					}
-					
-				case "rate":
-					updateStatus()
-					
-				default:
-					break
+					let seekableStart = CMTimeGetSeconds(seekableRange.start)
+					let seekableDuration = CMTimeGetSeconds(seekableRange.duration)
+					totalDuration = seekableStart + seekableDuration
+				}
+				
+				delegate?.player(player: self, loadedTimeDidChange: timeInterVarl, totalDuration: totalDuration)
+			}
+			
+		case "playbackBufferEmpty":
+			if playerItem!.isPlaybackBufferEmpty {
+				state = .buffering
+				bufferingSomeSecond()
+			}
+			
+		case "playbackLikelyToKeepUp":
+			if item.isPlaybackBufferEmpty {
+				if state != .bufferFinished && isReadyToPlay {
+					state = .bufferFinished
 				}
 			}
+			
+		case "rate":
+			updateStatus()
+			
+		default:
+			break
 		}
 	}
 	
@@ -531,11 +520,10 @@ extension UZPlayerLayerView {
     @objc fileprivate func playerTimerAction() {
         if let playerItem = playerItem {
             #if canImport(GoogleCast)
-            let currentTime = UZCastingManager.shared.hasConnectedSession ? UZCastingManager.shared.currentPosition
-                : CMTimeGetSeconds(playerItem.currentTime())
-            // CMTimeGetSeconds(self.player!.currentTime())
+            let currentTime = UZCastingManager.shared.hasConnectedSession ? UZCastingManager.shared.currentPosition :
+																			CMTimeGetSeconds(playerItem.currentTime()) // CMTimeGetSeconds(player!.currentTime())
             #else
-            let currentTime = CMTimeGetSeconds(playerItem.currentTime()) // CMTimeGetSeconds(self.player!.currentTime())
+            let currentTime = CMTimeGetSeconds(playerItem.currentTime()) // CMTimeGetSeconds(player!.currentTime())
             #endif
             
             var totalDuration: TimeInterval
@@ -550,7 +538,6 @@ extension UZPlayerLayerView {
             }
             
             delegate?.player(player: self, playTimeDidChange: currentTime, totalTime: totalDuration)
-            
             updateStatus(includeLoading: true)
         }
     }
@@ -575,8 +562,8 @@ extension UZPlayerLayerView {
     }
     
     fileprivate func bufferingSomeSecond() {
-        self.state = .buffering
-        guard isBuffering == false else { return }
+        state = .buffering
+        guard !isBuffering else { return }
         
         isBuffering = true
         
@@ -597,7 +584,7 @@ extension UZPlayerLayerView {
     }
     
     open func resetPlayer() {
-        self.playerItem = nil
+        playerItem = nil
         
         if timer != nil {
             timer!.invalidate()
@@ -615,14 +602,14 @@ extension UZPlayerLayerView {
         }
         
         player?.removeObserver(self, forKeyPath: "rate")
-        self.pause()
-        self.playerLayer?.removeFromSuperlayer()
-        self.player?.replaceCurrentItem(with: nil)
-        self.player = nil
+        pause()
+        playerLayer?.removeFromSuperlayer()
+        player?.replaceCurrentItem(with: nil)
+        player = nil
     }
     
     open func prepareToDeinit() {
-        self.resetPlayer()
+        resetPlayer()
         
         #if canImport(GoogleCast)
         if UZCastingManager.shared.hasConnectedSession {
@@ -632,10 +619,10 @@ extension UZPlayerLayerView {
     }
     
     open func onTimeSliderBegan() {
-        self.player?.pause()
+        player?.pause()
         
-        if self.player?.currentItem?.status == .readyToPlay {
-            self.timer?.fireDate = Date.distantFuture
+        if player?.currentItem?.status == .readyToPlay {
+            timer?.fireDate = .distantFuture
         }
     }
 }

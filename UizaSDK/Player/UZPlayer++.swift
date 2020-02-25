@@ -68,7 +68,7 @@ extension UZPlayer {
 extension UZPlayer {
 
     @objc func onOrientationChanged() {
-        self.updateUI(isFullScreen)
+        updateUI(isFullScreen)
     }
     
     @objc func onApplicationInactive(notification: Notification) {
@@ -119,7 +119,7 @@ extension UZPlayer {
     
     /*
     @objc fileprivate func fullScreenButtonPressed() {
-        controlView.updateUI(!self.isFullScreen)
+        controlView.updateUI(!isFullScreen)
         
         if UIDevice.current.userInterfaceIdiom == .phone {
             if isFullScreen {
@@ -178,8 +178,7 @@ extension UZPlayer {
                     self.controlView.setNeedsLayout()
                 }
                 
-                self.liveViewTimer = Timer.scheduledTimer(timeInterval: 3.0, target: self,
-                                                          selector: #selector(self.loadLiveViews), userInfo: nil, repeats: false)
+                self.liveViewTimer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(self.loadLiveViews), userInfo: nil, repeats: false)
             }
         }
     }
@@ -201,7 +200,7 @@ extension UZPlayer {
                 guard let `self` = self else { return }
                 
                 if let status = status {
-                    //                    self.controlView.liveStartDate = status.startDate
+//                    self.controlView.liveStartDate = status.startDate
                     
                     if status.state == "stop" { // || status.endDate != nil
                         self.stop()
@@ -229,11 +228,11 @@ extension UZPlayer {
      */
     open func seekToLive() {
         guard let currentVideo = currentVideo, currentVideo.isLive else { return }
-        guard let currentItem = self.avPlayer?.currentItem else { return }
+        guard let currentItem = avPlayer?.currentItem else { return }
         guard let seekableRange = currentItem.seekableTimeRanges.last as? CMTimeRange else { return }
         
         let livePosition = CMTimeGetSeconds(seekableRange.start) + CMTimeGetSeconds(seekableRange.duration)
-        self.seek(to: livePosition, completion: { [weak self] in
+        seek(to: livePosition, completion: { [weak self] in
             self?.playerLayer?.play()
         })
     }
@@ -254,7 +253,7 @@ extension UZPlayer {
 
     public func getCurrentLatency() -> TimeInterval {
         guard let currentVideo = currentVideo, currentVideo.isLive else { return 0 }
-        guard let currentItem = self.avPlayer?.currentItem else { return 0 }
+        guard let currentItem = avPlayer?.currentItem else { return 0 }
         guard let seekableRange = currentItem.seekableTimeRanges.last as? CMTimeRange else { return 0 }
         
         let livePosition = CMTimeGetSeconds(seekableRange.start) + CMTimeGetSeconds(seekableRange.duration)
@@ -277,17 +276,18 @@ extension UZPlayer {
     }
 
     open func nextVideo() {
-        self.currentVideoIndex += 1
+        currentVideoIndex += 1
     }
 
     open func previousVideo() {
-        self.currentVideoIndex -= 1
+        currentVideoIndex -= 1
     }
 }
 
 // MARK: - Heartbeat
 
 extension UZPlayer {
+	
     func startHeartbeat() {
         sendHeartbeat()
         
@@ -316,18 +316,22 @@ extension UZPlayer {
             heartbeatService.sendCDNHeartbeat(cdnName: domainName)
         }
     }
+	
 }
 
 // MARK: - Subtitles
 
 extension UZPlayer {
+	
     func addSubtitleLabel() {
-        subtitleLabel = UILabel()
+		if subtitleLabel == nil {
+			subtitleLabel = UILabel()
+		}
         subtitleLabel!.translatesAutoresizingMaskIntoConstraints = false
         subtitleLabel!.backgroundColor = UIColor.black
         subtitleLabel!.numberOfLines = 0
         subtitleLabel!.lineBreakMode = .byWordWrapping
-        self.insertSubview(subtitleLabel!, belowSubview: controlView)
+        insertSubview(subtitleLabel!, belowSubview: controlView)
         
         let horizontalContraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|-(20)-[l]-(20)-|",
                                                                   options: NSLayoutConstraint.FormatOptions(rawValue: 0),
@@ -335,8 +339,8 @@ extension UZPlayer {
         let verticalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:[l]-(30)-|",
                                                                  options: NSLayoutConstraint.FormatOptions(rawValue: 0),
                                                                  metrics: nil, views: ["l": subtitleLabel!])
-        self.addConstraints(horizontalContraints)
-        self.addConstraints(verticalConstraints)
+        addConstraints(horizontalContraints)
+        addConstraints(verticalConstraints)
     }
     
     func removeSubtitleLabel() {
@@ -356,50 +360,46 @@ extension UZPlayer {
         if let timeObserver = timeObserver {
             avPlayer?.removeTimeObserver(timeObserver)
         }
-        timeObserver = avPlayer?.addPeriodicTimeObserver(
-            forInterval: interval,
-            queue: DispatchQueue.main,
-            using: { [weak self] (time) -> Void in
-                guard let `self` = self else { return }
-                
-                guard let text = savedSubtitles.search(for: TimeInterval(CMTimeGetSeconds(time)))?.text else {
-                    self.subtitleLabel?.text = ""
-                    return
-                }
-                
-                do {
-                    let paragraphStyle = NSMutableParagraphStyle()
-                    paragraphStyle.alignment = .center
-                    paragraphStyle.lineBreakMode = .byWordWrapping
-                    
-                    let textAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.white, .paragraphStyle: paragraphStyle]
-                    let attrStr = try NSMutableAttributedString(
-                        data: text.data(using: String.Encoding.unicode, allowLossyConversion: true)!,
-                        options: [NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.html],
-                        documentAttributes: nil)
-                    attrStr.addAttributes(textAttributes, range: NSRange(location: 0, length: attrStr.length))
-                    attrStr.enumerateAttribute(
-                        NSAttributedString.Key.font,
-                        in: NSRange(location: 0, length: attrStr.length),
-                        options: .longestEffectiveRangeNotRequired) { value, range, _ in
-                            let f1 = value as? UIFont
-                            let f2 = UIFont.systemFont(ofSize: 12)
-                            if let f3 = self.applyTraitsFromFont(from: f1, to: f2) {
-                                attrStr.addAttribute(
-                                    NSAttributedString.Key.font, value: f3, range: range)
-                            }
-                    }
-                    self.subtitleLabel?.attributedText = attrStr
-                } catch let error {
-                    print(error.localizedDescription)
-                }
+        timeObserver = avPlayer?.addPeriodicTimeObserver(forInterval: interval, queue: DispatchQueue.main, using: { [weak self] (time) -> Void in
+			guard let `self` = self else { return }
+			
+			guard let text = savedSubtitles.search(for: TimeInterval(CMTimeGetSeconds(time)))?.text else {
+				self.subtitleLabel?.text = ""
+				return
+			}
+			
+			do {
+				let paragraphStyle = NSMutableParagraphStyle()
+				paragraphStyle.alignment = .center
+				paragraphStyle.lineBreakMode = .byWordWrapping
+				
+				let textAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.white, .paragraphStyle: paragraphStyle]
+				let attrStr = try NSMutableAttributedString(
+					data: text.data(using: String.Encoding.unicode, allowLossyConversion: true)!,
+					options: [NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.html],
+					documentAttributes: nil)
+				attrStr.addAttributes(textAttributes, range: NSRange(location: 0, length: attrStr.length))
+				attrStr.enumerateAttribute(
+					NSAttributedString.Key.font,
+					in: NSRange(location: 0, length: attrStr.length),
+					options: .longestEffectiveRangeNotRequired) { value, range, _ in
+						let f1 = value as? UIFont
+						let f2 = UIFont.systemFont(ofSize: 12)
+						if let f3 = self.applyTraitsFromFont(from: f1, to: f2) {
+							attrStr.addAttribute(
+								NSAttributedString.Key.font, value: f3, range: range)
+						}
+				}
+				self.subtitleLabel?.attributedText = attrStr
+			} catch let error {
+				DLog(error.localizedDescription)
+			}
         })
     }
 
     private func applyTraitsFromFont(from f1: UIFont?, to f2: UIFont) -> UIFont? {
-        guard let f1 = f1 else {
-            return nil
-        }
+        guard let f1 = f1 else { return nil }
+		
         let t = f1.fontDescriptor.symbolicTraits
         if let fontDescription = f2.fontDescriptor.withSymbolicTraits(t) {
             return UIFont.init(descriptor: fontDescription, size: 0)
@@ -417,7 +417,7 @@ extension UZPlayer {
      - parameter index: index of subtitle track, `nil` for turning off, `-1` for default track
      */
     open func selectSubtitle(index: Int?) {
-        self.selectMediaOption(option: .legible, index: index)
+        selectMediaOption(option: .legible, index: index)
     }
 
     /**
@@ -426,7 +426,7 @@ extension UZPlayer {
      - parameter index: index of audio track, `nil` for turning off, `-1` for default audio track
      */
     open func selectAudio(index: Int?) {
-        self.selectMediaOption(option: .audible, index: index)
+        selectMediaOption(option: .audible, index: index)
     }
 
     /**
@@ -435,22 +435,21 @@ extension UZPlayer {
      - parameter index: index of media selection, `nil` for turning off, `-1` for default option
      */
     open func selectMediaOption(option: AVMediaCharacteristic, index: Int?) {
-        if let currentItem = self.avPlayer?.currentItem {
-            let asset = currentItem.asset
-            if let group = asset.mediaSelectionGroup(forMediaCharacteristic: option) {
-                currentItem.select(nil, in: group)
-
-                let options = group.options
-                if let index = index {
-                    if index > -1 && index < options.count {
-                        currentItem.select(options[index], in: group)
-                    } else if index == -1 {
-                        let defaultOption = group.defaultOption
-                        currentItem.select(defaultOption, in: group)
-                    }
-                }
-            }
-        }
+		guard let currentItem = avPlayer?.currentItem else { return }
+		let asset = currentItem.asset
+		if let group = asset.mediaSelectionGroup(forMediaCharacteristic: option) {
+			currentItem.select(nil, in: group)
+			
+			let options = group.options
+			if let index = index {
+				if index > -1 && index < options.count {
+					currentItem.select(options[index], in: group)
+				} else if index == -1 {
+					let defaultOption = group.defaultOption
+					currentItem.select(defaultOption, in: group)
+				}
+			}
+		}
     }
 
     func selectExtenalSubtitle(subtitle: UZVideoSubtitle) {
@@ -577,7 +576,7 @@ extension UZPlayer {
 
 extension UZPlayer {
     func setupUI() {
-        self.backgroundColor = UIColor.black
+        backgroundColor = UIColor.black
         
         controlView = customControlView ?? UZPlayerControlView()
         controlView.updateUI(isFullScreen)
@@ -585,28 +584,19 @@ extension UZPlayer {
         addSubview(controlView)
         
         #if swift(>=4.2)
-        NotificationCenter.default.addObserver(self, selector: #selector(onOrientationChanged),
-                                               name: UIApplication.didChangeStatusBarOrientationNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(onAudioRouteChanged),
-                                               name: AVAudioSession.routeChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onOrientationChanged), name: UIApplication.didChangeStatusBarOrientationNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onAudioRouteChanged), name: AVAudioSession.routeChangeNotification, object: nil)
         #else
-        NotificationCenter.default.addObserver(self, selector: #selector(onOrientationChanged),
-                                               name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(onAudioRouteChanged),
-                                               name: NSNotification.Name.AVAudioSessionRouteChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onOrientationChanged), name: .UIApplicationDidChangeStatusBarOrientation, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onAudioRouteChanged), name: .AVAudioSessionRouteChange, object: nil)
         #endif
         
-        NotificationCenter.default.addObserver(self, selector: #selector(showAirPlayDevicesSelection),
-                                               name: UZPlayer.ShowAirPlayDeviceListNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showAirPlayDevicesSelection), name: UZPlayer.ShowAirPlayDeviceListNotification, object: nil)
         #if canImport(GoogleCast)
-        NotificationCenter.default.addObserver(self, selector: #selector(onCastSessionDidStart),
-                                               name: NSNotification.Name.UZCastSessionDidStart, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(onCastSessionDidStop),
-                                               name: NSNotification.Name.UZCastSessionDidStop, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(onCastClientDidStart),
-                                               name: NSNotification.Name.UZCastClientDidStart, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(onCastClientDidUpdate),
-                                               name: NSNotification.Name.UZCastClientDidUpdate, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onCastSessionDidStart), name: .UZCastSessionDidStart, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onCastSessionDidStop), name: .UZCastSessionDidStop, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onCastClientDidStart), name: .UZCastClientDidStart, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onCastClientDidUpdate), name: .UZCastClientDidUpdate, object: nil)
         #endif
     }
     
@@ -616,24 +606,19 @@ extension UZPlayer {
         playerLayer!.videoGravity = videoGravity
         playerLayer!.delegate = self
         
-        self.insertSubview(playerLayer!, at: 0)
-        self.layoutIfNeeded()
+        insertSubview(playerLayer!, at: 0)
+        layoutIfNeeded()
         
         #if swift(>=4.2)
-        NotificationCenter.default.addObserver(self, selector: #selector(onApplicationActive),
-                                               name: UIApplication.didBecomeActiveNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(onApplicationInactive),
-                                               name: UIApplication.didEnterBackgroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onApplicationActive), name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onApplicationInactive), name: UIApplication.didEnterBackgroundNotification, object: nil)
         #else
-        NotificationCenter.default.addObserver(self, selector: #selector(onApplicationActive),
-                                               name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(onApplicationInactive),
-                                               name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onApplicationActive), name: .UIApplicationDidBecomeActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onApplicationInactive), name: .UIApplicationDidEnterBackground, object: nil)
         #endif
         
         #if canImport(NHNetworkTime)
-        NotificationCenter.default.addObserver(self, selector: #selector(completeSyncTime),
-                                               name: NSNotification.Name(rawValue: kNHNetworkTimeSyncCompleteNotification), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(completeSyncTime), name: NSNotification.Name(rawValue: kNHNetworkTimeSyncCompleteNotification), object: nil)
         #endif
         setupAudioCategory()
     }
@@ -641,9 +626,9 @@ extension UZPlayer {
     override open func layoutSubviews() {
         super.layoutSubviews()
         
-        visualizeInformationView?.frame = self.bounds
-        playerLayer?.frame = self.bounds
-        controlView.frame = self.bounds
+        visualizeInformationView?.frame = bounds
+        playerLayer?.frame = bounds
+        controlView.frame = bounds
         controlView.setNeedsLayout()
         controlView.layoutIfNeeded()
     }

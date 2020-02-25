@@ -15,26 +15,26 @@ open class UZPlayerControlView: UIView {
 	open var enableTimeshiftForLiveVideo = true
 	open var playerConfig: UZPlayerConfig? = nil {
 		didSet {
-			if let config = playerConfig {
-				if let themeId = config.themeId?.intValue {
-					let themeClasses: [UZPlayerTheme] = [UZTheme1(), UZTheme2(), UZTheme3(), UZTheme4(), UZTheme5(), UZTheme6(), UZTheme7()]
-					if themeId >= 0 && themeId < themeClasses.count {
-						self.theme = themeClasses[themeId]
-					}
+			guard let config = playerConfig else { return }
+			
+			if let themeId = config.themeId?.intValue {
+				let themeClasses: [UZPlayerTheme] = [UZTheme1(), UZTheme2(), UZTheme3(), UZTheme4(), UZTheme5(), UZTheme6(), UZTheme7()]
+				if themeId >= 0 && themeId < themeClasses.count {
+					self.theme = themeClasses[themeId]
 				}
-				
-				logoButton.isHidden = !config.showLogo || config.logoImageUrl == nil
-				if let logoImageURL = config.logoImageUrl {
-					logoButton.sd_setImage(with: logoImageURL, for: .normal) { [weak self] (_, _, _, _) in
-						self?.setNeedsLayout()
-					}
+			}
+			
+			logoButton.isHidden = !config.showLogo || config.logoImageUrl == nil
+			if let logoImageURL = config.logoImageUrl {
+				logoButton.sd_setImage(with: logoImageURL, for: .normal) { [weak self] (_, _, _, _) in
+					self?.setNeedsLayout()
 				}
 			}
 		}
 	}
 	
-	open var logoEdgeInsetsWhenControlsInvisible: UIEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-	open var logoEdgeInsetsWhenControlsVisible: UIEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+	open var logoEdgeInsetsWhenControlsInvisible = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+	open var logoEdgeInsetsWhenControlsVisible = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
 	
 	open var totalDuration: TimeInterval = 0
 	
@@ -43,19 +43,19 @@ open class UZPlayerControlView: UIView {
 	
 	var resource: UZPlayerResource? {
 		didSet {
-			theme?.update(withResource: self.resource, video: self.currentVideo, playlist: self.currentPlaylist)
+			theme?.update(withResource: resource, video: currentVideo, playlist: currentPlaylist)
 		}
 	}
 	
 	var currentVideo: UZVideoItem? {
 		didSet {
-			theme?.update(withResource: self.resource, video: self.currentVideo, playlist: self.currentPlaylist)
+			theme?.update(withResource: resource, video: currentVideo, playlist: currentPlaylist)
 		}
 	}
 	
 	var currentPlaylist: [UZVideoItem]? {
 		didSet {
-			theme?.update(withResource: self.resource, video: self.currentVideo, playlist: self.currentPlaylist)
+			theme?.update(withResource: resource, video: currentVideo, playlist: currentPlaylist)
 		}
 	}
 	
@@ -83,9 +83,9 @@ open class UZPlayerControlView: UIView {
 			guard theme?.id != oldValue?.id else { return }
 			theme?.controlView = self
 			theme?.updateUI()
-			theme?.update(withResource: self.resource, video: self.currentVideo, playlist: self.currentPlaylist)
+			theme?.update(withResource: resource, video: currentVideo, playlist: currentPlaylist)
 			
-			self.addSubview(endscreenView)
+			addSubview(endscreenView)
 			
 			if let allButtons = theme?.allButtons() {
 				for button in allButtons {
@@ -227,7 +227,7 @@ open class UZPlayerControlView: UIView {
 		castingButton.tag = UZButtonTag.casting.rawValue
 		logoButton.tag = UZButtonTag.logo.rawValue
 		
-		self.allButtons.forEach { (button) in
+		allButtons.forEach { (button) in
 			button.showsTouchWhenHighlighted = true
 			button.addTarget(self, action: #selector(onButtonPressed(_:)), for: .touchUpInside)
 		}
@@ -237,13 +237,13 @@ open class UZPlayerControlView: UIView {
 		settingsButton.isHidden = true
 		logoButton.isHidden = true
 		
-		self.addSubview(containerView)
+		addSubview(containerView)
 	}
 	
 	// MARK: - Skins
 	
 	func resetSkin() {
-		for button in self.allButtons {
+		for button in allButtons {
 			button.setImage(nil, for: .normal)
 			button.setImage(nil, for: .highlighted)
 			button.setImage(nil, for: .selected)
@@ -282,17 +282,17 @@ open class UZPlayerControlView: UIView {
 	override open func layoutSubviews() {
 		super.layoutSubviews()
 		
-		containerView.frame = self.bounds
-		theme?.layoutControls(rect: self.bounds)
-		castingView?.frame = self.bounds
-		endscreenView.frame = self.bounds
+		containerView.frame = bounds
+		theme?.layoutControls(rect: bounds)
+		castingView?.frame = bounds
+		endscreenView.frame = bounds
 		
 		if let messageLabel = messageLabel {
 			let edgeInsets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
 			#if swift(>=4.2)
-			let messageBounds = self.bounds.inset(by: edgeInsets)
+			let messageBounds = bounds.inset(by: edgeInsets)
 			#else
-			let messageBounds = UIEdgeInsetsInsetRect(self.bounds, edgeInsets)
+			let messageBounds = UIEdgeInsetsInsetRect(bounds, edgeInsets)
 			#endif
 			
 			let viewSize = messageBounds.size
@@ -333,7 +333,7 @@ open class UZPlayerControlView: UIView {
 			remainTimeLabel.text = remainingTime.toString
 		}
 		
-		self.setNeedsLayout()
+		setNeedsLayout()
 	}
 	
 	open func loadedTimeDidChange(loadedDuration: TimeInterval, totalDuration: TimeInterval) {
@@ -364,7 +364,7 @@ open class UZPlayerControlView: UIView {
 		}
 		
 		playerLastState = state
-		self.setNeedsLayout()
+		setNeedsLayout()
 	}
 	
 	// MARK: - UI update related function
@@ -479,8 +479,8 @@ extension UZPlayerControlView {
         doubleTapGesture?.delegate = self
         tapGesture!.require(toFail: doubleTapGesture!)
         
-        self.addGestureRecognizer(tapGesture!)
-        self.addGestureRecognizer(doubleTapGesture!)
+        addGestureRecognizer(tapGesture!)
+        addGestureRecognizer(doubleTapGesture!)
     }
     
     fileprivate func updateLiveDate() {

@@ -36,7 +36,7 @@ open class UZPlayerViewController: UIViewController {
                 NKModalViewManager.sharedInstance().modalViewControllerThatContains(playerController) != nil
 		}
 		set {
-			self.setFullscreen(fullscreen: newValue)
+			setFullscreen(fullscreen: newValue)
 		}
 	}
 	
@@ -44,14 +44,14 @@ open class UZPlayerViewController: UIViewController {
 		if fullscreen {
 			if !isFullscreen {
 				if fullscreenPresentationMode == .modal {
-					NKModalViewManager.sharedInstance().presentModalViewController(self.playerController, animatedFrom: nil, enter: { [weak self] (_) in
+					NKModalViewManager.sharedInstance().presentModalViewController(playerController, animatedFrom: nil, enter: { [weak self] (_) in
 						DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
 							self?.viewDidLayoutSubviews()
 						}
 						completion?()
 					}, exitBlock: nil)
 				} else {
-					NKFullscreenManager.sharedInstance().presentFullscreenViewController(self.playerController, animatedFrom: nil, enter: { [weak self] (_) in
+					NKFullscreenManager.sharedInstance().presentFullscreenViewController(playerController, animatedFrom: nil, enter: { [weak self] (_) in
 						DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
 							self?.viewDidLayoutSubviews()
 						}
@@ -59,7 +59,7 @@ open class UZPlayerViewController: UIViewController {
 					}, exitBlock: nil)
 				}
 				
-				self.playerController.player.controlView.updateUI(true)
+				playerController.player.controlView.updateUI(true)
 			} else {
 				UIViewController.attemptRotationToDeviceOrientation()
 				onOrientationUpdateRequestBlock?(true)
@@ -67,7 +67,7 @@ open class UZPlayerViewController: UIViewController {
 			}
 		} else {
 			onOrientationUpdateRequestBlock?(false)
-			self.playerController.player.controlView.updateUI(false)
+			playerController.player.controlView.updateUI(false)
 			
 			if let modalViewController = NKModalViewManager.sharedInstance().modalViewControllerThatContains(playerController) {
 				modalViewController.dismissWith(animated: true) { [weak self] () in
@@ -93,21 +93,20 @@ open class UZPlayerViewController: UIViewController {
 			self.isFullscreen = !self.isFullscreen
 		}
 		
-		self.view.addSubview(self.player)
+		view.addSubview(player)
 		
 		#if swift(>=4.2)
 		NotificationCenter.default.addObserver(self, selector: #selector(onDeviceRotated), name: UIDevice.orientationDidChangeNotification, object: nil)
 		#else
-		NotificationCenter.default.addObserver(self, selector: #selector(onDeviceRotated),
-                                               name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(onDeviceRotated), name: .UIDeviceOrientationDidChange, object: nil)
 		#endif
 	}
 	
 	override open func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 		
-		if playerController.player.superview == self.view {
-			playerController.player.frame = self.view.bounds
+		if playerController.player.superview == view {
+			playerController.player.frame = view.bounds
 			playerController.player.setNeedsLayout()
 			playerController.player.controlView.setNeedsLayout()
 			playerController.player.controlView.layoutIfNeeded()
@@ -117,14 +116,14 @@ open class UZPlayerViewController: UIViewController {
 	// MARK: -
 	
 	@objc func onDeviceRotated() {
-		if autoFullscreenWhenRotateDevice {
-			DispatchQueue.main.asyncAfter(deadline: .now() + autoFullscreenDelay) {
-				let orientation = UIDevice.current.orientation
-				if orientation.isLandscape {
-					self.setFullscreen(fullscreen: true)
-				} else if orientation.isPortrait {
-					self.setFullscreen(fullscreen: false)
-				}
+		guard autoFullscreenWhenRotateDevice else { return }
+		
+		DispatchQueue.main.asyncAfter(deadline: .now() + autoFullscreenDelay) {
+			let orientation = UIDevice.current.orientation
+			if orientation.isLandscape {
+				self.setFullscreen(fullscreen: true)
+			} else if orientation.isPortrait {
+				self.setFullscreen(fullscreen: false)
 			}
 		}
 	}

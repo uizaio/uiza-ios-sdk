@@ -59,18 +59,18 @@ internal class UZRelatedViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		self.view.backgroundColor = UIColor(white: 0.0, alpha: 0.4)
-		self.view.addSubview(blurView)
-		self.view.addSubview(titleLabel)
-		self.view.addSubview(collectionViewController.view)
-		self.view.addSubview(frameLayout)
+		view.backgroundColor = UIColor(white: 0.0, alpha: 0.4)
+		view.addSubview(blurView)
+		view.addSubview(titleLabel)
+		view.addSubview(collectionViewController.view)
+		view.addSubview(frameLayout)
 	}
 	
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 		
-		blurView.frame = self.view.bounds
-		frameLayout.frame = self.view.bounds
+		blurView.frame = view.bounds
+		frameLayout.frame = view.bounds
 	}
 	
 	override var preferredContentSize: CGSize {
@@ -143,7 +143,7 @@ internal class UZVideoCollectionViewController: UICollectionViewController, UICo
 			}
 		}
 		
-		self.videos.append(contentsOf: finalItems)
+		videos.append(contentsOf: finalItems)
 		
 		var indexes = [IndexPath]()
 		finalItems.forEach { (item: UZVideoItem) in
@@ -154,8 +154,8 @@ internal class UZVideoCollectionViewController: UICollectionViewController, UICo
 		}
 		
 		if !indexes.isEmpty {
-			var currentNumberOfSections = self.collectionView!.numberOfSections - 1
-			self.collectionView?.performBatchUpdates({
+			var currentNumberOfSections = collectionView!.numberOfSections - 1
+			collectionView?.performBatchUpdates({
 				self.collectionView?.insertItems(at: indexes)
 				
 				indexes.forEach({ (indexPath: IndexPath) in
@@ -174,7 +174,7 @@ internal class UZVideoCollectionViewController: UICollectionViewController, UICo
 		var index = 0
 		var found = false
 		
-		for video in self.videos {
+		for video in videos {
 			if item == video || (item.id == video.id && compareId) {
 				found = true
 				break
@@ -216,14 +216,14 @@ internal class UZVideoCollectionViewController: UICollectionViewController, UICo
 		collectionView.dataSource = self
 		collectionView.delegate = self
 
-		self.automaticallyAdjustsScrollViewInsets = false
+		automaticallyAdjustsScrollViewInsets = false
 	}
 	
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 		
 		if let messageLabel = messageLabel {
-			var viewSize = self.view.bounds.size
+			var viewSize = view.bounds.size
 			viewSize.width -= 20
 			let labelSize = messageLabel.sizeThatFits(viewSize)
 			messageLabel.frame = CGRect(x: 10, y: (viewSize.height - labelSize.height)/2, width: viewSize.width, height: labelSize.height)
@@ -250,7 +250,7 @@ internal class UZVideoCollectionViewController: UICollectionViewController, UICo
 			}
 			messageLabel?.textColor = .white
 			messageLabel?.textAlignment = .center
-			self.view.addSubview(messageLabel!)
+			view.addSubview(messageLabel!)
 		}
 
 		messageLabel?.text = message

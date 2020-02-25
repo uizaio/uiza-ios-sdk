@@ -61,7 +61,7 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 		didSet {
 			guard videoItem != oldValue else { return }
 			guard let videoItem = videoItem else {
-				self.stop()
+				stop()
 				return
 			}
 			guard player?.currentVideo != videoItem else { return }
@@ -72,7 +72,6 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 					
 					DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
 						self.view.setNeedsLayout()
-						
 					}
 				}
 			}
@@ -85,7 +84,7 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 		didSet {
 			guard videoItems != oldValue else { return }
 			guard let videoItems = videoItems else {
-				self.stop()
+				stop()
 				return
 			}
 			
@@ -96,7 +95,6 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 						
 						DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
 							self.view.setNeedsLayout()
-							
 						}
 					}
 				}
@@ -126,7 +124,7 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 		self.init()
 		
 		defer {
-			self.playerViewController = customPlayerViewController
+			playerViewController = customPlayerViewController
 		}
 	}
 	
@@ -139,12 +137,11 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 	@discardableResult
 	open func present(with videoItem: UZVideoItem? = nil, playlist: [UZVideoItem]? = nil) -> UZPlayerViewController {
 		if playerViewController == nil {
-			self.playerViewController = UZPlayerViewController()
+			playerViewController = UZPlayerViewController()
 		}
 		
 		playerViewController.onOrientationUpdateRequestBlock = { fullscreen in
 //			guard let `self` = self else { return }
-			
 //
 //			guard let lastRootViewController = self.playerWindow?.rootViewController as? UZPlayerContainerViewController else { return }
 //
@@ -175,7 +172,7 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 		}
 		
 		if playerWindow == nil {
-			self.modalPresentationStyle = .overCurrentContext
+			modalPresentationStyle = .overCurrentContext
 			
 			lastKeyWindow = UIApplication.shared.keyWindow
 			
@@ -197,23 +194,23 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 		}
 		
 		self.videoItem = videoItem
-		self.player?.playlist = playlist
+		player?.playlist = playlist
 		
-		return self.playerViewController
+		return playerViewController
 	}
 	
 	override open func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
-		self.player?.stop()
-		self.player = nil
+		player?.stop()
+		player = nil
 		
-		self.floatingHandler?.delegate = nil
-		self.floatingHandler = nil
+		floatingHandler?.delegate = nil
+		floatingHandler = nil
 		
-		self.playerWindow?.rootViewController = nil
-		self.playerWindow = nil
-		self.lastKeyWindow?.makeKeyAndVisible()
+		playerWindow?.rootViewController = nil
+		playerWindow = nil
+		lastKeyWindow?.makeKeyAndVisible()
 		
-		self.delegate?.floatingPlayerDidDismiss(self)
+		delegate?.floatingPlayerDidDismiss(self)
 		super.dismiss(animated: flag, completion: completion)
 	}
 	
@@ -232,7 +229,7 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 		}
 		
 		player?.setResource(resource: resource)
-		self.view.setNeedsLayout()
+		view.setNeedsLayout()
 	}
 	
 	open func stop() {
@@ -244,10 +241,10 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 	override open func viewDidLoad() {
 		super.viewDidLoad()
 		
-		self.view.clipsToBounds = true
-		self.view.backgroundColor = UIColor(red: 0.04, green: 0.06, blue: 0.12, alpha: 1.00)
-		self.view.addSubview(detailsContainerView)
-		self.view.addSubview(playerViewController.view)
+		view.clipsToBounds = true
+		view.backgroundColor = UIColor(red: 0.04, green: 0.06, blue: 0.12, alpha: 1.00)
+		view.addSubview(detailsContainerView)
+		view.addSubview(playerViewController.view)
 		
 		floatingHandler = NKFloatingViewHandler(target: self)
 	}
@@ -269,7 +266,7 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 //	override open func viewDidLayoutSubviews() {
 //		super.viewDidLayoutSubviews()
 //
-//		let viewSize = self.view.bounds
+//		let viewSize = view.bounds
 //		DLog("DID: \(viewSize)")
 //		let playerSize = CGSize(width: viewSize.width, height: viewSize.width * playerRatio) // 4:3
 //		playerViewController.view.frame = CGRect(x: 0, y: 0, width: playerSize.width, height: playerSize.height)
@@ -295,11 +292,11 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 	// MARK: - NKFloatingViewHandlerProtocol
 	
 	open var containerView: UIView! {
-        return self.view.window!
+        return view.window!
 	}
 	
 	open var gestureView: UIView! {
-        return self.view!
+        return view!
 	}
 	
 	open var fullRect: CGRect {
@@ -351,12 +348,12 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 			player?.controlView.tapGesture?.isEnabled = true
 			playerViewController.autoFullscreenWhenRotateDevice = true
 			
-			self.playerWindow?.makeKeyAndVisible()
-			self.delegate?.floatingPlayer(self, didBecomeFloating: false)
+			playerWindow?.makeKeyAndVisible()
+			delegate?.floatingPlayer(self, didBecomeFloating: false)
             player?.updateVisualizeInformation(visible: true)
 			
-			self.onUnfloating?(self)
-			self.view.setNeedsLayout()
+			onUnfloating?(self)
+			view.setNeedsLayout()
 		} else if progress == 1.0 {
 			player?.controlView.containerView.isHidden = true
 			player?.controlView.tapGesture?.isEnabled = false
@@ -367,13 +364,13 @@ open class UZFloatingPlayerViewController: UIViewController, NKFloatingViewHandl
 			delegate?.floatingPlayer(self, didBecomeFloating: true)
             player?.updateVisualizeInformation(visible: false)
 			
-			self.view.setNeedsLayout()
-			self.onFloating?(self)
+			view.setNeedsLayout()
+			onFloating?(self)
 		}
 	}
 	
 	open func floatingHandlerDidDismiss() {
-		self.dismiss(animated: true, completion: nil)
+		dismiss(animated: true, completion: nil)
 	}
 
 //	func forceDeviceRotate(to orientation: UIInterfaceOrientation, animated: Bool) {

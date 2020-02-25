@@ -26,7 +26,7 @@ open class UZEndscreenView: UIView {
 		}
 		set {
 			titleLabel.text = newValue
-			self.setNeedsLayout()
+			setNeedsLayout()
 		}
 	}
 	
@@ -40,7 +40,7 @@ open class UZEndscreenView: UIView {
 	}
 	
 	open func setupUI() {
-		self.backgroundColor = UIColor(white: 0.0, alpha: 0.35)
+		backgroundColor = UIColor(white: 0.0, alpha: 0.35)
 		
 		if #available(iOS 8.2, *) {
 			titleLabel.font = UIFont.systemFont(ofSize: 15, weight: .medium)
@@ -70,10 +70,10 @@ open class UZEndscreenView: UIView {
 		replayButton.tag = UZButtonTag.replay.rawValue
 		shareButton.tag = UZButtonTag.share.rawValue
 		
-//		self.addSubview(blurView)
-//		self.addSubview(titleLabel)
-		self.addSubview(replayButton)
-		self.addSubview(shareButton)
+//		addSubview(blurView)
+//		addSubview(titleLabel)
+		addSubview(replayButton)
+		addSubview(shareButton)
 		
 		frameLayout = StackFrameLayout(axis: .horizontal)
 //		frameLayout!.append(view: titleLabel)
@@ -82,14 +82,14 @@ open class UZEndscreenView: UIView {
 		frameLayout!.spacing = 30
 		frameLayout!.distribution = .center
 		frameLayout!.edgeInsets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
-		self.addSubview(frameLayout!)
+		addSubview(frameLayout!)
 	}
 	
 	override open func layoutSubviews() {
 		super.layoutSubviews()
 		
-		blurView.frame = self.bounds
-		frameLayout?.frame = self.bounds
+		blurView.frame = bounds
+		frameLayout?.frame = bounds
 	}
 	
 }

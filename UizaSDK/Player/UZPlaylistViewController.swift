@@ -59,18 +59,18 @@ internal class UZPlaylistViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		self.view.backgroundColor = UIColor(white: 0.0, alpha: 0.4)
-		self.view.addSubview(blurView)
-		self.view.addSubview(titleLabel)
-		self.view.addSubview(collectionViewController.view)
-		self.view.addSubview(frameLayout)
+		view.backgroundColor = UIColor(white: 0.0, alpha: 0.4)
+		view.addSubview(blurView)
+		view.addSubview(titleLabel)
+		view.addSubview(collectionViewController.view)
+		view.addSubview(frameLayout)
 	}
 	
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 		
-		blurView.frame = self.view.bounds
-		frameLayout.frame = self.view.bounds
+		blurView.frame = view.bounds
+		frameLayout.frame = view.bounds
 	}
 	
 	override var preferredContentSize: CGSize {

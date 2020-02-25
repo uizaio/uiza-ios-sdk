@@ -44,7 +44,7 @@ open class UZLogger: UZAPIConnector {
 			finalParams?.appendFrom(params)
 		}
 		
-		self.log(event: event, params: finalParams, completionBlock: completionBlock)
+		log(event: event, params: finalParams, completionBlock: completionBlock)
 	}
 	
 	open func log(event: String, params: Parameters? = nil, completionBlock: APIConnectorResultBlock? = nil) {
@@ -92,7 +92,7 @@ open class UZLogger: UZAPIConnector {
 			finalParams.appendFrom(params!)
 		}
 		
-		self.callAPI("", baseURLString: loggingURLString, method: .post, params: finalParams, completion: completionBlock)
+		callAPI("", baseURLString: loggingURLString, method: .post, params: finalParams, completion: completionBlock)
 	}
 	
 	// MARK: CCU Live
@@ -113,7 +113,7 @@ open class UZLogger: UZAPIConnector {
 	}()
 	
 	open func logLiveCCU(streamName: String, host: String, completionBlock: APIConnectorResultBlock? = nil) {
-		self.requestHeaderFields = ["AccessToken": accessToken]
+		requestHeaderFields = ["AccessToken": accessToken]
 		
 		let macAddress: String = UIDevice.current.identifierForVendor?.uuidString ?? ""
 		let bundleId: String = Bundle.main.bundleIdentifier ?? ""
@@ -133,7 +133,7 @@ open class UZLogger: UZAPIConnector {
 								   "ai": bundleId,
 								   "ua": "UizaSDK_\(platform)_v\(SDK_VERSION)"]
 		
-		self.callAPI(UZAPIConstant.liveLoggingApi, baseURLString: loggingURLString, method: .post, params: params, completion: { (result, error) in
+		callAPI(UZAPIConstant.liveLoggingApi, baseURLString: loggingURLString, method: .post, params: params, completion: { (result, error) in
 			DispatchQueue.main.async {
 				completionBlock?(result, error)
 			}
@@ -141,7 +141,7 @@ open class UZLogger: UZAPIConnector {
 	}
 	
 	open func trackingCategory(entityId: String, category: String, completionBlock: APIConnectorResultBlock? = nil) {
-		self.requestHeaderFields = ["AccessToken": accessToken]
+		requestHeaderFields = ["AccessToken": accessToken]
 		
 //		let macAddress: String = UIDevice.current.identifierForVendor?.uuidString ?? ""
 		let bundleId: String = Bundle.main.bundleIdentifier ?? ""
@@ -161,7 +161,7 @@ open class UZLogger: UZAPIConnector {
 								   "platform": platform,
 								   "sdk": "UizaSDK_\(platform)_v\(SDK_VERSION)"]
 		
-		self.callAPI(UZAPIConstant.trackingCategoryLoggingApi, baseURLString: loggingURLString,
+		callAPI(UZAPIConstant.trackingCategoryLoggingApi, baseURLString: loggingURLString,
                      method: .post, params: params, completion: { (result, error) in
 			DispatchQueue.main.async {
 				completionBlock?(result, error)

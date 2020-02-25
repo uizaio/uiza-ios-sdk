@@ -124,14 +124,14 @@ class ViewController: UIViewController {
     override public var shouldAutorotate: Bool {
         return false
     }
-    //
-    //    override public var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
-    //        return UIDevice.current.userInterfaceIdiom == .phone ? .portrait : UIApplication.shared.statusBarOrientation
-    //    }
-    //
-    //    override public var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-    //        return UIDevice.current.userInterfaceIdiom == .phone ? .portrait : .all
-    //    }
+	
+//    override public var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+//        return UIDevice.current.userInterfaceIdiom == .phone ? .portrait : UIApplication.shared.statusBarOrientation
+//    }
+//
+//    override public var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+//        return UIDevice.current.userInterfaceIdiom == .phone ? .portrait : .all
+//    }
     
     var themeIndex: Int = 0
     let themeClasses: [UZPlayerTheme.Type] = [UZTheme1.self, UZTheme2.self, UZTheme3.self, UZTheme4.self, UZTheme5.self, UZTheme6.self, UZTheme7.self]

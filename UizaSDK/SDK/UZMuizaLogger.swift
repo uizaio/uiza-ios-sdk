@@ -57,7 +57,7 @@ open class UZMuizaLogger: UZAPIConnector {
 	private override init() {
 		super.init()
 		
-		self.logArray = []
+		logArray = []
 		
 		let macAddress: String = UIDevice.current.identifierForVendor?.uuidString ?? ""
 //		let bundleId: String = Bundle.main.bundleIdentifier ?? ""
@@ -179,8 +179,8 @@ open class UZMuizaLogger: UZAPIConnector {
 	
 	private func sendLogs() {
 		lastSentDate = Date()
-		self.requestHeaderFields = ["AccessToken": accessToken]
-		self.callAPI(UZAPIConstant.muizaLoggingApi, baseURLString: loggingURLString,
+		requestHeaderFields = ["AccessToken": accessToken]
+		callAPI(UZAPIConstant.muizaLoggingApi, baseURLString: loggingURLString,
                      method: .post, params: logArray.asParameters(),
                      encodingType: ArrayEncoding()) { [weak self] (_, error) in
 			if error == nil {

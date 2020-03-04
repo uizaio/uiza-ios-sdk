@@ -65,6 +65,12 @@ open class UZAPIConnector {
 	internal static var networkLoadingCount: Int = 0
 	#endif
 	
+	internal static var UZAuthenticateToken: String {
+		let secret = "dbe891f054320d350ba0819ba22bc4bf" + UizaSDK.appId // "\(UIDevice.current.identifierForVendor?.uuidString ?? "")\(UizaSDK.appId)"
+		let hmac = "".HMAC(algorithm: .sha256, secret: secret)
+		return "hmac \(UizaSDK.appId):\(hmac)"
+	}
+	
 	// MARK: -
 	
 	fileprivate class func showNetworkLoading() {
@@ -286,7 +292,6 @@ open class UZAPIConnector {
             }, to: url, method: method, headers: self.requestHeaderFields) { [weak self] (result) in
 				switch result {
 				case .success(let upload, _, _):
-					
 					upload.uploadProgress(closure: { (progress) in
 						self?.progressBlock?(Float(progress.fractionCompleted))
 					})
@@ -323,10 +328,26 @@ open class UZAPIConnector {
 				}
 			}
 		} else {
+			/*
+			if let params = params, let jsonData = try? JSONSerialization.data(withJSONObject: params, options: .prettyPrinted) {
+				var request = URLRequest(url: url)
+				request.httpMethod = method.rawValue
+				request.httpBody = jsonData
+				request.timeoutInterval = timeoutInterval
+				request.cachePolicy = cachePolicy
+				request.allHTTPHeaderFields = requestHeaderFields
+				request.setValue("application/json; charset=UTF-8", forHTTPHeaderField: "Content-Type")
+				dataRequest = Alamofire.request(request)
+			} else {
+				dataRequest = Alamofire.request(url, method: method, parameters: params, encoding: encodingType, headers: self.requestHeaderFields)
+			}
+			*/
+			
 			dataRequest = Alamofire.request(url, method: method, parameters: params, encoding: encodingType, headers: self.requestHeaderFields)
 			dataRequest!.session.configuration.timeoutIntervalForRequest = timeoutInterval
 			dataRequest!.session.configuration.requestCachePolicy = cachePolicy
 			dataRequest!.session.configuration.httpAdditionalHeaders = headers
+			dataRequest!.session.configuration.shouldUseExtendedBackgroundIdleMode = true
 			
 //			dataRequest!.response { (response:DefaultDataResponse) in
 //				DLog("\(response)")

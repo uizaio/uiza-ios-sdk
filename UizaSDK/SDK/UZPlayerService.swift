@@ -18,7 +18,7 @@ open class UZPlayerService: UZAPIConnector {
 	- parameter completionBlock: Block called when completed, return array of [`UZPlayerConfig`], or Error if occured
 	*/
 	public func loadPlayerConfig(completionBlock: @escaping (([UZPlayerConfig]?, Error?) -> Void)) {
-		requestHeaderFields = ["Authorization": UizaSDK.token]
+		requestHeaderFields = ["Authorization": UZAPIConnector.UZAuthenticateToken]
 		
 		callAPI(UZAPIConstant.playerConfigApi, baseURLString: basePrivateAPIURLPath(),
                      method: .get, params: ["platform": "ios"]) { (result: NSDictionary?, error: Error?) in
@@ -49,7 +49,7 @@ open class UZPlayerService: UZAPIConnector {
 	- parameter completionBlock: Block called when completed, return `UZPlayerConfig`, or Error if occured
 	*/
 	public func load(configId: String, completionBlock: @escaping((UZPlayerConfig?, Error?) -> Void)) {
-		requestHeaderFields = ["Authorization": UizaSDK.token]
+		requestHeaderFields = ["Authorization": UZAPIConnector.UZAuthenticateToken]
 		
 		callAPI(UZAPIConstant.playerConfigApi, baseURLString: basePrivateAPIURLPath(),
                      method: .get, params: ["id": configId]) { (result: NSDictionary?, error: Error?) in

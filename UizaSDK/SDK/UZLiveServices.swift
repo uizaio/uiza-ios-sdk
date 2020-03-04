@@ -30,7 +30,7 @@ open class UZLiveServices: UZAPIConnector {
 	- parameter completionBlock: Block được gọi sau khi hoàn thành, trả về sự kiện `UZLiveEvent` hoặc Error nếu có lỗi
 	*/
 	public func createLiveEvent(name: String, encode: Bool, dvr: Bool = false, linkStream: String? = nil, description: String? = nil, poster: String? = nil, thumbnail: String? = nil, completionBlock: ((UZLiveEvent?, Error?) -> Void)? = nil) {
-		requestHeaderFields = ["Authorization" : UizaSDK.token]
+		requestHeaderFields = ["Authorization" : UZAPIConnector.UZAuthenticateToken]
 		
 		var params : Parameters = ["name" 			: name,
 								   "encode" 		: NSNumber(value: encode),
@@ -84,7 +84,7 @@ open class UZLiveServices: UZAPIConnector {
 	- parameter id: `id` of live event
 	*/
 	public func loadLiveEvent(id: String, completionBlock: ((UZLiveEvent?, Error?) -> Void)? = nil) {
-		requestHeaderFields = ["Authorization": UizaSDK.token]
+		requestHeaderFields = ["Authorization": UZAPIConnector.UZAuthenticateToken]
 		
 		callAPI(UZAPIConstant.liveEntityApi, method: .get, params: ["id": id]) { (result, error) in
 //			DLog("\(result) - \(error)")
@@ -107,7 +107,7 @@ open class UZLiveServices: UZAPIConnector {
 	- parameter completionBlock: Block called when finished, return `Error` if occured
 	*/
 	public func startLiveEvent(id: String, completionBlock: ((Error?) -> Void)? = nil) {
-		requestHeaderFields = ["Authorization": UizaSDK.token]
+		requestHeaderFields = ["Authorization": UZAPIConnector.UZAuthenticateToken]
 		
 		callAPI(UZAPIConstant.liveEntityFeedApi, method: .post, params: ["id": id]) { (_, error) in
 //			DLog("\(result) - \(error)")
@@ -123,7 +123,7 @@ open class UZLiveServices: UZAPIConnector {
 	- parameter completionBlock: Block called when finished, return `Error` if occured
 	*/
 	public func endLiveEvent(id: String, completionBlock: ((Error?) -> Void)? = nil) {
-		requestHeaderFields = ["Authorization": UizaSDK.token]
+		requestHeaderFields = ["Authorization": UZAPIConnector.UZAuthenticateToken]
 		
 		callAPI(UZAPIConstant.liveEntityApi, method: .put, params: ["id": id]) { (_, error) in
 			DispatchQueue.main.async {
@@ -138,7 +138,7 @@ open class UZLiveServices: UZAPIConnector {
 	- parameter completionBlock: Block được trả về với giá trị số lượng người xem hoặc Error nếu có lỗi
 	*/
 	public func loadViews(liveId: String, completionBlock: ((_ views: Int, _ error: Error?) -> Void)? = nil) {
-		requestHeaderFields = ["Authorization": UizaSDK.token]
+		requestHeaderFields = ["Authorization": UZAPIConnector.UZAuthenticateToken]
 		
 		let params: Parameters = ["id": liveId]
 		
@@ -168,7 +168,7 @@ open class UZLiveServices: UZAPIConnector {
 	- parameter completionBlock: block called when completed, returns `UZLiveVideoStatus` or `Error` if occurred
 	*/
 	public func loadLiveStatus(video: UZVideoItem, completionBlock: ((_ result: UZLiveVideoStatus?, _ error: Error?) -> Void)? = nil) {
-		requestHeaderFields = ["Authorization": UizaSDK.token]
+		requestHeaderFields = ["Authorization": UZAPIConnector.UZAuthenticateToken]
 		
 		let params: Parameters = ["entityId": video.id ?? "",
 								  "feedId": video.feedId ?? ""]
@@ -199,7 +199,7 @@ open class UZLiveServices: UZAPIConnector {
 	- parameter completionBlock: block called when completed, returns `UZSignalStatus` or `Error` if occurred
 	*/
 	public func checkSignalStatus(entityId: String, completionBlock: ((UZSignalStatus?, Error?) -> Void)? = nil) {
-		requestHeaderFields = ["Authorization": UizaSDK.token]
+		requestHeaderFields = ["Authorization": UZAPIConnector.UZAuthenticateToken]
 		
 		let params: Parameters = ["id": entityId]
 		

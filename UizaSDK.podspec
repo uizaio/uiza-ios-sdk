@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
     s.requires_arc  = true
     s.swift_version = '4.2'
     
-    s.ios.dependency "Alamofire"
+    s.ios.dependency "Alamofire", '4.9.1'
     s.ios.dependency "SwiftyJSON"
     s.ios.dependency "LFLiveKit_"
     s.ios.dependency "NKModalViewManager"

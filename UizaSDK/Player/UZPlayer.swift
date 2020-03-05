@@ -274,6 +274,7 @@ open class UZPlayer: UIView {
 	Load and play a videoId
 	
 	- parameter entityId: `id` of video
+	- parameter isLive: Predefine if this video is a live video, or else it will automatically detect
 	- parameter completionBlock: callback block with `[UZVideoLinkPlay]` or Error
 	*/
 	open func loadVideo(entityId: String, isLive: Bool = false, completionBlock:((_ linkPlays: [UZVideoLinkPlay]?, _ error: Error?) -> Void)? = nil) {

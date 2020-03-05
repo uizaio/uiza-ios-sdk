@@ -153,7 +153,7 @@ open class UZContentServices: UZAPIConnector {
 	
 	/**
 	Get video details
-	- parameter entityId: `id` của video cần tải
+	- parameter entityId: `id` of video
 	- parameter completionBlock: block called when completed, returns UZVideoItem với đầy đủ thông tin chi tiết, or `Error` if occurred
 	*/
 	public func loadDetail(entityId: String, isLive: Bool = false, completionBlock:((_ video: UZVideoItem?, _ error: Error?) -> Void)? = nil) {
@@ -164,9 +164,13 @@ open class UZContentServices: UZAPIConnector {
 		self.callAPI(isLive ? UZAPIConstant.liveEntityApi : UZAPIConstant.mediaEntityApi, method: .get, params: params) { (result, error) in
 			DLog("\(String(describing: result)) - \(String(describing: error))")
 			
-			if error != nil {
-				DispatchQueue.main.async {
-					completionBlock?(nil, error)
+			if let error = error {
+				if error.code == 404 && error.domain == "Uiza" && !isLive {
+					self.loadDetail(entityId: entityId, isLive: true, completionBlock: completionBlock)
+				} else {
+					DispatchQueue.main.async {
+						completionBlock?(nil, error)
+					}
 				}
 			} else {
 				if let data = result?.value(for: "data", defaultValue: nil) as? NSDictionary {

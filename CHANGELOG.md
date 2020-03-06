@@ -1,3 +1,6 @@
+### Version 8.4.12 (Mar 6 2020)
+- [Fixed] UZPlayer did not recognize live video when loadVideo with entityID
+
 ### Version 8.4.7 (Dec 23 2019)
 - [Added] Able to check status of a live feed:
 ``` swift

@@ -17,9 +17,9 @@ open class UZTheme5: UZPlayerTheme {
 	let topGradientLayer = CAGradientLayer()
 	let bottomGradientLayer = CAGradientLayer()
 	
-	var topFrameLayout: DoubleFrameLayout?
-	var bottomFrameLayout: StackFrameLayout?
-	var mainFrameLayout: StackFrameLayout?
+	let topFrameLayout = DoubleFrameLayout(axis: .horizontal)
+	let bottomFrameLayout = StackFrameLayout(axis: .horizontal)
+	let mainFrameLayout = StackFrameLayout(axis: .vertical)
 	
 	var iconColor = UIColor.white
 	var iconSize = CGSize(width: 24, height: 24)
@@ -146,18 +146,17 @@ open class UZTheme5: UZPlayerTheme {
 		topLeftFrameLayout.addSubview(controlView.titleLabel)
 		topLeftFrameLayout.leftFrameLayout.minSize = buttonMinSize
 		
-		topFrameLayout = DoubleFrameLayout(axis: .horizontal)
-		topFrameLayout!.leftFrameLayout.targetView = topLeftFrameLayout
-		topFrameLayout!.rightFrameLayout.targetView = controlFrameLayout
-		topFrameLayout!.leftFrameLayout.contentAlignment = (.center, .left)
-		topFrameLayout!.rightFrameLayout.contentAlignment = (.center, .right)
-		topFrameLayout!.spacing = 5
-		topFrameLayout!.addSubview(topLeftFrameLayout)
-		topFrameLayout!.addSubview(controlFrameLayout)
-		topFrameLayout!.isUserInteractionEnabled = true
-		topFrameLayout!.distribution = .right
-		topFrameLayout!.edgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 0, right: 10)
-//		topFrameLayout!.showFrameDebug = true
+		topFrameLayout.leftFrameLayout.targetView = topLeftFrameLayout
+		topFrameLayout.rightFrameLayout.targetView = controlFrameLayout
+		topFrameLayout.leftFrameLayout.contentAlignment = (.center, .left)
+		topFrameLayout.rightFrameLayout.contentAlignment = (.center, .right)
+		topFrameLayout.spacing = 5
+		topFrameLayout.addSubview(topLeftFrameLayout)
+		topFrameLayout.addSubview(controlFrameLayout)
+		topFrameLayout.isUserInteractionEnabled = true
+		topFrameLayout.distribution = .right
+		topFrameLayout.edgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 0, right: 10)
+//		topFrameLayout.showFrameDebug = true
 		
 		let bottomLeftFrameLayout = StackFrameLayout(axis: .horizontal, views: [controlView.playpauseButton])
 		let bottomRightFrameLayout = StackFrameLayout(axis: .horizontal, views: [controlView.currentTimeLabel, controlView.totalTimeLabel,
@@ -173,22 +172,22 @@ open class UZTheme5: UZPlayerTheme {
 			frameLayout.minSize = buttonMinSize
 		}
 		
-		bottomFrameLayout = StackFrameLayout(axis: .horizontal, views: [bottomLeftFrameLayout, controlView.timeSlider, bottomRightFrameLayout])
-		bottomFrameLayout?.frameLayout(at: 1)?.isFlexible = true
-		bottomFrameLayout!.addSubview(controlView.currentTimeLabel)
-		bottomFrameLayout!.addSubview(controlView.totalTimeLabel)
-		bottomFrameLayout!.addSubview(controlView.timeSlider)
-		bottomFrameLayout!.addSubview(controlView.settingsButton)
-		bottomFrameLayout!.addSubview(controlView.fullscreenButton)
-		bottomFrameLayout!.addSubview(controlView.playpauseButton)
-		bottomFrameLayout!.addSubview(controlView.previousButton)
-		bottomFrameLayout!.addSubview(controlView.nextButton)
-		bottomFrameLayout!.spacing = 10
-		bottomFrameLayout!.distribution = .left
-		bottomFrameLayout!.isUserInteractionEnabled = true
-		bottomFrameLayout!.edgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+		bottomFrameLayout.append(views: [bottomLeftFrameLayout, controlView.timeSlider, bottomRightFrameLayout])
+		bottomFrameLayout.frameLayout(at: 1)?.isFlexible = true
+		bottomFrameLayout.addSubview(controlView.currentTimeLabel)
+		bottomFrameLayout.addSubview(controlView.totalTimeLabel)
+		bottomFrameLayout.addSubview(controlView.timeSlider)
+		bottomFrameLayout.addSubview(controlView.settingsButton)
+		bottomFrameLayout.addSubview(controlView.fullscreenButton)
+		bottomFrameLayout.addSubview(controlView.playpauseButton)
+		bottomFrameLayout.addSubview(controlView.previousButton)
+		bottomFrameLayout.addSubview(controlView.nextButton)
+		bottomFrameLayout.spacing = 10
+		bottomFrameLayout.distribution = .left
+		bottomFrameLayout.isUserInteractionEnabled = true
+		bottomFrameLayout.edgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
 		
-//		bottomFrameLayout!.backgroundColor = UIColor(white: 0.0, alpha: 0.8)
+//		bottomFrameLayout.backgroundColor = UIColor(white: 0.0, alpha: 0.8)
 		
 		let centerFrameLayout = StackFrameLayout(axis: .horizontal, distribution: .center,
                                                  views: [controlView.previousButton, controlView.playpauseCenterButton, controlView.nextButton])
@@ -198,22 +197,21 @@ open class UZTheme5: UZPlayerTheme {
 		centerFrameLayout.addSubview(controlView.nextButton)
 		centerFrameLayout.addSubview(controlView.playpauseCenterButton)
 		
-		mainFrameLayout = StackFrameLayout(axis: .vertical)
-		mainFrameLayout?.distribution = .top
-		mainFrameLayout?.append(view: topFrameLayout!)
-		mainFrameLayout?.append(view: centerFrameLayout).configurationBlock = { layout in
+		mainFrameLayout.distribution = .top
+		mainFrameLayout.append(view: topFrameLayout)
+		mainFrameLayout.append(view: centerFrameLayout).configurationBlock = { layout in
 			layout.isFlexible = true
 		}
-		mainFrameLayout?.append(view: bottomFrameLayout)
+		mainFrameLayout.append(view: bottomFrameLayout)
 		
 		topGradientLayer.colors = [UIColor(white: 0.0, alpha: 0.8).cgColor, UIColor(white: 0.0, alpha: 0.0).cgColor]
 		bottomGradientLayer.colors = [UIColor(white: 0.0, alpha: 0.0).cgColor, UIColor(white: 0.0, alpha: 0.8).cgColor]
 		controlView.containerView.layer.addSublayer(topGradientLayer)
 		controlView.containerView.layer.addSublayer(bottomGradientLayer)
 		
-		controlView.containerView.addSubview(mainFrameLayout!)
-		controlView.containerView.addSubview(topFrameLayout!)
-		controlView.containerView.addSubview(bottomFrameLayout!)
+		controlView.containerView.addSubview(mainFrameLayout)
+		controlView.containerView.addSubview(topFrameLayout)
+		controlView.containerView.addSubview(bottomFrameLayout)
 		controlView.containerView.addSubview(centerFrameLayout)
 		
 		controlView.addSubview(controlView.enlapseTimeLabel)
@@ -221,18 +219,18 @@ open class UZTheme5: UZPlayerTheme {
 	}
 	
 	open func layoutControls(rect: CGRect) {
-		mainFrameLayout?.frame = rect
-		mainFrameLayout?.layoutIfNeeded()
+		mainFrameLayout.frame = rect
+		mainFrameLayout.layoutIfNeeded()
 		
 		CATransaction.begin()
 		CATransaction.setValue(kCFBooleanTrue, forKey: kCATransactionDisableActions)
-		topGradientLayer.frame = topFrameLayout!.frame
-		bottomGradientLayer.frame = bottomFrameLayout!.frame
+		topGradientLayer.frame = topFrameLayout.frame
+		bottomGradientLayer.frame = bottomFrameLayout.frame
 		CATransaction.commit()
 		
 		if let controlView = controlView {
 			let viewSize = rect.size
-			controlView.timeSlider.frame = CGRect(x: 0, y: viewSize.height - bottomFrameLayout!.frame.size.height - 8, width: viewSize.width, height: 16)
+			controlView.timeSlider.frame = CGRect(x: 0, y: viewSize.height - bottomFrameLayout.frame.size.height - 8, width: viewSize.width, height: 16)
 		}
 		
 		if let controlView = controlView {
@@ -262,15 +260,14 @@ open class UZTheme5: UZPlayerTheme {
 	}
 	
 	open func showLoader() {
-		if let controlView = controlView {
-			if controlView.loadingIndicatorView == nil {
-				controlView.loadingIndicatorView = UIActivityIndicatorView(style: .white)
-				controlView.addSubview(controlView.loadingIndicatorView!)
-			}
-			
-			controlView.loadingIndicatorView?.isHidden = false
-			controlView.loadingIndicatorView?.startAnimating()
+		guard let controlView = controlView else { return }
+		if controlView.loadingIndicatorView == nil {
+			controlView.loadingIndicatorView = UIActivityIndicatorView(style: .white)
+			controlView.addSubview(controlView.loadingIndicatorView!)
 		}
+		
+		controlView.loadingIndicatorView?.isHidden = false
+		controlView.loadingIndicatorView?.startAnimating()
 	}
 	
 	open func hideLoader() {
@@ -286,7 +283,7 @@ open class UZTheme5: UZPlayerTheme {
 //		controlView?.backwardButton.isHidden = !isEmptyPlaylist
 	}
 	
-	public func alignLogo() {
+	open func alignLogo() {
 		// align logo manually here if needed
 	}
 	

@@ -57,6 +57,7 @@ extension UZPlayerControlView: UIGestureRecognizerDelegate {
 }
 
 extension UZPlayerControlView {
+	
     // MARK: - UI update related function
     open func playStateDidChange(isPlaying: Bool) {
         autoFadeOutControlView(after: autoHideControlsInterval)

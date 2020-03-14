@@ -5,7 +5,7 @@ target 'UizaSDK' do
   platform :ios, '9.0'
   use_frameworks!
 
-  pod 'Alamofire'
+  pod 'Alamofire', '~> 4.9.1'
   pod 'NKModalViewManager'
 	pod 'FrameLayoutKit'
   pod 'SDWebImage'
@@ -21,7 +21,7 @@ target 'UizaSDK-tvos' do
 	platform :tvos, '10.0'
 	use_frameworks!
 	
-	pod 'Alamofire'
+	pod 'Alamofire', '~> 4.9.1'
 	pod 'SwiftyJSON'
 	
 end
@@ -30,7 +30,7 @@ target 'UizaSDKTest' do
 	platform :ios, '9.0'
 	use_frameworks!
 	
-	pod 'Alamofire'
+	pod 'Alamofire', '~> 4.9.1'
 	pod 'NKModalViewManager'
 	pod 'FrameLayoutKit'
 	pod 'SDWebImage'

@@ -153,7 +153,7 @@ extension UZPlayer {
                                                              mode: AVAudioSessionModeMoviePlayback, options: [.allowAirPlay])
             #endif
         } else {
-            //            try? AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
+//            try? AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
         }
     }
 }
@@ -162,28 +162,14 @@ extension UZPlayer {
 
 extension UZPlayer {
 
-    @objc func loadLiveViews () {
+    @objc open func loadLiveViews () {
         if liveViewTimer != nil {
             liveViewTimer!.invalidate()
             liveViewTimer = nil
         }
-        
-        if let currentVideo = currentVideo {
-            UZLiveServices().loadViews(liveId: currentVideo.id) { [weak self] (view, _) in
-                guard let `self` = self else { return }
-                
-                let changed = view != self.controlView.liveBadgeView.views
-                if changed {
-                    self.controlView.liveBadgeView.views = view
-                    self.controlView.setNeedsLayout()
-                }
-                
-                self.liveViewTimer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(self.loadLiveViews), userInfo: nil, repeats: false)
-            }
-        }
     }
 
-    func loadLiveStatus(after interval: TimeInterval = 0) {
+    open func loadLiveStatus(after interval: TimeInterval = 0) {
         if interval > 0 {
             if loadLiveStatusTimer != nil {
                 loadLiveStatusTimer!.invalidate()
@@ -193,25 +179,6 @@ extension UZPlayer {
             loadLiveStatusTimer = Timer.scheduledTimer(timeInterval: interval, target: self,
                                                        selector: #selector(onLoadLiveStatusTimer), userInfo: nil, repeats: false)
             return
-        }
-        
-        if let currentVideo = currentVideo, currentVideo.isLive {
-            UZLiveServices().loadLiveStatus(video: currentVideo) { [weak self] (status, _) in
-                guard let `self` = self else { return }
-                
-                if let status = status {
-//                    self.controlView.liveStartDate = status.startDate
-                    
-                    if status.state == "stop" { // || status.endDate != nil
-                        self.stop()
-                        self.controlView.hideLoader()
-                        self.showLiveEndedMessage()
-                        self.delegate?.player(playerDidEndLivestream: self)
-                    } else {
-                        self.controlView.liveStartDate = status.startDate
-                    }
-                }
-            }
         }
     }
 
@@ -282,41 +249,6 @@ extension UZPlayer {
     open func previousVideo() {
         currentVideoIndex -= 1
     }
-}
-
-// MARK: - Heartbeat
-
-extension UZPlayer {
-	
-    func startHeartbeat() {
-        sendHeartbeat()
-        
-        if heartbeatTimer != nil {
-            heartbeatTimer!.invalidate()
-            heartbeatTimer = nil
-        }
-        
-        let interval: TimeInterval = ((currentVideo?.isLive ?? false) ? 3 : 10)
-        heartbeatTimer = Timer.scheduledTimer(timeInterval: interval, target: self, selector: #selector(sendHeartbeat), userInfo: nil, repeats: true)
-    }
-    
-    func stopHeartbeat() {
-        if heartbeatTimer != nil {
-            heartbeatTimer!.invalidate()
-            heartbeatTimer = nil
-        }
-    }
-    
-    @objc func sendHeartbeat() {
-        guard let linkplay = currentLinkPlay, let domainName = linkplay.url.host else { return }
-        
-        if let video = currentVideo, video.isLive {
-            UZLogger.shared.logLiveCCU(streamName: video.id, host: domainName)
-        } else {
-            heartbeatService.sendCDNHeartbeat(cdnName: domainName)
-        }
-    }
-	
 }
 
 // MARK: - Subtitles
@@ -473,9 +405,6 @@ extension UZPlayer {
                 playThroughEventLog[5] = true
                 
                 UZLogger.shared.log(event: "view", video: currentVideo, params: ["play_through": "0"], completionBlock: nil)
-                if let videoId = currentVideo?.id, let category = currentVideo?.categoryName {
-                    UZLogger.shared.trackingCategory(entityId: videoId, category: category)
-                }
             }
         } else if totalTime > 0 {
             let playthrough: Float = roundf(Float(currentTime) / Float(totalTime) * 100)
@@ -561,7 +490,6 @@ extension UZPlayer {
 			let count = resource.definitions.count
 			currentLinkPlay = definitionIndex > -1 && definitionIndex < count ? resource.definitions[definitionIndex] : resource.definitions.first
 			guard currentLinkPlay != nil else { return }
-            UZMuizaLogger.shared.log(eventName: "play", params: nil, video: currentVideo, linkplay: currentLinkPlay, player: self)
             playerLayer?.playAsset(asset: currentLinkPlay!.avURLAsset)
             
             setupPictureInPicture()
@@ -631,16 +559,5 @@ extension UZPlayer {
         controlView.frame = bounds
         controlView.setNeedsLayout()
         controlView.layoutIfNeeded()
-    }
-}
-
-// MARK: - Load configId
-
-extension UZPlayer {
-    open func loadConfigId(configId: String, completionBlock: ((UZPlayerConfig?, Error?) -> Void)? = nil) {
-        UZPlayerService().load(configId: configId) { [weak self] (config, error) in
-            self?.themeConfig = config
-            completionBlock?(config, error)
-        }
     }
 }

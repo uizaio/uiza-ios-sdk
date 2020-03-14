@@ -33,27 +33,18 @@ extension UZPlayer {
     }
     
     internal func requestAds() {
-        if let video = currentVideo {
-            UZContentServices().loadCuePoints(video: video) { [weak self] (adsCuePoints, _) in
-                self?.requestAds(cuePoints: adsCuePoints)
-            }
-            
-        }
+       
     }
     
-    internal func requestAds(cuePoints: [UZAdsCuePoint]?) {
+	internal func requestAds(url: URL?) {
         #if canImport(GoogleInteractiveMediaAds)
-        guard let cuePoints = cuePoints, !cuePoints.isEmpty else { return }
-        
-        for cuePoint in cuePoints {
-            if let adsLink = cuePoint.link?.absoluteString {
-                let adDisplayContainer = IMAAdDisplayContainer(adContainer: self, companionSlots: nil)
-                let request = IMAAdsRequest(adTagUrl: adsLink, adDisplayContainer: adDisplayContainer,
-                                            contentPlayhead: contentPlayhead, userContext: nil)
-                
-                adsLoader?.requestAds(with: request)
-            }
-        }
+		guard let adsLink = url else { return }
+		
+		let adDisplayContainer = IMAAdDisplayContainer(adContainer: self, companionSlots: nil)
+		let request = IMAAdsRequest(adTagUrl: adsLink, adDisplayContainer: adDisplayContainer,
+									contentPlayhead: contentPlayhead, userContext: nil)
+		
+		adsLoader?.requestAds(with: request)
         #endif
         
         //        if let adsLink = cuePoints.first?.link?.absoluteString {
@@ -92,7 +83,7 @@ extension UZPlayer: IMAAdsLoaderDelegate {
 extension UZPlayer: IMAAdsManagerDelegate {
     
     public func adsManager(_ adsManager: IMAAdsManager!, didReceive event: IMAAdEvent!) {
-        //        DLog("- \(event.type.rawValue)")
+//        DLog("- \(event.type.rawValue)")
         
         if event.type == IMAAdEventType.LOADED {
             adsManager.start()
@@ -276,47 +267,6 @@ extension UZPlayer {
         }
     }
     
-    open func showRelates() {
-        guard let currentVideo = currentVideo else {
-            DLog("[UZPlayer] currentVideo not set")
-			return
-        }
-		
-		let viewController = UZRelatedViewController()
-		viewController.collectionViewController.currentVideo = currentVideo
-		viewController.loadRelateVideos(to: currentVideo)
-		viewController.collectionViewController.selectedBlock = { [weak self] (videoItem) in
-			guard let `self` = self else { return }
-			
-			self.loadVideo(videoItem)
-			self.videoChangedBlock?(videoItem)
-			viewController.dismiss(animated: true, completion: nil)
-		}
-		
-		NKModalViewManager.sharedInstance().presentModalViewController(viewController)
-    }
-    
-    open func showPlaylist() {
-		guard let playlist = playlist else {
-            DLog("[UZPlayer] playlist not set")
-			return
-        }
-		
-		let viewController = UZPlaylistViewController()
-		viewController.collectionViewController.currentVideo = currentVideo
-		viewController.collectionViewController.videos = playlist
-//		viewController.loadPlaylist(metadataId: currentMetadata)
-		viewController.collectionViewController.selectedBlock = { [weak self] (videoItem) in
-			guard let `self` = self else { return }
-			
-			self.loadVideo(videoItem)
-			self.videoChangedBlock?(videoItem)
-			viewController.dismiss(animated: true, completion: nil)
-			
-		}
-		NKModalViewManager.sharedInstance().presentModalViewController(viewController)
-    }
-    
     open func showQualitySelector() {
         let viewController = UZVideoQualitySettingsViewController()
         viewController.currentDefinition = currentLinkPlay
@@ -426,12 +376,6 @@ extension UZPlayer: UZPlayerControlViewDelegate {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                     button.isEnabled = true
                 }
-                
-            case .relates:
-                showRelates()
-                
-            case .playlist:
-                showPlaylist()
                 
             case .pip:
                 togglePiP()
@@ -572,20 +516,15 @@ extension UZPlayer: UZPlayerLayerViewDelegate {
             }
             
         case .buffering:
-            UZMuizaLogger.shared.log(eventName: "rebufferstart", params: ["view_rebuffer_count": bufferingCount],
-                                     video: currentVideo, linkplay: currentLinkPlay, player: self)
             if currentVideo?.isLive ?? false {
                 loadLiveStatus(after: 1)
             }
             bufferingCount += 1
             
         case .bufferFinished:
-            UZMuizaLogger.shared.log(eventName: "rebufferend", params: ["view_rebuffer_count": bufferingCount],
-                                     video: currentVideo, linkplay: currentLinkPlay, player: self)
             playIfApplicable()
             
         case .playedToTheEnd:
-            UZMuizaLogger.shared.log(eventName: "viewended", params: nil, video: currentVideo, linkplay: currentLinkPlay, player: self)
             isPlayToTheEnd = true
             
             if !isReplaying {
@@ -604,7 +543,6 @@ extension UZPlayer: UZPlayerLayerViewDelegate {
             nextVideo()
             
         case .error:
-            UZMuizaLogger.shared.log(eventName: "error", params: nil, video: currentVideo, linkplay: currentLinkPlay, player: self)
             if autoTryNextDefinitionIfError {
                 tryNextDefinition()
             }

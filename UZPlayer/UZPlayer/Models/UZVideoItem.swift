@@ -66,16 +66,15 @@ public struct UZVideoItem {
 	public var name: String! = ""
 	/** Link ảnh thumbnail */
 	public var thumbnailURL: URL?
-	/** Link play của video, có thể rỗng. Nếu rỗng, gọi hàm `getLinkPlay` để lấy giá trị */
-	public var videoURL: URL?
 	/** `true` nếu là video đang trực tiếp */
 	public var isLive: Bool = false
 	
+	public var linkPlay: UZVideoLinkPlay?
 	public var subtitleURLs: [URL]?
 	
 	/** Object description */
 	public var description: String {
-		return "[\(name ?? "")] url:\(videoURL?.absoluteString ?? "")"
+		return "[\(name ?? "")] url:\(linkPlay?.url.absoluteString ?? "")"
 	}
 	
 }
@@ -83,7 +82,7 @@ public struct UZVideoItem {
 extension UZVideoItem: Equatable {
 	
 	public static func == (lhs: UZVideoItem, rhs: UZVideoItem) -> Bool {
-		return lhs.videoURL == rhs.videoURL
+		return lhs.linkPlay == rhs.linkPlay
 	}
 	
 }

@@ -12,6 +12,12 @@ import FrameLayoutKit
 import NHNetworkTime
 #endif
 
+extension Notification.Name {
+	
+	public static let UZEventVisualizeInformaionUpdate = Notification.Name(rawValue: "com.uiza.UZPlayer.update_visualize_information")
+	
+}
+
 class UZVisualizeInformationView: UIView {
 	let entityLabel = TitleValueLabel(title: "Entity ID:")
 	let sdkLabel = TitleValueLabel(title: "SDK:")
@@ -81,12 +87,11 @@ class UZVisualizeInformationView: UIView {
 		mainFrameLayout.edgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
 		mainFrameLayout.backgroundColor = UIColor.black.withAlphaComponent(0.6)
 		
-		self.isUserInteractionEnabled = false
+		isUserInteractionEnabled = false
 	}
 	
 	func update(info: UZVisualizeSavedInformation) {
-		entityLabel.text = info.currentVideo?.id ?? "---"
-		sdkLabel.text = "\(SDK_VERSION), API \(UizaSDK.version.rawValue)"
+		sdkLabel.text = "\(PLAYER_VERSION)"
 		volumeLabel.text = "\(Int(info.volume * 100))%"
 		osInfoLabel.text = "iOS \(UIDevice.current.systemVersion), \(UIDevice.current.hardwareName())"
 		hostLabel.text = info.host
@@ -98,8 +103,8 @@ class UZVisualizeInformationView: UIView {
 		}
 		#endif
 		
-		self.setNeedsLayout()
-		self.layoutIfNeeded()
+		setNeedsLayout()
+		layoutIfNeeded()
 	}
 	
 	@objc func closeVisualizeView() {
@@ -115,7 +120,6 @@ class UZVisualizeInformationView: UIView {
 			latencyLabel.isHidden = false
 			let latencyTime = currentDate.timeIntervalSince(date) * 1000.0
 			let time = Int(latencyTime)
-			UZMuizaLogger.shared.log(eventName: "latencychange", params: ["latency": latencyTime])
 			
 			if let timeString = numberFormatter.string(from: NSNumber(value: time)) {
 				latencyLabel.text = timeString + " ms"
@@ -125,8 +129,8 @@ class UZVisualizeInformationView: UIView {
 			latencyLabel.isHidden = true
 		}
 		
-		self.setNeedsLayout()
-		self.layoutIfNeeded()
+		setNeedsLayout()
+		layoutIfNeeded()
 	}
 	#endif
 	

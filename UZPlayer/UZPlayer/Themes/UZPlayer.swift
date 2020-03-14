@@ -27,6 +27,14 @@ import GoogleInteractiveMediaAds
 import GoogleCast
 #endif
 
+let PLAYER_VERSION = "1.0"
+
+func DLog(_ message: String, _ file: String = #file, _ line: Int = #line) {
+	#if DEBUG
+	print("\((file as NSString).lastPathComponent) [Line \(line)]: \((message))")
+	#endif
+}
+
 public protocol UZPlayerDelegate: class {
 	func player(player: UZPlayer, playerStateDidChange state: UZPlayerState)
 	func player(player: UZPlayer, loadedTimeDidChange loadedDuration: TimeInterval, totalDuration: TimeInterval)
@@ -115,7 +123,7 @@ open class UZPlayer: UIView {
 				} else {
 					var index = 0
 					for video in playlist {
-						if video.id == currentVideo.id {
+						if video == currentVideo {
 							return index
 						}
 						
@@ -165,9 +173,6 @@ open class UZPlayer: UIView {
     // log event
     var playThroughEventLog: [Float: Bool] = [:]
     let logPercent: [Float] = [25, 50, 75, 100]
-    // heartbeat
-    var heartbeatTimer: Timer?
-    let heartbeatService = UZContentServices()
     var loadLiveStatusTimer: Timer?
 	
 	open var customControlView: UZPlayerControlView? {
@@ -250,13 +255,9 @@ open class UZPlayer: UIView {
                                                name: NSNotification.Name(rawValue: "AVSystemController_SystemVolumeDidChangeNotification"),
                                                object: nil)
 		
-		setUpAdsLoader()
-		
 		#if DEBUG
 		print("[UizaPlayer \(PLAYER_VERSION)] initialized")
 		#endif
-		
-		UZMuizaLogger.shared.log(eventName: "ready", player: self)
 	}
 	
 	public required init?(coder aDecoder: NSCoder) {
@@ -270,29 +271,6 @@ open class UZPlayer: UIView {
 	}
 	
 	// MARK: -
-	/**
-	Load and play a videoId
-	
-	- parameter entityId: `id` of video
-	- parameter isLive: Predefine if this video is a live video, or else it will automatically detect
-	- parameter completionBlock: callback block with `[UZVideoLinkPlay]` or Error
-	*/
-	open func loadVideo(entityId: String, isLive: Bool = false, completionBlock:((_ linkPlays: [UZVideoLinkPlay]?, _ error: Error?) -> Void)? = nil) {
-		UZContentServices().loadDetail(entityId: entityId, isLive: isLive) { [weak self] (videoItem, error) in
-			guard let `self` = self else { return }
-			
-			if videoItem != nil {
-				self.loadVideo(videoItem!, completionBlock: completionBlock)
-			} else if error != nil {
-				self.showMessage(error!.localizedDescription)
-				completionBlock?(nil, error)
-			} else {
-				let error = UZAPIConnector.UizaError(code: 1001, message: "Unable to load video")
-				self.showMessage(error.localizedDescription)
-				completionBlock?(nil, error)
-			}
-		}
-	}
 	
 	/**
 	Play an `UZVideoItem`
@@ -300,7 +278,7 @@ open class UZPlayer: UIView {
 	- parameter video: UZVideoItem
 	- parameter completionBlock: callback block with `[UZVideoLinkPlay]` or Error
 	*/
-	open func loadVideo(_ video: UZVideoItem, completionBlock:((_ linkPlays: [UZVideoLinkPlay]?, _ error: Error?) -> Void)? = nil) {
+	open func loadVideo(_ video: UZVideoItem) {
 		if currentVideo != nil {
 			stop()
 			preparePlayer()
@@ -314,63 +292,21 @@ open class UZPlayer: UIView {
 		controlView.showControlView()
 		controlView.showLoader()
 		controlView.liveStartDate = nil
-        UZVisualizeSavedInformation.shared.currentVideo = video
-		
-        UZContentServices().loadVideoSubtitle(entityId: video.id) { [weak self] (results, _) in
-			guard let `self` = self else { return }
-			self.subtitles = results ?? []
-        }
 		
         UZVisualizeSavedInformation.shared.currentVideo = video
-		UZContentServices().loadLinkPlay(video: video) { [weak self] (results, error) in
-			guard let `self` = self else { return }
-			
-			self.controlView.hideLoader()
-			
-			if let results = results {
-				self.currentVideo?.videoURL = results.first?.avURLAsset.url
-                if let host = results.first?.url.host {
-                    UZVisualizeSavedInformation.shared.host = host
-                }
-				UZLogger.shared.log(event: "plays_requested", video: video, completionBlock: nil)
-				
-				let resource = UZPlayerResource(name: video.name, definitions: results, subtitles: video.subtitleURLs, cover: video.thumbnailURL)
-				self.setResource(resource: resource)
-				
-				if video.isLive {
-					self.controlView.liveStartDate = nil
-					self.loadLiveViews()
-					self.loadLiveStatus()
-				}
-			} else if let error = error {
-				self.showMessage(error.localizedDescription)
-			}
-			
-			completionBlock?(results, error)
+		
+		guard let linkPlay = video.linkPlay else { return }
+		if let host = linkPlay.url.host {
+			UZVisualizeSavedInformation.shared.host = host
 		}
-	}
-	
-	/**
-	Load and play a playlist
-	
-	- parameter metadataId: playlist id
-	- parameter page: pagination, start from 0
-	- parameter limit: limit item
-	- parameter playIndex: index of item to start playing, set -1 to disable auto start
-	- parameter completionBlock: callback block with `[UZVideoItem]`, pagination info, or Error
-	*/
-	open func loadPlaylist(metadataId: String, page: Int = 0, limit: Int = 20, playIndex: Int = 0, completionBlock:((_ playlist: [UZVideoItem]?, _ pagination: UZPagination, _ error: Error?) -> Void)? = nil) {
-		UZContentServices().loadMetadata(metadataId: metadataId, page: page, limit: limit) { [weak self] (results, _, _) in
-			guard let `self` = self else { return }
-			
-			if let playlist = results {
-				self.playlist = results
-				
-				let count = playlist.count
-				if playIndex > -1 && playIndex < count {
-					self.loadVideo(playlist[playIndex])
-				}
-			}
+		
+		let resource = UZPlayerResource(name: video.name, definitions: [linkPlay], subtitles: video.subtitleURLs, cover: video.thumbnailURL)
+		setResource(resource: resource)
+		
+		if video.isLive {
+			controlView.liveStartDate = nil
+			loadLiveViews()
+			loadLiveStatus()
 		}
 	}
 	
@@ -394,10 +330,8 @@ open class UZPlayer: UIView {
         
         addPeriodicTime()
 		
-		UZMuizaLogger.shared.log(eventName: "play", params: nil, video: currentVideo, linkplay: currentLinkPlay, player: self)
 		playerLayer?.play()
 		isPauseByUser = false
-		startHeartbeat()
 		
 		if #available(iOS 9.0, *) {
 			if pictureInPictureController == nil {
@@ -425,8 +359,6 @@ open class UZPlayer: UIView {
 //				selectAudio(index: -1) // select default audio track
 			}
 		}
-		
-		UZMuizaLogger.shared.log(eventName: "playing", params: nil, video: currentVideo, linkplay: currentLinkPlay, player: self)
 	}
 	
 	/**
@@ -455,8 +387,6 @@ open class UZPlayer: UIView {
 		
 		playerLayer?.prepareToDeinit()
 		playerLayer = nil
-		
-		stopHeartbeat()
 	}
 	
 	/**
@@ -478,7 +408,6 @@ open class UZPlayer: UIView {
 	Pause
 	*/
 	open func pause() {
-		UZMuizaLogger.shared.log(eventName: "pause", params: nil, video: currentVideo, linkplay: currentLinkPlay, player: self)
 		playerLayer?.pause()
 	}
 	
@@ -491,15 +420,8 @@ open class UZPlayer: UIView {
 		seekCount += 1
 		self.currentPosition = interval
 		controlView.hideEndScreen()
-		UZMuizaLogger.shared.log(eventName: "seeking", params: ["view_seek_count": seekCount],
-                                 video: currentVideo, linkplay: currentLinkPlay, player: self)
 		
-		playerLayer?.seek(to: interval, completion: { [weak self] in
-			if let `self` = self {
-				UZMuizaLogger.shared.log(eventName: "seeked", params: ["view_seek_count": self.seekCount],
-                                         video: self.currentVideo, linkplay: self.currentLinkPlay, player: self)
-			}
-			
+		playerLayer?.seek(to: interval, completion: {
 			completion?()
 		})
 		

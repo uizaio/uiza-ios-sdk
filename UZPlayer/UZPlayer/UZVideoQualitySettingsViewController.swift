@@ -53,32 +53,21 @@ internal class UZVideoQualitySettingsViewController: UIViewController {
 		super.init(coder: aDecoder)
 	}
 	
-	func loadResourceDefinitions(from video: UZVideoItem) {
-		UZContentServices().loadLinkPlay(video: video) { [weak self] (results, _) in
-			guard let `self` = self else { return }
-			
-			if let results = results {
-				self.collectionViewController.resources = results
-				self.collectionViewController.collectionView?.reloadData()
-			}
-		}
-	}
-	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		self.view.backgroundColor = UIColor(white: 0.0, alpha: 0.4)
-		self.view.addSubview(blurView)
-		self.view.addSubview(titleLabel)
-		self.view.addSubview(collectionViewController.view)
-		self.view.addSubview(frameLayout)
+		view.backgroundColor = UIColor(white: 0.0, alpha: 0.4)
+		view.addSubview(blurView)
+		view.addSubview(titleLabel)
+		view.addSubview(collectionViewController.view)
+		view.addSubview(frameLayout)
 	}
 	
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 		
-		blurView.frame = self.view.bounds
-		frameLayout.frame = self.view.bounds
+		blurView.frame = view.bounds
+		frameLayout.frame = view.bounds
 	}
 	
 	override var preferredContentSize: CGSize {
@@ -246,7 +235,7 @@ internal class UZVideoQualityCollectionViewController: UICollectionViewControlle
 		super.viewDidLayoutSubviews()
 		
 		if let messageLabel = messageLabel {
-			var viewSize = self.view.bounds.size
+			var viewSize = view.bounds.size
 			viewSize.width -= 20
 			let labelSize = messageLabel.sizeThatFits(viewSize)
 			messageLabel.frame = CGRect(x: 10, y: (viewSize.height - labelSize.height)/2, width: viewSize.width, height: labelSize.height)
@@ -272,7 +261,7 @@ internal class UZVideoQualityCollectionViewController: UICollectionViewControlle
 //			}
 //			messageLabel?.textColor = .white
 //			messageLabel?.textAlignment = .center
-//			self.view.addSubview(messageLabel!)
+//			view.addSubview(messageLabel!)
 //		}
 //		
 //		messageLabel?.text = message

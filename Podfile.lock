@@ -32,7 +32,7 @@ PODS:
   - URITemplate (3.0.0)
 
 DEPENDENCIES:
-  - Alamofire
+  - Alamofire (~> 4.9.1)
   - FrameLayoutKit
   - google-cast-sdk
   - LFLiveKit_
@@ -86,6 +86,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
   URITemplate: 58e0d47f967006c5d59888af5356c4a8ed3b197d
 
-PODFILE CHECKSUM: e6efc36c37094cdd224840afb237a1fca2f652ae
+PODFILE CHECKSUM: 834d07c097c19260bbfb6e58e83e70da7bd6a087
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.9.1

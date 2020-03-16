@@ -99,7 +99,6 @@
 		4B66E4CA3D1FF3F0425BE652 /* Pods-UZPlayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UZPlayer.release.xcconfig"; path = "Target Support Files/Pods-UZPlayer/Pods-UZPlayer.release.xcconfig"; sourceTree = "<group>"; };
 		63FD9180241D03FA001B7A48 /* UZPlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UZPlayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		63FD9183241D03FA001B7A48 /* UZPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UZPlayer.h; sourceTree = "<group>"; };
-		63FD9184241D03FA001B7A48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63FD920A241D066D001B7A48 /* UZCastingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZCastingManager.swift; sourceTree = "<group>"; };
 		63FD920B241D066D001B7A48 /* UZVideoQualitySettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZVideoQualitySettingsViewController.swift; sourceTree = "<group>"; };
 		63FD920D241D066D001B7A48 /* UZVisualizeInformationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZVisualizeInformationView.swift; sourceTree = "<group>"; };
@@ -239,7 +238,6 @@
 				63FD9249241D066E001B7A48 /* UZPlayerViewController.swift */,
 				63FD920B241D066D001B7A48 /* UZVideoQualitySettingsViewController.swift */,
 				63FD9183241D03FA001B7A48 /* UZPlayer.h */,
-				63FD9184241D03FA001B7A48 /* Info.plist */,
 			);
 			path = UZPlayer;
 			sourceTree = "<group>";

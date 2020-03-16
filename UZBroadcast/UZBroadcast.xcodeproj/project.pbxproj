@@ -19,7 +19,6 @@
 		191F90D04BF6E2839E582674 /* Pods-UZBroadcast.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UZBroadcast.debug.xcconfig"; path = "Target Support Files/Pods-UZBroadcast/Pods-UZBroadcast.debug.xcconfig"; sourceTree = "<group>"; };
 		63FD92CB241D1385001B7A48 /* UZBroadcast.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UZBroadcast.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		63FD92CE241D1385001B7A48 /* UZBroadcast.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UZBroadcast.h; sourceTree = "<group>"; };
-		63FD92CF241D1385001B7A48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63FD92D6241D16BC001B7A48 /* UZLiveStreamUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZLiveStreamUIView.swift; sourceTree = "<group>"; };
 		63FD92D7241D16BC001B7A48 /* UZLiveStreamViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZLiveStreamViewController.swift; sourceTree = "<group>"; };
 		63FD92DB241D16ED001B7A48 /* UZButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZButton.swift; sourceTree = "<group>"; };
@@ -82,7 +81,6 @@
 				63FD92D6241D16BC001B7A48 /* UZLiveStreamUIView.swift */,
 				63FD92D7241D16BC001B7A48 /* UZLiveStreamViewController.swift */,
 				63FD92CE241D1385001B7A48 /* UZBroadcast.h */,
-				63FD92CF241D1385001B7A48 /* Info.plist */,
 			);
 			path = UZBroadcast;
 			sourceTree = "<group>";

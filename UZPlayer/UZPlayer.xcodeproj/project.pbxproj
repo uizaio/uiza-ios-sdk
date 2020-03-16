@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2CB0FFD7A23587F28E55BBEA /* Pods_UZPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAA5E7B3D4CD5FA7E6E175DD /* Pods_UZPlayer.framework */; };
+		103DE9304B98DB01FF8FD8F2 /* Pods_UZPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0AC075DD32B592116DF019B /* Pods_UZPlayer.framework */; };
 		63FD9185241D03FA001B7A48 /* UZPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 63FD9183241D03FA001B7A48 /* UZPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		63FD924A241D066E001B7A48 /* UZCastingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FD920A241D066D001B7A48 /* UZCastingManager.swift */; };
 		63FD924B241D066E001B7A48 /* UZVideoQualitySettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FD920B241D066D001B7A48 /* UZVideoQualitySettingsViewController.swift */; };
@@ -95,6 +95,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3AECFB558A4E4DFC11E54C38 /* Pods-UZPlayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UZPlayer.debug.xcconfig"; path = "Target Support Files/Pods-UZPlayer/Pods-UZPlayer.debug.xcconfig"; sourceTree = "<group>"; };
+		4B66E4CA3D1FF3F0425BE652 /* Pods-UZPlayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UZPlayer.release.xcconfig"; path = "Target Support Files/Pods-UZPlayer/Pods-UZPlayer.release.xcconfig"; sourceTree = "<group>"; };
 		63FD9180241D03FA001B7A48 /* UZPlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UZPlayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		63FD9183241D03FA001B7A48 /* UZPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UZPlayer.h; sourceTree = "<group>"; };
 		63FD9184241D03FA001B7A48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -181,9 +183,7 @@
 		63FD92BB241D12AD001B7A48 /* UIImage+Colorize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Colorize.swift"; sourceTree = "<group>"; };
 		63FD92BD241D12F1001B7A48 /* NSTimeInterval+ToString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSTimeInterval+ToString.swift"; sourceTree = "<group>"; };
 		63FD92BF241D132F001B7A48 /* Number+Extentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Number+Extentions.swift"; sourceTree = "<group>"; };
-		69979A85AAAC4A6734D3240C /* Pods-UZPlayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UZPlayer.debug.xcconfig"; path = "Target Support Files/Pods-UZPlayer/Pods-UZPlayer.debug.xcconfig"; sourceTree = "<group>"; };
-		EAA5E7B3D4CD5FA7E6E175DD /* Pods_UZPlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UZPlayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F8A709A4CFADB66646E00F7B /* Pods-UZPlayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UZPlayer.release.xcconfig"; path = "Target Support Files/Pods-UZPlayer/Pods-UZPlayer.release.xcconfig"; sourceTree = "<group>"; };
+		B0AC075DD32B592116DF019B /* Pods_UZPlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UZPlayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,28 +191,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2CB0FFD7A23587F28E55BBEA /* Pods_UZPlayer.framework in Frameworks */,
+				103DE9304B98DB01FF8FD8F2 /* Pods_UZPlayer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		297F2D838489B6EA4B5C19A4 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				EAA5E7B3D4CD5FA7E6E175DD /* Pods_UZPlayer.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		63FD9176241D03FA001B7A48 = {
 			isa = PBXGroup;
 			children = (
 				63FD9182241D03FA001B7A48 /* UZPlayer */,
 				63FD9181241D03FA001B7A48 /* Products */,
 				B6E3928F9BD8689C4935D684 /* Pods */,
-				297F2D838489B6EA4B5C19A4 /* Frameworks */,
+				8763C2FE9904D79B5D1E491A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -372,11 +364,19 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		8763C2FE9904D79B5D1E491A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B0AC075DD32B592116DF019B /* Pods_UZPlayer.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		B6E3928F9BD8689C4935D684 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				69979A85AAAC4A6734D3240C /* Pods-UZPlayer.debug.xcconfig */,
-				F8A709A4CFADB66646E00F7B /* Pods-UZPlayer.release.xcconfig */,
+				3AECFB558A4E4DFC11E54C38 /* Pods-UZPlayer.debug.xcconfig */,
+				4B66E4CA3D1FF3F0425BE652 /* Pods-UZPlayer.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -399,7 +399,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 63FD9188241D03FA001B7A48 /* Build configuration list for PBXNativeTarget "UZPlayer" */;
 			buildPhases = (
-				22167ACA4EB5079F48E0DAF3 /* [CP] Check Pods Manifest.lock */,
+				C05E2D793299A024B5269568 /* [CP] Check Pods Manifest.lock */,
 				63FD917B241D03FA001B7A48 /* Headers */,
 				63FD917C241D03FA001B7A48 /* Sources */,
 				63FD917D241D03FA001B7A48 /* Frameworks */,
@@ -473,7 +473,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		22167ACA4EB5079F48E0DAF3 /* [CP] Check Pods Manifest.lock */ = {
+		C05E2D793299A024B5269568 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -698,7 +698,7 @@
 		};
 		63FD9189241D03FA001B7A48 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 69979A85AAAC4A6734D3240C /* Pods-UZPlayer.debug.xcconfig */;
+			baseConfigurationReference = 3AECFB558A4E4DFC11E54C38 /* Pods-UZPlayer.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -716,16 +716,16 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.uiza.UZPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
+				SKIP_INSTALL = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
 		63FD918A241D03FA001B7A48 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F8A709A4CFADB66646E00F7B /* Pods-UZPlayer.release.xcconfig */;
+			baseConfigurationReference = 4B66E4CA3D1FF3F0425BE652 /* Pods-UZPlayer.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -743,8 +743,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.uiza.UZPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
+				SKIP_INSTALL = NO;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

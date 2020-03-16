@@ -228,9 +228,7 @@
 			isa = PBXGroup;
 			children = (
 				63FD9294241D0988001B7A48 /* Fonts */,
-				63FD928B241D085C001B7A48 /* Extensions */,
 				63FD9226241D066D001B7A48 /* Components */,
-				63FD920C241D066D001B7A48 /* Controls */,
 				63FD9244241D066E001B7A48 /* Models */,
 				63FD9215241D066D001B7A48 /* Themes */,
 				63FD9214241D066D001B7A48 /* UZPlayer.swift */,
@@ -285,6 +283,8 @@
 		63FD9226241D066D001B7A48 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				63FD920C241D066D001B7A48 /* Controls */,
+				63FD928B241D085C001B7A48 /* Extensions */,
 				63FD9227241D066D001B7A48 /* TweenKit */,
 				63FD923F241D066D001B7A48 /* SwiftIcons.swift */,
 				63FD92B3241D0CF3001B7A48 /* UZSentry.swift */,

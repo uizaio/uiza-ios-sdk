@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
     s.documentation_url = 'https://docs.uiza.io/v4'
     s.author = { 'Uiza' => 'namnh@uiza.io' }
     #s.license = { :type => "Commercial", :file => "LICENSE.md" }
-    s.source = { :git => "https://github.com/uizaio/uiza-ios-sdk.git", :tag => s.version.to_s, :branch => 'uzplayer' }
+    s.source = { :git => "https://github.com/uizaio/uiza-ios-sdk.git", :branch => 'origin/uzplayer', :tag => s.version.to_s }
     s.source_files = 'UZPlayer/**/*'
     s.resource_bundles = {
         'Fonts' => ['UZPlayer/Fonts/*.{ttf}']

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		103DE9304B98DB01FF8FD8F2 /* Pods_UZPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0AC075DD32B592116DF019B /* Pods_UZPlayer.framework */; };
+		609D407B07CC684AA4021588 /* Pods_UZPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5BE608DBD9093FCF99A549E /* Pods_UZPlayer.framework */; };
 		63FD9185241D03FA001B7A48 /* UZPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 63FD9183241D03FA001B7A48 /* UZPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		63FD924A241D066E001B7A48 /* UZCastingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FD920A241D066D001B7A48 /* UZCastingManager.swift */; };
 		63FD924B241D066E001B7A48 /* UZVideoQualitySettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FD920B241D066D001B7A48 /* UZVideoQualitySettingsViewController.swift */; };
@@ -95,8 +95,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3AECFB558A4E4DFC11E54C38 /* Pods-UZPlayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UZPlayer.debug.xcconfig"; path = "Target Support Files/Pods-UZPlayer/Pods-UZPlayer.debug.xcconfig"; sourceTree = "<group>"; };
-		4B66E4CA3D1FF3F0425BE652 /* Pods-UZPlayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UZPlayer.release.xcconfig"; path = "Target Support Files/Pods-UZPlayer/Pods-UZPlayer.release.xcconfig"; sourceTree = "<group>"; };
+		5776E5475B1325A510D5B904 /* Pods-UZPlayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UZPlayer.release.xcconfig"; path = "Target Support Files/Pods-UZPlayer/Pods-UZPlayer.release.xcconfig"; sourceTree = "<group>"; };
 		63FD9180241D03FA001B7A48 /* UZPlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UZPlayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		63FD9183241D03FA001B7A48 /* UZPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UZPlayer.h; sourceTree = "<group>"; };
 		63FD920A241D066D001B7A48 /* UZCastingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZCastingManager.swift; sourceTree = "<group>"; };
@@ -182,7 +181,8 @@
 		63FD92BB241D12AD001B7A48 /* UIImage+Colorize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Colorize.swift"; sourceTree = "<group>"; };
 		63FD92BD241D12F1001B7A48 /* NSTimeInterval+ToString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSTimeInterval+ToString.swift"; sourceTree = "<group>"; };
 		63FD92BF241D132F001B7A48 /* Number+Extentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Number+Extentions.swift"; sourceTree = "<group>"; };
-		B0AC075DD32B592116DF019B /* Pods_UZPlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UZPlayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7D63E1DB884B3B5BC72F7836 /* Pods-UZPlayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UZPlayer.debug.xcconfig"; path = "Target Support Files/Pods-UZPlayer/Pods-UZPlayer.debug.xcconfig"; sourceTree = "<group>"; };
+		D5BE608DBD9093FCF99A549E /* Pods_UZPlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UZPlayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,20 +190,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				103DE9304B98DB01FF8FD8F2 /* Pods_UZPlayer.framework in Frameworks */,
+				609D407B07CC684AA4021588 /* Pods_UZPlayer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4555E2367A84917791AD8CA0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D5BE608DBD9093FCF99A549E /* Pods_UZPlayer.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		63FD9176241D03FA001B7A48 = {
 			isa = PBXGroup;
 			children = (
 				63FD9182241D03FA001B7A48 /* UZPlayer */,
 				63FD9181241D03FA001B7A48 /* Products */,
 				B6E3928F9BD8689C4935D684 /* Pods */,
-				8763C2FE9904D79B5D1E491A /* Frameworks */,
+				4555E2367A84917791AD8CA0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -362,19 +370,11 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
-		8763C2FE9904D79B5D1E491A /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				B0AC075DD32B592116DF019B /* Pods_UZPlayer.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		B6E3928F9BD8689C4935D684 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				3AECFB558A4E4DFC11E54C38 /* Pods-UZPlayer.debug.xcconfig */,
-				4B66E4CA3D1FF3F0425BE652 /* Pods-UZPlayer.release.xcconfig */,
+				7D63E1DB884B3B5BC72F7836 /* Pods-UZPlayer.debug.xcconfig */,
+				5776E5475B1325A510D5B904 /* Pods-UZPlayer.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -397,7 +397,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 63FD9188241D03FA001B7A48 /* Build configuration list for PBXNativeTarget "UZPlayer" */;
 			buildPhases = (
-				C05E2D793299A024B5269568 /* [CP] Check Pods Manifest.lock */,
+				EF941C572906C5378CC5035E /* [CP] Check Pods Manifest.lock */,
 				63FD917B241D03FA001B7A48 /* Headers */,
 				63FD917C241D03FA001B7A48 /* Sources */,
 				63FD917D241D03FA001B7A48 /* Frameworks */,
@@ -471,7 +471,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		C05E2D793299A024B5269568 /* [CP] Check Pods Manifest.lock */ = {
+		EF941C572906C5378CC5035E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -696,7 +696,7 @@
 		};
 		63FD9189241D03FA001B7A48 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3AECFB558A4E4DFC11E54C38 /* Pods-UZPlayer.debug.xcconfig */;
+			baseConfigurationReference = 7D63E1DB884B3B5BC72F7836 /* Pods-UZPlayer.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -705,7 +705,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = UZPlayer/Info.plist;
+				INFOPLIST_FILE = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -723,7 +723,7 @@
 		};
 		63FD918A241D03FA001B7A48 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4B66E4CA3D1FF3F0425BE652 /* Pods-UZPlayer.release.xcconfig */;
+			baseConfigurationReference = 5776E5475B1325A510D5B904 /* Pods-UZPlayer.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -732,7 +732,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = UZPlayer/Info.plist;
+				INFOPLIST_FILE = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

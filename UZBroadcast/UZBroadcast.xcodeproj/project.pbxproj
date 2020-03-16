@@ -78,8 +78,7 @@
 		63FD92CD241D1385001B7A48 /* UZBroadcast */ = {
 			isa = PBXGroup;
 			children = (
-				63FD92DD241D1828001B7A48 /* Extensions */,
-				63FD92DA241D16C4001B7A48 /* Controls */,
+				63FD92EF241F4495001B7A48 /* Components */,
 				63FD92D6241D16BC001B7A48 /* UZLiveStreamUIView.swift */,
 				63FD92D7241D16BC001B7A48 /* UZLiveStreamViewController.swift */,
 				63FD92CE241D1385001B7A48 /* UZBroadcast.h */,
@@ -102,6 +101,15 @@
 				63FD92DE241D1834001B7A48 /* Number+Extentions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		63FD92EF241F4495001B7A48 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				63FD92DD241D1828001B7A48 /* Extensions */,
+				63FD92DA241D16C4001B7A48 /* Controls */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -361,6 +369,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.uiza.UZBroadcast;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -388,6 +397,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.uiza.UZBroadcast;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

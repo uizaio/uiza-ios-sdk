@@ -347,7 +347,11 @@ open class UZAPIConnector {
 			dataRequest!.session.configuration.timeoutIntervalForRequest = timeoutInterval
 			dataRequest!.session.configuration.requestCachePolicy = cachePolicy
 			dataRequest!.session.configuration.httpAdditionalHeaders = headers
-			dataRequest!.session.configuration.shouldUseExtendedBackgroundIdleMode = true
+			if #available(iOS 9.0, *) {
+				dataRequest!.session.configuration.shouldUseExtendedBackgroundIdleMode = true
+			} else {
+				// Fallback on earlier versions
+			}
 			
 //			dataRequest!.response { (response:DefaultDataResponse) in
 //				DLog("\(response)")

@@ -30,7 +30,7 @@ open class UZContentServices: UZAPIConnector {
 	- parameter completionBlock: block called when completed, returns array of [`UZVideoItem`], or `Error` if occurred
 	*/
 	public func loadEntity(metadataId: String? = nil, publishStatus: UZPublishStatus = .success, page: Int = 0, limit: Int = 20, completionBlock: ((_ results: [UZVideoItem]?, _ error: Error?) -> Void)? = nil) {
-		self.requestHeaderFields = ["Authorization": UizaSDK.token]
+		requestHeaderFields = ["Authorization": UZAPIConnector.UZAuthenticateToken]
 		
 		var params: Parameters = ["publishToCdn": publishStatus.rawValue]
 		
@@ -40,7 +40,7 @@ open class UZContentServices: UZAPIConnector {
 			}
 		}
 		
-		self.callAPI(UZAPIConstant.mediaEntityApi, method: .get, params: params) { (result: NSDictionary?, error: Error?) in
+		callAPI(UZAPIConstant.mediaEntityApi, method: .get, params: params) { (result: NSDictionary?, error: Error?) in
 			DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
@@ -72,7 +72,7 @@ open class UZContentServices: UZAPIConnector {
 	*/
 	public func loadMetadata(metadataId: String, page: Int = 0, limit: Int = 20,
                              completionBlock: ((_ results: [UZVideoItem]?, _ pagination: UZPagination?, _ error: Error?) -> Void)? = nil) {
-		self.requestHeaderFields = ["Authorization": UizaSDK.token]
+		requestHeaderFields = ["Authorization": UZAPIConnector.UZAuthenticateToken]
 		
 		let params: Parameters = ["metadataId": metadataId,
 								  "limit": limit,
@@ -80,7 +80,7 @@ open class UZContentServices: UZAPIConnector {
 								  "orderBy": "createdAt",
 								  "orderType": "DESC"]
 		
-		self.callAPI(UZAPIConstant.mediaMetadataApi, method: .get, params: params) { (result: NSDictionary?, error: Error?) in
+		callAPI(UZAPIConstant.mediaMetadataApi, method: .get, params: params) { (result: NSDictionary?, error: Error?) in
 			//DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
@@ -115,14 +115,14 @@ open class UZContentServices: UZAPIConnector {
 	*/
 	public func loadLiveVideo(page: Int = 0, limit: Int = 20,
                               completionBlock: ((_ results: [UZVideoItem]?, _ pagination: UZPagination?, _ error: Error?) -> Void)? = nil) {
-		self.requestHeaderFields = ["Authorization": UizaSDK.token]
+		requestHeaderFields = ["Authorization": UZAPIConnector.UZAuthenticateToken]
 		
 		let params: Parameters = ["limit": limit,
 								  "page": page,
 								  "orderBy": "createdAt",
 								  "orderType": "DESC"]
 		
-        self.callAPI(UZAPIConstant.liveEntityApi, method: .get, params: params) { (result: NSDictionary?, error: Error?) in
+        callAPI(UZAPIConstant.liveEntityApi, method: .get, params: params) { (result: NSDictionary?, error: Error?) in
 			//DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
@@ -157,11 +157,11 @@ open class UZContentServices: UZAPIConnector {
 	- parameter completionBlock: block called when completed, returns UZVideoItem với đầy đủ thông tin chi tiết, or `Error` if occurred
 	*/
 	public func loadDetail(entityId: String, isLive: Bool = false, completionBlock:((_ video: UZVideoItem?, _ error: Error?) -> Void)? = nil) {
-		self.requestHeaderFields = ["Authorization": UizaSDK.token]
+		requestHeaderFields = ["Authorization": UZAPIConnector.UZAuthenticateToken]
 		
 		let params: Parameters = ["id": entityId]
 		
-		self.callAPI(isLive ? UZAPIConstant.liveEntityApi : UZAPIConstant.mediaEntityApi, method: .get, params: params) { (result, error) in
+		callAPI(isLive ? UZAPIConstant.liveEntityApi : UZAPIConstant.mediaEntityApi, method: .get, params: params) { (result, error) in
 			DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if let error = error {
@@ -200,11 +200,11 @@ open class UZContentServices: UZAPIConnector {
 	- parameter completionBlock: block called when completed, returns array of [`UZVideoItem`], or `Error` if occurred
 	*/
 	public func loadRelates(entityId: String, completionBlock:((_ videos: [UZVideoItem]?, _ error: Error?) -> Void)? = nil) {
-		self.requestHeaderFields = ["Authorization": UizaSDK.token]
+		requestHeaderFields = ["Authorization": UZAPIConnector.UZAuthenticateToken]
 		
 		let params: Parameters = ["id": entityId]
 		
-		self.callAPI(UZAPIConstant.mediaRelatedApi, method: .get, params: params) { (result, error) in
+		callAPI(UZAPIConstant.mediaRelatedApi, method: .get, params: params) { (result, error) in
 			DLog("\(String(describing: result)) - \(String(describing: error))")
 			DispatchQueue.main.async {
 				completionBlock?([], nil)
@@ -222,13 +222,13 @@ open class UZContentServices: UZAPIConnector {
 		let entityId: String = video.id ?? ""
 		
 		if token == nil {
-			self.requestHeaderFields = ["Authorization": token ?? ""]
+			requestHeaderFields = ["Authorization": token ?? ""]
 			
 			let params: Parameters = ["entity_id": entityId,
 									  "app_id": UizaSDK.appId,
 									  "content_type": video.isLive ? "live" : "stream"]
 			
-			self.callAPI(UZAPIConstant.mediaTokenApi, method: .post, params: params) { (result, error) in
+			callAPI(UZAPIConstant.mediaTokenApi, method: .post, params: params) { (result, error) in
 				if let data = result?.value(for: "data", defaultValue: nil) as? NSDictionary,
 					let tokenString = data.string(for: "token", defaultString: nil) {
 					self.loadLinkPlay(video: video, token: tokenString, completionBlock: completionBlock)
@@ -242,7 +242,7 @@ open class UZContentServices: UZAPIConnector {
 			return
 		}
 		
-		self.requestHeaderFields = ["Authorization": token ?? ""]
+		requestHeaderFields = ["Authorization": token ?? ""]
 		
 		let apiNode = video.isLive ? UZAPIConstant.cdnLiveLinkPlayApi : UZAPIConstant.cdnLinkPlayApi
 		let apiField = video.isLive ? "stream_name" : "entity_id"
@@ -253,7 +253,7 @@ open class UZContentServices: UZAPIConnector {
 		let domain: String! = UizaSDK.enviroment == .development ? UZAPIConstant.uizaDevDomain :
 							  UizaSDK.enviroment == .staging ? UZAPIConstant.uizaStagDomain : UZAPIConstant.uizaUccDomain
 		
-		self.callAPI(apiNode, baseURLString: String(format: UZAPIConstant.publicLinkPlay, domain!), method: .get, params: params) { (result, error) in
+		callAPI(apiNode, baseURLString: String(format: UZAPIConstant.publicLinkPlay, domain!), method: .get, params: params) { (result, error) in
 			print("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
@@ -290,11 +290,11 @@ open class UZContentServices: UZAPIConnector {
 	- parameter completionBlock: block called when completed, returns array of [`UZAdsCuePoint`], or `Error` if occurred
 	*/
 	public func loadCuePoints(video: UZVideoItem, completionBlock:((_ results: [UZAdsCuePoint]?, _ error: Error?) -> Void)? = nil) {
-		self.requestHeaderFields = ["Authorization": UizaSDK.token]
+		requestHeaderFields = ["Authorization": UZAPIConnector.UZAuthenticateToken]
 		
 		let params: Parameters = ["entityId": video.id ?? ""]
 		
-		self.callAPI(UZAPIConstant.mediaCuePointApi, baseURLString: basePrivateAPIURLPath(), method: .get, params: params) { (result, error) in
+		callAPI(UZAPIConstant.mediaCuePointApi, baseURLString: basePrivateAPIURLPath(), method: .get, params: params) { (result, error) in
 			DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
@@ -328,12 +328,12 @@ open class UZContentServices: UZAPIConnector {
 	- parameter completionBlock: block called when completed, returns array of [`UZMenuItem`], or `Error` if occurred
 	*/
 	public func loadSideMenu(completionBlock:((_ results: [UZMenuItem]?, _ error: Error?) -> Void)? = nil) {
-		self.requestHeaderFields = ["Authorization": UizaSDK.token]
+		requestHeaderFields = ["Authorization": UZAPIConnector.UZAuthenticateToken]
 		
 		let params: Parameters = ["limit": 50,
 								  "type": ["folder", "playlist"]]
 		
-		self.callAPI(UZAPIConstant.mediaListApi, method: .get, params: params) { (result, error) in
+		callAPI(UZAPIConstant.mediaListApi, method: .get, params: params) { (result, error) in
 			//DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
@@ -365,11 +365,11 @@ open class UZContentServices: UZAPIConnector {
 	- parameter completionBlock: block called when completed, returns array of [`UZVideoSubtitle`], or `Error` if occurred
 	*/
     public func loadVideoSubtitle(entityId: String, completionBlock:((_ results: [UZVideoSubtitle]?, _ error: Error?) -> Void)? = nil) {
-        self.requestHeaderFields = ["Authorization": UizaSDK.token]
+        requestHeaderFields = ["Authorization": UZAPIConnector.UZAuthenticateToken]
         
         let params: Parameters = ["entityId": entityId]
         
-        self.callAPI(UZAPIConstant.mediaSubtitleApi, method: .get, params: params) { (result, error) in
+        callAPI(UZAPIConstant.mediaSubtitleApi, method: .get, params: params) { (result, error) in
             if error != nil {
                 completionBlock?(nil, error)
             } else {
@@ -396,7 +396,7 @@ open class UZContentServices: UZAPIConnector {
 	*/
 	public func search(for keyword: String, page: Int = 0, limit: Int = 20,
                        completionBlock:((_ results: [UZVideoItem]?, _ pagination: UZPagination?, _ error: Error?) -> Void)? = nil) {
-		self.requestHeaderFields = ["Authorization": UizaSDK.token]
+		requestHeaderFields = ["Authorization": UZAPIConnector.UZAuthenticateToken]
 		
 		let params: Parameters = ["keyword": keyword,
 								  "page": page,
@@ -404,7 +404,7 @@ open class UZContentServices: UZAPIConnector {
 								  "orderBy": "createdAt",
 								  "orderType": "DESC"]
 		
-		self.callAPI(UZAPIConstant.mediaSearchApi, method: .get, params: params) { (result, error) in
+		callAPI(UZAPIConstant.mediaSearchApi, method: .get, params: params) { (result, error) in
 			//DLog("\(String(describing: result)) - \(String(describing: error))")
 			
 			if error != nil {
@@ -441,7 +441,7 @@ open class UZContentServices: UZAPIConnector {
 	- parameter completionBlock: block called when finished, returns Error if occurred
 	*/
 	public func sendCDNHeartbeat(cdnName: String, completionBlock: ((Error?) -> Void)? = nil) {
-		self.requestHeaderFields = ["Authorization": UizaSDK.token]
+		requestHeaderFields = ["Authorization": UZAPIConnector.UZAuthenticateToken]
 		
 		let params: Parameters = ["cdn_name": cdnName,
 								  "session": UUID().uuidString.lowercased()]
@@ -456,7 +456,7 @@ open class UZContentServices: UZAPIConnector {
 			baseURLString = "https://heartbeat.uiza.io/v1/"
 		}
 		
-		self.callAPI(UZAPIConstant.cdnPingApi, baseURLString: baseURLString, method: .get, params: params) { (_, error) in
+		callAPI(UZAPIConstant.cdnPingApi, baseURLString: baseURLString, method: .get, params: params) { (_, error) in
 			//DLog("\(String(describing: result)) - \(String(describing: error))")
 			DispatchQueue.main.async {
 				completionBlock?(error)

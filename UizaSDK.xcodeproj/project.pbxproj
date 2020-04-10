@@ -199,6 +199,9 @@
 		63673973230D37760000C8A5 /* UZButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63673972230D37760000C8A5 /* UZButton.swift */; };
 		63673974230D37760000C8A5 /* UZButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63673972230D37760000C8A5 /* UZButton.swift */; };
 		636F1EC7A290586CB87F3772 /* Pods_UizaSDKTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B68470BD52DB4A497F5376D /* Pods_UizaSDKTest.framework */; };
+		639E21AF2406AA8200479A02 /* SweetHMAC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639E21AE2406AA8200479A02 /* SweetHMAC.swift */; };
+		639E21B02406AA8200479A02 /* SweetHMAC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639E21AE2406AA8200479A02 /* SweetHMAC.swift */; };
+		639E21B12406AA8200479A02 /* SweetHMAC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639E21AE2406AA8200479A02 /* SweetHMAC.swift */; };
 		63A4C8C6228E71880039620E /* AVAsset+Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A4C8C5228E71880039620E /* AVAsset+Selection.swift */; };
 		63A4C8C7228E71880039620E /* AVAsset+Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A4C8C5228E71880039620E /* AVAsset+Selection.swift */; };
 		63A4C8C8228E71880039620E /* AVAsset+Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A4C8C5228E71880039620E /* AVAsset+Selection.swift */; };
@@ -405,6 +408,7 @@
 		63672783226888230072612F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63673972230D37760000C8A5 /* UZButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UZButton.swift; sourceTree = "<group>"; };
 		6377B53D22D0730E00CF7F1A /* UizaSDKTest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = UizaSDKTest.entitlements; sourceTree = "<group>"; };
+		639E21AE2406AA8200479A02 /* SweetHMAC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SweetHMAC.swift; sourceTree = "<group>"; };
 		63A4C8C5228E71880039620E /* AVAsset+Selection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVAsset+Selection.swift"; sourceTree = "<group>"; };
 		63B14B332282E3B900EB56FE /* UZSentry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UZSentry.swift; sourceTree = "<group>"; };
 		63D3A5BC224E07FA00732A0C /* UizaSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UizaSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -812,6 +816,7 @@
 		63D3A5FC224E08BB00732A0C /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				639E21AE2406AA8200479A02 /* SweetHMAC.swift */,
 				69622F54228415E500CB3895 /* Common.swift */,
 				63D3A60F224E08BB00732A0C /* DateHelper.swift */,
 			);
@@ -1552,6 +1557,7 @@
 				636725E822686AE00072612F /* UIApplication+Version.swift in Sources */,
 				636725A022686A7C0072612F /* UZSlider.swift in Sources */,
 				636725E622686ADB0072612F /* DateHelper.swift in Sources */,
+				639E21B12406AA8200479A02 /* SweetHMAC.swift in Sources */,
 				636725ED22686AE00072612F /* UIViewController+TopPresented.swift in Sources */,
 				636725F722686AE00072612F /* String+Value.swift in Sources */,
 				636725A422686A7F0072612F /* UZTheme2.swift in Sources */,
@@ -1653,6 +1659,7 @@
 				636727A1226888B40072612F /* NSTimeInterval+ToString.swift in Sources */,
 				63672790226888580072612F /* UZMenuItem.swift in Sources */,
 				6367279A226888B40072612F /* UIApplication+Version.swift in Sources */,
+				639E21B02406AA8200479A02 /* SweetHMAC.swift in Sources */,
 				63672799226888B40072612F /* UIDevice+Extension.swift in Sources */,
 				63672788226888530072612F /* UizaSDK.swift in Sources */,
 				636727A7226888B40072612F /* Number+Extentions.swift in Sources */,
@@ -1747,6 +1754,7 @@
 				69784B6C2293A52A00B6F3A5 /* UZVisualizeInfo.swift in Sources */,
 				63193FFF2251032E00FFC560 /* UZTheme3.swift in Sources */,
 				63D3A62F224E08BB00732A0C /* UZBannerItem.swift in Sources */,
+				639E21AF2406AA8200479A02 /* SweetHMAC.swift in Sources */,
 				69EEEC802285705E0076A956 /* UZPlayerControlView+.swift in Sources */,
 				630C397C22607F9400ACFDAE /* ArcAction.swift in Sources */,
 				630C396E22607F9400ACFDAE /* Animation.swift in Sources */,

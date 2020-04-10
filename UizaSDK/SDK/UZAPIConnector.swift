@@ -66,7 +66,7 @@ open class UZAPIConnector {
 	#endif
 	
 	internal static var UZAuthenticateToken: String {
-		let secret = "dbe891f054320d350ba0819ba22bc4bf" + UizaSDK.appId // "\(UIDevice.current.identifierForVendor?.uuidString ?? "")\(UizaSDK.appId)"
+		let secret = UizaSDK.token + UizaSDK.appId // "\(UIDevice.current.identifierForVendor?.uuidString ?? "")\(UizaSDK.appId)"
 		let hmac = "".HMAC(algorithm: .sha256, secret: secret)
 		return "hmac \(UizaSDK.appId):\(hmac)"
 	}

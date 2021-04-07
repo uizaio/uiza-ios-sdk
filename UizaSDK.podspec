@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name = 'UizaSDK'
-    s.version = '8.5'
+    s.version = '8.6.0'
     s.summary = 'UizaSDK'
     s.homepage = 'https://uiza.io/'
     s.documentation_url = 'https://docs.uiza.io/v4'
@@ -22,6 +22,5 @@ Pod::Spec.new do |s|
     s.ios.dependency "NKModalViewManager"
     s.ios.dependency "FrameLayoutKit"
     s.ios.dependency "SDWebImage"
-    s.ios.dependency "Sentry"
     
 end
